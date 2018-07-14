@@ -1,4 +1,4 @@
-# authing-php-sdk
+# authing-java-sdk
 
 ----------
 
