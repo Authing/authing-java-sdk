@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AuthingSDK</string>
+    <string name="test_email">123456@qq.com</string>
+    <string name="test_psd">123456</string>
+</resources>

@@ -1,0 +1,14 @@
+apply plugin: 'java-library'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.alibaba:fastjson:1.2.32'
+    implementation 'org.apache.httpcomponents:httpclient:4.4.1'
+    implementation 'org.bouncycastle:bcprov-jdk15:1.46'
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+    implementation 'com.squareup.okhttp3:okhttp:4.0.0-RC1'
+}
+
+sourceCompatibility = "7"
+targetCompatibility = "7"

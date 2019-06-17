@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/editUserId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="用户 id" />
+
+        <EditText
+            android:id="@+id/editNickname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="昵称" />
+
+        <EditText
+            android:id="@+id/editOldPsd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="旧密码" />
+
+        <EditText
+            android:id="@+id/editNewPsd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="新密码" />
+
+        <EditText
+            android:id="@+id/editEmail"
+            android:inputType="textEmailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="绑定或更换邮箱" />
+
+        <Button
+            android:id="@+id/btnUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="update" />
+
+        <TextView
+            android:id="@+id/txtResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="============Result===============" />
+    </LinearLayout>
+</ScrollView>
