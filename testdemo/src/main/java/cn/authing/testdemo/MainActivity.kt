@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.authing.core.Authing
-import cn.authing.core.Client
 import cn.authing.testdemo.activity.*
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -63,9 +62,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initAuthing(pos: Int) {
-        executor.execute {
-            client = Client(clientId, "42aa3deba3b2c35aaf018acafdf503f8")
-        }
         Authing.init(clientId, "42aa3deba3b2c35aaf018acafdf503f8")
     }
 }

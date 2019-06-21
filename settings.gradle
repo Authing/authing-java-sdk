@@ -1,1 +1,1 @@
-include ':testdemo', ':oldsdk', ':core'
+include ':testdemo', ':core'
