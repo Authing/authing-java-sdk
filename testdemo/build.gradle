@@ -21,6 +21,10 @@ android {
         exclude 'META-INF/DEPENDENCIES'
     }
     buildToolsVersion = '29.0.0'
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
 }
 
 dependencies {
