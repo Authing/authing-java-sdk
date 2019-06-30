@@ -1,8 +1,8 @@
 package cn.authing.core.business;
 
-import com.google.gson.TypeAdapter;
+import androidx.annotation.GuardedBy;
 
-import net.jcip.annotations.GuardedBy;
+import com.google.gson.TypeAdapter;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

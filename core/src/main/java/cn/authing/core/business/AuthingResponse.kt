@@ -52,7 +52,11 @@ internal class AuthingResponse<Result> {
                     "verifyResetPasswordVerifyCode",
                     "changePassword",
                     "sendVerifyEmail",
-                    "unbindEmail"])
+                    "unbindEmail",
+                    "notBindOAuthList",
+                    "bindOtherOAuth",
+                    "unbindOtherOAuth"
+                ])
         val result: T? = null
     }
 

@@ -24,7 +24,8 @@ class MainActivity : AppCompatActivity() {
             UpdateUserInfoActivity::class.java,
             ResetPsdActivity::class.java,
             VerifyEmailActivity::class.java,
-            UnbindEmailActivity::class.java
+            UnbindEmailActivity::class.java,
+            BindThirdPartyOAuthActivity::class.java
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {

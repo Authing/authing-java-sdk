@@ -19,7 +19,7 @@ class RefreshTokenActivity : AppCompatActivity() {
         val gson = Gson()
         txtResult.append("now token=$userToken")
         btnNew.setOnClickListener {
-            Authing.getOAuthService().refreshToken(
+            Authing.getUserService().refreshToken(
                     RefreshTokenParam.Builder(userId)
                             .build()
             ).enqueue(ResourceUtils.createCallback(txtResult, gson) {
