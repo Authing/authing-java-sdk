@@ -1,29 +1,13 @@
 package cn.authing.core.business
 
-import com.google.gson.reflect.TypeToken
-
 import cn.authing.core.http.Call
-import cn.authing.core.param.LoginByEmailParam
-import cn.authing.core.param.LoginByLADPParam
-import cn.authing.core.param.LoginByPhoneParam
-import cn.authing.core.param.RefreshTokenParam
-import cn.authing.core.param.RegisterParam
-import cn.authing.core.param.RemoveUserParam
-import cn.authing.core.param.ResetPasswordParam
-import cn.authing.core.param.UnbindEmailParam
-import cn.authing.core.param.UpdateUserInfoParam
-import cn.authing.core.param.UserInfoParam
-import cn.authing.core.param.UserListParam
-import cn.authing.core.param.UserPatchParam
+import cn.authing.core.param.*
 import cn.authing.core.result.LoginResult
 import cn.authing.core.result.RefreshTokenResult
 import cn.authing.core.result.RegisterResult
-import cn.authing.core.result.RemoveUserResult
 import cn.authing.core.result.UserInfoResult
-import cn.authing.core.result.UserListResult
-import cn.authing.core.result.UserPatchResult
-
 import cn.authing.core.utils.AuthingUtils.URL_USER
+import com.google.gson.reflect.TypeToken
 
 internal class UserServiceImpl(private val helper: HttpHelper) : cn.authing.core.service.UserService {
 
@@ -70,6 +54,15 @@ internal class UserServiceImpl(private val helper: HttpHelper) : cn.authing.core
                 URL_USER,
                 object : TypeToken<AuthingResponse<UserInfoResult>>() {},
                 param
+        )
+    }
+
+    override fun refreshToken(param: RefreshTokenParam): Call<RefreshTokenResult> {
+        return helper.createTokenCall(
+                URL_USER,
+                object : TypeToken<AuthingResponse<RefreshTokenResult>>() {},
+                param,
+                ImportantParam.ownerToken
         )
     }
 
