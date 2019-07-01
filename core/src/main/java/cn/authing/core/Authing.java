@@ -8,6 +8,7 @@ import cn.authing.core.business.UserManageServiceImpl;
 import cn.authing.core.business.UserServiceImpl;
 import cn.authing.core.business.VerifyServiceImpl;
 import cn.authing.core.init.InitUtilsKt;
+import cn.authing.core.param.InitParam;
 import cn.authing.core.service.OAuthService;
 import cn.authing.core.service.UserManageService;
 import cn.authing.core.service.UserService;
@@ -25,14 +26,14 @@ public class Authing {
     @Getter
     private static VerifyService verifyService;
 
-    public static void init(@NotNull String clientId, @NotNull String secret) {
+    public static void init(@NotNull InitParam param) {
         if (InitUtilsKt.getHasInit()) {
             return;
         }
         // 初始化网络
         HttpHelper helper = new HttpHelper();
         // 初始化 Authing
-        InitUtilsKt.init(helper, clientId, secret);
+        InitUtilsKt.init(helper, param);
         // 初始化 service
         initService(helper);
     }

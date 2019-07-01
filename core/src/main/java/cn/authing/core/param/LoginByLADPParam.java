@@ -17,7 +17,7 @@ public class LoginByLADPParam extends AuthingParam<LoginByLADPParam.Param> {
 
         public LoginByLADPParam build() {
             this.clientId = ImportantParam.INSTANCE.getClientId();
-            this.password = AuthingUtils.encrypt(password);
+            this.password = AuthingUtils.INSTANCE.encrypt(password);
             return new LoginByLADPParam(this);
         }
     }

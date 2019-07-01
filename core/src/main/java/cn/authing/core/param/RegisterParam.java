@@ -57,7 +57,7 @@ public class RegisterParam extends AuthingParam<RegisterParam.Param> {
         }
 
         public RegisterParam build() {
-            this.password = AuthingUtils.encrypt(password);
+            this.password = AuthingUtils.INSTANCE.encrypt(password);
             this.clientId = ImportantParam.INSTANCE.getClientId();
             return new RegisterParam(this);
         }
