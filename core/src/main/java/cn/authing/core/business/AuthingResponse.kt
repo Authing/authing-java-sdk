@@ -55,7 +55,13 @@ internal class AuthingResponse<Result> {
                     "unbindEmail",
                     "notBindOAuthList",
                     "bindOtherOAuth",
-                    "unbindOtherOAuth"
+                    "unbindOtherOAuth",
+                    "clientRoles",
+                    "createRole",
+                    "updateRole",
+                    "queryRoleByUserId",
+                    "assignUserToRole",
+                    "removeUserFromGroup"
                 ])
         val result: T? = null
     }

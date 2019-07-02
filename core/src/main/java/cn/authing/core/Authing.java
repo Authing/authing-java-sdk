@@ -4,12 +4,14 @@ import org.jetbrains.annotations.NotNull;
 
 import cn.authing.core.business.HttpHelper;
 import cn.authing.core.business.OAuthServiceImpl;
+import cn.authing.core.business.PermissionServiceImpl;
 import cn.authing.core.business.UserManageServiceImpl;
 import cn.authing.core.business.UserServiceImpl;
 import cn.authing.core.business.VerifyServiceImpl;
 import cn.authing.core.init.InitUtilsKt;
 import cn.authing.core.param.InitParam;
 import cn.authing.core.service.OAuthService;
+import cn.authing.core.service.PermissionService;
 import cn.authing.core.service.UserManageService;
 import cn.authing.core.service.UserService;
 import cn.authing.core.service.VerifyService;
@@ -25,6 +27,8 @@ public class Authing {
     private static OAuthService oAuthService;
     @Getter
     private static VerifyService verifyService;
+    @Getter
+    private static PermissionService permissionService;
 
     public static void init(@NotNull InitParam param) {
         if (InitUtilsKt.getHasInit()) {
@@ -43,6 +47,7 @@ public class Authing {
         userManageService = new UserManageServiceImpl(helper);
         oAuthService = new OAuthServiceImpl(helper);
         verifyService = new VerifyServiceImpl(helper);
+        permissionService = new PermissionServiceImpl(helper);
     }
 
     public static void destroy() {
@@ -50,6 +55,7 @@ public class Authing {
         userManageService = null;
         oAuthService = null;
         verifyService = null;
+        permissionService = null;
         InitUtilsKt.destroy();
     }
 }
