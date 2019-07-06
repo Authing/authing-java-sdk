@@ -1,8 +1,13 @@
-package cn.authing.core.init;
+package cn.authing.core.param;
 
-import cn.authing.core.param.AuthingParam;
+import com.google.gson.annotations.Expose;
 
-class InitParam extends AuthingParam<InitParam.Param> {
+public class InitParam extends AuthingParam<InitParam.Param> {
+
+    @Expose(serialize = false)
+    private String oAuthHost;
+    @Expose(serialize = false)
+    private String userHost;
 
     private InitParam(Builder builder) {
         super(GRAPHQL);
@@ -12,9 +17,11 @@ class InitParam extends AuthingParam<InitParam.Param> {
         p.timestamp = builder.timestamp;
         p.nonce = builder.nonce;
         this.setVariables(p);
+        this.oAuthHost = builder.oAuthHost;
+        this.userHost = builder.userHost;
     }
 
-    class Param {
+    static class Param {
         private String clientId;
         private String secret;
         private Long timestamp;
@@ -26,6 +33,8 @@ class InitParam extends AuthingParam<InitParam.Param> {
         private String secret;
         private Long timestamp;
         private Integer nonce;
+        private String oAuthHost;
+        private String userHost;
 
         public Builder(String clientId) {
             this.clientId = clientId;
@@ -43,6 +52,16 @@ class InitParam extends AuthingParam<InitParam.Param> {
 
         public Builder nonce(Integer nonce) {
             this.nonce = nonce;
+            return this;
+        }
+
+        public Builder oAuthHost(String oAuthHost) {
+            this.oAuthHost = oAuthHost;
+            return this;
+        }
+
+        public Builder userHost(String userHost) {
+            this.userHost = userHost;
             return this;
         }
 
@@ -75,4 +94,20 @@ class InitParam extends AuthingParam<InitParam.Param> {
             "      }\n" +
             "    }\n" +
             "}";
+
+    public String getOAuthHost() {
+        return oAuthHost;
+    }
+
+    public String getUserHost() {
+        return userHost;
+    }
+
+    public String getSecret() {
+        return getVariables().secret;
+    }
+
+    public String getClientId(){
+        return getVariables().clientId;
+    }
 }

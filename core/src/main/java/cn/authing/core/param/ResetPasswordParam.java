@@ -19,7 +19,7 @@ public class ResetPasswordParam extends AuthingParam<ResetPasswordParam.Param> {
 
         public ResetPasswordParam build() {
             this.clientId = ImportantParam.INSTANCE.getClientId();
-            this.password = AuthingUtils.encrypt(password);
+            this.password = AuthingUtils.INSTANCE.encrypt(password);
             return new ResetPasswordParam(this);
         }
     }

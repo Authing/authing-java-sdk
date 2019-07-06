@@ -20,7 +20,7 @@ public class ReadOAuthListParam extends AuthingParam<ReadOAuthListParam.Param> {
         this.setVariables(p);
     }
 
-    class Param {
+    static class Param {
         private String clientId;
     }
 

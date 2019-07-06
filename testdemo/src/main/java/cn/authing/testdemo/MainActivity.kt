@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.authing.core.Authing
+import cn.authing.core.param.InitParam
 import cn.authing.testdemo.activity.*
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -24,7 +25,10 @@ class MainActivity : AppCompatActivity() {
             UpdateUserInfoActivity::class.java,
             ResetPsdActivity::class.java,
             VerifyEmailActivity::class.java,
-            UnbindEmailActivity::class.java
+            UnbindEmailActivity::class.java,
+            BindThirdPartyOAuthActivity::class.java,
+            RoleActivity::class.java,
+            UserPermissionActivity::class.java
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,6 +66,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initAuthing(pos: Int) {
-        Authing.init(clientId, "42aa3deba3b2c35aaf018acafdf503f8")
+        val param = InitParam.Builder(clientId).secret("42aa3deba3b2c35aaf018acafdf503f8").build()
+        Authing.init(param)
     }
 }

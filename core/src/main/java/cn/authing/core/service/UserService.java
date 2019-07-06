@@ -6,11 +6,13 @@ import cn.authing.core.http.Call;
 import cn.authing.core.param.LoginByEmailParam;
 import cn.authing.core.param.LoginByLADPParam;
 import cn.authing.core.param.LoginByPhoneParam;
+import cn.authing.core.param.RefreshTokenParam;
 import cn.authing.core.param.RegisterParam;
 import cn.authing.core.param.ResetPasswordParam;
 import cn.authing.core.param.UpdateUserInfoParam;
 import cn.authing.core.param.UserInfoParam;
 import cn.authing.core.result.LoginResult;
+import cn.authing.core.result.RefreshTokenResult;
 import cn.authing.core.result.RegisterResult;
 import cn.authing.core.result.UserInfoResult;
 
@@ -28,4 +30,6 @@ public interface UserService {
     Call<UserInfoResult> updateUserInfo(@NotNull UpdateUserInfoParam param);
 
     Call<UserInfoResult> resetPassword(@NotNull ResetPasswordParam param);
+
+    Call<RefreshTokenResult> refreshToken(@NotNull RefreshTokenParam param);
 }

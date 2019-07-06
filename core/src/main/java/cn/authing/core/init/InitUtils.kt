@@ -4,6 +4,7 @@ import cn.authing.core.business.AuthingResponse
 import cn.authing.core.business.HttpHelper
 import cn.authing.core.business.ImportantParam
 import cn.authing.core.http.Callback
+import cn.authing.core.param.InitParam
 import cn.authing.core.result.ErrorInfo
 import cn.authing.core.utils.AuthingUtils
 import com.google.gson.reflect.TypeToken
@@ -11,15 +12,14 @@ import com.google.gson.reflect.TypeToken
 internal var hasInit: Boolean = false
     private set
 
-internal fun init(helper: HttpHelper, clientId: String, secret: String?) {
+internal fun init(helper: HttpHelper, param: InitParam) {
+    val clientId = param.clientId
     ImportantParam.clientId = clientId
-    val param = if (secret == null) {
-        InitParam.Builder(clientId)
-                .timestamp(System.currentTimeMillis() / 1000)
-                .nonce(getNonce())
-                .build()
-    } else {
-        InitParam.Builder(clientId).secret(secret).build()
+    if (param.oAuthHost != null) {
+        AuthingUtils.URL_OAUTH = param.oAuthHost
+    }
+    if (param.userHost != null) {
+        AuthingUtils.URL_USER = param.userHost
     }
     // 初始化 authing
     helper.createAuthingCall(

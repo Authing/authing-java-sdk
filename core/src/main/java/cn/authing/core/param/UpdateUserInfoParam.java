@@ -116,8 +116,8 @@ public class UpdateUserInfoParam extends AuthingParam<UpdateUserInfoParam.Param>
         public UpdateUserInfoParam build() {
             this.clientId = ImportantParam.INSTANCE.getClientId();
             if (oldPassword != null && password != null) {
-                oldPassword = AuthingUtils.encrypt(oldPassword);
-                password = AuthingUtils.encrypt(password);
+                oldPassword = AuthingUtils.INSTANCE.encrypt(oldPassword);
+                password = AuthingUtils.INSTANCE.encrypt(password);
             }
             return new UpdateUserInfoParam(this);
         }

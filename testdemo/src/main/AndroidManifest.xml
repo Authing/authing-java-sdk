@@ -28,6 +28,9 @@
         <activity android:name=".activity.ResetPsdActivity" />
         <activity android:name=".activity.VerifyEmailActivity" />
         <activity android:name=".activity.UnbindEmailActivity" />
+        <activity android:name=".activity.BindThirdPartyOAuthActivity" />
+        <activity android:name=".activity.RoleActivity" />
+        <activity android:name=".activity.UserPermissionActivity" />
     </application>
 
 </manifest>

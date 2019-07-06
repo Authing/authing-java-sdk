@@ -34,7 +34,7 @@ public class LoginByEmailParam extends AuthingParam<LoginByEmailParam.Param> {
 
         public LoginByEmailParam build() {
             this.clientId = ImportantParam.INSTANCE.getClientId();
-            this.password = AuthingUtils.encrypt(password);
+            this.password = AuthingUtils.INSTANCE.encrypt(password);
             return new LoginByEmailParam(this);
         }
     }
