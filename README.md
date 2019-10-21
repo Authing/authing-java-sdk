@@ -157,6 +157,6 @@ service.removeUser(param).xxx();
 ## 错误处理
 
 同步调用不会返回错误，所以推荐使用异步调用。
-在 onFailure 中会返回错误，你可以通过 error.getCode() 获取错误代码。了解更多报错的详情，请查看[错误代码列表](https://docs.authing.cn/#/quick_start/error_code)。
+在 onFailure 中会返回错误，你可以通过 error.getCode() 获取错误代码。了解更多报错的详情，请查看[错误代码列表](https://learn.authing.cn/authing/advanced/error-code)。
 
-[接口相关文档请点击这里](https://docs.authing.cn/#/user_service/add_user)。
+[接口相关文档请点击这里](https://learn.authing.cn/authing/sdk/sdk-for-java)。
