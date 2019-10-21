@@ -40,7 +40,7 @@ class LoginPhoneActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             Authing.getUserService().loginByPhone(
-                    LoginByPhoneParam.Builder(phone, code)
+                    LoginByPhoneParam.Builder(phone, Integer.parseInt(code))
                             .build()
             ).enqueue(ResourceUtils.createCallback(txtResult, gson) {
                 userToken = it?.token
