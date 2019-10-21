@@ -13,14 +13,14 @@ Authing SDK for Java 编写于 JDK 1.8
 <dependency>
 	<groupId>cn.authing</groupId>
 	<artifactId>java-core</artifactId>
-	<version>0.5.0</version>
+	<version>0.5.1</version>
 	<type>pom</type>
 </dependency>
 ```
 
 #### gradle
 ``` groovy
-impelementation 'cn.authing:java-core:0.5.0'
+impelementation 'cn.authing:java-core:0.5.1'
 ```
 
 #### Android 注意
