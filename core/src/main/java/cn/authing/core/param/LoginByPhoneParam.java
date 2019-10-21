@@ -7,9 +7,9 @@ public class LoginByPhoneParam extends AuthingParam<LoginByPhoneParam.Param> {
     public static class Builder {
         private String clientId;
         private String phoneNumber;
-        private String verifyCode;
+        private int verifyCode;
 
-        public Builder(String phoneNumber, String verifyCode) {
+        public Builder(String phoneNumber, int verifyCode) {
             this.phoneNumber = phoneNumber;
             this.verifyCode = verifyCode;
         }
@@ -23,7 +23,7 @@ public class LoginByPhoneParam extends AuthingParam<LoginByPhoneParam.Param> {
     static class Param {
         private String registerInClient;
         private String phone;
-        private String phoneCode;
+        private int phoneCode;
     }
 
     LoginByPhoneParam(Builder builder) {
