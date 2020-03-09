@@ -1,11 +1,9 @@
 package cn.authing.core.business
 
+import cn.authing.core.Authing
 import cn.authing.core.http.Call
 import cn.authing.core.param.*
-import cn.authing.core.result.LoginResult
-import cn.authing.core.result.RefreshTokenResult
-import cn.authing.core.result.RegisterResult
-import cn.authing.core.result.UserInfoResult
+import cn.authing.core.result.*
 import cn.authing.core.utils.AuthingUtils.URL_USER
 import com.google.gson.reflect.TypeToken
 
@@ -69,4 +67,19 @@ internal class UserServiceImpl(private val helper: HttpHelper) : cn.authing.core
     private fun logout() {
         ImportantParam.userToken = null
     }
+
+
+    override fun createUser(param: RegisterParam): Call<RegisterResult> {
+        return register(param)
+    }
+
+
+    override fun list(param: UserListParam): Call<UserListResult> {
+        return Authing.getUserManageService().getUserList(param)
+    }
+
+    override fun user(param: UserInfoParam): Call<UserInfoResult> {
+        return getUserInfo(param)
+    }
+
 }

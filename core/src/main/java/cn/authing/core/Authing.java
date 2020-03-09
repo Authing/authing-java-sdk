@@ -21,7 +21,6 @@ public class Authing {
 
     @Getter
     private static UserService userService;
-    @Getter
     private static UserManageService userManageService;
     @Getter
     private static OAuthService oAuthService;
@@ -57,5 +56,9 @@ public class Authing {
         verifyService = null;
         permissionService = null;
         InitUtilsKt.destroy();
+    }
+
+    public static UserManageService getUserManageService() {
+        return userManageService;
     }
 }
