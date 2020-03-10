@@ -30,7 +30,8 @@ class MainActivity : AppCompatActivity() {
             RoleActivity::class.java,
             UserPermissionActivity::class.java,
             SigninActivity::class.java,
-            RefreshSigninTokenActivity::class.java
+            RefreshSigninTokenActivity::class.java,
+            CheckLoginStatusActivity::class.java
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {

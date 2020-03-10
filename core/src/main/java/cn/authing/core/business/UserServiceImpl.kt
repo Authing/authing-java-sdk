@@ -83,7 +83,7 @@ internal class UserServiceImpl(private val helper: HttpHelper) : cn.authing.core
     }
 
     override fun signIn(param: SigninParam): Call<SigninResult> {
-        return helper.createAuthingCall(
+        return helper.createTokenCall(
                 URL_USER,
                 object : TypeToken<AuthingResponse<SigninResult>>() {},
                 param
@@ -94,6 +94,14 @@ internal class UserServiceImpl(private val helper: HttpHelper) : cn.authing.core
         return helper.createAuthingCall(
                 URL_USER,
                 object : TypeToken<AuthingResponse<RefreshSigninTokenResult>>() {},
+                param
+        )
+    }
+
+    override fun checkLoginStatus(param: CheckLoginStatusParam): Call<CheckLoginStatusResult> {
+        return helper.createAuthingCall(
+                URL_USER,
+                object : TypeToken<AuthingResponse<CheckLoginStatusResult>>() {},
                 param
         )
     }

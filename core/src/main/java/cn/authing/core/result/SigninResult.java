@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 
 @Getter
-public class SigninResult {
+public class SigninResult implements ITokenResult {
     String sub;
     String birthdate;
     @SerializedName("family_name")

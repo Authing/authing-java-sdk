@@ -3,6 +3,7 @@ package cn.authing.core.service;
 import org.jetbrains.annotations.NotNull;
 
 import cn.authing.core.http.Call;
+import cn.authing.core.param.CheckLoginStatusParam;
 import cn.authing.core.param.LoginByEmailParam;
 import cn.authing.core.param.LoginByLADPParam;
 import cn.authing.core.param.LoginByPhoneParam;
@@ -14,6 +15,7 @@ import cn.authing.core.param.SigninParam;
 import cn.authing.core.param.UpdateUserInfoParam;
 import cn.authing.core.param.UserInfoParam;
 import cn.authing.core.param.UserListParam;
+import cn.authing.core.result.CheckLoginStatusResult;
 import cn.authing.core.result.LoginResult;
 import cn.authing.core.result.RefreshSigninTokenResult;
 import cn.authing.core.result.RefreshTokenResult;
@@ -48,4 +50,6 @@ public interface UserService {
     Call<SigninResult> signIn(@NotNull SigninParam param);
 
     Call<RefreshSigninTokenResult> refreshSignInToken(@NotNull RefreshSigninTokenParam param);
+
+    Call<CheckLoginStatusResult> checkLoginStatus(@NotNull CheckLoginStatusParam param);
 }

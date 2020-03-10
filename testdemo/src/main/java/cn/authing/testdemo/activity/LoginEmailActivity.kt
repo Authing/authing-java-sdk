@@ -37,9 +37,5 @@ class LoginEmailActivity : AppCompatActivity() {
                 userId = it?.id
             })
         }
-
-        btnOld.setOnClickListener {
-
-        }
     }
 }
