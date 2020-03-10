@@ -46,10 +46,7 @@ class LoginByOidcActivity : AppCompatActivity() {
                 R.id.radioUsername -> builder.initWithUsername(first, psd)
             }
 
-            Authing.getUserService().loginByOidc(builder.build()).enqueue(ResourceUtils.createCallback(txtResult, gson) {
-                refreshToken = it?.refreshToken
-                userToken = it?.token
-            })
+            Authing.getUserService().loginByOidc(builder.build()).enqueue(ResourceUtils.createCallback(txtResult, gson) {})
         }
     }
 }

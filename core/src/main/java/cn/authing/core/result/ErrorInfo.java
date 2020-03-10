@@ -13,7 +13,7 @@ public class ErrorInfo {
      */
     public static final int CODE_EXCEPTION = 1;
 
-    private String message;
+    private Object message;
     private int code;
 
     public static ErrorInfo generate(int code, String msg) {
@@ -26,7 +26,7 @@ public class ErrorInfo {
     }
 
     public String getMessage() {
-        return message;
+        return message.toString();
     }
 
     public int getCode() {
