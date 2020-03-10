@@ -29,7 +29,8 @@ Enter the IDE and wait for Gradle to finish building. Open the build.gradle file
 
 Add the following to the red arrow on the right:
 
-    ...
+```
+   ...
     repositories {
         jcenter()
         mavenCentral()
@@ -45,9 +46,10 @@ Add the following to the red arrow on the right:
         implementation 'com.google.android:android:4.1.1.4'
 
     }
-    ...
+   ...
+```
 
-As shown in the figure below, follow the prompts to enable the Auto-import function:
+As shown in the figure below, follow the prompts to enable the Auto-import feature:
 
 ![auto-import](https://cdn.authing.cn/blog/20200311012019.png)
 
@@ -57,7 +59,7 @@ Create a Class under the java folder and name it Demo.
 
 ![create-class](https://cdn.authing.cn/blog/20200311012211.png)
 
-In the main function of the class, introduce Authing and start using
+In the main function of the class, introduce Authing and start using Authing
 
 ![import-authing](https://cdn.authing.cn/blog/20200311013959.png)
 
@@ -65,17 +67,17 @@ In the main function of the class, introduce Authing and start using
 > For Android development, you need to add the INTERNET permission to the AndroidManifest file.
 
 ```xml
-    <uses-permission android: name = "android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" />
 ```
 
 # Quick start
 
-First get the `UserPool ID` from the Authing console, and then call the initialization function, which can be called once.In Android development, it is recommended to initialize in Application.
+First get the `UserPool ID` from the Authing console, and then call the initialization function, which should be called once. In Android development, it is recommended to initialize in Application.
 
 ```java
 import cn.authing.core.Authing;
 import cn.authing.core.param.InitParam;
-import cn.authing.core.service. *;
+import cn.authing.core.service.*;
 
 public class Demo2 {
     public static void main(String [] args) {
@@ -162,7 +164,7 @@ public class Register {
         // create a parameter object
         RegisterParam registerParam = registerParamBuilder.build();
         // call interface function with parameter object
-        RegisterResult registerResult = userService.createUser(registerParam) .execute();
+        RegisterResult registerResult = userService.createUser(registerParam).execute();
         System.out.println(registerResult.getId());
     }
 }
@@ -199,7 +201,7 @@ public class Register {
         registerParamBuilder.company("Authing");
         RegisterParam registerParam = registerParamBuilder.build();
         // synchronous call
-        RegisterResult registerResult = userService.createUser(registerParam) .execute();
+        RegisterResult registerResult = userService.createUser(registerParam).execute();
         System.out.println(registerResult.getId());
     }
 }
@@ -226,7 +228,7 @@ public class RegisterUserAsync {
         Authing.init(init);
         UserService userService = Authing.getUserService();
         RegisterParam registerParam = new RegisterParam.Builder("13812341234", "123").Nickname("test_nickname").Build();
-        userService.createUser(registerParam) .enqueue(new Callback <RegisterResult> () {
+        userService.createUser(registerParam).enqueue(new Callback <RegisterResult> () {
             @Override
             public void onSuccess(RegisterResult registerResult) {
                 registerResult.getId();
@@ -299,7 +301,7 @@ public class Register {
         Authing.init(init);
         UserService userService = Authing.getUserService();
         RegisterParam registerParam = new RegisterParam.Builder("test@123.com", "123456").Nickname("test_nickname").Build();
-        RegisterResult registerResult = userService.createUser(registerParam) .execute();
+        RegisterResult registerResult = userService.createUser(registerParam).execute();
         System.out.println(registerResult.getId());
     }
 }
@@ -330,7 +332,7 @@ public class LoginByEmail {
         Authing.init(init);
         UserService userService = Authing.getUserService();
         LoginByEmailParam loginByEmailParam = new LoginByEmailParam.Builder("test@123.com", "123456").Build();
-        LoginResult loginResult = userService.loginByEmail(loginByEmailParam) .execute();
+        LoginResult loginResult = userService.loginByEmail(loginByEmailParam).execute();
         System.out.println(loginResult.getId());
     }
 }
@@ -360,8 +362,8 @@ public class loginByPhone {
         InitParam init = new InitParam.Builder("5e109c446ef04e93e4a54d69").Secret("1dcaa83dd0a0424d7906d7cec76e1935").Build();
         Authing.init(init);
         UserService userService = Authing.getUserService();
-        LoginByPhoneParam loginByPhoneParam = new LoginByPhoneParam.Builder("13812341234", 1234) .build();
-        LoginResult loginResult = userService.loginByPhone(loginByPhoneParam) .execute();
+        LoginByPhoneParam loginByPhoneParam = new LoginByPhoneParam.Builder("13812341234", 1234).build();
+        LoginResult loginResult = userService.loginByPhone(loginByPhoneParam).execute();
         System.out.println(loginResult.getId());
     }
 }
@@ -392,7 +394,7 @@ public class loginByLDAP {
         Authing.init(init);
         UserService userService = Authing.getUserService();
         LoginByLADPParam loginByLDAPParam = new LoginByLADPParam.Builder("13812341234", "123456").Build();
-        LoginResult loginResult = userService.loginByLDAP(loginByLDAPParam) .execute();
+        LoginResult loginResult = userService.loginByLDAPloginByLDAPParam).execute();
         System.out.println(loginResult.getId());
     }
 }
@@ -433,13 +435,13 @@ public class TestLoginByOidc {
         // oidc login parameters
         LoginByOidcParam p = new LoginByOidcParam.Builder("oidcClientId", "oidcSecret")
                 // These four init methods, only one call, multiple init, only the first time will take effect
-                .initWithEmail("Email", "Password")
-                // .initWithPhone("Phone", "Password")
-                // .initWithUsername("user name", "password")
-                // .initWithUnionId("unionId")
-                .build();
+               .initWithEmail("Email", "Password")
+                //.initWithPhone("Phone", "Password")
+                //.initWithUsername("user name", "password")
+                //.initWithUnionId("unionId")
+               .build();
         // call and get the result.
-        SigninResult result = Authing.getUserService().LoginByOidc(p) .execute();
+        SigninResult result = Authing.getUserService().LoginByOidc(p).execute();
         System.out.println(result.getAccessToken());
     }
 }
@@ -470,9 +472,9 @@ public class TestRefreshOidcToken {
 
         // Refresh the parameters of OidcToken
         RefreshOidcTokenParam p = new RefreshOidcTokenParam.Builder("oidcClientId", "oidcSecret", "refresh token")
-                .build();
+               .build();
         // call and get the result.
-        RefreshOidcTokenResult result = Authing.getUserService().RefreshOidcToken(p) .execute();
+        RefreshOidcTokenResult result = Authing.getUserService().RefreshOidcToken(p).execute();
         System.out.println(result.getAccessToken());
     }
 }
@@ -506,13 +508,13 @@ public class TestSignin {
         // Login parameters
         SigninParam p = new SigninParam.Builder()
             // These four init methods, only one call, multiple init, only the first time will take effect
-            .initWithEmail("Email", "Password")
-            // .initWithPhone("Phone", "Password")
-            // .initWithUsername("user name", "password")
-            // .initWithUnionId("unionId")
-            .build();
+           .initWithEmail("Email", "Password")
+            //.initWithPhone("Phone", "Password")
+            //.initWithUsername("user name", "password")
+            //.initWithUnionId("unionId")
+           .build();
         // call and get the result.
-        SigninResult result = Authing.getUserService().SignIn(p) .execute();
+        SigninResult result = Authing.getUserService().SignIn(p).execute();
         System.out.println(result.getAccessToken());
     }
 }
@@ -541,10 +543,10 @@ public class TestRefreshSigninToken {
 
         // Get the parameters of the user list
         RefreshSigninTokenParam p = new RefreshSigninTokenParam.Builder("refresh token")
-            .oidcAppId("") // optional parameter
-            .build();
+           .oidcAppId("") // optional parameter
+           .build();
         // call and get the result.
-        RefreshSigninTokenResult result = Authing.getUserService().RefreshSignInToken(p) .execute();
+        RefreshSigninTokenResult result = Authing.getUserService().RefreshSignInToken(p).execute();
         System.out.println(result.getAccessToken());
     }
 }
@@ -574,7 +576,7 @@ public class RefreshToken {
         Authing.init(init);
         UserService userService = Authing.getUserService();
         RefreshTokenParam refreshTokenParam = new RefreshTokenParam.Builder("5e109c446ef04e93e4a54d69").Build();
-        RefreshTokenResult refreshTokenResult = userService.refreshToken(refreshTokenParam) .execute();
+        RefreshTokenResult refreshTokenResult = userService.refreshToken(refreshTokenParam).execute();
         System.out.println(refreshTokenResult.getToken());
     }
 }
@@ -605,7 +607,7 @@ public class GetUserInfo {
 
         UserService userService = Authing.getUserService();
         UserInfoParam userInfoParam = new UserInfoParam.Builder("5e109c446ef04e93e4a54d69").Build();
-        UserInfoResult userInfoResult = userService.user(userInfoParam) .execute();
+        UserInfoResult userInfoResult = userService.user(userInfoParam).execute();
         System.out.println(userInfoResult.getId());
     }
 }
@@ -651,7 +653,7 @@ public class UpdateUserInfo {
 
         UserService userService = Authing.getUserService();
         UpdateUserInfoParam updateUpdateUserInfoParam = new UpdateUserInfoParam.Builder("5e109c446ef04e93e4a54d69").Build();
-        UserInfoResult userInfoResult = userService.updateUserInfo(updateUpdateUserInfoParam) .execute();
+        UserInfoResult userInfoResult = userService.updateUserInfo(updateUpdateUserInfoParam).execute();
         System.out.println(userInfoResult.getId());
     }
 }
@@ -683,7 +685,7 @@ public class TestCheckLoginStatus {
         // Check parameters for login status
         CheckLoginStatusParam p = new CheckLoginStatusParam.Builder("token").Build();
         // call and get the result.
-        CheckLoginStatusResult info = Authing.getUserService().CheckLoginStatus(p) .execute();
+        CheckLoginStatusResult info = Authing.getUserService().CheckLoginStatus(p).execute();
         System.out.println(info.isStatus());
     }
 }
@@ -716,7 +718,7 @@ public class ResetPassword {
 
         UserService userService = Authing.getUserService();
         ResetPasswordParam resetPasswordParam = new ResetPasswordParam.Builder("5e109c446ef04e93e4a54d69", "123456", "1234").Build();
-        UserInfoResult userInfoResult = userService.resetPassword(resetPasswordParam) .execute();
+        UserInfoResult userInfoResult = userService.resetPassword(resetPasswordParam).execute();
         System.out.println(userInfoResult.getId());
     }
 }
@@ -769,7 +771,7 @@ public class UnBindEmail {
 
         OAuthService oauthService = Authing.getOAuthService();
         UnbindEmailParam unbindEmailParam = new UnbindEmailParam.Builder().UserId("5e109c446ef04e93e4a54d69").Build();
-        UserInfoResult userInfoResult = oauthService.unbindEmail(unbindEmailParam) .execute();
+        UserInfoResult userInfoResult = oauthService.unbindEmail(unbindEmailParam).execute();
         System.out.println(userInfoResult.getId());
     }
 }
@@ -794,8 +796,8 @@ public class ReadSocialLoginListOfUserPool {
     public static void main(String [] args) throws IOException {
         OAuthService oauthService = Authing.getOAuthService();
         ReadOAuthListParam readOauthListParam = new ReadOAuthListParam.Builder().Build();
-        List <OAuthData> oauthData = oauthService.readOAuthList(readOauthListParam) .execute();
-        System.out.println(oauthData.get(0) .getId());
+        List <OAuthData> oauthData = oauthService.readOAuthList(readOauthListParam).execute();
+        System.out.println(oauthData.get(0).getId());
     }
 }
 ```
@@ -831,6 +833,7 @@ verifyService.sendVerifyEmail(params)
 
 Example:
 
+```java
     import cn.authing.core.Authing;
     import cn.authing.core.param.SendVerifyEmailParam;
     import cn.authing.core.result.Result;
@@ -842,10 +845,11 @@ Example:
         public static void main(String [] args) throws IOException {
             VerifyService verifyService = Authing.getVerifyService();
             SendVerifyEmailParam sendVerifyEmailParam = new SendVerifyEmailParam.Builder("test@test.com").Build();
-            Result result = verifyService.sendVerifyEmail(sendVerifyEmailParam) .execute();
+            Result result = verifyService.sendVerifyEmailsendVerifyEmailParam).execute();
             System.out.println(result.getCode());
         }
     }
+```
 
 ## Send mobile verification code
 
@@ -892,7 +896,7 @@ Example:
         public static void main(String [] args) throws IOException {
             VerifyService verifyService = Authing.getVerifyService();
             SendResetPasswordEmailParam sendResetPasswordEmailParam = new SendResetPasswordEmailParam.Builder("test@test.com").Build();
-            Result result = verifyService.sendResetPasswordEmail(sendResetPasswordEmailParam) .execute();
+            Result result = verifyService.sendResetPasswordEmail(sendResetPasswordEmailParam).execute();
             System.out.println(result.getCode());
         }
     }
@@ -920,7 +924,7 @@ public class VerifyResetPasswordCode {
     public static void main(String [] args) throws IOException {
         VerifyService verifyService = Authing.getVerifyService();
         VerifyResetPasswordCodeParam verifyResetPasswordCodeParam = new VerifyResetPasswordCodeParam.Builder("test@test.com", "1234").Build();
-        Result result = verifyService.verifyResetPasswordCode(verifyResetPasswordCodeParam) .execute();
+        Result result = verifyService.verifyResetPasswordCode(verifyResetPasswordCodeParam).execute();
         System.out.println(result.getCode());
     }
 }
@@ -972,7 +976,7 @@ public class BatchUserInfo {
         userPatchBuilder.addUserId("5e67c2855d5a74fc4e9cffcd");
         userPatchBuilder.addUserId("5e67c2712da3f4269e750088");
         UserPatchParam userPatchParam = userPatchBuilder.build();
-        UserPatchResult userPatchResult = userManageService.getUserInfo(userPatchParam) .execute();
+        UserPatchResult userPatchResult = userManageService.getUserInfo(userPatchParam).execute();
         System.out.println(userPatchResult.getList());
     }
 }
@@ -1000,8 +1004,8 @@ import java.io.IOException;
 public class GetUserList {
     public static void main(String [] args) throws IOException {
         UserManageService userManageService = Authing.getUserManageService();
-        UserListParam userListParam = new UserListParam.Builder().Page(1) .count(10) .build();
-        UserListResult userListResult = userManageService.getUserList(userListParam) .execute();
+        UserListParam userListParam = new UserListParam.Builder().Page(1).count(10).build();
+        UserListResult userListResult = userManageService.getUserList(userListParam).execute();
         System.out.println(userListResult.getList());
     }
 }
@@ -1029,7 +1033,7 @@ public class RemoveUser {
     public static void main(String [] args) throws IOException {
         UserManageService userManageService = Authing.getUserManageService();
         RemoveUserParam removeUserParam = new RemoveUserParam.Builder("5e109c4461f04e93e4a54d60").Build();
-        List <RemoveUserResult> userListResult = userManageService.removeUser(removeUserParam) .execute();
+        List <RemoveUserResult> userListResult = userManageService.removeUser(removeUserParam).execute();
         System.out.println(userListResult.get(0).getId());
     }
 }
