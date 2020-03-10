@@ -7,6 +7,7 @@ import cn.authing.core.param.CheckLoginStatusParam;
 import cn.authing.core.param.LoginByEmailParam;
 import cn.authing.core.param.LoginByLADPParam;
 import cn.authing.core.param.LoginByPhoneParam;
+import cn.authing.core.param.RefreshOidcTokenParam;
 import cn.authing.core.param.RefreshSigninTokenParam;
 import cn.authing.core.param.RefreshTokenParam;
 import cn.authing.core.param.RegisterParam;
@@ -17,6 +18,7 @@ import cn.authing.core.param.UserInfoParam;
 import cn.authing.core.param.UserListParam;
 import cn.authing.core.result.CheckLoginStatusResult;
 import cn.authing.core.result.LoginResult;
+import cn.authing.core.result.RefreshOidcTokenResult;
 import cn.authing.core.result.RefreshSigninTokenResult;
 import cn.authing.core.result.RefreshTokenResult;
 import cn.authing.core.result.RegisterResult;
@@ -52,4 +54,6 @@ public interface UserService {
     Call<RefreshSigninTokenResult> refreshSignInToken(@NotNull RefreshSigninTokenParam param);
 
     Call<CheckLoginStatusResult> checkLoginStatus(@NotNull CheckLoginStatusParam param);
+
+    Call<RefreshOidcTokenResult> refreshOidcToken(@NotNull RefreshOidcTokenParam param);
 }

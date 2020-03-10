@@ -4,6 +4,7 @@ import cn.authing.core.Authing
 import cn.authing.core.http.Call
 import cn.authing.core.param.*
 import cn.authing.core.result.*
+import cn.authing.core.utils.AuthingUtils.URL_CORE
 import cn.authing.core.utils.AuthingUtils.URL_USER
 import com.google.gson.reflect.TypeToken
 
@@ -103,6 +104,14 @@ internal class UserServiceImpl(private val helper: HttpHelper) : cn.authing.core
                 URL_USER,
                 object : TypeToken<AuthingResponse<CheckLoginStatusResult>>() {},
                 param
+        )
+    }
+
+    override fun refreshOidcToken(param: RefreshOidcTokenParam): Call<RefreshOidcTokenResult> {
+        return helper.createNormalPostCall(
+                URL_CORE,
+                RefreshOidcTokenResult::class.java,
+                param.params
         )
     }
 }

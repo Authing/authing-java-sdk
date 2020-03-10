@@ -34,6 +34,7 @@
         <activity android:name=".activity.SigninActivity" />
         <activity android:name=".activity.RefreshSigninTokenActivity" />
         <activity android:name=".activity.CheckLoginStatusActivity" />
+        <activity android:name=".activity.RefreshOidcTokenActivity" />
     </application>
 
 </manifest>

@@ -31,7 +31,8 @@ class MainActivity : AppCompatActivity() {
             UserPermissionActivity::class.java,
             SigninActivity::class.java,
             RefreshSigninTokenActivity::class.java,
-            CheckLoginStatusActivity::class.java
+            CheckLoginStatusActivity::class.java,
+            RefreshOidcTokenActivity::class.java
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
