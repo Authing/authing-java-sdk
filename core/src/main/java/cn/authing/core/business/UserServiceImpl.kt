@@ -82,4 +82,11 @@ internal class UserServiceImpl(private val helper: HttpHelper) : cn.authing.core
         return getUserInfo(param)
     }
 
+    override fun signIn(param: SigninParam): Call<SigninResult> {
+        return helper.createAuthingCall(
+                URL_USER,
+                object : TypeToken<AuthingResponse<SigninResult>>() {},
+                param
+        )
+    }
 }

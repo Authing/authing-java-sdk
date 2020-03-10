@@ -9,12 +9,14 @@ import cn.authing.core.param.LoginByPhoneParam;
 import cn.authing.core.param.RefreshTokenParam;
 import cn.authing.core.param.RegisterParam;
 import cn.authing.core.param.ResetPasswordParam;
+import cn.authing.core.param.SigninParam;
 import cn.authing.core.param.UpdateUserInfoParam;
 import cn.authing.core.param.UserInfoParam;
 import cn.authing.core.param.UserListParam;
 import cn.authing.core.result.LoginResult;
 import cn.authing.core.result.RefreshTokenResult;
 import cn.authing.core.result.RegisterResult;
+import cn.authing.core.result.SigninResult;
 import cn.authing.core.result.UserInfoResult;
 import cn.authing.core.result.UserListResult;
 
@@ -40,4 +42,6 @@ public interface UserService {
     Call<UserInfoResult> user(@NotNull UserInfoParam param);
 
     Call<UserListResult> list(@NotNull UserListParam param);
+
+    Call<SigninResult> signIn(@NotNull SigninParam param);
 }

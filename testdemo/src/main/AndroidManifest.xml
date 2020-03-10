@@ -31,6 +31,7 @@
         <activity android:name=".activity.BindThirdPartyOAuthActivity" />
         <activity android:name=".activity.RoleActivity" />
         <activity android:name=".activity.UserPermissionActivity" />
+        <activity android:name=".activity.SigninActivity" />
     </application>
 
 </manifest>
