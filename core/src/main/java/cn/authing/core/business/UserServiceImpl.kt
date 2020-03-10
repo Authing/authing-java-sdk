@@ -89,4 +89,12 @@ internal class UserServiceImpl(private val helper: HttpHelper) : cn.authing.core
                 param
         )
     }
+
+    override fun refreshSignInToken(param: RefreshSigninTokenParam): Call<RefreshSigninTokenResult> {
+        return helper.createAuthingCall(
+                URL_USER,
+                object : TypeToken<AuthingResponse<RefreshSigninTokenResult>>() {},
+                param
+        )
+    }
 }

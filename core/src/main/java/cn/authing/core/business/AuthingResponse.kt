@@ -62,7 +62,8 @@ internal class AuthingResponse<Result> {
                     "queryRoleByUserId",
                     "assignUserToRole",
                     "removeUserFromGroup",
-                    "signIn"
+                    "signIn",
+                    "refreshSignInToken"
                 ])
         val result: T? = null
     }

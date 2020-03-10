@@ -29,7 +29,8 @@ class MainActivity : AppCompatActivity() {
             BindThirdPartyOAuthActivity::class.java,
             RoleActivity::class.java,
             UserPermissionActivity::class.java,
-            SigninActivity::class.java
+            SigninActivity::class.java,
+            RefreshSigninTokenActivity::class.java
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {

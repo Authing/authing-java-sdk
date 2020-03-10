@@ -6,6 +6,7 @@ import cn.authing.core.Authing
 import cn.authing.core.param.SigninParam
 import cn.authing.testdemo.R
 import cn.authing.testdemo.ResourceUtils
+import cn.authing.testdemo.refreshToken
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_signin.*
 
@@ -37,7 +38,9 @@ class SigninActivity:AppCompatActivity() {
             }
             editOidcAppId.text.toString().takeUnless { it.isBlank() }?.let { builder.oidcAppId(it) }
 
-            Authing.getUserService().signIn(builder.build()).enqueue(ResourceUtils.createCallback(txtResult, gson) {})
+            Authing.getUserService().signIn(builder.build()).enqueue(ResourceUtils.createCallback(txtResult, gson) {
+                refreshToken = it?.refreshToken
+            })
         }
     }
 }

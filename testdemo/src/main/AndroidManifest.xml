@@ -32,6 +32,7 @@
         <activity android:name=".activity.RoleActivity" />
         <activity android:name=".activity.UserPermissionActivity" />
         <activity android:name=".activity.SigninActivity" />
+        <activity android:name=".activity.RefreshSigninTokenActivity" />
     </application>
 
 </manifest>
