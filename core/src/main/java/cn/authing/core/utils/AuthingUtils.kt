@@ -12,6 +12,7 @@ internal object AuthingUtils {
     var URL_OAUTH = "https://oauth.authing.cn/graphql"
     var URL_USER = "https://users.authing.cn/graphql"
     var URL_CORE = "https://core.authing.cn/oauth/oidc/token"
+    var URL_CORE_ME = "https://core.authing.cn/oauth/oidc/me"
     private const val ANDROID_VERSION_CODE_P = 28
 
     private val PUBLICA_KEY = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC4xKeUgQ+Aoz7TLfAfs9+paePb" +

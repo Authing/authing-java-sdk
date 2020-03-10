@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <EditText
+            android:hint="必填，oidc client id"
+            android:id="@+id/editOidcClientId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:hint="必填，oidc secret"
+            android:id="@+id/editOidcSecret"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <RadioGroup
+            android:id="@+id/signinType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checkedButton="@id/radioUnion">
+
+            <RadioButton
+                android:id="@+id/radioUnion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="unionId" />
+
+            <RadioButton
+                android:id="@+id/radioPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="phone" />
+
+            <RadioButton
+                android:id="@+id/radioUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="username" />
+
+            <RadioButton
+                android:id="@+id/radioEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="email" />
+
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/editFirst"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="email/phone/username/unionid"
+            android:text="@string/test_email" />
+
+        <EditText
+            android:id="@+id/editPsd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="密码，如果登录方式为 unionid，则密码可不填"
+            android:text="@string/test_psd" />
+
+        <Button
+            android:id="@+id/btnNew"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="login" />
+
+        <TextView
+            android:id="@+id/txtResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="===============Result===============\n" />
+    </LinearLayout>
+</ScrollView>

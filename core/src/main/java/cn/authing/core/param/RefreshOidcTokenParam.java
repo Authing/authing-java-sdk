@@ -7,7 +7,7 @@ public class RefreshOidcTokenParam {
         private String clientId;
         private String secret;
         private String refreshToken;
-        private String grantType;
+        private String grantType = "refresh_token";
 
         public Builder(String oidcClientId, String oidcClientSecret, String refreshToken) {
             this.clientId = oidcClientId;
@@ -16,7 +16,6 @@ public class RefreshOidcTokenParam {
         }
 
         public RefreshOidcTokenParam build() {
-            grantType = "refresh_token";
             return new RefreshOidcTokenParam(this);
         }
     }

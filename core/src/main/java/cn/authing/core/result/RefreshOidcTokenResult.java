@@ -4,17 +4,25 @@ import com.google.gson.annotations.SerializedName;
 
 import lombok.Getter;
 
-@Getter
 public class RefreshOidcTokenResult {
     @SerializedName("access_token")
-    String accessToken;
+    private String accessToken;
+    @Getter
     @SerializedName("expires_in")
-    int expiresIn;
+    private int expiresIn;
+    @Getter
     @SerializedName("id_token")
-    String idToken;
+    private String idToken;
+    @Getter
     @SerializedName("refresh_token")
-    String refreshToken;
-    String scope;
+    private String refreshToken;
+    @Getter
+    private String scope;
     @SerializedName("token_type")
-    String tokenType;
+    @Getter
+    private String tokenType;
+
+    public String getAccessToken() {
+        return accessToken;
+    }
 }

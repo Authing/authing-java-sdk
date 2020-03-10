@@ -4,6 +4,7 @@ package cn.authing.core.business
 import cn.authing.core.http.Call
 import cn.authing.core.result.ITokenResult
 import cn.authing.core.result.LoginResult
+import cn.authing.core.utils.AuthingUtils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.*
@@ -60,6 +61,20 @@ internal class HttpHelper {
 
     fun createLoginCall(url: String, param: Any): Call<LoginResult> {
         return createTokenCall(url, object : TypeToken<AuthingResponse<LoginResult>>() {}, param, null)
+    }
+
+    fun <T> createLoginByOidcCall(url: String, clazz: Class<T>, param: Map<String, String>): Call<T> {
+        val builder = FormBody.Builder()
+        val iterator = param.iterator()
+        while (iterator.hasNext()) {
+            val entry = iterator.next()
+            builder.add(entry.key, entry.value)
+        }
+        val request = Request.Builder()
+                .url(AuthingUtils.URL_CORE)
+                .post(builder.build())
+                .build()
+        return delegateCall(LoginByOidcCall<T>(request, client, clazz))
     }
 
     private fun <T> delegateCall(call: Call<T>): Call<T> {

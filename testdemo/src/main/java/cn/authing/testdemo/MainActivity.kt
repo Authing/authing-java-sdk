@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
             SigninActivity::class.java,
             RefreshSigninTokenActivity::class.java,
             CheckLoginStatusActivity::class.java,
+            LoginByOidcActivity::class.java,
             RefreshOidcTokenActivity::class.java
     )
 

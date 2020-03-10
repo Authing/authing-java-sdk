@@ -6,6 +6,7 @@ import cn.authing.core.http.Call;
 import cn.authing.core.param.CheckLoginStatusParam;
 import cn.authing.core.param.LoginByEmailParam;
 import cn.authing.core.param.LoginByLADPParam;
+import cn.authing.core.param.LoginByOidcParam;
 import cn.authing.core.param.LoginByPhoneParam;
 import cn.authing.core.param.RefreshOidcTokenParam;
 import cn.authing.core.param.RefreshSigninTokenParam;
@@ -54,6 +55,8 @@ public interface UserService {
     Call<RefreshSigninTokenResult> refreshSignInToken(@NotNull RefreshSigninTokenParam param);
 
     Call<CheckLoginStatusResult> checkLoginStatus(@NotNull CheckLoginStatusParam param);
+
+    Call<SigninResult> loginByOidc(@NotNull LoginByOidcParam param);
 
     Call<RefreshOidcTokenResult> refreshOidcToken(@NotNull RefreshOidcTokenParam param);
 }
