@@ -28,7 +28,12 @@ class MainActivity : AppCompatActivity() {
             UnbindEmailActivity::class.java,
             BindThirdPartyOAuthActivity::class.java,
             RoleActivity::class.java,
-            UserPermissionActivity::class.java
+            UserPermissionActivity::class.java,
+            SigninActivity::class.java,
+            RefreshSigninTokenActivity::class.java,
+            CheckLoginStatusActivity::class.java,
+            LoginByOidcActivity::class.java,
+            RefreshOidcTokenActivity::class.java
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,7 +71,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initAuthing(pos: Int) {
-        val param = InitParam.Builder(clientId).secret("42aa3deba3b2c35aaf018acafdf503f8").build()
+        val param = InitParam.Builder(clientId).secret("35023039bb82da7edca0d8db7646e2f3").build()
         Authing.init(param)
     }
 }

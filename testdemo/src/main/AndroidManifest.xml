@@ -31,6 +31,11 @@
         <activity android:name=".activity.BindThirdPartyOAuthActivity" />
         <activity android:name=".activity.RoleActivity" />
         <activity android:name=".activity.UserPermissionActivity" />
+        <activity android:name=".activity.SigninActivity" />
+        <activity android:name=".activity.RefreshSigninTokenActivity" />
+        <activity android:name=".activity.CheckLoginStatusActivity" />
+        <activity android:name=".activity.RefreshOidcTokenActivity" />
+        <activity android:name=".activity.LoginByOidcActivity" />
     </application>
 
 </manifest>

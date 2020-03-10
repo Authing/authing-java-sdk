@@ -34,7 +34,5 @@ class RegisterActivity : AppCompatActivity() {
                             .build()
             ).enqueue(ResourceUtils.createCallback(txtResult, gson) {})
         }
-
-        btnOld.setOnClickListener { }
     }
 }

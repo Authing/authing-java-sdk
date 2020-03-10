@@ -1,11 +1,10 @@
 package cn.authing.core.business
 
+import cn.authing.core.Authing
 import cn.authing.core.http.Call
 import cn.authing.core.param.*
-import cn.authing.core.result.LoginResult
-import cn.authing.core.result.RefreshTokenResult
-import cn.authing.core.result.RegisterResult
-import cn.authing.core.result.UserInfoResult
+import cn.authing.core.result.*
+import cn.authing.core.utils.AuthingUtils.URL_CORE
 import cn.authing.core.utils.AuthingUtils.URL_USER
 import com.google.gson.reflect.TypeToken
 
@@ -68,5 +67,59 @@ internal class UserServiceImpl(private val helper: HttpHelper) : cn.authing.core
 
     private fun logout() {
         ImportantParam.userToken = null
+    }
+
+
+    override fun createUser(param: RegisterParam): Call<RegisterResult> {
+        return register(param)
+    }
+
+
+    override fun list(param: UserListParam): Call<UserListResult> {
+        return Authing.getUserManageService().getUserList(param)
+    }
+
+    override fun user(param: UserInfoParam): Call<UserInfoResult> {
+        return getUserInfo(param)
+    }
+
+    override fun signIn(param: SigninParam): Call<SigninResult> {
+        return helper.createTokenCall(
+                URL_USER,
+                object : TypeToken<AuthingResponse<SigninResult>>() {},
+                param
+        )
+    }
+
+    override fun refreshSignInToken(param: RefreshSigninTokenParam): Call<RefreshSigninTokenResult> {
+        return helper.createAuthingCall(
+                URL_USER,
+                object : TypeToken<AuthingResponse<RefreshSigninTokenResult>>() {},
+                param
+        )
+    }
+
+    override fun checkLoginStatus(param: CheckLoginStatusParam): Call<CheckLoginStatusResult> {
+        return helper.createAuthingCall(
+                URL_USER,
+                object : TypeToken<AuthingResponse<CheckLoginStatusResult>>() {},
+                param
+        )
+    }
+
+    override fun loginByOidc(param: LoginByOidcParam): Call<SigninResult> {
+        return helper.createLoginByOidcCall(
+                URL_CORE,
+                SigninResult::class.java,
+                param.params
+        )
+    }
+
+    override fun refreshOidcToken(param: RefreshOidcTokenParam): Call<RefreshOidcTokenResult> {
+        return helper.createNormalPostCall(
+                URL_CORE,
+                RefreshOidcTokenResult::class.java,
+                param.params
+        )
     }
 }
