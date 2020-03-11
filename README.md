@@ -67,7 +67,7 @@ In the main function of the class, import Authing and start using Authing
 > For Android development, you need to add the INTERNET permission to the AndroidManifest file.
 
 ```xml
-    <uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.INTERNET" />
 ```
 
 # Quick start
