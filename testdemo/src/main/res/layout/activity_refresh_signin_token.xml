@@ -9,12 +9,12 @@
         android:orientation="vertical">
 
         <EditText
-            android:hint="必填，refresh token"
+            android:hint="required，refresh token"
             android:id="@+id/editRefreshToken"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText
-            android:hint="可选，oidc"
+            android:hint="alternative，oidc"
             android:id="@+id/editOidc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
