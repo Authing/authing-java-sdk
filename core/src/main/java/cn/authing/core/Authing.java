@@ -41,6 +41,7 @@ public class Authing {
         initService(helper);
     }
 
+
     private static void initService(HttpHelper helper) {
         userService = new UserServiceImpl(helper);
         userManageService = new UserManageServiceImpl(helper);
