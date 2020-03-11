@@ -9,17 +9,17 @@
         android:orientation="vertical">
 
         <EditText
-            android:hint="必填，oidc client id"
+            android:hint="required，oidc client id"
             android:id="@+id/editOidcClientId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText
-            android:hint="必填，oidc secret"
+            android:hint="required，oidc secret"
             android:id="@+id/editOidcSecret"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText
-            android:hint="必填，refresh token"
+            android:hint="required，oidc token"
             android:id="@+id/editRefreshToken"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

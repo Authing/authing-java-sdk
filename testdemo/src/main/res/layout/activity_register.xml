@@ -12,21 +12,21 @@
             android:id="@+id/editEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="邮箱"
+            android:hint="mail"
             android:text="@string/test_email" />
 
         <EditText
             android:id="@+id/editPsd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="密码"
+            android:hint="password"
             android:text="@string/test_psd" />
 
         <EditText
             android:id="@+id/editNickname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="昵称" />
+            android:hint="nickname" />
 
         <Button
             android:id="@+id/btnOld"

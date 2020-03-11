@@ -13,19 +13,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="phone"
-            android:hint="手机号" />
+            android:hint="phone number" />
 
         <Button
             android:id="@+id/btnSendVerify"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="发送验证码" />
+            android:text="send verification code" />
 
         <EditText
             android:id="@+id/editCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="验证码"
+            android:hint="verification code"
             android:text="@string/test_psd" />
 
         <Button
