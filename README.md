@@ -10,14 +10,14 @@ Github address: [https://github.com/Authing/authing-java-sdk](https://github.com
 
 Create a new project in IDEA
 
-![create-1](https://cdn.authing.cn/blog/20200311011537.png)
+![create-1](https://cdn.authing.cn/blog/20200311011537.png?v=2)
 
 Select Gradle and check Java and Kotlin in the extra dependencies on the right:
 ![Create Project-2](https://cdn.authing.cn/blog/20200311013755.png)
 
 Fill in other information:
 
-![create-3](https://cdn.authing.cn/blog/20200311011746.png)
+![create-3](https://cdn.authing.cn/blog/20200311011746.png?v=2)
 
 ![create-4](https://cdn.authing.cn/blog/20200311011811.png)
 
@@ -25,7 +25,7 @@ Fill in other information:
 
 Enter the IDE and wait for Gradle to finish building. Open the build.gradle file:
 
-![ide-1](https://cdn.authing.cn/blog/20200311011901.png)
+![ide-1](https://cdn.authing.cn/blog/20200311011901.png?v=2)
 
 Add the following to the red arrow on the right:
 
