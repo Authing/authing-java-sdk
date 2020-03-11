@@ -36,7 +36,7 @@ internal class AuthingResponse<Result> {
 
     private class ResponseData<T> {
         @SerializedName(
-                value = "result", // result 这个名称永远不会用
+                value = "result", // Never use name "result"
                 alternate = [
                     "getClientWhenSdkInit",
                     "ReadOauthList",
