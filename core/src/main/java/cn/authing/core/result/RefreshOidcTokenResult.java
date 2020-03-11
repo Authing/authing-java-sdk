@@ -25,4 +25,4 @@ public class RefreshOidcTokenResult {
     public String getAccessToken() {
         return accessToken;
     }
-}
+} 
