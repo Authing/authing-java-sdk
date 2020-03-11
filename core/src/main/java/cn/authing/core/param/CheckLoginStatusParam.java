@@ -42,4 +42,4 @@ public class CheckLoginStatusParam extends AuthingParam<CheckLoginStatusParam.Pa
         "        }\n" +
         "      }\n" +
         "    }";
-}
+}  
