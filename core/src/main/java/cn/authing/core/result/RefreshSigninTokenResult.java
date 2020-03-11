@@ -15,4 +15,4 @@ public class RefreshSigninTokenResult {
     @SerializedName("expires_in")
     int expiresIn;
     String scope;
-}
+} 
