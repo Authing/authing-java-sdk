@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
             LoginPhoneActivity::class.java,
             RefreshTokenActivity::class.java,
             UserInfoActivity::class.java,
+            UserListActivity::class.java,
             RemoveUserActivity::class.java,
             UpdateUserInfoActivity::class.java,
             ResetPsdActivity::class.java,

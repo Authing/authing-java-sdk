@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/editCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="数量"
+            android:text="10" />
+
+        <EditText
+            android:id="@+id/editPage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="页数"
+            android:text="1" />
+
+        <Button
+            android:id="@+id/btnNew"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="获取" />
+
+        <TextView
+            android:id="@+id/txtResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="===============Result===============\n" />
+    </LinearLayout>
+</ScrollView>

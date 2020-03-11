@@ -2,6 +2,8 @@ package cn.authing.core.result;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 import lombok.Getter;
 
 @Getter
@@ -26,7 +28,7 @@ public class UserInfoResult {
     private String signedUp;
     private boolean blocked;
     private boolean isDeleted;
-    private Location userLocation;
+    private List<Location> userLocation;
     private UserLoginHistory userLoginHistory;
     private UserGroup group;
     private ClientType clientType;

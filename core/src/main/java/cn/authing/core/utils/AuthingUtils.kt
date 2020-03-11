@@ -1,6 +1,7 @@
 package cn.authing.core.utils
 
 import android.os.Build
+import cn.authing.core.business.Platform
 import org.bouncycastle.jce.provider.BouncyCastleProvider
 import org.bouncycastle.util.encoders.Base64
 import java.security.KeyFactory
@@ -29,7 +30,7 @@ internal object AuthingUtils {
             val keyBytes = Base64.decode(PUBLICA_KEY)
             val keySpec = X509EncodedKeySpec(keyBytes)
             // compatible Android P https://android-developers.googleblog.com/2018/03/cryptography-changes-in-android-p.html
-            val keyFactory = if (Build.VERSION.SDK_INT >= ANDROID_VERSION_CODE_P) KeyFactory.getInstance("RSA") else KeyFactory.getInstance("RSA", provider)
+            val keyFactory = getKeyFactory(provider)
             val publicKey = keyFactory.generatePublic(keySpec)
             val cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding", provider)
             cipher.init(Cipher.ENCRYPT_MODE, publicKey)
@@ -41,4 +42,9 @@ internal object AuthingUtils {
 
         return result
     }
+
+    private fun getKeyFactory(provider: String) =
+            if (Platform.Android::class.java == Platform.platform.javaClass && Build.VERSION.SDK_INT >= ANDROID_VERSION_CODE_P)
+                KeyFactory.getInstance("RSA")
+            else KeyFactory.getInstance("RSA", provider)
 }

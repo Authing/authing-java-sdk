@@ -28,7 +28,7 @@ internal fun init(helper: HttpHelper, param: InitParam) {
             object : TypeToken<AuthingResponse<InitResult>>() {},
             param
     )
-    if (Platform.Android::javaClass == Platform.platform.javaClass) {
+    if (Platform.Android::class.java == Platform.platform.javaClass) {
         createAuthingCall.enqueue(object : Callback<InitResult> {
             override fun onFailure(error: ErrorInfo?) {
                 onFailureCallback(error)

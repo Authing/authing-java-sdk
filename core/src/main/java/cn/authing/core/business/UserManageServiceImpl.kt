@@ -18,7 +18,8 @@ internal class UserManageServiceImpl(private val helper: HttpHelper) : cn.authin
         return helper.createAuthingCall(
                 URL_USER,
                 object : TypeToken<AuthingResponse<UserPatchResult>>() {},
-                param
+                param,
+                ImportantParam.ownerToken
         )
     }
 
@@ -26,7 +27,8 @@ internal class UserManageServiceImpl(private val helper: HttpHelper) : cn.authin
         return helper.createAuthingCall(
                 URL_USER,
                 object : TypeToken<AuthingResponse<UserListResult>>() {},
-                param
+                param,
+                ImportantParam.ownerToken
         )
     }
 
