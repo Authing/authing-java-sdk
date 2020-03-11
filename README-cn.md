@@ -66,7 +66,7 @@ dependencies {
 > 如果用于 Android 开发，需要在 AndroidManifest 文件中加入 INTERNET 权限。
 
 ```xml
-    <uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.INTERNET"/>
 ```
 
 # 快速上手

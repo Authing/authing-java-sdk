@@ -11,7 +11,7 @@ import java.io.IOException;
 public class BatchUserInfo {
     public static void main(String[] args) throws IOException {
         InitParam param = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
-        // 初始化，全局只需要初始化一次
+        // initialization, global only needs to initialized once
         Authing.init(param);
         UserManageService userManageService = Authing.getUserManageService();
         UserPatchParam.Builder userPatchBuilder = new UserPatchParam.Builder();
