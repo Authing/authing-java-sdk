@@ -25,10 +25,10 @@ internal object AuthingUtils {
         Security.addProvider(BouncyCastleProvider())
         var result: String? = null
         try {
-            // 获取公钥
+            // get PUBLICA_KEY
             val keyBytes = Base64.decode(PUBLICA_KEY)
             val keySpec = X509EncodedKeySpec(keyBytes)
-            // 兼容 Android P https://android-developers.googleblog.com/2018/03/cryptography-changes-in-android-p.html
+            // compatible Android P https://android-developers.googleblog.com/2018/03/cryptography-changes-in-android-p.html
             val keyFactory = if (Build.VERSION.SDK_INT >= ANDROID_VERSION_CODE_P) KeyFactory.getInstance("RSA") else KeyFactory.getInstance("RSA", provider)
             val publicKey = keyFactory.generatePublic(keySpec)
             val cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding", provider)
