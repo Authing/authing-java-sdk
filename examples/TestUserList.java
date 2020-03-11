@@ -11,12 +11,12 @@ import java.util.List;
 public class TestUserList {
     public static void main(String[] args) throws IOException {
         InitParam param = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
-        // 初始化，全局只需要初始化一次
+        // initialization, global only needs to initialized once
         Authing.init(param);
 
-        // 获取用户列表的参数
+        // get parameters for userslist
         UserListParam p = new UserListParam.Builder().count(10).build();
-        // 调用，并获取结果。
+        // call and get the result
         Call<UserListResult> call = Authing.getUserService().list(p);
         UserListResult userList = call.execute();
         List<UserInfoResult> list = userList.getList();
