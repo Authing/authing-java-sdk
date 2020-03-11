@@ -64,4 +64,4 @@ public class SigninResult implements ITokenResult {
     String email;
     String token;
     String scope;
-}
+} 
