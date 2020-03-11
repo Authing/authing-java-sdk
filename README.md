@@ -59,7 +59,7 @@ Create a Class under the java folder and name it Demo.
 
 ![create-class](https://cdn.authing.cn/blog/20200311012211.png)
 
-In the main function of the class, introduce Authing and start using Authing
+In the main function of the class, import Authing and start using Authing
 
 ![import-authing](https://cdn.authing.cn/blog/20200311013959.png)
 
