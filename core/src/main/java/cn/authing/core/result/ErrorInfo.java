@@ -1,15 +1,15 @@
 package cn.authing.core.result;
 
 /**
- * 错误信息
- * code 说明
- * 1-99 是客户端错误
- * 100-599 是 Http 请求状态码
- * 其他是服务端返回的错误码，一般对应请求中的错误
+ * Error message
+ * code description
+ * 1-99 Client error
+ * 100-599 Http Status code
+ * Others are error codes returned by the server, which generally correspond to errors in the request
  */
 public class ErrorInfo {
     /**
-     * 客户端遇到了异常
+     * Client exception
      */
     public static final int CODE_EXCEPTION = 1;
 
