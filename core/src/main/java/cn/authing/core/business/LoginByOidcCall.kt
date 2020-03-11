@@ -64,4 +64,4 @@ class LoginByOidcCall<ResultTwo>(
                 .build()
         callTwo = NormalCall<ResultTwo>(request, callFactory, gson.getAdapter(clazzResultTwo))
     }
-}
+} 

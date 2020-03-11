@@ -21,7 +21,7 @@ internal fun init(helper: HttpHelper, param: InitParam) {
     if (param.userHost != null) {
         AuthingUtils.URL_USER = param.userHost
     }
-    // 初始化 authing
+    // initialize authing
     helper.createAuthingCall(
             AuthingUtils.URL_USER,
             object : TypeToken<AuthingResponse<InitResult>>() {},
