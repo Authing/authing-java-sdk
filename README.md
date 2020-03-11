@@ -30,23 +30,23 @@ Enter the IDE and wait for Gradle to finish building. Open the build.gradle file
 Add the following to the red arrow on the right:
 
 ```
-   ...
-    repositories {
-        jcenter()
-        mavenCentral()
-    }
+...
+repositories {
+    jcenter()
+    mavenCentral()
+}
 
-    dependencies {
-        compile "org.jetbrains.kotlin: kotlin-stdlib-jdk8"
-        testCompile group: 'junit', name: 'junit', version: '4.12'
-        implementation "cn.authing: java-core: 1.0.0"
-        implementation 'com.squareup.okhttp3: okhttp: 3.14.2'
-        implementation 'com.google.code.gson: gson: 2.8.5'
-        implementation 'org.bouncycastle: bcprov-jdk15: 1.46'
-        implementation 'com.google.android:android:4.1.1.4'
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation "cn.authing:java-core:1.0.0"
+    implementation 'com.squareup.okhttp3:okhttp:3.14.2'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'org.bouncycastle:bcprov-jdk15:1.46'
+    implementation 'com.google.android:android:4.1.1.4'
 
-    }
-   ...
+}
+...
 ```
 
 As shown in the figure below, follow the prompts to enable the Auto-import feature:

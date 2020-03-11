@@ -29,25 +29,25 @@ Github 地址：[https://github.com/Authing/authing-java-sdk](https://github.com
 ![ide-1](https://cdn.authing.cn/blog/20200311011901.png?v=2)
 
 在右侧红色箭头处增加以下内容：
+```
+...
+repositories {
+    jcenter()
+    mavenCentral()
+}
 
-    ...
-    repositories {
-        jcenter()
-        mavenCentral()
-    }
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation "cn.authing:java-core:1.0.0"
+    implementation 'com.squareup.okhttp3:okhttp:3.14.2'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'org.bouncycastle:bcprov-jdk15:1.46'
+    implementation 'com.google.android:android:4.1.1.4'
 
-    dependencies {
-        compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-        testCompile group: 'junit', name: 'junit', version: '4.12'
-        implementation "cn.authing:java-core:1.0.0"
-        implementation 'com.squareup.okhttp3:okhttp:3.14.2'
-        implementation 'com.google.code.gson:gson:2.8.5'
-        implementation 'org.bouncycastle:bcprov-jdk15:1.46'
-        implementation 'com.google.android:android:4.1.1.4'
-
-    }
-    ...
-
+}
+...
+```
 如下图所示，根据提示开启 Auto-import 功能：
 
 ![auto-import](https://cdn.authing.cn/blog/20200311012019.png)
