@@ -11,7 +11,7 @@ Github 地址：[https://github.com/Authing/authing-java-sdk](https://github.com
 
 在 IDEA 中新建一个项目
 
-![create-1](https://cdn.authing.cn/blog/20200311011537.png)
+![create-1](https://cdn.authing.cn/blog/20200311011537.png?v=2)
 
 选择 Gradle，在右侧的额外依赖中勾选 Java 和 Kotlin：
 ![创建项目 - 2](https://cdn.authing.cn/blog/20200311013755.png)
@@ -26,7 +26,7 @@ Github 地址：[https://github.com/Authing/authing-java-sdk](https://github.com
 
 进入 IDE，等待 Gradle 构建完毕，打开 build.gradle 文件：
 
-![ide-1](https://cdn.authing.cn/blog/20200311011901.png)
+![ide-1](https://cdn.authing.cn/blog/20200311011901.png?v=2)
 
 在右侧红色箭头处增加以下内容：
 
