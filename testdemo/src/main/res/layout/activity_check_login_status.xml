@@ -9,7 +9,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:hint="必填，token"
+            android:hint="required，token"
             android:id="@+id/editToken"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
