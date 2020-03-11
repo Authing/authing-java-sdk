@@ -12,7 +12,7 @@
             android:id="@+id/editUserId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="用户 ID" />
+            android:hint="user ID" />
 
         <Button
             android:id="@+id/btnRemove"

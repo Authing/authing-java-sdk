@@ -51,13 +51,13 @@
             android:id="@+id/editPsd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="密码，如果登录方式为 unionid，则密码可不填"
+            android:hint="password，if the login method is  unionid，the password is unnecessary"
             android:text="@string/test_psd" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="以下是可选字段" />
+            android:text="the alternative words are as followed" />
 
         <EditText
             android:id="@+id/editOidcAppId"
