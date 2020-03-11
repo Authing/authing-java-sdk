@@ -8,12 +8,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <EditText
-            android:hint="必填，oidc client id"
+            android:hint="required，oidc client id"
             android:id="@+id/editOidcClientId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText
-            android:hint="必填，oidc secret"
+            android:hint="required，oidc secret"
             android:id="@+id/editOidcSecret"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -60,7 +60,7 @@
             android:id="@+id/editPsd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="密码，如果登录方式为 unionid，则密码可不填"
+            android:hint="password，if the login method is  unionid，the password is unnecessary"
             android:text="@string/test_psd" />
 
         <Button
