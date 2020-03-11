@@ -5,6 +5,8 @@ JDK 版本 1.8
 
 Github 地址：[https://github.com/Authing/authing-java-sdk](https://github.com/Authing/authing-java-sdk)
 
+JCenter 地址: [https://bintray.com/authing/AuthingSDK/Java](https://bintray.com/authing/AuthingSDK/Java)
+
 # 安装
 
 ## 创建项目

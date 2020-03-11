@@ -4,6 +4,8 @@ JDK version 1.8
 
 Github address: [https://github.com/Authing/authing-java-sdk](https://github.com/Authing/authing-java-sdk)
 
+JCenter: [https://bintray.com/authing/AuthingSDK/Java](https://bintray.com/authing/AuthingSDK/Java)
+
 # Installation
 
 ## Create project
