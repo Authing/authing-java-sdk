@@ -9,3 +9,4 @@ public class UserListResult {
     private int totalCount;
     private List<UserInfoResult> list;
 }
+ 
