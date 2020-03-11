@@ -6,13 +6,13 @@ import cn.authing.core.result.RefreshOidcTokenResult;
 public class TestRefreshOidcToken {
     public static void main(String[] args) throws Exception {
         InitParam param = new InitParam.Builder("5e607c6bb921fa4df738785f").secret("35023039bb82da7edca0d8db7646e2f3").build();
-        // 初始化，全局只需要初始化一次
+        // Initialization, only need to be initialized once in the global scope
         Authing.init(param);
 
-        // 刷新 OidcToken 的参数
+        // Refresh parameter for  OidcToken
         RefreshOidcTokenParam p = new RefreshOidcTokenParam.Builder("oidcClientId", "oidcSecret","refresh token")
                 .build();
-        // 调用，并获取结果。
+        // Call and get the result.
         RefreshOidcTokenResult result = Authing.getUserService().refreshOidcToken(p).execute();
         System.out.println(result.getAccessToken());
     }

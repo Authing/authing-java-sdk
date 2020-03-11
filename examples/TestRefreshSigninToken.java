@@ -5,27 +5,27 @@ import cn.authing.core.param.SigninParam;
 import cn.authing.core.result.RefreshSigninTokenResult;
 import cn.authing.core.result.SigninResult;
 
-/*通过*/
+/*pass*/
 public class TestRefreshSigninToken {
     public static void main(String[] args) throws Exception {
-        InitParam param = new InitParam.Builder("5e607c6bb921fa4df738785f").secret("35023039bb82da7edca0d8db7646e2f3").build();
-        // 初始化，全局只需要初始化一次
+        InitParam param = new InitParam.Builder("5e607c6bb921fa4df738785f").secret("35023039bb82da7edca0d8db7646e2f3").build(); 
+        // Initialization, only need to be initialized once in the global scope
         Authing.init(param);
-        // 登录的参数
+        // Login parameters
         SigninParam p = new SigninParam.Builder()
-                // 这四个 init 方法，只用调用一个，多次 init，只有第一次会生效
+                // These four initialization methods only need to call one, multiple initialization, only the first time will take effect
                 .initWithEmail("123456@qq.com", "123456")
-                // .initWithPhone("电话","密码")
-                // .initWithUsername("用户名","密码")
+                // .initWithPhone("telephone number","password")
+                // .initWithUsername("username","password")
                 // .initWithUnionId("unionId")
                 .build();
-        // 调用，并获取结果。
+        // Call and get the result.
         SigninResult result = Authing.getUserService().signIn(p).execute();
-        // 获取用户列表的参数
+        // Get the parameters of the user list
         RefreshSigninTokenParam p1 = new RefreshSigninTokenParam.Builder(result.getRefreshToken())
                 .oidcAppId("") // 可选参数
                 .build();
-        // 调用，并获取结果。
+        // Call and get the result.
         RefreshSigninTokenResult result1 = Authing.getUserService().refreshSignInToken(p1).execute();
         System.out.println(result1.getAccessToken());
     }
