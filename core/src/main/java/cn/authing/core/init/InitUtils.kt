@@ -3,6 +3,7 @@ package cn.authing.core.init
 import cn.authing.core.business.AuthingResponse
 import cn.authing.core.business.HttpHelper
 import cn.authing.core.business.ImportantParam
+import cn.authing.core.business.Platform
 import cn.authing.core.http.Callback
 import cn.authing.core.param.InitParam
 import cn.authing.core.result.ErrorInfo
@@ -22,24 +23,42 @@ internal fun init(helper: HttpHelper, param: InitParam) {
         AuthingUtils.URL_USER = param.userHost
     }
     // initialize authing
-    helper.createAuthingCall(
+    val createAuthingCall = helper.createAuthingCall(
             AuthingUtils.URL_USER,
             object : TypeToken<AuthingResponse<InitResult>>() {},
             param
-    ).enqueue(object : Callback<InitResult> {
-        override fun onFailure(error: ErrorInfo?) {
-            println("Authing init fail, code-${error?.code}, msg-${error?.message}")
-        }
-
-        override fun onSuccess(result: InitResult?) {
-            if (hasInit || result?.accessToken == null) {
-                return
+    )
+    if (Platform.Android::javaClass == Platform.platform.javaClass) {
+        createAuthingCall.enqueue(object : Callback<InitResult> {
+            override fun onFailure(error: ErrorInfo?) {
+                onFailureCallback(error)
             }
-            ImportantParam.ownerToken = result.accessToken
-            println("Authing init success, accessToken=${result.accessToken}")
-            hasInit = true
+
+            override fun onSuccess(result: InitResult?) {
+                onSuccessCallback(result)
+            }
+        })
+    } else {
+        val result = createAuthingCall.execute()
+        if (result == null) {
+            onFailureCallback(null)
+        } else {
+            onSuccessCallback(result)
         }
-    })
+    }
+}
+
+private fun onSuccessCallback(result: InitResult?) {
+    if (hasInit || result?.accessToken == null) {
+        return
+    }
+    ImportantParam.ownerToken = result.accessToken
+    println("Authing init success, accessToken=${result.accessToken}")
+    hasInit = true
+}
+
+private fun onFailureCallback(error: ErrorInfo?) {
+    println("Authing init fail, code-${error?.code}, msg-${error?.message}")
 }
 
 internal fun destroy() {
