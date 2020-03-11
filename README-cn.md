@@ -41,12 +41,10 @@ repositories {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    implementation "cn.authing:java-core:1.0.0"
+    implementation "cn.authing:java-core:1.0.1"
     implementation 'com.squareup.okhttp3:okhttp:3.14.2'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'org.bouncycastle:bcprov-jdk15:1.46'
-    implementation 'com.google.android:android:4.1.1.4'
-
 }
 ...
 ```
