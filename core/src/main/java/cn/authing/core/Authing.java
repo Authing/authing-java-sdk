@@ -33,11 +33,11 @@ public class Authing {
         if (InitUtilsKt.getHasInit()) {
             return;
         }
-        // 初始化网络
+        // Initialize network
         HttpHelper helper = new HttpHelper();
-        // 初始化 Authing
+        // Initialize Authing
         InitUtilsKt.init(helper, param);
-        // 初始化 service
+        // Initialize service
         initService(helper);
     }
 
