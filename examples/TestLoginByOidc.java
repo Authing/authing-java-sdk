@@ -6,18 +6,18 @@ import cn.authing.core.result.SigninResult;
 public class TestLoginByOidc {
     public static void main(String[] args) throws Exception {
         InitParam param = new InitParam.Builder("5e607c6bb921fa4df738785f").secret("35023039bb82da7edca0d8db7646e2f3").build();
-        // 初始化，全局只需要初始化一次
+        // Initialization, only need to be initialized once in the global scope
         Authing.init(param);
 
-        // oidc 登录的参数
+        // Parameters for oidc login
         LoginByOidcParam p = new LoginByOidcParam.Builder("oidcClientId", "oidcSecret")
-                // 这四个 init 方法，只用调用一个，多次 init，只有第一次会生效
-                .initWithEmail("邮箱","密码")
-                // .initWithPhone("电话","密码")
-                // .initWithUsername("用户名","密码")
+                // These four initialization methods only need to call one, multiple initialization, only the first time will take effect
+                .initWithEmail("email","password")
+                // .initWithPhone("telephone number","password")
+                // .initWithUsername("username","password")
                 // .initWithUnionId("unionId")
                 .build();
-        // 调用，并获取结果。
+        // Call and get the result.
         SigninResult result = Authing.getUserService().loginByOidc(p).execute();
         System.out.println(result.getAccessToken());
     }
