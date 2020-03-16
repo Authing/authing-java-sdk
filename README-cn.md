@@ -246,7 +246,7 @@ public class RegisterUserAsync {
 
 # 错误处理
 
-同步调用不会返回错误，所以推荐使用异步调用。 在 `onFailure` 中会返回错误，你可以通过 `error.getCode()` 获取错误代码。了解更多报错的详情，请查看错误代码列表。
+同步调用不会返回错误，所以推荐使用异步调用。 在 `onFailure` 中会返回错误，你可以通过 `error.getCode()` 获取错误代码。了解更多报错的详情，请查看[错误代码列表](https://github.com/Authing/authing-java-sdk/blob/master/README-cn.md#%E9%94%99%E8%AF%AF%E4%BB%A3%E7%A0%81)。
 
 # 用户服务
 

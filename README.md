@@ -247,7 +247,7 @@ public class RegisterUserAsync {
 
 # Error handling
 
-Synchronous calls do not return errors, so asynchronous calls are recommended. An error is returned in `onFailure`, you can get the error code by`error.getCode()`. For more details on error reporting, please see the list of error codes.
+Synchronous calls do not return errors, so asynchronous calls are recommended. An error is returned in `onFailure`, you can get the error code by`error.getCode()`. For more details on error reporting, please see the [list of error codes](https://github.com/Authing/authing-java-sdk/blob/master/README.md#error-code).
 
 # User service
 
