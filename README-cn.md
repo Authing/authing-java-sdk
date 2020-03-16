@@ -45,6 +45,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.14.2'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'org.bouncycastle:bcprov-jdk15:1.46'
+    implementation 'com.google.android:android:4.1.1.4'
 }
 ...
 ```
