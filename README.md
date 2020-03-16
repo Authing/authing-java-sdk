@@ -1042,7 +1042,7 @@ public class RemoveUser {
 
 # Demo
 
-example：[https://github.com/Authing/authing-java-sdk/tree/master/testdemo](https://github.com/Authing/authing-java-sdk/tree/master/testdemo)
+example：[https://github.com/Authing/authing-java-sdk/tree/master/examples](https://github.com/Authing/authing-java-sdk/tree/master/examples)
 
 # Error code
 
