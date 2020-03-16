@@ -10,7 +10,7 @@ import java.util.List;
 public class ReadSocialLoginListOfUserPool {
     public static void main(String[] args) throws IOException {
         InitParam param = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
-        // 初始化，全局只需要初始化一次
+        // Initialization, only need to be initialized once in the global scope
         Authing.init(param);
         OAuthService oauthService = Authing.getOAuthService();
         ReadOAuthListParam readOauthListParam = new ReadOAuthListParam.Builder().build();
