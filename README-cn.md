@@ -13,22 +13,22 @@ JCenter 地址: [https://bintray.com/authing/AuthingSDK/Java](https://bintray.co
 
 在 IDEA 中新建一个项目
 
-![create-1](https://cdn.authing.cn/blog/20200311011537.png?v=2)
+![create-1](./static/create-1.png)
 
 选择 Gradle，在右侧的额外依赖中勾选 Java 和 Kotlin：
-![创建项目 - 2](https://cdn.authing.cn/blog/20200311013755.png)
+![create-2](./static/create-2.png)
 
 填写其他信息：
 
-![create-3](https://cdn.authing.cn/blog/20200311011746.png)
+![create-3](./static/create-3.png)
 
-![create-4](https://cdn.authing.cn/blog/20200311011811.png)
+![create-4](./static/create-4.png)
 
 ## 添加依赖
 
 进入 IDE，等待 Gradle 构建完毕，打开 build.gradle 文件：
 
-![ide-1](https://cdn.authing.cn/blog/20200311011901.png?v=2)
+![ide](./static/ide.png)
 
 在右侧红色箭头处增加以下内容：
 ```
@@ -51,17 +51,17 @@ dependencies {
 ```
 如下图所示，根据提示开启 Auto-import 功能：
 
-![auto-import](https://cdn.authing.cn/blog/20200311012019.png)
+![auto-import](./static/auto-import.png)
 
 ## 开始使用
 
 在 java 文件夹下创建一个 Class，命名为 Demo。
 
-![create-class](https://cdn.authing.cn/blog/20200311012211.png)
+![create-class](./static/create-class.png)
 
 在类的 main 函数中，引入 Authing 开始使用
 
-![import-authing](https://cdn.authing.cn/blog/20200311013959.png)
+![import-authing](./static/import-authing.png)
 
 > Android 注意
 > 如果用于 Android 开发，需要在 AndroidManifest 文件中加入 INTERNET 权限。
@@ -1044,11 +1044,11 @@ public class RemoveUser {
 
 错误代码消息格式如下：
 
-```javascript
+```json
 {
-    message: '系统繁忙，请稍后再试',
-    code: 1000,
-    data: null
+    "message": "系统繁忙，请稍后再试",
+    "code": 1000,
+    "data": null
 }
 ```
 
