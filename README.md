@@ -395,7 +395,7 @@ public class loginByLDAP {
         Authing.init(init);
         UserService userService = Authing.getUserService();
         LoginByLADPParam loginByLDAPParam = new LoginByLADPParam.Builder("13812341234", "123456").Build();
-        LoginResult loginResult = userService.loginByLDAPloginByLDAPParam).execute();
+        LoginResult loginResult = userService.loginByLDAP(loginByLDAPParam).execute();
         System.out.println(loginResult.getId());
     }
 }
@@ -846,7 +846,7 @@ Example:
         public static void main(String [] args) throws IOException {
             VerifyService verifyService = Authing.getVerifyService();
             SendVerifyEmailParam sendVerifyEmailParam = new SendVerifyEmailParam.Builder("test@test.com").Build();
-            Result result = verifyService.sendVerifyEmailsendVerifyEmailParam).execute();
+            Result result = verifyService.sendVerifyEmail(sendVerifyEmailParam).execute();
             System.out.println(result.getCode());
         }
     }
@@ -1048,11 +1048,11 @@ example：[https://github.com/Authing/authing-java-sdk/tree/master/examples](htt
 
 The format of the error code response is as follows:
 
-```javascript
+```json
     {
-        message: 'System is busy, please try again later',
-        code: 1000,
-        data: null
+        "message": "System is busy, please try again later",
+        "code": 1000,
+        "data": null
     }
 ```
 
