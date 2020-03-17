@@ -12,22 +12,22 @@ JCenter: [https://bintray.com/authing/AuthingSDK/Java](https://bintray.com/authi
 
 Create a new project in IDEA
 
-![create-1](https://cdn.authing.cn/blog/20200311011537.png?v=2)
+![create-1](./static/create-1.png)
 
 Select Gradle and check Java and Kotlin in the extra dependencies on the right:
-![Create Project-2](https://cdn.authing.cn/blog/20200311013755.png)
+![create-2](./static/create-2.png)
 
 Fill in other information:
 
-![create-3](https://cdn.authing.cn/blog/20200311011746.png?v=2)
+![create-3](./static/create-3.png)
 
-![create-4](https://cdn.authing.cn/blog/20200311011811.png)
+![create-4](./static/create-4.png)
 
 ## Adding dependencies
 
 Enter the IDE and wait for Gradle to finish building. Open the build.gradle file:
 
-![ide-1](https://cdn.authing.cn/blog/20200311011901.png?v=2)
+![ide](./static/ide.png)
 
 Add the following to the red arrow on the right:
 
@@ -52,17 +52,17 @@ dependencies {
 
 As shown in the figure below, follow the prompts to enable the Auto-import feature:
 
-![auto-import](https://cdn.authing.cn/blog/20200311012019.png)
+![auto-import](./static/auto-import.png)
 
 ## Start using
 
 Create a Class under the java folder and name it Demo.
 
-![create-class](https://cdn.authing.cn/blog/20200311012211.png)
+![create-class](./static/create-class.png)
 
 In the main function of the class, import Authing and start using Authing
 
-![import-authing](https://cdn.authing.cn/blog/20200311013959.png)
+![import-authing](./static/import-authing.png)
 
 > Android Note
 > For Android development, you need to add the INTERNET permission to the AndroidManifest file.
