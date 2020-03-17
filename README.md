@@ -1049,11 +1049,11 @@ example：[https://github.com/Authing/authing-java-sdk/tree/master/examples](htt
 The format of the error code response is as follows:
 
 ```json
-    {
-        "message": "System is busy, please try again later",
-        "code": 1000,
-        "data": null
-    }
+{
+    "message": "System is busy, please try again later",
+    "code": 1000,
+    "data": null
+}
 ```
 
 | ErrCode | Description |
