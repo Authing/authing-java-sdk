@@ -10,7 +10,7 @@ publish {
 
     groupId = 'cn.authing'
     artifactId = 'java-core'
-    publishVersion = '1.0.1'
+    publishVersion = '1.0.2'
     desc = 'A leading identity authentication service platform'
     website = 'https://authing.cn/'
 }
