@@ -24,5 +24,5 @@ dependencies {
     api 'com.google.code.gson:gson:2.8.5'
     implementation 'org.bouncycastle:bcprov-jdk15:1.46'
     compileOnly 'com.google.android:android:4.1.1.4'
-    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
 }

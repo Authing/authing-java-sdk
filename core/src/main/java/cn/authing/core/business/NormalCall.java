@@ -1,13 +1,13 @@
 package cn.authing.core.business;
 
-import androidx.annotation.GuardedBy;
 
 import com.google.gson.TypeAdapter;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.io.IOException;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.concurrent.GuardedBy;
 
 import cn.authing.core.http.Call;
 import cn.authing.core.http.Callback;
@@ -62,7 +62,7 @@ class NormalCall<ResultType> implements Call<ResultType> {
     }
 
     @Override
-    public void enqueue(@NotNull final Callback<ResultType> callback) {
+    public void enqueue(@Nonnull final Callback<ResultType> callback) {
         okhttp3.Call call;
         Throwable failure;
 

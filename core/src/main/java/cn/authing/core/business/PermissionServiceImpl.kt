@@ -1,6 +1,5 @@
 package cn.authing.core.business
 
-import androidx.annotation.NonNull
 import cn.authing.core.http.Call
 import cn.authing.core.param.*
 import cn.authing.core.result.ReadPermissionsResult
@@ -12,7 +11,7 @@ import com.google.gson.reflect.TypeToken
 
 internal class PermissionServiceImpl(private val helper: HttpHelper) : PermissionService {
 
-    override fun readRoles(@NonNull param: ReadRolesParam): Call<ReadRolesResult> {
+    override fun readRoles(param: ReadRolesParam): Call<ReadRolesResult> {
         return helper.createAuthingCall(
                 AuthingUtils.URL_USER,
                 object : TypeToken<AuthingResponse<ReadRolesResult>>() {},
@@ -21,7 +20,7 @@ internal class PermissionServiceImpl(private val helper: HttpHelper) : Permissio
         )
     }
 
-    override fun readPermissions(@NonNull param: ReadPermissionsParam): Call<ReadPermissionsResult> {
+    override fun readPermissions(param: ReadPermissionsParam): Call<ReadPermissionsResult> {
         return helper.createAuthingCall(
                 AuthingUtils.URL_USER,
                 object : TypeToken<AuthingResponse<ReadPermissionsResult>>() {},
@@ -30,7 +29,7 @@ internal class PermissionServiceImpl(private val helper: HttpHelper) : Permissio
         )
     }
 
-    override fun createRole(@NonNull param: CreateRoleParam): Call<RoleInfoResult> {
+    override fun createRole(param: CreateRoleParam): Call<RoleInfoResult> {
         return helper.createAuthingCall(
                 AuthingUtils.URL_USER,
                 object : TypeToken<AuthingResponse<RoleInfoResult>>() {},
@@ -39,7 +38,7 @@ internal class PermissionServiceImpl(private val helper: HttpHelper) : Permissio
         )
     }
 
-    override fun updateRoleInfo(@NonNull param: UpdateRoleParam): Call<RoleInfoResult> {
+    override fun updateRoleInfo(param: UpdateRoleParam): Call<RoleInfoResult> {
         return helper.createAuthingCall(
                 AuthingUtils.URL_USER,
                 object : TypeToken<AuthingResponse<RoleInfoResult>>() {},
@@ -48,7 +47,7 @@ internal class PermissionServiceImpl(private val helper: HttpHelper) : Permissio
         )
     }
 
-    override fun assiginRoleToUser(@NonNull param: AssignRoleToUserParam): Call<ReadRolesResult> {
+    override fun assiginRoleToUser(param: AssignRoleToUserParam): Call<ReadRolesResult> {
         return helper.createAuthingCall(
                 AuthingUtils.URL_USER,
                 object : TypeToken<AuthingResponse<ReadRolesResult>>() {},
@@ -57,7 +56,7 @@ internal class PermissionServiceImpl(private val helper: HttpHelper) : Permissio
         )
     }
 
-    override fun removeUserFromRole(@NonNull param: RemoveUserFromRoleParam): Call<Any> {
+    override fun removeUserFromRole(param: RemoveUserFromRoleParam): Call<Any> {
         return helper.createAuthingCall(
                 AuthingUtils.URL_USER,
                 object : TypeToken<AuthingResponse<Any>>() {},
