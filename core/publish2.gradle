@@ -1,0 +1,79 @@
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven-publish'
+
+def binApiKey = 'it is a secret'
+def binUser = "authing"
+def versionCode = '1.1.0'
+def pomConfig = {
+    licenses {
+        license {
+            name "The Apache Software License, Version 2.0"
+            url "http://www.apache.org/licenses/LICENSE-2.0.txt"
+            distribution "repo"
+        }
+    }
+    developers {
+        developer {
+            name "HowieWang"
+            email "howiewh@163.com"
+        }
+    }
+
+    scm {
+        url "https://github.com/Authing/authing-java-sdk"
+    }
+}
+
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+publishing {
+    publications {
+        MyPublication(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+            groupId 'cn.authing'
+            artifactId 'java-core'
+            version versionCode
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('description', 'A leading identity authentication service platform')
+                root.appendNode('name', 'AuthingSDK')
+                root.appendNode('url', 'https://authing.cn/')
+                root.children().last() + pomConfig
+            }
+        }
+    }
+}
+
+bintray {
+    user = binUser
+    key = binApiKey
+    publications = ['MyPublication']
+    pkg {
+        repo = 'AuthingSDK'
+        name = 'Java'
+        userOrg = binUser
+        licenses = ['Apache-2.0']
+        version {
+            name = versionCode
+            mavenCentralSync {
+                sync = true //[Default: true] Determines whether to sync the version to Maven Central.
+                user = 'xieyang' //OSS user token: mandatory
+                password = 'it is a secret' //OSS user password: mandatory
+                close = '1' //Optional property. By default the staging repository is closed and artifacts are released to Maven Central. You can optionally turn this behaviour off (by puting 0 as value) and release the version manually.
+            }
+        }
+        websiteUrl = 'https://authing.cn/'
+        desc = 'A leading identity authentication service platform'
+    }
+}
