@@ -7,6 +7,7 @@ public class RegisterParam extends AuthingParam<RegisterParam.Param> {
 
     public static class Builder {
         private String email;
+        private String phone;
         private String password;
         private String unionId;
         private String oauth;
@@ -24,6 +25,11 @@ public class RegisterParam extends AuthingParam<RegisterParam.Param> {
 
         public Builder(String unionId) {
             this.unionId = unionId;
+        }
+
+        public Builder phone(String phone) {
+            this.phone = phone;
+            return this;
         }
 
         public Builder nickname(String nickname) {
@@ -64,6 +70,7 @@ public class RegisterParam extends AuthingParam<RegisterParam.Param> {
     }
 
     static class Param {
+        private String phone;
         private String email;
         private String password;
         private String unionid;
@@ -80,6 +87,7 @@ public class RegisterParam extends AuthingParam<RegisterParam.Param> {
         super(GRAPHQL);
         Param p = new Param();
         p.email = builder.email;
+        p.phone = builder.phone;
         p.password = builder.password;
         p.unionid = builder.unionId;
         p.oauth = builder.oauth;
@@ -104,11 +112,13 @@ public class RegisterParam extends AuthingParam<RegisterParam.Param> {
                     "    $username: String,\n" +
                     "    $nickname: String,\n" +
                     "    $registerMethod: String,\n" +
+                    "    $phone: String,\n" +
                     "    $photo: String\n" +
                     ") {\n" +
                     "    register(userInfo: {\n" +
                     "        unionid: $unionid,\n" +
                     "        email: $email,\n" +
+                    "        phone: $phone,\n" +
                     "        password: $password,\n" +
                     "        lastIP: $lastIP,\n" +
                     "        forceLogin: $forceLogin,\n" +

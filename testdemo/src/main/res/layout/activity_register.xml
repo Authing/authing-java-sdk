@@ -23,22 +23,22 @@
             android:text="@string/test_psd" />
 
         <EditText
+            android:id="@+id/editPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="phonenumber" />
+
+        <EditText
             android:id="@+id/editNickname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="nickname" />
-
-        <Button
-            android:id="@+id/btnOld"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="old" />
+            android:hint="昵称" />
 
         <Button
             android:id="@+id/btnNew"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="new" />
+            android:text="register" />
 
         <TextView
             android:id="@+id/txtResult"

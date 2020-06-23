@@ -28,9 +28,11 @@ class RegisterActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             val nickname = editNickname.text.toString().takeIf { it.isNotBlank() }
+            val phone = editPhone.text.toString().takeIf { it.isNotBlank() }
             Authing.getUserService().register(
                     RegisterParam.Builder(email, psd)
                             .nickname(nickname)
+                            .phone(phone)
                             .build()
             ).enqueue(ResourceUtils.createCallback(txtResult, gson) {})
         }
