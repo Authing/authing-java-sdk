@@ -3,7 +3,7 @@ apply plugin: 'maven-publish'
 
 def binApiKey = 'it is a secret'
 def binUser = "authing"
-def versionCode = '1.1.0'
+def versionCode = '1.2.0'
 def pomConfig = {
     licenses {
         license {
