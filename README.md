@@ -413,11 +413,6 @@ userService.loginByOidc(params)
   - params.username, optional, phone / email / username / unionid mutually exclusive
   - params.unionid, optional, phone / email / username / unionid mutually exclusive
   - params.password, required if unionid is missing, not required when logging in with unionid
-  - params.phone {String}, optional, phone / email / username / unionid mutually exclusive
-  - params.email, optional, phone / email / username / unionid mutually exclusive
-  - params.username, optional, phone / email / username / unionid mutually exclusive
-  - params.unionid, optional, phone / email / username / unionid mutually exclusive
-  - params.password, required if unionid is missing, not required when logging in with unionid
 
 Example:
 

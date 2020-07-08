@@ -406,16 +406,11 @@ userService.loginByOidc(params)
 - params {Object}
   - params.client_id {String}，必填，OIDC 应用 ID
   - params.client_secret {String}，必填，OIDC 应用密钥
-  - params.phone {String}，选填，phone/email/username/unionid 互斥
-  - params.email，选填，phone/email/username/unionid 互斥
   - params.username，选填，phone/email/username/unionid 互斥
   - params.unionid，选填，phone/email/username/unionid 互斥
   - params.password，unionid 未填时必填，使用 unionid 登录时不填
   - params.phone {String}，选填，phone/email/username/unionid 互斥
   - params.email，选填，phone/email/username/unionid 互斥
-  - params.username，选填，phone/email/username/unionid 互斥
-  - params.unionid，选填，phone/email/username/unionid 互斥
-  - params.password，unionid 未填时必填，使用 unionid 登录时不填
 
 示例：
 
