@@ -13,6 +13,7 @@ import cn.authing.core.http.Call;
 import cn.authing.core.http.Callback;
 import cn.authing.core.result.ErrorInfo;
 import okhttp3.Request;
+import okhttp3.Response;
 
 class NormalCall<ResultType> implements Call<ResultType> {
     private final Request request;
@@ -148,7 +149,8 @@ class NormalCall<ResultType> implements Call<ResultType> {
             call.cancel();
         }
 
-        return parseResponse(call.execute());
+        Response response = call.execute();
+        return response.isSuccessful() ? parseResponse(response) : null;
     }
 
     private okhttp3.Call createRawCall() throws IOException {
