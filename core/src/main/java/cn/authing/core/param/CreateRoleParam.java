@@ -36,13 +36,13 @@ public class CreateRoleParam extends AuthingParam<CreateRoleParam.Param> {
     }
 
     private static final String GRAPHQL = "mutation CreateRole(\n" +
-            "          $name: String!\n" +
-            "          $client: String!\n" +
+            "          $name: String!,\n" +
+            "          $client: String!,\n" +
             "          $descriptions: String\n" +
             "        ) {\n" +
             "          createRole(\n" +
-            "            name: $name\n" +
-            "            client: $client\n" +
+            "            name: $name,\n" +
+            "            client: $client,\n" +
             "            descriptions: $descriptions\n" +
             "          ) {\n" +
             "            _id,\n" +
