@@ -8,7 +8,7 @@ public class LoginByOidcParam {
     public static class Builder {
         private String clientId;
         private String secret;
-        private String scope = "openid profile email phone";
+        private String scope = "openid profile email phone offline_access";
         private String grantType = "password";
         private String email;
         private String phone;
@@ -59,6 +59,11 @@ public class LoginByOidcParam {
             this.username = username;
             this.psd = psd;
             initFlag = 4;
+            return this;
+        }
+
+        public Builder scope(String scope) {
+            this.scope = scope;
             return this;
         }
 
