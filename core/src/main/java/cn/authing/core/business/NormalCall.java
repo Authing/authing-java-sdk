@@ -96,7 +96,13 @@ class NormalCall<ResultType> implements Call<ResultType> {
             @Override
             public void onResponse(okhttp3.Call call, okhttp3.Response rawResponse) {
                 if (!rawResponse.isSuccessful()) {
-                    callback.onFailure(ErrorInfo.generate(rawResponse.code(), rawResponse.message()));
+                    String errMsg = null;
+                    try {
+                        errMsg = rawResponse.body().string();
+                    } catch (IOException e) {
+                        errMsg = rawResponse.message();
+                    }
+                    callback.onFailure(ErrorInfo.generate(rawResponse.code(), errMsg));
                 } else {
                     callback.onSuccess(parseResponse(rawResponse));
                 }
