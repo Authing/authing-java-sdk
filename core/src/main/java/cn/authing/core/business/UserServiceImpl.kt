@@ -110,7 +110,6 @@ internal class UserServiceImpl(private val helper: HttpHelper) : cn.authing.core
     override fun loginByOidc(param: LoginByOidcParam): Call<SigninResult> {
         return helper.createLoginByOidcCall(
                 URL_CORE,
-                SigninResult::class.java,
                 param.params
         )
     }

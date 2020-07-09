@@ -64,4 +64,32 @@ public class SigninResult implements ITokenResult {
     String email;
     String token;
     String scope;
-} 
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
+    public void setIdToken(String idToken) {
+        this.idToken = idToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
+    public void setExpiresIn(int expiresIn) {
+        this.expiresIn = expiresIn;
+    }
+
+    public void setTokenType(String tokenType) {
+        this.tokenType = tokenType;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+}
