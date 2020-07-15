@@ -23,9 +23,7 @@ public class LoginByPhoneParam extends AuthingParam<LoginByPhoneParam.Param> {
 
         public LoginByPhoneParam build() {
             this.clientId = ImportantParam.INSTANCE.getClientId();
-            if (psd != null && psd.length() > 0) {
-                this.psd = AuthingUtils.INSTANCE.encrypt(psd);
-            }
+            this.psd = AuthingUtils.INSTANCE.encrypt(psd);
             return new LoginByPhoneParam(this);
         }
     }

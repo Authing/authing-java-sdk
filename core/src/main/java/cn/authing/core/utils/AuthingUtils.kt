@@ -21,7 +21,10 @@ internal object AuthingUtils {
             "+TiA2BKHbCvloW3w5Lnqm70iSsUi5Fmu9/2+68GZRH9L7Mlh8cFksCicW2Y2W2uM" +
             "GKl64GDcIq3au+aqJQIDAQAB"
 
-    fun encrypt(msg: String): String? {
+    fun encrypt(msg: String?): String? {
+        if (msg == null) {
+            return null
+        }
         val provider = "BC"
         Security.addProvider(BouncyCastleProvider())
         var result: String? = null
