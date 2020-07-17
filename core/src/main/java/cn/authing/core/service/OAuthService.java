@@ -1,8 +1,8 @@
 package cn.authing.core.service;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import cn.authing.core.http.Call;
 import cn.authing.core.param.BindThirdPartyOAuthParam;
@@ -17,13 +17,13 @@ import cn.authing.core.result.UserInfoResult;
 import cn.authing.core.result.UserOAuthData;
 
 public interface OAuthService {
-    Call<List<OAuthData>> readOAuthList(@NotNull ReadOAuthListParam param);
+    Call<List<OAuthData>> readOAuthList(@Nonnull ReadOAuthListParam param);
 
-    Call<List<UserOAuthData>> readUserOAuthList(@NotNull ReadUserOAuthListParam param);
+    Call<List<UserOAuthData>> readUserOAuthList(@Nonnull ReadUserOAuthListParam param);
 
-    Call<UserInfoResult> unbindEmail(@NotNull UnbindEmailParam param);
+    Call<UserInfoResult> unbindEmail(@Nonnull UnbindEmailParam param);
 
-    Call<BindThirdPartyOAuthResult> bindThirdPartyOAuth(@NotNull BindThirdPartyOAuthParam param);
+    Call<BindThirdPartyOAuthResult> bindThirdPartyOAuth(@Nonnull BindThirdPartyOAuthParam param);
 
-    Call<UnbindThirdPartyOAuthResult> unbindThirdPartyOAuth(@NotNull UnbindThirdPartyOAuthParam param);
+    Call<UnbindThirdPartyOAuthResult> unbindThirdPartyOAuth(@Nonnull UnbindThirdPartyOAuthParam param);
 }

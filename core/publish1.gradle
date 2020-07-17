@@ -1,0 +1,14 @@
+apply plugin: 'com.novoda.bintray-release'
+
+// ./gradlew :core:clean :core:build :core:bintrayUpload -PbintrayUser=authing -PbintrayKey= -PdryRun=false
+publish {
+    userOrg = 'authing'
+    repoName = 'AuthingSDK'
+    uploadName = 'Java' // package name, if not set, use artifactId
+
+    groupId = 'cn.authing'
+    artifactId = 'java-core'
+    publishVersion = '1.0.2'
+    desc = 'A leading identity authentication service platform'
+    website = 'https://authing.cn/'
+}

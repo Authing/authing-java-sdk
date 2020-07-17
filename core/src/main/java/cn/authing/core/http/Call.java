@@ -9,8 +9,6 @@ import okhttp3.Request;
 
 /**
  * copy from retrofit2
- *
- * @param <T>
  */
 public interface Call<T> {
 

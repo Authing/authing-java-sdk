@@ -13,6 +13,8 @@ import kotlinx.android.synthetic.main.activity_login_phone.*
 
 class LoginPhoneActivity : AppCompatActivity() {
 
+    private var isPsdLogin = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_phone)
@@ -24,6 +26,7 @@ class LoginPhoneActivity : AppCompatActivity() {
                 txtResult.append("phone number is invalid")
                 return@setOnClickListener
             }
+            isPsdLogin = false
             Authing.getVerifyService().sendPhoneVerifyCode(phone)
                     .enqueue(ResourceUtils.createCallback(txtResult, gson) {})
         }
@@ -39,16 +42,13 @@ class LoginPhoneActivity : AppCompatActivity() {
                 txtResult.append("code can not be empty")
                 return@setOnClickListener
             }
+            val builder = if (isPsdLogin) LoginByPhoneParam.Builder(phone, code) else LoginByPhoneParam.Builder(phone, Integer.parseInt(code))
             Authing.getUserService().loginByPhone(
-                    LoginByPhoneParam.Builder(phone, Integer.parseInt(code))
-                            .build()
+                    builder.build()
             ).enqueue(ResourceUtils.createCallback(txtResult, gson) {
                 userToken = it?.token
                 userId = it?.id
             })
-        }
-
-        btnOld.setOnClickListener {
         }
     }
 }

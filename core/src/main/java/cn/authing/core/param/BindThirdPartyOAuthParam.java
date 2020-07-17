@@ -1,7 +1,6 @@
 package cn.authing.core.param;
 
 import cn.authing.core.business.ImportantParam;
-import cn.authing.core.utils.ThirdPartyType;
 
 public class BindThirdPartyOAuthParam extends AuthingParam<BindThirdPartyOAuthParam.Param> {
 
@@ -12,7 +11,7 @@ public class BindThirdPartyOAuthParam extends AuthingParam<BindThirdPartyOAuthPa
         private String unionid;
         private String userInfo;
 
-        public Builder(@ThirdPartyType String type, String unionid, String userInfo) {
+        public Builder(String type, String unionid, String userInfo) {
             this.type = type;
             this.unionid = unionid;
             this.userInfo = userInfo;

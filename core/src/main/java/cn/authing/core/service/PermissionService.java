@@ -1,6 +1,6 @@
 package cn.authing.core.service;
 
-import androidx.annotation.NonNull;
+import javax.annotation.Nonnull;
 
 import cn.authing.core.http.Call;
 import cn.authing.core.param.AssignRoleToUserParam;
@@ -14,15 +14,15 @@ import cn.authing.core.result.ReadRolesResult;
 import cn.authing.core.result.RoleInfoResult;
 
 public interface PermissionService {
-    Call<ReadRolesResult> readRoles(@NonNull ReadRolesParam param);
+    Call<ReadRolesResult> readRoles(@Nonnull ReadRolesParam param);
 
-    Call<ReadPermissionsResult> readPermissions(@NonNull ReadPermissionsParam param);
+    Call<ReadPermissionsResult> readPermissions(@Nonnull ReadPermissionsParam param);
 
-    Call<RoleInfoResult> createRole(@NonNull CreateRoleParam param);
+    Call<RoleInfoResult> createRole(@Nonnull CreateRoleParam param);
 
-    Call<RoleInfoResult> updateRoleInfo(@NonNull UpdateRoleParam param);
+    Call<RoleInfoResult> updateRoleInfo(@Nonnull UpdateRoleParam param);
 
-    Call<ReadRolesResult> assiginRoleToUser(@NonNull AssignRoleToUserParam param);
+    Call<ReadRolesResult> assiginRoleToUser(@Nonnull AssignRoleToUserParam param);
 
-    Call<Object> removeUserFromRole(@NonNull RemoveUserFromRoleParam param);
+    Call<Object> removeUserFromRole(@Nonnull RemoveUserFromRoleParam param);
 }

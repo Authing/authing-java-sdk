@@ -1,6 +1,6 @@
 package cn.authing.core.service;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import cn.authing.core.http.Call;
 import cn.authing.core.param.CheckLoginStatusParam;
@@ -28,35 +28,35 @@ import cn.authing.core.result.UserInfoResult;
 import cn.authing.core.result.UserListResult;
 
 public interface UserService {
-    Call<RegisterResult> register(@NotNull RegisterParam param);
+    Call<RegisterResult> register(@Nonnull RegisterParam param);
 
-    Call<LoginResult> loginByEmail(@NotNull LoginByEmailParam param);
+    Call<LoginResult> loginByEmail(@Nonnull LoginByEmailParam param);
 
-    Call<LoginResult> loginByPhone(@NotNull LoginByPhoneParam param);
+    Call<LoginResult> loginByPhone(@Nonnull LoginByPhoneParam param);
 
-    Call<LoginResult> loginByLDAP(@NotNull LoginByLADPParam param);
+    Call<LoginResult> loginByLDAP(@Nonnull LoginByLADPParam param);
 
-    Call<UserInfoResult> getUserInfo(@NotNull UserInfoParam param);
+    Call<UserInfoResult> getUserInfo(@Nonnull UserInfoParam param);
 
-    Call<UserInfoResult> updateUserInfo(@NotNull UpdateUserInfoParam param);
+    Call<UserInfoResult> updateUserInfo(@Nonnull UpdateUserInfoParam param);
 
-    Call<UserInfoResult> resetPassword(@NotNull ResetPasswordParam param);
+    Call<UserInfoResult> resetPassword(@Nonnull ResetPasswordParam param);
 
-    Call<RefreshTokenResult> refreshToken(@NotNull RefreshTokenParam param);
+    Call<RefreshTokenResult> refreshToken(@Nonnull RefreshTokenParam param);
 
-    Call<RegisterResult> createUser(@NotNull RegisterParam param);
+    Call<RegisterResult> createUser(@Nonnull RegisterParam param);
 
-    Call<UserInfoResult> user(@NotNull UserInfoParam param);
+    Call<UserInfoResult> user(@Nonnull UserInfoParam param);
 
-    Call<UserListResult> list(@NotNull UserListParam param);
+    Call<UserListResult> list(@Nonnull UserListParam param);
 
-    Call<SigninResult> signIn(@NotNull SigninParam param);
+    Call<SigninResult> signIn(@Nonnull SigninParam param);
 
-    Call<RefreshSigninTokenResult> refreshSignInToken(@NotNull RefreshSigninTokenParam param);
+    Call<RefreshSigninTokenResult> refreshSignInToken(@Nonnull RefreshSigninTokenParam param);
 
-    Call<CheckLoginStatusResult> checkLoginStatus(@NotNull CheckLoginStatusParam param);
+    Call<CheckLoginStatusResult> checkLoginStatus(@Nonnull CheckLoginStatusParam param);
 
-    Call<SigninResult> loginByOidc(@NotNull LoginByOidcParam param);
+    Call<SigninResult> loginByOidc(@Nonnull LoginByOidcParam param);
 
-    Call<RefreshOidcTokenResult> refreshOidcToken(@NotNull RefreshOidcTokenParam param);
+    Call<RefreshOidcTokenResult> refreshOidcToken(@Nonnull RefreshOidcTokenParam param);
 }

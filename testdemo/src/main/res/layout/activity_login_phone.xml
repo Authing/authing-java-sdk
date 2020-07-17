@@ -25,20 +25,14 @@
             android:id="@+id/editCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="verification code"
+            android:hint="verification code or password"
             android:text="@string/test_psd" />
-
-        <Button
-            android:id="@+id/btnOld"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="old" />
 
         <Button
             android:id="@+id/btnNew"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="new" />
+            android:text="login" />
 
         <TextView
             android:id="@+id/txtResult"

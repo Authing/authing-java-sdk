@@ -1,8 +1,8 @@
 package cn.authing.core.service;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import cn.authing.core.http.Call;
 import cn.authing.core.param.RemoveUserParam;
@@ -13,9 +13,9 @@ import cn.authing.core.result.UserListResult;
 import cn.authing.core.result.UserPatchResult;
 
 public interface UserManageService {
-    Call<UserPatchResult> getUserInfo(@NotNull UserPatchParam param);
+    Call<UserPatchResult> getUserInfo(@Nonnull UserPatchParam param);
 
-    Call<UserListResult> getUserList(@NotNull UserListParam param);
+    Call<UserListResult> getUserList(@Nonnull UserListParam param);
 
-    Call<List<RemoveUserResult>> removeUser(@NotNull RemoveUserParam param);
+    Call<List<RemoveUserResult>> removeUser(@Nonnull RemoveUserParam param);
 }

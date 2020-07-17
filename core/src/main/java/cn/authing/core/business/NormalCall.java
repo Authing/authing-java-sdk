@@ -1,18 +1,19 @@
 package cn.authing.core.business;
 
-import androidx.annotation.GuardedBy;
 
 import com.google.gson.TypeAdapter;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.io.IOException;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.concurrent.GuardedBy;
 
 import cn.authing.core.http.Call;
 import cn.authing.core.http.Callback;
 import cn.authing.core.result.ErrorInfo;
 import okhttp3.Request;
+import okhttp3.Response;
 
 class NormalCall<ResultType> implements Call<ResultType> {
     private final Request request;
@@ -62,7 +63,7 @@ class NormalCall<ResultType> implements Call<ResultType> {
     }
 
     @Override
-    public void enqueue(@NotNull final Callback<ResultType> callback) {
+    public void enqueue(@Nonnull final Callback<ResultType> callback) {
         okhttp3.Call call;
         Throwable failure;
 
@@ -95,7 +96,13 @@ class NormalCall<ResultType> implements Call<ResultType> {
             @Override
             public void onResponse(okhttp3.Call call, okhttp3.Response rawResponse) {
                 if (!rawResponse.isSuccessful()) {
-                    callback.onFailure(ErrorInfo.generate(rawResponse.code(), rawResponse.message()));
+                    String errMsg = null;
+                    try {
+                        errMsg = rawResponse.body().string();
+                    } catch (IOException e) {
+                        errMsg = rawResponse.message();
+                    }
+                    callback.onFailure(ErrorInfo.generate(rawResponse.code(), errMsg));
                 } else {
                     callback.onSuccess(parseResponse(rawResponse));
                 }
@@ -148,7 +155,8 @@ class NormalCall<ResultType> implements Call<ResultType> {
             call.cancel();
         }
 
-        return parseResponse(call.execute());
+        Response response = call.execute();
+        return response.isSuccessful() ? parseResponse(response) : null;
     }
 
     private okhttp3.Call createRawCall() throws IOException {

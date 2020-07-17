@@ -1,19 +1,5 @@
 apply plugin: 'java-library'
 apply plugin: 'kotlin'
-apply plugin: 'com.novoda.bintray-release'
-
-// ./gradlew :core:clean :core:build :core:bintrayUpload -PbintrayUser=authing -PbintrayKey= -PdryRun=false
-publish {
-    userOrg = 'authing'
-    repoName = 'AuthingSDK'
-    uploadName = 'Java' // package name, if not set, use artifactId
-
-    groupId = 'cn.authing'
-    artifactId = 'java-core'
-    publishVersion = '1.0.0'
-    desc = 'A leading identity authentication service platform'
-    website = 'https://authing.cn/'
-}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -23,6 +9,8 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.14.2'
     api 'com.google.code.gson:gson:2.8.5'
     implementation 'org.bouncycastle:bcprov-jdk15:1.46'
-    implementation 'com.google.android:android:4.1.1.4'
-    implementation 'androidx.annotation:annotation:1.1.0'
+    compileOnly 'com.google.android:android:4.1.1.4'
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
 }
+
+apply from: 'publish2.gradle'

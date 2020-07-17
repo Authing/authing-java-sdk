@@ -1,7 +1,6 @@
 package cn.authing.core.param;
 
 import cn.authing.core.business.ImportantParam;
-import cn.authing.core.utils.ThirdPartyType;
 
 public class UnbindThirdPartyOAuthParam extends AuthingParam<UnbindThirdPartyOAuthParam.Param> {
 
@@ -10,7 +9,7 @@ public class UnbindThirdPartyOAuthParam extends AuthingParam<UnbindThirdPartyOAu
         private String clientId;
         private String type;
 
-        public Builder(@ThirdPartyType String type) {
+        public Builder(String type) {
             this.type = type;
         }
 

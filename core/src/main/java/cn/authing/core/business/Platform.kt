@@ -33,9 +33,9 @@ internal open class Platform {
     }
 
 
-    private class Java8 : Platform()
+    internal class Java8 : Platform()
 
-    private class Android : Platform() {
+    internal class Android : Platform() {
         override fun defaultCallbackExecutor(): Executor {
             return MainThreadExecutor()
         }
