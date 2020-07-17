@@ -47,10 +47,10 @@ public class LoginByPhoneParam extends AuthingParam<LoginByPhoneParam.Param> {
 
     private static final String GRAPHQL =
             "mutation login($unionid: String, $email: String, $phone: String, $password: String, " +
-                "$lastIP: String, $registerInClient: String!, $verifyCode: String, $browser: " +
+                "$lastIP: String, $registerInClient: String!, $phoneCode: Int, $browser: " +
                 "String, $device: String) {\n" +
                 "    login(unionid: $unionid, email: $email, phone: $phone, password: $password, " +
-                "lastIP: $lastIP, registerInClient: $registerInClient, verifyCode: $verifyCode, " +
+                "lastIP: $lastIP, registerInClient: $registerInClient, phoneCode: $phoneCode, " +
                 "browser: $browser, device: $device) {\n" +
                 "        _id\n" +
                 "        email\n" +
