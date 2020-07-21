@@ -304,8 +304,12 @@ public class Register {
         UserService userService = Authing.getUserService();
         // 邮箱密码注册
         RegisterParam registerParam = new RegisterParam.Builder("test@123.com", "123456").nickname("test_nickname").build();
+
         // 手机号密码注册
         // RegisterParam registerParam = new RegisterParam.Builder().usePhonePassword("phone", "password").nickname("test_nickname").build();
+
+        // 手机号验证码注册
+        // RegisterParam registerParam = new RegisterParam.Builder().usePhoneCode("phone", "code").nickname("test_nickname").build();
         RegisterResult registerResult = userService.createUser(registerParam).execute();
         System.out.println(registerResult.getId());
     }
