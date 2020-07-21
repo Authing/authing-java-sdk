@@ -1,4 +1,5 @@
 # Authing SDK for Java
+
 [English](https://github.com/Authing/authing-java-sdk/blob/master/README-en.md)
 
 JDK 版本 1.8
@@ -31,7 +32,8 @@ JCenter 地址: [https://bintray.com/authing/AuthingSDK/Java](https://bintray.co
 ![ide](./static/ide.png)
 
 在右侧红色箭头处增加以下内容：
-```
+
+```java
 ...
 repositories {
     jcenter()
@@ -41,7 +43,7 @@ repositories {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    implementation "cn.authing:java-core:1.2.1"
+    implementation "cn.authing:java-core:1.3.3"
     implementation 'com.squareup.okhttp3:okhttp:3.14.2'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'org.bouncycastle:bcprov-jdk15:1.46'
@@ -49,6 +51,7 @@ dependencies {
 }
 ...
 ```
+
 如下图所示，根据提示开启 Auto-import 功能：
 
 ![auto-import](./static/auto-import.png)
@@ -299,7 +302,10 @@ public class Register {
         InitParam init = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
         Authing.init(init);
         UserService userService = Authing.getUserService();
+        // 邮箱密码注册
         RegisterParam registerParam = new RegisterParam.Builder("test@123.com", "123456").nickname("test_nickname").build();
+        // 手机号密码注册
+        // RegisterParam registerParam = new RegisterParam.Builder().usePhonePassword("phone", "password").nickname("test_nickname").build();
         RegisterResult registerResult = userService.createUser(registerParam).execute();
         System.out.println(registerResult.getId());
     }
@@ -648,6 +654,40 @@ public class UpdateUserInfo {
         UserService userService = Authing.getUserService();
         UpdateUserInfoParam updateUpdateUserInfoParam = new UpdateUserInfoParam.Builder("5e109c446ef04e93e4a54d69").build();
         UserInfoResult userInfoResult = userService.updateUserInfo(updateUpdateUserInfoParam).execute();
+        System.out.println(userInfoResult.getId());
+    }
+}
+```
+
+## 更新用户手机号
+
+userService.updatePhone(params)
+
+- params {Object}
+  - params.phone {String}，必填，新手机号
+  - params.phoneCode {String}，必填，发送到新手机号的验证码
+  - params.oldPhone {String}，可选，旧手机号
+  - params.oldPhoneCode {String}，可选，发送到旧手机号的验证码
+
+示例：
+
+```java
+import cn.authing.core.Authing;
+import cn.authing.core.param.InitParam;
+import cn.authing.core.param.UpdatePhoneParam;
+import cn.authing.core.result.UserInfoResult;
+import cn.authing.core.service.UserService;
+
+import java.io.IOException;
+
+public class UpdatePhone {
+    public static void main(String[] args) throws IOException {
+        InitParam init = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
+        Authing.init(init);
+
+        UserService userService = Authing.getUserService();
+        UpdatePhoneParam udatePhoneParam = new UpdatePhoneParam.Builder("phone", "code").build();
+        UserInfoResult userInfoResult = userService.updateUserInfo(updatePhoneParam).execute();
         System.out.println(userInfoResult.getId());
     }
 }
@@ -1034,101 +1074,100 @@ public class RemoveUser {
 
 完整的使用案例请参考：[https://github.com/Authing/authing-java-sdk/tree/master/examples](https://github.com/Authing/authing-java-sdk/tree/master/examples)
 
-
 # 错误代码
 
 错误代码消息格式如下：
 
 ```json
 {
-    "message": "系统繁忙，请稍后再试",
-    "code": 1000,
-    "data": null
+  "message": "系统繁忙，请稍后再试",
+  "code": 1000,
+  "data": null
 }
 ```
 
-| 代码 | 描述 |
-| :--- | :--- |
-| 1000 | 系统繁忙，请稍后再试 |
-| 1001 | 无权限执行此项操作 |
-| 2000 | 账号异常，需要输入验证码 |
-| 2001 | 验证码验证失败\(验证码错误\) |
-| 2002 | 月登录限额已用完 |
-| 2003 | 注册或登录时邮箱格式不正确 |
-| 2004 | 用户不存在 |
-| 2005 | 用户已被锁定 |
-| 2006 | 密码不正确 |
-| 2007 | 应用名非法 |
-| 2008 | 已拥有同名应用 |
-| 2009 | 非法的应用类型 |
-| 2010 | 需提供操作的应用的ID |
-| 2011 | 应用不存在 |
-| 2012 | 缺少默认用户组 |
-| 2013 | 非法的应用描述 |
-| 2014 | 搜索用户时输入格式错误 |
-| 2015 | 搜索用户时搜索类型非法 |
-| 2016 | 解密客户端密码出错 |
-| 2017 | 解析邮件模本的meta\_data\(宏\)命令错误 |
-| 2018 | 用户无权限修改此项内容 |
-| 2019 | 修改密码时需要先进行验证 |
-| 2020 | 尚未登录，无权限访问此请求 |
-| 2021 | 邮件发送失败，原因：无法获取邮件模版 |
-| 2022 | 用户邮箱验证失败，原因：无法获取邮件模板 |
-| 2023 | 用户邮箱验证失败，原因：验证链接已过期，需重新发送 |
-| 2024 | 项目描述不能超过140个字 |
-| 2025 | 使用默认邮件服务商出错 |
-| 2026 | 用户已存在，请不要重复注册 |
-| 2027 | OAuth注册，但尝试用密码登录，因未设置密码，无法验证，请通过OAuth登录 |
-| 2028 | 请提供正确的手机号或邮箱 |
-| 2029 | 密码长度不能少于 6 位 |
-| 2030 | 一次性查询的用户不能超过 80 人 |
-| 2031 | 应用已禁止注册用户 |
-| 2032 | 注册时需要密码 |
-| 2100 | 注册过于频繁，请稍候再试 |
-| 2101 | 请提供应用ID |
-| 2200 | 该邮箱已存在，请换一个吧 |
-| 2201 | 请输入原始密码 |
-| 2202 | 修改的信息不属于当前用户 |
-| 2203 | 原始密码错误 |
-| 2204 | 邮箱格式不正确 |
-| 2205 | 缺少参数：registerInClient |
-| 2206 | 登录信息已过期, 需重新登录 |
-| 2207 | 登录信息有误, 需重新登录 |
-| 2208 | 请换一个与现有邮箱不同的邮箱吧 |
-| 2209 | 无权限删除该用户 |
+| 代码 | 描述                                                                             |
+| :--- | :------------------------------------------------------------------------------- |
+| 1000 | 系统繁忙，请稍后再试                                                             |
+| 1001 | 无权限执行此项操作                                                               |
+| 2000 | 账号异常，需要输入验证码                                                         |
+| 2001 | 验证码验证失败\(验证码错误\)                                                     |
+| 2002 | 月登录限额已用完                                                                 |
+| 2003 | 注册或登录时邮箱格式不正确                                                       |
+| 2004 | 用户不存在                                                                       |
+| 2005 | 用户已被锁定                                                                     |
+| 2006 | 密码不正确                                                                       |
+| 2007 | 应用名非法                                                                       |
+| 2008 | 已拥有同名应用                                                                   |
+| 2009 | 非法的应用类型                                                                   |
+| 2010 | 需提供操作的应用的 ID                                                            |
+| 2011 | 应用不存在                                                                       |
+| 2012 | 缺少默认用户组                                                                   |
+| 2013 | 非法的应用描述                                                                   |
+| 2014 | 搜索用户时输入格式错误                                                           |
+| 2015 | 搜索用户时搜索类型非法                                                           |
+| 2016 | 解密客户端密码出错                                                               |
+| 2017 | 解析邮件模本的 meta_data\(宏\)命令错误                                           |
+| 2018 | 用户无权限修改此项内容                                                           |
+| 2019 | 修改密码时需要先进行验证                                                         |
+| 2020 | 尚未登录，无权限访问此请求                                                       |
+| 2021 | 邮件发送失败，原因：无法获取邮件模版                                             |
+| 2022 | 用户邮箱验证失败，原因：无法获取邮件模板                                         |
+| 2023 | 用户邮箱验证失败，原因：验证链接已过期，需重新发送                               |
+| 2024 | 项目描述不能超过 140 个字                                                        |
+| 2025 | 使用默认邮件服务商出错                                                           |
+| 2026 | 用户已存在，请不要重复注册                                                       |
+| 2027 | OAuth 注册，但尝试用密码登录，因未设置密码，无法验证，请通过 OAuth 登录          |
+| 2028 | 请提供正确的手机号或邮箱                                                         |
+| 2029 | 密码长度不能少于 6 位                                                            |
+| 2030 | 一次性查询的用户不能超过 80 人                                                   |
+| 2031 | 应用已禁止注册用户                                                               |
+| 2032 | 注册时需要密码                                                                   |
+| 2100 | 注册过于频繁，请稍候再试                                                         |
+| 2101 | 请提供应用 ID                                                                    |
+| 2200 | 该邮箱已存在，请换一个吧                                                         |
+| 2201 | 请输入原始密码                                                                   |
+| 2202 | 修改的信息不属于当前用户                                                         |
+| 2203 | 原始密码错误                                                                     |
+| 2204 | 邮箱格式不正确                                                                   |
+| 2205 | 缺少参数：registerInClient                                                       |
+| 2206 | 登录信息已过期, 需重新登录                                                       |
+| 2207 | 登录信息有误, 需重新登录                                                         |
+| 2208 | 请换一个与现有邮箱不同的邮箱吧                                                   |
+| 2209 | 无权限删除该用户                                                                 |
 | 2210 | 执行了错误的删除操作，可能原因是意图删除不存在的用户，或删除过程中出现了其它错误 |
-| 2211 | 缺少参数：username（用户 username） |
-| 2212 | 不能删除 root 用户 |
-| 2213 | 当尝试绑定第三方OAuth登录方式时，发现已绑定过此种方式 |
-| 2214 | 读取已绑定的OAuth登录方式失败 |
-| 2215 | 当尝试绑定第三方OAuth登录方式时，将要绑定的账号已被绑定过了 |
-| 2216 | 当尝试解绑第三方OAuth登录方式时，没有绑定过此种OAuth登录 |
-| 2217 | 当尝试解绑第三方OAuth登录方式或邮箱时，只有一种登录方式，故不能解绑 |
-| 2218 | 当尝试修改密码时，没有绑定邮箱，不允许修改 |
-| 2219 | 当尝试解绑邮箱时，此用户没有绑定邮箱 |
-| 2220 | 当尝试创建或更新 OAuth 应用时，已经存在此应用名 |
-| 2221 | 当尝试更新 OAuth 应用时，应用不存在 |
-| 2222 | 当尝试创建或更新 OAuth 应用信息时，使用了保留域名 |
-| 2223 | 当尝试创建 OAuth 应用信息时，使用了已经被使用的域名 |
-| 2300 | 验证码过期 |
-| 3012 | 宏命令执行错误 |
-| 3013 | 发送邮件错误，未知错误 |
-| 3014 | 邮件发送失败，原因：无法获取transporter |
-| 3617 | 无权添加协作者 |
-| 3618 | 无权添加权限项目 |
-| 3619 | 无权查看此用户参与协作的用户池信息 |
-| 3620 | 协作者已存在 |
-| 3621 | 无权删除协作关系 |
-| 3622 | 无权查看协作者列表 |
-| 3623 | 协作关系不存在 |
-| 3624 | 无权修改协作者 |
-| 3829 | 此二级域名已被占用 |
-| 4212 | OIDC 应用不存在 |
-| 5000 | 获取订单对应应用失败 |
-| 5001 | 订单不存在 |
-| 5022 | 创建订单失败 |
-| 5023 | 创建支付宝订单失败 |
-| 5024 | 创建订单失败，未知错误 |
-| 5025 | 创建订单失败：价格不合法 |
-| 7348 | SAML SP 应用不存在 |
-| 8128 | 返回 saml assertion 时发生错误 |
+| 2211 | 缺少参数：username（用户 username）                                              |
+| 2212 | 不能删除 root 用户                                                               |
+| 2213 | 当尝试绑定第三方 OAuth 登录方式时，发现已绑定过此种方式                          |
+| 2214 | 读取已绑定的 OAuth 登录方式失败                                                  |
+| 2215 | 当尝试绑定第三方 OAuth 登录方式时，将要绑定的账号已被绑定过了                    |
+| 2216 | 当尝试解绑第三方 OAuth 登录方式时，没有绑定过此种 OAuth 登录                     |
+| 2217 | 当尝试解绑第三方 OAuth 登录方式或邮箱时，只有一种登录方式，故不能解绑            |
+| 2218 | 当尝试修改密码时，没有绑定邮箱，不允许修改                                       |
+| 2219 | 当尝试解绑邮箱时，此用户没有绑定邮箱                                             |
+| 2220 | 当尝试创建或更新 OAuth 应用时，已经存在此应用名                                  |
+| 2221 | 当尝试更新 OAuth 应用时，应用不存在                                              |
+| 2222 | 当尝试创建或更新 OAuth 应用信息时，使用了保留域名                                |
+| 2223 | 当尝试创建 OAuth 应用信息时，使用了已经被使用的域名                              |
+| 2300 | 验证码过期                                                                       |
+| 3012 | 宏命令执行错误                                                                   |
+| 3013 | 发送邮件错误，未知错误                                                           |
+| 3014 | 邮件发送失败，原因：无法获取 transporter                                         |
+| 3617 | 无权添加协作者                                                                   |
+| 3618 | 无权添加权限项目                                                                 |
+| 3619 | 无权查看此用户参与协作的用户池信息                                               |
+| 3620 | 协作者已存在                                                                     |
+| 3621 | 无权删除协作关系                                                                 |
+| 3622 | 无权查看协作者列表                                                               |
+| 3623 | 协作关系不存在                                                                   |
+| 3624 | 无权修改协作者                                                                   |
+| 3829 | 此二级域名已被占用                                                               |
+| 4212 | OIDC 应用不存在                                                                  |
+| 5000 | 获取订单对应应用失败                                                             |
+| 5001 | 订单不存在                                                                       |
+| 5022 | 创建订单失败                                                                     |
+| 5023 | 创建支付宝订单失败                                                               |
+| 5024 | 创建订单失败，未知错误                                                           |
+| 5025 | 创建订单失败：价格不合法                                                         |
+| 7348 | SAML SP 应用不存在                                                               |
+| 8128 | 返回 saml assertion 时发生错误                                                   |

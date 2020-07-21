@@ -31,7 +31,7 @@ Enter the IDE and wait for Gradle to finish building. Open the build.gradle file
 
 Add the following to the red arrow on the right:
 
-```
+```java
 ...
 repositories {
     jcenter()
@@ -41,7 +41,7 @@ repositories {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    implementation "cn.authing:java-core:1.2.1"
+    implementation "cn.authing:java-core:1.3.3"
     implementation 'com.squareup.okhttp3:okhttp:3.14.2'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'org.bouncycastle:bcprov-jdk15:1.46'
@@ -301,7 +301,10 @@ public class Register {
         InitParam init = new InitParam.Builder("5e109c446ef04e93e4a54d69").Secret("1dcaa83dd0a0424d7906d7cec76e1935").Build();
         Authing.init(init);
         UserService userService = Authing.getUserService();
+        // register use email and password
         RegisterParam registerParam = new RegisterParam.Builder("test@123.com", "123456").Nickname("test_nickname").Build();
+        // register use phone and password
+        // RegisterParam registerParam = new RegisterParam.Builder().usePhonePassword("phone", "password").nickname("test_nickname").build();
         RegisterResult registerResult = userService.createUser(registerParam).execute();
         System.out.println(registerResult.getId());
     }
@@ -650,6 +653,40 @@ public class UpdateUserInfo {
         UserService userService = Authing.getUserService();
         UpdateUserInfoParam updateUpdateUserInfoParam = new UpdateUserInfoParam.Builder("5e109c446ef04e93e4a54d69").Build();
         UserInfoResult userInfoResult = userService.updateUserInfo(updateUpdateUserInfoParam).execute();
+        System.out.println(userInfoResult.getId());
+    }
+}
+```
+
+## Update user phone number
+
+userService.updatePhone(params)
+
+- params {Object}
+  - params.phone {String}, required, new phone
+  - params.phoneCode {String}, required, phone code
+  - params.oldPhone {String}, old phone
+  - params.oldPhoneCode {String}, old phone code
+
+示例：
+
+```java
+import cn.authing.core.Authing;
+import cn.authing.core.param.InitParam;
+import cn.authing.core.param.UpdatePhoneParam;
+import cn.authing.core.result.UserInfoResult;
+import cn.authing.core.service.UserService;
+
+import java.io.IOException;
+
+public class UpdatePhone {
+    public static void main(String[] args) throws IOException {
+        InitParam init = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
+        Authing.init(init);
+
+        UserService userService = Authing.getUserService();
+        UpdatePhoneParam udatePhoneParam = new UpdatePhoneParam.Builder("phone", "code").build();
+        UserInfoResult userInfoResult = userService.updateUserInfo(updatePhoneParam).execute();
         System.out.println(userInfoResult.getId());
     }
 }
@@ -1045,94 +1082,94 @@ The format of the error code response is as follows:
 
 ```json
 {
-    "message": "System is busy, please try again later",
-    "code": 1000,
-    "data": null
+  "message": "System is busy, please try again later",
+  "code": 1000,
+  "data": null
 }
 ```
 
-| ErrCode | Description |
-| :--- | :--- |
-| 1000 | System is busy, please try again later. |
-| 1001 | Operation is not permitted. |
-| 2000 | Too many failures, please input captcha. |
-| 2001 | Capcha is wrong. |
-| 2002 | Monthly login counts exceeded. |
-| 2003 | Wrong E-mail format when login or register. |
-| 2004 | User doesn't exists. |
-| 2005 | User has been blocked. |
-| 2006 | Wrong password. |
-| 2007 | Invalid App name. |
-| 2008 | App name is duplicated. |
-| 2009 | Invalid App type. |
-| 2010 | Need UserPool ID. |
-| 2011 | App doesn't exsists. |
-| 2012 | Missing default user group. |
-| 2013 | Invalid App description. |
-| 2014 | Wrong pattern when searching user. |
-| 2015 | Invalid type when searching user. |
-| 2016 | Password decryption is failed. |
-| 2017 | Failed to parse the meta\_data of the E-mail template. |
-| 2018 | User doesn't have permission to modify the content. |
-| 2019 | Need verification when changing password. |
-| 2020 | Not logged in. No permission to request. |
-| 2021 | Failed to send E-mail. Reason: Can't get E-mail template. |
-| 2022 | Failed to verify user E-mail. Reason: Can't get E-mail template. |
-| 2023 | Failed to verify user E-mail. Reason: Verification link is expired and should be sent again. |
-| 2024 | Project description text can't exceed 140 characters. |
-| 2025 | Failed to use default E-mail provider. |
-| 2026 | User exists, please do not re-register. |
-| 2027 | User is registered with social login and no password is set. Please login by social account. |
-| 2028 | Please provide correct phone number or E-mail. |
-| 2029 | Password must be at least 6 characters. |
-| 2030 | No more than 80 users can be searched at one time. |
-| 2031 | User registration has been forbidden in this user pool。. |
-| 2032 | Password required during registration. |
-| 2100 | Registration is too frequent, please try again later. |
-| 2101 | Please provide UserPool ID. |
-| 2200 | This E-mail already exists, please change it. |
-| 2201 | Please enter the original password. |
-| 2202 | The modified information does not belong to the current user. |
-| 2203 | Wrong original password. |
-| 2204 | E-mail format is incorrect. |
-| 2205 | Missing parameters：registerInClient. |
-| 2206 | Login information has expired, you need to log in again. |
-| 2207 | Incorrect login information, you need to log in again. |
-| 2208 | Please use a different mailbox from your existing one. |
-| 2209 | No permission to delete this user. |
-| 2210 | An incorrect deletion operation was performed, possibly due to an intention to delete a user who does not exist, or other errors occurred during the deletion
-| 2211 | Missing parameter: username (user username). |
-| 2212 | Cannot delete root user. |
-| 2213 | When trying to bind a third-party social login method, it is found that this method has been bound. |
-| 2214 | Failed to read the bound social login method. |
-| 2215 | When trying to bind a third-party social login method, the account to be bound has already been bound. |
-| 2216 | When attempting to unbind a third-party social login method, no such social login was bound. |
-| 2217 | When attempting to unbind a third-party social login method or E-mail, there is only one login method, so it cannot be unbound. |
-| 2218 | When trying to change the password, the E-mail is not bound and cannot be modified. |
-| 2219 | This user did not bind an E-mail when trying to unbind the E-mail. |
-| 2220 | This application name already exists when trying to create or update an LDAP Server. |
-| 2221 | App doesn't exist when trying to update OAuth App. |
-| 2222 | Reserved domain name used when trying to create or update OAuth Provider information. |
-| 2223 | When attempting to create OAuth Provider, an already used domain name was used. |
-| 2300 | Expired verify code. |
-| 3012 | Macro command execution error. |
-| 3013 | Failed to send E-mail, unknown error. |
-| 3014 | Failed to send E-mail. Reason: unable to get transporter. |
-| 3617 | No permission to add collaborators. |
-| 3618 | No permission to add permission items. |
-| 3619 | Not authorized to view user pool information for the user participating in collaboration. |
-| 3620 | Collaborators already exist. |
-| 3621 | No permission to delete collaboration. |
-| 3622 | No permission to view the list of collaborators. |
-| 3623 | Collaboration does not exist. |
-| 3624 | No permission to modify collaborators. |
-| 3829 | This second level domain is already used. |
-| 4212 | OIDC Provider does not exist. |
-| 5000 | Failed to get the user pool corresponding to the order. |
-| 5001 | Order does not exist. |
-| 5022 | Order creation failed. |
-| 5023 | Alipay order creation failed. |
-| 5024 | Order creation failed, unknown error. |
-| 5025 | Order creation failed: invalid price. |
-| 7348 | SAML SP application does not exist. |
-| 8128 | Error happened when returning SAML Assertion. |
+| ErrCode | Description                                                                                                                                                   |
+| :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1000    | System is busy, please try again later.                                                                                                                       |
+| 1001    | Operation is not permitted.                                                                                                                                   |
+| 2000    | Too many failures, please input captcha.                                                                                                                      |
+| 2001    | Capcha is wrong.                                                                                                                                              |
+| 2002    | Monthly login counts exceeded.                                                                                                                                |
+| 2003    | Wrong E-mail format when login or register.                                                                                                                   |
+| 2004    | User doesn't exists.                                                                                                                                          |
+| 2005    | User has been blocked.                                                                                                                                        |
+| 2006    | Wrong password.                                                                                                                                               |
+| 2007    | Invalid App name.                                                                                                                                             |
+| 2008    | App name is duplicated.                                                                                                                                       |
+| 2009    | Invalid App type.                                                                                                                                             |
+| 2010    | Need UserPool ID.                                                                                                                                             |
+| 2011    | App doesn't exsists.                                                                                                                                          |
+| 2012    | Missing default user group.                                                                                                                                   |
+| 2013    | Invalid App description.                                                                                                                                      |
+| 2014    | Wrong pattern when searching user.                                                                                                                            |
+| 2015    | Invalid type when searching user.                                                                                                                             |
+| 2016    | Password decryption is failed.                                                                                                                                |
+| 2017    | Failed to parse the meta_data of the E-mail template.                                                                                                         |
+| 2018    | User doesn't have permission to modify the content.                                                                                                           |
+| 2019    | Need verification when changing password.                                                                                                                     |
+| 2020    | Not logged in. No permission to request.                                                                                                                      |
+| 2021    | Failed to send E-mail. Reason: Can't get E-mail template.                                                                                                     |
+| 2022    | Failed to verify user E-mail. Reason: Can't get E-mail template.                                                                                              |
+| 2023    | Failed to verify user E-mail. Reason: Verification link is expired and should be sent again.                                                                  |
+| 2024    | Project description text can't exceed 140 characters.                                                                                                         |
+| 2025    | Failed to use default E-mail provider.                                                                                                                        |
+| 2026    | User exists, please do not re-register.                                                                                                                       |
+| 2027    | User is registered with social login and no password is set. Please login by social account.                                                                  |
+| 2028    | Please provide correct phone number or E-mail.                                                                                                                |
+| 2029    | Password must be at least 6 characters.                                                                                                                       |
+| 2030    | No more than 80 users can be searched at one time.                                                                                                            |
+| 2031    | User registration has been forbidden in this user pool。.                                                                                                     |
+| 2032    | Password required during registration.                                                                                                                        |
+| 2100    | Registration is too frequent, please try again later.                                                                                                         |
+| 2101    | Please provide UserPool ID.                                                                                                                                   |
+| 2200    | This E-mail already exists, please change it.                                                                                                                 |
+| 2201    | Please enter the original password.                                                                                                                           |
+| 2202    | The modified information does not belong to the current user.                                                                                                 |
+| 2203    | Wrong original password.                                                                                                                                      |
+| 2204    | E-mail format is incorrect.                                                                                                                                   |
+| 2205    | Missing parameters：registerInClient.                                                                                                                         |
+| 2206    | Login information has expired, you need to log in again.                                                                                                      |
+| 2207    | Incorrect login information, you need to log in again.                                                                                                        |
+| 2208    | Please use a different mailbox from your existing one.                                                                                                        |
+| 2209    | No permission to delete this user.                                                                                                                            |
+| 2210    | An incorrect deletion operation was performed, possibly due to an intention to delete a user who does not exist, or other errors occurred during the deletion |
+| 2211    | Missing parameter: username (user username).                                                                                                                  |
+| 2212    | Cannot delete root user.                                                                                                                                      |
+| 2213    | When trying to bind a third-party social login method, it is found that this method has been bound.                                                           |
+| 2214    | Failed to read the bound social login method.                                                                                                                 |
+| 2215    | When trying to bind a third-party social login method, the account to be bound has already been bound.                                                        |
+| 2216    | When attempting to unbind a third-party social login method, no such social login was bound.                                                                  |
+| 2217    | When attempting to unbind a third-party social login method or E-mail, there is only one login method, so it cannot be unbound.                               |
+| 2218    | When trying to change the password, the E-mail is not bound and cannot be modified.                                                                           |
+| 2219    | This user did not bind an E-mail when trying to unbind the E-mail.                                                                                            |
+| 2220    | This application name already exists when trying to create or update an LDAP Server.                                                                          |
+| 2221    | App doesn't exist when trying to update OAuth App.                                                                                                            |
+| 2222    | Reserved domain name used when trying to create or update OAuth Provider information.                                                                         |
+| 2223    | When attempting to create OAuth Provider, an already used domain name was used.                                                                               |
+| 2300    | Expired verify code.                                                                                                                                          |
+| 3012    | Macro command execution error.                                                                                                                                |
+| 3013    | Failed to send E-mail, unknown error.                                                                                                                         |
+| 3014    | Failed to send E-mail. Reason: unable to get transporter.                                                                                                     |
+| 3617    | No permission to add collaborators.                                                                                                                           |
+| 3618    | No permission to add permission items.                                                                                                                        |
+| 3619    | Not authorized to view user pool information for the user participating in collaboration.                                                                     |
+| 3620    | Collaborators already exist.                                                                                                                                  |
+| 3621    | No permission to delete collaboration.                                                                                                                        |
+| 3622    | No permission to view the list of collaborators.                                                                                                              |
+| 3623    | Collaboration does not exist.                                                                                                                                 |
+| 3624    | No permission to modify collaborators.                                                                                                                        |
+| 3829    | This second level domain is already used.                                                                                                                     |
+| 4212    | OIDC Provider does not exist.                                                                                                                                 |
+| 5000    | Failed to get the user pool corresponding to the order.                                                                                                       |
+| 5001    | Order does not exist.                                                                                                                                         |
+| 5022    | Order creation failed.                                                                                                                                        |
+| 5023    | Alipay order creation failed.                                                                                                                                 |
+| 5024    | Order creation failed, unknown error.                                                                                                                         |
+| 5025    | Order creation failed: invalid price.                                                                                                                         |
+| 7348    | SAML SP application does not exist.                                                                                                                           |
+| 8128    | Error happened when returning SAML Assertion.                                                                                                                 |
