@@ -14,6 +14,7 @@ import cn.authing.core.param.RefreshTokenParam;
 import cn.authing.core.param.RegisterParam;
 import cn.authing.core.param.ResetPasswordParam;
 import cn.authing.core.param.SigninParam;
+import cn.authing.core.param.UpdatePhoneParam;
 import cn.authing.core.param.UpdateUserInfoParam;
 import cn.authing.core.param.UserInfoParam;
 import cn.authing.core.param.UserListParam;
@@ -39,6 +40,8 @@ public interface UserService {
     Call<UserInfoResult> getUserInfo(@Nonnull UserInfoParam param);
 
     Call<UserInfoResult> updateUserInfo(@Nonnull UpdateUserInfoParam param);
+
+    Call<UserInfoResult> updatePhone(@Nonnull UpdatePhoneParam param);
 
     Call<UserInfoResult> resetPassword(@Nonnull ResetPasswordParam param);
 

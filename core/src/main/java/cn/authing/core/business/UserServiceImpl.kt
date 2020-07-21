@@ -48,6 +48,15 @@ internal class UserServiceImpl(private val helper: HttpHelper) : cn.authing.core
         )
     }
 
+    override fun updatePhone(param: UpdatePhoneParam): Call<UserInfoResult> {
+        return helper.createAuthingCall(
+                URL_USER,
+                object : TypeToken<AuthingResponse<UserInfoResult>>() {},
+                param,
+                ImportantParam.ownerToken
+        )
+    }
+
     override fun resetPassword(param: ResetPasswordParam): Call<UserInfoResult> {
         return helper.createAuthingCall(
                 URL_USER,
