@@ -8,6 +8,7 @@ public class RegisterParam extends AuthingParam<RegisterParam.Param> {
     public static class Builder {
         private String email;
         private String phone;
+        private String verifyCode;
         private String password;
         private String unionId;
         private String oauth;
@@ -26,6 +27,21 @@ public class RegisterParam extends AuthingParam<RegisterParam.Param> {
         public Builder(String unionId) {
             this.unionId = unionId;
         }
+
+        public Builder() {}
+
+        public Builder usePhoneCode(String phone, String verifyCode) {
+            this.phone = phone;
+            this.verifyCode = verifyCode;
+            return this;
+        }
+
+        public Builder usePhonePassword(String phone, String password) {
+            this.phone = phone;
+            this.password = password;
+            return this;
+        }
+
 
         public Builder phone(String phone) {
             this.phone = phone;
@@ -72,6 +88,7 @@ public class RegisterParam extends AuthingParam<RegisterParam.Param> {
     static class Param {
         private String phone;
         private String email;
+        private String phoneCode;
         private String password;
         private String unionid;
         private String oauth;
@@ -88,6 +105,7 @@ public class RegisterParam extends AuthingParam<RegisterParam.Param> {
         Param p = new Param();
         p.email = builder.email;
         p.phone = builder.phone;
+        p.phoneCode = builder.verifyCode;
         p.password = builder.password;
         p.unionid = builder.unionId;
         p.oauth = builder.oauth;
@@ -113,12 +131,14 @@ public class RegisterParam extends AuthingParam<RegisterParam.Param> {
                     "    $nickname: String,\n" +
                     "    $registerMethod: String,\n" +
                     "    $phone: String,\n" +
+                    "    $phoneCode: String,\n" +
                     "    $photo: String\n" +
                     ") {\n" +
                     "    register(userInfo: {\n" +
                     "        unionid: $unionid,\n" +
                     "        email: $email,\n" +
                     "        phone: $phone,\n" +
+                    "        phoneCode: $phoneCode,\n" +
                     "        password: $password,\n" +
                     "        lastIP: $lastIP,\n" +
                     "        forceLogin: $forceLogin,\n" +
