@@ -21,7 +21,7 @@ import javax.crypto.Cipher
 /**
  * Authing 客户端类
  */
-class Authing(private val clientId: String, private val secret: String? = null) {
+class Authing(private val userPoolId: String, private val secret: String? = null) {
     // 兼容 Java 的单参数构造方法
     constructor(clientId: String): this(clientId, null)
 
@@ -83,7 +83,7 @@ class Authing(private val clientId: String, private val secret: String? = null) 
                 .url(endpoint)
                 .header("Authorization", "Bearer " + this.accessToken)
                 .header("Content-Type", "application/json")
-                .header("x-authing-userpool-id", clientId)
+                .header("x-authing-userpool-id", userPoolId)
                 .header("x-authing-request-from", TYPE)
                 .header("x-authing-sdk-version", VERSION)
                 .post(gson.toJson(request).toRequestBody(MEDIA_TYPE_JSON))
@@ -97,7 +97,7 @@ class Authing(private val clientId: String, private val secret: String? = null) 
         val adapter = gson.getAdapter(typeToken)
         return HttpCall(client.newCall(Request.Builder()
                 .url(url)
-                .header("x-authing-userpool-id", clientId)
+                .header("x-authing-userpool-id", userPoolId)
                 .header("x-authing-request-from", TYPE)
                 .header("x-authing-sdk-version", VERSION)
                 .get()
@@ -116,7 +116,7 @@ class Authing(private val clientId: String, private val secret: String? = null) 
         }
 
         val param = LoginBySecretParam(
-                clientId = clientId,
+                clientId = userPoolId,
                 secret = secret
         )
 
@@ -127,7 +127,7 @@ class Authing(private val clientId: String, private val secret: String? = null) 
      * 通过用户名和密码登录
      */
     fun loginByUsername(param: LoginByUsernameParam): Call<LoginByUsernameResponse> {
-        param.clientId = clientId
+        param.clientId = userPoolId
         param.password = encrypt(param.password)
 
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<LoginByUsernameResponse>>() {})
@@ -137,7 +137,7 @@ class Authing(private val clientId: String, private val secret: String? = null) 
      * 通过邮箱密码登录
      */
     fun loginByEmail(param: LoginByEmailParam): Call<LoginByEmailResponse> {
-        param.clientId = clientId
+        param.clientId = userPoolId
         param.password = encrypt(param.password)
 
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<LoginByEmailResponse>>() {})
@@ -147,7 +147,7 @@ class Authing(private val clientId: String, private val secret: String? = null) 
      * 通过手机号和验证码登录
      */
     fun loginByPhoneCode(param: LoginByPhoneCodeParam): Call<LoginByPhoneCodeResponse> {
-        param.clientId = clientId
+        param.clientId = userPoolId
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<LoginByPhoneCodeResponse>>() {})
     }
 
@@ -155,7 +155,7 @@ class Authing(private val clientId: String, private val secret: String? = null) 
      * 通过手机号和密码登录
      */
     fun loginByPhonePassword(param: LoginByPhonePasswordParam): Call<LoginByPhonePasswordResponse> {
-        param.clientId = clientId
+        param.clientId = userPoolId
         param.password = encrypt(param.password)
 
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<LoginByPhonePasswordResponse>>() {})
@@ -174,7 +174,7 @@ class Authing(private val clientId: String, private val secret: String? = null) 
      * 通过 LDAP 登录
      */
     fun loginByLdap(param: LoginByLdapParam): Call<LoginByLdapResponse> {
-        param.clientId = clientId
+        param.clientId = userPoolId
         param.password = encrypt(param.password)
 
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<LoginByLdapResponse>>() {})
@@ -185,7 +185,7 @@ class Authing(private val clientId: String, private val secret: String? = null) 
      */
     fun register(param: RegisterParam): Call<RegisterResponse> {
         param.userInfo = param.userInfo ?: UserRegisterInput()
-        param.userInfo!!.registerInClient = clientId
+        param.userInfo!!.registerInClient = userPoolId
         param.userInfo!!.password = encrypt(param.userInfo!!.password)
 
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<RegisterResponse>>() {})
@@ -195,7 +195,7 @@ class Authing(private val clientId: String, private val secret: String? = null) 
      * 刷新用户 Token
      */
     fun refreshToken(param: RefreshTokenParam): Call<RefreshTokenResponse> {
-        param.client = clientId
+        param.client = userPoolId
 
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<RefreshTokenResponse>>() {})
     }
@@ -204,7 +204,7 @@ class Authing(private val clientId: String, private val secret: String? = null) 
      * 查询用户信息
      */
     fun user(param: UserParam): Call<UserResponse> {
-        param.registerInClient = clientId
+        param.registerInClient = userPoolId
 
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<UserResponse>>() {})
     }
@@ -216,7 +216,7 @@ class Authing(private val clientId: String, private val secret: String? = null) 
      */
     fun updateUser(param: UpdateUserParam): Call<UpdateUserResponse> {
         param.options = param.options ?: UserUpdateInput()
-        param.options!!.registerInClient = clientId
+        param.options!!.registerInClient = userPoolId
         param.options!!.password = encrypt(param.options!!.password)
         param.options!!.oldPassword = encrypt(param.options!!.oldPassword)
 
@@ -229,7 +229,7 @@ class Authing(private val clientId: String, private val secret: String? = null) 
      * 普通用户需要在登录后使用，管理员请调用 updateUser 接口
      */
     fun updatePhone(param: UpdatePhoneParam): Call<UpdatePhoneResponse> {
-        param.userPoolId = clientId
+        param.userPoolId = userPoolId
 
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<UpdatePhoneResponse>>() {})
     }
@@ -247,7 +247,7 @@ class Authing(private val clientId: String, private val secret: String? = null) 
      * 需要先发送重置密码邮件来得到验证码
      */
     fun resetPassword(param: ResetPasswordParam): Call<ResetPasswordResponse> {
-        param.clientId = clientId
+        param.clientId = userPoolId
 
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<ResetPasswordResponse>>() {})
     }
@@ -258,7 +258,7 @@ class Authing(private val clientId: String, private val secret: String? = null) 
      * 需要已经绑定了其他登录方式
      */
     fun unbindEmail(param: UnbindEmailParam): Call<UnbindEmailResponse> {
-        param.client = clientId
+        param.client = userPoolId
 
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<UnbindEmailResponse>>() {})
     }
@@ -267,7 +267,7 @@ class Authing(private val clientId: String, private val secret: String? = null) 
      * 读取用户 OAuth 授权列表
      */
     fun readOauthList(param: ReadOauthListParam): Call<ReadOauthListResponse> {
-        param.clientId = clientId
+        param.clientId = userPoolId
 
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<ReadOauthListResponse>>() {})
     }
@@ -276,7 +276,7 @@ class Authing(private val clientId: String, private val secret: String? = null) 
      * 发送验证邮件，邮件内包含认证链接
      */
     fun sendVerifyEmail(param: SendVerifyEmailParam): Call<SendVerifyEmailResponse> {
-        param.client = clientId
+        param.client = userPoolId
 
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<SendVerifyEmailResponse>>() {})
     }
@@ -285,7 +285,7 @@ class Authing(private val clientId: String, private val secret: String? = null) 
      * 发送手机验证码
      */
     fun sendPhoneVerifyCode(phone: String): Call<SendPhoneVerifyCodeResponse> {
-        val url = "$host/send_smscode/$phone/$clientId"
+        val url = "$host/send_smscode/$phone/$userPoolId"
 
         return createHttpGetCall(url, object : TypeToken<SendPhoneVerifyCodeResponse>() {})
     }
@@ -294,7 +294,7 @@ class Authing(private val clientId: String, private val secret: String? = null) 
      * 发送重置密码邮件，邮件内包含验证码
      */
     fun sendResetPasswordEmail(param: SendResetPasswordEmailParam): Call<SendResetPasswordEmailResponse> {
-        param.client = clientId
+        param.client = userPoolId
 
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<SendResetPasswordEmailResponse>>() {})
     }
@@ -303,7 +303,7 @@ class Authing(private val clientId: String, private val secret: String? = null) 
      * 验证重置密码邮件
      */
     fun verifyResetPasswordCode(param: VerifyResetPasswordVerifyCodeParam): Call<VerifyResetPasswordVerifyCodeResponse> {
-        param.client = clientId
+        param.client = userPoolId
 
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<VerifyResetPasswordVerifyCodeResponse>>() {})
     }
@@ -321,7 +321,7 @@ class Authing(private val clientId: String, private val secret: String? = null) 
      * 通过分页批量获取用户池中的用户信息
      */
     fun users(param: UsersParam): Call<UsersResponse> {
-        param.registerInClient = clientId
+        param.registerInClient = userPoolId
 
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<UsersResponse>>() {})
     }
@@ -332,7 +332,7 @@ class Authing(private val clientId: String, private val secret: String? = null) 
      * 多个 ID 以英文逗号分隔，如：id1,id2,id3
      */
     fun removeUsers(param: RemoveUsersParam): Call<RemoveUsersResponse> {
-        param.registerInClient = clientId
+        param.registerInClient = userPoolId
 
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<RemoveUsersResponse>>() {})
     }
