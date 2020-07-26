@@ -1,9 +1,8 @@
-apply plugin: 'com.jfrog.bintray'
 apply plugin: 'maven-publish'
 
 def binApiKey = 'it is a secret'
 def binUser = "authing"
-def versionCode = '2.0.0'
+def versionCode = '2.0.1'
 def pomConfig = {
     licenses {
         license {
@@ -30,10 +29,12 @@ def pomConfig = {
 
 
 task sourcesJar(type: Jar) {
-    from sourceSets.main.java.srcDirs
+    classifier = 'sources'
+    from sourceSets.main.kotlin.getSrcDirs()
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
     from javadoc.destinationDir
 }
 

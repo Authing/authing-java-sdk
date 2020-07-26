@@ -2,7 +2,7 @@
 
 [English](./README.md)
 
-Authing SDK 版本 2.0.0
+Authing SDK 版本 2.0.1
 
 JDK 版本 1.8
 
@@ -35,44 +35,8 @@ JCenter 地址: [https://bintray.com/authing/AuthingSDK/Java](https://bintray.co
 
 在右侧红色箭头处增加以下内容：
 
-```java
-...
-repositories {
-    jcenter()
-    mavenCentral()
-}
-
-dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    implementation "cn.authing:java-core:1.3.3"
-    implementation 'com.squareup.okhttp3:okhttp:3.14.2'
-    implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'org.bouncycastle:bcprov-jdk15:1.46'
-    implementation 'com.google.android:android:4.1.1.4'
-}
-...
-```
-
-如下图所示，根据提示开启 Auto-import 功能：
-
-![auto-import](./static/auto-import.png)
-
-## 开始使用
-
-在 java 文件夹下创建一个 Class，命名为 Demo。
-
-![create-class](./static/create-class.png)
-
-在类的 main 函数中，引入 Authing 开始使用
-
-![import-authing](./static/import-authing.png)
-
-> Android 注意
-> 如果用于 Android 开发，需要在 AndroidManifest 文件中加入 INTERNET 权限。
-
-```xml
-<uses-permission android:name="android.permission.INTERNET"/>
+```text
+implementation "cn.authing:java-core:2.0.1"
 ```
 
 # 快速上手
