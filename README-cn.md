@@ -1,6 +1,8 @@
 # Authing SDK for Java
 
-[English](https://github.com/Authing/authing-java-sdk/blob/master/README-en.md)
+[English](./README.md)
+
+Authing SDK 版本 2.0.0
 
 JDK 版本 1.8
 
@@ -75,107 +77,63 @@ dependencies {
 
 # 快速上手
 
-先从 Authing 控制台中获取 `UserPool ID`，然后调用初始化函数，初始化调用一次即可。在 Android 开发中，推荐放在 Application 中进行初始化。
+先从 Authing 控制台中获取 `UserPool ID` 和 `Secret`，然后实例化 `Authing` 类。
+
+为了用户池的信息安全，`Secret` 只应在后端使用时传入。
 
 ```java
 import cn.authing.core.Authing;
-import cn.authing.core.param.InitParam;
-import cn.authing.core.service.*;
 
-public class Demo2 {
+public class Demo {
     public static void main(String[] args) {
-        InitParam init = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
-        Authing.init(init);
-        UserService userService = Authing.getUserService();
-        UserManageService userManageService = Authing.getUserManageService();
-        PermissionService permissionService = Authing.getPermissionService();
-        VerifyService verifyService = Authing.getVerifyService();
-        OAuthService oauthService = Authing.getOAuthService();
+        // 可选参数：
+        // secret：密钥，用来获取用户池管理员权限，需妥善保存，请勿在客户端传入
+        // accessToken：用户的身份凭证，是调用某些接口的必要参数，可以通过调用登录接口获取，获取后即可传入。
+        // host：Authing 的接口地址，默认为 https://core.authing.cn，私有化部署后需要修改此参数
+        // publicKey：加密公钥，默认为 Authing 的公钥，私有化部署后需要修改此参数。公钥格式如下：
+        // 
+        // MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC4xKeUgQ+Aoz7TLfAfs9+paePb
+        // 5KIofVthEopwrXFkp8OCeocaTHt9ICjTT2QeJh6cZaDaArfZ873GPUn00eOIZ7Ae
+        // +TiA2BKHbCvloW3w5Lnqm70iSsUi5Fmu9/2+68GZRH9L7Mlh8cFksCicW2Y2W2uM
+        // GKl64GDcIq3au+aqJQIDAQAB
+        //
+        Authing client = new Authing("userPoolId", "secret");
     }
 }
 ```
 
-# 如何构建参数对象
+# 如何初始化参数对象
 
-SDK 接口函数参数对象需要先进行构建，然后再传入。
+SDK 接口函数参数对象提供了两种初始化方式：
 
-## 创建参数构造器并初始化必填参数
+## 链式调用方式（推荐）
 
 ```java
 import cn.authing.core.Authing;
-import cn.authing.core.param.InitParam;
-import cn.authing.core.param.RegisterParam;
-import cn.authing.core.result.RegisterResult;
-import cn.authing.core.service.UserService;
+import cn.authing.core.types.*;
 
-import java.io.IOException;
-
-public class Register {
-    public static void main(String[] args) throws IOException {
-        InitParam init = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
-        Authing.init(init);
-        UserService userService = Authing.getUserService();
-        // 创建构造器
-        RegisterParam.Builder registerParamBuilder = new RegisterParam.Builder("test@123.com", "123456");
+public class Demo {
+    public static void main(String[] args) {
+        LoginByEmailParam param = new LoginByEmailParam().email("email").password("password").build();
     }
 }
 ```
 
-## 使用参数构造器添加可选参数
-
-```java
-    import cn.authing.core.Authing;
-    import cn.authing.core.param.InitParam;
-    import cn.authing.core.param.RegisterParam;
-    import cn.authing.core.result.RegisterResult;
-    import cn.authing.core.service.UserService;
-
-    import java.io.IOException;
-
-    public class Register {
-        public static void main(String[] args) throws IOException {
-            InitParam init = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
-            Authing.init(init);
-            UserService userService = Authing.getUserService();
-            RegisterParam.Builder registerParamBuilder = new RegisterParam.Builder("test@123.com", "123456");
-            // 创建可选参数
-            registerParamBuilder.nickname("test_nickname");
-            registerParamBuilder.company("Authing");
-        }
-    }
-```
-
-## 创建参数对象
+## setter 方式
 
 ```java
 import cn.authing.core.Authing;
-import cn.authing.core.param.InitParam;
-import cn.authing.core.param.RegisterParam;
-import cn.authing.core.result.RegisterResult;
-import cn.authing.core.service.UserService;
+import cn.authing.core.types.*;
 
-import java.io.IOException;
-
-public class Register {
-    public static void main(String[] args) throws IOException {
-        InitParam init = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
-        Authing.init(init);
-        UserService userService = Authing.getUserService();
-        RegisterParam.Builder registerParamBuilder = new RegisterParam.Builder("test@123.com", "123456");
-        registerParamBuilder.nickname("test_nickname");
-        registerParamBuilder.company("Authing");
-        // 创建参数对象
-        RegisterParam registerParam = registerParamBuilder.build();
-        // 使用参数对象调用接口函数
-        RegisterResult registerResult = userService.createUser(registerParam).execute();
-        System.out.println(registerResult.getId());
+public class Demo {
+    public static void main(String[] args) {
+        LoginByEmailParam param = new LoginByEmailParam();
+        param.setEmail("email");
+        param.setPassword("password");
+        param.build();
     }
 }
 ```
-
-# SDK 总览
-
-Authing SDK 提供了授权服务 (OAuthService)、用户服务 (UserService)、用户管理服务 (UserManageService) 和验证服务 (VerifyService)，你可以直接通过 Authing.getOAuthService，Authing.getUserService，Authing.getUserManageService，Authing.getVerifyService 获取相关实例。
 
 # 调用方式
 
@@ -187,61 +145,42 @@ SDK 提供了**同步**和**异步**两种调用方式，适用不同的场景�
 
 ```java
 import cn.authing.core.Authing;
-import cn.authing.core.param.InitParam;
-import cn.authing.core.param.RegisterParam;
-import cn.authing.core.result.RegisterResult;
-import cn.authing.core.service.UserService;
+import cn.authing.core.types.*;
 
-import java.io.IOException;
-
-public class Register {
-    public static void main(String[] args) throws IOException {
-        InitParam init = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
-        Authing.init(init);
-        UserService userService = Authing.getUserService();
-        RegisterParam.Builder registerParamBuilder = new RegisterParam.Builder("test@123.com", "123456");
-        registerParamBuilder.nickname("test_nickname");
-        registerParamBuilder.company("Authing");
-        RegisterParam registerParam = registerParamBuilder.build();
-        // 同步调用
-        RegisterResult registerResult = userService.createUser(registerParam).execute();
-        System.out.println(registerResult.getId());
+public class Demo {
+    public static void main(String[] args) {
+        Authing client = new Authing("userPoolId", "secret");
+        // 登录失败会抛出错误
+        LoginByEmailResponse response = client.loginByEmail(new LoginByEmailParam().email("email").password("password").build()).execute();
+        System.out.println(response.getResult().getEmail());
     }
 }
 ```
 
 ## 异步调用
 
-如果是在 Android 的主线程中，则需使用异步调用（当然你也可以在子线程中使用同步调用），例如：
+如果不希望阻塞当前线程，则需使用异步调用（当然你也可以在子线程中使用同步调用），例如：
 
 ```java
 import cn.authing.core.Authing;
 import cn.authing.core.http.Callback;
-import cn.authing.core.param.InitParam;
-import cn.authing.core.param.RegisterParam;
-import cn.authing.core.result.ErrorInfo;
-import cn.authing.core.result.RegisterResult;
-import cn.authing.core.service.UserService;
+import cn.authing.core.types.*;
 
-import java.io.IOException;
-
-public class RegisterUserAsync {
-    public static void main(String[] args) throws IOException {
-        InitParam init = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
-        Authing.init(init);
-        UserService userService = Authing.getUserService();
-        RegisterParam registerParam = new RegisterParam.Builder("13812341234", "123").nickname("test_nickname").build();
-        userService.createUser(registerParam).enqueue(new Callback<RegisterResult>() {
-            @Override
-            public void onSuccess(RegisterResult registerResult) {
-                registerResult.getId();
-            }
-
-            @Override
-            public void onFailure(ErrorInfo errorInfo) {
-                System.out.println(errorInfo.getCode());
-                System.out.println(errorInfo.getMessage());
-            }
+public class Demo {
+    public static void main(String[] args) {
+        Authing client = new Authing("userPoolId", "secret");
+        client.loginByEmail(new LoginByEmailParam().email("email").password("password").build()).enqueue(
+        new Callback<LoginByEmailResponse>() {
+                @Override
+                public void onSuccess(LoginByEmailResponse response) {
+                    response.getResult().getEmail();
+                }
+    
+                @Override
+                public void onFailure(ErrorInfo errorInfo) {
+                    System.out.println(errorInfo.getCode());
+                    System.out.println(errorInfo.getMessage());
+                }    
         });
     }
 }
@@ -249,38 +188,27 @@ public class RegisterUserAsync {
 
 # 错误处理
 
-同步调用不会返回错误，所以推荐使用异步调用。 在 `onFailure` 中会返回错误，你可以通过 `error.getCode()` 获取错误代码。了解更多报错的详情，请查看[错误代码列表](https://github.com/Authing/authing-java-sdk/blob/master/README-cn.md#%E9%94%99%E8%AF%AF%E4%BB%A3%E7%A0%81)。
+同步调用会抛出错误，异步调用在 `onFailure` 中会返回错误，你可以通过 `error.getCode()` 获取错误代码。了解更多报错的详情，请查看[错误代码列表](./README-cn.md#%E9%94%99%E8%AF%AF%E4%BB%A3%E7%A0%81)。
 
 # 用户服务
 
-## 初始化
+## 用户注册
 
-Authing.getUserService()
-请按照以下方式初始化 User 相关服务：
+client.register(RegisterParam params)
 
-```java
-import cn.authing.core.Authing;
-import cn.authing.core.param.InitParam;
-import cn.authing.core.service.UserService;
+需要在以下方式中选择一项：
 
-public class Demo2 {
-    public static void main(String[] args) {
-        InitParam init = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
-        Authing.init(init);
-        UserService userService = Authing.getUserService();
-    }
-}
-```
+- 手机号+验证码注册
+- 手机号+密码注册
+- 邮箱+密码注册
+- 用户名+密码注册
 
-## 创建用户
-
-userService.createUser(params)
-
-- params {Object}
-  - params.unionid {String}，unionid 和 email 参数只能填写一个
-  - params.email {String}，unionid 和 email 参数只能填写一个
-  - params.password {String}，不填 unionid 时必填，填 unionid 时不填
+params {RegisterParam}
+  - params.email {String}，可选，用户邮箱
   - params.username {String}，可选，用户名
+  - params.password {String}，可选，用户密码
+  - params.phone {String}，可选，手机号
+  - params.phoneCode {String}，可选，手机短信验证码
   - params.company {String}，可选，公司
   - params.lastIP {String}，可选，上次登录 IP 地址
   - params.oauth {String}，可选，用户社会化登录信息或其他自定义数据
@@ -290,37 +218,57 @@ userService.createUser(params)
 
 ```java
 import cn.authing.core.Authing;
-import cn.authing.core.param.InitParam;
-import cn.authing.core.param.RegisterParam;
-import cn.authing.core.result.RegisterResult;
-import cn.authing.core.service.UserService;
+import cn.authing.core.types.*;
 
 import java.io.IOException;
 
-public class Register {
+public class Demo {
     public static void main(String[] args) throws IOException {
-        InitParam init = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
-        Authing.init(init);
-        UserService userService = Authing.getUserService();
+        Authing client = new Authing("userPoolId", "secret");
+        
+        // 用户名密码注册 
+        UserRegisterInput input = new UserRegisterInput().username("username").password("123456").build();
+
         // 邮箱密码注册
-        RegisterParam registerParam = new RegisterParam.Builder("test@123.com", "123456").nickname("test_nickname").build();
+        // UserRegisterInput input = new UserRegisterInput().email("email").password("123456").build();
 
         // 手机号密码注册
-        // RegisterParam registerParam = new RegisterParam.Builder().usePhonePassword("phone", "password").nickname("test_nickname").build();
+        // UserRegisterInput input = new UserRegisterInput().phone("phone").password("123456").build();
 
         // 手机号验证码注册
-        // RegisterParam registerParam = new RegisterParam.Builder().usePhoneCode("phone", "code").nickname("test_nickname").build();
-        RegisterResult registerResult = userService.createUser(registerParam).execute();
-        System.out.println(registerResult.getId());
+        // UserRegisterInput input = new UserRegisterInput().phone("phone").phoneCode("1234").build();
+
+        RegisterResponse response = client.register(new RegisterParam().userInfo(input).build()).execute();
+        System.out.println(response.getResult().get_id());
     }
 }
 ```
 
-## 邮箱登录
+## 用户池管理员登录
 
-userService.loginByEmail(params)
+client.loginBySecret()
 
-- params {Object}
+此接口返回管理员的 accessToken，可以将其传入 client 中，以访问某些权限要求较高的接口。
+
+示例：
+
+```java
+import cn.authing.core.Authing;
+import cn.authing.core.types.*;
+
+public class Demo {
+    public static void main(String[] args) throws IOException {
+        Authing client = new Authing("userPoolId", "secret");
+        client.setAccessToken(client.loginBySecret().execute().getResult());
+    }
+}
+```
+
+## 邮箱+密码登录
+
+client.loginByEmail(params)
+
+- params {LoginByEmailParam}
   - params.email {String}，必填，用户邮箱
   - params.password {String}，必填，用户密码
 
@@ -328,61 +276,103 @@ userService.loginByEmail(params)
 
 ```java
 import cn.authing.core.Authing;
-import cn.authing.core.param.InitParam;
-import cn.authing.core.param.LoginByEmailParam;
-import cn.authing.core.result.LoginResult;
-import cn.authing.core.service.UserService;
+import cn.authing.core.types.*;
 
 import java.io.IOException;
 
-public class LoginByEmail {
+public class Demo {
     public static void main(String[] args) throws IOException {
-        InitParam init = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
-        Authing.init(init);
-        UserService userService = Authing.getUserService();
-        LoginByEmailParam loginByEmailParam = new LoginByEmailParam.Builder("test@123.com", "123456").build();
-        LoginResult loginResult = userService.loginByEmail(loginByEmailParam).execute();
-        System.out.println(loginResult.getId());
+        Authing client = new Authing("userPoolId", "secret");
+        LoginByEmailParam param = new LoginByEmailParam().email("email").password("123456").build();
+        LoginByEmailResponse response = client.loginByEmail(param).execute();
+        System.out.println(response.getResult().getEmail());
     }
 }
 ```
 
-## 手机验证码登录
+## 用户名+密码登录
 
-userService.loginByPhone(params)
+client.loginByUsername(params)
 
-- params {Object}
-  - params.phone {String}，手机号
-  - params.verifyCode {Int}，短信验证码
+- params {LoginByUsernameParam}
+  - params.username {String}，必填，用户名
+  - params.password {String}，必填，用户密码
 
 示例：
 
 ```java
 import cn.authing.core.Authing;
-import cn.authing.core.param.InitParam;
-import cn.authing.core.param.LoginByPhoneParam;
-import cn.authing.core.result.LoginResult;
-import cn.authing.core.service.UserService;
+import cn.authing.core.types.*;
 
 import java.io.IOException;
 
-public class loginByPhone {
+public class Demo {
     public static void main(String[] args) throws IOException {
-        InitParam init = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
-        Authing.init(init);
-        UserService userService = Authing.getUserService();
-        LoginByPhoneParam loginByPhoneParam = new LoginByPhoneParam.Builder("13812341234", 1234).build();
-        LoginResult loginResult = userService.loginByPhone(loginByPhoneParam).execute();
-        System.out.println(loginResult.getId());
+        Authing client = new Authing("userPoolId", "secret");
+        LoginByUsernameParam param = new LoginByUsernameParam().username("username").password("123456").build();
+        LoginByUsernameResponse response = client.loginByUsername(param).execute();
+        System.out.println(response.getResult().getEmail());
+    }
+}
+```
+
+## 手机号+验证码登录
+
+client.loginByPhoneCode(params)
+
+- params {LoginByPhoneCodeParam}
+  - params.phone {String}，手机号
+  - params.phoneCode {Int}，短信验证码
+
+示例：
+
+```java
+import cn.authing.core.Authing;
+import cn.authing.core.types.*;
+
+import java.io.IOException;
+
+public class Demo {
+    public static void main(String[] args) throws IOException {
+        Authing client = new Authing("userPoolId", "secret");
+        LoginByPhoneCodeParam param = new LoginByPhoneCodeParam().phone("phone").phoneCode(1234).build();
+        LoginByPhoneCodeResponse response = client.loginByPhoneCode(param).execute();
+        System.out.println(response.getResult().getEmail());
+    }
+}
+```
+
+## 手机号+密码登录
+
+client.loginByPhonePassword(params)
+
+- params {LoginByPhonePasswordParam}
+  - params.phone {String}，手机号
+  - params.password {Int}，用户密码
+
+示例：
+
+```java
+import cn.authing.core.Authing;
+import cn.authing.core.types.*;
+
+import java.io.IOException;
+
+public class Demo {
+    public static void main(String[] args) throws IOException {
+        Authing client = new Authing("userPoolId", "secret");
+        LoginByPhonePasswordParam param = new LoginByPhonePasswordParam().phone("phone").password("123456").build();
+        LoginByPhonePasswordResponse response = client.loginByPhonePassword(param).execute();
+        System.out.println(response.getResult().getEmail());
     }
 }
 ```
 
 ## LDAP 登录
 
-userService.loginByLDAP(params)
+client.loginByLDAP(params)
 
-- params {Object}
+- params {LoginByLdapParam}
   - params.username {String}，必填，用户名
   - params.password {String}，必填，密码
 
@@ -390,239 +380,85 @@ userService.loginByLDAP(params)
 
 ```java
 import cn.authing.core.Authing;
-import cn.authing.core.param.InitParam;
-import cn.authing.core.param.LoginByLADPParam;
-import cn.authing.core.result.LoginResult;
-import cn.authing.core.service.UserService;
+import cn.authing.core.types.*;
 
 import java.io.IOException;
 
-public class loginByLDAP {
+public class Demo {
     public static void main(String[] args) throws IOException {
-        InitParam init = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
-        Authing.init(init);
-        UserService userService = Authing.getUserService();
-        LoginByLADPParam loginByLDAPParam = new LoginByLADPParam.Builder("13812341234", "123456").build();
-        LoginResult loginResult = userService.loginByLDAP(loginByLDAPParam).execute();
-        System.out.println(loginResult.getId());
+        Authing client = new Authing("userPoolId", "secret");
+        LoginByLdapParam param = new LoginByLdapParam().username("phone").password("123456").build();
+        LoginByLdapResponse response = client.loginByLdap(param).execute();
+        System.out.println(response.getResult().getEmail());
     }
 }
 ```
 
-## 使用 OIDC Password 模式登录
+## 刷新 AccessToken
 
-userService.loginByOidc(params)
+需要用户池管理员的 AccessToken。
 
-- params {Object}
-  - params.client_id {String}，必填，OIDC 应用 ID
-  - params.client_secret {String}，必填，OIDC 应用密钥
-  - params.username，选填，phone/email/username/unionid 互斥
-  - params.unionid，选填，phone/email/username/unionid 互斥
-  - params.password，unionid 未填时必填，使用 unionid 登录时不填
-  - params.phone {String}，选填，phone/email/username/unionid 互斥
-  - params.email，选填，phone/email/username/unionid 互斥
+client.refreshToken(params)
 
-示例：
-
-```java
-import cn.authing.core.Authing;
-import cn.authing.core.param.InitParam;
-import cn.authing.core.param.LoginByOidcParam;
-import cn.authing.core.result.SigninResult;
-
-public class TestLoginByOidc {
-    public static void main(String[] args) throws Exception {
-        InitParam param = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
-        // 初始化，全局只需要初始化一次
-        Authing.init(param);
-
-        // oidc 登录的参数
-        LoginByOidcParam p = new LoginByOidcParam.Builder("oidcClientId", "oidcSecret")
-                // 这四个 init 方法，只用调用一个，多次 init，只有第一次会生效
-                .initWithEmail("邮箱","密码")
-                // .initWithPhone("电话","密码")
-                // .initWithUsername("用户名","密码")
-                // .initWithUnionId("unionId")
-                .build();
-        // 调用，并获取结果。
-        SigninResult result = Authing.getUserService().loginByOidc(p).execute();
-        System.out.println(result.getAccessToken());
-    }
-}
-```
-
-## 刷新 OIDC Token
-
-userService.refreshOidcToken(params)
-
-- params {Object}
-  - params.client_id {String}，必填，OIDC 应用 ID
-  - params.client_secret {String}，必填，OIDC 应用密钥
-  - params.refresh_token {String}，必填，刷新 token
-
-示例：
-
-```java
-import cn.authing.core.Authing;
-import cn.authing.core.param.InitParam;
-import cn.authing.core.param.RefreshOidcTokenParam;
-import cn.authing.core.result.RefreshOidcTokenResult;
-
-public class TestRefreshOidcToken {
-    public static void main(String[] args) throws Exception {
-        InitParam param = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
-        // 初始化，全局只需要初始化一次
-        Authing.init(param);
-
-        // 刷新 OidcToken 的参数
-        RefreshOidcTokenParam p = new RefreshOidcTokenParam.Builder("oidcClientId", "oidcSecret","refresh token")
-                .build();
-        // 调用，并获取结果。
-        RefreshOidcTokenResult result = Authing.getUserService().refreshOidcToken(p).execute();
-        System.out.println(result.getAccessToken());
-    }
-}
-```
-
-## 登录
-
-userService.signIn(params)
-
-- params {Object}
-  - params.phone {String}，选填，phone/email/username/unionid 互斥
-  - params.email，选填，phone/email/username/unionid 互斥
-  - params.username，选填，phone/email/username/unionid 互斥
-  - params.unionid，选填，phone/email/username/unionid 互斥
-  - params.password，unionid 未填时必填，使用 unionid 登录时不填
-
-示例：
-
-```java
-import cn.authing.core.Authing;
-import cn.authing.core.param.InitParam;
-import cn.authing.core.param.SigninParam;
-import cn.authing.core.result.SigninResult;
-
-public class TestSignin {
-    public static void main(String[] args) throws Exception {
-        InitParam param = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
-        // 初始化，全局只需要初始化一次
-        Authing.init(param);
-
-        // 登录的参数
-        SigninParam p = new SigninParam.Builder()
-            // 这四个 init 方法，只用调用一个，多次 init，只有第一次会生效
-            .initWithEmail("邮箱","密码")
-            // .initWithPhone("电话","密码")
-            // .initWithUsername("用户名","密码")
-            // .initWithUnionId("unionId")
-            .build();
-        // 调用，并获取结果。
-        SigninResult result = Authing.getUserService().signIn(p).execute();
-        System.out.println(result.getAccessToken());
-    }
-}
-```
-
-## 刷新 signIn Token
-
-userService.refreshSignInToken(params)
-
-- params {Object}
-  - params.refresh_token {String}，必填，刷新 token
-
-示例：
-
-```java
-import cn.authing.core.Authing;
-import cn.authing.core.param.InitParam;
-import cn.authing.core.param.RefreshSigninTokenParam;
-import cn.authing.core.result.RefreshSigninTokenResult;
-
-public class TestRefreshSigninToken {
-    public static void main(String[] args) throws Exception {
-        InitParam param = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
-        // 初始化，全局只需要初始化一次
-        Authing.init(param);
-
-        // 获取用户列表的参数
-        RefreshSigninTokenParam p = new RefreshSigninTokenParam.Builder("refresh token")
-            .oidcAppId("") // 可选参数
-            .build();
-        // 调用，并获取结果。
-        RefreshSigninTokenResult result = Authing.getUserService().refreshSignInToken(p).execute();
-        System.out.println(result.getAccessToken());
-    }
-}
-```
-
-## 刷新用户 Authing Token
-
-userService.refreshToken(params)
-
-- params {Object}
+- params {RefreshTokenParam}
   - params.userId {String}，必填，用户 ID
 
 示例：
 
 ```java
 import cn.authing.core.Authing;
-import cn.authing.core.param.InitParam;
-import cn.authing.core.param.RefreshTokenParam;
-import cn.authing.core.result.RefreshTokenResult;
-import cn.authing.core.service.UserService;
+import cn.authing.core.types.*;
 
 import java.io.IOException;
 
-public class RefreshToken {
+public class Demo {
     public static void main(String[] args) throws IOException {
-        InitParam init = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
-        Authing.init(init);
-        UserService userService = Authing.getUserService();
-        RefreshTokenParam refreshTokenParam = new RefreshTokenParam.Builder("5e109c446ef04e93e4a54d69").build();
-        RefreshTokenResult refreshTokenResult = userService.refreshToken(refreshTokenParam).execute();
-        System.out.println(refreshTokenResult.getToken());
+        Authing client = new Authing("userPoolId", "secret");
+        // 获取管理员权限
+        client.setAccessToken(client.loginBySecret().execute().getResult());
+        System.out.println(client.refreshToken(new RefreshTokenParam().user("user id").build()).execute());
     }
 }
 ```
 
 ## 获取用户信息
 
-userService.user(params)
+client.user(params)
 
-- params {Object}
+需要 AccessToken。
+
+普通用户只能查询自己的信息，用户池管理员可以查询用户池下所有用户信息
+
+- params {UserParam}
   - params.userId {String}，必填，用户 ID
 
 示例：
 
 ```java
 import cn.authing.core.Authing;
-import cn.authing.core.param.InitParam;
-import cn.authing.core.param.UserInfoParam;
-import cn.authing.core.result.UserInfoResult;
-import cn.authing.core.service.UserService;
+import cn.authing.core.types.*;
 
 import java.io.IOException;
 
-public class GetUserInfo {
+public class Demo {
     public static void main(String[] args) throws IOException {
-        InitParam init = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
-        Authing.init(init);
-
-        UserService userService = Authing.getUserService();
-        UserInfoParam userInfoParam = new UserInfoParam.Builder("5e109c446ef04e93e4a54d69").build();
-        UserInfoResult userInfoResult = userService.user(userInfoParam).execute();
-        System.out.println(userInfoResult.getId());
+        Authing client = new Authing("userPoolId", "secret");
+        System.out.println(client.user(new UserParam().id("user id").build()).execute());
     }
 }
 ```
 
 ## 更新用户信息
 
-userService.updateUserInfo(params)
+client.updateUser(params)
 
-- params {Object}
-  - params.userId {userId}，必填，用户 ID
+需要 AccessToken。
+
+普通用户只能更新自己的信息，用户池管理员可以更新用户池下所有用户信息，
+管理员还可通过此接口直接更新用户的手机号或密码
+
+- params {UpdateUserParam}
+  - params._id {userId}，必填，用户 ID
   - params.blocked {Boolean}，可选，是否被锁定
   - params.browser {String}，可选，浏览器信息
   - params.company {String}，可选，公司
@@ -634,40 +470,42 @@ userService.updateUserInfo(params)
   - params.nickname {String}，可选，昵称
   - params.signUp {String}，可选，注册时间
   - params.photo {String}，可选，头像
-  - params.password {String}，可选，密码
-  - params.token {String}，可选，Authing Token
-  - params.tokenExpiredAt {String}，可选，Authing Token 过期时间
+  - params.password {String}，可选，密码，仅管理员能修改
+  - params.token {String}，可选，Access Token
+  - params.tokenExpiredAt {String}，可选，Access Token 过期时间
   - params.username {String}，可选，用户名
 
 示例：
 
 ```java
 import cn.authing.core.Authing;
-import cn.authing.core.param.InitParam;
-import cn.authing.core.param.UpdateUserInfoParam;
-import cn.authing.core.result.UserInfoResult;
-import cn.authing.core.service.UserService;
+import cn.authing.core.types.*;
 
 import java.io.IOException;
 
-public class UpdateUserInfo {
+public class Demo {
     public static void main(String[] args) throws IOException {
-        InitParam init = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
-        Authing.init(init);
+        Authing client = new Authing("userPoolId", "secret");
 
-        UserService userService = Authing.getUserService();
-        UpdateUserInfoParam updateUpdateUserInfoParam = new UpdateUserInfoParam.Builder("5e109c446ef04e93e4a54d69").build();
-        UserInfoResult userInfoResult = userService.updateUserInfo(updateUpdateUserInfoParam).execute();
-        System.out.println(userInfoResult.getId());
+        // 获取管理员权限
+        client.setAccessToken(client.loginBySecret().execute().getResult());
+        UserUpdateInput options = new UserUpdateInput()._id("user id").nickname("nickname").build();
+        System.out.println(client.updateUser(new UpdateUserParam().options(options).build()).execute());
     }
 }
 ```
 
 ## 更新用户手机号
 
-userService.updatePhone(params)
+client.updatePhone(params)
 
-- params {Object}
+需要 AccessToken。
+
+可在控制台配置是否需要填写旧手机号和验证码。
+
+管理员可直接调用 updateUser 接口来修改手机号。
+
+- params {UpdatePhoneParam}
   - params.phone {String}，必填，新手机号
   - params.phoneCode {String}，必填，发送到新手机号的验证码
   - params.oldPhone {String}，可选，旧手机号
@@ -677,218 +515,181 @@ userService.updatePhone(params)
 
 ```java
 import cn.authing.core.Authing;
-import cn.authing.core.param.InitParam;
-import cn.authing.core.param.UpdatePhoneParam;
-import cn.authing.core.result.UserInfoResult;
-import cn.authing.core.service.UserService;
+import cn.authing.core.types.*;
 
 import java.io.IOException;
 
-public class UpdatePhone {
+public class Demo {
     public static void main(String[] args) throws IOException {
-        InitParam init = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
-        Authing.init(init);
+        Authing client = new Authing("userPoolId", "secret");
 
-        UserService userService = Authing.getUserService();
-        UpdatePhoneParam udatePhoneParam = new UpdatePhoneParam.Builder("phone", "code").build();
-        UserInfoResult userInfoResult = userService.updateUserInfo(updatePhoneParam).execute();
-        System.out.println(userInfoResult.getId());
+        // 获取普通用户的 accessToken
+        LoginByEmailResponse response = client.loginByEmail(new LoginByEmailParam().email("email").password("123456").build()).execute();
+        client.setAccessToken(response.getResult().getToken());
+
+        // 更新手机号
+        System.out.println(client.updatePhone(new UpdatePhoneParam().phone("phone").phoneCode("1234").build()).execute());
     }
 }
 ```
 
 ## 查询用户登录状态
 
-userService.checkLoginStatus(params)
+client.checkLoginStatus(params)
 
-- params {Object}
-  - params.token {String}，必填，用户 Authing Token
+需要 AccessToken。
+
+- params {CheckLoginStatusParam}
+  - params.token {String}，必填，用户 accessToken
 
 示例：
 
 ```java
 import cn.authing.core.Authing;
-import cn.authing.core.param.CheckLoginStatusParam;
-import cn.authing.core.param.InitParam;
-import cn.authing.core.result.CheckLoginStatusResult;
+import cn.authing.core.types.*;
 
 import java.io.IOException;
 
-public class TestCheckLoginStatus {
+public class Demo {
     public static void main(String[] args) throws IOException {
-        InitParam param = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
-        // 初始化，全局只需要初始化一次
-        Authing.init(param);
+        Authing client = new Authing("userPoolId", "secret");
+    
+        // 获取普通用户的 accessToken
+        LoginByEmailResponse response = client.loginByEmail(new LoginByEmailParam().email("email").password("123456").build()).execute();
+        client.setAccessToken(response.getResult().getToken());
 
-        // 检查登录状态的参数
-        CheckLoginStatusParam p = new CheckLoginStatusParam.Builder("token").build();
-        // 调用，并获取结果。
-        CheckLoginStatusResult info = Authing.getUserService().checkLoginStatus(p).execute();
-        System.out.println(info.isStatus());
+        System.out.println(client.checkLoginStatus(new CheckLoginStatusParam().token(user.getToken()).build()).execute());
     }
 }
 ```
 
 ## 重置密码
 
-userService.resetPasword(params)
+client.resetPassword(params)
 
-- params {Object}
+需要 AccessToken。
+用户池管理员可直接调用 updateUser 接口来修改密码。
+
+- params {ResetPasswordParam}
   - params.email {String}，必填，用户邮箱
   - params.password {String}，必填，用户新密码
-  - params.verifyCode {String}，必填，验证码
+  - params.verifyCode {String}，必填，邮箱验证码
 
 示例：
 
 ```java
 import cn.authing.core.Authing;
-import cn.authing.core.param.InitParam;
-import cn.authing.core.param.ResetPasswordParam;
-import cn.authing.core.result.UserInfoResult;
-import cn.authing.core.service.UserService;
+import cn.authing.core.types.*;
 
 import java.io.IOException;
 
-public class ResetPassword {
+public class Demo {
     public static void main(String[] args) throws IOException {
-        InitParam init = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
-        Authing.init(init);
+        Authing client = new Authing("userPoolId", "secret");
 
-        UserService userService = Authing.getUserService();
-        ResetPasswordParam resetPasswordParam = new ResetPasswordParam.Builder("5e109c446ef04e93e4a54d69", "123456", "1234").build();
-        UserInfoResult userInfoResult = userService.resetPassword(resetPasswordParam).execute();
-        System.out.println(userInfoResult.getId());
+        // 获取普通用户的 accessToken
+        LoginByEmailResponse response = client.loginByEmail(new LoginByEmailParam().email("email").password("123456").build()).execute();
+        client.setAccessToken(response.getResult().getToken());
+
+        System.out.println(client.resetPassword(new ResetPasswordParam().email("email").password("password").verifyCode("123456").build()).execute());
     }
 }
 ```
 
 # 授权服务
 
-## 初始化
-
-Authing.getOAuthService()
-请按照以下方式初始化授权相关服务：
-
-```java
-import cn.authing.core.Authing;
-import cn.authing.core.param.InitParam;
-import cn.authing.core.service.*;
-
-public class Demo2 {
-    public static void main(String[] args) {
-        InitParam init = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
-        Authing.init(init);
-        OAuthService oauthService = Authing.getOAuthService();
-    }
-}
-```
-
 ## 解绑邮箱
 
-oauthService.unbindEmail(params)
+client.unbindEmail(params)
 
-- params {Object}
-  - params.userId {String}，必填，用户 ID
+需要 AccessToken。
+
+需要已经绑定了其他登录方式，例如用户名+密码
+
+- params {UnbindEmailParam}
+  - params.user {String}，必填，用户 ID
 
 示例：
 
 ```java
 import cn.authing.core.Authing;
-import cn.authing.core.param.InitParam;
-import cn.authing.core.param.UnbindEmailParam;
-import cn.authing.core.result.UserInfoResult;
-import cn.authing.core.service.OAuthService;
+import cn.authing.core.types.*;
 
 import java.io.IOException;
 
 public class UnBindEmail {
     public static void main(String[] args) throws IOException {
-        InitParam init = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
-        Authing.init(init);
+        Authing client = new Authing("userPoolId", "secret");
 
-        OAuthService oauthService = Authing.getOAuthService();
-        UnbindEmailParam unbindEmailParam = new UnbindEmailParam.Builder().userId("5e109c446ef04e93e4a54d69").build();
-        UserInfoResult userInfoResult = oauthService.unbindEmail(unbindEmailParam).execute();
-        System.out.println(userInfoResult.getId());
+        // 获取普通用户的 accessToken
+        LoginByEmailResponse response = client.loginByEmail(new LoginByEmailParam().email("email").password("123456").build()).execute();
+        client.setAccessToken(response.getResult().getToken());
+    
+        System.out.println(client.unbindEmail(new UnbindEmailParam().user("user id").build()).execute());
     }
 }
 ```
 
 ## 读取用户池开启的社会化登录列表
 
-oauthService.readOAuthList()
+client.readOAuthList(params)
+
+需要用户池管理员的 AccessToken。
+
+- params {ReadOauthListParam}
+  - params.useGuard {Boolean}，可选
+  - params.dontGetURL {Boolean}，可选
 
 示例：
 
 ```java
 import cn.authing.core.Authing;
-import cn.authing.core.param.ReadOAuthListParam;
-import cn.authing.core.result.OAuthData;
-import cn.authing.core.service.OAuthService;
+import cn.authing.core.types.*;
 
 import java.io.IOException;
 import java.util.List;
 
-public class ReadSocialLoginListOfUserPool {
+public class Demo {
     public static void main(String[] args) throws IOException {
-        OAuthService oauthService = Authing.getOAuthService();
-        ReadOAuthListParam readOauthListParam = new ReadOAuthListParam.Builder().build();
-        List<OAuthData> oauthData = oauthService.readOAuthList(readOauthListParam).execute();
-        System.out.println(oauthData.get(0).getId());
+        Authing client = new Authing("userPoolId", "secret");
+
+        // 获取管理员权限
+        client.setAccessToken(client.loginBySecret().execute().getResult());
+
+        System.out.println(client.readOauthList(new ReadOauthListParam().build()).execute());
     }
 }
 ```
 
 # 验证服务
 
-## 初始化
-
-Authing.getVerifyService()
-
-请按照以下方式初始化验证服务：
-
-```java
-import cn.authing.core.Authing;
-import cn.authing.core.param.InitParam;
-import cn.authing.core.service.UserService;
-
-public class Demo2 {
-    public static void main(String[] args) {
-        InitParam init = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
-        Authing.init(init);
-        VerifyService verifyService = Authing.getVerifyService();
-    }
-}
-```
-
 ## 发送邮箱验证邮件
 
-verifyService.sendVerifyEmail(params)
+client.sendVerifyEmail(params)
 
-- params {Object}
+- params {SendVerifyEmailParam}
   - params.email {String}，必填，邮箱地址
 
 示例：
 
-    import cn.authing.core.Authing;
-    import cn.authing.core.param.SendVerifyEmailParam;
-    import cn.authing.core.result.Result;
-    import cn.authing.core.service.VerifyService;
+```java
+import cn.authing.core.Authing;
+import cn.authing.core.types.*;
 
-    import java.io.IOException;
+import java.io.IOException;
 
-    public class SendVerifyEmail {
-        public static void main(String[] args) throws IOException {
-            VerifyService verifyService = Authing.getVerifyService();
-            SendVerifyEmailParam sendVerifyEmailParam = new SendVerifyEmailParam.Builder("test@test.com").build();
-            Result result = verifyService.sendVerifyEmail(sendVerifyEmailParam).execute();
-            System.out.println(result.getCode());
-        }
+public class Demo {
+    public static void main(String[] args) throws IOException {
+        Authing client = new Authing("userPoolId", "secret");
+
+        client.sendVerifyEmail(new SendVerifyEmailParam().email("email").build()).execute();
     }
+}
+```
 
 ## 发送手机验证码
 
-verifyService.sendPhoneVerifyCode(phone)
+client.sendPhoneVerifyCode(phone)
 
 - phone {String}，必填，手机号
 
@@ -896,52 +697,46 @@ verifyService.sendPhoneVerifyCode(phone)
 
 ```java
 import cn.authing.core.Authing;
-import cn.authing.core.result.Result;
-import cn.authing.core.service.VerifyService;
+import cn.authing.core.types.*;
 
 import java.io.IOException;
 
-public class SendPhoneVerifyCode {
+public class Demo {
     public static void main(String[] args) throws IOException {
-        VerifyService verifyService = Authing.getVerifyService();
-        Result result = verifyService.sendPhoneVerifyCode("13812341234").execute();
-        System.out.println(result.getCode());
+        Authing client = new Authing("userPoolId", "secret");
+        System.out.println(client.sendPhoneVerifyCode("phone").execute());
     }
 }
 ```
 
 ## 发送重置密码邮件
 
-verifyService.sendResetPasswordEmail(params)
+client.sendResetPasswordEmail(params)
 
-- params {Object}
+- params {SendResetPasswordEmailParam}
   - params.email {String}，必填，邮箱地址
 
 示例：
 
 ```java
-    import cn.authing.core.Authing;
-    import cn.authing.core.param.SendResetPasswordEmailParam;
-    import cn.authing.core.result.Result;
-    import cn.authing.core.service.VerifyService;
+import cn.authing.core.Authing;
+import cn.authing.core.types.*;
 
-    import java.io.IOException;
+import java.io.IOException;
 
-    public class SendResetPasswordEmail {
-        public static void main(String[] args) throws IOException {
-            VerifyService verifyService = Authing.getVerifyService();
-            SendResetPasswordEmailParam sendResetPasswordEmailParam = new SendResetPasswordEmailParam.Builder("test@test.com").build();
-            Result result = verifyService.sendResetPasswordEmail(sendResetPasswordEmailParam).execute();
-            System.out.println(result.getCode());
-        }
+public class Demo {
+    public static void main(String[] args) throws IOException {
+        Authing client = new Authing("userPoolId", "secret");
+        client.sendResetPasswordEmail(new SendResetPasswordEmailParam().email("email").build()).execute();
     }
+}
 ```
 
 ## 验证重置密码的验证码
 
-verifyService.verifyResetPasswordCode(params)
+client.verifyResetPasswordCode(params)
 
-- params {Object}
+- params {verifyResetPasswordCode}
   - params.email {String}，必填，邮箱地址
   - params.verifyCode {String}，必填，验证码
 
@@ -949,79 +744,57 @@ verifyService.verifyResetPasswordCode(params)
 
 ```java
 import cn.authing.core.Authing;
-import cn.authing.core.param.VerifyResetPasswordCodeParam;
-import cn.authing.core.result.Result;
-import cn.authing.core.service.VerifyService;
+import cn.authing.core.types.*;
 
 import java.io.IOException;
 
-public class VerifyResetPasswordCode {
+public class Demo {
     public static void main(String[] args) throws IOException {
-        VerifyService verifyService = Authing.getVerifyService();
-        VerifyResetPasswordCodeParam verifyResetPasswordCodeParam = new VerifyResetPasswordCodeParam.Builder("test@test.com", "1234").build();
-        Result result = verifyService.verifyResetPasswordCode(verifyResetPasswordCodeParam).execute();
-        System.out.println(result.getCode());
+        Authing client = new Authing("userPoolId", "secret");
+
+         System.out.println(client.verifyResetPasswordCode(new VerifyResetPasswordVerifyCodeParam().email("email").verifyCode("verifyCode").build()).execute());
     }
 }
 ```
 
 # 用户管理服务
 
-## 初始化
-
-Authing.getUserManageService()
-
-请按照以下方式初始化用户管理相关服务：
-
-```java
-import cn.authing.core.Authing;
-import cn.authing.core.param.InitParam;
-import cn.authing.core.service.*;
-
-public class Demo2 {
-    public static void main(String[] args) {
-        InitParam init = new InitParam.Builder("5e109c446ef04e93e4a54d69").secret("1dcaa83dd0a0424d7906d7cec76e1935").build();
-        Authing.init(init);
-        UserManageService userManageService = Authing.getUserManageService();
-    }
-}
-```
-
 ## 批量获取用户信息
 
-userManageService.getUserInfo(params)
+client.userPatch(params)
 
-- params {Object}
-  - params.addUserId {String}，必填，需要查询的用户的 ID
+需要用户池管理员的 AccessToken。
+
+- params {UserPatchParam}
+  - params.ids {String}，必填，需要查询的用户的 ID 列表，用英文逗号分隔，例如：id1,id2,id3
 
 示例：
 
 ```java
 import cn.authing.core.Authing;
-import cn.authing.core.param.UserPatchParam;
-import cn.authing.core.result.UserPatchResult;
-import cn.authing.core.service.UserManageService;
+import cn.authing.core.types.*;
 
 import java.io.IOException;
 
-public class BatchUserInfo {
+public class Demo {
     public static void main(String[] args) throws IOException {
-        UserManageService userManageService = Authing.getUserManageService();
-        UserPatchParam.Builder userPatchBuilder = new UserPatchParam.Builder();
-        userPatchBuilder.addUserId("5e67c2855d5a74fc4e9cffcd");
-        userPatchBuilder.addUserId("5e67c2712da3f4269e750088");
-        UserPatchParam userPatchParam = userPatchBuilder.build();
-        UserPatchResult userPatchResult = userManageService.getUserInfo(userPatchParam).execute();
-        System.out.println(userPatchResult.getList());
+        Authing client = new Authing("userPoolId", "secret");
+
+        String token = client.loginBySecret().execute().getResult();
+        client.setAccessToken(token);
+
+        System.out.println(client.userPatch(new UserPatchParam().ids("id1,id2,id3").build()).execute());
     }
 }
 ```
 
 ## 获取用户列表
 
-userManageService.getUserList(params)
+client.users(params)
 
-- params {Object}
+需要用户池管理员的 AccessToken。
+
+- params {UsersParam}
   - params.page {Int}，选填，默认为 1
   - params.count {Int}，选填，默认为 10
 
@@ -1029,54 +802,55 @@ userManageService.getUserList(params)
 
 ```java
 import cn.authing.core.Authing;
-import cn.authing.core.param.UserListParam;
-import cn.authing.core.result.UserListResult;
-import cn.authing.core.result.UserPatchResult;
-import cn.authing.core.service.UserManageService;
+import cn.authing.core.types.*;
 
 import java.io.IOException;
 
-public class GetUserList {
+public class Demo {
     public static void main(String[] args) throws IOException {
-        UserManageService userManageService = Authing.getUserManageService();
-        UserListParam userListParam = new UserListParam.Builder().page(1).count(10).build();
-        UserListResult userListResult = userManageService.getUserList(userListParam).execute();
-        System.out.println(userListResult.getList());
+        Authing client = new Authing("userPoolId", "secret");
+
+        String token = client.loginBySecret().execute().getResult();
+        client.setAccessToken(token);
+
+        System.out.println(client.users(new UsersParam().page(1).count(2).build()).execute());
     }
 }
 ```
 
 ## 删除用户
 
-userManageService.removeUser(params)
+client.removeUser(params)
+
+需要用户池管理员的 AccessToken。
 
 - params {Object}
-  - params.userId，必填，用户 ID
+  - params.ids，必填，用户 ID 列表
 
 示例：
 
 ```java
 import cn.authing.core.Authing;
-import cn.authing.core.param.RemoveUserParam;
-import cn.authing.core.result.RemoveUserResult;
-import cn.authing.core.service.UserManageService;
+import cn.authing.core.types.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RemoveUser {
     public static void main(String[] args) throws IOException {
-        UserManageService userManageService = Authing.getUserManageService();
-        RemoveUserParam removeUserParam = new RemoveUserParam.Builder("5e109c4461f04e93e4a54d60").build();
-        List<RemoveUserResult> userListResult = userManageService.removeUser(removeUserParam).execute();
-        System.out.println(userListResult.get(0).getId());
+        Authing client = new Authing("userPoolId", "secret");
+
+        String token = client.loginBySecret().execute().getResult();
+        client.setAccessToken(token);
+
+        // 删除用户
+        List<String> ids = new ArrayList<String>();
+        ids.add(user.get_id());
+        System.out.println(client.removeUsers(new RemoveUsersParam().ids(ids).build()).execute());
     }
 }
 ```
-
-# Demo
-
-完整的使用案例请参考：[https://github.com/Authing/authing-java-sdk/tree/master/examples](https://github.com/Authing/authing-java-sdk/tree/master/examples)
 
 # 错误代码
 
