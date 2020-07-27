@@ -25,4 +25,9 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
 
+task copyJars(type: Copy) {
+    from configurations.runtimeClasspath
+    into "$buildDir/libs/deps"
+}
+
 apply from: 'publish.gradle'

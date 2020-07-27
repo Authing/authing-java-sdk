@@ -55,7 +55,7 @@ public class AuthingTest {
     public void user() throws IOException {
         ExtendUser user = client.loginByUsername(new LoginByUsernameParam().username("test").password("123456").build()).execute().getResult();
         client.setAccessToken(user.getToken());
-        System.out.println(client.user(new UserParam().id(user.get_id()).build()).execute());
+        System.out.println(client.user(new UserParam().token(user.getToken()).build()).execute());
     }
 
     @Test

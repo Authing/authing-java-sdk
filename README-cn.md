@@ -83,7 +83,7 @@ public class Demo {
 }
 ```
 
-## setter 方式
+## Setter 方式
 
 ```java
 import cn.authing.core.Authing;
@@ -135,16 +135,16 @@ public class Demo {
         Authing client = new Authing("userPoolId", "secret");
         client.loginByEmail(new LoginByEmailParam().email("email").password("password").build()).enqueue(
         new Callback<LoginByEmailResponse>() {
-                @Override
-                public void onSuccess(LoginByEmailResponse response) {
-                    response.getResult().getEmail();
-                }
-    
-                @Override
-                public void onFailure(ErrorInfo errorInfo) {
-                    System.out.println(errorInfo.getCode());
-                    System.out.println(errorInfo.getMessage());
-                }    
+            @Override
+            public void onSuccess(LoginByEmailResponse response) {
+                response.getResult().getEmail();
+            }
+
+            @Override
+            public void onFailure(ErrorInfo errorInfo) {
+                System.out.println(errorInfo.getCode());
+                System.out.println(errorInfo.getMessage());
+            }    
         });
     }
 }
@@ -365,7 +365,7 @@ public class Demo {
 client.refreshToken(params)
 
 - params {RefreshTokenParam}
-  - params.userId {String}，必填，用户 ID
+  - params.user {String}，必填，用户 ID
 
 示例：
 
@@ -394,7 +394,8 @@ client.user(params)
 普通用户只能查询自己的信息，用户池管理员可以查询用户池下所有用户信息
 
 - params {UserParam}
-  - params.userId {String}，必填，用户 ID
+  - params.id {String}，可选，用户 ID
+  - params.token {String}，可选，用户 AccessToken
 
 示例：
 
@@ -407,6 +408,8 @@ import java.io.IOException;
 public class Demo {
     public static void main(String[] args) throws IOException {
         Authing client = new Authing("userPoolId", "secret");
+        // 获取管理员权限
+        client.setAccessToken(client.loginBySecret().execute().getResult());
         System.out.println(client.user(new UserParam().id("user id").build()).execute());
     }
 }
@@ -421,7 +424,7 @@ client.updateUser(params)
 普通用户只能更新自己的信息，用户池管理员可以更新用户池下所有用户信息，
 管理员还可通过此接口直接更新用户的手机号或密码
 
-- params {UpdateUserParam}
+- params {UserUpdateInput}
   - params._id {userId}，必填，用户 ID
   - params.blocked {Boolean}，可选，是否被锁定
   - params.browser {String}，可选，浏览器信息
@@ -532,6 +535,7 @@ public class Demo {
 client.resetPassword(params)
 
 需要 AccessToken。
+
 用户池管理员可直接调用 updateUser 接口来修改密码。
 
 - params {ResetPasswordParam}
