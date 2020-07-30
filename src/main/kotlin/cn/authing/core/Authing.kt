@@ -21,7 +21,7 @@ import javax.crypto.Cipher
 /**
  * Authing 客户端类
  */
-class Authing(private val userPoolId: String, private val secret: String? = null) {
+open class Authing(private val userPoolId: String, private val secret: String? = null) {
     // 兼容 Java 的单参数构造方法
     constructor(clientId: String): this(clientId, null)
 
@@ -35,7 +35,7 @@ class Authing(private val userPoolId: String, private val secret: String? = null
     // 常量
     private val MEDIA_TYPE_JSON: MediaType? = "application/json".toMediaTypeOrNull()
     private val TYPE: String = "SDK"
-    private val VERSION: String = "java:4.0.0"
+    private val VERSION: String = "java:4.0.1"
 
     // graphql 端点
     private val endpoint: String get() { return "$host/graphql" }
@@ -47,13 +47,13 @@ class Authing(private val userPoolId: String, private val secret: String? = null
      */
     var accessToken: String? = null
 
-    private val client: OkHttpClient = OkHttpClient()
-    private val gson = GsonBuilder().create()
+    protected val client: OkHttpClient = OkHttpClient()
+    protected val gson = GsonBuilder().create()
 
     /**
      * 密码加密方法
      */
-    private fun encrypt(msg: String?): String? {
+    protected open fun encrypt(msg: String?): String? {
         if (msg == null) {
             return null
         }
@@ -77,7 +77,7 @@ class Authing(private val userPoolId: String, private val secret: String? = null
     /**
      * 创建 GraphQL 请求
      */
-    private fun <TResponse> createGraphQLCall(request: GraphQLRequest, typeToken: TypeToken<GraphQLResponse<TResponse>>): Call<TResponse> {
+    protected open fun <TResponse> createGraphQLCall(request: GraphQLRequest, typeToken: TypeToken<GraphQLResponse<TResponse>>): Call<TResponse> {
         val adapter = gson.getAdapter(typeToken)
         return GraphQLCall(client.newCall(Request.Builder()
                 .url(endpoint)
@@ -93,7 +93,7 @@ class Authing(private val userPoolId: String, private val secret: String? = null
     /**
      * 创建 HTTP GET 请求
      */
-    private fun <TResponse> createHttpGetCall(url: String, typeToken: TypeToken<TResponse>): Call<TResponse> {
+    protected open fun <TResponse> createHttpGetCall(url: String, typeToken: TypeToken<TResponse>): Call<TResponse> {
         val adapter = gson.getAdapter(typeToken)
         return HttpCall(client.newCall(Request.Builder()
                 .url(url)
@@ -248,6 +248,7 @@ class Authing(private val userPoolId: String, private val secret: String? = null
      */
     fun resetPassword(param: ResetPasswordParam): Call<ResetPasswordResponse> {
         param.clientId = userPoolId
+        param.password = encrypt(param.password)
 
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<ResetPasswordResponse>>() {})
     }
