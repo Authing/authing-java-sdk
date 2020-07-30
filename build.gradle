@@ -4,9 +4,6 @@ plugins {
     id "com.jfrog.bintray" version "1.8.5"
 }
 
-group 'cn.authing'
-version '2.0.0'
-
 repositories {
     mavenCentral()
 }
