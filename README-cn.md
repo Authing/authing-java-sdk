@@ -2,7 +2,7 @@
 
 [English](./README.md)
 
-Authing SDK 版本 2.0.1
+Authing SDK 版本 2.0.3
 
 JDK 版本 1.8
 
@@ -354,6 +354,61 @@ public class Demo {
         LoginByLdapParam param = new LoginByLdapParam().username("phone").password("123456").build();
         LoginByLdapResponse response = client.loginByLdap(param).execute();
         System.out.println(response.getResult().getEmail());
+    }
+}
+```
+
+## OIDC 登录
+
+client.loginByOidc(params)
+
+- params {LoginByOidcParam}
+  - params.appId {String}，必填，app ID
+  - params.appSecret {String}，必填，app 密钥
+  - params.email {String}，必填，用户邮箱
+  - params.password {String}，必填，密码
+
+示例：
+
+```java
+import cn.authing.core.Authing;
+import cn.authing.core.types.*;
+
+import java.io.IOException;
+
+public class Demo {
+    public static void main(String[] args) throws IOException {
+        Authing client = new Authing("userPoolId", "secret");
+        LoginByOidcParam param = new LoginByOidcParam("appId", "appSecret","email", "password").build();
+        LoginByOidcResponse response = client.loginByOidc(param).execute();
+        System.out.println(response.getAccessToken());
+    }
+}
+```
+
+## 刷新 OIDC token
+
+client.refreshOidcToken(params)
+
+- params {RefreshOidcTokenParam}
+  - params.appId {String}，必填，app ID
+  - params.appSecret {String}，必填，app 密钥
+  - params.refreshToken {String}，必填，刷新 token
+
+示例：
+
+```java
+import cn.authing.core.Authing;
+import cn.authing.core.types.*;
+
+import java.io.IOException;
+
+public class Demo {
+    public static void main(String[] args) throws IOException {
+        Authing client = new Authing("userPoolId", "secret");
+        RefreshOidcTokenParam param = new RefreshOidcTokenParam("appId", "appSecret","refreshToken").build();
+        RefreshOidcTokenResponse response = client.refreshOidcToken(param).execute();
+        System.out.println(response.getAccessToken());
     }
 }
 ```

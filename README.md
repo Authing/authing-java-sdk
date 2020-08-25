@@ -2,7 +2,7 @@
 
 [中文](./README-cn.md)
 
-Authing SDK version 2.0.1
+Authing SDK version 2.0.3
 
 JDK version 1.8
 
@@ -355,6 +355,61 @@ public class Demo {
         LoginByLdapParam param = new LoginByLdapParam().username("phone").password("123456").build();
         LoginByLdapResponse response = client.loginByLdap(param).execute();
         System.out.println(response.getResult().getEmail());
+    }
+}
+```
+
+## OIDC login
+
+client.loginByOidc(params)
+
+- params {LoginByOidcParam}
+  - params.appId {String}，required, app ID
+  - params.appSecret {String}，required, app secret
+  - params.email {String}，required, email
+  - params.password {String}，required, password
+
+Example：
+
+```java
+import cn.authing.core.Authing;
+import cn.authing.core.types.*;
+
+import java.io.IOException;
+
+public class Demo {
+    public static void main(String[] args) throws IOException {
+        Authing client = new Authing("userPoolId", "secret");
+        LoginByOidcParam param = new LoginByOidcParam("appId", "appSecret","email", "password").build();
+        LoginByOidcResponse response = client.loginByOidc(param).execute();
+        System.out.println(response.getAccessToken());
+    }
+}
+```
+
+## refresh OIDC token
+
+client.refreshOidcToken(params)
+
+- params {RefreshOidcTokenParam}
+  - params.appId {String}，required, app ID
+  - params.appSecret {String}，required, app secret
+  - params.refreshToken {String}，required, refresh token
+
+Example：
+
+```java
+import cn.authing.core.Authing;
+import cn.authing.core.types.*;
+
+import java.io.IOException;
+
+public class Demo {
+    public static void main(String[] args) throws IOException {
+        Authing client = new Authing("userPoolId", "secret");
+        RefreshOidcTokenParam param = new RefreshOidcTokenParam("appId", "appSecret","refreshToken").build();
+        RefreshOidcTokenResponse response = client.refreshOidcToken(param).execute();
+        System.out.println(response.getAccessToken());
     }
 }
 ```

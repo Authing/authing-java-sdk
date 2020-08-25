@@ -35,7 +35,7 @@ open class Authing(private val userPoolId: String, private val secret: String? =
     // 常量
     private val MEDIA_TYPE_JSON: MediaType? = "application/json".toMediaTypeOrNull()
     private val TYPE: String = "SDK"
-    private val VERSION: String = "java:2.0.2"
+    private val VERSION: String = "java:2.0.3"
 
     // graphql 端点
     private val endpoint: String get() { return "$host/graphql" }
