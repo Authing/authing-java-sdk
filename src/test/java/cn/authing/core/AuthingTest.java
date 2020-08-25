@@ -37,6 +37,16 @@ public class AuthingTest {
     }
 
     @Test
+    public void loginByOidc() throws IOException {
+        System.out.println(client.loginByOidc(new LoginByOidcParam("5e72d72e3798fb03e1d57b13", "931f19ce2161e5560c072f586c706ee6","test@test.com", "123456").build()).execute());
+    }
+
+    @Test
+    public void refreshOidcToken() throws IOException {
+        System.out.println(client.refreshOidcToken(new RefreshOidcTokenParam("5e72d72e3798fb03e1d57b13", "931f19ce2161e5560c072f586c706ee6","40C1CpPQvU2RjSPY1c8nWjmblwa").build()).execute());
+    }
+
+    @Test
     public void register() throws IOException {
         String username = System.currentTimeMillis() + "";
         UserRegisterInput input = new UserRegisterInput().username(username).password("123456").build();

@@ -8,15 +8,15 @@ import cn.authing.core.http.HttpCall
 import cn.authing.core.types.*
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
-import okhttp3.MediaType
+import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.security.KeyFactory
 import java.security.spec.X509EncodedKeySpec
 import java.util.*
 import javax.crypto.Cipher
+
 
 /**
  * Authing 客户端类
@@ -81,11 +81,11 @@ open class Authing(private val userPoolId: String, private val secret: String? =
         val adapter = gson.getAdapter(typeToken)
         return GraphQLCall(client.newCall(Request.Builder()
                 .url(endpoint)
-                .header("Authorization", "Bearer " + this.accessToken)
-                .header("Content-Type", "application/json")
-                .header("x-authing-userpool-id", userPoolId)
-                .header("x-authing-request-from", TYPE)
-                .header("x-authing-sdk-version", VERSION)
+                .addHeader("Authorization", "Bearer " + this.accessToken)
+                .addHeader("Content-Type", "application/json")
+                .addHeader("x-authing-userpool-id", userPoolId)
+                .addHeader("x-authing-request-from", TYPE)
+                .addHeader("x-authing-sdk-version", VERSION)
                 .post(gson.toJson(request).toRequestBody(MEDIA_TYPE_JSON))
                 .build()), adapter)
     }
@@ -97,11 +97,26 @@ open class Authing(private val userPoolId: String, private val secret: String? =
         val adapter = gson.getAdapter(typeToken)
         return HttpCall(client.newCall(Request.Builder()
                 .url(url)
-                .header("x-authing-userpool-id", userPoolId)
-                .header("x-authing-request-from", TYPE)
-                .header("x-authing-sdk-version", VERSION)
+                .addHeader("x-authing-userpool-id", userPoolId)
+                .addHeader("x-authing-request-from", TYPE)
+                .addHeader("x-authing-sdk-version", VERSION)
                 .get()
                 .build()), adapter)
+    }
+
+
+    /**
+     * 创建 HTTP POST 请求
+     */
+    protected open fun <TResponse> createHttpPostCall(url: String, body: RequestBody, typeToken: TypeToken<TResponse>): Call<TResponse> {
+        val adapter = gson.getAdapter(typeToken)
+        return HttpCall(client.newCall(Request.Builder()
+            .url(url)
+            .addHeader("x-authing-userpool-id", userPoolId)
+            .addHeader("x-authing-request-from", TYPE)
+            .addHeader("x-authing-sdk-version", VERSION)
+            .post(body)
+            .build()), adapter)
     }
 
     /**
@@ -178,6 +193,37 @@ open class Authing(private val userPoolId: String, private val secret: String? =
         param.password = encrypt(param.password)
 
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<LoginByLdapResponse>>() {})
+    }
+
+    /**
+     * 通过 OIDC passord 模式登录
+     */
+    fun loginByOidc(param: LoginByOidcParam): Call<LoginByOidcResponse> {
+        val body = FormBody
+            .Builder()
+            .add("grant_type", "password")
+            .add("email", param.email)
+            .add("password", param.password)
+            .add("client_id", param.appId)
+            .add("client_secret", param.appSecret)
+            .add("scope", "offline_access")
+            .build()
+        return createHttpPostCall("$host/oauth/oidc/token", body, object : TypeToken<LoginByOidcResponse>() {})
+    }
+
+
+    /**
+     * 通过 OIDC passord 模式登录
+     */
+    fun refreshOidcToken(param: RefreshOidcTokenParam): Call<RefreshOidcTokenResponse> {
+        val body = FormBody
+            .Builder()
+            .add("grant_type", "refresh_token")
+            .add("client_id", param.appId)
+            .add("client_secret", param.appSecret)
+            .add("refresh_token", param.refreshToken)
+            .build()
+        return createHttpPostCall("$host/oauth/oidc/token", body, object : TypeToken<RefreshOidcTokenResponse>() {})
     }
 
     /**

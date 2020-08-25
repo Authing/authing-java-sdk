@@ -28,7 +28,7 @@ class HttpCall<T>(private val call: Call, private val adapter: TypeAdapter<T>) :
             val body = response.body?.string()
             return adapter.fromJson(body)
         } else {
-            throw IOException("Unexpected code ${response}")
+            throw IOException("Unexpected code $response\n${response.body?.string()}")
         }
     }
 
@@ -43,7 +43,7 @@ class HttpCall<T>(private val call: Call, private val adapter: TypeAdapter<T>) :
                     val httpResponse: T = adapter.fromJson(response.body?.string())
                     callback.onSuccess(httpResponse)
                 } else {
-                    throw IOException("Unexpected code $response")
+                    throw IOException("Unexpected code $response\n${response.body?.string()}")
                 }
             }
 
