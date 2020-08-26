@@ -2,7 +2,7 @@
 
 [English](./README.md)
 
-Authing SDK 版本 2.0.3
+Authing SDK 版本 2.0.4
 
 JDK 版本 1.8
 
@@ -36,7 +36,7 @@ JCenter 地址: [https://bintray.com/authing/AuthingSDK/Java](https://bintray.co
 在右侧红色箭头处增加以下内容：
 
 ```text
-implementation "cn.authing:java-core:2.0.1"
+implementation "cn.authing:java-core:2.x.x"
 ```
 
 # 快速上手
@@ -365,7 +365,9 @@ client.loginByOidc(params)
 - params {LoginByOidcParam}
   - params.appId {String}，必填，app ID
   - params.appSecret {String}，必填，app 密钥
-  - params.email {String}，必填，用户邮箱
+  - params.email {String}，email、phone、username 必填其中一项
+  - params.phone {String}，email、phone、username 必填其中一项
+  - params.username {String}，email、phone、username 必填其中一项
   - params.password {String}，必填，密码
 
 示例：
@@ -379,7 +381,7 @@ import java.io.IOException;
 public class Demo {
     public static void main(String[] args) throws IOException {
         Authing client = new Authing("userPoolId", "secret");
-        LoginByOidcParam param = new LoginByOidcParam("appId", "appSecret","email", "password").build();
+        LoginByOidcParam param = new LoginByOidcParam("appId", "appSecret").initWithEmail("email", "password").build();
         LoginByOidcResponse response = client.loginByOidc(param).execute();
         System.out.println(response.getAccessToken());
     }

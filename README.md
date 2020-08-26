@@ -2,7 +2,7 @@
 
 [中文](./README-cn.md)
 
-Authing SDK version 2.0.3
+Authing SDK version 2.0.4
 
 JDK version 1.8
 
@@ -36,7 +36,7 @@ Enter the IDE and wait for Gradle to finish building. Open the build.gradle file
 Add the following to the red arrow on the right:
 
 ```text
-implementation "cn.authing:java-core:2.0.1"
+implementation "cn.authing:java-core:2.x.x"
 ```
 
 # Quick start
@@ -366,7 +366,9 @@ client.loginByOidc(params)
 - params {LoginByOidcParam}
   - params.appId {String}，required, app ID
   - params.appSecret {String}，required, app secret
-  - params.email {String}，required, email
+  - params.email {String}，one of email, username, phone is required
+  - params.username {String}，one of email, username, phone is required
+  - params.phone {String}，one of email, username, phone is required
   - params.password {String}，required, password
 
 Example：
@@ -380,7 +382,7 @@ import java.io.IOException;
 public class Demo {
     public static void main(String[] args) throws IOException {
         Authing client = new Authing("userPoolId", "secret");
-        LoginByOidcParam param = new LoginByOidcParam("appId", "appSecret","email", "password").build();
+        LoginByOidcParam param = new LoginByOidcParam("appId", "appSecret").initWithEmail("email", "password").build();
         LoginByOidcResponse response = client.loginByOidc(param).execute();
         System.out.println(response.getAccessToken());
     }
