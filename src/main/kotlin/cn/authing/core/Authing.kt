@@ -199,16 +199,19 @@ open class Authing(private val userPoolId: String, private val secret: String? =
      * 通过 OIDC passord 模式登录
      */
     fun loginByOidc(param: LoginByOidcParam): Call<LoginByOidcResponse> {
-        val body = FormBody
+        val form = FormBody
             .Builder()
-            .add("grant_type", "password")
-            .add("email", param.email)
-            .add("password", param.password)
             .add("client_id", param.appId)
             .add("client_secret", param.appSecret)
-            .add("scope", "offline_access")
-            .build()
-        return createHttpPostCall("$host/oauth/oidc/token", body, object : TypeToken<LoginByOidcResponse>() {})
+            .add("grant_type", "password")
+            .add("scope", "openid profile email phone offline_access")
+
+        if (param.email != null) form.add("email", param.email!!)
+        if (param.phone != null) form.add("phone", param.phone!!)
+        if (param.username != null) form.add("username", param.username!!)
+        if (param.password != null) form.add("password", param.password!!)
+
+        return createHttpPostCall("$host/oauth/oidc/token", form.build(), object : TypeToken<LoginByOidcResponse>() {})
     }
 
 
