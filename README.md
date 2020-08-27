@@ -2,7 +2,7 @@
 
 [中文](./README-cn.md)
 
-Authing SDK version 2.0.4
+Authing SDK version 2.0.5
 
 JDK version 1.8
 
@@ -412,6 +412,29 @@ public class Demo {
         RefreshOidcTokenParam param = new RefreshOidcTokenParam("appId", "appSecret","refreshToken").build();
         RefreshOidcTokenResponse response = client.refreshOidcToken(param).execute();
         System.out.println(response.getAccessToken());
+    }
+}
+```
+
+## Get user info by OIDC access token
+
+client.oidcUser(params)
+
+- params {OidcUserParam}
+  - params.accessToken {String}, required, OIDC AccessToken
+
+示例：
+
+```java
+import cn.authing.core.Authing;
+import cn.authing.core.types.*;
+
+import java.io.IOException;
+
+public class Demo {
+    public static void main(String[] args) throws IOException {
+        Authing client = new Authing("userPoolId", "secret");
+        System.out.println(client.oidcUser(new UserParam("OIDC access token").build()).execute());
     }
 }
 ```

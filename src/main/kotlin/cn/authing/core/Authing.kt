@@ -35,7 +35,7 @@ open class Authing(private val userPoolId: String, private val secret: String? =
     // 常量
     private val MEDIA_TYPE_JSON: MediaType? = "application/json".toMediaTypeOrNull()
     private val TYPE: String = "SDK"
-    private val VERSION: String = "java:2.0.3"
+    private val VERSION: String = "java:2.0.5"
 
     // graphql 端点
     private val endpoint: String get() { return "$host/graphql" }
@@ -212,6 +212,21 @@ open class Authing(private val userPoolId: String, private val secret: String? =
         if (param.password != null) form.add("password", param.password!!)
 
         return createHttpPostCall("$host/oauth/oidc/token", form.build(), object : TypeToken<LoginByOidcResponse>() {})
+    }
+
+    /**
+     * 通过 OIDC accessToken 获取到用户信息
+     */
+    fun oidcUser(param: OidcUserParam): Call<User> {
+        val adapter = gson.getAdapter(object : TypeToken<User>() {})
+        return HttpCall(client.newCall(Request.Builder()
+            .url("$host/oauth/oidc/me")
+            .addHeader("x-authing-userpool-id", userPoolId)
+            .addHeader("x-authing-request-from", TYPE)
+            .addHeader("x-authing-sdk-version", VERSION)
+            .addHeader("Authorization", "Bearer " + param.accessToken)
+            .post(FormBody.Builder().build())
+            .build()), adapter)
     }
 
 

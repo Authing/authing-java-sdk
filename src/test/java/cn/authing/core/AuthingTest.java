@@ -42,6 +42,11 @@ public class AuthingTest {
     }
 
     @Test
+    public void oidcUser() throws IOException {
+        System.out.println(client.oidcUser(new OidcUserParam("eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Im51U1A3aHdVdGIwZUszaUhsNTY2TUJvakUyY282VldzRU1mZUFvMHZrNWsifQ.eyJqdGkiOiJqc2ZMMlIxTzFGSDRqTXFzZX5MQTUiLCJzdWIiOiI1ZjBlNmYzZjA2YzViNzZiN2I4YTg2NWQiLCJpc3MiOiJodHRwczovL2F1dGhpbmctbmV0LXNkay1kZW1vLmF1dGhpbmcuY24vb2F1dGgvb2lkYyIsImlhdCI6MTU5ODUwNjg2NCwiZXhwIjoxNTk4NTEwNDY0LCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIHBob25lIG9mZmxpbmVfYWNjZXNzIiwiYXVkIjoiNWU3MmQ3MmUzNzk4ZmIwM2UxZDU3YjEzIn0.TTaFFHtAPv11z0_ghr_cquNFXplImFurPdCg683eDtZSm3IWdg6Nd9RjA5Y96HElxbgRSkH05aXlO7kr-NucgGL_q082L-1h99ju_2xN8lQ_vcIeBFp2qDTwydp9icHvOCz0Etg1rHRPm625sfu3Cza8ptpM4LDHua6xyi7OVcLF92oNjXErqopwRoG-BpdiPWycMi0SQqNBZOOhUnsUfG1ddP95STodXxskRZvjxkaLteyC3lTClnzq39lkYTMZ_oEosl7mzu7JarFMwiXVkpyvFkOpxdww7zs5MAZLKsKXzQ57pVmEiaRSaPw9qVd2f_OCZJ6dZMxgOQBWn8iPUQ").build()).execute());
+    }
+
+    @Test
     public void refreshOidcToken() throws IOException {
         System.out.println(client.refreshOidcToken(new RefreshOidcTokenParam("5e72d72e3798fb03e1d57b13", "931f19ce2161e5560c072f586c706ee6","40C1CpPQvU2RjSPY1c8nWjmblwa").build()).execute());
     }
