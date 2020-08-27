@@ -423,7 +423,7 @@ client.oidcUser(params)
 - params {OidcUserParam}
   - params.accessToken {String}, required, OIDC AccessToken
 
-示例：
+Example：
 
 ```java
 import cn.authing.core.Authing;
@@ -434,7 +434,7 @@ import java.io.IOException;
 public class Demo {
     public static void main(String[] args) throws IOException {
         Authing client = new Authing("userPoolId", "secret");
-        System.out.println(client.oidcUser(new UserParam("OIDC access token").build()).execute());
+        System.out.println(client.oidcUser(new OidcUserParam("OIDC access token").build()).execute());
     }
 }
 ```

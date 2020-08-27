@@ -433,7 +433,7 @@ import java.io.IOException;
 public class Demo {
     public static void main(String[] args) throws IOException {
         Authing client = new Authing("userPoolId", "secret");
-        System.out.println(client.oidcUser(new UserParam("OIDC access token").build()).execute());
+        System.out.println(client.oidcUser(new OidcUserParam("OIDC access token").build()).execute());
     }
 }
 ```
