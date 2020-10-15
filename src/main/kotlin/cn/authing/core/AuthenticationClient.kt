@@ -142,7 +142,7 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     /**
      * 更新当前用户信息
      */
-    fun updateUser(param: UpdateUserParam): Call<UpdateUserResponse> {
+    fun updateProfile(param: UpdateUserParam): Call<UpdateUserResponse> {
         checkAccessToken()
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<UpdateUserResponse>>() {})
     }
@@ -175,6 +175,7 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
 
     /**
      * 刷新用户 access token
+     * @param [param] asd
      */
     fun refreshToken(param: RefreshTokenParam): Call<RefreshTokenResponse> {
         checkAccessToken()
