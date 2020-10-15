@@ -19,7 +19,7 @@ class HttpCall<T>(private val call: Call, private val adapter: TypeAdapter<T>) :
      * 开始同步请求
      */
     @Throws(IOException::class)
-    override fun execute(): T? {
+    override fun execute(): T {
         // 开始同步请求
         val response: Response = call.execute()
 

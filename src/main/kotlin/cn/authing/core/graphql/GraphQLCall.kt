@@ -19,7 +19,7 @@ class GraphQLCall<T>(private val call: Call, private val adapter: TypeAdapter<Gr
      * 开始同步请求
      */
     @Throws(IOException::class, GraphQLException::class)
-    override fun execute(): T? {
+    override fun execute(): T {
         // 开始同步请求
         val response: Response = call.execute()
 
@@ -30,7 +30,7 @@ class GraphQLCall<T>(private val call: Call, private val adapter: TypeAdapter<Gr
             if (graphQLResponse.errors != null && graphQLResponse.errors.size > 0) {
                 throw GraphQLException(gson.toJson(graphQLResponse.errors))
             }
-            return graphQLResponse.data;
+            return graphQLResponse.data!!;
         } else {
             throw IOException("Unexpected code ${response}")
         }
@@ -49,7 +49,7 @@ class GraphQLCall<T>(private val call: Call, private val adapter: TypeAdapter<Gr
                         val firstError = graphQLResponse.errors[0].message
                         callback.onFailure(GraphQLResponse.ErrorInfo(firstError?.code ?: 500, firstError?.message))
                     }
-                    callback.onSuccess(graphQLResponse.data)
+                    callback.onSuccess(graphQLResponse.data!!)
                 } else {
                     throw IOException("Unexpected code $response")
                 }
