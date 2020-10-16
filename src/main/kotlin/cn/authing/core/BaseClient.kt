@@ -3,12 +3,12 @@ package cn.authing.core
 import cn.authing.core.graphql.GraphQLCall
 import cn.authing.core.graphql.GraphQLRequest
 import cn.authing.core.graphql.GraphQLResponse
-import cn.authing.core.http.Call
 import cn.authing.core.http.HttpCall
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
-import okhttp3.*
+import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.security.KeyFactory
@@ -20,7 +20,7 @@ import javax.crypto.Cipher
 /**
  * Authing 客户端类
  */
-abstract class BaseClient(private val userPoolId: String) {
+abstract class BaseClient(internal val userPoolId: String) {
     // 可选参数
     var host: String = "https://core.authing.cn"
     var publicKey: String = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC4xKeUgQ+Aoz7TLfAfs9+paePb" +

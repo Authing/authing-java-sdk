@@ -9,21 +9,10 @@ import com.google.gson.reflect.TypeToken
 
 class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     /**
-     * 检查是否保存了 access token
-     */
-    private fun checkAccessToken() {
-        if (accessToken === null) {
-            throw IllegalArgumentException("need to call setAccessToken first")
-        }
-    }
-
-    /**
      * 获取当前用户信息
      */
     fun currentUser(): GraphQLCall<UserResponse, User> {
-        checkAccessToken()
         val param = UserParam()
-
         return createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<UserResponse>>() {}) {
@@ -34,7 +23,8 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     /**
      * 通过用户名和密码登录
      */
-    fun loginByUsername(param: LoginByUsernameParam): GraphQLCall<LoginByUsernameResponse, User> {
+    fun loginByUsername(input: LoginByUsernameInput): GraphQLCall<LoginByUsernameResponse, User> {
+        val param = LoginByUsernameParam(input)
         param.input.password = encrypt(param.input.password)
 
         return createGraphQLCall(
@@ -47,7 +37,8 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     /**
      * 通过邮箱密码登录
      */
-    fun loginByEmail(param: LoginByEmailParam): GraphQLCall<LoginByEmailResponse, User> {
+    fun loginByEmail(input: LoginByEmailInput): GraphQLCall<LoginByEmailResponse, User> {
+        val param = LoginByEmailParam(input)
         param.input.password = encrypt(param.input.password)
 
         return createGraphQLCall(
@@ -60,7 +51,9 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     /**
      * 通过手机号和验证码登录
      */
-    fun loginByPhoneCode(param: LoginByPhoneCodeParam): GraphQLCall<LoginByPhoneCodeResponse, User> {
+    fun loginByPhoneCode(input: LoginByPhoneCodeInput): GraphQLCall<LoginByPhoneCodeResponse, User> {
+        val param = LoginByPhoneCodeParam(input)
+
         return createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<LoginByPhoneCodeResponse>>() {}) {
@@ -71,7 +64,8 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     /**
      * 通过手机号和密码登录
      */
-    fun loginByPhonePassword(param: LoginByPhonePasswordParam): GraphQLCall<LoginByPhonePasswordResponse, User> {
+    fun loginByPhonePassword(input: LoginByPhonePasswordInput): GraphQLCall<LoginByPhonePasswordResponse, User> {
+        val param = LoginByPhonePasswordParam(input)
         param.input.password = encrypt(param.input.password)
 
         return createGraphQLCall(
@@ -84,7 +78,8 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     /**
      * 通过用户名注册
      */
-    fun registerByUsername(param: RegisterByUsernameParam): GraphQLCall<RegisterByUsernameResponse, User> {
+    fun registerByUsername(input: RegisterByUsernameInput): GraphQLCall<RegisterByUsernameResponse, User> {
+        val param = RegisterByUsernameParam(input)
         param.input.password = encrypt(param.input.password)
 
         return createGraphQLCall(
@@ -97,7 +92,8 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     /**
      * 通过邮箱注册
      */
-    fun registerByEmail(param: RegisterByEmailParam): GraphQLCall<RegisterByEmailResponse, User> {
+    fun registerByEmail(input: RegisterByEmailInput): GraphQLCall<RegisterByEmailResponse, User> {
+        val param = RegisterByEmailParam(input)
         param.input.password = encrypt(param.input.password)
 
         return createGraphQLCall(
@@ -110,7 +106,8 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     /**
      * 通过手机号验证码注册
      */
-    fun registerByPhoneCode(param: RegisterByPhoneCodeParam): GraphQLCall<RegisterByPhoneCodeResponse, User> {
+    fun registerByPhoneCode(input: RegisterByPhoneCodeInput): GraphQLCall<RegisterByPhoneCodeResponse, User> {
+        val param = RegisterByPhoneCodeParam(input)
         if (param.input.password !== null) {
             param.input.password = encrypt(param.input.password!!)
         }
@@ -136,7 +133,6 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
      * 检查当前登录状态
      */
     fun checkLoginStatus(): GraphQLCall<CheckLoginStatusResponse, JwtTokenStatus> {
-        checkAccessToken()
         val param = CheckLoginStatusParam(token = accessToken)
         return createGraphQLCall(
             param.createRequest(),
@@ -168,20 +164,19 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     }
 
     /**
-     * 更新当前用户信息
+     * 更新用户信息，ID 参数为当前用户 ID
      */
-    fun updateProfile(param: UpdateUserParam): GraphQLCall<UpdateUserResponse, User> {
-        checkAccessToken()
+    fun updateProfile(input: UpdateUserInput): GraphQLCall<UpdateUserResponse, User> {
+        val param = UpdateUserParam(input = input)
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<UpdateUserResponse>>() {}) {
             it.result
         }
     }
 
     /**
-     * 更新当前用户密码
+     * 更新用户密码
      */
     fun updatePassword(param: UpdatePasswordParam): GraphQLCall<UpdatePasswordResponse, User> {
-        checkAccessToken()
         return createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<UpdatePasswordResponse>>() {}) {
@@ -190,20 +185,18 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     }
 
     /**
-     * 更新当前用户手机号
+     * 更新用户手机号
      */
     fun updatePhone(param: UpdatePhoneParam): GraphQLCall<UpdatePhoneResponse, User> {
-        checkAccessToken()
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<UpdatePhoneResponse>>() {}) {
             it.result
         }
     }
 
     /**
-     * 更新当前用户邮箱
+     * 更新用户邮箱
      */
     fun updateEmail(param: UpdateEmailParam): GraphQLCall<UpdateEmailResponse, User> {
-        checkAccessToken()
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<UpdateEmailResponse>>() {}) {
             it.result
         }
@@ -213,8 +206,8 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
      * 刷新用户 access token
      * @param [param] asd
      */
-    fun refreshToken(param: RefreshTokenParam): GraphQLCall<RefreshTokenResponse, RefreshToken> {
-        checkAccessToken()
+    fun refreshToken(): GraphQLCall<RefreshTokenResponse, RefreshToken> {
+        val param = RefreshTokenParam()
         return createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<RefreshTokenResponse>>() {}) {
@@ -225,8 +218,8 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     /**
      * 绑定手机号
      */
-    fun bindPhone(param: BindPhoneParam): GraphQLCall<BindPhoneResponse, User> {
-        checkAccessToken()
+    fun bindPhone(phone: String, phoneCode: String): GraphQLCall<BindPhoneResponse, User> {
+        val param = BindPhoneParam(phone, phoneCode)
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<BindPhoneResponse>>() {}) {
             it.result
         }
@@ -236,7 +229,6 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
      * 解绑定手机号
      */
     fun unbindPhone(): GraphQLCall<UnbindPhoneResponse, User> {
-        checkAccessToken()
         val param = UnbindPhoneParam()
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<UnbindPhoneResponse>>() {}) {
             it.result
@@ -247,8 +239,9 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
      * 注销当前用户
      */
     fun logout(): GraphQLCall<Unit, Unit> {
-        checkAccessToken()
         val param = UpdateUserParam(input = UpdateUserInput().withTokenExpiredAt("0"))
-        return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<Unit>>() {}) {}
+        return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<Unit>>() {}) {
+            accessToken = null
+        }
     }
 }

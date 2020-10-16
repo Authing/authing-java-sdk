@@ -2,12 +2,25 @@ package cn.authing.core.mgmt
 
 import UsersManagementClient
 import cn.authing.core.BaseClient
-import cn.authing.core.graphql.GraphQLResponse
 import cn.authing.core.graphql.GraphQLCall
+import cn.authing.core.graphql.GraphQLResponse
 import cn.authing.core.types.*
 import com.google.gson.reflect.TypeToken
 
-class ManagementClient(userPoolId: String, secret: String) : BaseClient(userPoolId) {
+class ManagementClient(userPoolId: String, private val secret: String) : BaseClient(userPoolId) {
+    /**
+     * 获取管理员 access token，获取成功后即可使用其他接口
+     */
+    fun requestToken(): GraphQLCall<AccessTokenResponse, AccessTokenRes> {
+        val param = AccessTokenParam(userPoolId, secret)
+        return createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<AccessTokenResponse>>() {}) {
+            accessToken = it.result.accessToken!!
+            return@createGraphQLCall it.result
+        }
+    }
+
     /**
      * 检查登录状态
      */
