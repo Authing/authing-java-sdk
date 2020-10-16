@@ -3,10 +3,10 @@ package cn.authing.core.http
 import okhttp3.Request
 import java.io.IOException
 
-interface Call<T> {
+interface Call<TData, TResult> {
     @Throws(IOException::class)
-    fun execute(): T
-    fun enqueue(callback: Callback<T>)
+    fun execute(): TResult
+    fun enqueue(callback: Callback<TResult>)
     fun isExecuted(): Boolean
     fun cancel()
     fun isCanceled(): Boolean

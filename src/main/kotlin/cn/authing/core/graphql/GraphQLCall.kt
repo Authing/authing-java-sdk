@@ -9,7 +9,11 @@ import okhttp3.Request
 import okhttp3.Response
 import java.io.IOException
 
-class GraphQLCall<T>(private val call: Call, private val adapter: TypeAdapter<GraphQLResponse<T>>) : cn.authing.core.http.Call<T> {
+class GraphQLCall<TData, TResult>(
+    private val call: Call,
+    private val adapter: TypeAdapter<GraphQLResponse<TData>>,
+    private val resolver: (data: TData) -> TResult
+) : cn.authing.core.http.Call<TData, TResult> {
     /**
      * Gson 对象，用来序列化 Json
      */
@@ -19,37 +23,37 @@ class GraphQLCall<T>(private val call: Call, private val adapter: TypeAdapter<Gr
      * 开始同步请求
      */
     @Throws(IOException::class, GraphQLException::class)
-    override fun execute(): T {
+    override fun execute(): TResult {
         // 开始同步请求
         val response: Response = call.execute()
 
         // 处理返回数据
         if (response.isSuccessful) {
             val body = response.body?.string()
-            val graphQLResponse: GraphQLResponse<T> = adapter.fromJson(body)
-            if (graphQLResponse.errors != null && graphQLResponse.errors.size > 0) {
+            val graphQLResponse: GraphQLResponse<TData> = adapter.fromJson(body)
+            if (graphQLResponse.errors != null && graphQLResponse.errors.isNotEmpty()) {
                 throw GraphQLException(gson.toJson(graphQLResponse.errors))
             }
-            return graphQLResponse.data!!;
+            return resolver(graphQLResponse.data!!)
         } else {
-            throw IOException("Unexpected code ${response}")
+            throw IOException("${response.code}: ${response.message}\n")
         }
     }
 
     /**
      * 开始异步请求
      */
-    override fun enqueue(callback: cn.authing.core.http.Callback<T>) {
+    override fun enqueue(callback: cn.authing.core.http.Callback<TResult>) {
         // 创建一个 wrapper，处理返回的原始数据
         val callbackWrapper: Callback = object : Callback {
             override fun onResponse(call: Call, response: Response) {
                 if (response.isSuccessful) {
-                    val graphQLResponse: GraphQLResponse<T> = adapter.fromJson(response.body?.string())
+                    val graphQLResponse: GraphQLResponse<TData> = adapter.fromJson(response.body?.string())
                     if (graphQLResponse.errors?.size!! > 0) {
                         val firstError = graphQLResponse.errors[0].message
                         callback.onFailure(GraphQLResponse.ErrorInfo(firstError?.code ?: 500, firstError?.message))
                     }
-                    callback.onSuccess(graphQLResponse.data!!)
+                    callback.onSuccess(resolver(graphQLResponse.data!!))
                 } else {
                     throw IOException("Unexpected code $response")
                 }

@@ -9,7 +9,8 @@ import okhttp3.Request
 import okhttp3.Response
 import java.io.IOException
 
-class HttpCall<T>(private val call: Call, private val adapter: TypeAdapter<T>) : cn.authing.core.http.Call<T> {
+class HttpCall<TResult>(private val call: Call, private val adapter: TypeAdapter<TResult>) :
+    cn.authing.core.http.Call<Unit, TResult> {
     /**
      * Gson 对象，用来序列化 Json
      */
@@ -19,7 +20,7 @@ class HttpCall<T>(private val call: Call, private val adapter: TypeAdapter<T>) :
      * 开始同步请求
      */
     @Throws(IOException::class)
-    override fun execute(): T {
+    override fun execute(): TResult {
         // 开始同步请求
         val response: Response = call.execute()
 
@@ -35,12 +36,12 @@ class HttpCall<T>(private val call: Call, private val adapter: TypeAdapter<T>) :
     /**
      * 开始异步请求
      */
-    override fun enqueue(callback: Callback<T>) {
+    override fun enqueue(callback: Callback<TResult>) {
         // 创建一个 wrapper，处理返回的原始数据
         val callbackWrapper: okhttp3.Callback = object : okhttp3.Callback {
             override fun onResponse(call: Call, response: Response) {
                 if (response.isSuccessful) {
-                    val httpResponse: T = adapter.fromJson(response.body?.string())
+                    val httpResponse: TResult = adapter.fromJson(response.body?.string())
                     callback.onSuccess(httpResponse)
                 } else {
                     throw IOException("Unexpected code $response\n${response.body?.string()}")

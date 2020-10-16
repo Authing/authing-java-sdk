@@ -5210,7 +5210,6 @@ mutation enableSocialConnectionInstance(${'$'}provider: String!) {
 """
 }
 
-
 data class LoginByEmailResponse(
 
     @SerializedName("loginByEmail")

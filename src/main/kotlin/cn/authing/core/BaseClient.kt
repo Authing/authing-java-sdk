@@ -52,7 +52,7 @@ abstract class BaseClient(private val userPoolId: String) {
     /**
      * 密码加密方法
      */
-    protected open fun encrypt(msg: String): String {
+    internal open fun encrypt(msg: String): String {
         // get publicKey
         val keyBytes: ByteArray = Base64.getDecoder().decode(publicKey)
         val keySpec = X509EncodedKeySpec(keyBytes)
@@ -68,10 +68,11 @@ abstract class BaseClient(private val userPoolId: String) {
     /**
      * 创建 GraphQL 请求
      */
-    protected open fun <TResponse> createGraphQLCall(
+    internal open fun <TData, TResult> createGraphQLCall(
         request: GraphQLRequest,
-        typeToken: TypeToken<GraphQLResponse<TResponse>>
-    ): Call<TResponse> {
+        typeToken: TypeToken<GraphQLResponse<TData>>,
+        resolver: (data: TData) -> TResult
+    ): GraphQLCall<TData, TResult> {
         val adapter = json.getAdapter(typeToken)
         return GraphQLCall(
             client.newCall(
@@ -84,14 +85,14 @@ abstract class BaseClient(private val userPoolId: String) {
                     .addHeader("x-authing-sdk-version", sdkVersion)
                     .post(json.toJson(request).toRequestBody(mediaTypeJson))
                     .build()
-            ), adapter
+            ), adapter, resolver
         )
     }
 
     /**
      * 创建 HTTP GET 请求
      */
-    protected open fun <TResponse> createHttpGetCall(url: String, typeToken: TypeToken<TResponse>): Call<TResponse> {
+    internal open fun <TResponse> createHttpGetCall(url: String, typeToken: TypeToken<TResponse>): HttpCall<TResponse> {
         val adapter = json.getAdapter(typeToken)
         return HttpCall(
             client.newCall(
@@ -111,11 +112,11 @@ abstract class BaseClient(private val userPoolId: String) {
     /**
      * 创建 HTTP POST 请求
      */
-    protected open fun <TResponse> createHttpPostCall(
+    internal open fun <TResponse> createHttpPostCall(
         url: String,
         body: String,
         typeToken: TypeToken<TResponse>
-    ): Call<TResponse> {
+    ): HttpCall<TResponse> {
         val adapter = json.getAdapter(typeToken)
         return HttpCall(
             client.newCall(
