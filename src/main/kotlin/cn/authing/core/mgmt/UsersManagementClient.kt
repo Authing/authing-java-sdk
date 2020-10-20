@@ -1,6 +1,6 @@
-import cn.authing.core.mgmt.ManagementClient
 import cn.authing.core.graphql.GraphQLCall
 import cn.authing.core.graphql.GraphQLResponse
+import cn.authing.core.mgmt.ManagementClient
 import cn.authing.core.types.*
 import com.google.gson.reflect.TypeToken
 
@@ -75,7 +75,7 @@ class UsersManagementClient(private val client: ManagementClient) {
     /**
      * 通过用户 ID 列表批量获取用户信息
      */
-    fun batch(userIds: Iterable<String>): GraphQLCall<UserBatchResponse, Iterable<User>> {
+    fun batch(userIds: List<String>): GraphQLCall<UserBatchResponse, List<User>> {
         val param = UserBatchParam(userIds)
         return client.createGraphQLCall(
             param.createRequest(),
@@ -99,7 +99,7 @@ class UsersManagementClient(private val client: ManagementClient) {
     /**
      * 删除多个用户
      */
-    fun delete(userIds: Iterable<String>): GraphQLCall<DeleteUsersResponse, CommonMessage> {
+    fun delete(userIds: List<String>): GraphQLCall<DeleteUsersResponse, CommonMessage> {
         val param = DeleteUsersParam(userIds)
         return client.createGraphQLCall(
             param.createRequest(),
@@ -123,7 +123,7 @@ class UsersManagementClient(private val client: ManagementClient) {
     /**
      * 批量添加用户角色
      */
-    fun addRoles(userId: String, roles: Iterable<String>): GraphQLCall<AssignRoleResponse, CommonMessage> {
+    fun addRoles(userId: String, roles: List<String>): GraphQLCall<AssignRoleResponse, CommonMessage> {
         val param = AssignRoleParam().withUserIds(listOf(userId)).withRoleCodes(roles)
         return client.createGraphQLCall(
             param.createRequest(),
@@ -135,7 +135,7 @@ class UsersManagementClient(private val client: ManagementClient) {
     /**
      * 批量撤销用户角色
      */
-    fun removeRoles(userId: String, roles: Iterable<String>): GraphQLCall<RevokeRoleResponse, CommonMessage> {
+    fun removeRoles(userId: String, roles: List<String>): GraphQLCall<RevokeRoleResponse, CommonMessage> {
         val param = RevokeRoleParam().withUserIds(listOf(userId)).withRoleCodes(roles)
         return client.createGraphQLCall(
             param.createRequest(),
@@ -180,7 +180,7 @@ class UsersManagementClient(private val client: ManagementClient) {
      */
     fun addPolicies(
         userId: String,
-        policies: Iterable<String>
+        policies: List<String>
     ): GraphQLCall<AddPolicyAssignmentsResponse, CommonMessage> {
         val param =
             AddPolicyAssignmentsParam(policies, PolicyAssignmentTargetType.User).withTargetIdentifiers(listOf(userId))
@@ -196,7 +196,7 @@ class UsersManagementClient(private val client: ManagementClient) {
      */
     fun removePolicies(
         userId: String,
-        policies: Iterable<String>
+        policies: List<String>
     ): GraphQLCall<RemovePolicyAssignmentsResponse, CommonMessage> {
         val param = RemovePolicyAssignmentsParam(
             policies,

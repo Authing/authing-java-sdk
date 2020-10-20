@@ -2,7 +2,6 @@ package cn.authing.core.mgmt
 
 import cn.authing.core.graphql.GraphQLCall
 import cn.authing.core.graphql.GraphQLResponse
-import cn.authing.core.mgmt.ManagementClient
 import cn.authing.core.types.*
 import com.google.gson.reflect.TypeToken
 
@@ -70,7 +69,7 @@ class RolesManagementClient(private val client: ManagementClient) {
     /**
      * 批量删除角色
      */
-    fun deleteMany(codeList: Iterable<String>): GraphQLCall<DeleteRolesResponse, BatchOperationResult> {
+    fun deleteMany(codeList: List<String>): GraphQLCall<DeleteRolesResponse, BatchOperationResult> {
         val param = DeleteRolesParam(codeList)
         return client.createGraphQLCall(
             param.createRequest(),
@@ -94,7 +93,7 @@ class RolesManagementClient(private val client: ManagementClient) {
     /**
      * 批量添加用户
      */
-    fun addUsers(code: String, userIds: Iterable<String>): GraphQLCall<AssignRoleResponse, CommonMessage> {
+    fun addUsers(code: String, userIds: List<String>): GraphQLCall<AssignRoleResponse, CommonMessage> {
         val param = AssignRoleParam(code).withUserIds(userIds)
         return client.createGraphQLCall(
             param.createRequest(),
@@ -106,7 +105,7 @@ class RolesManagementClient(private val client: ManagementClient) {
     /**
      * 批量移除用户
      */
-    fun removeUsers(code: String, userIds: Iterable<String>): GraphQLCall<RevokeRoleResponse, CommonMessage> {
+    fun removeUsers(code: String, userIds: List<String>): GraphQLCall<RevokeRoleResponse, CommonMessage> {
         val param = RevokeRoleParam(code).withUserIds(userIds)
         return client.createGraphQLCall(
             param.createRequest(),
@@ -131,7 +130,7 @@ class RolesManagementClient(private val client: ManagementClient) {
      */
     fun addPolicies(
         code: String,
-        policies: Iterable<String>
+        policies: List<String>
     ): GraphQLCall<AddPolicyAssignmentsResponse, CommonMessage> {
         val param =
             AddPolicyAssignmentsParam(policies, PolicyAssignmentTargetType.Role).withTargetIdentifiers(listOf(code))
@@ -147,7 +146,7 @@ class RolesManagementClient(private val client: ManagementClient) {
      */
     fun removePolicies(
         code: String,
-        policies: Iterable<String>
+        policies: List<String>
     ): GraphQLCall<RemovePolicyAssignmentsResponse, CommonMessage> {
         val param =
             RemovePolicyAssignmentsParam(policies, PolicyAssignmentTargetType.Role).withTargetIdentifiers(listOf(code))
