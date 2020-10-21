@@ -10,7 +10,6 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class RolesManagementClientTest {
@@ -33,6 +32,7 @@ public class RolesManagementClientTest {
     @Test
     public void list() throws IOException, GraphQLException {
         PaginatedRoles roles = rolesManagementClient.list().execute();
+        Assert.assertTrue(roles.getTotalCount() > 0);
     }
 
     @Test
@@ -72,22 +72,26 @@ public class RolesManagementClientTest {
         rolesManagementClient.create(new CreateRoleParam(code)).execute();
 
         ArrayList<String> list = new ArrayList<String>();
-        list.add("code");
+        list.add(code);
         CommonMessage result = rolesManagementClient.deleteMany(list).execute();
         Assert.assertTrue(result.getCode() > 0);
     }
 
     @Test
     public void listUsers() throws IOException, GraphQLException {
-        String code = "";
+        String code = randomString();
+        rolesManagementClient.create(new CreateRoleParam(code)).execute();
+
         PaginatedUsers users = rolesManagementClient.listUsers(code).execute();
-        Assert.assertTrue(users.getTotalCount() > 0);
+        Assert.assertTrue(users.getTotalCount() == 0);
     }
 
     @Test
     public void listPolicies() throws IOException, GraphQLException {
-        String code = "";
+        String code = randomString();
+        rolesManagementClient.create(new CreateRoleParam(code)).execute();
+
         PaginatedPolicyAssignments result = rolesManagementClient.listPolicies(code).execute();
-        Assert.assertTrue(result.getTotalCount() > 0);
+        Assert.assertTrue(result.getTotalCount() == 0);
     }
 }
