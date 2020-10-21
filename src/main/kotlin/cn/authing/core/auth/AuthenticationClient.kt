@@ -12,12 +12,13 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     /**
      * 获取当前用户信息
      */
-    fun currentUser(): GraphQLCall<UserResponse, User> {
+    fun getCurrentUser(): GraphQLCall<UserResponse, User> {
         val param = UserParam()
         return createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<UserResponse>>() {}) {
-            it.result
+            accessToken = it.result.token ?: accessToken
+            return@createGraphQLCall it.result
         }
     }
 
@@ -31,7 +32,8 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
         return createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<LoginByUsernameResponse>>() {}) {
-            it.result
+            accessToken = it.result.token ?: accessToken
+            return@createGraphQLCall it.result
         }
     }
 
@@ -45,7 +47,8 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
         return createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<LoginByEmailResponse>>() {}) {
-            it.result
+            accessToken = it.result.token ?: accessToken
+            return@createGraphQLCall it.result
         }
     }
 
@@ -58,7 +61,8 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
         return createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<LoginByPhoneCodeResponse>>() {}) {
-            it.result
+            accessToken = it.result.token ?: accessToken
+            return@createGraphQLCall it.result
         }
     }
 
@@ -72,7 +76,8 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
         return createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<LoginByPhonePasswordResponse>>() {}) {
-            it.result
+            accessToken = it.result.token ?: accessToken
+            return@createGraphQLCall it.result
         }
     }
 
@@ -86,7 +91,8 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
         return createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<RegisterByUsernameResponse>>() {}) {
-            it.result
+            accessToken = it.result.token ?: accessToken
+            return@createGraphQLCall it.result
         }
     }
 
@@ -100,7 +106,8 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
         return createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<RegisterByEmailResponse>>() {}) {
-            it.result
+            accessToken = it.result.token ?: accessToken
+            return@createGraphQLCall it.result
         }
     }
 
@@ -116,7 +123,8 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
         return createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<RegisterByPhoneCodeResponse>>() {}) {
-            it.result
+            accessToken = it.result.token ?: accessToken
+            return@createGraphQLCall it.result
         }
     }
 
@@ -192,7 +200,8 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     fun updateProfile(input: UpdateUserInput): GraphQLCall<UpdateUserResponse, User> {
         val param = UpdateUserParam(input = input)
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<UpdateUserResponse>>() {}) {
-            it.result
+            accessToken = it.result.token ?: accessToken
+            return@createGraphQLCall it.result
         }
     }
 
@@ -206,7 +215,8 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
         return createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<UpdatePasswordResponse>>() {}) {
-            it.result
+            accessToken = it.result.token ?: accessToken
+            return@createGraphQLCall it.result
         }
     }
 
@@ -223,7 +233,8 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
         val param = UpdatePhoneParam(phone, phoneCode, oldPhone, oldPhoneCode)
 
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<UpdatePhoneResponse>>() {}) {
-            it.result
+            accessToken = it.result.token ?: accessToken
+            return@createGraphQLCall it.result
         }
     }
 
@@ -240,7 +251,8 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
         val param = UpdateEmailParam(email, emailCode, oldEmail, oldEmailCode)
 
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<UpdateEmailResponse>>() {}) {
-            it.result
+            accessToken = it.result.token ?: accessToken
+            return@createGraphQLCall it.result
         }
     }
 
@@ -263,7 +275,8 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     fun bindPhone(phone: String, phoneCode: String): GraphQLCall<BindPhoneResponse, User> {
         val param = BindPhoneParam(phone, phoneCode)
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<BindPhoneResponse>>() {}) {
-            it.result
+            accessToken = it.result.token ?: accessToken
+            return@createGraphQLCall it.result
         }
     }
 
@@ -273,7 +286,8 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     fun unbindPhone(): GraphQLCall<UnbindPhoneResponse, User> {
         val param = UnbindPhoneParam()
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<UnbindPhoneResponse>>() {}) {
-            it.result
+            accessToken = it.result.token ?: accessToken
+            return@createGraphQLCall it.result
         }
     }
 
