@@ -5,6 +5,7 @@ import cn.authing.core.graphql.GraphQLCall
 import cn.authing.core.graphql.GraphQLResponse
 import cn.authing.core.http.HttpCall
 import cn.authing.core.types.*
+import com.google.gson.annotations.SerializedName
 import com.google.gson.reflect.TypeToken
 
 class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
@@ -144,17 +145,39 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     /**
      * 发送邮件
      */
-    fun sendEmail(param: SendEmailParam): GraphQLCall<SendEmailResponse, CommonMessage> {
+    fun sendEmail(email: String, scene: EmailScene): GraphQLCall<SendEmailResponse, CommonMessage> {
+        val param = SendEmailParam(email, scene)
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<SendEmailResponse>>() {}) {
             it.result
         }
     }
 
     /**
-     * 通过手机号验证码或邮件验证码来重置密码
+     * 通过邮件验证码来重置密码
      */
-    fun resetPassword(param: ResetPasswordParam): GraphQLCall<ResetPasswordResponse, CommonMessage> {
-        param.newPassword = encrypt(param.newPassword)
+    fun resetPasswordByEmailCode(
+        email: String,
+        code: String,
+        newPassword: String
+    ): GraphQLCall<ResetPasswordResponse, CommonMessage> {
+        val param = ResetPasswordParam(null, email, code, encrypt(newPassword))
+
+        return createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<ResetPasswordResponse>>() {}) {
+            it.result
+        }
+    }
+
+    /**
+     * 通过手机号验证码来重置密码
+     */
+    fun resetPasswordByPhoneCode(
+        phone: String,
+        code: String,
+        newPassword: String
+    ): GraphQLCall<ResetPasswordResponse, CommonMessage> {
+        val param = ResetPasswordParam(phone, null, code, encrypt(newPassword))
 
         return createGraphQLCall(
             param.createRequest(),
@@ -176,7 +199,10 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     /**
      * 更新用户密码
      */
-    fun updatePassword(param: UpdatePasswordParam): GraphQLCall<UpdatePasswordResponse, User> {
+    @JvmOverloads
+    fun updatePassword(newPassword: String, oldPassword: String? = null): GraphQLCall<UpdatePasswordResponse, User> {
+        val param = UpdatePasswordParam(newPassword, oldPassword)
+
         return createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<UpdatePasswordResponse>>() {}) {
@@ -187,7 +213,15 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     /**
      * 更新用户手机号
      */
-    fun updatePhone(param: UpdatePhoneParam): GraphQLCall<UpdatePhoneResponse, User> {
+    @JvmOverloads
+    fun updatePhone(
+        phone: String,
+        phoneCode: String,
+        oldPhone: String? = null,
+        oldPhoneCode: String? = null
+    ): GraphQLCall<UpdatePhoneResponse, User> {
+        val param = UpdatePhoneParam(phone, phoneCode, oldPhone, oldPhoneCode)
+
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<UpdatePhoneResponse>>() {}) {
             it.result
         }
@@ -196,7 +230,15 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     /**
      * 更新用户邮箱
      */
-    fun updateEmail(param: UpdateEmailParam): GraphQLCall<UpdateEmailResponse, User> {
+    @JvmOverloads
+    fun updateEmail(
+        email: String,
+        emailCode: String,
+        oldEmail: String? = null,
+        oldEmailCode: String? = null
+    ): GraphQLCall<UpdateEmailResponse, User> {
+        val param = UpdateEmailParam(email, emailCode, oldEmail, oldEmailCode)
+
         return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<UpdateEmailResponse>>() {}) {
             it.result
         }

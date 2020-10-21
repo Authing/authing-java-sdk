@@ -1,3 +1,5 @@
+package cn.authing.core.mgmt
+
 import cn.authing.core.graphql.GraphQLCall
 import cn.authing.core.graphql.GraphQLResponse
 import cn.authing.core.mgmt.ManagementClient
@@ -11,9 +13,10 @@ class UsersManagementClient(private val client: ManagementClient) {
     /**
      * 获取用户池用户列表
      */
-    fun list(param: UsersParam): GraphQLCall<UsersResponse, PaginatedUsers> {
+    @JvmOverloads
+    fun list(param: UsersParam? = null): GraphQLCall<UsersResponse, PaginatedUsers> {
         return client.createGraphQLCall(
-            param.createRequest(),
+            (param ?: UsersParam()).createRequest(),
             object : TypeToken<GraphQLResponse<UsersResponse>>() {}) {
             it.result
         }
@@ -64,6 +67,14 @@ class UsersManagementClient(private val client: ManagementClient) {
     /**
      * 模糊搜索用户
      */
+    fun search(query: String): GraphQLCall<SearchUserResponse, PaginatedUsers> {
+        val param = SearchUserParam(query);
+        return search(param);
+    }
+
+    /**
+     * 模糊搜索用户
+     */
     fun search(param: SearchUserParam): GraphQLCall<SearchUserResponse, PaginatedUsers> {
         return client.createGraphQLCall(
             param.createRequest(),
@@ -99,7 +110,7 @@ class UsersManagementClient(private val client: ManagementClient) {
     /**
      * 删除多个用户
      */
-    fun delete(userIds: List<String>): GraphQLCall<DeleteUsersResponse, CommonMessage> {
+    fun deleteMany(userIds: List<String>): GraphQLCall<DeleteUsersResponse, CommonMessage> {
         val param = DeleteUsersParam(userIds)
         return client.createGraphQLCall(
             param.createRequest(),
@@ -164,9 +175,9 @@ class UsersManagementClient(private val client: ManagementClient) {
         userId: String,
         page: Int = 1,
         limit: Int = 10
-    ): GraphQLCall<PolicyAssignmentsResponse, PaginatedPolicyAssignment> {
+    ): GraphQLCall<PolicyAssignmentsResponse, PaginatedPolicyAssignments> {
         val param =
-            PolicyAssignmentsParam().withTargetType(PolicyAssignmentTargetType.User).withTargetIdentifier(userId)
+            PolicyAssignmentsParam().withTargetType(PolicyAssignmentTargetType.USER).withTargetIdentifier(userId)
                 .withPage(page).withLimit(limit)
         return client.createGraphQLCall(
             param.createRequest(),
@@ -183,7 +194,7 @@ class UsersManagementClient(private val client: ManagementClient) {
         policies: List<String>
     ): GraphQLCall<AddPolicyAssignmentsResponse, CommonMessage> {
         val param =
-            AddPolicyAssignmentsParam(policies, PolicyAssignmentTargetType.User).withTargetIdentifiers(listOf(userId))
+            AddPolicyAssignmentsParam(policies, PolicyAssignmentTargetType.USER).withTargetIdentifiers(listOf(userId))
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<AddPolicyAssignmentsResponse>>() {}) {
@@ -200,7 +211,7 @@ class UsersManagementClient(private val client: ManagementClient) {
     ): GraphQLCall<RemovePolicyAssignmentsResponse, CommonMessage> {
         val param = RemovePolicyAssignmentsParam(
             policies,
-            PolicyAssignmentTargetType.User
+            PolicyAssignmentTargetType.USER
         ).withTargetIdentifiers(listOf(userId))
         return client.createGraphQLCall(
             param.createRequest(),

@@ -12,9 +12,10 @@ class RolesManagementClient(private val client: ManagementClient) {
     /**
      * 获取角色列表
      */
-    fun list(param: RolesParam): GraphQLCall<RolesResponse, PaginatedRoles> {
+    @JvmOverloads
+    fun list(param: RolesParam? = null): GraphQLCall<RolesResponse, PaginatedRoles> {
         return client.createGraphQLCall(
-            param.createRequest(),
+            (param ?: RolesParam()).createRequest(),
             object : TypeToken<GraphQLResponse<RolesResponse>>() {}) {
             it.result
         }
@@ -69,7 +70,7 @@ class RolesManagementClient(private val client: ManagementClient) {
     /**
      * 批量删除角色
      */
-    fun deleteMany(codeList: List<String>): GraphQLCall<DeleteRolesResponse, BatchOperationResult> {
+    fun deleteMany(codeList: List<String>): GraphQLCall<DeleteRolesResponse, CommonMessage> {
         val param = DeleteRolesParam(codeList)
         return client.createGraphQLCall(
             param.createRequest(),
@@ -117,7 +118,13 @@ class RolesManagementClient(private val client: ManagementClient) {
     /**
      * 获取策略列表
      */
-    fun listPolicies(param: PolicyAssignmentsParam): GraphQLCall<PolicyAssignmentsResponse, PaginatedPolicyAssignment> {
+    @JvmOverloads
+    fun listPolicies(
+        code: String,
+        page: Int = 1,
+        limit: Int = 10
+    ): GraphQLCall<PolicyAssignmentsResponse, PaginatedPolicyAssignments> {
+        val param = PolicyAssignmentsParam(null, PolicyAssignmentTargetType.ROLE, code, page, limit)
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<PolicyAssignmentsResponse>>() {}) {
@@ -133,7 +140,7 @@ class RolesManagementClient(private val client: ManagementClient) {
         policies: List<String>
     ): GraphQLCall<AddPolicyAssignmentsResponse, CommonMessage> {
         val param =
-            AddPolicyAssignmentsParam(policies, PolicyAssignmentTargetType.Role).withTargetIdentifiers(listOf(code))
+            AddPolicyAssignmentsParam(policies, PolicyAssignmentTargetType.ROLE).withTargetIdentifiers(listOf(code))
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<AddPolicyAssignmentsResponse>>() {}) {
@@ -149,7 +156,7 @@ class RolesManagementClient(private val client: ManagementClient) {
         policies: List<String>
     ): GraphQLCall<RemovePolicyAssignmentsResponse, CommonMessage> {
         val param =
-            RemovePolicyAssignmentsParam(policies, PolicyAssignmentTargetType.Role).withTargetIdentifiers(listOf(code))
+            RemovePolicyAssignmentsParam(policies, PolicyAssignmentTargetType.ROLE).withTargetIdentifiers(listOf(code))
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<RemovePolicyAssignmentsResponse>>() {}) {

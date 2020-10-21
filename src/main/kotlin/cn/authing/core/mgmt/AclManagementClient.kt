@@ -12,7 +12,14 @@ class AclManagementClient(private val client: ManagementClient) {
     /**
      * 允许某用户操作某资源
      */
-    fun allow(param: AllowParam): GraphQLCall<AllowResponse, CommonMessage> {
+    @JvmOverloads
+    fun allow(
+        resource: String,
+        action: String,
+        userId: String? = null,
+        role: String? = null
+    ): GraphQLCall<AllowResponse, CommonMessage> {
+        val param = AllowParam(resource, action).withUserId(userId).withRoleCode(role)
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<AllowResponse>>() {}) {
@@ -23,7 +30,9 @@ class AclManagementClient(private val client: ManagementClient) {
     /**
      * 是否允许某用户操作某资源
      */
-    fun isAllowed(param: IsActionAllowedParam): GraphQLCall<IsActionAllowedResponse, Boolean> {
+    fun isAllowed(userId: String, resource: String, action: String): GraphQLCall<IsActionAllowedResponse, Boolean> {
+        val param = IsActionAllowedParam(resource, action, userId)
+
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<IsActionAllowedResponse>>() {}) {

@@ -43,7 +43,7 @@ abstract class BaseClient(internal val userPoolId: String) {
     // graphql 端点
     private val endpoint: String
         get() {
-            return "$host/v2/graphql"
+            return "$host/graphql/v2"
         }
 
     private val client: OkHttpClient = OkHttpClient()

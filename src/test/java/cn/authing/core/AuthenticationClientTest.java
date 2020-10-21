@@ -84,4 +84,72 @@ public class AuthenticationClientTest {
         User user = client.loginByPhonePassword(new LoginByPhonePasswordInput(phone, password)).execute();
         Assert.assertEquals(user.getPhone(), phone);
     }
+
+    @Test
+    public void checkLoginStatus() throws IOException, GraphQLException {
+        JwtTokenStatus status = client.checkLoginStatus().execute();
+        Assert.assertEquals(status.getCode().intValue(), 200);
+    }
+
+    @Test
+    public void sendEmail() throws IOException, GraphQLException {
+        client.sendEmail("1498881550@qq.com", EmailScene.RESET_PASSWORD).execute();
+    }
+
+    @Test
+    public void resetPasswordByPhoneCode() throws IOException, GraphQLException {
+        client.resetPasswordByPhoneCode("17611161550", "1234", "123456").execute();
+    }
+
+    @Test
+    public void resetPasswordByEmailCode() throws IOException, GraphQLException {
+        client.resetPasswordByEmailCode("1498881550@qq.com", "1234", "123456").execute();
+    }
+
+    @Test
+    public void updateProfile() throws IOException, GraphQLException {
+        User user = client.updateProfile(new UpdateUserInput().withNickname("nickname")).execute();
+        Assert.assertEquals(user.getNickname(), "nickname");
+    }
+
+    @Test
+    public void updatePassword() throws IOException, GraphQLException {
+        User user = client.updatePassword("111111", "123456").execute();
+        Assert.assertNotNull(user);
+    }
+
+    @Test
+    public void updatePhone() throws IOException, GraphQLException {
+        User user = client.updatePhone("17611161550", "1234").execute();
+        Assert.assertNotNull(user);
+    }
+
+    @Test
+    public void updateEmail() throws IOException, GraphQLException {
+        User user = client.updateEmail("1498881550@qq.com", "1234").execute();
+        Assert.assertNotNull(user);
+    }
+
+    @Test
+    public void refreshToken() throws IOException, GraphQLException {
+        RefreshToken token = client.refreshToken().execute();
+        Assert.assertNotNull(token.getToken());
+    }
+
+    @Test
+    public void bindPhone() throws IOException, GraphQLException {
+        User user = client.bindPhone("17611161550", "1234").execute();
+        Assert.assertEquals(user.getPhone(), "17611161550");
+    }
+
+    @Test
+    public void unbindPhone() throws IOException, GraphQLException {
+        User user = client.unbindPhone().execute();
+        Assert.assertNotNull(user);
+    }
+
+    @Test
+    public void Logout() throws IOException, GraphQLException {
+        client.logout().execute();
+    }
 }

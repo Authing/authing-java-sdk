@@ -1,6 +1,5 @@
 package cn.authing.core.mgmt
 
-import UsersManagementClient
 import cn.authing.core.BaseClient
 import cn.authing.core.graphql.GraphQLCall
 import cn.authing.core.graphql.GraphQLResponse

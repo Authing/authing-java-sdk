@@ -36,7 +36,7 @@ class GraphQLCall<TData, TResult>(
             }
             return resolver(graphQLResponse.data!!)
         } else {
-            throw IOException("${response.code}: ${response.message}\n")
+            throw IOException("${response.code}: ${response.message}\n${response.body?.string()}")
         }
     }
 
