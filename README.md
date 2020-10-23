@@ -11,7 +11,7 @@ Authing Java SDK 由两部分组成：`ManagementClient` 和 `AuthenticationClie
 在 build.gradle 内的 dependencies 中添加：
 
 ```
-implementation "cn.authing:java-core:3.0.0"
+implementation "cn.authing:java-core:3.0.1"
 ```
 
 ## 使用用户管理模块
@@ -122,6 +122,24 @@ public class AuthenticationClientTest {
 
 ## 错误处理
 
+```java
+import cn.authing.core.auth.AuthenticationClient;
+import cn.authing.core.graphql.GraphQLException;import java.io.IOException;
+
+
+public class AuthenticationClientTest {
+    public static void main(String[] args){
+        AuthenticationClient authenticationClient = new AuthenticationClient("AUTHING_USERPOOL_ID");
+        authenticationClient.setAccessToken("ACCESS_TOKEN");
+        
+        try {
+            User user = authenticationClient.updateProfile(new UpdateUserInput().withNickname("nickname")).execute();
+        } catch (GraphQLException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
 
 ## 获取帮助
 
