@@ -3,22 +3,49 @@ package cn.authing.core.mgmt
 import cn.authing.core.graphql.GraphQLCall
 import cn.authing.core.graphql.GraphQLResponse
 import cn.authing.core.types.*
+import com.google.gson.annotations.SerializedName
 import com.google.gson.reflect.TypeToken
 
 /**
  * 角色管理类
  */
 class RolesManagementClient(private val client: ManagementClient) {
+
     /**
      * 获取角色列表
      */
     @JvmOverloads
-    fun list(param: RolesParam? = null): GraphQLCall<RolesResponse, PaginatedRoles> {
+    fun list(
+        page: Int? = null,
+        limit: Int? = null,
+        sortBy: SortByEnum? = null
+    ): GraphQLCall<RolesResponse, PaginatedRoles> {
+        val param = RolesParam(page, limit, sortBy)
+        return list(param)
+    }
+
+    /**
+     * 获取角色列表
+     */
+    fun list(param: RolesParam): GraphQLCall<RolesResponse, PaginatedRoles> {
         return client.createGraphQLCall(
-            (param ?: RolesParam()).createRequest(),
+            param.createRequest(),
             object : TypeToken<GraphQLResponse<RolesResponse>>() {}) {
             it.result
         }
+    }
+
+    /**
+     * 创建角色
+     */
+    @JvmOverloads
+    fun create(
+        code: String,
+        description: String? = null,
+        parent: String? = null
+    ): GraphQLCall<CreateRoleResponse, Role> {
+        val param = CreateRoleParam(code, description, parent)
+        return create(param)
     }
 
     /**
@@ -36,12 +63,25 @@ class RolesManagementClient(private val client: ManagementClient) {
      * 角色详情
      */
     fun detail(code: String): GraphQLCall<RoleResponse, Role> {
-        val param = RoleParam(code);
+        val param = RoleParam(code)
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<RoleResponse>>() {}) {
             it.result
         }
+    }
+
+    /**
+     * 更新角色
+     */
+    @JvmOverloads
+    fun update(
+        code: String,
+        description: String? = null,
+        newCode: String? = null
+    ): GraphQLCall<UpdateRoleResponse, Role> {
+        val param = UpdateRoleParam(code, description, newCode)
+        return update(param)
     }
 
     /**
@@ -121,8 +161,8 @@ class RolesManagementClient(private val client: ManagementClient) {
     @JvmOverloads
     fun listPolicies(
         code: String,
-        page: Int = 1,
-        limit: Int = 10
+        page: Int? = null,
+        limit: Int? = null
     ): GraphQLCall<PolicyAssignmentsResponse, PaginatedPolicyAssignments> {
         val param = PolicyAssignmentsParam(null, PolicyAssignmentTargetType.ROLE, code, page, limit)
         return client.createGraphQLCall(

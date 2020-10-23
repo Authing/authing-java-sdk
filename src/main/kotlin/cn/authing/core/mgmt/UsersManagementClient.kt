@@ -4,19 +4,29 @@ import cn.authing.core.graphql.GraphQLCall
 import cn.authing.core.graphql.GraphQLResponse
 import cn.authing.core.mgmt.ManagementClient
 import cn.authing.core.types.*
+import com.google.gson.annotations.SerializedName
 import com.google.gson.reflect.TypeToken
 
 /**
  * 用户管理类
  */
 class UsersManagementClient(private val client: ManagementClient) {
+    @JvmOverloads
+    fun list(
+        page: Int? = null,
+        limit: Int? = null,
+        sortBy: SortByEnum? = null
+    ): GraphQLCall<UsersResponse, PaginatedUsers> {
+        val param = UsersParam(page, limit, sortBy)
+        return list(param)
+    }
+
     /**
      * 获取用户池用户列表
      */
-    @JvmOverloads
-    fun list(param: UsersParam? = null): GraphQLCall<UsersResponse, PaginatedUsers> {
+    fun list(param: UsersParam): GraphQLCall<UsersResponse, PaginatedUsers> {
         return client.createGraphQLCall(
-            (param ?: UsersParam()).createRequest(),
+            param.createRequest(),
             object : TypeToken<GraphQLResponse<UsersResponse>>() {}) {
             it.result
         }
@@ -67,9 +77,12 @@ class UsersManagementClient(private val client: ManagementClient) {
     /**
      * 模糊搜索用户
      */
-    fun search(query: String): GraphQLCall<SearchUserResponse, PaginatedUsers> {
-        val param = SearchUserParam(query);
-        return search(param);
+    @JvmOverloads
+    fun search(
+        query: String, fields: List<String>? = null, page: Int? = null, limit: Int? = null
+    ): GraphQLCall<SearchUserResponse, PaginatedUsers> {
+        val param = SearchUserParam(query, fields, page, limit)
+        return search(param)
     }
 
     /**
