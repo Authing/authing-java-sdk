@@ -52,7 +52,11 @@ abstract class BaseClient(internal val userPoolId: String) {
     /**
      * 密码加密方法
      */
-    internal open fun encrypt(msg: String): String {
+    internal open fun encrypt(msg: String?): String {
+        if (msg === null) {
+            return ""
+        }
+
         // get publicKey
         val keyBytes: ByteArray = Base64.getDecoder().decode(publicKey)
         val keySpec = X509EncodedKeySpec(keyBytes)

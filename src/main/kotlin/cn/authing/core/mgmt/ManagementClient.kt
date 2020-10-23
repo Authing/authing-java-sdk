@@ -51,4 +51,18 @@ class ManagementClient(userPoolId: String, private val secret: String) : BaseCli
     fun acl(): AclManagementClient {
         return AclManagementClient(this)
     }
+
+    /**
+     * 获取自定义字段管理模块
+     */
+    fun udf(): UdfManagementClient {
+        return UdfManagementClient(this)
+    }
+
+    /**
+     * 获取策略管理模块
+     */
+    fun policies(): PoliciesManagementClient {
+        return PoliciesManagementClient(this)
+    }
 }

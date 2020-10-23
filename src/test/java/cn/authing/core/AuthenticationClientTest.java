@@ -72,7 +72,7 @@ public class AuthenticationClientTest {
     @Test
     public void loginByPhoneCode() throws IOException, GraphQLException {
         String phone = "17611161550";
-        String code = "1234";
+        String code = "2190";
         User user = client.loginByPhoneCode(new LoginByPhoneCodeInput(phone, code)).execute();
         Assert.assertEquals(user.getPhone(), phone);
     }
@@ -87,6 +87,10 @@ public class AuthenticationClientTest {
 
     @Test
     public void checkLoginStatus() throws IOException, GraphQLException {
+        String username = "test";
+        String password = "123456";
+        client.loginByUsername(new LoginByUsernameInput(username, password)).execute();
+
         JwtTokenStatus status = client.checkLoginStatus().execute();
         Assert.assertEquals(status.getCode().intValue(), 200);
     }
@@ -108,48 +112,80 @@ public class AuthenticationClientTest {
 
     @Test
     public void updateProfile() throws IOException, GraphQLException {
+        String username = "test";
+        String password = "123456";
+        client.loginByUsername(new LoginByUsernameInput(username, password)).execute();
+
         User user = client.updateProfile(new UpdateUserInput().withNickname("nickname")).execute();
         Assert.assertEquals(user.getNickname(), "nickname");
     }
 
     @Test
     public void updatePassword() throws IOException, GraphQLException {
+        String username = "test";
+        String password = "123456";
+        client.loginByUsername(new LoginByUsernameInput(username, password)).execute();
+
         User user = client.updatePassword("111111", "123456").execute();
         Assert.assertNotNull(user);
     }
 
     @Test
     public void updatePhone() throws IOException, GraphQLException {
+        String username = "test";
+        String password = "123456";
+        client.loginByUsername(new LoginByUsernameInput(username, password)).execute();
+
         User user = client.updatePhone("17611161550", "1234").execute();
         Assert.assertNotNull(user);
     }
 
     @Test
     public void updateEmail() throws IOException, GraphQLException {
+        String username = "test";
+        String password = "123456";
+        client.loginByUsername(new LoginByUsernameInput(username, password)).execute();
+
         User user = client.updateEmail("1498881550@qq.com", "1234").execute();
         Assert.assertNotNull(user);
     }
 
     @Test
     public void refreshToken() throws IOException, GraphQLException {
+        String username = "test";
+        String password = "123456";
+        client.loginByUsername(new LoginByUsernameInput(username, password)).execute();
+
         RefreshToken token = client.refreshToken().execute();
         Assert.assertNotNull(token.getToken());
     }
 
     @Test
     public void bindPhone() throws IOException, GraphQLException {
+        String username = "test";
+        String password = "123456";
+        client.loginByUsername(new LoginByUsernameInput(username, password)).execute();
+
         User user = client.bindPhone("17611161550", "1234").execute();
         Assert.assertEquals(user.getPhone(), "17611161550");
     }
 
     @Test
     public void unbindPhone() throws IOException, GraphQLException {
+        String username = "test";
+        String password = "123456";
+        client.loginByUsername(new LoginByUsernameInput(username, password)).execute();
+
         User user = client.unbindPhone().execute();
         Assert.assertNotNull(user);
     }
 
     @Test
     public void Logout() throws IOException, GraphQLException {
+        String username = "test";
+        String password = "123456";
+        client.loginByUsername(new LoginByUsernameInput(username, password)).execute();
+
         client.logout().execute();
     }
 }

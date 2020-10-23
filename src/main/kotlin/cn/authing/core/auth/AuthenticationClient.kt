@@ -210,7 +210,7 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
      */
     @JvmOverloads
     fun updatePassword(newPassword: String, oldPassword: String? = null): GraphQLCall<UpdatePasswordResponse, User> {
-        val param = UpdatePasswordParam(newPassword, oldPassword)
+        val param = UpdatePasswordParam(encrypt(newPassword), encrypt(oldPassword))
 
         return createGraphQLCall(
             param.createRequest(),
