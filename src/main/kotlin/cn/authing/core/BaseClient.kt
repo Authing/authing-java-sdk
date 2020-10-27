@@ -38,7 +38,7 @@ abstract class BaseClient(internal val userPoolId: String) {
     // 常量
     private val mediaTypeJson: MediaType? = "application/json".toMediaTypeOrNull()
     private val sdkType: String = "SDK"
-    private val sdkVersion: String = "java:3.0.1"
+    private val sdkVersion: String = "java:3.0.2"
 
     // graphql 端点
     private val endpoint: String
