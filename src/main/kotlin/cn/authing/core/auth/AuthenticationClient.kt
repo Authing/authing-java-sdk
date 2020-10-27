@@ -143,11 +143,13 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     /**
      * 发送手机验证码
      */
-    fun sendSmsCode(phone: String): HttpCall<CommonMessage> {
+    fun sendSmsCode(phone: String): HttpCall<CommonMessage, CommonMessage> {
         val url = "$host/api/v2/sms/send"
-        val json = "{ \"phone\": \"$phone\" }";
+        val json = "{ \"phone\": \"$phone\" }"
 
-        return createHttpPostCall(url, json, object : TypeToken<CommonMessage>() {})
+        return createHttpPostCall(url, json, object : TypeToken<CommonMessage>() {}) {
+            it
+        }
     }
 
     /**

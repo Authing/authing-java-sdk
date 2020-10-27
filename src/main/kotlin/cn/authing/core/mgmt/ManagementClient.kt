@@ -65,4 +65,11 @@ class ManagementClient(userPoolId: String, private val secret: String) : BaseCli
     fun policies(): PoliciesManagementClient {
         return PoliciesManagementClient(this)
     }
+
+    /**
+     * 获取用户池管理模块
+     */
+    fun userpool(): UserpoolManagementClient {
+        return UserpoolManagementClient(this)
+    }
 }

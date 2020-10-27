@@ -49,7 +49,7 @@ class GraphQLCall<TData, TResult>(
             override fun onResponse(call: Call, response: Response) {
                 if (response.isSuccessful) {
                     val graphQLResponse: GraphQLResponse<TData> = adapter.fromJson(response.body?.string())
-                    if (graphQLResponse.errors?.size!! > 0) {
+                    if (graphQLResponse.errors != null && graphQLResponse.errors.isNotEmpty()) {
                         val firstError = graphQLResponse.errors[0].message
                         callback.onFailure(GraphQLResponse.ErrorInfo(firstError?.code ?: 500, firstError?.message))
                     }

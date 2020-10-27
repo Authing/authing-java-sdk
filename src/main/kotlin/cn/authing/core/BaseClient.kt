@@ -96,7 +96,10 @@ abstract class BaseClient(internal val userPoolId: String) {
     /**
      * 创建 HTTP GET 请求
      */
-    internal open fun <TResponse> createHttpGetCall(url: String, typeToken: TypeToken<TResponse>): HttpCall<TResponse> {
+    internal open fun <TData, TResult> createHttpGetCall(
+        url: String, typeToken: TypeToken<TData>,
+        resolver: (data: TData) -> TResult
+    ): HttpCall<TData, TResult> {
         val adapter = json.getAdapter(typeToken)
         return HttpCall(
             client.newCall(
@@ -108,7 +111,7 @@ abstract class BaseClient(internal val userPoolId: String) {
                     .addHeader("x-authing-sdk-version", sdkVersion)
                     .get()
                     .build()
-            ), adapter
+            ), adapter, resolver
         )
     }
 
@@ -116,11 +119,12 @@ abstract class BaseClient(internal val userPoolId: String) {
     /**
      * 创建 HTTP POST 请求
      */
-    internal open fun <TResponse> createHttpPostCall(
+    internal open fun <TData, TResult> createHttpPostCall(
         url: String,
         body: String,
-        typeToken: TypeToken<TResponse>
-    ): HttpCall<TResponse> {
+        typeToken: TypeToken<TData>,
+        resolver: (data: TData) -> TResult
+    ): HttpCall<TData, TResult> {
         val adapter = json.getAdapter(typeToken)
         return HttpCall(
             client.newCall(
@@ -133,7 +137,30 @@ abstract class BaseClient(internal val userPoolId: String) {
                     .addHeader("x-authing-sdk-version", sdkVersion)
                     .post(body.toRequestBody(mediaTypeJson))
                     .build()
-            ), adapter
+            ), adapter, resolver
+        )
+    }
+
+    /**
+     * 创建 HTTP DELETE 请求
+     */
+    internal open fun <TData, TResult> createHttpDeleteCall(
+        url: String, typeToken: TypeToken<TData>,
+        resolver: (data: TData) -> TResult
+    ): HttpCall<TData, TResult> {
+        val adapter = json.getAdapter(typeToken)
+        return HttpCall(
+            client.newCall(
+                Request.Builder()
+                    .url(url)
+                    .addHeader("Authorization", "Bearer " + this.accessToken)
+                    .addHeader("Content-Type", "application/json")
+                    .addHeader("x-authing-userpool-id", userPoolId)
+                    .addHeader("x-authing-request-from", sdkType)
+                    .addHeader("x-authing-sdk-version", sdkVersion)
+                    .delete()
+                    .build()
+            ), adapter, resolver
         )
     }
 }

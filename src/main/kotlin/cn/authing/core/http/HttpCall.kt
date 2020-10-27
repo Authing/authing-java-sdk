@@ -1,7 +1,7 @@
 package cn.authing.core.http
 
-import cn.authing.core.graphql.GraphQLException
 import cn.authing.core.graphql.GraphQLResponse
+import cn.authing.core.types.RestfulResponse
 import com.google.gson.GsonBuilder
 import com.google.gson.TypeAdapter
 import okhttp3.Call
@@ -9,8 +9,12 @@ import okhttp3.Request
 import okhttp3.Response
 import java.io.IOException
 
-class HttpCall<TResult>(private val call: Call, private val adapter: TypeAdapter<TResult>) :
-    cn.authing.core.http.Call<Unit, TResult> {
+class HttpCall<TData, TResult>(
+    private val call: Call,
+    private val adapter: TypeAdapter<TData>,
+    private val resolver: (data: TData) -> TResult
+) :
+    cn.authing.core.http.Call<TData, TResult> {
     /**
      * Gson 对象，用来序列化 Json
      */
@@ -27,7 +31,8 @@ class HttpCall<TResult>(private val call: Call, private val adapter: TypeAdapter
         // 处理返回数据
         if (response.isSuccessful) {
             val body = response.body?.string()
-            return adapter.fromJson(body)
+            val data = adapter.fromJson(body)
+            return resolver(data)
         } else {
             throw IOException("Unexpected code $response\n${response.body?.string()}")
         }
@@ -41,8 +46,8 @@ class HttpCall<TResult>(private val call: Call, private val adapter: TypeAdapter
         val callbackWrapper: okhttp3.Callback = object : okhttp3.Callback {
             override fun onResponse(call: Call, response: Response) {
                 if (response.isSuccessful) {
-                    val httpResponse: TResult = adapter.fromJson(response.body?.string())
-                    callback.onSuccess(httpResponse)
+                    val data = adapter.fromJson(response.body?.string())
+                    callback.onSuccess(resolver(data))
                 } else {
                     throw IOException("Unexpected code $response\n${response.body?.string()}")
                 }
