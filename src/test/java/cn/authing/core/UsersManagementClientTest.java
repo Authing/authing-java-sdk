@@ -106,6 +106,12 @@ public class UsersManagementClientTest {
     }
 
     @Test
+    public void exists() throws IOException, GraphQLException {
+        Boolean b = usersManagementClient.exists(new IsUserExistsParam().withEmail("test@test.com")).execute();
+        Assert.assertTrue(b);
+    }
+
+    @Test
     public void listRoles() throws IOException, GraphQLException {
         PaginatedRoles roles = usersManagementClient.listRoles(user.getId()).execute();
         Assert.assertTrue(roles.getTotalCount() == 0);
@@ -115,5 +121,11 @@ public class UsersManagementClientTest {
     public void listPolicies() throws IOException, GraphQLException {
         PaginatedPolicyAssignments result = usersManagementClient.listPolicies(user.getId()).execute();
         Assert.assertTrue(result.getTotalCount() == 0);
+    }
+
+    @Test
+    public void listUdv() throws IOException, GraphQLException {
+        List<UserDefinedData> udv = usersManagementClient.listUdv("5f9255b3dcb8f43e1a421fa4").execute();
+        Assert.assertEquals(0, udv.size());
     }
 }

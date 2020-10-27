@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Random;
 
 public class AuthenticationClientTest {
@@ -187,5 +188,15 @@ public class AuthenticationClientTest {
         client.loginByUsername(new LoginByUsernameInput(username, password)).execute();
 
         client.logout().execute();
+    }
+
+    @Test
+    public void listUdv() throws IOException, GraphQLException {
+        String username = "test";
+        String password = "123456";
+        client.loginByUsername(new LoginByUsernameInput(username, password)).execute();
+
+        List<UserDefinedData> udv = client.listUdv().execute();
+        Assert.assertEquals(0, udv.size());
     }
 }

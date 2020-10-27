@@ -4,8 +4,10 @@ import cn.authing.core.graphql.GraphQLCall
 import cn.authing.core.graphql.GraphQLResponse
 import cn.authing.core.mgmt.ManagementClient
 import cn.authing.core.types.*
+import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.google.gson.reflect.TypeToken
+import java.lang.Exception
 
 /**
  * 用户管理类
@@ -133,6 +135,17 @@ class UsersManagementClient(private val client: ManagementClient) {
     }
 
     /**
+     * 检查用户是否存在，目前可检测的字段有用户名、邮箱、手机号。
+     */
+    fun exists(param: IsUserExistsParam): GraphQLCall<IsUserExistsResponse, Boolean> {
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<IsUserExistsResponse>>() {}) {
+            it.result
+        }
+    }
+
+    /**
      * 查询用户角色列表
      */
     fun listRoles(userId: String): GraphQLCall<GetUserRolesResponse, PaginatedRoles> {
@@ -176,6 +189,42 @@ class UsersManagementClient(private val client: ManagementClient) {
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<RefreshTokenResponse>>() {}) {
+            it.result
+        }
+    }
+
+    /**
+     * 获取用户分组列表
+     */
+    fun listGroups(userId: String): GraphQLCall<GetUserGroupsResponse, PaginatedGroups> {
+        val param = GetUserGroupsParam(userId)
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<GetUserGroupsResponse>>() {}) {
+            it.result.groups!!
+        }
+    }
+
+    /**
+     * 将用户加入分组
+     */
+    fun addGroup(userId: String, group: String): GraphQLCall<AddUserToGroupResponse, CommonMessage> {
+        val param = AddUserToGroupParam(listOf(userId), group)
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<AddUserToGroupResponse>>() {}) {
+            it.result
+        }
+    }
+
+    /**
+     * 退出分组
+     */
+    fun removeGroup(userId: String, group: String): GraphQLCall<RemoveUserFromGroupResponse, CommonMessage> {
+        val param = RemoveUserFromGroupParam(listOf(userId), group)
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<RemoveUserFromGroupResponse>>() {}) {
             it.result
         }
     }
@@ -229,6 +278,41 @@ class UsersManagementClient(private val client: ManagementClient) {
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<RemovePolicyAssignmentsResponse>>() {}) {
+            it.result
+        }
+    }
+
+    /**
+     * 获取当前用户的自定义数据列表
+     */
+    fun listUdv(userId: String): GraphQLCall<UdvResponse, List<UserDefinedData>> {
+        val param = UdvParam(UdfTargetType.USER, userId)
+        return client.createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<UdvResponse>>() {}) {
+            it.result
+        }
+    }
+
+    /**
+     * 添加自定义数据
+     */
+    fun setUdv(userId: String, key: String, value: Any): GraphQLCall<SetUdvResponse, List<UserDefinedData>> {
+        val json = Gson()
+        val param = SetUdvParam(UdfTargetType.USER, userId, key, json.toJson(value))
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<SetUdvResponse>>() {}) {
+            it.result
+        }
+    }
+
+    /**
+     * 移除自定义数据
+     */
+    fun removeUdv(userId: String, key: String): GraphQLCall<RemoveUdvResponse, List<UserDefinedData>> {
+        val param = RemoveUdvParam(UdfTargetType.USER, userId, key)
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<RemoveUdvResponse>>() {}) {
             it.result
         }
     }
