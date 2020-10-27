@@ -169,3 +169,8 @@ Join us on Gitter: [#authing-chat](https://gitter.im/authing-chat/community)
 - 刷新 token: `refreshToken`
 - 绑定手机号: `bindPhone`
 - 解绑手机号: `unbindPhone`
+
+
+完整的接口文档请见：
+- [https://docs.authing.co/sdk/sdk-for-java/authentication/](https://docs.authing.co/sdk/sdk-for-java/authentication/)
+- [https://docs.authing.co/sdk/sdk-for-java/management/](https://docs.authing.co/sdk/sdk-for-java/management/)
