@@ -25,7 +25,9 @@ import cn.authing.core.mgmt.ManagementClient;
 
 public class ManagementClientTest {
     public static void main(String[] args){
-      ManagementClient managementClient = new ManagementClient("AUTHING_USERPOOL_ID", "AUTHING_USERPOOL_SECRET");
+        ManagementClient managementClient = new ManagementClient("AUTHING_USERPOOL_ID", "AUTHING_USERPOOL_SECRET");
+        // 为了获得管理员权限
+        managementClient.requestToken().execute();    
     }
 }
 ```
@@ -38,6 +40,8 @@ import cn.authing.core.mgmt.ManagementClient;
 public class ManagementClientTest {
     public static void main(String[] args){
         ManagementClient managementClient = new ManagementClient("AUTHING_USERPOOL_ID", "AUTHING_USERPOOL_SECRET");
+        // 为了获得管理员权限
+        managementClient.requestToken().execute();
         PaginatedUsers users = managementClient.users().list().execute();
     }
 }
