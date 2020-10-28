@@ -52,6 +52,7 @@ class GraphQLCall<TData, TResult>(
                     if (graphQLResponse.errors != null && graphQLResponse.errors.isNotEmpty()) {
                         val firstError = graphQLResponse.errors[0].message
                         callback.onFailure(GraphQLResponse.ErrorInfo(firstError?.code ?: 500, firstError?.message))
+                        return
                     }
                     callback.onSuccess(resolver(graphQLResponse.data!!))
                 } else {
