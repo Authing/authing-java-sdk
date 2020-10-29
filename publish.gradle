@@ -2,7 +2,7 @@ apply plugin: 'maven-publish'
 
 def binApiKey = 'it is a secret'
 def binUser = "authing"
-def versionCode = '3.0.2'
+def versionCode = '3.0.3'
 def pomConfig = {
     licenses {
         license {
@@ -19,6 +19,10 @@ def pomConfig = {
         developer {
             name "su"
             email "recallsufuture@gmail.com"
+        }
+        developer {
+            name "andyzhaozhao"
+            email "andy_zhaozhao@hotmail.com"
         }
     }
 
