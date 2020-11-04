@@ -1,8 +1,9 @@
 apply plugin: 'maven-publish'
 
 def binApiKey = 'it is a secret'
+def mavenCentralPassword = "it is a secret!"
 def binUser = "authing"
-def versionCode = '3.0.3'
+def versionCode = '4.2.0'
 def pomConfig = {
     licenses {
         license {
@@ -76,7 +77,7 @@ bintray {
             mavenCentralSync {
                 sync = true //[Default: true] Determines whether to sync the version to Maven Central.
                 user = 'xieyang' //OSS user token: mandatory
-                password = 'it is a secret' //OSS user password: mandatory
+                password = mavenCentralPassword //OSS user password: mandatory
                 close = '1' //Optional property. By default the staging repository is closed and artifacts are released to Maven Central. You can optionally turn this behaviour off (by puting 0 as value) and release the version manually.
             }
         }
