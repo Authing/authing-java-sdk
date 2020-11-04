@@ -507,45 +507,6 @@ data class Identity(
     var userPoolId: String? = null
 )
 
-
-data class PaginatedRoles(
-    /** @param [totalCount] totalCount */
-    @SerializedName("totalCount")
-    var totalCount: Int,
-    /** @param [list] list */
-    @SerializedName("list")
-    var list: List<Role>
-)
-
-
-data class Role(
-    /** @param [code] 唯一标志 code */
-    @SerializedName("code")
-    var code: String,
-    /** @param [arn] 资源描述符 arn */
-    @SerializedName("arn")
-    var arn: String,
-    /** @param [description] 角色描述 */
-    @SerializedName("description")
-    var description: String? = null,
-    /** @param [isSystem] 是否为系统内建，系统内建的角色不能删除 */
-    @SerializedName("isSystem")
-    var isSystem: Boolean? = null,
-    /** @param [createdAt] 创建时间 */
-    @SerializedName("createdAt")
-    var createdAt: String? = null,
-    /** @param [updatedAt] 修改时间 */
-    @SerializedName("updatedAt")
-    var updatedAt: String? = null,
-    /** @param [users] 被授予此角色的用户列表 */
-    @SerializedName("users")
-    var users: PaginatedUsers,
-    /** @param [parent] 父角色 */
-    @SerializedName("parent")
-    var parent: Role? = null
-)
-
-
 data class PaginatedGroups(
     /** @param [totalCount] totalCount */
     @SerializedName("totalCount")
@@ -618,29 +579,6 @@ data class Node(
     /** @param [users] 节点的用户列表 */
     @SerializedName("users")
     var users: PaginatedUsers
-)
-
-
-data class Org(
-    /** @param [id] 组织机构 ID */
-    @SerializedName("id")
-    var id: String,
-    /** @param [rootNode] 根节点 */
-    @SerializedName("rootNode")
-    var rootNode: Node,
-    /** @param [nodes] 组织机构节点列表 */
-    @SerializedName("nodes")
-    var nodes: List<Node>
-)
-
-
-data class PaginatedOrgs(
-    /** @param [totalCount] totalCount */
-    @SerializedName("totalCount")
-    var totalCount: Int,
-    /** @param [list] list */
-    @SerializedName("list")
-    var list: List<Org>
 )
 
 
@@ -1082,33 +1020,6 @@ data class AccessTokenRes(
     @SerializedName("iat")
     var iat: Int? = null
 )
-
-enum class WhitelistType(val label: String) {
-    USERNAME("USERNAME"),
-    EMAIL("EMAIL"),
-    PHONE("PHONE");
-
-    companion object {
-        @JvmStatic
-        fun valueOfLabel(label: String): WhitelistType? {
-            return values().find { it.label == label }
-        }
-    }
-}
-
-
-data class WhiteList(
-    /** @param [createdAt] createdAt */
-    @SerializedName("createdAt")
-    var createdAt: String? = null,
-    /** @param [updatedAt] updatedAt */
-    @SerializedName("updatedAt")
-    var updatedAt: String? = null,
-    /** @param [value] value */
-    @SerializedName("value")
-    var value: String
-)
-
 
 data class Mutation(
     /** @param [createSocialConnection] 创建社会化登录服务商 */
@@ -3770,43 +3681,6 @@ mutation addUserToGroup(${'$'}userIds: [String!]!, ${'$'}code: String) {
 }
 
 
-data class AddWhitelistResponse(
-
-    @SerializedName("addWhitelist")
-    val result: List<WhiteList>
-)
-
-class AddWhitelistParam @JvmOverloads constructor(
-    @SerializedName("type")
-    var type: WhitelistType,
-    @SerializedName("list")
-    var list: List<String>
-) {
-
-
-    fun build(): AddWhitelistParam {
-        return this
-    }
-
-    fun createRequest(): GraphQLRequest {
-        return GraphQLRequest(
-            addWhitelistDocument,
-            this
-        );
-    }
-
-    private val addWhitelistDocument: String = """
-mutation addWhitelist(${'$'}type: WhitelistType!, ${'$'}list: [String!]!) {
-  addWhitelist(type: ${'$'}type, list: ${'$'}list) {
-    createdAt
-    updatedAt
-    value
-  }
-}
-"""
-}
-
-
 data class AllowResponse(
 
     @SerializedName("allow")
@@ -4209,13 +4083,6 @@ mutation createGroup(${'$'}code: String!, ${'$'}name: String!, ${'$'}description
 }
 """
 }
-
-
-data class CreateOrgResponse(
-
-    @SerializedName("createOrg")
-    val result: Org
-)
 
 class CreateOrgParam @JvmOverloads constructor(
     @SerializedName("name")
@@ -4777,13 +4644,6 @@ mutation deleteNode(${'$'}orgId: String!, ${'$'}nodeId: String!) {
 }
 """
 }
-
-
-data class DeleteOrgResponse(
-
-    @SerializedName("deleteOrg")
-    val result: CommonMessage
-)
 
 class DeleteOrgParam @JvmOverloads constructor(
     @SerializedName("id")
@@ -6241,44 +6101,6 @@ mutation removeUserFromGroup(${'$'}userIds: [String!]!, ${'$'}code: String) {
 }
 """
 }
-
-
-data class RemoveWhitelistResponse(
-
-    @SerializedName("removeWhitelist")
-    val result: List<WhiteList>
-)
-
-class RemoveWhitelistParam @JvmOverloads constructor(
-    @SerializedName("type")
-    var type: WhitelistType,
-    @SerializedName("list")
-    var list: List<String>
-) {
-
-
-    fun build(): RemoveWhitelistParam {
-        return this
-    }
-
-    fun createRequest(): GraphQLRequest {
-        return GraphQLRequest(
-            removeWhitelistDocument,
-            this
-        );
-    }
-
-    private val removeWhitelistDocument: String = """
-mutation removeWhitelist(${'$'}type: WhitelistType!, ${'$'}list: [String!]!) {
-  removeWhitelist(type: ${'$'}type, list: ${'$'}list) {
-    createdAt
-    updatedAt
-    value
-  }
-}
-"""
-}
-
 
 data class ResetPasswordResponse(
 
@@ -8658,13 +8480,6 @@ query nodeByIdWithMembers(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortB
 """
 }
 
-
-data class OrgResponse(
-
-    @SerializedName("org")
-    val result: Org
-)
-
 class OrgParam @JvmOverloads constructor(
     @SerializedName("id")
     var id: String
@@ -8720,13 +8535,6 @@ query org(${'$'}id: String!) {
 }
 """
 }
-
-
-data class OrgsResponse(
-
-    @SerializedName("orgs")
-    val result: PaginatedOrgs
-)
 
 class OrgsParam @JvmOverloads constructor(
     @SerializedName("page")
@@ -10248,41 +10056,6 @@ query users(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum) {
       createdAt
       updatedAt
     }
-  }
-}
-"""
-}
-
-
-data class WhitelistResponse(
-
-    @SerializedName("whitelist")
-    val result: List<WhiteList>
-)
-
-class WhitelistParam @JvmOverloads constructor(
-    @SerializedName("type")
-    var type: WhitelistType
-) {
-
-
-    fun build(): WhitelistParam {
-        return this
-    }
-
-    fun createRequest(): GraphQLRequest {
-        return GraphQLRequest(
-            whitelistDocument,
-            this
-        );
-    }
-
-    private val whitelistDocument: String = """
-query whitelist(${'$'}type: WhitelistType!) {
-  whitelist(type: ${'$'}type) {
-    createdAt
-    updatedAt
-    value
   }
 }
 """

@@ -2,6 +2,7 @@ package cn.authing.core.mgmt
 
 import cn.authing.core.graphql.GraphQLCall
 import cn.authing.core.graphql.GraphQLResponse
+import cn.authing.core.http.HttpCall
 import cn.authing.core.mgmt.ManagementClient
 import cn.authing.core.types.*
 import com.google.gson.Gson
@@ -314,6 +315,17 @@ class UsersManagementClient(private val client: ManagementClient) {
             param.createRequest(),
             object : TypeToken<GraphQLResponse<RemoveUdvResponse>>() {}) {
             it.result
+        }
+    }
+
+    /**
+     * 获取用户所在组织机构数据列表
+     */
+    fun listOrgs(userId: String): HttpCall<RestfulResponse<List<Org>>, List<Org>> {
+        return client.createHttpGetCall(
+            "${client.host}/api/v2/users/${userId}/orgs",
+            object : TypeToken<RestfulResponse<List<Org>>>() {}) {
+            it.data
         }
     }
 }

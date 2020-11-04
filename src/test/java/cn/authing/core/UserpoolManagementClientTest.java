@@ -4,9 +4,11 @@ import cn.authing.core.graphql.GraphQLException;
 import cn.authing.core.graphql.GraphQLResponse;
 import cn.authing.core.http.Callback;
 import cn.authing.core.mgmt.ManagementClient;
-import cn.authing.core.mgmt.RolesManagementClient;
 import cn.authing.core.mgmt.UserpoolManagementClient;
-import cn.authing.core.types.*;
+import cn.authing.core.types.CommonMessage;
+import cn.authing.core.types.Env;
+import cn.authing.core.types.UpdateUserpoolInput;
+import cn.authing.core.types.UserPool;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;
 import org.junit.Before;
@@ -28,8 +30,8 @@ public class UserpoolManagementClientTest {
 
     @Before
     public void before() throws IOException, GraphQLException {
-        managementClient = new ManagementClient("59f86b4832eb28071bdd9214", "4b880fff06b080f154ee48c9e689a541");
-        managementClient.setHost("http://localhost:3000");
+        managementClient = new ManagementClient("5f8d2827feaa6e31598fda94", "6cf056a42f48df61e220a47b10d893ba");
+        managementClient.setHost("https://core.authing.cn");
         userpoolManagementClient = managementClient.userpool();
 
         managementClient.requestToken().execute();
