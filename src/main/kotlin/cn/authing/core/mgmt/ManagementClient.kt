@@ -72,4 +72,25 @@ class ManagementClient(userPoolId: String, private val secret: String) : BaseCli
     fun userpool(): UserpoolManagementClient {
         return UserpoolManagementClient(this)
     }
+
+    /**
+     * 获取注册白名单管理模块
+     */
+    fun whitelist(): WhitelistManagementClient {
+        return WhitelistManagementClient(this)
+    }
+
+    /**
+     * 获取分组管理模块
+     */
+    fun group(): GroupsManagementClient {
+        return GroupsManagementClient(this)
+    }
+
+    /**
+     * 获取组织机构管理模块
+     */
+    fun org(): OrgManagementClient {
+        return OrgManagementClient(this)
+    }
 }

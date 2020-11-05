@@ -65,7 +65,7 @@ public class AuthenticationClientTest {
     @Test
     public void loginByUsername() throws IOException, GraphQLException {
         String username = "test";
-        String password = "test";
+        String password = "dd";
         User user = authenticationClient.loginByUsername(new LoginByUsernameInput(username, password)).execute();
         Assert.assertEquals(user.getUsername(), username);
     }
@@ -198,5 +198,15 @@ public class AuthenticationClientTest {
 
         List<UserDefinedData> udv = authenticationClient.listUdv().execute();
         Assert.assertEquals(0, udv.size());
+    }
+
+    @Test
+    public void listOrgs() throws IOException, GraphQLException {
+        String username = "test";
+        String password = "test";
+        authenticationClient.loginByUsername(new LoginByUsernameInput(username, password)).execute();
+
+        List<List<Org>> orgs = authenticationClient.listOrgs().execute();
+        Assert.assertEquals(0, orgs.size());
     }
 }

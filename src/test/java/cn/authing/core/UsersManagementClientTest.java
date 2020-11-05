@@ -129,4 +129,11 @@ public class UsersManagementClientTest {
         List<UserDefinedData> udv = usersManagementClient.listUdv("5f9255b3dcb8f43e1a421fa4").execute();
         Assert.assertEquals(0, udv.size());
     }
+
+    @Test
+    public void listOrgs() throws IOException, GraphQLException {
+        List<List<Org>> orgs =  usersManagementClient.listOrgs("5f8d2827c41264570d13200f").execute();
+
+        Assert.assertEquals(0, orgs.size());
+    }
 }

@@ -365,10 +365,10 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     /**
      * 获取用户所在组织机构数据列表
      */
-    fun listOrgs(): HttpCall<RestfulResponse<List<Org>>, List<Org>> {
+    fun listOrgs(): HttpCall<RestfulResponse<List<List<Org>>>, List<List<Org>>> {
         return this.createHttpGetCall(
             "${this.host}/api/v2/users/me/orgs",
-            object : TypeToken<RestfulResponse<List<Org>>>() {}) {
+            object : TypeToken<RestfulResponse<List<List<Org>>>>() {}) {
             it.data
         }
     }

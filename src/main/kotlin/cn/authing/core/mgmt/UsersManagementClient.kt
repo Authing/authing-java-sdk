@@ -321,10 +321,10 @@ class UsersManagementClient(private val client: ManagementClient) {
     /**
      * 获取用户所在组织机构数据列表
      */
-    fun listOrgs(userId: String): HttpCall<RestfulResponse<List<Org>>, List<Org>> {
+    fun listOrgs(userId: String): HttpCall<RestfulResponse<List<List<Org>>>, List<List<Org>>> {
         return client.createHttpGetCall(
             "${client.host}/api/v2/users/${userId}/orgs",
-            object : TypeToken<RestfulResponse<List<Org>>>() {}) {
+            object : TypeToken<RestfulResponse<List<List<Org>>>>() {}) {
             it.data
         }
     }
