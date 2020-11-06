@@ -11,7 +11,7 @@ Authing Java SDK 由两部分组成：`ManagementClient` 和 `AuthenticationClie
 在 build.gradle 内的 dependencies 中添加：
 
 ```
-implementation "cn.authing:java-core:3.0.3"
+implementation "cn.authing:java-core:4.2.1"
 ```
 
 ## 使用用户管理模块
