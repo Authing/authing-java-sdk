@@ -8,6 +8,7 @@ import cn.authing.core.types.*
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.google.gson.reflect.TypeToken
+import java.io.IOException
 import java.lang.Exception
 
 class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
@@ -148,7 +149,11 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
         val json = "{ \"phone\": \"$phone\" }"
 
         return createHttpPostCall(url, json, object : TypeToken<CommonMessage>() {}) {
-            it
+            if(it.code!=200){
+                throw IOException("Unexpected code $it.code\n$it.message}")
+            }else{
+                it
+            }
         }
     }
 
