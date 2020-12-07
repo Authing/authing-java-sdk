@@ -2,7 +2,10 @@ package cn.authing.core;
 
 import cn.authing.core.auth.AuthenticationClient;
 import cn.authing.core.graphql.GraphQLException;
+import cn.authing.core.graphql.GraphQLResponse;
+import cn.authing.core.http.Callback;
 import cn.authing.core.types.*;
+import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,6 +13,8 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class AuthenticationClientTest {
     private AuthenticationClient authenticationClient;
@@ -63,11 +68,24 @@ public class AuthenticationClientTest {
     }
 
     @Test
-    public void loginByUsername() throws IOException, GraphQLException {
+    public void loginByUsername() throws IOException, GraphQLException, ExecutionException, InterruptedException {
         String username = "test";
-        String password = "dd";
-        User user = authenticationClient.loginByUsername(new LoginByUsernameInput(username, password)).execute();
-        Assert.assertEquals(user.getUsername(), username);
+        String password = "andy123456";
+        CompletableFuture<User> future = new CompletableFuture<>();
+        authenticationClient.loginByUsername(new LoginByUsernameInput(username, password)).enqueue(new Callback<User>() {
+            @Override
+            public void onSuccess(User result) {
+                future.complete(result);
+                System.out.print(result);
+            }
+
+            @Override
+            public void onFailure(@Nullable GraphQLResponse.ErrorInfo error) {
+                System.out.print(error);
+                future.complete(null);
+            }
+        });
+        Assert.assertNotNull(future.get());
     }
 
     @Test

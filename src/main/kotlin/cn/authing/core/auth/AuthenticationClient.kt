@@ -29,6 +29,24 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     }
 
     /**
+     * 通过微信登录，获取用户信息
+     */
+    @JvmOverloads
+    fun loginByWechat(
+        code: String,
+        country: String? = null,
+        lang: String? = null,
+        state: String? = null
+    ): HttpCall<RestfulResponse<User>, User> {
+        var url = "$host/connection/social/wechat:mobile/$userPoolId/callback?code=$code"
+        url += if (country != null) "&country=$country" else ""
+        url += if (lang != null) "&lang=$lang" else ""
+        url += if (state != null) "&state=$state" else ""
+
+        return createHttpGetCall(url, object : TypeToken<RestfulResponse<User>>() {}) { it.data }
+    }
+
+    /**
      * 通过用户名和密码登录
      */
     fun loginByUsername(input: LoginByUsernameInput): GraphQLCall<LoginByUsernameResponse, User> {
