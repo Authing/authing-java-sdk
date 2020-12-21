@@ -68,6 +68,13 @@ public class AuthenticationClientTest {
     }
 
     @Test
+    public void loginByWechat() throws IOException, GraphQLException {
+        String code = "021I11Ga1hP9Uz0GJbGa1SVgxo4I11G7";
+        User user = authenticationClient.loginByWechat(code).execute();
+        Assert.assertNotNull(user);
+    }
+
+    @Test
     public void loginByUsername() throws IOException, GraphQLException, ExecutionException, InterruptedException {
         String username = "test";
         String password = "andy123456";

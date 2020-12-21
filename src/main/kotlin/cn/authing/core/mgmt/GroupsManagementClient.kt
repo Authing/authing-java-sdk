@@ -94,6 +94,16 @@ class GroupsManagementClient(private val client: ManagementClient) {
             it.result.users
         }
     }
+    /**
+     * 获取用户列表, 带分页参数
+     */
+    fun listUsers(param: GroupWithUsersParam): GraphQLCall<GroupWithUsersResponse, PaginatedUsers> {
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<GroupWithUsersResponse>>() {}) {
+            it.result.users
+        }
+    }
 
     /**
      * 批量添加用户

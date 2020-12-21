@@ -68,6 +68,12 @@ public class GroupsManagementClientTest {
     }
 
     @Test
+    public void listUsersWithPage() throws IOException, GraphQLException {
+        PaginatedUsers users = groupsManagementClient.listUsers(new GroupWithUsersParam("code1",1,1)).execute();
+        Assert.assertTrue(users != null);
+    }
+
+    @Test
     public void removeUsers() throws IOException, GraphQLException {
         CommonMessage commonMessage = groupsManagementClient.removeUsers(new RemoveUserFromGroupParam(Arrays.asList("5f8d2827c41264570d13200f"),"code1")).execute();
         Assert.assertTrue(commonMessage != null);
