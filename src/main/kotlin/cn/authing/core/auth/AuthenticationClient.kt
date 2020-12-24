@@ -168,7 +168,7 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
 
         return createHttpPostCall(url, json, object : TypeToken<CommonMessage>() {}) {
             if(it.code!=200){
-                throw IOException("Unexpected code $it.code\n$it.message}")
+                throw IOException(it.message)
             }else{
                 it
             }

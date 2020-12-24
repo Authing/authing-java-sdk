@@ -54,9 +54,29 @@ public class AuthenticationClientTest {
     }
 
     @Test
-    public void sendSmsCode() throws IOException {
-        String phone = "18311302182";
-        authenticationClient.sendSmsCode(phone).execute();
+    public void sendSmsCode() throws IOException, ExecutionException, InterruptedException {
+//        String phone = "18311302182";
+//        try{
+//            authenticationClient.sendSmsCode("111111").execute();
+//        }catch (Exception e){
+//            System.out.println(e.getMessage());
+//        }
+
+        CompletableFuture<CommonMessage> future = new CompletableFuture<>();
+        authenticationClient.sendSmsCode("111111").enqueue(new Callback<CommonMessage>() {
+            @Override
+            public void onSuccess(CommonMessage result) {
+                future.complete(result);
+                System.out.print(result);
+            }
+
+            @Override
+            public void onFailure(@Nullable GraphQLResponse.ErrorInfo error) {
+                System.out.print(error);
+                future.complete(null);
+            }
+        });
+        Assert.assertNotNull(future.get());
     }
 
     @Test
