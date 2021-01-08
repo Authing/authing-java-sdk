@@ -456,7 +456,10 @@ data class User(
     var roles: PaginatedRoles? = null,
     /** @param [groups] groups */
     @SerializedName("groups")
-    var groups: PaginatedGroups? = null
+    var groups: PaginatedGroups? = null,
+    /** @param [externalId] 用户外部 ID */
+    @SerializedName("externalId")
+    var externalId: String? = null
 )
 
 
@@ -3758,6 +3761,7 @@ mutation createUser(${'$'}userInfo: CreateUserInput!, ${'$'}keepPassword: Boolea
     country
     createdAt
     updatedAt
+    externalId
   }
 }
 """
@@ -4235,6 +4239,7 @@ mutation loginByEmail(${'$'}input: LoginByEmailInput!) {
     country
     createdAt
     updatedAt
+    externalId
   }
 }
 """
@@ -4315,6 +4320,7 @@ mutation loginByPhoneCode(${'$'}input: LoginByPhoneCodeInput!) {
     country
     createdAt
     updatedAt
+    externalId
   }
 }
 """
@@ -4395,6 +4401,7 @@ mutation loginByPhonePassword(${'$'}input: LoginByPhonePasswordInput!) {
     country
     createdAt
     updatedAt
+    externalId
   }
 }
 """
@@ -4475,6 +4482,7 @@ mutation loginByUsername(${'$'}input: LoginByUsernameInput!) {
     country
     createdAt
     updatedAt
+    externalId
   }
 }
 """
@@ -4660,6 +4668,7 @@ mutation registerByEmail(${'$'}input: RegisterByEmailInput!) {
     country
     createdAt
     updatedAt
+    externalId
   }
 }
 """
@@ -4740,6 +4749,7 @@ mutation registerByPhoneCode(${'$'}input: RegisterByPhoneCodeInput!) {
     country
     createdAt
     updatedAt
+    externalId
   }
 }
 """
@@ -4820,6 +4830,7 @@ mutation registerByUsername(${'$'}input: RegisterByUsernameInput!) {
     country
     createdAt
     updatedAt
+    externalId
   }
 }
 """
@@ -5853,6 +5864,7 @@ mutation updateUser(${'$'}id: String, ${'$'}input: UpdateUserInput!) {
     country
     createdAt
     updatedAt
+    externalId
   }
 }
 """
@@ -6107,6 +6119,7 @@ query findUser(${'$'}email: String, ${'$'}phone: String, ${'$'}username: String)
     country
     createdAt
     updatedAt
+    externalId
   }
 }
 """
@@ -6936,6 +6949,7 @@ query roleWithUsers(${'$'}code: String!) {
         country
         createdAt
         updatedAt
+        externalId
       }
     }
   }
@@ -7105,6 +7119,7 @@ query searchUser(${'$'}query: String!, ${'$'}fields: [String], ${'$'}page: Int, 
       country
       createdAt
       updatedAt
+      externalId
     }
   }
 }
@@ -7446,6 +7461,7 @@ query user(${'$'}id: String) {
     country
     createdAt
     updatedAt
+    externalId
   }
 }
 """
@@ -7526,6 +7542,7 @@ query userBatch(${'$'}ids: [String!]!) {
     country
     createdAt
     updatedAt
+    externalId
   }
 }
 """
@@ -7728,6 +7745,7 @@ query users(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum) {
       country
       createdAt
       updatedAt
+      externalId
     }
   }
 }

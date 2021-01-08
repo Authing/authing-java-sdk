@@ -646,6 +646,7 @@ query nodeByIdWithMembers(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortB
         country
         createdAt
         updatedAt
+        externalId
       }
     }
   }
@@ -849,6 +850,7 @@ query nodeByCodeWithMembers(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: Sor
         country
         createdAt
         updatedAt
+        externalId
       }
     }
   }
@@ -1003,6 +1005,7 @@ mutation addMember(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum, 
         country
         createdAt
         updatedAt
+        externalId
       }
     }
   }

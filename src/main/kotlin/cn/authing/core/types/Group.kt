@@ -362,6 +362,7 @@ query groupWithUsers(${'$'}code: String!, ${'$'}page: Int, ${'$'}limit: Int) {
         country
         createdAt
         updatedAt
+        externalId
       }
     }
   }
