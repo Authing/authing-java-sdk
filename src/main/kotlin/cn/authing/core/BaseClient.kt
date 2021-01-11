@@ -35,10 +35,15 @@ abstract class BaseClient(internal val userPoolId: String) {
      */
     var accessToken: String? = null
 
+    /**
+     * 应用 Id
+     */
+    var appId: String? = ""
+
     // 常量
     private val mediaTypeJson: MediaType? = "application/json".toMediaTypeOrNull()
     private val sdkType: String = "SDK"
-    private val sdkVersion: String = "java:4.2.1"
+    private val sdkVersion: String = "java:4.2.7"
 
     // graphql 端点
     private val endpoint: String
@@ -87,6 +92,7 @@ abstract class BaseClient(internal val userPoolId: String) {
                     .addHeader("x-authing-userpool-id", userPoolId)
                     .addHeader("x-authing-request-from", sdkType)
                     .addHeader("x-authing-sdk-version", sdkVersion)
+                    .addHeader("x-authing-app-id", "" + this.appId)
                     .post(json.toJson(request).toRequestBody(mediaTypeJson))
                     .build()
             ), adapter, resolver
@@ -109,6 +115,7 @@ abstract class BaseClient(internal val userPoolId: String) {
                     .addHeader("x-authing-userpool-id", userPoolId)
                     .addHeader("x-authing-request-from", sdkType)
                     .addHeader("x-authing-sdk-version", sdkVersion)
+                    .addHeader("x-authing-app-id", "" + this.appId)
                     .get()
                     .build()
             ), adapter, resolver
@@ -135,6 +142,7 @@ abstract class BaseClient(internal val userPoolId: String) {
                     .addHeader("x-authing-userpool-id", userPoolId)
                     .addHeader("x-authing-request-from", sdkType)
                     .addHeader("x-authing-sdk-version", sdkVersion)
+                    .addHeader("x-authing-app-id", "" + this.appId)
                     .post(body.toRequestBody(mediaTypeJson))
                     .build()
             ), adapter, resolver
@@ -158,6 +166,7 @@ abstract class BaseClient(internal val userPoolId: String) {
                     .addHeader("x-authing-userpool-id", userPoolId)
                     .addHeader("x-authing-request-from", sdkType)
                     .addHeader("x-authing-sdk-version", sdkVersion)
+                    .addHeader("x-authing-app-id", "" + this.appId)
                     .delete()
                     .build()
             ), adapter, resolver
