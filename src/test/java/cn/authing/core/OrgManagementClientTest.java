@@ -69,8 +69,8 @@ public class OrgManagementClientTest {
         Org org3 = orgManagementClient.create(new CreateOrgParam("org3", "name3", "desc3")).execute();
         AddNodeParam param = new AddNodeParam(org3.getId(), "org1nodename")
                 .withParentNodeId(org3.getRootNode().getId());
-        org1Node = orgManagementClient.addNode(param).execute();
-        orgManagementClient.deleteById(org3.getId());
+        Node node = orgManagementClient.addNode(param).execute();
+        orgManagementClient.deleteById(node.getId());
         Assert.assertTrue(org1Node != null);
     }
 

@@ -46,7 +46,10 @@ data class Node(
     var children: List<String>? = null,
     /** @param [users] 节点的用户列表 */
     @SerializedName("users")
-    var users: PaginatedUsers
+    var users: PaginatedUsers,
+    /** @param [orgId] 机构 ID */
+    @SerializedName("orgId")
+    var orgId: String? = null
 )
 
 data class DeleteNodeResponse(
@@ -183,8 +186,8 @@ mutation updateNode(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum,
 
 data class AddNodeResponse(
 
-    @SerializedName("addNode")
-    val result: Org
+    @SerializedName("addNodeV2")
+    val result: Node
 )
 
 class AddNodeParam @JvmOverloads constructor(
@@ -248,39 +251,22 @@ class AddNodeParam @JvmOverloads constructor(
     }
 
     private val addNodeDocument: String = """
-mutation addNode(${'$'}orgId: String!, ${'$'}parentNodeId: String, ${'$'}name: String!, ${'$'}nameI18n: String, ${'$'}description: String, ${'$'}descriptionI18n: String, ${'$'}order: Int, ${'$'}code: String) {
-  addNode(orgId: ${'$'}orgId, parentNodeId: ${'$'}parentNodeId, name: ${'$'}name, nameI18n: ${'$'}nameI18n, description: ${'$'}description, descriptionI18n: ${'$'}descriptionI18n, order: ${'$'}order, code: ${'$'}code) {
+mutation addNodeV2(${'$'}orgId: String!, ${'$'}parentNodeId: String, ${'$'}name: String!, ${'$'}nameI18n: String, ${'$'}description: String, ${'$'}descriptionI18n: String, ${'$'}order: Int, ${'$'}code: String) {
+  addNodeV2(orgId: ${'$'}orgId, parentNodeId: ${'$'}parentNodeId, name: ${'$'}name, nameI18n: ${'$'}nameI18n, description: ${'$'}description, descriptionI18n: ${'$'}descriptionI18n, order: ${'$'}order, code: ${'$'}code) {
     id
-    rootNode {
-      id
-      name
-      nameI18n
-      description
-      descriptionI18n
-      order
-      code
-      root
-      depth
-      path
-      createdAt
-      updatedAt
-      children
-    }
-    nodes {
-      id
-      name
-      nameI18n
-      description
-      descriptionI18n
-      order
-      code
-      root
-      depth
-      path
-      createdAt
-      updatedAt
-      children
-    }
+    orgId
+    name
+    nameI18n
+    description
+    descriptionI18n
+    order
+    code
+    root
+    depth
+    path
+    createdAt
+    updatedAt
+    children
   }
 }
 """

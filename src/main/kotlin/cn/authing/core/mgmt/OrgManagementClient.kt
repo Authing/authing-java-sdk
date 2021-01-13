@@ -1,15 +1,11 @@
 package cn.authing.core.mgmt
 
 import cn.authing.core.graphql.GraphQLCall
-import cn.authing.core.graphql.GraphQLException
 import cn.authing.core.graphql.GraphQLResponse
 import cn.authing.core.http.HttpCall
 import cn.authing.core.types.*
 import com.google.gson.Gson
-import com.google.gson.annotations.SerializedName
 import com.google.gson.reflect.TypeToken
-import com.sun.org.apache.xpath.internal.operations.Bool
-import okhttp3.internal.notify
 
 /**
  * 管理组织机构
@@ -64,7 +60,7 @@ class OrgManagementClient(private val client: ManagementClient) {
     /**
      * 创建节点
      */
-    fun addNode(param: AddNodeParam): GraphQLCall<AddNodeResponse, Org> {
+    fun addNode(param: AddNodeParam): GraphQLCall<AddNodeResponse, Node> {
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<AddNodeResponse>>() {}) {
