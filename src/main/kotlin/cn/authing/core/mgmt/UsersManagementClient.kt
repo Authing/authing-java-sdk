@@ -3,12 +3,9 @@ package cn.authing.core.mgmt
 import cn.authing.core.graphql.GraphQLCall
 import cn.authing.core.graphql.GraphQLResponse
 import cn.authing.core.http.HttpCall
-import cn.authing.core.mgmt.ManagementClient
 import cn.authing.core.types.*
 import com.google.gson.Gson
-import com.google.gson.annotations.SerializedName
 import com.google.gson.reflect.TypeToken
-import java.lang.Exception
 
 /**
  * 用户管理类
@@ -40,6 +37,21 @@ class UsersManagementClient(private val client: ManagementClient) {
      */
     fun create(userInfo: CreateUserInput): GraphQLCall<CreateUserResponse, User> {
         val param = CreateUserParam(userInfo)
+        if (param.userInfo.password !== null) {
+            param.userInfo.password = client.encrypt(param.userInfo.password!!)
+        }
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<CreateUserResponse>>() {}) {
+            it.result
+        }
+    }
+
+    /**
+     * 创建新用户（密码不加密存储）
+     */
+    fun create(userInfo: CreateUserInput, keepPassword: Boolean): GraphQLCall<CreateUserResponse, User> {
+        val param = CreateUserParam(userInfo, keepPassword)
         if (param.userInfo.password !== null) {
             param.userInfo.password = client.encrypt(param.userInfo.password!!)
         }

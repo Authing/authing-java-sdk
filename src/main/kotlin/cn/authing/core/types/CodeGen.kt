@@ -2170,7 +2170,10 @@ data class CreateUserInput @JvmOverloads constructor(
     var postalCode: String? = null,
     /** @param [country] country */
     @SerializedName("country")
-    var country: String? = null
+    var country: String? = null,
+    /** @param [externalId] 用户外部 ID */
+    @SerializedName("externalId")
+    var externalId: String? = null
 ) {
 
     /** @param [username] 用户名，用户池内唯一 */
@@ -2407,6 +2410,12 @@ data class CreateUserInput @JvmOverloads constructor(
         return this
     }
 
+    /** @param [externalId] externalId */
+    fun withExternalId(externalId: String): CreateUserInput {
+        this.externalId = externalId
+        return this
+    }
+
     fun build(): CreateUserInput {
         return this
     }
@@ -2530,7 +2539,10 @@ data class UpdateUserInput @JvmOverloads constructor(
     var province: String? = null,
     /** @param [country] country */
     @SerializedName("country")
-    var country: String? = null
+    var country: String? = null,
+    /** @param [externalId] 用户外部 ID */
+    @SerializedName("externalId")
+    var externalId: String? = null
 ) {
 
     /** @param [email] 邮箱。直接修改用户邮箱需要管理员权限，普通用户修改邮箱请使用 **updateEmail** 接口。 */
@@ -2764,6 +2776,12 @@ data class UpdateUserInput @JvmOverloads constructor(
     /** @param [country] country */
     fun withCountry(country: String): UpdateUserInput {
         this.country = country
+        return this
+    }
+
+    /** @param [externalId] externalId */
+    fun withExternalId(externalId: String): UpdateUserInput {
+        this.externalId = externalId
         return this
     }
 
