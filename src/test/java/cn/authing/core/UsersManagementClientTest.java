@@ -77,6 +77,15 @@ public class UsersManagementClientTest {
     }
 
     @Test
+    public void find() throws IOException, GraphQLException {
+        String email = "test@gmail.com";
+        FindUserParam findUserParam = new FindUserParam();
+        findUserParam.setEmail(email);
+        User user = usersManagementClient.find(findUserParam).execute();
+        Assert.assertEquals(email, user.getEmail());
+    }
+
+    @Test
     public void batch() throws IOException, GraphQLException {
         ArrayList<String> list = new ArrayList<>();
         list.add(user.getId());

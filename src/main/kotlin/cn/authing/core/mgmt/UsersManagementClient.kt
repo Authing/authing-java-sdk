@@ -112,6 +112,17 @@ class UsersManagementClient(private val client: ManagementClient) {
     }
 
     /**
+     * 查找用户
+     */
+    fun find(param: FindUserParam): GraphQLCall<FindUserResponse, User> {
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<FindUserResponse>>() {}) {
+            it.result
+        }
+    }
+
+    /**
      * 通过用户 ID 列表批量获取用户信息
      */
     fun batch(userIds: List<String>): GraphQLCall<UserBatchResponse, List<User>> {
