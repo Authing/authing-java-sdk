@@ -93,4 +93,12 @@ class ManagementClient(userPoolId: String, private val secret: String) : BaseCli
     fun org(): OrgManagementClient {
         return OrgManagementClient(this)
     }
+
+    /**
+     * 应用管理模块
+     */
+    fun application(): ApplicationManagementClient {
+        return ApplicationManagementClient(this)
+    }
+
 }
