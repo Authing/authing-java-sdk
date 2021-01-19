@@ -10,10 +10,11 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 public class PoliciesManagementClientTest {
-    private ManagementClient managementClient;
+    
     private PoliciesManagementClient policiesManagementClient;
 
     private String randomString() {
@@ -22,9 +23,9 @@ public class PoliciesManagementClientTest {
 
     @Before
     public void before() throws IOException, GraphQLException {
-        managementClient = new ManagementClient("59f86b4832eb28071bdd9214", "4b880fff06b080f154ee48c9e689a541");
-        managementClient.setHost("http://localhost:3000");
-        policiesManagementClient = managementClient.policies();
+        ManagementClient managementClient = new ManagementClient("6006d6820d57817ed7a95f84", "4bdb08da88e47a978001d236a09e27f9");
+        managementClient.setHost("https://core.authing.cn");
+        this.policiesManagementClient = managementClient.policies();
 
         managementClient.requestToken().execute();
     }
@@ -32,7 +33,7 @@ public class PoliciesManagementClientTest {
 
     @Test
     public void list() throws IOException, GraphQLException {
-        PaginatedPolicies roles = policiesManagementClient.list().execute();
+        PaginatedPolicies roles = this.policiesManagementClient.list().execute();
         Assert.assertTrue(roles.getTotalCount() > 0);
     }
 
@@ -43,7 +44,7 @@ public class PoliciesManagementClientTest {
         ArrayList<String> actions = new ArrayList<>();
         actions.add("book:edit");
         statements.add(new PolicyStatementInput("book:123", actions));
-        Policy policy = policiesManagementClient.create(code, statements).execute();
+        Policy policy = this.policiesManagementClient.create(code, statements).execute();
         Assert.assertEquals(policy.getCode(), code);
     }
 
@@ -54,13 +55,13 @@ public class PoliciesManagementClientTest {
         ArrayList<String> actions = new ArrayList<>();
         actions.add("book:edit");
         statements.add(new PolicyStatementInput("book:123", actions));
-        policiesManagementClient.create(code, statements).execute();
+        this.policiesManagementClient.create(code, statements).execute();
 
         ArrayList<PolicyStatementInput> newStatements = new ArrayList<>();
         ArrayList<String> newActions = new ArrayList<>();
         newActions.add("book:edit");
         newStatements.add(new PolicyStatementInput("book:123", newActions));
-        Policy policy = policiesManagementClient.update(code, newStatements, "desc").execute();
+        Policy policy = this.policiesManagementClient.update(code, newStatements, "desc").execute();
         Assert.assertEquals(policy.getCode(), code);
     }
 
@@ -71,8 +72,8 @@ public class PoliciesManagementClientTest {
         ArrayList<String> actions = new ArrayList<>();
         actions.add("book:edit");
         statements.add(new PolicyStatementInput("book:123", actions));
-        policiesManagementClient.create(code, statements).execute();
-        Policy policy = policiesManagementClient.detail(code).execute();
+        this.policiesManagementClient.create(code, statements).execute();
+        Policy policy = this.policiesManagementClient.detail(code, null).execute();
         Assert.assertEquals(policy.getCode(), code);
     }
 
@@ -83,10 +84,10 @@ public class PoliciesManagementClientTest {
         ArrayList<String> actions = new ArrayList<>();
         actions.add("book:edit");
         statements.add(new PolicyStatementInput("book:123", actions));
-        policiesManagementClient.create(code, statements).execute();
+        this.policiesManagementClient.create(code, statements).execute();
 
-        CommonMessage message = policiesManagementClient.delete(code).execute();
-        Assert.assertEquals(message.getCode().intValue(), 200);
+        CommonMessage message = this.policiesManagementClient.delete(code).execute();
+        Assert.assertEquals(Objects.requireNonNull(message.getCode()).intValue(), 200);
     }
 
     @Test
@@ -96,11 +97,11 @@ public class PoliciesManagementClientTest {
         ArrayList<String> actions = new ArrayList<>();
         actions.add("book:edit");
         statements.add(new PolicyStatementInput("book:123", actions));
-        policiesManagementClient.create(code, statements).execute();
+        this.policiesManagementClient.create(code, statements).execute();
 
         ArrayList<String> list = new ArrayList<>();
         list.add(code);
-        CommonMessage result = policiesManagementClient.deleteMany(list).execute();
-        Assert.assertTrue(result.getCode() > 0);
+        CommonMessage result = this.policiesManagementClient.deleteMany(list).execute();
+        Assert.assertNotNull(result);
     }
 }

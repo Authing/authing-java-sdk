@@ -16,9 +16,9 @@ class PoliciesManagementClient(private val client: ManagementClient) {
     fun list(
         page: Int? = null,
         limit: Int? = null,
-        excludeDefault: Boolean? = null
+        namespace: String? = null
     ): GraphQLCall<PoliciesResponse, PaginatedPolicies> {
-        val param = PoliciesParam(page, limit, excludeDefault)
+        val param = PoliciesParam(page, limit, namespace)
         return list(param)
     }
 
@@ -40,9 +40,10 @@ class PoliciesManagementClient(private val client: ManagementClient) {
     fun create(
         code: String,
         statements: List<PolicyStatementInput>,
-        description: String? = null
+        description: String? = null,
+        namespace: String? = null
     ): GraphQLCall<CreatePolicyResponse, Policy> {
-        val param = CreatePolicyParam(code, description, statements)
+        val param = CreatePolicyParam(code, description, statements, namespace)
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<CreatePolicyResponse>>() {}) {
@@ -53,8 +54,8 @@ class PoliciesManagementClient(private val client: ManagementClient) {
     /**
      * 获取策略详情
      */
-    fun detail(code: String): GraphQLCall<PolicyResponse, Policy> {
-        val param = PolicyParam(code)
+    fun detail(code: String, namespace: String? = null): GraphQLCall<PolicyResponse, Policy> {
+        val param = PolicyParam(code, namespace)
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<PolicyResponse>>() {}) {
@@ -70,9 +71,10 @@ class PoliciesManagementClient(private val client: ManagementClient) {
         code: String,
         statements: List<PolicyStatementInput>? = null,
         description: String? = null,
-        newCode: String? = null
+        newCode: String? = null,
+        namespace: String? = null
     ): GraphQLCall<UpdatePolicyResponse, Policy> {
-        val param = UpdatePolicyParam(code).withStatements(statements).withDescription(description).withNewCode(newCode)
+        val param = UpdatePolicyParam(code).withStatements(statements).withDescription(description).withNewCode(newCode).withNamespace(namespace)
         return update(param)
     }
 

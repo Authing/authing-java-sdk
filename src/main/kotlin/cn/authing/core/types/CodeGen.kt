@@ -68,6 +68,9 @@ data class Query(
     /** @param [isRootNode] isRootNode */
     @SerializedName("isRootNode")
     var isRootNode: Boolean? = null,
+    /** @param [searchNodes] searchNodes */
+    @SerializedName("searchNodes")
+    var searchNodes: List<Node>,
     /** @param [checkPasswordStrength] checkPasswordStrength */
     @SerializedName("checkPasswordStrength")
     var checkPasswordStrength: CheckPasswordStrengthResult,
@@ -107,6 +110,9 @@ data class Query(
     /** @param [users] users */
     @SerializedName("users")
     var users: PaginatedUsers,
+    /** @param [archivedUsers] 已归档的用户列表 */
+    @SerializedName("archivedUsers")
+    var archivedUsers: PaginatedUsers,
     /** @param [searchUser] searchUser */
     @SerializedName("searchUser")
     var searchUser: PaginatedUsers,
@@ -293,6 +299,29 @@ data class PaginatedFunctions(
     var totalCount: Int
 )
 
+
+data class Group(
+    /** @param [code] 唯一标志 code */
+    @SerializedName("code")
+    var code: String,
+    /** @param [name] 名称 */
+    @SerializedName("name")
+    var name: String,
+    /** @param [description] 描述 */
+    @SerializedName("description")
+    var description: String? = null,
+    /** @param [createdAt] 创建时间 */
+    @SerializedName("createdAt")
+    var createdAt: String? = null,
+    /** @param [updatedAt] 修改时间 */
+    @SerializedName("updatedAt")
+    var updatedAt: String? = null,
+    /** @param [users] 包含的用户列表 */
+    @SerializedName("users")
+    var users: PaginatedUsers
+)
+
+
 data class PaginatedUsers(
     /** @param [totalCount] totalCount */
     @SerializedName("totalCount")
@@ -310,6 +339,9 @@ data class User(
     /** @param [arn] arn */
     @SerializedName("arn")
     var arn: String,
+    /** @param [status] 用户在组织机构中的状态 */
+    @SerializedName("status")
+    var status: UserStatus? = null,
     /** @param [userPoolId] 用户池 ID */
     @SerializedName("userPoolId")
     var userPoolId: String,
@@ -342,7 +374,7 @@ data class User(
     var nickname: String? = null,
     /** @param [registerSource] 注册方式 */
     @SerializedName("registerSource")
-    var registerSource: List<String>,
+    var registerSource: List<String>? = null,
     /** @param [photo] 头像链接，默认为 https://usercontents.authing.cn/authing-avatar.png */
     @SerializedName("photo")
     var photo: String? = null,
@@ -451,16 +483,33 @@ data class User(
     /** @param [updatedAt] updatedAt */
     @SerializedName("updatedAt")
     var updatedAt: String? = null,
-    /** @param [roles] roles */
+    /** @param [roles] 用户所在的角色列表 */
     @SerializedName("roles")
     var roles: PaginatedRoles? = null,
-    /** @param [groups] groups */
+    /** @param [groups] 用户所在的分组列表 */
     @SerializedName("groups")
     var groups: PaginatedGroups? = null,
+    /** @param [departments] 用户所在的部门列表 */
+    @SerializedName("departments")
+    var departments: PaginatedDepartments? = null,
     /** @param [externalId] 用户外部 ID */
     @SerializedName("externalId")
     var externalId: String? = null
 )
+
+enum class UserStatus(val label: String) {
+    Suspended("Suspended"),
+    Resigned("Resigned"),
+    Activated("Activated"),
+    Archived("Archived");
+
+    companion object {
+        @JvmStatic
+        fun valueOfLabel(label: String): UserStatus? {
+            return values().find { it.label == label }
+        }
+    }
+}
 
 
 data class Identity(
@@ -484,8 +533,144 @@ data class Identity(
     var provider: String? = null,
     /** @param [userPoolId] userPoolId */
     @SerializedName("userPoolId")
-    var userPoolId: String? = null
+    var userPoolId: String? = null,
+    /** @param [refreshToken] refreshToken */
+    @SerializedName("refreshToken")
+    var refreshToken: String? = null,
+    /** @param [accessToken] accessToken */
+    @SerializedName("accessToken")
+    var accessToken: String? = null
 )
+
+
+data class PaginatedRoles(
+    /** @param [totalCount] totalCount */
+    @SerializedName("totalCount")
+    var totalCount: Int,
+    /** @param [list] list */
+    @SerializedName("list")
+    var list: List<Role>
+)
+
+
+data class Role(
+    /** @param [namespace] 权限组 code */
+    @SerializedName("namespace")
+    var namespace: String,
+    /** @param [code] 唯一标志 code */
+    @SerializedName("code")
+    var code: String,
+    /** @param [arn] 资源描述符 arn */
+    @SerializedName("arn")
+    var arn: String,
+    /** @param [description] 角色描述 */
+    @SerializedName("description")
+    var description: String? = null,
+    /** @param [isSystem] 是否为系统内建，系统内建的角色不能删除 */
+    @SerializedName("isSystem")
+    var isSystem: Boolean? = null,
+    /** @param [createdAt] 创建时间 */
+    @SerializedName("createdAt")
+    var createdAt: String? = null,
+    /** @param [updatedAt] 修改时间 */
+    @SerializedName("updatedAt")
+    var updatedAt: String? = null,
+    /** @param [users] 被授予此角色的用户列表 */
+    @SerializedName("users")
+    var users: PaginatedUsers,
+    /** @param [parent] 父角色 */
+    @SerializedName("parent")
+    var parent: Role? = null
+)
+
+
+data class PaginatedGroups(
+    /** @param [totalCount] totalCount */
+    @SerializedName("totalCount")
+    var totalCount: Int,
+    /** @param [list] list */
+    @SerializedName("list")
+    var list: List<Group>
+)
+
+
+data class PaginatedDepartments(
+    /** @param [list] list */
+    @SerializedName("list")
+    var list: List<UserDepartment>,
+    /** @param [totalCount] totalCount */
+    @SerializedName("totalCount")
+    var totalCount: Int
+)
+
+
+data class UserDepartment(
+    /** @param [department] department */
+    @SerializedName("department")
+    var department: Node,
+    /** @param [isMainDepartment] 是否为主部门 */
+    @SerializedName("isMainDepartment")
+    var isMainDepartment: Boolean,
+    /** @param [joinedAt] 加入该部门的时间 */
+    @SerializedName("joinedAt")
+    var joinedAt: String? = null
+)
+
+
+data class Node(
+    /** @param [id] id */
+    @SerializedName("id")
+    var id: String,
+    /** @param [orgId] 组织机构 ID */
+    @SerializedName("orgId")
+    var orgId: String? = null,
+    /** @param [name] 节点名称 */
+    @SerializedName("name")
+    var name: String,
+    /** @param [nameI18n] 多语言名称，**key** 为标准 **i18n** 语言编码，**value** 为对应语言的名称。 */
+    @SerializedName("nameI18n")
+    var nameI18n: String? = null,
+    /** @param [description] 描述信息 */
+    @SerializedName("description")
+    var description: String? = null,
+    /** @param [descriptionI18n] 多语言描述信息 */
+    @SerializedName("descriptionI18n")
+    var descriptionI18n: String? = null,
+    /** @param [order] 在父节点中的次序值。**order** 值大的排序靠前。有效的值范围是[0, 2^32) */
+    @SerializedName("order")
+    var order: Int? = null,
+    /** @param [code] 节点唯一标志码，可以通过 code 进行搜索 */
+    @SerializedName("code")
+    var code: String? = null,
+    /** @param [root] 是否为根节点 */
+    @SerializedName("root")
+    var root: Boolean? = null,
+    /** @param [depth] 距离父节点的深度（如果是查询整棵树，返回的 **depth** 为距离根节点的深度，如果是查询某个节点的子节点，返回的 **depth** 指的是距离该节点的深度。） */
+    @SerializedName("depth")
+    var depth: Int? = null,
+    /** @param [path] path */
+    @SerializedName("path")
+    var path: List<String>,
+    /** @param [codePath] codePath */
+    @SerializedName("codePath")
+    var codePath: List<String>,
+    /** @param [namePath] namePath */
+    @SerializedName("namePath")
+    var namePath: List<String>,
+    /** @param [createdAt] createdAt */
+    @SerializedName("createdAt")
+    var createdAt: String? = null,
+    /** @param [updatedAt] updatedAt */
+    @SerializedName("updatedAt")
+    var updatedAt: String? = null,
+    /** @param [children] 该节点的子节点 **ID** 列表 */
+    @SerializedName("children")
+    var children: List<String>? = null,
+    /** @param [users] 节点的用户列表 */
+    @SerializedName("users")
+    var users: PaginatedUsers
+)
+
 
 data class Mfa(
     /** @param [id] MFA ID */
@@ -505,6 +690,30 @@ data class Mfa(
     var secret: String? = null
 )
 
+
+data class Org(
+    /** @param [id] 组织机构 ID */
+    @SerializedName("id")
+    var id: String,
+    /** @param [rootNode] 根节点 */
+    @SerializedName("rootNode")
+    var rootNode: Node,
+    /** @param [nodes] 组织机构节点列表 */
+    @SerializedName("nodes")
+    var nodes: List<Node>
+)
+
+
+data class PaginatedOrgs(
+    /** @param [totalCount] totalCount */
+    @SerializedName("totalCount")
+    var totalCount: Int,
+    /** @param [list] list */
+    @SerializedName("list")
+    var list: List<Org>
+)
+
+
 data class CheckPasswordStrengthResult(
     /** @param [valid] valid */
     @SerializedName("valid")
@@ -516,6 +725,9 @@ data class CheckPasswordStrengthResult(
 
 
 data class Policy(
+    /** @param [namespace] 权限组 code */
+    @SerializedName("namespace")
+    var namespace: String,
     /** @param [code] code */
     @SerializedName("code")
     var code: String,
@@ -552,7 +764,10 @@ data class PolicyStatement(
     var actions: List<String>,
     /** @param [effect] effect */
     @SerializedName("effect")
-    var effect: PolicyEffect? = null
+    var effect: PolicyEffect? = null,
+    /** @param [condition] condition */
+    @SerializedName("condition")
+    var condition: List<PolicyStatementCondition>? = null
 )
 
 enum class PolicyEffect(val label: String) {
@@ -566,6 +781,19 @@ enum class PolicyEffect(val label: String) {
         }
     }
 }
+
+
+data class PolicyStatementCondition(
+    /** @param [param] param */
+    @SerializedName("param")
+    var param: String,
+    /** @param [operator] operator */
+    @SerializedName("operator")
+    var operator: String,
+    /** @param [value] value */
+    @SerializedName("value")
+    var value: Any
+)
 
 
 data class PolicyAssignment(
@@ -582,7 +810,9 @@ data class PolicyAssignment(
 
 enum class PolicyAssignmentTargetType(val label: String) {
     USER("USER"),
-    ROLE("ROLE");
+    ROLE("ROLE"),
+    GROUP("GROUP"),
+    ORG("ORG");
 
     companion object {
         @JvmStatic
@@ -639,7 +869,10 @@ data class UserDefinedData(
     var dataType: UdfDataType,
     /** @param [value] value */
     @SerializedName("value")
-    var value: String
+    var value: String,
+    /** @param [label] label */
+    @SerializedName("label")
+    var label: String? = null
 )
 
 enum class UdfDataType(val label: String) {
@@ -670,7 +903,7 @@ data class UserDefinedField(
     var key: String,
     /** @param [label] label */
     @SerializedName("label")
-    var label: String,
+    var label: String? = null,
     /** @param [options] options */
     @SerializedName("options")
     var options: String? = null
@@ -752,6 +985,9 @@ data class UserPool(
     /** @param [registerDisabled] 是否关闭注册 */
     @SerializedName("registerDisabled")
     var registerDisabled: Boolean,
+    /** @param [appSsoEnabled] 是否开启用户池下应用间单点登录 */
+    @SerializedName("appSsoEnabled")
+    var appSsoEnabled: Boolean,
     /** @param [showWxQRCodeWhenRegisterDisabled] 用户池禁止注册后，是否还显示微信小程序扫码登录。当 **showWXMPQRCode** 为 **true** 时，
     前端显示小程序码，此时只有以前允许注册时，扫码登录过的用户可以继续登录；新用户扫码无法登录。 */
     @SerializedName("showWxQRCodeWhenRegisterDisabled")
@@ -788,7 +1024,16 @@ data class UserPool(
     var whitelist: RegisterWhiteListConfig? = null,
     /** @param [customSMSProvider] 自定义短信服务商配置 */
     @SerializedName("customSMSProvider")
-    var customSMSProvider: CustomSmsProvider? = null
+    var customSMSProvider: CustomSmsProvider? = null,
+    /** @param [packageType] 用户池套餐类型 */
+    @SerializedName("packageType")
+    var packageType: Int? = null,
+    /** @param [useCustomUserStore] 是否使用自定义数据库 CUSTOM_USER_STORE 模式 */
+    @SerializedName("useCustomUserStore")
+    var useCustomUserStore: Boolean? = null,
+    /** @param [loginRequireEmailVerified] 是否要求邮箱必须验证才能登录（如果是通过邮箱登录的话） */
+    @SerializedName("loginRequireEmailVerified")
+    var loginRequireEmailVerified: Boolean? = null
 )
 
 
@@ -944,6 +1189,33 @@ data class AccessTokenRes(
     var iat: Int? = null
 )
 
+enum class WhitelistType(val label: String) {
+    USERNAME("USERNAME"),
+    EMAIL("EMAIL"),
+    PHONE("PHONE");
+
+    companion object {
+        @JvmStatic
+        fun valueOfLabel(label: String): WhitelistType? {
+            return values().find { it.label == label }
+        }
+    }
+}
+
+
+data class WhiteList(
+    /** @param [createdAt] createdAt */
+    @SerializedName("createdAt")
+    var createdAt: String? = null,
+    /** @param [updatedAt] updatedAt */
+    @SerializedName("updatedAt")
+    var updatedAt: String? = null,
+    /** @param [value] value */
+    @SerializedName("value")
+    var value: String
+)
+
+
 data class Mutation(
     /** @param [createSocialConnection] 创建社会化登录服务商 */
     @SerializedName("createSocialConnection")
@@ -957,6 +1229,9 @@ data class Mutation(
     /** @param [disableSocialConnectionInstance] 关闭社会化登录 */
     @SerializedName("disableSocialConnectionInstance")
     var disableSocialConnectionInstance: SocialConnectionInstance,
+    /** @param [setMainDepartment] 设置用户在某个组织机构内所在的主部门 */
+    @SerializedName("setMainDepartment")
+    var setMainDepartment: CommonMessage,
     /** @param [configEmailTemplate] 配置自定义邮件模版 */
     @SerializedName("configEmailTemplate")
     var configEmailTemplate: EmailTemplate,
@@ -1017,6 +1292,9 @@ data class Mutation(
     /** @param [addNode] 添加子节点 */
     @SerializedName("addNode")
     var addNode: Org,
+    /** @param [addNodeV2] 添加子节点 */
+    @SerializedName("addNodeV2")
+    var addNodeV2: Node,
     /** @param [updateNode] 修改节点 */
     @SerializedName("updateNode")
     var updateNode: Node,
@@ -1050,6 +1328,12 @@ data class Mutation(
     /** @param [addPolicyAssignments] addPolicyAssignments */
     @SerializedName("addPolicyAssignments")
     var addPolicyAssignments: CommonMessage,
+    /** @param [enablePolicyAssignment] 开启授权 */
+    @SerializedName("enablePolicyAssignment")
+    var enablePolicyAssignment: CommonMessage,
+    /** @param [disbalePolicyAssignment] 开启授权 */
+    @SerializedName("disbalePolicyAssignment")
+    var disbalePolicyAssignment: CommonMessage,
     /** @param [removePolicyAssignments] removePolicyAssignments */
     @SerializedName("removePolicyAssignments")
     var removePolicyAssignments: CommonMessage,
@@ -1083,6 +1367,9 @@ data class Mutation(
     /** @param [revokeRole] 撤销角色 */
     @SerializedName("revokeRole")
     var revokeRole: CommonMessage? = null,
+    /** @param [loginBySubAccount] 使用子账号登录 */
+    @SerializedName("loginBySubAccount")
+    var loginBySubAccount: User,
     /** @param [setUdf] setUdf */
     @SerializedName("setUdf")
     var setUdf: UserDefinedField,
@@ -1095,6 +1382,9 @@ data class Mutation(
     /** @param [removeUdv] removeUdv */
     @SerializedName("removeUdv")
     var removeUdv: List<UserDefinedData>? = null,
+    /** @param [setUdvBatch] setUdvBatch */
+    @SerializedName("setUdvBatch")
+    var setUdvBatch: List<UserDefinedData>? = null,
     /** @param [refreshToken] refreshToken */
     @SerializedName("refreshToken")
     var refreshToken: RefreshToken? = null,
@@ -1279,6 +1569,17 @@ data class CreateSocialConnectionInstanceFieldInput @JvmOverloads constructor(
 }
 
 
+data class CommonMessage(
+    /** @param [message] 可读的接口响应说明，请以业务状态码 code 作为判断业务是否成功的标志 */
+    @SerializedName("message")
+    var message: String? = null,
+    /** @param [code] 业务状态码（与 HTTP 响应码不同），但且仅当为 200 的时候表示操作成功表示，详细说明请见：
+    [Authing 错误代码列表](https://docs.authing.co/advanced/error-code.html) */
+    @SerializedName("code")
+    var code: Int? = null
+)
+
+
 data class ConfigEmailTemplateInput @JvmOverloads constructor(
     /** @param [type] 邮件模版类型 */
     @SerializedName("type")
@@ -1333,7 +1634,8 @@ data class ConfigEmailTemplateInput @JvmOverloads constructor(
 enum class EmailScene(val label: String) {
     RESET_PASSWORD("RESET_PASSWORD"),
     VERIFY_EMAIL("VERIFY_EMAIL"),
-    CHANGE_EMAIL("CHANGE_EMAIL");
+    CHANGE_EMAIL("CHANGE_EMAIL"),
+    MFA_VERIFY("MFA_VERIFY");
 
     companion object {
         @JvmStatic
@@ -1342,17 +1644,6 @@ enum class EmailScene(val label: String) {
         }
     }
 }
-
-
-data class CommonMessage(
-    /** @param [message] 可读的接口响应说明，请以业务状态码 code 作为判断业务是否成功的标志 */
-    @SerializedName("message")
-    var message: String? = null,
-    /** @param [code] 业务状态码（与 HTTP 响应码不同），但且仅当为 200 的时候表示操作成功表示，详细说明请见：
-    [Authing 错误代码列表](https://docs.authing.co/advanced/error-code.html) */
-    @SerializedName("code")
-    var code: Int? = null
-)
 
 
 data class CreateFunctionInput @JvmOverloads constructor(
@@ -1451,7 +1742,10 @@ data class LoginByEmailInput @JvmOverloads constructor(
     var autoRegister: Boolean? = null,
     /** @param [clientIp] clientIp */
     @SerializedName("clientIp")
-    var clientIp: String? = null
+    var clientIp: String? = null,
+    /** @param [params] params */
+    @SerializedName("params")
+    var params: String? = null
 ) {
 
     /** @param [captchaCode] 图形验证码 */
@@ -1469,6 +1763,12 @@ data class LoginByEmailInput @JvmOverloads constructor(
     /** @param [clientIp] clientIp */
     fun withClientIp(clientIp: String): LoginByEmailInput {
         this.clientIp = clientIp
+        return this
+    }
+
+    /** @param [params] params */
+    fun withParams(params: String): LoginByEmailInput {
+        this.params = params
         return this
     }
 
@@ -1493,7 +1793,10 @@ data class LoginByUsernameInput @JvmOverloads constructor(
     var autoRegister: Boolean? = null,
     /** @param [clientIp] clientIp */
     @SerializedName("clientIp")
-    var clientIp: String? = null
+    var clientIp: String? = null,
+    /** @param [params] params */
+    @SerializedName("params")
+    var params: String? = null
 ) {
 
     /** @param [captchaCode] 图形验证码 */
@@ -1511,6 +1814,12 @@ data class LoginByUsernameInput @JvmOverloads constructor(
     /** @param [clientIp] clientIp */
     fun withClientIp(clientIp: String): LoginByUsernameInput {
         this.clientIp = clientIp
+        return this
+    }
+
+    /** @param [params] params */
+    fun withParams(params: String): LoginByUsernameInput {
+        this.params = params
         return this
     }
 
@@ -1532,7 +1841,10 @@ data class LoginByPhoneCodeInput @JvmOverloads constructor(
     var autoRegister: Boolean? = null,
     /** @param [clientIp] clientIp */
     @SerializedName("clientIp")
-    var clientIp: String? = null
+    var clientIp: String? = null,
+    /** @param [params] params */
+    @SerializedName("params")
+    var params: String? = null
 ) {
 
     /** @param [autoRegister] 如果用户不存在，是否自动创建一个账号 */
@@ -1544,6 +1856,12 @@ data class LoginByPhoneCodeInput @JvmOverloads constructor(
     /** @param [clientIp] clientIp */
     fun withClientIp(clientIp: String): LoginByPhoneCodeInput {
         this.clientIp = clientIp
+        return this
+    }
+
+    /** @param [params] params */
+    fun withParams(params: String): LoginByPhoneCodeInput {
+        this.params = params
         return this
     }
 
@@ -1568,7 +1886,10 @@ data class LoginByPhonePasswordInput @JvmOverloads constructor(
     var autoRegister: Boolean? = null,
     /** @param [clientIp] clientIp */
     @SerializedName("clientIp")
-    var clientIp: String? = null
+    var clientIp: String? = null,
+    /** @param [params] params */
+    @SerializedName("params")
+    var params: String? = null
 ) {
 
     /** @param [captchaCode] 图形验证码 */
@@ -1589,6 +1910,12 @@ data class LoginByPhonePasswordInput @JvmOverloads constructor(
         return this
     }
 
+    /** @param [params] params */
+    fun withParams(params: String): LoginByPhonePasswordInput {
+        this.params = params
+        return this
+    }
+
     fun build(): LoginByPhonePasswordInput {
         return this
     }
@@ -1604,7 +1931,10 @@ data class PolicyStatementInput @JvmOverloads constructor(
     var actions: List<String>,
     /** @param [effect] effect */
     @SerializedName("effect")
-    var effect: PolicyEffect? = null
+    var effect: PolicyEffect? = null,
+    /** @param [condition] condition */
+    @SerializedName("condition")
+    var condition: List<PolicyStatementConditionInput>? = null
 ) {
 
     /** @param [effect] effect */
@@ -1613,7 +1943,32 @@ data class PolicyStatementInput @JvmOverloads constructor(
         return this
     }
 
+    /** @param [condition] condition */
+    fun withCondition(condition: List<PolicyStatementConditionInput>): PolicyStatementInput {
+        this.condition = condition
+        return this
+    }
+
     fun build(): PolicyStatementInput {
+        return this
+    }
+}
+
+
+data class PolicyStatementConditionInput @JvmOverloads constructor(
+    /** @param [param] param */
+    @SerializedName("param")
+    var param: String,
+    /** @param [operator] operator */
+    @SerializedName("operator")
+    var operator: String,
+    /** @param [value] value */
+    @SerializedName("value")
+    var value: Any
+) {
+
+
+    fun build(): PolicyStatementConditionInput {
         return this
     }
 }
@@ -1637,7 +1992,10 @@ data class RegisterByUsernameInput @JvmOverloads constructor(
     var generateToken: Boolean? = null,
     /** @param [clientIp] clientIp */
     @SerializedName("clientIp")
-    var clientIp: String? = null
+    var clientIp: String? = null,
+    /** @param [params] params */
+    @SerializedName("params")
+    var params: String? = null
 ) {
 
     /** @param [profile] profile */
@@ -1661,6 +2019,12 @@ data class RegisterByUsernameInput @JvmOverloads constructor(
     /** @param [clientIp] clientIp */
     fun withClientIp(clientIp: String): RegisterByUsernameInput {
         this.clientIp = clientIp
+        return this
+    }
+
+    /** @param [params] params */
+    fun withParams(params: String): RegisterByUsernameInput {
+        this.params = params
         return this
     }
 
@@ -1947,7 +2311,10 @@ data class RegisterByEmailInput @JvmOverloads constructor(
     var generateToken: Boolean? = null,
     /** @param [clientIp] clientIp */
     @SerializedName("clientIp")
-    var clientIp: String? = null
+    var clientIp: String? = null,
+    /** @param [params] params */
+    @SerializedName("params")
+    var params: String? = null
 ) {
 
     /** @param [profile] profile */
@@ -1971,6 +2338,12 @@ data class RegisterByEmailInput @JvmOverloads constructor(
     /** @param [clientIp] clientIp */
     fun withClientIp(clientIp: String): RegisterByEmailInput {
         this.clientIp = clientIp
+        return this
+    }
+
+    /** @param [params] params */
+    fun withParams(params: String): RegisterByEmailInput {
+        this.params = params
         return this
     }
 
@@ -2001,7 +2374,10 @@ data class RegisterByPhoneCodeInput @JvmOverloads constructor(
     var generateToken: Boolean? = null,
     /** @param [clientIp] clientIp */
     @SerializedName("clientIp")
-    var clientIp: String? = null
+    var clientIp: String? = null,
+    /** @param [params] params */
+    @SerializedName("params")
+    var params: String? = null
 ) {
 
     /** @param [password] password */
@@ -2034,7 +2410,34 @@ data class RegisterByPhoneCodeInput @JvmOverloads constructor(
         return this
     }
 
+    /** @param [params] params */
+    fun withParams(params: String): RegisterByPhoneCodeInput {
+        this.params = params
+        return this
+    }
+
     fun build(): RegisterByPhoneCodeInput {
+        return this
+    }
+}
+
+
+data class UserDefinedDataInput @JvmOverloads constructor(
+    /** @param [key] key */
+    @SerializedName("key")
+    var key: String,
+    /** @param [value] value */
+    @SerializedName("value")
+    var value: String? = null
+) {
+
+    /** @param [value] value */
+    fun withValue(value: String): UserDefinedDataInput {
+        this.value = value
+        return this
+    }
+
+    fun build(): UserDefinedDataInput {
         return this
     }
 }
@@ -2171,7 +2574,7 @@ data class CreateUserInput @JvmOverloads constructor(
     /** @param [country] country */
     @SerializedName("country")
     var country: String? = null,
-    /** @param [externalId] 用户外部 ID */
+    /** @param [externalId] externalId */
     @SerializedName("externalId")
     var externalId: String? = null
 ) {
@@ -2540,7 +2943,7 @@ data class UpdateUserInput @JvmOverloads constructor(
     /** @param [country] country */
     @SerializedName("country")
     var country: String? = null,
-    /** @param [externalId] 用户外部 ID */
+    /** @param [externalId] externalId */
     @SerializedName("externalId")
     var externalId: String? = null
 ) {
@@ -2790,6 +3193,194 @@ data class UpdateUserInput @JvmOverloads constructor(
     }
 }
 
+
+data class UpdateUserpoolInput @JvmOverloads constructor(
+    /** @param [name] name */
+    @SerializedName("name")
+    var name: String? = null,
+    /** @param [logo] logo */
+    @SerializedName("logo")
+    var logo: String? = null,
+    /** @param [domain] domain */
+    @SerializedName("domain")
+    var domain: String? = null,
+    /** @param [description] description */
+    @SerializedName("description")
+    var description: String? = null,
+    /** @param [userpoolTypes] userpoolTypes */
+    @SerializedName("userpoolTypes")
+    var userpoolTypes: List<String>? = null,
+    /** @param [emailVerifiedDefault] emailVerifiedDefault */
+    @SerializedName("emailVerifiedDefault")
+    var emailVerifiedDefault: Boolean? = null,
+    /** @param [sendWelcomeEmail] sendWelcomeEmail */
+    @SerializedName("sendWelcomeEmail")
+    var sendWelcomeEmail: Boolean? = null,
+    /** @param [registerDisabled] registerDisabled */
+    @SerializedName("registerDisabled")
+    var registerDisabled: Boolean? = null,
+    /** @param [appSsoEnabled] appSsoEnabled */
+    @SerializedName("appSsoEnabled")
+    var appSsoEnabled: Boolean? = null,
+    /** @param [allowedOrigins] allowedOrigins */
+    @SerializedName("allowedOrigins")
+    var allowedOrigins: String? = null,
+    /** @param [tokenExpiresAfter] tokenExpiresAfter */
+    @SerializedName("tokenExpiresAfter")
+    var tokenExpiresAfter: Int? = null,
+    /** @param [frequentRegisterCheck] frequentRegisterCheck */
+    @SerializedName("frequentRegisterCheck")
+    var frequentRegisterCheck: FrequentRegisterCheckConfigInput? = null,
+    /** @param [loginFailCheck] loginFailCheck */
+    @SerializedName("loginFailCheck")
+    var loginFailCheck: LoginFailCheckConfigInput? = null,
+    /** @param [changePhoneStrategy] changePhoneStrategy */
+    @SerializedName("changePhoneStrategy")
+    var changePhoneStrategy: ChangePhoneStrategyInput? = null,
+    /** @param [changeEmailStrategy] changeEmailStrategy */
+    @SerializedName("changeEmailStrategy")
+    var changeEmailStrategy: ChangeEmailStrategyInput? = null,
+    /** @param [qrcodeLoginStrategy] qrcodeLoginStrategy */
+    @SerializedName("qrcodeLoginStrategy")
+    var qrcodeLoginStrategy: QrcodeLoginStrategyInput? = null,
+    /** @param [app2WxappLoginStrategy] app2WxappLoginStrategy */
+    @SerializedName("app2WxappLoginStrategy")
+    var app2WxappLoginStrategy: App2WxappLoginStrategyInput? = null,
+    /** @param [whitelist] whitelist */
+    @SerializedName("whitelist")
+    var whitelist: RegisterWhiteListConfigInput? = null,
+    /** @param [customSMSProvider] 自定义短信服务商配置 */
+    @SerializedName("customSMSProvider")
+    var customSMSProvider: CustomSmsProviderInput? = null,
+    /** @param [loginRequireEmailVerified] 是否要求邮箱必须验证才能登录（如果是通过邮箱登录的话） */
+    @SerializedName("loginRequireEmailVerified")
+    var loginRequireEmailVerified: Boolean? = null
+) {
+
+    /** @param [name] name */
+    fun withName(name: String): UpdateUserpoolInput {
+        this.name = name
+        return this
+    }
+
+    /** @param [logo] logo */
+    fun withLogo(logo: String): UpdateUserpoolInput {
+        this.logo = logo
+        return this
+    }
+
+    /** @param [domain] domain */
+    fun withDomain(domain: String): UpdateUserpoolInput {
+        this.domain = domain
+        return this
+    }
+
+    /** @param [description] description */
+    fun withDescription(description: String): UpdateUserpoolInput {
+        this.description = description
+        return this
+    }
+
+    /** @param [userpoolTypes] userpoolTypes */
+    fun withUserpoolTypes(userpoolTypes: List<String>): UpdateUserpoolInput {
+        this.userpoolTypes = userpoolTypes
+        return this
+    }
+
+    /** @param [emailVerifiedDefault] emailVerifiedDefault */
+    fun withEmailVerifiedDefault(emailVerifiedDefault: Boolean): UpdateUserpoolInput {
+        this.emailVerifiedDefault = emailVerifiedDefault
+        return this
+    }
+
+    /** @param [sendWelcomeEmail] sendWelcomeEmail */
+    fun withSendWelcomeEmail(sendWelcomeEmail: Boolean): UpdateUserpoolInput {
+        this.sendWelcomeEmail = sendWelcomeEmail
+        return this
+    }
+
+    /** @param [registerDisabled] registerDisabled */
+    fun withRegisterDisabled(registerDisabled: Boolean): UpdateUserpoolInput {
+        this.registerDisabled = registerDisabled
+        return this
+    }
+
+    /** @param [appSsoEnabled] appSsoEnabled */
+    fun withAppSsoEnabled(appSsoEnabled: Boolean): UpdateUserpoolInput {
+        this.appSsoEnabled = appSsoEnabled
+        return this
+    }
+
+    /** @param [allowedOrigins] allowedOrigins */
+    fun withAllowedOrigins(allowedOrigins: String): UpdateUserpoolInput {
+        this.allowedOrigins = allowedOrigins
+        return this
+    }
+
+    /** @param [tokenExpiresAfter] tokenExpiresAfter */
+    fun withTokenExpiresAfter(tokenExpiresAfter: Int): UpdateUserpoolInput {
+        this.tokenExpiresAfter = tokenExpiresAfter
+        return this
+    }
+
+    /** @param [frequentRegisterCheck] frequentRegisterCheck */
+    fun withFrequentRegisterCheck(frequentRegisterCheck: FrequentRegisterCheckConfigInput): UpdateUserpoolInput {
+        this.frequentRegisterCheck = frequentRegisterCheck
+        return this
+    }
+
+    /** @param [loginFailCheck] loginFailCheck */
+    fun withLoginFailCheck(loginFailCheck: LoginFailCheckConfigInput): UpdateUserpoolInput {
+        this.loginFailCheck = loginFailCheck
+        return this
+    }
+
+    /** @param [changePhoneStrategy] changePhoneStrategy */
+    fun withChangePhoneStrategy(changePhoneStrategy: ChangePhoneStrategyInput): UpdateUserpoolInput {
+        this.changePhoneStrategy = changePhoneStrategy
+        return this
+    }
+
+    /** @param [changeEmailStrategy] changeEmailStrategy */
+    fun withChangeEmailStrategy(changeEmailStrategy: ChangeEmailStrategyInput): UpdateUserpoolInput {
+        this.changeEmailStrategy = changeEmailStrategy
+        return this
+    }
+
+    /** @param [qrcodeLoginStrategy] qrcodeLoginStrategy */
+    fun withQrcodeLoginStrategy(qrcodeLoginStrategy: QrcodeLoginStrategyInput): UpdateUserpoolInput {
+        this.qrcodeLoginStrategy = qrcodeLoginStrategy
+        return this
+    }
+
+    /** @param [app2WxappLoginStrategy] app2WxappLoginStrategy */
+    fun withApp2WxappLoginStrategy(app2WxappLoginStrategy: App2WxappLoginStrategyInput): UpdateUserpoolInput {
+        this.app2WxappLoginStrategy = app2WxappLoginStrategy
+        return this
+    }
+
+    /** @param [whitelist] whitelist */
+    fun withWhitelist(whitelist: RegisterWhiteListConfigInput): UpdateUserpoolInput {
+        this.whitelist = whitelist
+        return this
+    }
+
+    /** @param [customSMSProvider] 自定义短信服务商配置 */
+    fun withCustomSmsProvider(customSMSProvider: CustomSmsProviderInput): UpdateUserpoolInput {
+        this.customSMSProvider = customSMSProvider
+        return this
+    }
+
+    /** @param [loginRequireEmailVerified] 是否要求邮箱必须验证才能登录（如果是通过邮箱登录的话） */
+    fun withLoginRequireEmailVerified(loginRequireEmailVerified: Boolean): UpdateUserpoolInput {
+        this.loginRequireEmailVerified = loginRequireEmailVerified
+        return this
+    }
+
+    fun build(): UpdateUserpoolInput {
+        return this
+    }
+}
 
 
 data class FrequentRegisterCheckConfigInput @JvmOverloads constructor(
@@ -3110,6 +3701,360 @@ data class KeyValuePair(
     var value: String
 )
 
+
+data class AddMemberResponse(
+
+    @SerializedName("addMember")
+    val result: Node
+)
+
+class AddMemberParam @JvmOverloads constructor(
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null,
+    @SerializedName("sortBy")
+    var sortBy: SortByEnum? = null,
+    @SerializedName("includeChildrenNodes")
+    var includeChildrenNodes: Boolean? = null,
+    @SerializedName("nodeId")
+    var nodeId: String? = null,
+    @SerializedName("orgId")
+    var orgId: String? = null,
+    @SerializedName("nodeCode")
+    var nodeCode: String? = null,
+    @SerializedName("userIds")
+    var userIds: List<String>,
+    @SerializedName("isLeader")
+    var isLeader: Boolean? = null
+) {
+
+    fun withPage(page: Int?): AddMemberParam {
+        this.page = page
+        return this
+    }
+
+    fun withLimit(limit: Int?): AddMemberParam {
+        this.limit = limit
+        return this
+    }
+
+    fun withSortBy(sortBy: SortByEnum?): AddMemberParam {
+        this.sortBy = sortBy
+        return this
+    }
+
+    fun withIncludeChildrenNodes(includeChildrenNodes: Boolean?): AddMemberParam {
+        this.includeChildrenNodes = includeChildrenNodes
+        return this
+    }
+
+    fun withNodeId(nodeId: String?): AddMemberParam {
+        this.nodeId = nodeId
+        return this
+    }
+
+    fun withOrgId(orgId: String?): AddMemberParam {
+        this.orgId = orgId
+        return this
+    }
+
+    fun withNodeCode(nodeCode: String?): AddMemberParam {
+        this.nodeCode = nodeCode
+        return this
+    }
+
+    fun withIsLeader(isLeader: Boolean?): AddMemberParam {
+        this.isLeader = isLeader
+        return this
+    }
+
+    fun build(): AddMemberParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            addMemberDocument,
+            this
+        );
+    }
+
+    private val addMemberDocument: String = """
+mutation addMember(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum, ${'$'}includeChildrenNodes: Boolean, ${'$'}nodeId: String, ${'$'}orgId: String, ${'$'}nodeCode: String, ${'$'}userIds: [String!]!, ${'$'}isLeader: Boolean) {
+  addMember(nodeId: ${'$'}nodeId, orgId: ${'$'}orgId, nodeCode: ${'$'}nodeCode, userIds: ${'$'}userIds, isLeader: ${'$'}isLeader) {
+    id
+    orgId
+    name
+    nameI18n
+    description
+    descriptionI18n
+    order
+    code
+    root
+    depth
+    path
+    createdAt
+    updatedAt
+    children
+    users(page: ${'$'}page, limit: ${'$'}limit, sortBy: ${'$'}sortBy, includeChildrenNodes: ${'$'}includeChildrenNodes) {
+      totalCount
+      list {
+        id
+        arn
+        userPoolId
+        username
+        status
+        email
+        emailVerified
+        phone
+        phoneVerified
+        unionid
+        openid
+        nickname
+        registerSource
+        photo
+        password
+        oauth
+        token
+        tokenExpiredAt
+        loginsCount
+        lastLogin
+        lastIP
+        signedUp
+        blocked
+        isDeleted
+        device
+        browser
+        company
+        name
+        givenName
+        familyName
+        middleName
+        profile
+        preferredUsername
+        website
+        gender
+        birthdate
+        zoneinfo
+        locale
+        address
+        formatted
+        streetAddress
+        locality
+        region
+        postalCode
+        city
+        province
+        country
+        createdAt
+        updatedAt
+        externalId
+      }
+    }
+  }
+}
+"""
+}
+
+
+data class AddNodeResponse(
+
+    @SerializedName("addNode")
+    val result: Node
+)
+
+class AddNodeParam @JvmOverloads constructor(
+    @SerializedName("orgId")
+    var orgId: String,
+    @SerializedName("parentNodeId")
+    var parentNodeId: String? = null,
+    @SerializedName("name")
+    var name: String,
+    @SerializedName("nameI18n")
+    var nameI18n: String? = null,
+    @SerializedName("description")
+    var description: String? = null,
+    @SerializedName("descriptionI18n")
+    var descriptionI18n: String? = null,
+    @SerializedName("order")
+    var order: Int? = null,
+    @SerializedName("code")
+    var code: String? = null
+) {
+
+    fun withParentNodeId(parentNodeId: String?): AddNodeParam {
+        this.parentNodeId = parentNodeId
+        return this
+    }
+
+    fun withNameI18n(nameI18n: String?): AddNodeParam {
+        this.nameI18n = nameI18n
+        return this
+    }
+
+    fun withDescription(description: String?): AddNodeParam {
+        this.description = description
+        return this
+    }
+
+    fun withDescriptionI18n(descriptionI18n: String?): AddNodeParam {
+        this.descriptionI18n = descriptionI18n
+        return this
+    }
+
+    fun withOrder(order: Int?): AddNodeParam {
+        this.order = order
+        return this
+    }
+
+    fun withCode(code: String?): AddNodeParam {
+        this.code = code
+        return this
+    }
+
+    fun build(): AddNodeParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            addNodeDocument,
+            this
+        );
+    }
+
+    private val addNodeDocument: String = """
+mutation addNode(${'$'}orgId: String!, ${'$'}parentNodeId: String, ${'$'}name: String!, ${'$'}nameI18n: String, ${'$'}description: String, ${'$'}descriptionI18n: String, ${'$'}order: Int, ${'$'}code: String) {
+  addNode(orgId: ${'$'}orgId, parentNodeId: ${'$'}parentNodeId, name: ${'$'}name, nameI18n: ${'$'}nameI18n, description: ${'$'}description, descriptionI18n: ${'$'}descriptionI18n, order: ${'$'}order, code: ${'$'}code) {
+    id
+    rootNode {
+      id
+      orgId
+      name
+      nameI18n
+      description
+      descriptionI18n
+      order
+      code
+      root
+      depth
+      path
+      createdAt
+      updatedAt
+      children
+    }
+    nodes {
+      id
+      orgId
+      name
+      nameI18n
+      description
+      descriptionI18n
+      order
+      code
+      root
+      depth
+      path
+      createdAt
+      updatedAt
+      children
+    }
+  }
+}
+"""
+}
+
+
+data class AddNodeV2Response(
+
+    @SerializedName("addNodeV2")
+    val result: Node
+)
+
+class AddNodeV2Param @JvmOverloads constructor(
+    @SerializedName("orgId")
+    var orgId: String,
+    @SerializedName("parentNodeId")
+    var parentNodeId: String? = null,
+    @SerializedName("name")
+    var name: String,
+    @SerializedName("nameI18n")
+    var nameI18n: String? = null,
+    @SerializedName("description")
+    var description: String? = null,
+    @SerializedName("descriptionI18n")
+    var descriptionI18n: String? = null,
+    @SerializedName("order")
+    var order: Int? = null,
+    @SerializedName("code")
+    var code: String? = null
+) {
+
+    fun withParentNodeId(parentNodeId: String?): AddNodeV2Param {
+        this.parentNodeId = parentNodeId
+        return this
+    }
+
+    fun withNameI18n(nameI18n: String?): AddNodeV2Param {
+        this.nameI18n = nameI18n
+        return this
+    }
+
+    fun withDescription(description: String?): AddNodeV2Param {
+        this.description = description
+        return this
+    }
+
+    fun withDescriptionI18n(descriptionI18n: String?): AddNodeV2Param {
+        this.descriptionI18n = descriptionI18n
+        return this
+    }
+
+    fun withOrder(order: Int?): AddNodeV2Param {
+        this.order = order
+        return this
+    }
+
+    fun withCode(code: String?): AddNodeV2Param {
+        this.code = code
+        return this
+    }
+
+    fun build(): AddNodeV2Param {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            addNodeV2Document,
+            this
+        );
+    }
+
+    private val addNodeV2Document: String = """
+mutation addNodeV2(${'$'}orgId: String!, ${'$'}parentNodeId: String, ${'$'}name: String!, ${'$'}nameI18n: String, ${'$'}description: String, ${'$'}descriptionI18n: String, ${'$'}order: Int, ${'$'}code: String) {
+  addNodeV2(orgId: ${'$'}orgId, parentNodeId: ${'$'}parentNodeId, name: ${'$'}name, nameI18n: ${'$'}nameI18n, description: ${'$'}description, descriptionI18n: ${'$'}descriptionI18n, order: ${'$'}order, code: ${'$'}code) {
+    id
+    orgId
+    name
+    nameI18n
+    description
+    descriptionI18n
+    order
+    code
+    root
+    depth
+    path
+    createdAt
+    updatedAt
+    children
+  }
+}
+"""
+}
+
+
 data class AddPolicyAssignmentsResponse(
 
     @SerializedName("addPolicyAssignments")
@@ -3122,11 +4067,25 @@ class AddPolicyAssignmentsParam @JvmOverloads constructor(
     @SerializedName("targetType")
     var targetType: PolicyAssignmentTargetType,
     @SerializedName("targetIdentifiers")
-    var targetIdentifiers: List<String>? = null
+    var targetIdentifiers: List<String>? = null,
+    @SerializedName("inheritByChildren")
+    var inheritByChildren: Boolean? = null,
+    @SerializedName("namespace")
+    var namespace: String? = null
 ) {
 
     fun withTargetIdentifiers(targetIdentifiers: List<String>?): AddPolicyAssignmentsParam {
         this.targetIdentifiers = targetIdentifiers
+        return this
+    }
+
+    fun withInheritByChildren(inheritByChildren: Boolean?): AddPolicyAssignmentsParam {
+        this.inheritByChildren = inheritByChildren
+        return this
+    }
+
+    fun withNamespace(namespace: String?): AddPolicyAssignmentsParam {
+        this.namespace = namespace
         return this
     }
 
@@ -3142,14 +4101,92 @@ class AddPolicyAssignmentsParam @JvmOverloads constructor(
     }
 
     private val addPolicyAssignmentsDocument: String = """
-mutation addPolicyAssignments(${'$'}policies: [String!]!, ${'$'}targetType: PolicyAssignmentTargetType!, ${'$'}targetIdentifiers: [String!]) {
-  addPolicyAssignments(policies: ${'$'}policies, targetType: ${'$'}targetType, targetIdentifiers: ${'$'}targetIdentifiers) {
+mutation addPolicyAssignments(${'$'}policies: [String!]!, ${'$'}targetType: PolicyAssignmentTargetType!, ${'$'}targetIdentifiers: [String!], ${'$'}inheritByChildren: Boolean, ${'$'}namespace: String) {
+  addPolicyAssignments(policies: ${'$'}policies, targetType: ${'$'}targetType, targetIdentifiers: ${'$'}targetIdentifiers, inheritByChildren: ${'$'}inheritByChildren, namespace: ${'$'}namespace) {
     message
     code
   }
 }
 """
 }
+
+
+data class AddUserToGroupResponse(
+
+    @SerializedName("addUserToGroup")
+    val result: CommonMessage
+)
+
+class AddUserToGroupParam @JvmOverloads constructor(
+    @SerializedName("userIds")
+    var userIds: List<String>,
+    @SerializedName("code")
+    var code: String? = null
+) {
+
+    fun withCode(code: String?): AddUserToGroupParam {
+        this.code = code
+        return this
+    }
+
+    fun build(): AddUserToGroupParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            addUserToGroupDocument,
+            this
+        );
+    }
+
+    private val addUserToGroupDocument: String = """
+mutation addUserToGroup(${'$'}userIds: [String!]!, ${'$'}code: String) {
+  addUserToGroup(userIds: ${'$'}userIds, code: ${'$'}code) {
+    message
+    code
+  }
+}
+"""
+}
+
+
+data class AddWhitelistResponse(
+
+    @SerializedName("addWhitelist")
+    val result: List<WhiteList>
+)
+
+class AddWhitelistParam @JvmOverloads constructor(
+    @SerializedName("type")
+    var type: WhitelistType,
+    @SerializedName("list")
+    var list: List<String>
+) {
+
+
+    fun build(): AddWhitelistParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            addWhitelistDocument,
+            this
+        );
+    }
+
+    private val addWhitelistDocument: String = """
+mutation addWhitelist(${'$'}type: WhitelistType!, ${'$'}list: [String!]!) {
+  addWhitelist(type: ${'$'}type, list: ${'$'}list) {
+    createdAt
+    updatedAt
+    value
+  }
+}
+"""
+}
+
 
 data class AllowResponse(
 
@@ -3169,7 +4206,9 @@ class AllowParam @JvmOverloads constructor(
     @SerializedName("roleCode")
     var roleCode: String? = null,
     @SerializedName("roleCodes")
-    var roleCodes: List<String>? = null
+    var roleCodes: List<String>? = null,
+    @SerializedName("namespace")
+    var namespace: String? = null
 ) {
 
     fun withUserId(userId: String?): AllowParam {
@@ -3192,6 +4231,11 @@ class AllowParam @JvmOverloads constructor(
         return this
     }
 
+    fun withNamespace(namespace: String?): AllowParam {
+        this.namespace = namespace
+        return this
+    }
+
     fun build(): AllowParam {
         return this
     }
@@ -3204,8 +4248,8 @@ class AllowParam @JvmOverloads constructor(
     }
 
     private val allowDocument: String = """
-mutation allow(${'$'}resource: String!, ${'$'}action: String!, ${'$'}userId: String, ${'$'}userIds: [String!], ${'$'}roleCode: String, ${'$'}roleCodes: [String!]) {
-  allow(resource: ${'$'}resource, action: ${'$'}action, userId: ${'$'}userId, userIds: ${'$'}userIds, roleCode: ${'$'}roleCode, roleCodes: ${'$'}roleCodes) {
+mutation allow(${'$'}resource: String!, ${'$'}action: String!, ${'$'}userId: String, ${'$'}userIds: [String!], ${'$'}roleCode: String, ${'$'}roleCodes: [String!], ${'$'}namespace: String) {
+  allow(resource: ${'$'}resource, action: ${'$'}action, userId: ${'$'}userId, userIds: ${'$'}userIds, roleCode: ${'$'}roleCode, roleCodes: ${'$'}roleCodes, namespace: ${'$'}namespace) {
     message
     code
   }
@@ -3221,6 +4265,8 @@ data class AssignRoleResponse(
 )
 
 class AssignRoleParam @JvmOverloads constructor(
+    @SerializedName("namespace")
+    var namespace: String? = null,
     @SerializedName("roleCode")
     var roleCode: String? = null,
     @SerializedName("roleCodes")
@@ -3232,6 +4278,11 @@ class AssignRoleParam @JvmOverloads constructor(
     @SerializedName("nodeCodes")
     var nodeCodes: List<String>? = null
 ) {
+
+    fun withNamespace(namespace: String?): AssignRoleParam {
+        this.namespace = namespace
+        return this
+    }
 
     fun withRoleCode(roleCode: String?): AssignRoleParam {
         this.roleCode = roleCode
@@ -3270,8 +4321,8 @@ class AssignRoleParam @JvmOverloads constructor(
     }
 
     private val assignRoleDocument: String = """
-mutation assignRole(${'$'}roleCode: String, ${'$'}roleCodes: [String], ${'$'}userIds: [String!], ${'$'}groupCodes: [String!], ${'$'}nodeCodes: [String!]) {
-  assignRole(roleCode: ${'$'}roleCode, roleCodes: ${'$'}roleCodes, userIds: ${'$'}userIds, groupCodes: ${'$'}groupCodes, nodeCodes: ${'$'}nodeCodes) {
+mutation assignRole(${'$'}namespace: String, ${'$'}roleCode: String, ${'$'}roleCodes: [String], ${'$'}userIds: [String!], ${'$'}groupCodes: [String!], ${'$'}nodeCodes: [String!]) {
+  assignRole(namespace: ${'$'}namespace, roleCode: ${'$'}roleCode, roleCodes: ${'$'}roleCodes, userIds: ${'$'}userIds, groupCodes: ${'$'}groupCodes, nodeCodes: ${'$'}nodeCodes) {
     message
     code
   }
@@ -3311,6 +4362,7 @@ mutation bindPhone(${'$'}phone: String!, ${'$'}phoneCode: String!) {
     id
     arn
     userPoolId
+    status
     username
     email
     emailVerified
@@ -3509,6 +4561,130 @@ mutation createFunction(${'$'}input: CreateFunctionInput!) {
 """
 }
 
+
+data class CreateGroupResponse(
+
+    @SerializedName("createGroup")
+    val result: Group
+)
+
+class CreateGroupParam @JvmOverloads constructor(
+    @SerializedName("code")
+    var code: String,
+    @SerializedName("name")
+    var name: String,
+    @SerializedName("description")
+    var description: String? = null
+) {
+
+    fun withDescription(description: String?): CreateGroupParam {
+        this.description = description
+        return this
+    }
+
+    fun build(): CreateGroupParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            createGroupDocument,
+            this
+        );
+    }
+
+    private val createGroupDocument: String = """
+mutation createGroup(${'$'}code: String!, ${'$'}name: String!, ${'$'}description: String) {
+  createGroup(code: ${'$'}code, name: ${'$'}name, description: ${'$'}description) {
+    code
+    name
+    description
+    createdAt
+    updatedAt
+  }
+}
+"""
+}
+
+
+data class CreateOrgResponse(
+
+    @SerializedName("createOrg")
+    val result: Org
+)
+
+class CreateOrgParam @JvmOverloads constructor(
+    @SerializedName("name")
+    var name: String,
+    @SerializedName("code")
+    var code: String? = null,
+    @SerializedName("description")
+    var description: String? = null
+) {
+
+    fun withCode(code: String?): CreateOrgParam {
+        this.code = code
+        return this
+    }
+
+    fun withDescription(description: String?): CreateOrgParam {
+        this.description = description
+        return this
+    }
+
+    fun build(): CreateOrgParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            createOrgDocument,
+            this
+        );
+    }
+
+    private val createOrgDocument: String = """
+mutation createOrg(${'$'}name: String!, ${'$'}code: String, ${'$'}description: String) {
+  createOrg(name: ${'$'}name, code: ${'$'}code, description: ${'$'}description) {
+    id
+    rootNode {
+      id
+      orgId
+      name
+      nameI18n
+      description
+      descriptionI18n
+      order
+      code
+      root
+      depth
+      path
+      createdAt
+      updatedAt
+      children
+    }
+    nodes {
+      id
+      orgId
+      name
+      nameI18n
+      description
+      descriptionI18n
+      order
+      code
+      root
+      depth
+      path
+      createdAt
+      updatedAt
+      children
+    }
+  }
+}
+"""
+}
+
+
 data class CreatePolicyResponse(
 
     @SerializedName("createPolicy")
@@ -3521,8 +4697,15 @@ class CreatePolicyParam @JvmOverloads constructor(
     @SerializedName("description")
     var description: String? = null,
     @SerializedName("statements")
-    var statements: List<PolicyStatementInput>
+    var statements: List<PolicyStatementInput>,
+    @SerializedName("namespace")
+    var namespace: String? = null
 ) {
+
+    fun withNamespace(namespace: String?): CreatePolicyParam {
+        this.namespace = namespace
+        return this
+    }
 
     fun withDescription(description: String?): CreatePolicyParam {
         this.description = description
@@ -3541,19 +4724,25 @@ class CreatePolicyParam @JvmOverloads constructor(
     }
 
     private val createPolicyDocument: String = """
-mutation createPolicy(${'$'}code: String!, ${'$'}description: String, ${'$'}statements: [PolicyStatementInput!]!) {
-  createPolicy(code: ${'$'}code, description: ${'$'}description, statements: ${'$'}statements) {
+mutation createPolicy(${'$'}namespace: String, ${'$'}code: String!, ${'$'}description: String, ${'$'}statements: [PolicyStatementInput!]!) {
+  createPolicy(namespace: ${'$'}namespace, code: ${'$'}code, description: ${'$'}description, statements: ${'$'}statements) {
+    namespace
     code
-    assignmentsCount
     isDefault
     description
     statements {
       resource
       actions
       effect
+      condition {
+        param
+        operator
+        value
+      }
     }
     createdAt
     updatedAt
+    assignmentsCount
   }
 }
 """
@@ -3572,8 +4761,15 @@ class CreateRoleParam @JvmOverloads constructor(
     @SerializedName("description")
     var description: String? = null,
     @SerializedName("parent")
-    var parent: String? = null
+    var parent: String? = null,
+    @SerializedName("namespace")
+    var namespace: String? = null
 ) {
+
+    fun withNamespace(namespace: String?): CreateRoleParam {
+        this.namespace = namespace
+        return this
+    }
 
     fun withDescription(description: String?): CreateRoleParam {
         this.description = description
@@ -3597,19 +4793,19 @@ class CreateRoleParam @JvmOverloads constructor(
     }
 
     private val createRoleDocument: String = """
-mutation createRole(${'$'}code: String!, ${'$'}description: String, ${'$'}parent: String) {
-  createRole(code: ${'$'}code, description: ${'$'}description, parent: ${'$'}parent) {
+mutation createRole(${'$'}namespace: String, ${'$'}code: String!, ${'$'}description: String, ${'$'}parent: String) {
+  createRole(namespace: ${'$'}namespace, code: ${'$'}code, description: ${'$'}description, parent: ${'$'}parent) {
+    namespace
     code
     arn
     description
-    isSystem
     createdAt
     updatedAt
     parent {
+      namespace
       code
       arn
       description
-      isSystem
       createdAt
       updatedAt
     }
@@ -3734,6 +4930,7 @@ mutation createUser(${'$'}userInfo: CreateUserInput!, ${'$'}keepPassword: Boolea
     id
     arn
     userPoolId
+    status
     username
     email
     emailVerified
@@ -3785,6 +4982,121 @@ mutation createUser(${'$'}userInfo: CreateUserInput!, ${'$'}keepPassword: Boolea
 """
 }
 
+
+data class CreateUserpoolResponse(
+
+    @SerializedName("createUserpool")
+    val result: UserPool
+)
+
+class CreateUserpoolParam @JvmOverloads constructor(
+    @SerializedName("name")
+    var name: String,
+    @SerializedName("domain")
+    var domain: String,
+    @SerializedName("description")
+    var description: String? = null,
+    @SerializedName("logo")
+    var logo: String? = null,
+    @SerializedName("userpoolTypes")
+    var userpoolTypes: List<String>? = null
+) {
+
+    fun withDescription(description: String?): CreateUserpoolParam {
+        this.description = description
+        return this
+    }
+
+    fun withLogo(logo: String?): CreateUserpoolParam {
+        this.logo = logo
+        return this
+    }
+
+    fun withUserpoolTypes(userpoolTypes: List<String>?): CreateUserpoolParam {
+        this.userpoolTypes = userpoolTypes
+        return this
+    }
+
+    fun build(): CreateUserpoolParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            createUserpoolDocument,
+            this
+        );
+    }
+
+    private val createUserpoolDocument: String = """
+mutation createUserpool(${'$'}name: String!, ${'$'}domain: String!, ${'$'}description: String, ${'$'}logo: String, ${'$'}userpoolTypes: [String!]) {
+  createUserpool(name: ${'$'}name, domain: ${'$'}domain, description: ${'$'}description, logo: ${'$'}logo, userpoolTypes: ${'$'}userpoolTypes) {
+    id
+    name
+    domain
+    description
+    secret
+    jwtSecret
+    userpoolTypes {
+      code
+      name
+      description
+      image
+      sdks
+    }
+    logo
+    createdAt
+    updatedAt
+    emailVerifiedDefault
+    sendWelcomeEmail
+    registerDisabled
+    appSsoEnabled
+    showWxQRCodeWhenRegisterDisabled
+    allowedOrigins
+    tokenExpiresAfter
+    isDeleted
+    frequentRegisterCheck {
+      timeInterval
+      limit
+      enabled
+    }
+    loginFailCheck {
+      timeInterval
+      limit
+      enabled
+    }
+    changePhoneStrategy {
+      verifyOldPhone
+    }
+    changeEmailStrategy {
+      verifyOldEmail
+    }
+    qrcodeLoginStrategy {
+      qrcodeExpiresAfter
+      returnFullUserInfo
+      allowExchangeUserInfoFromBrowser
+      ticketExpiresAfter
+    }
+    app2WxappLoginStrategy {
+      ticketExpriresAfter
+      ticketExchangeUserInfoNeedSecret
+    }
+    whitelist {
+      phoneEnabled
+      emailEnabled
+      usernameEnabled
+    }
+    customSMSProvider {
+      enabled
+      provider
+    }
+    packageType
+  }
+}
+"""
+}
+
+
 data class DeleteFunctionResponse(
 
     @SerializedName("deleteFunction")
@@ -3818,6 +5130,111 @@ mutation deleteFunction(${'$'}id: String!) {
 """
 }
 
+
+data class DeleteGroupsResponse(
+
+    @SerializedName("deleteGroups")
+    val result: CommonMessage
+)
+
+class DeleteGroupsParam @JvmOverloads constructor(
+    @SerializedName("codeList")
+    var codeList: List<String>
+) {
+
+
+    fun build(): DeleteGroupsParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            deleteGroupsDocument,
+            this
+        );
+    }
+
+    private val deleteGroupsDocument: String = """
+mutation deleteGroups(${'$'}codeList: [String!]!) {
+  deleteGroups(codeList: ${'$'}codeList) {
+    message
+    code
+  }
+}
+"""
+}
+
+
+data class DeleteNodeResponse(
+
+    @SerializedName("deleteNode")
+    val result: CommonMessage
+)
+
+class DeleteNodeParam @JvmOverloads constructor(
+    @SerializedName("orgId")
+    var orgId: String,
+    @SerializedName("nodeId")
+    var nodeId: String
+) {
+
+
+    fun build(): DeleteNodeParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            deleteNodeDocument,
+            this
+        );
+    }
+
+    private val deleteNodeDocument: String = """
+mutation deleteNode(${'$'}orgId: String!, ${'$'}nodeId: String!) {
+  deleteNode(orgId: ${'$'}orgId, nodeId: ${'$'}nodeId) {
+    message
+    code
+  }
+}
+"""
+}
+
+
+data class DeleteOrgResponse(
+
+    @SerializedName("deleteOrg")
+    val result: CommonMessage
+)
+
+class DeleteOrgParam @JvmOverloads constructor(
+    @SerializedName("id")
+    var id: String
+) {
+
+
+    fun build(): DeleteOrgParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            deleteOrgDocument,
+            this
+        );
+    }
+
+    private val deleteOrgDocument: String = """
+mutation deleteOrg(${'$'}id: String!) {
+  deleteOrg(id: ${'$'}id) {
+    message
+    code
+  }
+}
+"""
+}
+
+
 data class DeletePoliciesResponse(
 
     @SerializedName("deletePolicies")
@@ -3826,9 +5243,15 @@ data class DeletePoliciesResponse(
 
 class DeletePoliciesParam @JvmOverloads constructor(
     @SerializedName("codeList")
-    var codeList: List<String>
+    var codeList: List<String>,
+    @SerializedName("namespace")
+    var namespace: String? = null
 ) {
 
+    fun withNamespace(namespace: String?): DeletePoliciesParam {
+        this.namespace = namespace
+        return this
+    }
 
     fun build(): DeletePoliciesParam {
         return this
@@ -3842,8 +5265,8 @@ class DeletePoliciesParam @JvmOverloads constructor(
     }
 
     private val deletePoliciesDocument: String = """
-mutation deletePolicies(${'$'}codeList: [String!]!) {
-  deletePolicies(codeList: ${'$'}codeList) {
+mutation deletePolicies(${'$'}codeList: [String!]!, ${'$'}namespace: String) {
+  deletePolicies(codeList: ${'$'}codeList, namespace: ${'$'}namespace) {
     message
     code
   }
@@ -3860,9 +5283,15 @@ data class DeletePolicyResponse(
 
 class DeletePolicyParam @JvmOverloads constructor(
     @SerializedName("code")
-    var code: String
+    var code: String,
+    @SerializedName("namespace")
+    var namespace: String? = null
 ) {
 
+    fun withNamespace(namespace: String?): DeletePolicyParam {
+        this.namespace = namespace
+        return this
+    }
 
     fun build(): DeletePolicyParam {
         return this
@@ -3876,8 +5305,8 @@ class DeletePolicyParam @JvmOverloads constructor(
     }
 
     private val deletePolicyDocument: String = """
-mutation deletePolicy(${'$'}code: String!) {
-  deletePolicy(code: ${'$'}code) {
+mutation deletePolicy(${'$'}code: String!, ${'$'}namespace: String) {
+  deletePolicy(code: ${'$'}code, namespace: ${'$'}namespace) {
     message
     code
   }
@@ -3894,9 +5323,15 @@ data class DeleteRoleResponse(
 
 class DeleteRoleParam @JvmOverloads constructor(
     @SerializedName("code")
-    var code: String
+    var code: String,
+    @SerializedName("namespace")
+    var namespace: String? = null
 ) {
 
+    fun withNamespace(namespace: String?): DeleteRoleParam {
+        this.namespace = namespace
+        return this
+    }
 
     fun build(): DeleteRoleParam {
         return this
@@ -3910,8 +5345,8 @@ class DeleteRoleParam @JvmOverloads constructor(
     }
 
     private val deleteRoleDocument: String = """
-mutation deleteRole(${'$'}code: String!) {
-  deleteRole(code: ${'$'}code) {
+mutation deleteRole(${'$'}code: String!, ${'$'}namespace: String) {
+  deleteRole(code: ${'$'}code, namespace: ${'$'}namespace) {
     message
     code
   }
@@ -3928,9 +5363,15 @@ data class DeleteRolesResponse(
 
 class DeleteRolesParam @JvmOverloads constructor(
     @SerializedName("codeList")
-    var codeList: List<String>
+    var codeList: List<String>,
+    @SerializedName("namespace")
+    var namespace: String? = null
 ) {
 
+    fun withNamespace(namespace: String?): DeleteRolesParam {
+        this.namespace = namespace
+        return this
+    }
 
     fun build(): DeleteRolesParam {
         return this
@@ -3944,8 +5385,8 @@ class DeleteRolesParam @JvmOverloads constructor(
     }
 
     private val deleteRolesDocument: String = """
-mutation deleteRoles(${'$'}codeList: [String!]!) {
-  deleteRoles(codeList: ${'$'}codeList) {
+mutation deleteRoles(${'$'}codeList: [String!]!, ${'$'}namespace: String) {
+  deleteRoles(codeList: ${'$'}codeList, namespace: ${'$'}namespace) {
     message
     code
   }
@@ -3987,6 +5428,36 @@ mutation deleteUser(${'$'}id: String!) {
 """
 }
 
+
+data class DeleteUserpoolResponse(
+
+    @SerializedName("deleteUserpool")
+    val result: CommonMessage
+)
+
+class DeleteUserpoolParam {
+
+
+    fun build(): DeleteUserpoolParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            deleteUserpoolDocument,
+            this
+        );
+    }
+
+    private val deleteUserpoolDocument: String = """
+mutation deleteUserpool {
+  deleteUserpool {
+    message
+    code
+  }
+}
+"""
+}
 
 
 data class DeleteUsersResponse(
@@ -4103,6 +5574,50 @@ mutation disableSocialConnectionInstance(${'$'}provider: String!) {
 }
 
 
+data class DisbalePolicyAssignmentResponse(
+
+    @SerializedName("disbalePolicyAssignment")
+    val result: CommonMessage
+)
+
+class DisbalePolicyAssignmentParam @JvmOverloads constructor(
+    @SerializedName("policy")
+    var policy: String,
+    @SerializedName("targetType")
+    var targetType: PolicyAssignmentTargetType,
+    @SerializedName("targetIdentifier")
+    var targetIdentifier: String,
+    @SerializedName("namespace")
+    var namespace: String? = null
+) {
+
+    fun withNamespace(namespace: String?): DisbalePolicyAssignmentParam {
+        this.namespace = namespace
+        return this
+    }
+
+    fun build(): DisbalePolicyAssignmentParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            disbalePolicyAssignmentDocument,
+            this
+        );
+    }
+
+    private val disbalePolicyAssignmentDocument: String = """
+mutation disbalePolicyAssignment(${'$'}policy: String!, ${'$'}targetType: PolicyAssignmentTargetType!, ${'$'}targetIdentifier: String!, ${'$'}namespace: String) {
+  disbalePolicyAssignment(policy: ${'$'}policy, targetType: ${'$'}targetType, targetIdentifier: ${'$'}targetIdentifier, namespace: ${'$'}namespace) {
+    message
+    code
+  }
+}
+"""
+}
+
+
 data class EnableEmailTemplateResponse(
 
     @SerializedName("enableEmailTemplate")
@@ -4139,6 +5654,50 @@ mutation enableEmailTemplate(${'$'}type: EmailTemplateType!) {
     expiresIn
     enabled
     isSystem
+  }
+}
+"""
+}
+
+
+data class EnablePolicyAssignmentResponse(
+
+    @SerializedName("enablePolicyAssignment")
+    val result: CommonMessage
+)
+
+class EnablePolicyAssignmentParam @JvmOverloads constructor(
+    @SerializedName("policy")
+    var policy: String,
+    @SerializedName("targetType")
+    var targetType: PolicyAssignmentTargetType,
+    @SerializedName("targetIdentifier")
+    var targetIdentifier: String,
+    @SerializedName("namespace")
+    var namespace: String? = null
+) {
+
+    fun withNamespace(namespace: String?): EnablePolicyAssignmentParam {
+        this.namespace = namespace
+        return this
+    }
+
+    fun build(): EnablePolicyAssignmentParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            enablePolicyAssignmentDocument,
+            this
+        );
+    }
+
+    private val enablePolicyAssignmentDocument: String = """
+mutation enablePolicyAssignment(${'$'}policy: String!, ${'$'}targetType: PolicyAssignmentTargetType!, ${'$'}targetIdentifier: String!, ${'$'}namespace: String) {
+  enablePolicyAssignment(policy: ${'$'}policy, targetType: ${'$'}targetType, targetIdentifier: ${'$'}targetIdentifier, namespace: ${'$'}namespace) {
+    message
+    code
   }
 }
 """
@@ -4211,6 +5770,7 @@ mutation loginByEmail(${'$'}input: LoginByEmailInput!) {
   loginByEmail(input: ${'$'}input) {
     id
     arn
+    status
     userPoolId
     username
     email
@@ -4293,6 +5853,7 @@ mutation loginByPhoneCode(${'$'}input: LoginByPhoneCodeInput!) {
     id
     arn
     userPoolId
+    status
     username
     email
     emailVerified
@@ -4373,6 +5934,104 @@ mutation loginByPhonePassword(${'$'}input: LoginByPhonePasswordInput!) {
   loginByPhonePassword(input: ${'$'}input) {
     id
     arn
+    userPoolId
+    status
+    username
+    email
+    emailVerified
+    phone
+    phoneVerified
+    unionid
+    openid
+    nickname
+    registerSource
+    photo
+    password
+    oauth
+    token
+    tokenExpiredAt
+    loginsCount
+    lastLogin
+    lastIP
+    signedUp
+    blocked
+    isDeleted
+    device
+    browser
+    company
+    name
+    givenName
+    familyName
+    middleName
+    profile
+    preferredUsername
+    website
+    gender
+    birthdate
+    zoneinfo
+    locale
+    address
+    formatted
+    streetAddress
+    locality
+    region
+    postalCode
+    city
+    province
+    country
+    createdAt
+    updatedAt
+    externalId
+  }
+}
+"""
+}
+
+
+data class LoginBySubAccountResponse(
+
+    @SerializedName("loginBySubAccount")
+    val result: User
+)
+
+class LoginBySubAccountParam @JvmOverloads constructor(
+    @SerializedName("account")
+    var account: String,
+    @SerializedName("password")
+    var password: String,
+    @SerializedName("captchaCode")
+    var captchaCode: String? = null,
+    @SerializedName("clientIp")
+    var clientIp: String? = null
+) {
+
+    fun withCaptchaCode(captchaCode: String?): LoginBySubAccountParam {
+        this.captchaCode = captchaCode
+        return this
+    }
+
+    fun withClientIp(clientIp: String?): LoginBySubAccountParam {
+        this.clientIp = clientIp
+        return this
+    }
+
+    fun build(): LoginBySubAccountParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            loginBySubAccountDocument,
+            this
+        );
+    }
+
+    private val loginBySubAccountDocument: String = """
+mutation loginBySubAccount(${'$'}account: String!, ${'$'}password: String!, ${'$'}captchaCode: String, ${'$'}clientIp: String) {
+  loginBySubAccount(account: ${'$'}account, password: ${'$'}password, captchaCode: ${'$'}captchaCode, clientIp: ${'$'}clientIp) {
+    id
+    arn
+    status
     userPoolId
     username
     email
@@ -4455,6 +6114,7 @@ mutation loginByUsername(${'$'}input: LoginByUsernameInput!) {
     id
     arn
     userPoolId
+    status
     username
     email
     emailVerified
@@ -4505,6 +6165,76 @@ mutation loginByUsername(${'$'}input: LoginByUsernameInput!) {
 }
 """
 }
+
+
+data class MoveNodeResponse(
+
+    @SerializedName("moveNode")
+    val result: Org
+)
+
+class MoveNodeParam @JvmOverloads constructor(
+    @SerializedName("orgId")
+    var orgId: String,
+    @SerializedName("nodeId")
+    var nodeId: String,
+    @SerializedName("targetParentId")
+    var targetParentId: String
+) {
+
+
+    fun build(): MoveNodeParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            moveNodeDocument,
+            this
+        );
+    }
+
+    private val moveNodeDocument: String = """
+mutation moveNode(${'$'}orgId: String!, ${'$'}nodeId: String!, ${'$'}targetParentId: String!) {
+  moveNode(orgId: ${'$'}orgId, nodeId: ${'$'}nodeId, targetParentId: ${'$'}targetParentId) {
+    id
+    rootNode {
+      id
+      orgId
+      name
+      nameI18n
+      description
+      descriptionI18n
+      order
+      code
+      root
+      depth
+      path
+      createdAt
+      updatedAt
+      children
+    }
+    nodes {
+      id
+      orgId
+      name
+      nameI18n
+      description
+      descriptionI18n
+      order
+      code
+      root
+      depth
+      path
+      createdAt
+      updatedAt
+      children
+    }
+  }
+}
+"""
+}
+
 
 data class RefreshAccessTokenResponse(
 
@@ -4641,6 +6371,7 @@ mutation registerByEmail(${'$'}input: RegisterByEmailInput!) {
     id
     arn
     userPoolId
+    status
     username
     email
     emailVerified
@@ -4722,6 +6453,7 @@ mutation registerByPhoneCode(${'$'}input: RegisterByPhoneCodeInput!) {
     id
     arn
     userPoolId
+    status
     username
     email
     emailVerified
@@ -4803,6 +6535,7 @@ mutation registerByUsername(${'$'}input: RegisterByUsernameInput!) {
     id
     arn
     userPoolId
+    status
     username
     email
     emailVerified
@@ -4854,6 +6587,153 @@ mutation registerByUsername(${'$'}input: RegisterByUsernameInput!) {
 """
 }
 
+
+data class RemoveMemberResponse(
+
+    @SerializedName("removeMember")
+    val result: Node
+)
+
+class RemoveMemberParam @JvmOverloads constructor(
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null,
+    @SerializedName("sortBy")
+    var sortBy: SortByEnum? = null,
+    @SerializedName("includeChildrenNodes")
+    var includeChildrenNodes: Boolean? = null,
+    @SerializedName("nodeId")
+    var nodeId: String? = null,
+    @SerializedName("orgId")
+    var orgId: String? = null,
+    @SerializedName("nodeCode")
+    var nodeCode: String? = null,
+    @SerializedName("userIds")
+    var userIds: List<String>
+) {
+
+    fun withPage(page: Int?): RemoveMemberParam {
+        this.page = page
+        return this
+    }
+
+    fun withLimit(limit: Int?): RemoveMemberParam {
+        this.limit = limit
+        return this
+    }
+
+    fun withSortBy(sortBy: SortByEnum?): RemoveMemberParam {
+        this.sortBy = sortBy
+        return this
+    }
+
+    fun withIncludeChildrenNodes(includeChildrenNodes: Boolean?): RemoveMemberParam {
+        this.includeChildrenNodes = includeChildrenNodes
+        return this
+    }
+
+    fun withNodeId(nodeId: String?): RemoveMemberParam {
+        this.nodeId = nodeId
+        return this
+    }
+
+    fun withOrgId(orgId: String?): RemoveMemberParam {
+        this.orgId = orgId
+        return this
+    }
+
+    fun withNodeCode(nodeCode: String?): RemoveMemberParam {
+        this.nodeCode = nodeCode
+        return this
+    }
+
+    fun build(): RemoveMemberParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            removeMemberDocument,
+            this
+        );
+    }
+
+    private val removeMemberDocument: String = """
+mutation removeMember(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum, ${'$'}includeChildrenNodes: Boolean, ${'$'}nodeId: String, ${'$'}orgId: String, ${'$'}nodeCode: String, ${'$'}userIds: [String!]!) {
+  removeMember(nodeId: ${'$'}nodeId, orgId: ${'$'}orgId, nodeCode: ${'$'}nodeCode, userIds: ${'$'}userIds) {
+    id
+    name
+    nameI18n
+    description
+    descriptionI18n
+    order
+    code
+    root
+    depth
+    createdAt
+    updatedAt
+    children
+    users(page: ${'$'}page, limit: ${'$'}limit, sortBy: ${'$'}sortBy, includeChildrenNodes: ${'$'}includeChildrenNodes) {
+      totalCount
+      list {
+        id
+        arn
+        userPoolId
+        status
+        username
+        email
+        emailVerified
+        phone
+        phoneVerified
+        unionid
+        openid
+        nickname
+        registerSource
+        photo
+        password
+        oauth
+        token
+        tokenExpiredAt
+        loginsCount
+        lastLogin
+        lastIP
+        signedUp
+        blocked
+        isDeleted
+        device
+        browser
+        company
+        name
+        givenName
+        familyName
+        middleName
+        profile
+        preferredUsername
+        website
+        gender
+        birthdate
+        zoneinfo
+        locale
+        address
+        formatted
+        streetAddress
+        locality
+        region
+        postalCode
+        city
+        province
+        country
+        createdAt
+        updatedAt
+      }
+    }
+  }
+}
+"""
+}
+
+
 data class RemovePolicyAssignmentsResponse(
 
     @SerializedName("removePolicyAssignments")
@@ -4866,11 +6746,18 @@ class RemovePolicyAssignmentsParam @JvmOverloads constructor(
     @SerializedName("targetType")
     var targetType: PolicyAssignmentTargetType,
     @SerializedName("targetIdentifiers")
-    var targetIdentifiers: List<String>? = null
+    var targetIdentifiers: List<String>? = null,
+    @SerializedName("namespace")
+    var namespace: String? = null
 ) {
 
     fun withTargetIdentifiers(targetIdentifiers: List<String>?): RemovePolicyAssignmentsParam {
         this.targetIdentifiers = targetIdentifiers
+        return this
+    }
+
+    fun withNamespace(namespace: String?): RemovePolicyAssignmentsParam {
+        this.namespace = namespace
         return this
     }
 
@@ -4886,8 +6773,8 @@ class RemovePolicyAssignmentsParam @JvmOverloads constructor(
     }
 
     private val removePolicyAssignmentsDocument: String = """
-mutation removePolicyAssignments(${'$'}policies: [String!]!, ${'$'}targetType: PolicyAssignmentTargetType!, ${'$'}targetIdentifiers: [String!]) {
-  removePolicyAssignments(policies: ${'$'}policies, targetType: ${'$'}targetType, targetIdentifiers: ${'$'}targetIdentifiers) {
+mutation removePolicyAssignments(${'$'}policies: [String!]!, ${'$'}targetType: PolicyAssignmentTargetType!, ${'$'}targetIdentifiers: [String!], ${'$'}namespace: String) {
+  removePolicyAssignments(policies: ${'$'}policies, targetType: ${'$'}targetType, targetIdentifiers: ${'$'}targetIdentifiers, namespace: ${'$'}namespace) {
     message
     code
   }
@@ -4965,10 +6852,89 @@ mutation removeUdv(${'$'}targetType: UDFTargetType!, ${'$'}targetId: String!, ${
     key
     dataType
     value
+    label
   }
 }
 """
 }
+
+
+data class RemoveUserFromGroupResponse(
+
+    @SerializedName("removeUserFromGroup")
+    val result: CommonMessage
+)
+
+class RemoveUserFromGroupParam @JvmOverloads constructor(
+    @SerializedName("userIds")
+    var userIds: List<String>,
+    @SerializedName("code")
+    var code: String? = null
+) {
+
+    fun withCode(code: String?): RemoveUserFromGroupParam {
+        this.code = code
+        return this
+    }
+
+    fun build(): RemoveUserFromGroupParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            removeUserFromGroupDocument,
+            this
+        );
+    }
+
+    private val removeUserFromGroupDocument: String = """
+mutation removeUserFromGroup(${'$'}userIds: [String!]!, ${'$'}code: String) {
+  removeUserFromGroup(userIds: ${'$'}userIds, code: ${'$'}code) {
+    message
+    code
+  }
+}
+"""
+}
+
+
+data class RemoveWhitelistResponse(
+
+    @SerializedName("removeWhitelist")
+    val result: List<WhiteList>
+)
+
+class RemoveWhitelistParam @JvmOverloads constructor(
+    @SerializedName("type")
+    var type: WhitelistType,
+    @SerializedName("list")
+    var list: List<String>
+) {
+
+
+    fun build(): RemoveWhitelistParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            removeWhitelistDocument,
+            this
+        );
+    }
+
+    private val removeWhitelistDocument: String = """
+mutation removeWhitelist(${'$'}type: WhitelistType!, ${'$'}list: [String!]!) {
+  removeWhitelist(type: ${'$'}type, list: ${'$'}list) {
+    createdAt
+    updatedAt
+    value
+  }
+}
+"""
+}
+
 
 data class ResetPasswordResponse(
 
@@ -5026,6 +6992,8 @@ data class RevokeRoleResponse(
 )
 
 class RevokeRoleParam @JvmOverloads constructor(
+    @SerializedName("namespace")
+    var namespace: String? = null,
     @SerializedName("roleCode")
     var roleCode: String? = null,
     @SerializedName("roleCodes")
@@ -5037,6 +7005,11 @@ class RevokeRoleParam @JvmOverloads constructor(
     @SerializedName("nodeCodes")
     var nodeCodes: List<String>? = null
 ) {
+
+    fun withNamespace(namespace: String?): RevokeRoleParam {
+        this.namespace = namespace
+        return this
+    }
 
     fun withRoleCode(roleCode: String?): RevokeRoleParam {
         this.roleCode = roleCode
@@ -5075,8 +7048,8 @@ class RevokeRoleParam @JvmOverloads constructor(
     }
 
     private val revokeRoleDocument: String = """
-mutation revokeRole(${'$'}roleCode: String, ${'$'}roleCodes: [String], ${'$'}userIds: [String!], ${'$'}groupCodes: [String!], ${'$'}nodeCodes: [String!]) {
-  revokeRole(roleCode: ${'$'}roleCode, roleCodes: ${'$'}roleCodes, userIds: ${'$'}userIds, groupCodes: ${'$'}groupCodes, nodeCodes: ${'$'}nodeCodes) {
+mutation revokeRole(${'$'}namespace: String, ${'$'}roleCode: String, ${'$'}roleCodes: [String], ${'$'}userIds: [String!], ${'$'}groupCodes: [String!], ${'$'}nodeCodes: [String!]) {
+  revokeRole(namespace: ${'$'}namespace, roleCode: ${'$'}roleCode, roleCodes: ${'$'}roleCodes, userIds: ${'$'}userIds, groupCodes: ${'$'}groupCodes, nodeCodes: ${'$'}nodeCodes) {
     message
     code
   }
@@ -5113,6 +7086,46 @@ class SendEmailParam @JvmOverloads constructor(
     private val sendEmailDocument: String = """
 mutation sendEmail(${'$'}email: String!, ${'$'}scene: EmailScene!) {
   sendEmail(email: ${'$'}email, scene: ${'$'}scene) {
+    message
+    code
+  }
+}
+"""
+}
+
+
+data class SetMainDepartmentResponse(
+
+    @SerializedName("setMainDepartment")
+    val result: CommonMessage
+)
+
+class SetMainDepartmentParam @JvmOverloads constructor(
+    @SerializedName("userId")
+    var userId: String,
+    @SerializedName("departmentId")
+    var departmentId: String? = null
+) {
+
+    fun withDepartmentId(departmentId: String?): SetMainDepartmentParam {
+        this.departmentId = departmentId
+        return this
+    }
+
+    fun build(): SetMainDepartmentParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            setMainDepartmentDocument,
+            this
+        );
+    }
+
+    private val setMainDepartmentDocument: String = """
+mutation setMainDepartment(${'$'}userId: String!, ${'$'}departmentId: String) {
+  setMainDepartment(userId: ${'$'}userId, departmentId: ${'$'}departmentId) {
     message
     code
   }
@@ -5205,6 +7218,51 @@ mutation setUdv(${'$'}targetType: UDFTargetType!, ${'$'}targetId: String!, ${'$'
     key
     dataType
     value
+    label
+  }
+}
+"""
+}
+
+
+data class SetUdvBatchResponse(
+
+    @SerializedName("setUdvBatch")
+    val result: List<UserDefinedData>
+)
+
+class SetUdvBatchParam @JvmOverloads constructor(
+    @SerializedName("targetType")
+    var targetType: UdfTargetType,
+    @SerializedName("targetId")
+    var targetId: String,
+    @SerializedName("udvList")
+    var udvList: List<UserDefinedDataInput>? = null
+) {
+
+    fun withUdvList(udvList: List<UserDefinedDataInput>?): SetUdvBatchParam {
+        this.udvList = udvList
+        return this
+    }
+
+    fun build(): SetUdvBatchParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            setUdvBatchDocument,
+            this
+        );
+    }
+
+    private val setUdvBatchDocument: String = """
+mutation setUdvBatch(${'$'}targetType: UDFTargetType!, ${'$'}targetId: String!, ${'$'}udvList: [UserDefinedDataInput!]) {
+  setUdvBatch(targetType: ${'$'}targetType, targetId: ${'$'}targetId, udvList: ${'$'}udvList) {
+    key
+    dataType
+    value
+    label
   }
 }
 """
@@ -5237,6 +7295,7 @@ mutation unbindEmail {
     id
     arn
     userPoolId
+    status
     username
     email
     emailVerified
@@ -5314,6 +7373,7 @@ mutation unbindPhone {
     id
     arn
     userPoolId
+    status
     username
     email
     emailVerified
@@ -5409,6 +7469,7 @@ mutation updateEmail(${'$'}email: String!, ${'$'}emailCode: String!, ${'$'}oldEm
     id
     arn
     userPoolId
+    status
     username
     email
     emailVerified
@@ -5496,6 +7557,161 @@ mutation updateFunction(${'$'}input: UpdateFunctionInput!) {
 """
 }
 
+
+data class UpdateGroupResponse(
+
+    @SerializedName("updateGroup")
+    val result: Group
+)
+
+class UpdateGroupParam @JvmOverloads constructor(
+    @SerializedName("code")
+    var code: String,
+    @SerializedName("name")
+    var name: String? = null,
+    @SerializedName("description")
+    var description: String? = null,
+    @SerializedName("newCode")
+    var newCode: String? = null
+) {
+
+    fun withName(name: String?): UpdateGroupParam {
+        this.name = name
+        return this
+    }
+
+    fun withDescription(description: String?): UpdateGroupParam {
+        this.description = description
+        return this
+    }
+
+    fun withNewCode(newCode: String?): UpdateGroupParam {
+        this.newCode = newCode
+        return this
+    }
+
+    fun build(): UpdateGroupParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            updateGroupDocument,
+            this
+        );
+    }
+
+    private val updateGroupDocument: String = """
+mutation updateGroup(${'$'}code: String!, ${'$'}name: String, ${'$'}description: String, ${'$'}newCode: String) {
+  updateGroup(code: ${'$'}code, name: ${'$'}name, description: ${'$'}description, newCode: ${'$'}newCode) {
+    code
+    name
+    description
+    createdAt
+    updatedAt
+  }
+}
+"""
+}
+
+
+data class UpdateNodeResponse(
+
+    @SerializedName("updateNode")
+    val result: Node
+)
+
+class UpdateNodeParam @JvmOverloads constructor(
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null,
+    @SerializedName("sortBy")
+    var sortBy: SortByEnum? = null,
+    @SerializedName("includeChildrenNodes")
+    var includeChildrenNodes: Boolean? = null,
+    @SerializedName("id")
+    var id: String,
+    @SerializedName("name")
+    var name: String? = null,
+    @SerializedName("code")
+    var code: String? = null,
+    @SerializedName("description")
+    var description: String? = null
+) {
+
+    fun withPage(page: Int?): UpdateNodeParam {
+        this.page = page
+        return this
+    }
+
+    fun withLimit(limit: Int?): UpdateNodeParam {
+        this.limit = limit
+        return this
+    }
+
+    fun withSortBy(sortBy: SortByEnum?): UpdateNodeParam {
+        this.sortBy = sortBy
+        return this
+    }
+
+    fun withIncludeChildrenNodes(includeChildrenNodes: Boolean?): UpdateNodeParam {
+        this.includeChildrenNodes = includeChildrenNodes
+        return this
+    }
+
+    fun withName(name: String?): UpdateNodeParam {
+        this.name = name
+        return this
+    }
+
+    fun withCode(code: String?): UpdateNodeParam {
+        this.code = code
+        return this
+    }
+
+    fun withDescription(description: String?): UpdateNodeParam {
+        this.description = description
+        return this
+    }
+
+    fun build(): UpdateNodeParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            updateNodeDocument,
+            this
+        );
+    }
+
+    private val updateNodeDocument: String = """
+mutation updateNode(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum, ${'$'}includeChildrenNodes: Boolean, ${'$'}id: String!, ${'$'}name: String, ${'$'}code: String, ${'$'}description: String) {
+  updateNode(id: ${'$'}id, name: ${'$'}name, code: ${'$'}code, description: ${'$'}description) {
+    id
+    orgId
+    name
+    nameI18n
+    description
+    descriptionI18n
+    order
+    code
+    root
+    depth
+    path
+    createdAt
+    updatedAt
+    children
+    users(page: ${'$'}page, limit: ${'$'}limit, sortBy: ${'$'}sortBy, includeChildrenNodes: ${'$'}includeChildrenNodes) {
+      totalCount
+    }
+  }
+}
+"""
+}
+
+
 data class UpdatePasswordResponse(
 
     @SerializedName("updatePassword")
@@ -5531,6 +7747,7 @@ mutation updatePassword(${'$'}newPassword: String!, ${'$'}oldPassword: String) {
     id
     arn
     userPoolId
+    status
     username
     email
     emailVerified
@@ -5626,6 +7843,7 @@ mutation updatePhone(${'$'}phone: String!, ${'$'}phoneCode: String!, ${'$'}oldPh
     id
     arn
     userPoolId
+    status
     username
     email
     emailVerified
@@ -5691,8 +7909,15 @@ class UpdatePolicyParam @JvmOverloads constructor(
     @SerializedName("statements")
     var statements: List<PolicyStatementInput>? = null,
     @SerializedName("newCode")
-    var newCode: String? = null
+    var newCode: String? = null,
+    @SerializedName("namespace")
+    var namespace: String? = null
 ) {
+
+    fun withNamespace(namespace: String?): UpdatePolicyParam {
+        this.namespace = namespace
+        return this
+    }
 
     fun withDescription(description: String?): UpdatePolicyParam {
         this.description = description
@@ -5721,19 +7946,23 @@ class UpdatePolicyParam @JvmOverloads constructor(
     }
 
     private val updatePolicyDocument: String = """
-mutation updatePolicy(${'$'}code: String!, ${'$'}description: String, ${'$'}statements: [PolicyStatementInput!], ${'$'}newCode: String) {
-  updatePolicy(code: ${'$'}code, description: ${'$'}description, statements: ${'$'}statements, newCode: ${'$'}newCode) {
+mutation updatePolicy(${'$'}namespace: String, ${'$'}code: String!, ${'$'}description: String, ${'$'}statements: [PolicyStatementInput!], ${'$'}newCode: String) {
+  updatePolicy(namespace: ${'$'}namespace, code: ${'$'}code, description: ${'$'}description, statements: ${'$'}statements, newCode: ${'$'}newCode) {
+    namespace
     code
-    isDefault
     description
     statements {
       resource
       actions
       effect
+      condition {
+        param
+        operator
+        value
+      }
     }
     createdAt
     updatedAt
-    assignmentsCount
   }
 }
 """
@@ -5752,7 +7981,9 @@ class UpdateRoleParam @JvmOverloads constructor(
     @SerializedName("description")
     var description: String? = null,
     @SerializedName("newCode")
-    var newCode: String? = null
+    var newCode: String? = null,
+    @SerializedName("namespace")
+    var namespace: String? = null
 ) {
 
     fun withDescription(description: String?): UpdateRoleParam {
@@ -5762,6 +7993,11 @@ class UpdateRoleParam @JvmOverloads constructor(
 
     fun withNewCode(newCode: String?): UpdateRoleParam {
         this.newCode = newCode
+        return this
+    }
+
+    fun withNamespace(namespace: String?): UpdateRoleParam {
+        this.namespace = namespace
         return this
     }
 
@@ -5777,22 +8013,19 @@ class UpdateRoleParam @JvmOverloads constructor(
     }
 
     private val updateRoleDocument: String = """
-mutation updateRole(${'$'}code: String!, ${'$'}description: String, ${'$'}newCode: String) {
-  updateRole(code: ${'$'}code, description: ${'$'}description, newCode: ${'$'}newCode) {
+mutation updateRole(${'$'}code: String!, ${'$'}description: String, ${'$'}newCode: String, ${'$'}namespace: String) {
+  updateRole(code: ${'$'}code, description: ${'$'}description, newCode: ${'$'}newCode, namespace: ${'$'}namespace) {
+    namespace
     code
     arn
     description
-    isSystem
     createdAt
     updatedAt
-    users {
-      totalCount
-    }
     parent {
+      namespace
       code
       arn
       description
-      isSystem
       createdAt
       updatedAt
     }
@@ -5837,6 +8070,7 @@ mutation updateUser(${'$'}id: String, ${'$'}input: UpdateUserInput!) {
     id
     arn
     userPoolId
+    status
     username
     email
     emailVerified
@@ -5889,6 +8123,100 @@ mutation updateUser(${'$'}id: String, ${'$'}input: UpdateUserInput!) {
 }
 
 
+data class UpdateUserpoolResponse(
+
+    @SerializedName("updateUserpool")
+    val result: UserPool
+)
+
+class UpdateUserpoolParam @JvmOverloads constructor(
+    @SerializedName("input")
+    var input: UpdateUserpoolInput
+) {
+
+
+    fun build(): UpdateUserpoolParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            updateUserpoolDocument,
+            this
+        );
+    }
+
+    private val updateUserpoolDocument: String = """
+mutation updateUserpool(${'$'}input: UpdateUserpoolInput!) {
+  updateUserpool(input: ${'$'}input) {
+    id
+    name
+    domain
+    description
+    secret
+    jwtSecret
+    userpoolTypes {
+      code
+      name
+      description
+      image
+      sdks
+    }
+    logo
+    createdAt
+    updatedAt
+    emailVerifiedDefault
+    sendWelcomeEmail
+    registerDisabled
+    appSsoEnabled
+    showWxQRCodeWhenRegisterDisabled
+    allowedOrigins
+    tokenExpiresAfter
+    isDeleted
+    frequentRegisterCheck {
+      timeInterval
+      limit
+      enabled
+    }
+    loginFailCheck {
+      timeInterval
+      limit
+      enabled
+    }
+    changePhoneStrategy {
+      verifyOldPhone
+    }
+    changeEmailStrategy {
+      verifyOldEmail
+    }
+    qrcodeLoginStrategy {
+      qrcodeExpiresAfter
+      returnFullUserInfo
+      allowExchangeUserInfoFromBrowser
+      ticketExpiresAfter
+    }
+    app2WxappLoginStrategy {
+      ticketExpriresAfter
+      ticketExchangeUserInfoNeedSecret
+    }
+    whitelist {
+      phoneEnabled
+      emailEnabled
+      usernameEnabled
+    }
+    customSMSProvider {
+      enabled
+      provider
+    }
+    packageType
+    useCustomUserStore
+    loginRequireEmailVerified
+  }
+}
+"""
+}
+
+
 data class AccessTokenResponse(
 
     @SerializedName("accessToken")
@@ -5920,6 +8248,102 @@ query accessToken(${'$'}userPoolId: String!, ${'$'}secret: String!) {
     accessToken
     exp
     iat
+  }
+}
+"""
+}
+
+
+data class ArchivedUsersResponse(
+
+    @SerializedName("archivedUsers")
+    val result: PaginatedUsers
+)
+
+class ArchivedUsersParam @JvmOverloads constructor(
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null
+) {
+
+    fun withPage(page: Int?): ArchivedUsersParam {
+        this.page = page
+        return this
+    }
+
+    fun withLimit(limit: Int?): ArchivedUsersParam {
+        this.limit = limit
+        return this
+    }
+
+    fun build(): ArchivedUsersParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            archivedUsersDocument,
+            this
+        );
+    }
+
+    private val archivedUsersDocument: String = """
+query archivedUsers(${'$'}page: Int, ${'$'}limit: Int) {
+  archivedUsers(page: ${'$'}page, limit: ${'$'}limit) {
+    totalCount
+    list {
+      id
+      arn
+      status
+      userPoolId
+      username
+      email
+      emailVerified
+      phone
+      phoneVerified
+      unionid
+      openid
+      nickname
+      registerSource
+      photo
+      password
+      oauth
+      token
+      tokenExpiredAt
+      loginsCount
+      lastLogin
+      lastIP
+      signedUp
+      blocked
+      isDeleted
+      device
+      browser
+      company
+      name
+      givenName
+      familyName
+      middleName
+      profile
+      preferredUsername
+      website
+      gender
+      birthdate
+      zoneinfo
+      locale
+      address
+      formatted
+      streetAddress
+      locality
+      region
+      postalCode
+      city
+      province
+      country
+      createdAt
+      updatedAt
+      externalId
+    }
   }
 }
 """
@@ -6000,6 +8424,54 @@ query checkPasswordStrength(${'$'}password: String!) {
   checkPasswordStrength(password: ${'$'}password) {
     valid
     message
+  }
+}
+"""
+}
+
+
+data class ChildrenNodesResponse(
+
+    @SerializedName("childrenNodes")
+    val result: List<Node>
+)
+
+class ChildrenNodesParam @JvmOverloads constructor(
+    @SerializedName("orgId")
+    var orgId: String,
+    @SerializedName("nodeId")
+    var nodeId: String
+) {
+
+
+    fun build(): ChildrenNodesParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            childrenNodesDocument,
+            this
+        );
+    }
+
+    private val childrenNodesDocument: String = """
+query childrenNodes(${'$'}orgId: String!, ${'$'}nodeId: String!) {
+  childrenNodes(orgId: ${'$'}orgId, nodeId: ${'$'}nodeId) {
+    id
+    orgId
+    name
+    nameI18n
+    description
+    descriptionI18n
+    order
+    code
+    root
+    depth
+    path
+    createdAt
+    updatedAt
+    children
   }
 }
 """
@@ -6092,6 +8564,7 @@ query findUser(${'$'}email: String, ${'$'}phone: String, ${'$'}username: String)
     id
     arn
     userPoolId
+    status
     username
     email
     emailVerified
@@ -6243,6 +8716,69 @@ query functions(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum) {
 }
 
 
+data class GetUserDepartmentsResponse(
+
+    @SerializedName("user")
+    val result: User
+)
+
+class GetUserDepartmentsParam @JvmOverloads constructor(
+    @SerializedName("id")
+    var id: String,
+    @SerializedName("orgId")
+    var orgId: String? = null
+) {
+
+    fun withOrgId(orgId: String?): GetUserDepartmentsParam {
+        this.orgId = orgId
+        return this
+    }
+
+    fun build(): GetUserDepartmentsParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            getUserDepartmentsDocument,
+            this
+        );
+    }
+
+    private val getUserDepartmentsDocument: String = """
+query getUserDepartments(${'$'}id: String!, ${'$'}orgId: String) {
+  user(id: ${'$'}id) {
+    departments(orgId: ${'$'}orgId) {
+      totalCount
+      list {
+        department {
+          id
+          orgId
+          name
+          nameI18n
+          description
+          descriptionI18n
+          order
+          code
+          root
+          depth
+          path
+          codePath
+          namePath
+          createdAt
+          updatedAt
+          children
+        }
+        isMainDepartment
+        joinedAt
+      }
+    }
+  }
+}
+"""
+}
+
+
 data class GetUserGroupsResponse(
 
     @SerializedName("user")
@@ -6315,15 +8851,16 @@ query getUserRoles(${'$'}id: String!) {
       totalCount
       list {
         code
+        namespace
         arn
         description
-        isSystem
         createdAt
         updatedAt
         parent {
           code
+          namespace
+          arn
           description
-          isSystem
           createdAt
           updatedAt
         }
@@ -6333,6 +8870,208 @@ query getUserRoles(${'$'}id: String!) {
 }
 """
 }
+
+
+data class GroupResponse(
+
+    @SerializedName("group")
+    val result: Group
+)
+
+class GroupParam @JvmOverloads constructor(
+    @SerializedName("code")
+    var code: String
+) {
+
+
+    fun build(): GroupParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            groupDocument,
+            this
+        );
+    }
+
+    private val groupDocument: String = """
+query group(${'$'}code: String!) {
+  group(code: ${'$'}code) {
+    code
+    name
+    description
+    createdAt
+    updatedAt
+  }
+}
+"""
+}
+
+
+data class GroupWithUsersResponse(
+
+    @SerializedName("group")
+    val result: Group
+)
+
+class GroupWithUsersParam @JvmOverloads constructor(
+    @SerializedName("code")
+    var code: String,
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null
+) {
+
+    fun withPage(page: Int?): GroupWithUsersParam {
+        this.page = page
+        return this
+    }
+
+    fun withLimit(limit: Int?): GroupWithUsersParam {
+        this.limit = limit
+        return this
+    }
+
+    fun build(): GroupWithUsersParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            groupWithUsersDocument,
+            this
+        );
+    }
+
+    private val groupWithUsersDocument: String = """
+query groupWithUsers(${'$'}code: String!, ${'$'}page: Int, ${'$'}limit: Int) {
+  group(code: ${'$'}code) {
+    users(page: ${'$'}page, limit: ${'$'}limit) {
+      totalCount
+      list {
+        id
+        arn
+        userPoolId
+        username
+        email
+        emailVerified
+        phone
+        phoneVerified
+        unionid
+        openid
+        nickname
+        registerSource
+        photo
+        password
+        oauth
+        token
+        tokenExpiredAt
+        loginsCount
+        lastLogin
+        lastIP
+        signedUp
+        blocked
+        isDeleted
+        device
+        browser
+        company
+        name
+        givenName
+        familyName
+        middleName
+        profile
+        preferredUsername
+        website
+        gender
+        birthdate
+        zoneinfo
+        locale
+        address
+        formatted
+        streetAddress
+        locality
+        region
+        postalCode
+        city
+        province
+        country
+        createdAt
+        updatedAt
+        externalId
+      }
+    }
+  }
+}
+"""
+}
+
+
+data class GroupsResponse(
+
+    @SerializedName("groups")
+    val result: PaginatedGroups
+)
+
+class GroupsParam @JvmOverloads constructor(
+    @SerializedName("userId")
+    var userId: String? = null,
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null,
+    @SerializedName("sortBy")
+    var sortBy: SortByEnum? = null
+) {
+
+    fun withUserId(userId: String?): GroupsParam {
+        this.userId = userId
+        return this
+    }
+
+    fun withPage(page: Int?): GroupsParam {
+        this.page = page
+        return this
+    }
+
+    fun withLimit(limit: Int?): GroupsParam {
+        this.limit = limit
+        return this
+    }
+
+    fun withSortBy(sortBy: SortByEnum?): GroupsParam {
+        this.sortBy = sortBy
+        return this
+    }
+
+    fun build(): GroupsParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            groupsDocument,
+            this
+        );
+    }
+
+    private val groupsDocument: String = """
+query groups(${'$'}userId: String, ${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum) {
+  groups(userId: ${'$'}userId, page: ${'$'}page, limit: ${'$'}limit, sortBy: ${'$'}sortBy) {
+    totalCount
+    list {
+      code
+      name
+      description
+      createdAt
+      updatedAt
+    }
+  }
+}
+"""
+}
+
 
 data class IsActionAllowedResponse(
 
@@ -6434,6 +9173,40 @@ query isDomainAvaliable(${'$'}domain: String!) {
 """
 }
 
+
+data class IsRootNodeResponse(
+
+    @SerializedName("isRootNode")
+    val result: Boolean
+)
+
+class IsRootNodeParam @JvmOverloads constructor(
+    @SerializedName("nodeId")
+    var nodeId: String,
+    @SerializedName("orgId")
+    var orgId: String
+) {
+
+
+    fun build(): IsRootNodeParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            isRootNodeDocument,
+            this
+        );
+    }
+
+    private val isRootNodeDocument: String = """
+query isRootNode(${'$'}nodeId: String!, ${'$'}orgId: String!) {
+  isRootNode(nodeId: ${'$'}nodeId, orgId: ${'$'}orgId)
+}
+"""
+}
+
+
 data class IsUserExistsResponse(
 
     @SerializedName("isUserExists")
@@ -6482,6 +9255,506 @@ query isUserExists(${'$'}email: String, ${'$'}phone: String, ${'$'}username: Str
 """
 }
 
+
+data class NodeByCodeResponse(
+
+    @SerializedName("nodeByCode")
+    val result: Node
+)
+
+class NodeByCodeParam @JvmOverloads constructor(
+    @SerializedName("orgId")
+    var orgId: String,
+    @SerializedName("code")
+    var code: String
+) {
+
+
+    fun build(): NodeByCodeParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            nodeByCodeDocument,
+            this
+        );
+    }
+
+    private val nodeByCodeDocument: String = """
+query nodeByCode(${'$'}orgId: String!, ${'$'}code: String!) {
+  nodeByCode(orgId: ${'$'}orgId, code: ${'$'}code) {
+    id
+    orgId
+    name
+    nameI18n
+    description
+    descriptionI18n
+    order
+    code
+    root
+    depth
+    path
+    createdAt
+    updatedAt
+    children
+  }
+}
+"""
+}
+
+
+data class NodeByCodeWithMembersResponse(
+
+    @SerializedName("nodeByCode")
+    val result: Node
+)
+
+class NodeByCodeWithMembersParam @JvmOverloads constructor(
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null,
+    @SerializedName("sortBy")
+    var sortBy: SortByEnum? = null,
+    @SerializedName("includeChildrenNodes")
+    var includeChildrenNodes: Boolean? = null,
+    @SerializedName("orgId")
+    var orgId: String,
+    @SerializedName("code")
+    var code: String
+) {
+
+    fun withPage(page: Int?): NodeByCodeWithMembersParam {
+        this.page = page
+        return this
+    }
+
+    fun withLimit(limit: Int?): NodeByCodeWithMembersParam {
+        this.limit = limit
+        return this
+    }
+
+    fun withSortBy(sortBy: SortByEnum?): NodeByCodeWithMembersParam {
+        this.sortBy = sortBy
+        return this
+    }
+
+    fun withIncludeChildrenNodes(includeChildrenNodes: Boolean?): NodeByCodeWithMembersParam {
+        this.includeChildrenNodes = includeChildrenNodes
+        return this
+    }
+
+    fun build(): NodeByCodeWithMembersParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            nodeByCodeWithMembersDocument,
+            this
+        );
+    }
+
+    private val nodeByCodeWithMembersDocument: String = """
+query nodeByCodeWithMembers(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum, ${'$'}includeChildrenNodes: Boolean, ${'$'}orgId: String!, ${'$'}code: String!) {
+  nodeByCode(orgId: ${'$'}orgId, code: ${'$'}code) {
+    id
+    orgId
+    name
+    nameI18n
+    description
+    descriptionI18n
+    order
+    code
+    root
+    depth
+    createdAt
+    updatedAt
+    children
+    users(page: ${'$'}page, limit: ${'$'}limit, sortBy: ${'$'}sortBy, includeChildrenNodes: ${'$'}includeChildrenNodes) {
+      totalCount
+      list {
+        id
+        arn
+        userPoolId
+        status
+        username
+        email
+        emailVerified
+        phone
+        phoneVerified
+        unionid
+        openid
+        nickname
+        registerSource
+        photo
+        password
+        oauth
+        token
+        tokenExpiredAt
+        loginsCount
+        lastLogin
+        lastIP
+        signedUp
+        blocked
+        isDeleted
+        device
+        browser
+        company
+        name
+        givenName
+        familyName
+        middleName
+        profile
+        preferredUsername
+        website
+        gender
+        birthdate
+        zoneinfo
+        locale
+        address
+        formatted
+        streetAddress
+        locality
+        region
+        postalCode
+        city
+        province
+        country
+        createdAt
+        updatedAt
+        externalId
+      }
+    }
+  }
+}
+"""
+}
+
+
+data class NodeByIdResponse(
+
+    @SerializedName("nodeById")
+    val result: Node
+)
+
+class NodeByIdParam @JvmOverloads constructor(
+    @SerializedName("id")
+    var id: String
+) {
+
+
+    fun build(): NodeByIdParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            nodeByIdDocument,
+            this
+        );
+    }
+
+    private val nodeByIdDocument: String = """
+query nodeById(${'$'}id: String!) {
+  nodeById(id: ${'$'}id) {
+    id
+    orgId
+    name
+    nameI18n
+    description
+    descriptionI18n
+    order
+    code
+    root
+    depth
+    path
+    createdAt
+    updatedAt
+    children
+  }
+}
+"""
+}
+
+
+data class NodeByIdWithMembersResponse(
+
+    @SerializedName("nodeById")
+    val result: Node
+)
+
+class NodeByIdWithMembersParam @JvmOverloads constructor(
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null,
+    @SerializedName("sortBy")
+    var sortBy: SortByEnum? = null,
+    @SerializedName("includeChildrenNodes")
+    var includeChildrenNodes: Boolean? = null,
+    @SerializedName("id")
+    var id: String
+) {
+
+    fun withPage(page: Int?): NodeByIdWithMembersParam {
+        this.page = page
+        return this
+    }
+
+    fun withLimit(limit: Int?): NodeByIdWithMembersParam {
+        this.limit = limit
+        return this
+    }
+
+    fun withSortBy(sortBy: SortByEnum?): NodeByIdWithMembersParam {
+        this.sortBy = sortBy
+        return this
+    }
+
+    fun withIncludeChildrenNodes(includeChildrenNodes: Boolean?): NodeByIdWithMembersParam {
+        this.includeChildrenNodes = includeChildrenNodes
+        return this
+    }
+
+    fun build(): NodeByIdWithMembersParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            nodeByIdWithMembersDocument,
+            this
+        );
+    }
+
+    private val nodeByIdWithMembersDocument: String = """
+query nodeByIdWithMembers(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum, ${'$'}includeChildrenNodes: Boolean, ${'$'}id: String!) {
+  nodeById(id: ${'$'}id) {
+    id
+    orgId
+    name
+    nameI18n
+    description
+    descriptionI18n
+    order
+    code
+    root
+    depth
+    createdAt
+    updatedAt
+    children
+    users(page: ${'$'}page, limit: ${'$'}limit, sortBy: ${'$'}sortBy, includeChildrenNodes: ${'$'}includeChildrenNodes) {
+      totalCount
+      list {
+        id
+        arn
+        userPoolId
+        status
+        username
+        email
+        emailVerified
+        phone
+        phoneVerified
+        unionid
+        openid
+        nickname
+        registerSource
+        photo
+        password
+        oauth
+        token
+        tokenExpiredAt
+        loginsCount
+        lastLogin
+        lastIP
+        signedUp
+        blocked
+        isDeleted
+        device
+        browser
+        company
+        name
+        givenName
+        familyName
+        middleName
+        profile
+        preferredUsername
+        website
+        gender
+        birthdate
+        zoneinfo
+        locale
+        address
+        formatted
+        streetAddress
+        locality
+        region
+        postalCode
+        city
+        province
+        country
+        createdAt
+        updatedAt
+        externalId
+      }
+    }
+  }
+}
+"""
+}
+
+
+data class OrgResponse(
+
+    @SerializedName("org")
+    val result: Org
+)
+
+class OrgParam @JvmOverloads constructor(
+    @SerializedName("id")
+    var id: String
+) {
+
+
+    fun build(): OrgParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            orgDocument,
+            this
+        );
+    }
+
+    private val orgDocument: String = """
+query org(${'$'}id: String!) {
+  org(id: ${'$'}id) {
+    id
+    rootNode {
+      id
+      orgId
+      name
+      nameI18n
+      description
+      descriptionI18n
+      order
+      code
+      root
+      depth
+      path
+      createdAt
+      updatedAt
+      children
+    }
+    nodes {
+      id
+      orgId
+      name
+      nameI18n
+      description
+      descriptionI18n
+      order
+      code
+      root
+      depth
+      path
+      createdAt
+      updatedAt
+      children
+    }
+  }
+}
+"""
+}
+
+
+data class OrgsResponse(
+
+    @SerializedName("orgs")
+    val result: PaginatedOrgs
+)
+
+class OrgsParam @JvmOverloads constructor(
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null,
+    @SerializedName("sortBy")
+    var sortBy: SortByEnum? = null
+) {
+
+    fun withPage(page: Int?): OrgsParam {
+        this.page = page
+        return this
+    }
+
+    fun withLimit(limit: Int?): OrgsParam {
+        this.limit = limit
+        return this
+    }
+
+    fun withSortBy(sortBy: SortByEnum?): OrgsParam {
+        this.sortBy = sortBy
+        return this
+    }
+
+    fun build(): OrgsParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            orgsDocument,
+            this
+        );
+    }
+
+    private val orgsDocument: String = """
+query orgs(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum) {
+  orgs(page: ${'$'}page, limit: ${'$'}limit, sortBy: ${'$'}sortBy) {
+    totalCount
+    list {
+      id
+      rootNode {
+        id
+        name
+        nameI18n
+        path
+        description
+        descriptionI18n
+        order
+        code
+        root
+        depth
+        createdAt
+        updatedAt
+        children
+      }
+      nodes {
+        id
+        name
+        path
+        nameI18n
+        description
+        descriptionI18n
+        order
+        code
+        root
+        depth
+        createdAt
+        updatedAt
+        children
+      }
+    }
+  }
+}
+"""
+}
+
+
 data class PoliciesResponse(
 
     @SerializedName("policies")
@@ -6493,8 +9766,8 @@ class PoliciesParam @JvmOverloads constructor(
     var page: Int? = null,
     @SerializedName("limit")
     var limit: Int? = null,
-    @SerializedName("excludeDefault")
-    var excludeDefault: Boolean? = null
+    @SerializedName("namespace")
+    var namespace: String? = null
 ) {
 
     fun withPage(page: Int?): PoliciesParam {
@@ -6507,8 +9780,8 @@ class PoliciesParam @JvmOverloads constructor(
         return this
     }
 
-    fun withExcludeDefault(excludeDefault: Boolean?): PoliciesParam {
-        this.excludeDefault = excludeDefault
+    fun withNamespace(namespace: String?): PoliciesParam {
+        this.namespace = namespace
         return this
     }
 
@@ -6524,20 +9797,24 @@ class PoliciesParam @JvmOverloads constructor(
     }
 
     private val policiesDocument: String = """
-query policies(${'$'}page: Int, ${'$'}limit: Int, ${'$'}excludeDefault: Boolean) {
-  policies(page: ${'$'}page, limit: ${'$'}limit, excludeDefault: ${'$'}excludeDefault) {
+query policies(${'$'}page: Int, ${'$'}limit: Int, ${'$'}namespace: String) {
+  policies(page: ${'$'}page, limit: ${'$'}limit, namespace: ${'$'}namespace) {
     totalCount
     list {
+      namespace
       code
-      isDefault
       description
       createdAt
       updatedAt
-      assignmentsCount
       statements {
         resource
         actions
         effect
+        condition {
+          param
+          operator
+          value
+        }
       }
     }
   }
@@ -6554,9 +9831,15 @@ data class PolicyResponse(
 
 class PolicyParam @JvmOverloads constructor(
     @SerializedName("code")
-    var code: String
+    var code: String,
+    @SerializedName("namespace")
+    var namespace: String? = null
 ) {
 
+    fun withNamespace(namespace: String?): PolicyParam {
+        this.namespace = namespace
+        return this
+    }
 
     fun build(): PolicyParam {
         return this
@@ -6570,16 +9853,21 @@ class PolicyParam @JvmOverloads constructor(
     }
 
     private val policyDocument: String = """
-query policy(${'$'}code: String!) {
-  policy(code: ${'$'}code) {
+query policy(${'$'}namespace: String, ${'$'}code: String!) {
+  policy(code: ${'$'}code, namespace: ${'$'}namespace) {
+    namespace
     code
-    assignmentsCount
     isDefault
     description
     statements {
       resource
       actions
       effect
+      condition {
+        param
+        operator
+        value
+      }
     }
     createdAt
     updatedAt
@@ -6605,8 +9893,15 @@ class PolicyAssignmentsParam @JvmOverloads constructor(
     @SerializedName("page")
     var page: Int? = null,
     @SerializedName("limit")
-    var limit: Int? = null
+    var limit: Int? = null,
+    @SerializedName("namespace")
+    var namespace: String? = null
 ) {
+
+    fun withNamespace(namespace: String?): PolicyAssignmentsParam {
+        this.namespace = namespace
+        return this
+    }
 
     fun withCode(code: String?): PolicyAssignmentsParam {
         this.code = code
@@ -6645,8 +9940,8 @@ class PolicyAssignmentsParam @JvmOverloads constructor(
     }
 
     private val policyAssignmentsDocument: String = """
-query policyAssignments(${'$'}code: String, ${'$'}targetType: PolicyAssignmentTargetType, ${'$'}targetIdentifier: String, ${'$'}page: Int, ${'$'}limit: Int) {
-  policyAssignments(code: ${'$'}code, targetType: ${'$'}targetType, targetIdentifier: ${'$'}targetIdentifier, page: ${'$'}page, limit: ${'$'}limit) {
+query policyAssignments(${'$'}namespace: String, ${'$'}code: String, ${'$'}targetType: PolicyAssignmentTargetType, ${'$'}targetIdentifier: String, ${'$'}page: Int, ${'$'}limit: Int) {
+  policyAssignments(namespace: ${'$'}namespace, code: ${'$'}code, targetType: ${'$'}targetType, targetIdentifier: ${'$'}targetIdentifier, page: ${'$'}page, limit: ${'$'}limit) {
     totalCount
     list {
       code
@@ -6849,9 +10144,15 @@ data class RoleResponse(
 
 class RoleParam @JvmOverloads constructor(
     @SerializedName("code")
-    var code: String
+    var code: String,
+    @SerializedName("namespace")
+    var namespace: String? = null
 ) {
 
+    fun withNamespace(namespace: String?): RoleParam {
+        this.namespace = namespace
+        return this
+    }
 
     fun build(): RoleParam {
         return this
@@ -6865,22 +10166,19 @@ class RoleParam @JvmOverloads constructor(
     }
 
     private val roleDocument: String = """
-query role(${'$'}code: String!) {
-  role(code: ${'$'}code) {
+query role(${'$'}code: String!, ${'$'}namespace: String) {
+  role(code: ${'$'}code, namespace: ${'$'}namespace) {
+    namespace
     code
     arn
     description
-    isSystem
     createdAt
     updatedAt
-    users {
-      totalCount
-    }
     parent {
+      namespace
       code
       arn
       description
-      isSystem
       createdAt
       updatedAt
     }
@@ -6898,9 +10196,15 @@ data class RoleWithUsersResponse(
 
 class RoleWithUsersParam @JvmOverloads constructor(
     @SerializedName("code")
-    var code: String
+    var code: String,
+    @SerializedName("namespace")
+    var namespace: String? = null
 ) {
 
+    fun withNamespace(namespace: String?): RoleWithUsersParam {
+        this.namespace = namespace
+        return this
+    }
 
     fun build(): RoleWithUsersParam {
         return this
@@ -6914,13 +10218,14 @@ class RoleWithUsersParam @JvmOverloads constructor(
     }
 
     private val roleWithUsersDocument: String = """
-query roleWithUsers(${'$'}code: String!) {
-  role(code: ${'$'}code) {
+query roleWithUsers(${'$'}code: String!, ${'$'}namespace: String) {
+  role(code: ${'$'}code, namespace: ${'$'}namespace) {
     users {
       totalCount
       list {
         id
         arn
+        status
         userPoolId
         username
         email
@@ -6988,8 +10293,15 @@ class RolesParam @JvmOverloads constructor(
     @SerializedName("limit")
     var limit: Int? = null,
     @SerializedName("sortBy")
-    var sortBy: SortByEnum? = null
+    var sortBy: SortByEnum? = null,
+    @SerializedName("namespace")
+    var namespace: String? = null
 ) {
+
+    fun withNamespace(namespace: String?): RolesParam {
+        this.namespace = namespace
+        return this
+    }
 
     fun withPage(page: Int?): RolesParam {
         this.page = page
@@ -7018,28 +10330,145 @@ class RolesParam @JvmOverloads constructor(
     }
 
     private val rolesDocument: String = """
-query roles(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum) {
-  roles(page: ${'$'}page, limit: ${'$'}limit, sortBy: ${'$'}sortBy) {
+query roles(${'$'}namespace: String, ${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum) {
+  roles(namespace: ${'$'}namespace, page: ${'$'}page, limit: ${'$'}limit, sortBy: ${'$'}sortBy) {
     totalCount
     list {
+      namespace
       code
       arn
       description
-      isSystem
       createdAt
       updatedAt
-      parent {
-        code
-        description
-        isSystem
-        createdAt
-        updatedAt
-      }
     }
   }
 }
 """
 }
+
+
+data class RootNodeResponse(
+
+    @SerializedName("rootNode")
+    val result: Node
+)
+
+class RootNodeParam @JvmOverloads constructor(
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null,
+    @SerializedName("sortBy")
+    var sortBy: SortByEnum? = null,
+    @SerializedName("includeChildrenNodes")
+    var includeChildrenNodes: Boolean? = null,
+    @SerializedName("orgId")
+    var orgId: String
+) {
+
+    fun withPage(page: Int?): RootNodeParam {
+        this.page = page
+        return this
+    }
+
+    fun withLimit(limit: Int?): RootNodeParam {
+        this.limit = limit
+        return this
+    }
+
+    fun withSortBy(sortBy: SortByEnum?): RootNodeParam {
+        this.sortBy = sortBy
+        return this
+    }
+
+    fun withIncludeChildrenNodes(includeChildrenNodes: Boolean?): RootNodeParam {
+        this.includeChildrenNodes = includeChildrenNodes
+        return this
+    }
+
+    fun build(): RootNodeParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            rootNodeDocument,
+            this
+        );
+    }
+
+    private val rootNodeDocument: String = """
+query rootNode(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum, ${'$'}includeChildrenNodes: Boolean, ${'$'}orgId: String!) {
+  rootNode(orgId: ${'$'}orgId) {
+    id
+    orgId
+    name
+    nameI18n
+    description
+    descriptionI18n
+    order
+    code
+    root
+    depth
+    path
+    codePath
+    namePath
+    createdAt
+    updatedAt
+    children
+  }
+}
+"""
+}
+
+
+data class SearchNodesResponse(
+
+    @SerializedName("searchNodes")
+    val result: List<Node>
+)
+
+class SearchNodesParam @JvmOverloads constructor(
+    @SerializedName("keyword")
+    var keyword: String
+) {
+
+
+    fun build(): SearchNodesParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            searchNodesDocument,
+            this
+        );
+    }
+
+    private val searchNodesDocument: String = """
+query searchNodes(${'$'}keyword: String!) {
+  searchNodes(keyword: ${'$'}keyword) {
+    id
+    orgId
+    name
+    nameI18n
+    description
+    descriptionI18n
+    order
+    code
+    root
+    depth
+    path
+    codePath
+    namePath
+    createdAt
+    updatedAt
+    children
+  }
+}
+"""
+}
+
 
 data class SearchUserResponse(
 
@@ -7092,6 +10521,7 @@ query searchUser(${'$'}query: String!, ${'$'}fields: [String], ${'$'}page: Int, 
       id
       arn
       userPoolId
+      status
       username
       email
       emailVerified
@@ -7395,6 +10825,7 @@ query udv(${'$'}targetType: UDFTargetType!, ${'$'}targetId: String!) {
     key
     dataType
     value
+    label
   }
 }
 """
@@ -7434,11 +10865,21 @@ query user(${'$'}id: String) {
     id
     arn
     userPoolId
+    status
     username
     email
     emailVerified
     phone
     phoneVerified
+    identities {
+      openid
+      userIdInIdp
+      userId
+      connectionId
+      isSocial
+      provider
+      userPoolId
+    }
     unionid
     openid
     nickname
@@ -7515,6 +10956,7 @@ query userBatch(${'$'}ids: [String!]!) {
     id
     arn
     userPoolId
+    status
     username
     email
     emailVerified
@@ -7565,6 +11007,98 @@ query userBatch(${'$'}ids: [String!]!) {
 }
 """
 }
+
+
+data class UserpoolResponse(
+
+    @SerializedName("userpool")
+    val result: UserPool
+)
+
+class UserpoolParam {
+
+
+    fun build(): UserpoolParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            userpoolDocument,
+            this
+        );
+    }
+
+    private val userpoolDocument: String = """
+query userpool {
+  userpool {
+    id
+    name
+    domain
+    description
+    secret
+    jwtSecret
+    userpoolTypes {
+      code
+      name
+      description
+      image
+      sdks
+    }
+    logo
+    createdAt
+    updatedAt
+    emailVerifiedDefault
+    sendWelcomeEmail
+    registerDisabled
+    appSsoEnabled
+    showWxQRCodeWhenRegisterDisabled
+    allowedOrigins
+    tokenExpiresAfter
+    isDeleted
+    frequentRegisterCheck {
+      timeInterval
+      limit
+      enabled
+    }
+    loginFailCheck {
+      timeInterval
+      limit
+      enabled
+    }
+    changePhoneStrategy {
+      verifyOldPhone
+    }
+    changeEmailStrategy {
+      verifyOldEmail
+    }
+    qrcodeLoginStrategy {
+      qrcodeExpiresAfter
+      returnFullUserInfo
+      allowExchangeUserInfoFromBrowser
+      ticketExpiresAfter
+    }
+    app2WxappLoginStrategy {
+      ticketExpriresAfter
+      ticketExchangeUserInfoNeedSecret
+    }
+    whitelist {
+      phoneEnabled
+      emailEnabled
+      usernameEnabled
+    }
+    customSMSProvider {
+      enabled
+      provider
+    }
+    packageType
+    useCustomUserStore
+    loginRequireEmailVerified
+  }
+}
+"""
+}
+
 
 data class UserpoolTypesResponse(
 
@@ -7658,10 +11192,14 @@ query userpools(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum) {
       emailVerifiedDefault
       sendWelcomeEmail
       registerDisabled
+      appSsoEnabled
       showWxQRCodeWhenRegisterDisabled
       allowedOrigins
       tokenExpiresAfter
       isDeleted
+      packageType
+      useCustomUserStore
+      loginRequireEmailVerified
     }
   }
 }
@@ -7718,6 +11256,7 @@ query users(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum) {
       id
       arn
       userPoolId
+      status
       username
       email
       emailVerified
@@ -7769,3 +11308,39 @@ query users(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum) {
 }
 """
 }
+
+
+data class WhitelistResponse(
+
+    @SerializedName("whitelist")
+    val result: List<WhiteList>
+)
+
+class WhitelistParam @JvmOverloads constructor(
+    @SerializedName("type")
+    var type: WhitelistType
+) {
+
+
+    fun build(): WhitelistParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            whitelistDocument,
+            this
+        );
+    }
+
+    private val whitelistDocument: String = """
+query whitelist(${'$'}type: WhitelistType!) {
+  whitelist(type: ${'$'}type) {
+    createdAt
+    updatedAt
+    value
+  }
+}
+"""
+}
+    

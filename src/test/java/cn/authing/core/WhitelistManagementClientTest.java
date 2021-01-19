@@ -9,54 +9,49 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class WhitelistManagementClientTest {
-    private ManagementClient managementClient;
+    
     private WhitelistManagementClient whitelistManagementClient;
-
-    private String randomString() {
-        return Integer.toString(new Random().nextInt());
-    }
 
     @Before
     public void before() throws IOException, GraphQLException {
-        managementClient = new ManagementClient("5f8d2827feaa6e31598fda94", "6cf056a42f48df61e220a47b10d893ba");
+        ManagementClient managementClient = new ManagementClient("6006d6820d57817ed7a95f84", "4bdb08da88e47a978001d236a09e27f9");
         managementClient.setHost("https://core.authing.cn");
-        whitelistManagementClient = managementClient.whitelist();
+        this.whitelistManagementClient = managementClient.whitelist();
 
         managementClient.requestToken().execute();
     }
 
     @Test
     public void list() throws IOException, GraphQLException {
-        List<WhiteList> whiteLists = whitelistManagementClient.list(WhitelistType.USERNAME).execute();
+        List<WhiteList> whiteLists = this.whitelistManagementClient.list(WhitelistType.USERNAME).execute();
         Assert.assertTrue(whiteLists.size() > 0);
     }
 
     @Test
     public void add() throws IOException, GraphQLException {
-        List<WhiteList> whiteLists = whitelistManagementClient.add(new AddWhitelistParam(WhitelistType.USERNAME, Arrays.asList("test1"))).execute();
+        List<WhiteList> whiteLists = this.whitelistManagementClient.add(new AddWhitelistParam(WhitelistType.USERNAME, Collections.singletonList("test1"))).execute();
         Assert.assertTrue(whiteLists.size() > 0);
     }
 
     @Test
     public void remove() throws IOException, GraphQLException {
-        List<WhiteList> whiteLists = whitelistManagementClient.remove(new RemoveWhitelistParam(WhitelistType.USERNAME, Arrays.asList("test"))).execute();
+        List<WhiteList> whiteLists = this.whitelistManagementClient.remove(new RemoveWhitelistParam(WhitelistType.USERNAME, Collections.singletonList("test"))).execute();
         Assert.assertTrue(whiteLists.size() > 0);
     }
 
     @Test
     public void enable() throws IOException, GraphQLException {
-        UserPool userPool = whitelistManagementClient.enable(WhitelistType.USERNAME).execute();
-        Assert.assertTrue(userPool != null);
+        UserPool userPool = this.whitelistManagementClient.enable(WhitelistType.USERNAME).execute();
+        Assert.assertNotNull(userPool);
     }
 
     @Test
     public void disable() throws IOException, GraphQLException {
-        UserPool userPool = whitelistManagementClient.disable(WhitelistType.USERNAME).execute();
-        Assert.assertTrue(userPool != null);
+        UserPool userPool = this.whitelistManagementClient.disable(WhitelistType.USERNAME).execute();
+        Assert.assertNotNull(userPool);
     }
 }

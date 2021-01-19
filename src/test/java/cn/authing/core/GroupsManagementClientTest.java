@@ -3,91 +3,84 @@ package cn.authing.core;
 import cn.authing.core.graphql.GraphQLException;
 import cn.authing.core.mgmt.GroupsManagementClient;
 import cn.authing.core.mgmt.ManagementClient;
-import cn.authing.core.mgmt.WhitelistManagementClient;
 import cn.authing.core.types.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.Collections;
 
 public class GroupsManagementClientTest {
-    private ManagementClient managementClient;
-    private GroupsManagementClient groupsManagementClient;
 
-    private String randomString() {
-        return Integer.toString(new Random().nextInt());
-    }
+    private GroupsManagementClient groupsManagementClient;
 
     @Before
     public void before() throws IOException, GraphQLException {
-        managementClient = new ManagementClient("5f8d2827feaa6e31598fda94", "6cf056a42f48df61e220a47b10d893ba");
+        ManagementClient managementClient = new ManagementClient("6006d6820d57817ed7a95f84", "4bdb08da88e47a978001d236a09e27f9");
         managementClient.setHost("https://core.authing.cn");
-        groupsManagementClient = managementClient.group();
+        this.groupsManagementClient = managementClient.group();
 
         managementClient.requestToken().execute();
     }
 
     @Test
     public void create() throws IOException, GraphQLException {
-        Group group = groupsManagementClient.create(new CreateGroupParam("code1", "name1", "desc1")).execute();
-        Assert.assertTrue(group != null);
+        Group group = this.groupsManagementClient.create(new CreateGroupParam("code1", "name1", "desc1")).execute();
+        Assert.assertNotNull(group);
     }
 
     @Test
     public void list() throws IOException, GraphQLException {
-        PaginatedGroups groups = groupsManagementClient.list(new GroupsParam()).execute();
+        PaginatedGroups groups = this.groupsManagementClient.list(new GroupsParam()).execute();
         Assert.assertTrue(groups.getList().size() > 0);
     }
 
     @Test
     public void update() throws IOException, GraphQLException {
-        Group group = groupsManagementClient.update(new UpdateGroupParam("code1","name11","desc11","code1")).execute();
-        Assert.assertTrue(group != null);
+        Group group = this.groupsManagementClient.update(new UpdateGroupParam("code1","name11","desc11","code1")).execute();
+        Assert.assertNotNull(group);
     }
 
     @Test
     public void detail() throws IOException, GraphQLException {
-        Group group = groupsManagementClient.detail("code1").execute();
-        Assert.assertTrue(group != null);
+        Group group = this.groupsManagementClient.detail("code1").execute();
+        Assert.assertNotNull(group);
     }
 
     @Test
     public void addUsers() throws IOException, GraphQLException {
-        CommonMessage commonMessage = groupsManagementClient.addUsers(new AddUserToGroupParam(Arrays.asList("5f8d2827c41264570d13200f"),"code1")).execute();
-        Assert.assertTrue(commonMessage != null);
+        CommonMessage commonMessage = this.groupsManagementClient.addUsers(new AddUserToGroupParam(Collections.singletonList("6006d918c9695bce41a8d53b"),"code1")).execute();
+        Assert.assertNotNull(commonMessage);
     }
 
     @Test
     public void listUsers() throws IOException, GraphQLException {
-        PaginatedUsers users = groupsManagementClient.listUsers("code1").execute();
-        Assert.assertTrue(users != null);
+        PaginatedUsers users = this.groupsManagementClient.listUsers("code1").execute();
+        Assert.assertNotNull(users);
     }
 
     @Test
     public void listUsersWithPage() throws IOException, GraphQLException {
-        PaginatedUsers users = groupsManagementClient.listUsers(new GroupWithUsersParam("code1",1,1)).execute();
-        Assert.assertTrue(users != null);
+        PaginatedUsers users = this.groupsManagementClient.listUsers(new GroupWithUsersParam("code1",1,1)).execute();
+        Assert.assertNotNull(users);
     }
 
     @Test
     public void removeUsers() throws IOException, GraphQLException {
-        CommonMessage commonMessage = groupsManagementClient.removeUsers(new RemoveUserFromGroupParam(Arrays.asList("5f8d2827c41264570d13200f"),"code1")).execute();
-        Assert.assertTrue(commonMessage != null);
+        CommonMessage commonMessage = this.groupsManagementClient.removeUsers(new RemoveUserFromGroupParam(Collections.singletonList("6006d918c9695bce41a8d53b"),"code1")).execute();
+        Assert.assertNotNull(commonMessage);
     }
 
     @Test
     public void delete() throws IOException, GraphQLException {
-        CommonMessage commonMessage = groupsManagementClient.delete("code1").execute();
-        Assert.assertTrue(commonMessage != null);
+        CommonMessage commonMessage = this.groupsManagementClient.delete("code1").execute();
+        Assert.assertNotNull(commonMessage);
     }
 
     @Test
     public void deleteMany() throws IOException, GraphQLException {
-        CommonMessage commonMessage = groupsManagementClient.deleteMany(Arrays.asList("code1")).execute();
-        Assert.assertTrue(commonMessage != null);
+        CommonMessage commonMessage = this.groupsManagementClient.deleteMany(Collections.singletonList("code1")).execute();
+        Assert.assertNotNull(commonMessage);
     }
 }

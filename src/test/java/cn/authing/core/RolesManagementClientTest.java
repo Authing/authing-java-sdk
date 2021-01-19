@@ -10,10 +10,11 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 public class RolesManagementClientTest {
-    private ManagementClient managementClient;
+    
     private RolesManagementClient rolesManagementClient;
 
     private String randomString() {
@@ -22,76 +23,76 @@ public class RolesManagementClientTest {
 
     @Before
     public void before() throws IOException, GraphQLException {
-        managementClient = new ManagementClient("59f86b4832eb28071bdd9214", "4b880fff06b080f154ee48c9e689a541");
-        managementClient.setHost("http://localhost:3000");
-        rolesManagementClient = managementClient.roles();
+        ManagementClient managementClient = new ManagementClient("6006d6820d57817ed7a95f84", "4bdb08da88e47a978001d236a09e27f9");
+        managementClient.setHost("https://core.authing.cn");
+        this.rolesManagementClient = managementClient.roles();
 
         managementClient.requestToken().execute();
     }
 
     @Test
     public void list() throws IOException, GraphQLException {
-        PaginatedRoles roles = rolesManagementClient.list().execute();
+        PaginatedRoles roles = this.rolesManagementClient.list().execute();
         Assert.assertTrue(roles.getTotalCount() > 0);
     }
 
     @Test
     public void create() throws IOException, GraphQLException {
         String code = randomString();
-        Role role = rolesManagementClient.create(new CreateRoleParam(code)).execute();
+        Role role = this.rolesManagementClient.create(new CreateRoleParam(code)).execute();
         Assert.assertEquals(role.getCode(), code);
     }
 
     @Test
     public void update() throws IOException, GraphQLException {
         String code = randomString();
-        rolesManagementClient.create(new CreateRoleParam(code)).execute();
-        Role role = rolesManagementClient.update(new UpdateRoleParam(code).withDescription("desc")).execute();
+        this.rolesManagementClient.create(new CreateRoleParam(code)).execute();
+        Role role = this.rolesManagementClient.update(new UpdateRoleParam(code).withDescription("desc")).execute();
         Assert.assertEquals(role.getCode(), code);
     }
 
     @Test
     public void detail() throws IOException, GraphQLException {
         String code = randomString();
-        rolesManagementClient.create(new CreateRoleParam(code)).execute();
-        Role role = rolesManagementClient.detail(code).execute();
+        this.rolesManagementClient.create(new CreateRoleParam(code)).execute();
+        Role role = this.rolesManagementClient.detail(code).execute();
         Assert.assertEquals(role.getCode(), code);
     }
 
     @Test
     public void delete() throws IOException, GraphQLException {
         String code = randomString();
-        rolesManagementClient.create(new CreateRoleParam(code)).execute();
-        CommonMessage message = rolesManagementClient.delete(code).execute();
-        Assert.assertEquals(message.getCode().intValue(), 200);
+        this.rolesManagementClient.create(new CreateRoleParam(code)).execute();
+        CommonMessage message = this.rolesManagementClient.delete(code).execute();
+        Assert.assertEquals(Objects.requireNonNull(message.getCode()).intValue(), 200);
     }
 
     @Test
     public void deleteMany() throws IOException, GraphQLException {
         String code = randomString();
-        rolesManagementClient.create(new CreateRoleParam(code)).execute();
+        this.rolesManagementClient.create(new CreateRoleParam(code)).execute();
 
-        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String> list = new ArrayList<>();
         list.add(code);
-        CommonMessage result = rolesManagementClient.deleteMany(list).execute();
-        Assert.assertTrue(result.getCode() > 0);
+        CommonMessage result = this.rolesManagementClient.deleteMany(list).execute();
+        Assert.assertNotNull(result);
     }
 
     @Test
     public void listUsers() throws IOException, GraphQLException {
         String code = randomString();
-        rolesManagementClient.create(new CreateRoleParam(code)).execute();
+        this.rolesManagementClient.create(new CreateRoleParam(code)).execute();
 
-        PaginatedUsers users = rolesManagementClient.listUsers(code).execute();
-        Assert.assertTrue(users.getTotalCount() == 0);
+        PaginatedUsers users = this.rolesManagementClient.listUsers(code).execute();
+        Assert.assertEquals(0, users.getTotalCount());
     }
 
     @Test
     public void listPolicies() throws IOException, GraphQLException {
         String code = randomString();
-        rolesManagementClient.create(new CreateRoleParam(code)).execute();
+        this.rolesManagementClient.create(new CreateRoleParam(code)).execute();
 
-        PaginatedPolicyAssignments result = rolesManagementClient.listPolicies(code).execute();
-        Assert.assertTrue(result.getTotalCount() == 0);
+        PaginatedPolicyAssignments result = this.rolesManagementClient.listPolicies(code).execute();
+        Assert.assertEquals(0, result.getTotalCount());
     }
 }

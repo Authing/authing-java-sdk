@@ -13,41 +13,37 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Random;
+import java.util.Objects;
 
 public class UdfManagementClientTest {
-    private ManagementClient managementClient;
-    private UdfManagementClient udfManagementClient;
 
-    private String randomString() {
-        return Integer.toString(new Random().nextInt());
-    }
+    private UdfManagementClient udfManagementClient;
 
     @Before
     public void before() throws IOException, GraphQLException {
-        managementClient = new ManagementClient("59f86b4832eb28071bdd9214", "4b880fff06b080f154ee48c9e689a541");
-        managementClient.setHost("http://localhost:3000");
-        udfManagementClient = managementClient.udf();
+        ManagementClient managementClient = new ManagementClient("6006d6820d57817ed7a95f84", "4bdb08da88e47a978001d236a09e27f9");
+        managementClient.setHost("https://core.authing.cn");
+        this.udfManagementClient = managementClient.udf();
 
         managementClient.requestToken().execute();
     }
 
     @Test
     public void list() throws IOException, GraphQLException {
-        List<UserDefinedField> list = udfManagementClient.list(UdfTargetType.USER).execute();
+        List<UserDefinedField> list = this.udfManagementClient.list(UdfTargetType.USER).execute();
         Assert.assertTrue(list.size() > 0);
     }
 
     @Test
     public void set() throws IOException, GraphQLException {
-        UserDefinedField udf = udfManagementClient.set(UdfTargetType.USER, "key", UdfDataType.STRING, "label").execute();
+        UserDefinedField udf = this.udfManagementClient.set(UdfTargetType.USER, "key", UdfDataType.STRING, "label").execute();
         Assert.assertEquals(udf.getKey(), "key");
     }
 
     @Test
     public void remove() throws IOException, GraphQLException {
-        udfManagementClient.set(UdfTargetType.USER, "key", UdfDataType.STRING, "label").execute();
-        CommonMessage message = udfManagementClient.remove(UdfTargetType.USER, "key").execute();
-        Assert.assertEquals(message.getCode().intValue(), 200);
+        this.udfManagementClient.set(UdfTargetType.USER, "key", UdfDataType.STRING, "label").execute();
+        CommonMessage message = this.udfManagementClient.remove(UdfTargetType.USER, "key").execute();
+        Assert.assertEquals(Objects.requireNonNull(message.getCode()).intValue(), 200);
     }
 }

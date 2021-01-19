@@ -12,14 +12,13 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class UsersManagementClientTest {
-    private ManagementClient managementClient;
+    
     private UsersManagementClient usersManagementClient;
-
     private String email;
-    private String password;
     private User user;
 
     private String randomString() {
@@ -28,27 +27,27 @@ public class UsersManagementClientTest {
 
     @Before
     public void before() throws IOException, GraphQLException {
-        managementClient = new ManagementClient("5f8d2827feaa6e31598fda94", "6cf056a42f48df61e220a47b10d893ba");
+        ManagementClient managementClient = new ManagementClient("6006d6820d57817ed7a95f84", "4bdb08da88e47a978001d236a09e27f9");
         managementClient.setHost("https://core.authing.cn");
-        usersManagementClient = managementClient.users();
+        this.usersManagementClient = managementClient.users();
 
         managementClient.requestToken().execute();
 
         email = randomString() + "@gmail.com";
-        password = "123456";
+        String password = "123456";
 
-        user = usersManagementClient.create(new CreateUserInput().withEmail(email).withPassword(password)).execute();
+        user = this.usersManagementClient.create(new CreateUserInput().withEmail(email).withPassword(password)).execute();
     }
 
     @After
     public void after() throws IOException, GraphQLException {
         if (user == null) return;
-        usersManagementClient.delete(user.getId()).execute();
+        this.usersManagementClient.delete(user.getId()).execute();
     }
 
     @Test
     public void list() throws IOException, GraphQLException {
-        PaginatedUsers users = usersManagementClient.list().execute();
+        PaginatedUsers users = this.usersManagementClient.list().execute();
         Assert.assertTrue(users.getTotalCount() > 0);
     }
 
@@ -59,20 +58,20 @@ public class UsersManagementClientTest {
 
     @Test
     public void update() throws IOException, GraphQLException {
-        User result = usersManagementClient.update(user.getId(), new UpdateUserInput().withNickname("nickname")).execute();
+        User result = this.usersManagementClient.update(user.getId(), new UpdateUserInput().withNickname("nickname")).execute();
         Assert.assertEquals(result.getNickname(), "nickname");
     }
 
     @Test
     public void detail() throws IOException, GraphQLException {
-        User result = usersManagementClient.detail(user.getId()).execute();
+        User result = this.usersManagementClient.detail(user.getId()).execute();
         Assert.assertEquals(result.getEmail(), email);
     }
 
     @Test
     public void search() throws IOException, GraphQLException {
         String query = "gmail";
-        PaginatedUsers users = usersManagementClient.search(query).execute();
+        PaginatedUsers users = this.usersManagementClient.search(query).execute();
         Assert.assertTrue(users.getTotalCount() > 0);
     }
 
@@ -81,7 +80,7 @@ public class UsersManagementClientTest {
         String email = "test@gmail.com";
         FindUserParam findUserParam = new FindUserParam();
         findUserParam.setEmail(email);
-        User user = usersManagementClient.find(findUserParam).execute();
+        User user = this.usersManagementClient.find(findUserParam).execute();
         Assert.assertEquals(email, user.getEmail());
     }
 
@@ -89,59 +88,59 @@ public class UsersManagementClientTest {
     public void batch() throws IOException, GraphQLException {
         ArrayList<String> list = new ArrayList<>();
         list.add(user.getId());
-        List<User> users = usersManagementClient.batch(list).execute();
+        List<User> users = this.usersManagementClient.batch(list).execute();
         Assert.assertTrue(users.size() > 0);
     }
 
     @Test
     public void delete() throws IOException, GraphQLException {
-        CommonMessage message = usersManagementClient.delete(user.getId()).execute();
+        CommonMessage message = this.usersManagementClient.delete(user.getId()).execute();
         user = null;
-        Assert.assertEquals(message.getCode().intValue(), 200);
+        Assert.assertEquals(Objects.requireNonNull(message.getCode()).intValue(), 200);
     }
 
     @Test
     public void deleteMany() throws IOException, GraphQLException {
         ArrayList<String> list = new ArrayList<>();
         list.add(user.getId());
-        CommonMessage message = usersManagementClient.deleteMany(list).execute();
+        CommonMessage message = this.usersManagementClient.deleteMany(list).execute();
         user = null;
-        Assert.assertEquals(message.getCode().intValue(), 200);
+        Assert.assertEquals(Objects.requireNonNull(message.getCode()).intValue(), 200);
     }
 
     @Test
     public void refreshToken() throws IOException, GraphQLException {
-        RefreshToken token = usersManagementClient.refreshToken(user.getId()).execute();
+        RefreshToken token = this.usersManagementClient.refreshToken(user.getId()).execute();
         Assert.assertNotNull(token.getToken());
     }
 
     @Test
     public void exists() throws IOException, GraphQLException {
-        Boolean b = usersManagementClient.exists(new IsUserExistsParam().withEmail("test@test.com")).execute();
+        Boolean b = this.usersManagementClient.exists(new IsUserExistsParam().withEmail("test@test.com")).execute();
         Assert.assertTrue(b);
     }
 
     @Test
     public void listRoles() throws IOException, GraphQLException {
-        PaginatedRoles roles = usersManagementClient.listRoles(user.getId()).execute();
-        Assert.assertTrue(roles.getTotalCount() == 0);
+        PaginatedRoles roles = this.usersManagementClient.listRoles(user.getId()).execute();
+        Assert.assertEquals(0, roles.getTotalCount());
     }
 
     @Test
     public void listPolicies() throws IOException, GraphQLException {
-        PaginatedPolicyAssignments result = usersManagementClient.listPolicies(user.getId()).execute();
-        Assert.assertTrue(result.getTotalCount() == 0);
+        PaginatedPolicyAssignments result = this.usersManagementClient.listPolicies(user.getId()).execute();
+        Assert.assertEquals(0, result.getTotalCount());
     }
 
     @Test
     public void listUdv() throws IOException, GraphQLException {
-        List<UserDefinedData> udv = usersManagementClient.listUdv("5f9255b3dcb8f43e1a421fa4").execute();
+        List<UserDefinedData> udv = this.usersManagementClient.listUdv("5f9255b3dcb8f43e1a421fa4").execute();
         Assert.assertEquals(0, udv.size());
     }
 
     @Test
     public void listOrgs() throws IOException, GraphQLException {
-        List<List<Org>> orgs =  usersManagementClient.listOrgs("5f8d2827c41264570d13200f").execute();
+        List<List<Org>> orgs =  this.usersManagementClient.listOrgs("5f8d2827c41264570d13200f").execute();
 
         Assert.assertEquals(0, orgs.size());
     }

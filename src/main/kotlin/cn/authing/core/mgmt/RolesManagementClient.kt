@@ -3,7 +3,6 @@ package cn.authing.core.mgmt
 import cn.authing.core.graphql.GraphQLCall
 import cn.authing.core.graphql.GraphQLResponse
 import cn.authing.core.types.*
-import com.google.gson.annotations.SerializedName
 import com.google.gson.reflect.TypeToken
 
 /**
@@ -18,9 +17,10 @@ class RolesManagementClient(private val client: ManagementClient) {
     fun list(
         page: Int? = null,
         limit: Int? = null,
-        sortBy: SortByEnum? = null
+        sortBy: SortByEnum? = null,
+        namespace: String? = null
     ): GraphQLCall<RolesResponse, PaginatedRoles> {
-        val param = RolesParam(page, limit, sortBy)
+        val param = RolesParam(page, limit, sortBy, namespace)
         return list(param)
     }
 
@@ -42,9 +42,10 @@ class RolesManagementClient(private val client: ManagementClient) {
     fun create(
         code: String,
         description: String? = null,
-        parent: String? = null
+        parent: String? = null,
+        namespace: String? = null
     ): GraphQLCall<CreateRoleResponse, Role> {
-        val param = CreateRoleParam(code, description, parent)
+        val param = CreateRoleParam(code, description, parent, namespace)
         return create(param)
     }
 
@@ -162,9 +163,10 @@ class RolesManagementClient(private val client: ManagementClient) {
     fun listPolicies(
         code: String,
         page: Int? = null,
-        limit: Int? = null
+        limit: Int? = null,
+        namespace: String? = null
     ): GraphQLCall<PolicyAssignmentsResponse, PaginatedPolicyAssignments> {
-        val param = PolicyAssignmentsParam(null, PolicyAssignmentTargetType.ROLE, code, page, limit)
+        val param = PolicyAssignmentsParam(null, PolicyAssignmentTargetType.ROLE, code, page, limit, namespace)
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<PolicyAssignmentsResponse>>() {}) {
