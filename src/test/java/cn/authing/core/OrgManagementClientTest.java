@@ -25,8 +25,8 @@ public class OrgManagementClientTest {
 
     @Before
     public void before() throws IOException, GraphQLException {
-        managementClient = new ManagementClient("5f8d2827feaa6e31598fda94", "6cf056a42f48df61e220a47b10d893ba");
-        managementClient.setHost("https://core.authing.cn");
+        managementClient = new ManagementClient("6006c10b7ecec71f34bd57b8", "c1020f5de408b84b1ceb915100475e6b");
+        managementClient.setHost("http://127.0.0.1:3000");
         orgManagementClient = managementClient.org();
 
         managementClient.requestToken().execute();
@@ -56,6 +56,12 @@ public class OrgManagementClientTest {
     public void list() throws IOException, GraphQLException {
         PaginatedOrgs paginatedOrgs = orgManagementClient.list(new OrgsParam()).execute();
         Assert.assertTrue(paginatedOrgs != null);
+    }
+
+    @Test
+    public void searchNodes() throws IOException, GraphQLException {
+        List<Node> list = orgManagementClient.searchNodes(new SearchNodesParam("test")).execute();
+        Assert.assertTrue(list.size() != 0);
     }
 
     @Test

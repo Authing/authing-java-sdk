@@ -138,6 +138,17 @@ class OrgManagementClient(private val client: ManagementClient) {
     }
 
     /**
+     * 模糊搜索组织节点
+     */
+    fun searchNodes(param: SearchNodesParam): GraphQLCall<SearchNodesResponse, List<Node>> {
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<SearchNodesResponse>>() {}) {
+            it.result
+        }
+    }
+
+    /**
      * 节点添加成员
      */
     fun addMembers(nodeId: String, userIds: List<String>): GraphQLCall<AddMemberResponse, Node> {

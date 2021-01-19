@@ -8,6 +8,9 @@ data class Node(
     /** @param [id] id */
     @SerializedName("id")
     var id: String,
+    /** @param [orgId] 组织机构 ID */
+    @SerializedName("orgId")
+    var orgId: String? = null,
     /** @param [name] 节点名称 */
     @SerializedName("name")
     var name: String,
@@ -29,12 +32,18 @@ data class Node(
     /** @param [root] 是否为根节点 */
     @SerializedName("root")
     var root: Boolean? = null,
-    /** @param [depth] 距离父节点的深度（如果是查询整棵树，返回的 **depth** 为距离根节点的深度，如果是查询某个节点的子节点，返回的 **depath** 指的是距离该节点的深度。） */
+    /** @param [depth] 距离父节点的深度（如果是查询整棵树，返回的 **depth** 为距离根节点的深度，如果是查询某个节点的子节点，返回的 **depth** 指的是距离该节点的深度。） */
     @SerializedName("depth")
     var depth: Int? = null,
     /** @param [path] path */
     @SerializedName("path")
     var path: List<String>,
+    /** @param [codePath] codePath */
+    @SerializedName("codePath")
+    var codePath: List<String>,
+    /** @param [namePath] namePath */
+    @SerializedName("namePath")
+    var namePath: List<String>,
     /** @param [createdAt] createdAt */
     @SerializedName("createdAt")
     var createdAt: String? = null,
@@ -46,10 +55,7 @@ data class Node(
     var children: List<String>? = null,
     /** @param [users] 节点的用户列表 */
     @SerializedName("users")
-    var users: PaginatedUsers,
-    /** @param [orgId] 机构 ID */
-    @SerializedName("orgId")
-    var orgId: String? = null
+    var users: PaginatedUsers
 )
 
 data class DeleteNodeResponse(
@@ -340,7 +346,6 @@ mutation moveNode(${'$'}orgId: String!, ${'$'}nodeId: String!, ${'$'}targetParen
 }
 
 
-
 data class ChildrenNodesResponse(
 
     @SerializedName("childrenNodes")
@@ -388,7 +393,6 @@ query childrenNodes(${'$'}orgId: String!, ${'$'}nodeId: String!) {
 }
 
 
-
 data class IsRootNodeResponse(
 
     @SerializedName("isRootNode")
@@ -420,7 +424,6 @@ query isRootNode(${'$'}nodeId: String!, ${'$'}orgId: String!) {
 }
 """
 }
-
 
 
 data class NodeByCodeResponse(
@@ -468,7 +471,6 @@ query nodeByCode(${'$'}orgId: String!, ${'$'}code: String!) {
 }
 """
 }
-
 
 
 data class NodeByIdResponse(
@@ -641,7 +643,6 @@ query nodeByIdWithMembers(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortB
 }
 
 
-
 data class RootNodeResponse(
 
     @SerializedName("rootNode")
@@ -715,7 +716,6 @@ query rootNode(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum, ${'$
 }
 """
 }
-
 
 
 data class NodeByCodeWithMembersResponse(
@@ -843,7 +843,6 @@ query nodeByCodeWithMembers(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: Sor
 }
 """
 }
-
 
 
 data class AddMemberResponse(
@@ -1139,6 +1138,51 @@ mutation removeMember(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnu
         updatedAt
       }
     }
+  }
+}
+"""
+}
+
+data class SearchNodesResponse (
+
+    @SerializedName("searchNodes")
+    val result: List<Node>
+)
+
+class SearchNodesParam @JvmOverloads constructor (    @SerializedName("keyword")
+                                                      var keyword: String)  {
+
+
+    fun build(): SearchNodesParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            searchNodesDocument,
+            this
+        );
+    }
+
+    private val searchNodesDocument: String = """
+query searchNodes(${'$'}keyword: String!) {
+  searchNodes(keyword: ${'$'}keyword) {
+    id
+    orgId
+    name
+    nameI18n
+    description
+    descriptionI18n
+    order
+    code
+    root
+    depth
+    path
+    codePath
+    namePath
+    createdAt
+    updatedAt
+    children
   }
 }
 """
