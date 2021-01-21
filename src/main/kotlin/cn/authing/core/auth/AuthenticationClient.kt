@@ -6,10 +6,9 @@ import cn.authing.core.graphql.GraphQLResponse
 import cn.authing.core.http.HttpCall
 import cn.authing.core.types.*
 import com.google.gson.Gson
-import com.google.gson.annotations.SerializedName
+import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import java.io.IOException
-import java.lang.Exception
 
 class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     private var user: User? = null
@@ -105,6 +104,18 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
             object : TypeToken<GraphQLResponse<LoginByPhonePasswordResponse>>() {}) {
             user = it.result
             accessToken = it.result.token ?: accessToken
+            return@createGraphQLCall it.result
+        }
+    }
+
+    /**
+     * 检查密码强度
+     */
+    fun checkPasswordStrength(password: String): GraphQLCall<CheckPasswordStrengthResponse, CheckPasswordStrengthResult> {
+        val param = CheckPasswordStrengthParam(password);
+        return createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<CheckPasswordStrengthResponse>>() {}) {
             return@createGraphQLCall it.result
         }
     }
@@ -298,6 +309,36 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     }
 
     /**
+     * 解绑邮箱
+     */
+    fun unbindEmail(): GraphQLCall<UnbindEmailResponse, User> {
+        val param = UnbindEmailParam()
+        return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<UnbindEmailResponse>>() {}) {
+            user = it.result
+            accessToken = it.result.token ?: accessToken
+            return@createGraphQLCall it.result
+        }
+    }
+
+    /**
+     * 关联账号，将社交账号绑定到主账号（手机号、邮箱账号）
+     * primaryUserToken: 主账号 Token
+     * secondaryUserToken: 社交账号 Token
+     */
+    fun linkAccount(primaryUserToken: String, secondaryUserToken: String): HttpCall<CommonMessage, CommonMessage> {
+        val url = "$host/api/v2/users/link"
+        val json = "{ \"primaryUserToken\": \"$primaryUserToken\", \"secondaryUserToken\": \"$secondaryUserToken\" }"
+
+        return createHttpPostCall(url, json, object : TypeToken<CommonMessage>() {}) {
+            if(it.code != 200){
+                throw IOException(it.message)
+            }else{
+                it
+            }
+        }
+    }
+
+    /**
      * 刷新用户 access token
      */
     fun refreshToken(): GraphQLCall<RefreshTokenResponse, RefreshToken> {
@@ -395,4 +436,33 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
             it.data
         }
     }
+
+    /**
+     * 使用 LDAP 用户名登录，如果你的用户池配置了登录失败检测，当同一  IP 下登录多次失败的时候会要求用户输入图形验证码（code 为 2000)。
+     */
+    fun loginByLdap(param: LoginByLdapParam): HttpCall<RestfulResponse<User>, User> {
+        return this.createHttpPostCall(
+            "${this.host}/api/v2/ldap/verify-user",
+            GsonBuilder().create().toJson(param),
+            object : TypeToken<RestfulResponse<User>>() {}) {
+            user = it.data
+            accessToken = it.data.token ?: accessToken
+            it.data
+        }
+    }
+
+    /**
+     * 使用 AD 用户名登录
+     */
+    fun loginByAd(username: String, password: String): HttpCall<RestfulResponse<User>, User> {
+        return this.createHttpPostCall(
+            "ws.${this.host}/api/v2/ad/verify-user",
+            "{ \"username\": \"$username\", \"password\": \"$password\" }",
+            object : TypeToken<RestfulResponse<User>>() {}) {
+            user = it.data
+            accessToken = it.data.token ?: accessToken
+            it.data
+        }
+    }
+
 }

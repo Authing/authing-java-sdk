@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -252,4 +253,37 @@ public class AuthenticationClientTest {
         List<List<Org>> orgs = this.authenticationClient.listOrgs().execute();
         Assert.assertEquals(0, orgs.size());
     }
+
+    @Test
+    public void linkAccount() throws IOException {
+        String primaryUserToken = "test";
+        String secondaryUserToken = "test";
+        CommonMessage message = this.authenticationClient.linkAccount(primaryUserToken, secondaryUserToken).execute();
+        Assert.assertEquals(Objects.requireNonNull(message.getCode()).intValue(), 200);
+    }
+
+    @Test
+    public void loginByLdap() throws IOException {
+        String username = "test";
+        String password = "test";
+        LoginByLdapParam loginByLdapParam = new LoginByLdapParam(username, password);
+        User user = this.authenticationClient.loginByLdap(loginByLdapParam).execute();
+        Assert.assertEquals(username, user.getUsername());
+    }
+
+    @Test
+    public void loginByAd() throws IOException {
+        String username = "test";
+        String password = "test";
+        User user = this.authenticationClient.loginByAd(username, password).execute();
+        Assert.assertEquals(username, user.getUsername());
+    }
+
+    @Test
+    public void checkPasswordStrength() throws IOException, GraphQLException {
+        String password = "test";
+        CheckPasswordStrengthResult result = this.authenticationClient.checkPasswordStrength(password).execute();
+        Assert.assertTrue(result.getValid());
+    }
+
 }
