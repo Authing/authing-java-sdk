@@ -2,6 +2,7 @@ apply plugin: 'maven-publish'
 
 def binApiKey = 'it is a secret'
 def mavenCentralPassword = "it is a secret"
+def mavenPrivatePassword = "it is a secret"
 def binUser = "authing"
 def versionCode = '4.3.2'
 def pomConfig = {
@@ -62,6 +63,15 @@ publishing {
                 root.appendNode('name', 'AuthingSDK')
                 root.appendNode('url', 'https://authing.cn/')
                 root.children().last() + pomConfig
+            }
+        }
+    }
+    repositories {
+        maven {
+            url "https://maven.authing.co/repository/maven-releases"
+            credentials {
+                username = 'lihan'
+                password = mavenPrivatePassword
             }
         }
     }
