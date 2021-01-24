@@ -68,7 +68,7 @@ public class OrgManagementClientTest {
     @Test
     public void addNode() throws IOException, GraphQLException {
         Org org3 = this.orgManagementClient.create(new CreateOrgParam("org3", "name3", "desc3")).execute();
-        AddNodeParam param = new AddNodeParam(org3.getId(), "org1nodename")
+        AddNodeV2Param param = new AddNodeV2Param(org3.getId(), "org1nodename")
                 .withParentNodeId(org3.getRootNode().getId());
         Node node = this.orgManagementClient.addNode(param).execute();
         this.orgManagementClient.deleteById(node.getId());

@@ -60,10 +60,10 @@ class OrgManagementClient(private val client: ManagementClient) {
     /**
      * 创建节点
      */
-    fun addNode(param: AddNodeParam): GraphQLCall<AddNodeResponse, Node> {
+    fun addNode(param: AddNodeV2Param): GraphQLCall<AddNodeV2Response, Node> {
         return client.createGraphQLCall(
             param.createRequest(),
-            object : TypeToken<GraphQLResponse<AddNodeResponse>>() {}) {
+            object : TypeToken<GraphQLResponse<AddNodeV2Response>>() {}) {
             it.result
         }
     }
