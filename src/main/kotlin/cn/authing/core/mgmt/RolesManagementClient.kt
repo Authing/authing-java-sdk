@@ -20,7 +20,7 @@ class RolesManagementClient(private val client: ManagementClient) {
         sortBy: SortByEnum? = null,
         namespace: String? = null
     ): GraphQLCall<RolesResponse, PaginatedRoles> {
-        val param = RolesParam(page, limit, sortBy, namespace)
+        val param = RolesParam(namespace, page, limit, sortBy)
         return list(param)
     }
 
@@ -45,7 +45,7 @@ class RolesManagementClient(private val client: ManagementClient) {
         parent: String? = null,
         namespace: String? = null
     ): GraphQLCall<CreateRoleResponse, Role> {
-        val param = CreateRoleParam(code, description, parent, namespace)
+        val param = CreateRoleParam(namespace, code, description, parent)
         return create(param)
     }
 
@@ -164,9 +164,10 @@ class RolesManagementClient(private val client: ManagementClient) {
         code: String,
         page: Int? = null,
         limit: Int? = null,
-        namespace: String? = null
+        namespace: String? = null,
+        targetIdentifier: String? = null
     ): GraphQLCall<PolicyAssignmentsResponse, PaginatedPolicyAssignments> {
-        val param = PolicyAssignmentsParam(null, PolicyAssignmentTargetType.ROLE, code, page, limit, namespace)
+        val param = PolicyAssignmentsParam(namespace, code, PolicyAssignmentTargetType.ROLE, targetIdentifier, page, limit)
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<PolicyAssignmentsResponse>>() {}) {

@@ -43,7 +43,7 @@ class PoliciesManagementClient(private val client: ManagementClient) {
         description: String? = null,
         namespace: String? = null
     ): GraphQLCall<CreatePolicyResponse, Policy> {
-        val param = CreatePolicyParam(code, description, statements, namespace)
+        val param = CreatePolicyParam(namespace, code, description, statements)
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<CreatePolicyResponse>>() {}) {
@@ -55,7 +55,7 @@ class PoliciesManagementClient(private val client: ManagementClient) {
      * 获取策略详情
      */
     fun detail(code: String, namespace: String? = null): GraphQLCall<PolicyResponse, Policy> {
-        val param = PolicyParam(code, namespace)
+        val param = PolicyParam(namespace, code)
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<PolicyResponse>>() {}) {
@@ -74,7 +74,7 @@ class PoliciesManagementClient(private val client: ManagementClient) {
         newCode: String? = null,
         namespace: String? = null
     ): GraphQLCall<UpdatePolicyResponse, Policy> {
-        val param = UpdatePolicyParam(code).withStatements(statements).withDescription(description).withNewCode(newCode).withNamespace(namespace)
+        val param = UpdatePolicyParam(namespace, code).withStatements(statements).withDescription(description).withNewCode(newCode)
         return update(param)
     }
 

@@ -226,6 +226,16 @@ public class AuthenticationClientTest {
     }
 
     @Test
+    public void bindEmail() throws IOException, GraphQLException {
+        String email = "demo@lihansir.com";
+        String password = "demo@lihansir.com";
+        this.authenticationClient.loginByEmail(new LoginByEmailInput(email, password)).execute();
+
+        User user = this.authenticationClient.bindEmail("demo@authing.cn", "1234").execute();
+        Assert.assertNotNull(user);
+    }
+
+    @Test
     public void Logout() throws IOException, GraphQLException {
         String username = "test";
         String password = "123456";

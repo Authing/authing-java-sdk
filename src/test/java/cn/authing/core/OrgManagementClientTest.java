@@ -109,7 +109,7 @@ public class OrgManagementClientTest {
     @Test
     public void rootNode() throws IOException, GraphQLException {
         PaginatedOrgs paginatedOrgs = this.orgManagementClient.list(new OrgsParam()).execute();
-        Node node = this.orgManagementClient.rootNode(new RootNodeParam(0, paginatedOrgs.getList().get(0).getId())).execute();
+        Node node = this.orgManagementClient.rootNode(new RootNodeParam(paginatedOrgs.getList().get(0).getId())).execute();
         Assert.assertNotNull(node);
     }
 

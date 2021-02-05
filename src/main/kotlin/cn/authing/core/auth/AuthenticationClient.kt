@@ -309,6 +309,18 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     }
 
     /**
+     * 绑定邮箱
+     */
+    fun bindEmail(email: String, emailCode: String): GraphQLCall<BindEmailResponse, User> {
+        val param = BindEmailParam(email, emailCode)
+        return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<BindEmailResponse>>() {}) {
+            user = it.result
+            accessToken = it.result.token ?: accessToken
+            return@createGraphQLCall it.result
+        }
+    }
+
+    /**
      * 解绑邮箱
      */
     fun unbindEmail(): GraphQLCall<UnbindEmailResponse, User> {
