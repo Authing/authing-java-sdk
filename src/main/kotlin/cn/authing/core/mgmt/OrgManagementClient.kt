@@ -211,4 +211,26 @@ class OrgManagementClient(private val client: ManagementClient) {
             it.data
         }
     }
+
+    /**
+     * 导出所有组织机构数据
+     */
+    fun exportAll(): HttpCall<RestfulResponse<List<Node>>, List<Node>> {
+        return client.createHttpGetCall(
+            "${client.host}/api/v2/orgs/export",
+            object : TypeToken<RestfulResponse<List<Node>>>() {}) {
+            it.data
+        }
+    }
+
+    /**
+     * 导入某个组织机构数据
+     */
+    fun exportByOrgId(orgId: String): HttpCall<RestfulResponse<Node>, Node> {
+        return client.createHttpGetCall(
+            "${client.host}/api/v2/orgs/export?org_id=${orgId}",
+            object : TypeToken<RestfulResponse<Node>>() {}) {
+            it.data
+        }
+    }
 }

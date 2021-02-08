@@ -682,7 +682,7 @@ data class Node(
     var updatedAt: String? = null,
     /** @param [children] 该节点的子节点 **ID** 列表 */
     @SerializedName("children")
-    var children: List<String>? = null,
+    var children: List<Any>? = null,
     /** @param [users] 节点的用户列表 */
     @SerializedName("users")
     var users: PaginatedUsers

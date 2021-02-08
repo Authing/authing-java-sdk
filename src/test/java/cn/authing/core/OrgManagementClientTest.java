@@ -20,7 +20,7 @@ public class OrgManagementClientTest {
 
     @Before
     public void before() throws IOException, GraphQLException {
-        ManagementClient managementClient = new ManagementClient("6006d6820d57817ed7a95f84", "4bdb08da88e47a978001d236a09e27f9");
+        ManagementClient managementClient = new ManagementClient("5f9d0cee4a8f5e150cf6470d", "ea4e02cd9dbff480a64813f7fe3b5cf0");
         managementClient.setHost("https://core.authing.cn");
         this.orgManagementClient = managementClient.org();
 
@@ -55,7 +55,7 @@ public class OrgManagementClientTest {
 
     @Test
     public void searchNodes() throws IOException, GraphQLException {
-        List<Node> list = this.orgManagementClient.searchNodes(new SearchNodesParam("test")).execute();
+        List<Node> list = this.orgManagementClient.searchNodes(new SearchNodesParam("1")).execute();
         Assert.assertTrue(list.size() != 0);
     }
 
@@ -159,6 +159,18 @@ public class OrgManagementClientTest {
         Assert.assertNotNull(nodes);
     }
 
+    @Test
+    public void exportAll() throws IOException {
+        List<Node> nodes = this.orgManagementClient.exportAll().execute();
+        Assert.assertNotNull(nodes);
+    }
+
+    @Test
+    public void exportByOrgId() throws IOException {
+        String orgId = "60210d36262e1086cd2d1209";
+        Node node = this.orgManagementClient.exportByOrgId(orgId).execute();
+        Assert.assertNotNull(node);
+    }
 }
 
 
