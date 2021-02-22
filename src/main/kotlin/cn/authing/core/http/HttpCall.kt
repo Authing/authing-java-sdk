@@ -1,7 +1,6 @@
 package cn.authing.core.http
 
 import cn.authing.core.graphql.GraphQLResponse
-import cn.authing.core.types.RestfulResponse
 import com.google.gson.GsonBuilder
 import com.google.gson.TypeAdapter
 import okhttp3.Call

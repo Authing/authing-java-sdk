@@ -103,7 +103,8 @@ abstract class BaseClient(internal val userPoolId: String) {
      * 创建 HTTP GET 请求
      */
     internal open fun <TData, TResult> createHttpGetCall(
-        url: String, typeToken: TypeToken<TData>,
+        url: String,
+        typeToken: TypeToken<TData>,
         resolver: (data: TData) -> TResult
     ): HttpCall<TData, TResult> {
         val adapter = json.getAdapter(typeToken)

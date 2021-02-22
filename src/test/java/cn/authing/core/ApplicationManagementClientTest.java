@@ -17,7 +17,7 @@ public class ApplicationManagementClientTest {
 
     @Before
     public void before() throws IOException, GraphQLException {
-        ManagementClient managementClient = new ManagementClient("6006d6820d57817ed7a95f84", "4bdb08da88e47a978001d236a09e27f9");
+        ManagementClient managementClient = new ManagementClient("5f9d0cee4a8f5e150cf6470d", "ea4e02cd9dbff480a64813f7fe3b5cf0");
         managementClient.setHost("https://core.authing.cn");
         this.applicationManagementClient = managementClient.application();
 

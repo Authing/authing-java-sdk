@@ -101,4 +101,10 @@ class ManagementClient(userPoolId: String, private val secret: String) : BaseCli
         return ApplicationManagementClient(this)
     }
 
+    /**
+     * 管理日志统计信息模块
+     */
+    fun statistics(): StatisticsManagementClient {
+        return StatisticsManagementClient(this)
+    }
 }
