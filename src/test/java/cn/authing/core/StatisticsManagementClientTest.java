@@ -3,10 +3,7 @@ package cn.authing.core;
 import cn.authing.core.graphql.GraphQLException;
 import cn.authing.core.mgmt.ManagementClient;
 import cn.authing.core.mgmt.StatisticsManagementClient;
-import cn.authing.core.types.AuditLogPageParam;
-import cn.authing.core.types.AuditLogResponse;
-import cn.authing.core.types.LogsPageParam;
-import cn.authing.core.types.UserActionLogResponse;
+import cn.authing.core.types.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,11 +31,11 @@ public class StatisticsManagementClientTest {
         List<String> userIds = Arrays.asList("5f9d22ff9e171c6932cf5b0b", "22");
 
         LogsPageParam pageParam = new LogsPageParam(
-                "123.117.179.159", operationNames, userIds, 1
+                "123.117.179.159", operationNames, userIds, 1,10
         );
-//        List<UserActionLogResponse> list = this.statisticsManagementClient.listUserActions(null).execute();
-        List<UserActionLogResponse> list = this.statisticsManagementClient.listUserActions(pageParam).execute();
-        Assert.assertTrue(list.size() > 0);
+
+        PaginatedUserActionLog result = this.statisticsManagementClient.listUserActions(null).execute();
+        Assert.assertTrue(result.getList().size() > 0);
     }
 
     @Test
@@ -47,11 +44,11 @@ public class StatisticsManagementClientTest {
         List<String> operatorArns = Arrays.asList("arn:cn:authing:59f86b4832eb28071bdd9214:user:5f8d27f5a5c763ceaa628844", "22");
 
         AuditLogPageParam pageParam = new AuditLogPageParam(
-                "123.117.179.159", operationNames, operatorArns, 1
+                null, operationNames, operatorArns, 1,20
         );
-//        List<AuditLogResponse> list = this.statisticsManagementClient.listAuditLogs(null).execute();
-        List<AuditLogResponse> list = this.statisticsManagementClient.listAuditLogs(pageParam).execute();
-        Assert.assertTrue(list.size() > 0);
+
+        PaginatedAuditLog result = this.statisticsManagementClient.listAuditLogs(pageParam).execute();
+        Assert.assertTrue(result.getList().size() > 0);
     }
 
 

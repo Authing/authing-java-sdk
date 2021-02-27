@@ -97,14 +97,16 @@ data class LogsPageParam(
     var clientIp: String?,
     var operationNames: List<String>?,
     var userIds: List<String>?,
-    var page: Int?
+    var page: Int?,
+    var limit: Int?
 )
 
 data class AuditLogPageParam(
     var clientIp: String?,
     var operationNames: List<String>?,
     var operatorArns: List<String>?,
-    var page: Int?
+    var page: Int?,
+    var limit: Int?
 )
 
 data class PaginatedLogs(
@@ -158,4 +160,22 @@ data class AuditLogResponse(
     var resourceDesc: String?,
     var resource_arn: String?,
     var timestamp: String?
+)
+
+data class PaginatedUserActionLog(
+    /** @param [totalCount] totalCount */
+    @SerializedName("totalCount")
+    var totalCount: Int,
+    /** @param [list] list */
+    @SerializedName("list")
+    var list: List<UserActionLogResponse>
+)
+
+data class PaginatedAuditLog(
+    /** @param [totalCount] totalCount */
+    @SerializedName("totalCount")
+    var totalCount: Int,
+    /** @param [list] list */
+    @SerializedName("list")
+    var list: List<AuditLogResponse>
 )
