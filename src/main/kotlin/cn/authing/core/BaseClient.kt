@@ -29,11 +29,11 @@ abstract class BaseClient(internal val userPoolId: String) {
             "GKl64GDcIq3au+aqJQIDAQAB"
 
     /**
-     * 每次发出请求时会附加在请求头的 AccessToken
+     * 每次发出请求时会附加在请求头的 token
      *
      * 访问某些需要权限的接口则必须设置此变量
      */
-    var accessToken: String? = null
+    var token: String? = null
 
     /**
      * 应用 Id
@@ -87,7 +87,7 @@ abstract class BaseClient(internal val userPoolId: String) {
             client.newCall(
                 Request.Builder()
                     .url(endpoint)
-                    .addHeader("Authorization", "Bearer " + this.accessToken)
+                    .addHeader("Authorization", "Bearer " + this.token)
                     .addHeader("Content-Type", "application/json")
                     .addHeader("x-authing-userpool-id", userPoolId)
                     .addHeader("x-authing-request-from", sdkType)
@@ -112,7 +112,7 @@ abstract class BaseClient(internal val userPoolId: String) {
             client.newCall(
                 Request.Builder()
                     .url(url)
-                    .addHeader("Authorization", "Bearer " + this.accessToken)
+                    .addHeader("Authorization", "Bearer " + this.token)
                     .addHeader("x-authing-userpool-id", userPoolId)
                     .addHeader("x-authing-request-from", sdkType)
                     .addHeader("x-authing-sdk-version", sdkVersion)
@@ -138,7 +138,7 @@ abstract class BaseClient(internal val userPoolId: String) {
             client.newCall(
                 Request.Builder()
                     .url(url)
-                    .addHeader("Authorization", "Bearer " + this.accessToken)
+                    .addHeader("Authorization", "Bearer " + this.token)
                     .addHeader("Content-Type", "application/json")
                     .addHeader("x-authing-userpool-id", userPoolId)
                     .addHeader("x-authing-request-from", sdkType)
@@ -162,7 +162,7 @@ abstract class BaseClient(internal val userPoolId: String) {
             client.newCall(
                 Request.Builder()
                     .url(url)
-                    .addHeader("Authorization", "Bearer " + this.accessToken)
+                    .addHeader("Authorization", "Bearer " + this.token)
                     .addHeader("Content-Type", "application/json")
                     .addHeader("x-authing-userpool-id", userPoolId)
                     .addHeader("x-authing-request-from", sdkType)

@@ -15,7 +15,7 @@ class ManagementClient(userPoolId: String, private val secret: String) : BaseCli
         return createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<AccessTokenResponse>>() {}) {
-            accessToken = it.result.accessToken!!
+            token = it.result.accessToken!!
             return@createGraphQLCall it.result
         }
     }
