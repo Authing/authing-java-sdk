@@ -1,6 +1,4 @@
-# Authing - Java
-
-[[toc]]
+# Authing - Java / Kotlin
 
 Authing Java SDK 由两部分组成：`ManagementClient` 和 `AuthenticationClient`。`ManagementClient` 中进行的所有操作均以管理员的身份进行，包含管理用户、管理角色、管理权限策略、管理用户池配置等模块。`AuthenticationClient` 中的所有操作以当前终端用户的身份进行，包含登录、注册、修改用户资料、退出登录等方法。
 
@@ -8,17 +6,38 @@ Authing Java SDK 由两部分组成：`ManagementClient` 和 `AuthenticationClie
 
 ## 安装
 
+### gradle 项目
+
 在 build.gradle 内的 dependencies 中添加：
 
 ```
-implementation "cn.authing:java-core:4.2.1"
+implementation "cn.authing:java-core:<LATEST_VERSION>"
 ```
 
-## 使用用户管理模块
+> 你可以在 [https://search.maven.org/artifact/cn.authing/java-core](https://search.maven.org/artifact/cn.authing/java-core) 查看最新的版本。
+
+### maven 项目
+
+在 pom.xml 内的 dependencies 中添加：
+
+> 如果你需要在 `spring` 中使用此 SDK，由于 `spring` 依赖的 `OkHttp` 版本过低，所以你需要手动指定一下 `OkHttp` 的版本。
+
+```
+<dependency>
+    <groupId>cn.authing</groupId>
+    <artifactId>java-core</artifactId>
+    <version><LATEST_VERSION></version>
+</dependency>
+<properties>
+    <okhttp3.version>4.8.0</okhttp3.version>
+</properties>
+```
+
+## 使用管理模块
 
 初始化 `ManagementClient` 需要 `userPoolId`（用户池 ID） 和 `secret`（用户池密钥）:
 
-> 你可以在此[了解如何获取 UserPoolId 和 Secret](https://docs.authing.cn/others/faq.html) .
+> 你可以在此[了解如何获取 UserPoolId 和 Secret](https://docs.authing.cn/v2/guides/faqs/get-userpool-id-and-secret.html) .
 
 ```java
 import cn.authing.core.mgmt.ManagementClient;
@@ -26,7 +45,8 @@ import cn.authing.core.mgmt.ManagementClient;
 public class ManagementClientTest {
     public static void main(String[] args){
       ManagementClient managementClient = new ManagementClient("AUTHING_USERPOOL_ID", "AUTHING_USERPOOL_SECRET");
-      // 为了获得管理员权限
+
+      // 获取管理员权限
       managementClient.requestToken().execute();
     }
 }
@@ -40,18 +60,19 @@ import cn.authing.core.mgmt.ManagementClient;
 public class ManagementClientTest {
     public static void main(String[] args){
         ManagementClient managementClient = new ManagementClient("AUTHING_USERPOOL_ID", "AUTHING_USERPOOL_SECRET");
-        // 为了获得管理员权限
-        managementClient.requestToken().execute();        
+        // 获取管理员权限
+        managementClient.requestToken().execute();
+
         PaginatedUsers users = managementClient.users().list().execute();
     }
 }
 ```
 
-## 使用用户认证模块
+## 使用认证模块
 
-初始化 `ManagementClient` 需要 `userPoolId`（用户池 ID）：
+初始化 `ManagementClient` 需要 `userPoolId`（用户池 ID）和 `appId`（应用 ID）：
 
-> 你可以在此[了解如何获取 UserPoolId](https://docs.authing.cn/others/faq.html) .
+> 你可以在此[了解如何获取 UserPoolId](https://docs.authing.cn/v2/guides/faqs/get-userpool-id-and-secret.html), 在控制台的**应用**中查看自己的应用列表。
 
 ```java
 import cn.authing.core.auth.AuthenticationClient;
@@ -59,6 +80,7 @@ import cn.authing.core.auth.AuthenticationClient;
 public class AuthenticationClientTest {
     public static void main(String[] args){
         AuthenticationClient authenticationClient = new AuthenticationClient("AUTHING_USERPOOL_ID");
+        authenticationClient.setAppId("AUTHING_APP_ID");
     }
 }
 ```
@@ -71,7 +93,8 @@ import cn.authing.core.auth.AuthenticationClient;
 public class AuthenticationClientTest {
     public static void main(String[] args){
         AuthenticationClient authenticationClient = new AuthenticationClient("AUTHING_USERPOOL_ID");
-        
+        authenticationClient.setAppId("AUTHING_APP_ID");
+
         String email = "test@example.com";
         String password = "123456";
         User user = authenticationClient.registerByEmail(new RegisterByEmailInput(email, password)).execute();
@@ -87,6 +110,7 @@ import cn.authing.core.auth.AuthenticationClient;
 public class AuthenticationClientTest {
     public static void main(String[] args){
         AuthenticationClient authenticationClient = new AuthenticationClient("AUTHING_USERPOOL_ID");
+        authenticationClient.setAppId("AUTHING_APP_ID");
 
         String email = "test@example.com";
         String password = "123456";
@@ -105,6 +129,7 @@ import cn.authing.core.auth.AuthenticationClient;
 public class AuthenticationClientTest {
     public static void main(String[] args){
         AuthenticationClient authenticationClient = new AuthenticationClient("AUTHING_USERPOOL_ID");
+        authenticationClient.setAppId("AUTHING_APP_ID");
         authenticationClient.setAccessToken("ACCESS_TOKEN");
     }
 }
@@ -128,14 +153,15 @@ public class AuthenticationClientTest {
 
 ```java
 import cn.authing.core.auth.AuthenticationClient;
-import cn.authing.core.graphql.GraphQLException;import java.io.IOException;
+import cn.authing.core.graphql.GraphQLException;
+import java.io.IOException;
 
 
 public class AuthenticationClientTest {
     public static void main(String[] args){
         AuthenticationClient authenticationClient = new AuthenticationClient("AUTHING_USERPOOL_ID");
         authenticationClient.setAccessToken("ACCESS_TOKEN");
-        
+
         try {
             User user = authenticationClient.updateProfile(new UpdateUserInput().withNickname("nickname")).execute();
         } catch (GraphQLException | IOException e) {
@@ -145,9 +171,47 @@ public class AuthenticationClientTest {
 }
 ```
 
-## 获取帮助
+## 私有化部署
 
-Join us on Gitter: [#authing-chat](https://gitter.im/authing-chat/community)
+**私有化部署**场景需要指定你私有化的 Authing 服务的 GraphQL 端点（**不带协议头和 Path**）以及密码加密公钥，如果你不清楚可以联系 Authing IDaaS 服务管理员。
+
+### 使用管理模块
+
+初始化 `ManagementClient` 需要 `userPoolId`（用户池 ID） 和 `secret`（用户池密钥）:
+
+```java
+import cn.authing.core.mgmt.ManagementClient;
+
+public class ManagementClientTest {
+    public static void main(String[] args){
+      ManagementClient managementClient = new ManagementClient("AUTHING_USERPOOL_ID", "AUTHING_USERPOOL_SECRET");
+      // 配置自定义域名
+      managementClient.setHost("https://core.you-authing-service.com");
+      // 配置自定义公钥
+      managementClient.setPublicKey("public key");
+      // 获取管理员权限
+      managementClient.requestToken().execute();
+    }
+}
+```
+
+### 使用认证模块
+
+初始化 `ManagementClient` 需要 `userPoolId`（用户池 ID）：
+
+```java
+import cn.authing.core.auth.AuthenticationClient;
+
+public class AuthenticationClientTest {
+    public static void main(String[] args){
+        AuthenticationClient authenticationClient = new AuthenticationClient("AUTHING_USERPOOL_ID");
+        // 配置自定义域名
+        authenticationClient.setHost("https://core.you-authing-service.com");
+        // 配置自定义公钥
+        authenticationClient.setPublicKey("public key");
+    }
+}
+```
 
 ## 接口索引
 
@@ -174,7 +238,32 @@ Join us on Gitter: [#authing-chat](https://gitter.im/authing-chat/community)
 - 绑定手机号: `bindPhone`
 - 解绑手机号: `unbindPhone`
 
+详情请见：
 
-完整的接口文档请见：
-- [https://docs.authing.co/sdk/sdk-for-java/authentication/](https://docs.authing.co/sdk/sdk-for-java/authentication/)
-- [https://docs.authing.co/sdk/sdk-for-java/management/](https://docs.authing.co/sdk/sdk-for-java/management/)
+[用户认证模块](https://docs.authing.cn/v2/reference/sdk-for-java/authentication/)
+
+管理模块包含以下子模块：
+
+[管理用户](https://docs.authing.cn/v2/reference/sdk-for-java/management/UsersManagementClient.html)
+
+[管理角色](https://docs.authing.cn/v2/reference/sdk-for-java/management/RolesManagementClient.html)
+
+[管理策略](https://docs.authing.cn/v2/reference/sdk-for-java/management/PoliciesManagementClient.html)
+
+[管理权限、访问控制](https://docs.authing.cn/v2/reference/sdk-for-java/management/AclManagementClient.html)
+
+[管理用户自定义字段](https://docs.authing.cn/v2/reference/sdk-for-java/management/UdfManagementClient.html)
+
+[管理分组](https://docs.authing.cn/v2/reference/sdk-for-java/management/GroupsManagementClient.html)
+
+[管理组织机构](https://docs.authing.cn/v2/reference/sdk-for-java/management/OrgManagementClient.html)
+
+[管理用户池配置](https://docs.authing.cn/v2/reference/sdk-for-java/management/UserpoolManagementClient.html)
+
+[管理注册白名单](https://docs.authing.cn/v2/reference/sdk-for-java/management/WhitelistManagementClient.html)
+
+[管理应用](https://docs.authing.cn/v2/reference/sdk-for-java/management/ApplicationManagementClient.html)
+
+## 获取帮助
+
+Join us on Gitter: [#authing-chat](https://gitter.im/authing-chat/community)
