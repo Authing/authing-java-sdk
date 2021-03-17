@@ -197,19 +197,19 @@ class UsersManagementClient(private val client: ManagementClient) {
      * TODO: 高版本删除
      */
     @Deprecated("请使用addRoles(userId: String, roles: List<String>, namespace: String?)替换此方法")
-    fun addRoles(userId: String, roles: List<String>): GraphQLCall<AssignRoleResponse, CommonMessage> {
-        return addRoles(userId, roles, null);
+    fun addRoles(userId: String, roleCodes: List<String>): GraphQLCall<AssignRoleResponse, CommonMessage> {
+        return addRoles(userId, roleCodes, null);
     }
 
     /**
-     * 批量添加用户角色
+     *  批量添加用户角色
      */
     fun addRoles(
         userId: String,
-        roles: List<String>,
+        roleCodes: List<String>,
         namespace: String?
     ): GraphQLCall<AssignRoleResponse, CommonMessage> {
-        val param = AssignRoleParam().withUserIds(listOf(userId)).withRoleCodes(roles).withNamespace(namespace)
+        val param = AssignRoleParam().withUserIds(listOf(userId)).withRoleCodes(roleCodes).withNamespace(namespace)
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<AssignRoleResponse>>() {}) {
@@ -222,8 +222,8 @@ class UsersManagementClient(private val client: ManagementClient) {
      * TODO: 高版本删除
      */
     @Deprecated("请使用removeRoles(userId: String, roles: List<String>, namespace: String?)替换此方法")
-    fun removeRoles(userId: String, roles: List<String>): GraphQLCall<RevokeRoleResponse, CommonMessage> {
-        return removeRoles(userId, roles, null);
+    fun removeRoles(userId: String, roleCodes: List<String>): GraphQLCall<RevokeRoleResponse, CommonMessage> {
+        return removeRoles(userId, roleCodes, null);
     }
 
     /**
@@ -231,10 +231,10 @@ class UsersManagementClient(private val client: ManagementClient) {
      */
     fun removeRoles(
         userId: String,
-        roles: List<String>,
+        roleCodes: List<String>,
         namespace: String?
     ): GraphQLCall<RevokeRoleResponse, CommonMessage> {
-        val param = RevokeRoleParam().withUserIds(listOf(userId)).withRoleCodes(roles).withNamespace(namespace)
+        val param = RevokeRoleParam().withUserIds(listOf(userId)).withRoleCodes(roleCodes).withNamespace(namespace)
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<RevokeRoleResponse>>() {}) {

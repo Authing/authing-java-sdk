@@ -11,9 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -93,6 +91,9 @@ public class AuthenticationClientTest {
 
     @Test
     public void loginByUsername() throws IOException, GraphQLException, ExecutionException, InterruptedException {
+//        String username = "test1";
+//        String password = "123456";
+
         String username = "test";
         String password = "andy123456";
 //        CompletableFuture<User> future = new CompletableFuture<>();
@@ -309,8 +310,75 @@ public class AuthenticationClientTest {
 
     @Test
     public void getSecurityLevel() throws IOException, GraphQLException, ExecutionException, InterruptedException {
-//        loginByUsername();
+        loginByUsername();
         SecurityLevel result = this.authenticationClient.getSecurityLevel().execute();
         Assert.assertNotNull(result !=null);
     }
+
+    @Test
+    public void UdfValue() throws IOException, GraphQLException, ExecutionException, InterruptedException {
+        setUdfValue();
+        getUdfValue();
+        removeUdfValue();
+    }
+
+    @Test
+    public void getUdfValue() throws IOException, GraphQLException, ExecutionException, InterruptedException {
+        loginByUsername();
+        Map result = this.authenticationClient.getUdfValue().execute();
+        Assert.assertNotNull(result !=null);
+    }
+
+    @Test
+    public void setUdfValue() throws IOException, GraphQLException, ExecutionException, InterruptedException {
+        loginByUsername();
+        Map<String, String> p = new HashMap();
+        p.put("dnum","234");
+        List<UserDefinedData> result = this.authenticationClient.setUdfValue(p).execute();
+        Assert.assertNotNull(result !=null);
+    }
+
+    @Test
+    public void removeUdfValue() throws IOException, GraphQLException, ExecutionException, InterruptedException {
+        loginByUsername();
+        List<UserDefinedData> result = this.authenticationClient.removeUdfValue("dnum").execute();
+        Assert.assertNotNull(result !=null);
+    }
+
+    @Test
+    public void getAccessTokenByCode() throws IOException, GraphQLException, ExecutionException, InterruptedException {
+        AuthenticationClient testAC = new AuthenticationClient("5f9d0cef2e10f4e465153a7b");
+        testAC.setAppId("5f9d0cef2e10f4e465153a7b");
+        testAC.setHost("https://1604127979898-demo.authing.cn");
+        testAC.setSecret("2b8332093c4b219d0d91f278a46731e4");
+        testAC.setRedirectUri("https://baidu.com");
+
+//        testAC.setTokenEndPointAuthMethod(AuthMethodEnum.CLIENT_SECRET_BASIC);
+        testAC.setTokenEndPointAuthMethod(AuthMethodEnum.NONE);
+
+        Object result = testAC.getAccessTokenByCode("aNhjg8hc__G8vd7LbO5ZV_hWIzP1BN6KVYpcei1XiOn").execute();
+        Assert.assertNotNull(result !=null);
+    }
+
+    @Test
+    public void getAccessTokenByClientCredentials() throws IOException, GraphQLException, ExecutionException, InterruptedException {
+        AuthenticationClient testAC = new AuthenticationClient("5f9d0cef2e10f4e465153a7b");
+        testAC.setHost("https://1604127979898-demo.authing.cn");
+
+        ClientCredentialInput clientCredentialInput = new ClientCredentialInput("60519949a70e7dda12785693"
+                ,"be1a5596b3185d88c097ae310e3184ed");
+
+        Object result = testAC.getAccessTokenByClientCredentials("testr2",clientCredentialInput).execute();
+        Assert.assertNotNull(result !=null);
+    }
+
+    @Test
+    public void getUserInfoByAccessToken() throws IOException, GraphQLException, ExecutionException, InterruptedException {
+        AuthenticationClient testAC = new AuthenticationClient("5f9d0cef2e10f4e465153a7b");
+        testAC.setHost("https://1604127979898-demo.authing.cn");
+
+        Object result = testAC.getUserInfoByAccessToken("eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InA1OENCUTJzZ1JVYVJEdzZWcWxyT3hXT0hDdVN2MVUtN09VbE8zRkg1T2cifQ.eyJqdGkiOiJ5dExETVdzWkphTVExblk3YS1VdVYiLCJzdWIiOiI1ZjlkMjJmZjllMTcxYzY5MzJjZjViMGIiLCJpYXQiOjE2MTU5NTcxNzYsImV4cCI6MTYxNTk2MDc3Niwic2NvcGUiOiJwcm9maWxlIG9wZW5pZCBlbWFpbCBwaG9uZSIsImlzcyI6Imh0dHBzOi8vMTYwNDEyNzk3OTg5OC1kZW1vLmF1dGhpbmcuY24vb2lkYyIsImF1ZCI6IjVmOWQwY2VmMmUxMGY0ZTQ2NTE1M2E3YiJ9.hbfawBWTYHy8NvFHIdOQmeZKVD9Exdx2bHQzbLcsfW3FnATtGO7g1NEgeSXp5e64n15pmsAPNXH6Sq31a6FkmkaJQDNk5xFO9xAobbU8wmaa9taZd7tbTEfeNTuap38J53hRF9xNr5kTvMkTkMWB03CU-DHF-AsBnZTd-g6ZwEMNTGRt9JEz-em58J3RO9JTtKTIaM6YElh-5rDzuukODPVTZIkw8Hjf07beg6LM1C6AKgyH63u_SZGKrBPfDDu8S2-fDWwUgMT5V_Bx-qeX4_9tX9BMuuOnOtq2NkEv1Rf3dFjf8dS_SunV-SlifTciwl_P7u-MaQVHEWTMJkSjvQ").execute();
+        Assert.assertNotNull(result !=null);
+    }
+
 }

@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 public class UsersManagementClientTest {
     
@@ -130,27 +131,31 @@ public class UsersManagementClientTest {
     }
 
     @Test
-    public void listRoles() throws IOException, GraphQLException {
+    public void roleTest() throws IOException, GraphQLException {
+        addRoles();
+        listRoles();
+        removeRoles();
+    }
+
+    private void listRoles() throws IOException, GraphQLException {
         PaginatedRoles roles1 = this.usersManagementClient.listRoles(user.getId()).execute();
-        Assert.assertEquals(0, roles1.getTotalCount());
-        PaginatedRoles roles = this.usersManagementClient.listRoles(user.getId(),"default").execute();
-        Assert.assertEquals(0, roles.getTotalCount());
+        Assert.assertTrue(roles1.getTotalCount()>=0);
+        PaginatedRoles roles = this.usersManagementClient.listRoles(user.getId(),"5f9d0cefd9ad0ef8f8107a53").execute();
+        Assert.assertTrue(roles.getTotalCount()>=0);
     }
 
-    @Test
-    public void addRoles() throws IOException, GraphQLException {
-        CommonMessage commonMessage1 = this.usersManagementClient.addRoles(user.getId(),Arrays.asList("rot3","rot4")).execute();
-        Assert.assertEquals(Optional.of(0),commonMessage1.getCode());
-        CommonMessage commonMessage = this.usersManagementClient.addRoles(user.getId(),Arrays.asList("rot1","rot2"),"default").execute();
-        Assert.assertEquals(Optional.of(0),commonMessage.getCode());
+    private void addRoles() throws IOException, GraphQLException {
+        CommonMessage commonMessage1 = this.usersManagementClient.addRoles(user.getId(),Arrays.asList("xxx","qqq")).execute();
+        Assert.assertEquals(200, (int) commonMessage1.getCode());
+        CommonMessage commonMessage = this.usersManagementClient.addRoles(user.getId(),Arrays.asList("aaa","bbb"),"5f9d0cefd9ad0ef8f8107a53").execute();
+        Assert.assertEquals(200, (int) commonMessage.getCode());
     }
 
-    @Test
-    public void removeRoles() throws IOException, GraphQLException {
-        CommonMessage commonMessage1 = this.usersManagementClient.removeRoles(user.getId(),Arrays.asList("rot3","rot4")).execute();
-        Assert.assertEquals(Optional.of(0),commonMessage1.getCode());
-        CommonMessage commonMessage = this.usersManagementClient.removeRoles(user.getId(),Arrays.asList("rot1","rot2"),"default").execute();
-        Assert.assertEquals(Optional.of(0),commonMessage.getCode());
+    private void removeRoles() throws IOException, GraphQLException {
+        CommonMessage commonMessage1 = this.usersManagementClient.removeRoles(user.getId(),Arrays.asList("xxx","qqq")).execute();
+        Assert.assertEquals(200, (int) commonMessage1.getCode());
+        CommonMessage commonMessage = this.usersManagementClient.removeRoles(user.getId(),Arrays.asList("aaa","bbb"),"5f9d0cefd9ad0ef8f8107a53").execute();
+        Assert.assertEquals(200, (int) commonMessage.getCode());
     }
     @Test
     public void listPolicies() throws IOException, GraphQLException {
@@ -169,5 +174,54 @@ public class UsersManagementClientTest {
         List<List<Org>> orgs =  this.usersManagementClient.listOrgs("5f8d2827c41264570d13200f").execute();
 
         Assert.assertEquals(0, orgs.size());
+    }
+
+    @Test
+    public void listAuthorizedResources() throws IOException, GraphQLException, ExecutionException, InterruptedException {
+        String namespace = "default";
+        PaginatedAuthorizedResources result = this.usersManagementClient.listAuthorizedResources("5f9d0cef60d09ff5a4c87c06",namespace).execute();
+        Assert.assertNotNull(result.getList());
+    }
+
+    @Test
+    public void UdfValue() throws IOException, GraphQLException, ExecutionException, InterruptedException {
+        setUdfValue();
+        removeUdfValue();
+    }
+
+    @Test
+    public void getUdfValue() throws IOException, GraphQLException, ExecutionException, InterruptedException {
+        Map result = this.usersManagementClient.getUdfValue("5f9d0cef60d09ff5a4c87c06").execute();
+        Assert.assertNotNull(result);
+    }
+
+    @Test
+    public void getUdfValueBatch() throws IOException, GraphQLException, ExecutionException, InterruptedException {
+        Map result = this.usersManagementClient.getUdfValueBatch(Arrays.asList("5f9d0cef60d09ff5a4c87c06")).execute();
+        Assert.assertNotNull(result);
+    }
+
+    @Test
+    public void setUdfValue() throws IOException, GraphQLException, ExecutionException, InterruptedException {
+        Map<String, String> p = new HashMap();
+        p.put("dnum","234");
+        List<UserDefinedData> result = this.usersManagementClient.setUdfValue("5f9d0cef60d09ff5a4c87c06",p).execute();
+        Assert.assertNotNull(result);
+    }
+
+    @Test
+    public void setUdfValueBatch() throws IOException, GraphQLException, ExecutionException, InterruptedException {
+        Map<String, String> p = new HashMap();
+        p.put("dnum","189");
+        SetUdfValueBatchInputItem a = new SetUdfValueBatchInputItem("5f9d0cef60d09ff5a4c87c06",p);
+
+        List<UserDefinedData> result = this.usersManagementClient.setUdfValueBatch(Arrays.asList(a)).execute();
+        Assert.assertNotNull(result);
+    }
+
+    @Test
+    public void removeUdfValue() throws IOException, GraphQLException, ExecutionException, InterruptedException {
+        List<UserDefinedData> result = this.usersManagementClient.removeUdfValue("5f9d0cef60d09ff5a4c87c06","dnum").execute();
+        Assert.assertNotNull(result);
     }
 }

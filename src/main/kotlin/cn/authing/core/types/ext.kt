@@ -37,15 +37,16 @@ fun convertUdvToKeyValuePair(data:List<UserDefinedData>): Map<String,Any> {
     val hashtable = Hashtable<String, Any>()
     val gson = Gson()
     for (item in data){
-        if (item.dataType === UdfDataType.NUMBER) {
-            hashtable.put(item.key,gson.fromJson(item.value, Map::class.java))
-        } else if (item.dataType === UdfDataType.BOOLEAN) {
-            hashtable.put(item.key,gson.fromJson(item.value, Map::class.java))
-        } else if (item.dataType === UdfDataType.DATETIME) {
-            hashtable.put(item.key,gson.fromJson(item.value, Map::class.java))
-        } else if (item.dataType === UdfDataType.OBJECT) {
-            hashtable.put(item.key,gson.fromJson(item.value, Map::class.java))
-        }
+        hashtable.put(item.key,item.value)
+//        if (item.dataType === UdfDataType.NUMBER) {
+//            hashtable.put(item.key,gson.fromJson(item.value, Map::class.java))
+//        } else if (item.dataType === UdfDataType.BOOLEAN) {
+//            hashtable.put(item.key,gson.fromJson(item.value, Map::class.java))
+//        } else if (item.dataType === UdfDataType.DATETIME) {
+//            hashtable.put(item.key,item.value)
+//        } else if (item.dataType === UdfDataType.OBJECT) {
+//            hashtable.put(item.key,gson.fromJson(item.value, Map::class.java))
+//        }
     }
     return hashtable
 }

@@ -60,6 +60,7 @@ abstract class BaseClient(internal val userPoolId: String) {
 
     // 常量
     protected val mediaTypeJson: MediaType? = "application/json".toMediaTypeOrNull()
+    protected val mediaTypeUrlencoded: MediaType? = "application/x-www-form-urlencoded".toMediaTypeOrNull()
     protected val sdkType: String = "SDK"
     protected val sdkVersion: String = "java:4.3.9"
 

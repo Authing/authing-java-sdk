@@ -8,6 +8,8 @@ import cn.authing.core.types.*
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import okhttp3.FormBody
+import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.IOException
@@ -498,8 +500,13 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
 
     /**
      * 获取用户的安全等级评分
+     * 此接口需要登录后才可以调用
      */
     fun getSecurityLevel(): HttpCall<RestfulResponse<SecurityLevel>, SecurityLevel> {
+        if (user == null) {
+            throw Exception("login first")
+        }
+
         return this.createHttpGetCall(
             "${this.host}/api/v2/users/me/security-level",
             object : TypeToken<RestfulResponse<SecurityLevel>>() {}) {
@@ -556,52 +563,54 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
         var url = "${this.host}/oidc/token"
         when (this.tokenEndPointAuthMethod) {
             AuthMethodEnum.CLIENT_SECRET_POST -> {
-                url += "?client_id=" + this.appId
-                url += "&client_secret=" + this.secret
-                url += "&grant_type=authorization_code"
-                url += "&code=" + code
-                url += "&redirect_uri=" + this.redirectUri
-
-                return this.createHttpPostCall(
-                    url,
-                    "{}",
-                    object : TypeToken<Any>() {}) {
+                return HttpCall(
+                    okHttpClient.newCall(
+                        Request.Builder()
+                            .url(url)
+                            .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                            .post(FormBody.Builder().add("client_id", this.appId!!)
+                                .add("client_secret", this.secret!!)
+                                .add("grant_type", "authorization_code")
+                                .add("code", code)
+                                .add("redirect_uri", this.redirectUri!!).build())
+                            .build()
+                    ), json.getAdapter(object : TypeToken<Any>() {})
+                ) {
                     it
                 }
             }
             AuthMethodEnum.CLIENT_SECRET_BASIC -> {
-                url += "&grant_type=authorization_code"
-                url += "&code=" + code
-                url += "&redirect_uri=" + this.redirectUri
+                val basic64Str = "Basic " + Base64.getEncoder().encodeToString(("${this.appId }:${this.secret}").toByteArray())
 
-                val basic64Str = "Basic " + Base64.getEncoder().encode((this.appId + ":" + this.secret).toByteArray())
-
-                val adapter = json.getAdapter(object : TypeToken<Any>() {})
                 return HttpCall(
                     okHttpClient.newCall(
                         Request.Builder()
                             .url(url)
                             .addHeader("Authorization", basic64Str)
-                            .addHeader("Content-Type", "application/json")
-                            .addHeader("x-authing-userpool-id", userPoolId)
-                            .addHeader("x-authing-request-from", sdkType)
-                            .addHeader("x-authing-sdk-version", sdkVersion)
-                            .addHeader("x-authing-app-id", "" + this.appId)
-                            .post("{}".toRequestBody(mediaTypeJson))
+                            .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                            .post(FormBody.Builder()
+                                .add("grant_type", "authorization_code")
+                                .add("code", code)
+                                .add("redirect_uri", this.redirectUri!!).build())
                             .build()
-                    ), adapter
-                ) { it }
+                    ), json.getAdapter(object : TypeToken<Any>() {})
+                ) {
+                    it
+                }
             }
             else -> {//AuthMethodEnum.NONE
-                url += "?client_id=" + this.appId
-                url += "&grant_type=authorization_code"
-                url += "&code=" + code
-                url += "&redirect_uri=" + this.redirectUri
-
-                return this.createHttpPostCall(
-                    url,
-                    "{}",
-                    object : TypeToken<Any>() {}) {
+                return HttpCall(
+                    okHttpClient.newCall(
+                        Request.Builder()
+                            .url(url)
+                            .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                            .post(FormBody.Builder().add("client_id", this.appId!!)
+                                .add("grant_type", "authorization_code")
+                                .add("code", code)
+                                .add("redirect_uri", this.redirectUri!!).build())
+                            .build()
+                    ), json.getAdapter(object : TypeToken<Any>() {})
+                ) {
                     it
                 }
             }
@@ -620,16 +629,18 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
             throw Exception("请在调用本方法时传入 { accessKey: string, accessSecret: string }，请看文档：https://docs.authing.cn/v2/guides/authorization/m2m-authz.html")
         }
 
-        var url = "${this.host}/oidc/token"
-        url += "?client_id=" + options.accessKey
-        url += "&client_secret=" + options.accessSecret
-        url += "&grant_type=client_credentials"
-        url += "&scope=" + scope
-
-        return this.createHttpPostCall(
-            url,
-            "{}",
-            object : TypeToken<Any>() {}) {
+        return HttpCall(
+            okHttpClient.newCall(
+                Request.Builder()
+                    .url("${this.host}/oidc/token")
+                    .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                    .post(FormBody.Builder().add("client_id", options.accessKey)
+                        .add("client_secret", options.accessSecret)
+                        .add("grant_type", "client_credentials")
+                        .add("scope", scope).build())
+                    .build()
+            ), json.getAdapter(object : TypeToken<Any>() {})
+        ) {
             it
         }
     }
@@ -637,10 +648,15 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     /**
      * 根据token获取用户信息
      */
-    fun getUserInfoByAccessToken(accessToken:String): HttpCall<Any, Any>  {
-        return this.createHttpGetCall(
-            "${this.host}/oidc/me?access_token=${accessToken}",
-            object : TypeToken<Any>() {}) {
+    fun getUserInfoByAccessToken(accessToken: String): HttpCall<Any, Any> {
+        return HttpCall(
+            okHttpClient.newCall(
+                Request.Builder()
+                    .url("${this.host}/oidc/me?access_token=${accessToken}")
+                    .get()
+                    .build()
+            ), json.getAdapter(object : TypeToken<Any>() {})
+        ) {
             it
         }
     }
