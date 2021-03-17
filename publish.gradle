@@ -1,10 +1,10 @@
 apply plugin: 'maven-publish'
 
 def binApiKey = ""
-def mavenCentralPassword = ""
+def mavenCentralPassword = "!"
 def mavenPrivatePassword = ""
 def binUser = "authing"
-def versionCode = '4.3.8'
+def versionCode = '4.3.9'
 def pomConfig = {
     licenses {
         license {
