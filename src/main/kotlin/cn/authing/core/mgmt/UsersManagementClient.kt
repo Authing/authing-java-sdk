@@ -6,6 +6,7 @@ import cn.authing.core.http.HttpCall
 import cn.authing.core.types.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import java.util.*
 
 /**
  * 用户管理类
@@ -171,9 +172,19 @@ class UsersManagementClient(private val client: ManagementClient) {
 
     /**
      * 查询用户角色列表
+     * TODO: 高版本删除
      */
+    @Deprecated("请使用listRoles(userId: String, namespace: String?)替换此方法")
     fun listRoles(userId: String): GraphQLCall<GetUserRolesResponse, PaginatedRoles> {
-        val param = GetUserRolesParam(userId)
+        return listRoles(userId, null);
+    }
+
+    /**
+     * 查询用户角色列表
+     */
+    fun listRoles(userId: String, namespace: String?): GraphQLCall<GetUserRolesResponse, PaginatedRoles> {
+        val param = GetUserRolesParam(userId, namespace)
+
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<GetUserRolesResponse>>() {}) {
@@ -183,9 +194,22 @@ class UsersManagementClient(private val client: ManagementClient) {
 
     /**
      * 批量添加用户角色
+     * TODO: 高版本删除
      */
+    @Deprecated("请使用addRoles(userId: String, roles: List<String>, namespace: String?)替换此方法")
     fun addRoles(userId: String, roles: List<String>): GraphQLCall<AssignRoleResponse, CommonMessage> {
-        val param = AssignRoleParam().withUserIds(listOf(userId)).withRoleCodes(roles)
+        return addRoles(userId, roles, null);
+    }
+
+    /**
+     * 批量添加用户角色
+     */
+    fun addRoles(
+        userId: String,
+        roles: List<String>,
+        namespace: String?
+    ): GraphQLCall<AssignRoleResponse, CommonMessage> {
+        val param = AssignRoleParam().withUserIds(listOf(userId)).withRoleCodes(roles).withNamespace(namespace)
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<AssignRoleResponse>>() {}) {
@@ -195,9 +219,22 @@ class UsersManagementClient(private val client: ManagementClient) {
 
     /**
      * 批量撤销用户角色
+     * TODO: 高版本删除
      */
+    @Deprecated("请使用removeRoles(userId: String, roles: List<String>, namespace: String?)替换此方法")
     fun removeRoles(userId: String, roles: List<String>): GraphQLCall<RevokeRoleResponse, CommonMessage> {
-        val param = RevokeRoleParam().withUserIds(listOf(userId)).withRoleCodes(roles)
+        return removeRoles(userId, roles, null);
+    }
+
+    /**
+     * 批量撤销用户角色
+     */
+    fun removeRoles(
+        userId: String,
+        roles: List<String>,
+        namespace: String?
+    ): GraphQLCall<RevokeRoleResponse, CommonMessage> {
+        val param = RevokeRoleParam().withUserIds(listOf(userId)).withRoleCodes(roles).withNamespace(namespace)
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<RevokeRoleResponse>>() {}) {
@@ -351,4 +388,96 @@ class UsersManagementClient(private val client: ManagementClient) {
             it.data
         }
     }
+
+    /**
+     * 获取用户被授权的所有资源
+     */
+    fun listAuthorizedResources(
+        userId: String,
+        namespace: String
+    ): GraphQLCall<ListUserAuthorizedResourcesResponse, PaginatedAuthorizedResources> {
+        val param = ListUserAuthorizedResourcesParam(userId, namespace)
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<ListUserAuthorizedResourcesResponse>>() {}) {
+            it.result.authorizedResources!!
+        }
+    }
+
+    /**
+     * 获取当前用户的所有自定义数据
+     *
+     */
+    fun getUdfValue(userId: String): GraphQLCall<UdvResponse, Map<String, Any>> {
+        val param = UdvParam(UdfTargetType.USER, userId)
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<UdvResponse>>() {}) {
+            convertUdvToKeyValuePair(it.result)
+        }
+    }
+
+    /**
+     * 批量获取多个用户的自定义数据
+     *
+     */
+    fun getUdfValueBatch(userIds: List<String>): GraphQLCall<UdfValueBatchResponse, Map<String, Map<String, Any>>> {
+        if (userIds.isEmpty()) {
+            throw Exception("userIds can't be null")
+        }
+
+        val param = UdfValueBatchParam(UdfTargetType.USER, userIds)
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<UdfValueBatchResponse>>() {}) {
+            val hashtable = Hashtable<String, Map<String, Any>>()
+            it.result.map { hashtable.put(it.targetId, convertUdvToKeyValuePair(it.data)) }
+            hashtable
+        }
+    }
+
+    /**
+     * 设置某个用户的自定义数据
+     */
+    fun setUdfValue(
+        userId: String,
+        data: Map<String, String>
+    ): GraphQLCall<SetUdvBatchResponse, List<UserDefinedData>> {
+        val udvList = data.entries.map { UserDefinedDataInput(it.key, it.value) }
+        val param = SetUdvBatchParam(UdfTargetType.USER, userId, udvList)
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<SetUdvBatchResponse>>() {}) {
+            it.result
+        }
+    }
+
+    /**
+     * 设置某个用户的自定义数据
+     */
+    fun setUdfValueBatch(input: List<SetUdfValueBatchInputItem>): GraphQLCall<SetUdvBatchResponse, List<UserDefinedData>> {
+        if (input.isEmpty()) {
+            throw Exception("empty input list")
+        }
+
+        val inputList = input.flatMap { item ->
+            item.data.map { SetUdfValueBatchInput(item.userId, it.key, it.value) }
+        }
+        val param = SetUdfValueBatchParam(UdfTargetType.USER, inputList)
+
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<SetUdvBatchResponse>>() {})
+        {
+            it.result
+        }
+    }
+
+    /**
+     * 清除用户的自定义数据
+     */
+    fun removeUdfValue(userId: String, key: String): GraphQLCall<RemoveUdvResponse, List<UserDefinedData>> {
+        return removeUdv(userId, key);
+    }
+
 }

@@ -27,7 +27,7 @@ public class AuthenticationClientTest {
 
     @Before
     public void before() {
-        this.authenticationClient = new AuthenticationClient("6006d6820d57817ed7a95f84");
+        this.authenticationClient = new AuthenticationClient("5f9d0cee4a8f5e150cf6470d");
         this.authenticationClient.setHost("https://core.authing.cn");
     }
 
@@ -44,7 +44,7 @@ public class AuthenticationClientTest {
         String username = randomString();
         String password = "123456";
         User user =
-            this.authenticationClient.registerByUsername(new RegisterByUsernameInput(username, password)).execute();
+                this.authenticationClient.registerByUsername(new RegisterByUsernameInput(username, password)).execute();
         Assert.assertEquals(user.getUsername(), username);
     }
 
@@ -95,22 +95,25 @@ public class AuthenticationClientTest {
     public void loginByUsername() throws IOException, GraphQLException, ExecutionException, InterruptedException {
         String username = "test";
         String password = "andy123456";
-        CompletableFuture<User> future = new CompletableFuture<>();
-        this.authenticationClient.loginByUsername(new LoginByUsernameInput(username, password))
-            .enqueue(new Callback<User>() {
-                @Override
-                public void onSuccess(User result) {
-                    future.complete(result);
-                    System.out.print(result);
-                }
+//        CompletableFuture<User> future = new CompletableFuture<>();
+//        this.authenticationClient.loginByUsername(new LoginByUsernameInput(username, password))
+//            .enqueue(new Callback<User>() {
+//                @Override
+//                public void onSuccess(User result) {
+//                    future.complete(result);
+//                    System.out.print(result);
+//                }
+//
+//                @Override
+//                public void onFailure(@Nullable GraphQLResponse.ErrorInfo error) {
+//                    System.out.print(error);
+//                    future.complete(null);
+//                }
+//            });
+//        Assert.assertNotNull(future.get());
 
-                @Override
-                public void onFailure(@Nullable GraphQLResponse.ErrorInfo error) {
-                    System.out.print(error);
-                    future.complete(null);
-                }
-            });
-        Assert.assertNotNull(future.get());
+        User result = this.authenticationClient.loginByUsername(new LoginByUsernameInput(username, password)).execute();
+        Assert.assertNotNull(result);
     }
 
     @Test
@@ -126,7 +129,7 @@ public class AuthenticationClientTest {
         String phone = "18311302182";
         String password = "123456";
         User user =
-            this.authenticationClient.loginByPhonePassword(new LoginByPhonePasswordInput(phone, password)).execute();
+                this.authenticationClient.loginByPhonePassword(new LoginByPhonePasswordInput(phone, password)).execute();
         Assert.assertEquals(user.getPhone(), phone);
     }
 
@@ -238,7 +241,7 @@ public class AuthenticationClientTest {
     @Test
     public void Logout() throws IOException, GraphQLException {
         String username = "test";
-        String password = "123456";
+        String password = "andy123456";
         this.authenticationClient.loginByUsername(new LoginByUsernameInput(username, password)).execute();
 
         this.authenticationClient.logout().execute();
@@ -296,4 +299,18 @@ public class AuthenticationClientTest {
         Assert.assertTrue(result.getValid());
     }
 
+    @Test
+    public void listAuthorizedResources() throws IOException, GraphQLException, ExecutionException, InterruptedException {
+        loginByUsername();
+        String namespace = "default";
+        PaginatedAuthorizedResources result = this.authenticationClient.listAuthorizedResources(namespace).execute();
+        Assert.assertNotNull(result.getList());
+    }
+
+    @Test
+    public void getSecurityLevel() throws IOException, GraphQLException, ExecutionException, InterruptedException {
+//        loginByUsername();
+        SecurityLevel result = this.authenticationClient.getSecurityLevel().execute();
+        Assert.assertNotNull(result !=null);
+    }
 }

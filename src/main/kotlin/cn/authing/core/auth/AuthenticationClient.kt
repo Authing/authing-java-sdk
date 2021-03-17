@@ -8,7 +8,11 @@ import cn.authing.core.types.*
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.IOException
+import java.util.*
+import kotlin.streams.toList
 
 class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     private var user: User? = null
@@ -178,9 +182,9 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
         val json = "{ \"phone\": \"$phone\" }"
 
         return createHttpPostCall(url, json, object : TypeToken<CommonMessage>() {}) {
-            if(it.code!=200){
+            if (it.code != 200) {
                 throw IOException(it.message)
-            }else{
+            } else {
                 it
             }
         }
@@ -342,9 +346,9 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
         val json = "{ \"primaryUserToken\": \"$primaryUserToken\", \"secondaryUserToken\": \"$secondaryUserToken\" }"
 
         return createHttpPostCall(url, json, object : TypeToken<CommonMessage>() {}) {
-            if(it.code != 200){
+            if (it.code != 200) {
                 throw IOException(it.message)
-            }else{
+            } else {
                 it
             }
         }
@@ -480,14 +484,164 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     /**
      * 获取用户被授权的所有资源
      */
-    fun listAuthorizedResources(namespace:String): GraphQLCall<ListUserAuthorizedResourcesResponse, PaginatedAuthorizedResources> {
+    fun listAuthorizedResources(namespace: String): GraphQLCall<ListUserAuthorizedResourcesResponse, PaginatedAuthorizedResources> {
         if (user == null) {
             throw Exception("login first")
         }
         val param = ListUserAuthorizedResourcesParam(user!!.id, namespace)
-        return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<ListUserAuthorizedResourcesResponse>>() {}) {
+        return createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<ListUserAuthorizedResourcesResponse>>() {}) {
             it.result.authorizedResources!!
         }
     }
 
+    /**
+     * 获取用户的安全等级评分
+     */
+    fun getSecurityLevel(): HttpCall<RestfulResponse<SecurityLevel>, SecurityLevel> {
+        return this.createHttpGetCall(
+            "${this.host}/api/v2/users/me/security-level",
+            object : TypeToken<RestfulResponse<SecurityLevel>>() {}) {
+            it.data
+        }
+    }
+
+    /**
+     * 获取当前用户的所有自定义数据
+     *
+     */
+    fun getUdfValue(): GraphQLCall<UdvResponse, Map<String, Any>> {
+        if (user == null) {
+            throw Exception("login first")
+        }
+        val param = UdvParam(UdfTargetType.USER, user!!.id)
+        return createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<UdvResponse>>() {}) {
+            convertUdvToKeyValuePair(it.result)
+        }
+    }
+
+    /**
+     * 设置自定义字段值
+     */
+    fun setUdfValue(data: Map<String, String>): GraphQLCall<SetUdvBatchResponse, List<UserDefinedData>> {
+        if (user == null) {
+            throw Exception("login first")
+        }
+
+        val udvList = data.entries.map { UserDefinedDataInput(it.key, it.value) }
+        val param = SetUdvBatchParam(UdfTargetType.USER, user!!.id, udvList)
+        return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<SetUdvBatchResponse>>() {}) {
+            it.result
+        }
+    }
+
+    /**
+     * 移除自定义数据
+     */
+    fun removeUdfValue(key: String): GraphQLCall<RemoveUdvResponse, List<UserDefinedData>> {
+        return removeUdv(key);
+    }
+
+    /**
+     * 根据code获得AccessToken
+     */
+    fun getAccessTokenByCode(code: String): HttpCall<Any, Any> {
+        if (this.secret.isNullOrBlank() && this.tokenEndPointAuthMethod != AuthMethodEnum.NONE) {
+            throw Exception("请在初始化 AuthenticationClient 时传入 appId 和 secret 参数")
+        }
+
+        var url = "${this.host}/oidc/token"
+        when (this.tokenEndPointAuthMethod) {
+            AuthMethodEnum.CLIENT_SECRET_POST -> {
+                url += "?client_id=" + this.appId
+                url += "&client_secret=" + this.secret
+                url += "&grant_type=authorization_code"
+                url += "&code=" + code
+                url += "&redirect_uri=" + this.redirectUri
+
+                return this.createHttpPostCall(
+                    url,
+                    "{}",
+                    object : TypeToken<Any>() {}) {
+                    it
+                }
+            }
+            AuthMethodEnum.CLIENT_SECRET_BASIC -> {
+                url += "&grant_type=authorization_code"
+                url += "&code=" + code
+                url += "&redirect_uri=" + this.redirectUri
+
+                val basic64Str = "Basic " + Base64.getEncoder().encode((this.appId + ":" + this.secret).toByteArray())
+
+                val adapter = json.getAdapter(object : TypeToken<Any>() {})
+                return HttpCall(
+                    okHttpClient.newCall(
+                        Request.Builder()
+                            .url(url)
+                            .addHeader("Authorization", basic64Str)
+                            .addHeader("Content-Type", "application/json")
+                            .addHeader("x-authing-userpool-id", userPoolId)
+                            .addHeader("x-authing-request-from", sdkType)
+                            .addHeader("x-authing-sdk-version", sdkVersion)
+                            .addHeader("x-authing-app-id", "" + this.appId)
+                            .post("{}".toRequestBody(mediaTypeJson))
+                            .build()
+                    ), adapter
+                ) { it }
+            }
+            else -> {//AuthMethodEnum.NONE
+                url += "?client_id=" + this.appId
+                url += "&grant_type=authorization_code"
+                url += "&code=" + code
+                url += "&redirect_uri=" + this.redirectUri
+
+                return this.createHttpPostCall(
+                    url,
+                    "{}",
+                    object : TypeToken<Any>() {}) {
+                    it
+                }
+            }
+        }
+    }
+
+    /**
+     * 根据 ClientCredentials 获得AccessToken
+     */
+    fun getAccessTokenByClientCredentials(scope: String, options: ClientCredentialInput?): HttpCall<Any, Any> {
+        if (scope.isBlank()) {
+            throw Exception("请传入 scope 参数，请看文档：https://docs.authing.cn/v2/guides/authorization/m2m-authz.html")
+        }
+
+        if (options == null) {
+            throw Exception("请在调用本方法时传入 { accessKey: string, accessSecret: string }，请看文档：https://docs.authing.cn/v2/guides/authorization/m2m-authz.html")
+        }
+
+        var url = "${this.host}/oidc/token"
+        url += "?client_id=" + options.accessKey
+        url += "&client_secret=" + options.accessSecret
+        url += "&grant_type=client_credentials"
+        url += "&scope=" + scope
+
+        return this.createHttpPostCall(
+            url,
+            "{}",
+            object : TypeToken<Any>() {}) {
+            it
+        }
+    }
+
+    /**
+     * 根据token获取用户信息
+     */
+    fun getUserInfoByAccessToken(accessToken:String): HttpCall<Any, Any>  {
+        return this.createHttpGetCall(
+            "${this.host}/oidc/me?access_token=${accessToken}",
+            object : TypeToken<Any>() {}) {
+            it
+        }
+    }
 }

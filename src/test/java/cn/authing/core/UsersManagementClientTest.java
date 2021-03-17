@@ -10,10 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 public class UsersManagementClientTest {
     
@@ -27,7 +24,7 @@ public class UsersManagementClientTest {
 
     @Before
     public void before() throws IOException, GraphQLException {
-        ManagementClient managementClient = new ManagementClient("6006d6820d57817ed7a95f84", "4bdb08da88e47a978001d236a09e27f9");
+        ManagementClient managementClient = new ManagementClient("5f9d0cee4a8f5e150cf6470d", "ea4e02cd9dbff480a64813f7fe3b5cf0");
         managementClient.setHost("https://core.authing.cn");
         this.usersManagementClient = managementClient.users();
 
@@ -70,8 +67,20 @@ public class UsersManagementClientTest {
 
     @Test
     public void search() throws IOException, GraphQLException {
-        String query = "gmail";
+        String query = "t";
         PaginatedUsers users = this.usersManagementClient.search(query).execute();
+        Assert.assertTrue(users.getTotalCount() > 0);
+    }
+
+    @Test
+    public void searchUserParam() throws IOException, GraphQLException {
+        List<SearchUserDepartmentOptInput> optInputs=
+                Arrays.asList(new SearchUserDepartmentOptInput("602110f20420dc88d4acb50d",true));
+
+        List<String> fields = Arrays.asList("a");
+        SearchUserParam searchUserParam = new SearchUserParam(
+                "t",null,0,10,optInputs);
+        PaginatedUsers users = this.usersManagementClient.search(searchUserParam).execute();
         Assert.assertTrue(users.getTotalCount() > 0);
     }
 
@@ -122,10 +131,27 @@ public class UsersManagementClientTest {
 
     @Test
     public void listRoles() throws IOException, GraphQLException {
-        PaginatedRoles roles = this.usersManagementClient.listRoles(user.getId()).execute();
+        PaginatedRoles roles1 = this.usersManagementClient.listRoles(user.getId()).execute();
+        Assert.assertEquals(0, roles1.getTotalCount());
+        PaginatedRoles roles = this.usersManagementClient.listRoles(user.getId(),"default").execute();
         Assert.assertEquals(0, roles.getTotalCount());
     }
 
+    @Test
+    public void addRoles() throws IOException, GraphQLException {
+        CommonMessage commonMessage1 = this.usersManagementClient.addRoles(user.getId(),Arrays.asList("rot3","rot4")).execute();
+        Assert.assertEquals(Optional.of(0),commonMessage1.getCode());
+        CommonMessage commonMessage = this.usersManagementClient.addRoles(user.getId(),Arrays.asList("rot1","rot2"),"default").execute();
+        Assert.assertEquals(Optional.of(0),commonMessage.getCode());
+    }
+
+    @Test
+    public void removeRoles() throws IOException, GraphQLException {
+        CommonMessage commonMessage1 = this.usersManagementClient.removeRoles(user.getId(),Arrays.asList("rot3","rot4")).execute();
+        Assert.assertEquals(Optional.of(0),commonMessage1.getCode());
+        CommonMessage commonMessage = this.usersManagementClient.removeRoles(user.getId(),Arrays.asList("rot1","rot2"),"default").execute();
+        Assert.assertEquals(Optional.of(0),commonMessage.getCode());
+    }
     @Test
     public void listPolicies() throws IOException, GraphQLException {
         PaginatedPolicyAssignments result = this.usersManagementClient.listPolicies(user.getId()).execute();

@@ -4,6 +4,8 @@ import cn.authing.core.graphql.GraphQLCall
 import cn.authing.core.graphql.GraphQLRequest
 import cn.authing.core.graphql.GraphQLResponse
 import cn.authing.core.http.HttpCall
+import cn.authing.core.types.AuthMethodEnum
+import cn.authing.core.types.ProtocolEnum
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import okhttp3.MediaType
@@ -40,10 +42,26 @@ abstract class BaseClient(internal val userPoolId: String) {
      */
     var appId: String? = ""
 
+    //应用密钥
+    var secret: String? = ""
+    //应用身份协议
+    var protocol: ProtocolEnum? = ProtocolEnum.OIDC
+    //获取 token 端点认证方式
+    var tokenEndPointAuthMethod: AuthMethodEnum? = AuthMethodEnum.CLIENT_SECRET_POST
+    //检查 token 端点认证方式
+    var introspectionEndPointAuthMethod: AuthMethodEnum? = AuthMethodEnum.CLIENT_SECRET_POST
+    //撤回 token 端点认证方式
+    var revocationEndPointAuthMethod: AuthMethodEnum? = AuthMethodEnum.CLIENT_SECRET_POST
+
+    //应用回调地址
+    var redirectUri: String? = ""
+    //Websocket 服务器域名
+    var websocketHost: String? = ""
+
     // 常量
-    private val mediaTypeJson: MediaType? = "application/json".toMediaTypeOrNull()
-    private val sdkType: String = "SDK"
-    private val sdkVersion: String = "java:4.2.9"
+    protected val mediaTypeJson: MediaType? = "application/json".toMediaTypeOrNull()
+    protected val sdkType: String = "SDK"
+    protected val sdkVersion: String = "java:4.3.9"
 
     // graphql 端点
     private val endpoint: String
@@ -51,8 +69,8 @@ abstract class BaseClient(internal val userPoolId: String) {
             return "$host/graphql/v2"
         }
 
-    private val client: OkHttpClient = OkHttpClient()
-    private val json = GsonBuilder().create()
+    protected val okHttpClient: OkHttpClient = OkHttpClient()
+    protected val json = GsonBuilder().create()
 
     /**
      * 密码加密方法
@@ -84,7 +102,7 @@ abstract class BaseClient(internal val userPoolId: String) {
     ): GraphQLCall<TData, TResult> {
         val adapter = json.getAdapter(typeToken)
         return GraphQLCall(
-            client.newCall(
+            okHttpClient.newCall(
                 Request.Builder()
                     .url(endpoint)
                     .addHeader("Authorization", "Bearer " + this.token)
@@ -109,7 +127,7 @@ abstract class BaseClient(internal val userPoolId: String) {
     ): HttpCall<TData, TResult> {
         val adapter = json.getAdapter(typeToken)
         return HttpCall(
-            client.newCall(
+            okHttpClient.newCall(
                 Request.Builder()
                     .url(url)
                     .addHeader("Authorization", "Bearer " + this.token)
@@ -135,7 +153,7 @@ abstract class BaseClient(internal val userPoolId: String) {
     ): HttpCall<TData, TResult> {
         val adapter = json.getAdapter(typeToken)
         return HttpCall(
-            client.newCall(
+            okHttpClient.newCall(
                 Request.Builder()
                     .url(url)
                     .addHeader("Authorization", "Bearer " + this.token)
@@ -159,7 +177,7 @@ abstract class BaseClient(internal val userPoolId: String) {
     ): HttpCall<TData, TResult> {
         val adapter = json.getAdapter(typeToken)
         return HttpCall(
-            client.newCall(
+            okHttpClient.newCall(
                 Request.Builder()
                     .url(url)
                     .addHeader("Authorization", "Bearer " + this.token)
