@@ -130,7 +130,7 @@ public class AuthenticationClientTest {
     public static void main(String[] args){
         AuthenticationClient authenticationClient = new AuthenticationClient("AUTHING_USERPOOL_ID");
         authenticationClient.setAppId("AUTHING_APP_ID");
-        authenticationClient.setAccessToken("ACCESS_TOKEN");
+        authenticationClient.setToken("ACCESS_TOKEN");
     }
 }
 ```
@@ -143,7 +143,7 @@ import cn.authing.core.auth.AuthenticationClient;
 public class AuthenticationClientTest {
     public static void main(String[] args){
         AuthenticationClient authenticationClient = new AuthenticationClient("AUTHING_USERPOOL_ID");
-        authenticationClient.setAccessToken("ACCESS_TOKEN");
+        authenticationClient.setToken("ACCESS_TOKEN");
         User user = authenticationClient.updateProfile(new UpdateUserInput().withNickname("nickname")).execute();
     }
 }
@@ -160,7 +160,7 @@ import java.io.IOException;
 public class AuthenticationClientTest {
     public static void main(String[] args){
         AuthenticationClient authenticationClient = new AuthenticationClient("AUTHING_USERPOOL_ID");
-        authenticationClient.setAccessToken("ACCESS_TOKEN");
+        authenticationClient.setToken("ACCESS_TOKEN");
 
         try {
             User user = authenticationClient.updateProfile(new UpdateUserInput().withNickname("nickname")).execute();
