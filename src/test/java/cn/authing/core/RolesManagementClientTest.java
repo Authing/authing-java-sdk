@@ -9,9 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 public class RolesManagementClientTest {
     
@@ -23,7 +21,7 @@ public class RolesManagementClientTest {
 
     @Before
     public void before() throws IOException, GraphQLException {
-        ManagementClient managementClient = new ManagementClient("6006d6820d57817ed7a95f84", "4bdb08da88e47a978001d236a09e27f9");
+        ManagementClient managementClient = new ManagementClient("5f9d0cee4a8f5e150cf6470d", "ea4e02cd9dbff480a64813f7fe3b5cf0");
         managementClient.setHost("https://core.authing.cn");
         this.rolesManagementClient = managementClient.roles();
 
@@ -76,6 +74,24 @@ public class RolesManagementClientTest {
         list.add(code);
         CommonMessage result = this.rolesManagementClient.deleteMany(list).execute();
         Assert.assertNotNull(result);
+    }
+
+    @Test
+    public void addUsers() throws IOException, GraphQLException {
+        List<String> userIds = Arrays.asList("604b572025f520ae4aeda834","605ef4a5f4051bcef8fc10ca");
+
+        CommonMessage message = this.rolesManagementClient.addUsers("xxx",userIds).execute();
+
+        Assert.assertEquals(Objects.requireNonNull(message.getCode()).intValue(), 200);
+    }
+
+    @Test
+    public void removeUsers() throws IOException, GraphQLException {
+        List<String> userIds = Arrays.asList("604b572025f520ae4aeda834","605ef4a5f4051bcef8fc10ca");
+
+        CommonMessage message = this.rolesManagementClient.removeUsers("xxx",userIds).execute();
+
+        Assert.assertEquals(Objects.requireNonNull(message.getCode()).intValue(), 200);
     }
 
     @Test
