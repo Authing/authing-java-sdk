@@ -25,8 +25,8 @@ public class AuthenticationClientTest {
 
     @Before
     public void before() {
-        this.authenticationClient = new AuthenticationClient("5f9d0cee4a8f5e150cf6470d");
-        this.authenticationClient.setHost("https://core.authing.cn");
+        this.authenticationClient = new AuthenticationClient("6066d1429248923c2d3b98e6");
+        this.authenticationClient.setHost("http://localhost:3000");
     }
 
     @Test
@@ -94,8 +94,8 @@ public class AuthenticationClientTest {
 //        String username = "test1";
 //        String password = "123456";
 
-        String username = "test";
-        String password = "andy123456";
+        String username = "15566416161";
+        String password = "15566416161";
 //        CompletableFuture<User> future = new CompletableFuture<>();
 //        this.authenticationClient.loginByUsername(new LoginByUsernameInput(username, password))
 //            .enqueue(new Callback<User>() {
@@ -379,6 +379,16 @@ public class AuthenticationClientTest {
 
         Object result = testAC.getUserInfoByAccessToken("eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InA1OENCUTJzZ1JVYVJEdzZWcWxyT3hXT0hDdVN2MVUtN09VbE8zRkg1T2cifQ.eyJqdGkiOiJ5dExETVdzWkphTVExblk3YS1VdVYiLCJzdWIiOiI1ZjlkMjJmZjllMTcxYzY5MzJjZjViMGIiLCJpYXQiOjE2MTU5NTcxNzYsImV4cCI6MTYxNTk2MDc3Niwic2NvcGUiOiJwcm9maWxlIG9wZW5pZCBlbWFpbCBwaG9uZSIsImlzcyI6Imh0dHBzOi8vMTYwNDEyNzk3OTg5OC1kZW1vLmF1dGhpbmcuY24vb2lkYyIsImF1ZCI6IjVmOWQwY2VmMmUxMGY0ZTQ2NTE1M2E3YiJ9.hbfawBWTYHy8NvFHIdOQmeZKVD9Exdx2bHQzbLcsfW3FnATtGO7g1NEgeSXp5e64n15pmsAPNXH6Sq31a6FkmkaJQDNk5xFO9xAobbU8wmaa9taZd7tbTEfeNTuap38J53hRF9xNr5kTvMkTkMWB03CU-DHF-AsBnZTd-g6ZwEMNTGRt9JEz-em58J3RO9JTtKTIaM6YElh-5rDzuukODPVTZIkw8Hjf07beg6LM1C6AKgyH63u_SZGKrBPfDDu8S2-fDWwUgMT5V_Bx-qeX4_9tX9BMuuOnOtq2NkEv1Rf3dFjf8dS_SunV-SlifTciwl_P7u-MaQVHEWTMJkSjvQ").execute();
         Assert.assertNotNull(result !=null);
+    }
+
+    @Test
+    public void list() throws IOException, InterruptedException, ExecutionException, GraphQLException {
+        loginByUsername();
+
+        Pagination<ApplicationPublicDetail> result = authenticationClient.listApplications(1, 10).execute();
+        Pagination<ApplicationPublicDetail> resultNotProps = authenticationClient.listApplications().execute();
+        Assert.assertNotNull(result);
+        Assert.assertNotNull(resultNotProps);
     }
 
 }

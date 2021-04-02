@@ -14,9 +14,13 @@ class ApplicationManagementClient(private val client: ManagementClient) {
     /**
      * 获取应用列表
      */
-    fun listApplications(): HttpCall<RestfulResponse<ListApplicationResponse>, List<Application>> {
+    @JvmOverloads
+    fun listApplications(
+        page: Int? = 1,
+        limit: Int? = 10
+    ): HttpCall<RestfulResponse<ListApplicationResponse>, List<Application>> {
         return client.createHttpGetCall(
-            "${client.host}/api/v2/applications?limit=-1",
+            "${client.host}/api/v2/applications?limit=$limit&page=$page",
             object : TypeToken<RestfulResponse<ListApplicationResponse>>() {}) {
             it.data.list
         }
@@ -32,5 +36,6 @@ class ApplicationManagementClient(private val client: ManagementClient) {
             it.data
         }
     }
+
 
 }

@@ -4,7 +4,7 @@ def binApiKey = ""
 def mavenCentralPassword = "!"
 def mavenPrivatePassword = ""
 def binUser = "authing"
-def versionCode = '4.3.9'
+def versionCode = '4.3.10'
 def pomConfig = {
     licenses {
         license {
@@ -29,6 +29,10 @@ def pomConfig = {
         developer {
             name "lihansir"
             email "lihan@lihansir.com"
+        }
+        developer {
+            name "Lucsun"
+            email "stx1811@163.com"
         }
     }
 

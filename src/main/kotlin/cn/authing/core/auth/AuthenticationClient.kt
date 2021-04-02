@@ -568,11 +568,13 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
                         Request.Builder()
                             .url(url)
                             .addHeader("Content-Type", "application/x-www-form-urlencoded")
-                            .post(FormBody.Builder().add("client_id", this.appId!!)
-                                .add("client_secret", this.secret!!)
-                                .add("grant_type", "authorization_code")
-                                .add("code", code)
-                                .add("redirect_uri", this.redirectUri!!).build())
+                            .post(
+                                FormBody.Builder().add("client_id", this.appId!!)
+                                    .add("client_secret", this.secret!!)
+                                    .add("grant_type", "authorization_code")
+                                    .add("code", code)
+                                    .add("redirect_uri", this.redirectUri!!).build()
+                            )
                             .build()
                     ), json.getAdapter(object : TypeToken<Any>() {})
                 ) {
@@ -580,7 +582,8 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
                 }
             }
             AuthMethodEnum.CLIENT_SECRET_BASIC -> {
-                val basic64Str = "Basic " + Base64.getEncoder().encodeToString(("${this.appId }:${this.secret}").toByteArray())
+                val basic64Str =
+                    "Basic " + Base64.getEncoder().encodeToString(("${this.appId}:${this.secret}").toByteArray())
 
                 return HttpCall(
                     okHttpClient.newCall(
@@ -588,10 +591,12 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
                             .url(url)
                             .addHeader("Authorization", basic64Str)
                             .addHeader("Content-Type", "application/x-www-form-urlencoded")
-                            .post(FormBody.Builder()
-                                .add("grant_type", "authorization_code")
-                                .add("code", code)
-                                .add("redirect_uri", this.redirectUri!!).build())
+                            .post(
+                                FormBody.Builder()
+                                    .add("grant_type", "authorization_code")
+                                    .add("code", code)
+                                    .add("redirect_uri", this.redirectUri!!).build()
+                            )
                             .build()
                     ), json.getAdapter(object : TypeToken<Any>() {})
                 ) {
@@ -604,10 +609,12 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
                         Request.Builder()
                             .url(url)
                             .addHeader("Content-Type", "application/x-www-form-urlencoded")
-                            .post(FormBody.Builder().add("client_id", this.appId!!)
-                                .add("grant_type", "authorization_code")
-                                .add("code", code)
-                                .add("redirect_uri", this.redirectUri!!).build())
+                            .post(
+                                FormBody.Builder().add("client_id", this.appId!!)
+                                    .add("grant_type", "authorization_code")
+                                    .add("code", code)
+                                    .add("redirect_uri", this.redirectUri!!).build()
+                            )
                             .build()
                     ), json.getAdapter(object : TypeToken<Any>() {})
                 ) {
@@ -634,10 +641,12 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
                 Request.Builder()
                     .url("${this.host}/oidc/token")
                     .addHeader("Content-Type", "application/x-www-form-urlencoded")
-                    .post(FormBody.Builder().add("client_id", options.accessKey)
-                        .add("client_secret", options.accessSecret)
-                        .add("grant_type", "client_credentials")
-                        .add("scope", scope).build())
+                    .post(
+                        FormBody.Builder().add("client_id", options.accessKey)
+                            .add("client_secret", options.accessSecret)
+                            .add("grant_type", "client_credentials")
+                            .add("scope", scope).build()
+                    )
                     .build()
             ), json.getAdapter(object : TypeToken<Any>() {})
         ) {
@@ -659,5 +668,19 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
         ) {
             it
         }
+    }
+
+
+    /**
+     * 获取当前用户能够访问的应用
+     */
+    @JvmOverloads
+    fun listApplications(
+        page: Int = 1,
+        limit: Int = 10
+    ): HttpCall<RestfulResponse<Pagination<ApplicationPublicDetail>>, Pagination<ApplicationPublicDetail>> {
+        val url = "$host/api/v2/users/me/applications/allowed?page=$page&limit=$limit"
+
+        return createHttpGetCall(url, object : TypeToken<RestfulResponse<Pagination<ApplicationPublicDetail>>>() {}) { it.data }
     }
 }

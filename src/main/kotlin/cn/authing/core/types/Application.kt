@@ -248,3 +248,19 @@ data class ListApplicationResponse(
     val list: List<Application>,
     val totalCount: Number
 )
+
+data class ApplicationPublicDetail(
+    val id: String,
+    val createdAt: String,
+    val updatedAt: String,
+    val name: String,
+    val logo: String,
+    val domain: String,
+    val description: String,
+    val protocol: String
+)
+
+data class ListAppPublicDetailResponse(
+    val list: List<ApplicationPublicDetail>,
+    val totalCount: Number
+)
