@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
@@ -47,11 +48,15 @@ public class AclManagementClientTest {
 
     @Test
     public void createResource() throws IOException {
+        ArrayList<IAction> list = new ArrayList<>();
+        list.add(new IAction("name", null));
+
+
         IResourceDto iResourceDto = new IResourceDto(
                 String.valueOf(new Date().getTime()),
                 ResourceType.API,
                 null,
-                new IAction("name", null),
+                list,
                 "default"
         );
         IResourceResponse execute = this.aclManagementClient.createResource(iResourceDto).execute();
@@ -64,11 +69,14 @@ public class AclManagementClientTest {
 
         String code = String.valueOf(new Date().getTime());
 
+        ArrayList<IAction> list = new ArrayList<>();
+        list.add(new IAction("name", null));
+
         IResourceDto iResourceDto = new IResourceDto(
                 code,
                 ResourceType.API,
                 "第一次创建的 API",
-                new IAction("name", null),
+                list,
                 "default"
         );
 
@@ -79,7 +87,7 @@ public class AclManagementClientTest {
                 code,
                 ResourceType.API,
                 tempString,
-                new IAction("name", null),
+                list,
                 "default"
         )).execute();
 
@@ -92,11 +100,14 @@ public class AclManagementClientTest {
         String code = String.valueOf(new Date().getTime());
         String namespaceCode = "default";
 
+        ArrayList<IAction> list = new ArrayList<>();
+        list.add(new IAction("name", null));
+
         IResourceDto iResourceDto = new IResourceDto(
                 code,
                 ResourceType.API,
                 null,
-                new IAction("name", null),
+                list,
                 namespaceCode
         );
 

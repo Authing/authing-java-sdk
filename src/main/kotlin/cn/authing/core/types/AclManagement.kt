@@ -17,7 +17,7 @@ data class IAction(
 data class IResourceResponse(
     val userPoolId: String,
     val code: String,
-    val actions: IAction,
+    val actions: List<IAction>,
     val type: String,
     val description: String,
     val namespaceId: Number,
@@ -31,6 +31,6 @@ data class IResourceDto(
     val code: String,
     val type: ResourceType,
     val description: String?,
-    val actions: IAction,
+    val actions: List<IAction>,
     val namespace: String
 )
