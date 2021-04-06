@@ -259,8 +259,3 @@ data class ApplicationPublicDetail(
     val description: String,
     val protocol: String
 )
-
-data class ListAppPublicDetailResponse(
-    val list: List<ApplicationPublicDetail>,
-    val totalCount: Number
-)

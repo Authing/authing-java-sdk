@@ -681,6 +681,8 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     ): HttpCall<RestfulResponse<Pagination<ApplicationPublicDetail>>, Pagination<ApplicationPublicDetail>> {
         val url = "$host/api/v2/users/me/applications/allowed?page=$page&limit=$limit"
 
-        return createHttpGetCall(url, object : TypeToken<RestfulResponse<Pagination<ApplicationPublicDetail>>>() {}) { it.data }
+        return createHttpGetCall(
+            url,
+            object : TypeToken<RestfulResponse<Pagination<ApplicationPublicDetail>>>() {}) { it.data }
     }
 }
