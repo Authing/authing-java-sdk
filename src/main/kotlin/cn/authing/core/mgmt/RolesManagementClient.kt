@@ -136,7 +136,7 @@ class RolesManagementClient(private val client: ManagementClient) {
      * 批量添加用户
      */
     fun addUsers(code: String, userIds: List<String>): GraphQLCall<AssignRoleResponse, CommonMessage> {
-        val param = AssignRoleParam(code).withUserIds(userIds)
+        val param = AssignRoleParam().withUserIds(userIds).withRoleCode(code)
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<AssignRoleResponse>>() {}) {

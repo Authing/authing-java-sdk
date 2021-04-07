@@ -9,9 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Objects;
+import java.util.*;
 
 public class AclManagementClientTest {
 
@@ -19,7 +17,7 @@ public class AclManagementClientTest {
 
     @Before
     public void before() throws IOException, GraphQLException {
-        ManagementClient managementClient = new ManagementClient("60540b7b4cb3196d6621ef5c", "b2e3cbdd563a3f9578f9a7d60915b294");
+        ManagementClient managementClient = new ManagementClient("59f86b4832eb28071bdd9214", "271ba9dc00486c18488aebb0962bd50d");
         managementClient.setHost("http://localhost:3000");
         this.aclManagementClient = managementClient.acl();
 
@@ -118,5 +116,61 @@ public class AclManagementClientTest {
 
         Assert.assertTrue(execute);
 
+    }
+
+    @Test
+    public void getApplicationAccessPolicies() throws IOException {
+        IAppAccessPolicyQueryFilter app = new IAppAccessPolicyQueryFilter("60533084715b2ae009d9913a");
+
+        Pagination<IApplicationAccessPolicies> execute = this.aclManagementClient.getApplicationAccessPolicies(app).execute();
+
+        Assert.assertNotNull(execute.getList());
+    }
+
+    @Test
+    public void enableApplicationAccessPolicy() throws IOException {
+        List<String> userIds = Collections.singletonList("5a597f35085a2000144a10ed");
+
+        IAppAccessPolicy appAccessPolicy = new IAppAccessPolicy(
+                "60533084715b2ae009d9913a",
+                TargetTypeEnum.USER,
+                userIds,
+                "default",
+                null);
+
+        Boolean execute = this.aclManagementClient.enableApplicationAccessPolicy(appAccessPolicy).execute();
+        Boolean execute2 = this.aclManagementClient.disableApplicationAccessPolicy(appAccessPolicy).execute();
+
+        Assert.assertTrue(execute);
+        Assert.assertTrue(execute2);
+    }
+
+    @Test
+    public void allowAccessApplication() throws IOException {
+        List<String> userIds = Collections.singletonList("5a597f35085a2000144a10ed");
+
+        IAppAccessPolicy appAccessPolicy = new IAppAccessPolicy(
+                "60533084715b2ae009d9913a",
+                TargetTypeEnum.USER,
+                userIds,
+                "default",
+                null);
+
+        Boolean execute = this.aclManagementClient.allowAccessApplication(appAccessPolicy).execute();
+        Boolean execute2 = this.aclManagementClient.denyAccessApplication(appAccessPolicy).execute();
+        Assert.assertTrue(execute);
+        Assert.assertTrue(execute2);
+    }
+
+    @Test
+    public void updateDefaultApplicationAccessPolicy() throws IOException {
+        IDefaultAppAccessPolicy policy = new IDefaultAppAccessPolicy(
+                "60533084715b2ae009d9913a",
+                DefaultStrategy.DENY_ALL
+        );
+
+        Application execute = this.aclManagementClient.updateDefaultApplicationAccessPolicy(policy).execute();
+
+        Assert.assertNotNull(execute);
     }
 }

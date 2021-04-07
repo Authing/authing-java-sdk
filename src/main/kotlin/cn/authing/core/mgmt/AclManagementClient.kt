@@ -97,4 +97,95 @@ class AclManagementClient(private val client: ManagementClient) {
             "${client.host}/api/v2/resources/$code?namespaceCode=$namespaceCode",
             object : TypeToken<RestfulResponse<Boolean>>() {}) { it.code == 200 }
     }
+
+    /**
+     * 获取应用访问控制策略
+     */
+    fun getApplicationAccessPolicies(options: IAppAccessPolicyQueryFilter):
+            HttpCall<RestfulResponse<Pagination<IApplicationAccessPolicies>>, Pagination<IApplicationAccessPolicies>> {
+        val url =
+            "${client.host}/api/v2/applications/${options.appId}/authorization/records?limit=${options.limit}&page=${options.page}"
+
+        return this.client.createHttpGetCall(
+            url,
+            object : TypeToken<RestfulResponse<Pagination<IApplicationAccessPolicies>>>() {}) { it.data }
+    }
+
+    /**
+     * 启用应用访问控制策略
+     */
+    fun enableApplicationAccessPolicy(options: IAppAccessPolicy): HttpCall<RestfulResponse<Boolean>, Boolean> {
+        val url =
+            "${client.host}/api/v2/applications/${options.appId}/authorization/enable-effect"
+
+        return this.client.createHttpPostCall(
+            url,
+            GsonBuilder().create().toJson(options),
+            object : TypeToken<RestfulResponse<Boolean>>() {}) { it.code == 200 }
+    }
+
+    /**
+     * 停用应用访问控制策略
+     */
+    fun disableApplicationAccessPolicy(options: IAppAccessPolicy): HttpCall<RestfulResponse<Boolean>, Boolean> {
+        val url =
+            "${client.host}/api/v2/applications/${options.appId}/authorization/disable-effect"
+
+        return this.client.createHttpPostCall(
+            url,
+            GsonBuilder().create().toJson(options),
+            object : TypeToken<RestfulResponse<Boolean>>() {}) { it.code == 200 }
+    }
+
+    /**
+     * 删除应用访问控制策略
+     */
+    fun deleteApplicationAccessPolicy(options: IAppAccessPolicy): HttpCall<RestfulResponse<Boolean>, Boolean> {
+        val url =
+            "${client.host}/api/v2/applications/${options.appId}/authorization/revoke"
+
+        return this.client.createHttpPostCall(
+            url,
+            GsonBuilder().create().toJson(options),
+            object : TypeToken<RestfulResponse<Boolean>>() {}) { it.code == 200 }
+    }
+
+    /**
+     * 配置「允许主体（用户、角色、分组、组织机构节点）访问应用」的控制策略
+     */
+    fun allowAccessApplication(options: IAppAccessPolicy): HttpCall<RestfulResponse<Boolean>, Boolean> {
+        val url = "${client.host}/api/v2/applications/${options.appId}/authorization/allow"
+
+        return this.client.createHttpPostCall(
+            url,
+            GsonBuilder().create().toJson(options),
+            object : TypeToken<RestfulResponse<Boolean>>() {}) { it.code == 200 }
+
+    }
+
+    /**
+     * 配置「拒绝主体（用户、角色、分组、组织机构节点）访问应用」的控制策略
+     */
+    fun denyAccessApplication(options: IAppAccessPolicy): HttpCall<RestfulResponse<Boolean>, Boolean> {
+        val url = "${client.host}/api/v2/applications/${options.appId}/authorization/deny"
+
+        return this.client.createHttpPostCall(
+            url,
+            GsonBuilder().create().toJson(options),
+            object : TypeToken<RestfulResponse<Boolean>>() {}) { it.code == 200 }
+
+    }
+
+    /**
+     * 更改默认应用访问策略（默认拒绝所有用户访问应用、默认允许所有用户访问应用）
+     */
+    fun updateDefaultApplicationAccessPolicy(options: IDefaultAppAccessPolicy): HttpCall<RestfulResponse<Application>, Application> {
+        val url = "${client.host}/api/v2/applications/${options.appId}"
+
+        return this.client.createHttpPostCall(
+            url,
+            GsonBuilder().create().toJson(options),
+            object : TypeToken<RestfulResponse<Application>>() {}){ it.data }
+
+    }
 }
