@@ -25,8 +25,8 @@ public class UsersManagementClientTest {
 
     @Before
     public void before() throws IOException, GraphQLException {
-        ManagementClient managementClient = new ManagementClient("5f9d0cee4a8f5e150cf6470d", "ea4e02cd9dbff480a64813f7fe3b5cf0");
-        managementClient.setHost("https://core.authing.cn");
+        ManagementClient managementClient = new ManagementClient("59f86b4832eb28071bdd9214", "271ba9dc00486c18488aebb0962bd50d");
+        managementClient.setHost("http://localhost:3000");
         this.usersManagementClient = managementClient.users();
 
         managementClient.requestToken().execute();
@@ -92,6 +92,17 @@ public class UsersManagementClientTest {
         findUserParam.setEmail(email);
         User user = this.usersManagementClient.find(findUserParam).execute();
         Assert.assertEquals(email, user.getEmail());
+    }
+
+    @Test
+    public void findExternalId() throws IOException, GraphQLException {
+        String externalId = "7702";
+        FindUserParam findUserParam = new FindUserParam();
+        findUserParam.setExternalId(externalId);
+
+        User user = this.usersManagementClient.find(findUserParam).execute();
+
+        Assert.assertEquals(externalId, user.getExternalId());
     }
 
     @Test
