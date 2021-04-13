@@ -26,7 +26,7 @@ public class StatisticsManagementClientTest {
     }
 
     @Test
-    public void listUserActions() throws IOException, GraphQLException {
+    public void listUserActions() throws IOException {
         List<String> operationNames = Arrays.asList("login", "register");
         List<String> userIds = Arrays.asList("5f9d22ff9e171c6932cf5b0b", "22");
 
@@ -39,7 +39,7 @@ public class StatisticsManagementClientTest {
     }
 
     @Test
-    public void listAuditLogs() throws IOException, GraphQLException {
+    public void listAuditLogs() throws IOException {
         List<String> operationNames = Arrays.asList("userpool:UpdateConfig", "11");
         List<String> operatorArns = Arrays.asList("arn:cn:authing:59f86b4832eb28071bdd9214:user:5f8d27f5a5c763ceaa628844", "22");
 

@@ -15,10 +15,22 @@ public class AclManagementClientTest {
 
     private AclManagementClient aclManagementClient;
 
+    private ManagementClient managementClient;
+
+    private final String appId = "605084fe415a744f79029f09";
+
     @Before
     public void before() throws IOException, GraphQLException {
-        ManagementClient managementClient = new ManagementClient("59f86b4832eb28071bdd9214", "271ba9dc00486c18488aebb0962bd50d");
-        managementClient.setHost("http://localhost:3000");
+        String userPoolId = "5f45cad3ece50b62de2a02cd";
+//        String userPoolId = "59f86b4832eb28071bdd9214";
+        String userPoolSecret = "624cb39b07ffd29b946112ea82f5b50e";
+//        String userPoolSecret = "271ba9dc00486c18488aebb0962bd50d";
+
+        ManagementClient managementClient = new ManagementClient(userPoolId, userPoolSecret);
+        managementClient.setHost("https://core.authing.cn");
+//        managementClient.setHost("http://localhost:3000");
+
+        this.managementClient = managementClient;
         this.aclManagementClient = managementClient.acl();
 
         managementClient.requestToken().execute();
@@ -26,14 +38,20 @@ public class AclManagementClientTest {
 
     @Test
     public void allow() throws IOException, GraphQLException {
-        CommonMessage message = this.aclManagementClient.allow("resource:id", "action:id").execute();
+        String userId = "5a597f35085a2000144a10ed";
+
+        CommonMessage message = this.aclManagementClient.allow("resource:id", "action:id", userId).execute();
+
         Assert.assertEquals(Objects.requireNonNull(message.getCode()).intValue(), 200);
     }
 
     @Test
     public void isAllowed() throws IOException, GraphQLException {
+        String userId = "5a597f35085a2000144a10ed";
+
         boolean flag =
-                this.aclManagementClient.isAllowed("6006d685cf5b43013bf83797", "resource:id", "action:id").execute();
+                this.aclManagementClient.isAllowed(userId, "resource:id", "action:id").execute();
+
         Assert.assertFalse(flag);
     }
 
@@ -66,9 +84,7 @@ public class AclManagementClientTest {
     public void updateResource() throws IOException {
 
         String code = String.valueOf(new Date().getTime());
-
-        ArrayList<IAction> list = new ArrayList<>();
-        list.add(new IAction("name", null));
+        List<IAction> list = Arrays.asList(new IAction("name", null));
 
         IResourceDto iResourceDto = new IResourceDto(
                 code,
@@ -99,7 +115,7 @@ public class AclManagementClientTest {
         String namespaceCode = "default";
 
         ArrayList<IAction> list = new ArrayList<>();
-        list.add(new IAction("name", null));
+        list.add(new IAction("name"));
 
         IResourceDto iResourceDto = new IResourceDto(
                 code,
@@ -120,7 +136,7 @@ public class AclManagementClientTest {
 
     @Test
     public void getApplicationAccessPolicies() throws IOException {
-        IAppAccessPolicyQueryFilter app = new IAppAccessPolicyQueryFilter("60533084715b2ae009d9913a");
+        IAppAccessPolicyQueryFilter app = new IAppAccessPolicyQueryFilter(this.appId);
 
         Pagination<IApplicationAccessPolicies> execute = this.aclManagementClient.getApplicationAccessPolicies(app).execute();
 
@@ -132,7 +148,7 @@ public class AclManagementClientTest {
         List<String> userIds = Collections.singletonList("5a597f35085a2000144a10ed");
 
         IAppAccessPolicy appAccessPolicy = new IAppAccessPolicy(
-                "60533084715b2ae009d9913a",
+                this.appId,
                 TargetTypeEnum.USER,
                 userIds,
                 "default",
@@ -150,7 +166,7 @@ public class AclManagementClientTest {
         List<String> userIds = Collections.singletonList("5a597f35085a2000144a10ed");
 
         IAppAccessPolicy appAccessPolicy = new IAppAccessPolicy(
-                "60533084715b2ae009d9913a",
+                this.appId,
                 TargetTypeEnum.USER,
                 userIds,
                 "default",
@@ -165,7 +181,7 @@ public class AclManagementClientTest {
     @Test
     public void updateDefaultApplicationAccessPolicy() throws IOException {
         IDefaultAppAccessPolicy policy = new IDefaultAppAccessPolicy(
-                "60533084715b2ae009d9913a",
+                this.appId,
                 DefaultStrategy.DENY_ALL
         );
 
@@ -173,4 +189,56 @@ public class AclManagementClientTest {
 
         Assert.assertNotNull(execute);
     }
+
+    @Test
+    public void programmaticAccessAccountList() throws IOException {
+        IProgrammaticAccessAccountListProps props = new IProgrammaticAccessAccountListProps(this.appId, 1, 10);
+
+        Pagination<ProgrammaticAccessAccount> execute = this.aclManagementClient.programmaticAccessAccountList(props).execute();
+
+        Assert.assertNotNull(execute);
+    }
+
+    @Test
+    public void createAndDeletePAA() throws IOException {
+        ICreateProgrammaticAccessAccountProps props = new ICreateProgrammaticAccessAccountProps(this.appId, 600, "");
+
+        ProgrammaticAccessAccount res = managementClient.acl().createProgrammaticAccessAccount(props).execute();
+
+        Assert.assertNotNull(res);
+
+        Boolean isDelete = managementClient.acl().deleteProgrammaticAccessAccount(res.getId()).execute();
+
+        Assert.assertTrue(isDelete);
+    }
+
+    @Test
+    public void integratedPAA () throws IOException {
+        ICreateProgrammaticAccessAccountProps props = new ICreateProgrammaticAccessAccountProps(this.appId, 600, "");
+
+        ProgrammaticAccessAccount base = managementClient.acl().createProgrammaticAccessAccount(props).execute();
+
+        Assert.assertNotNull(base);
+
+        String PAA_ID = base.getId();
+
+        ProgrammaticAccessAccount disable = managementClient.acl().disableProgrammaticAccessAccount(PAA_ID).execute();
+
+        Assert.assertFalse(disable.getEnabled());
+
+        ProgrammaticAccessAccount enable = managementClient.acl().enableProgrammaticAccessAccount(PAA_ID).execute();
+
+        Assert.assertTrue(enable.getEnabled());
+
+        ProgrammaticAccessAccount account = managementClient.acl()
+                .refreshProgrammaticAccessAccountSecret(new IProgrammaticAccessAccountProps(PAA_ID))
+                .execute();
+
+        Assert.assertNotEquals(account.getSecret(), base.getSecret());
+
+        Boolean isDelete = managementClient.acl().deleteProgrammaticAccessAccount(base.getId()).execute();
+
+        Assert.assertTrue(isDelete);
+    }
+
 }

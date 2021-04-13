@@ -25,8 +25,15 @@ public class UsersManagementClientTest {
 
     @Before
     public void before() throws IOException, GraphQLException {
-        ManagementClient managementClient = new ManagementClient("59f86b4832eb28071bdd9214", "271ba9dc00486c18488aebb0962bd50d");
-        managementClient.setHost("http://localhost:3000");
+
+        String userPoolId = "5f45cad3ece50b62de2a02cd";
+//        String userPoolId = "59f86b4832eb28071bdd9214";
+        String userPoolSecret = "624cb39b07ffd29b946112ea82f5b50e";
+//        String userPoolSecret = "271ba9dc00486c18488aebb0962bd50d";
+
+        ManagementClient managementClient = new ManagementClient(userPoolId, userPoolSecret);
+        managementClient.setHost("https://core.authing.cn");
+//        managementClient.setHost("http://localhost:3000");
         this.usersManagementClient = managementClient.users();
 
         managementClient.requestToken().execute();
@@ -234,5 +241,14 @@ public class UsersManagementClientTest {
     public void removeUdfValue() throws IOException, GraphQLException, ExecutionException, InterruptedException {
         List<UserDefinedData> result = this.usersManagementClient.removeUdfValue("5f9d0cef60d09ff5a4c87c06","dnum").execute();
         Assert.assertNotNull(result);
+    }
+
+    @Test
+    public void kick() throws IOException {
+        List<String> userIds = Arrays.asList("604b34ca6aa796c8b77d6c26", "604b34c44c27edbfd3d5293c");
+
+        Boolean res = this.usersManagementClient.kick(userIds).execute();
+
+        Assert.assertTrue(res);
     }
 }

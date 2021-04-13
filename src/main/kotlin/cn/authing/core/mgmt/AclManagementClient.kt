@@ -6,22 +6,36 @@ import cn.authing.core.http.HttpCall
 import cn.authing.core.types.*
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import sun.security.util.Length
+import kotlin.random.Random
 
 /**
  * 权限控制类
  */
 class AclManagementClient(private val client: ManagementClient) {
+
+    private fun randomString(randomLength: Number): String {
+        val template = "abcdefhijkmnprstwxyz2345678".toCharArray()
+
+
+        var returnValue = "";
+
+        for (item in 1..randomLength as Int)
+            returnValue += template[Random.nextInt(template.size)]
+
+        return returnValue
+    }
+
     /**
      * 允许某用户操作某资源
      */
-    @JvmOverloads
     fun allow(
         resource: String,
         action: String,
-        userId: String? = null,
-        role: String? = null
+        userId: String
     ): GraphQLCall<AllowResponse, CommonMessage> {
-        val param = AllowParam(resource, action).withUserId(userId).withRoleCode(role)
+        val param = AllowParam(resource, action).withUserId(userId)
+
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<AllowResponse>>() {}) {
@@ -185,7 +199,135 @@ class AclManagementClient(private val client: ManagementClient) {
         return this.client.createHttpPostCall(
             url,
             GsonBuilder().create().toJson(options),
-            object : TypeToken<RestfulResponse<Application>>() {}){ it.data }
+            object : TypeToken<RestfulResponse<Application>>() {}) { it.data }
+
+    }
+
+    /**
+     * 将一个（类）资源授权给用户、角色、分组、组织机构，且可以分别指定不同的操作权限
+     */
+    fun authorizeResource(
+        namespace: String,
+        resource: String,
+        opts: List<AuthorizeResourceOptInput>
+    ): GraphQLCall<AuthorizeResourceResponse, CommonMessage> {
+        val param = AuthorizeResourceParam(namespace).withResource(resource).withOpts(opts)
+
+        return this.client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<AuthorizeResourceResponse>>() {}) { it.result }
+    }
+
+    /**
+     * 刷新编程访问账号密钥
+     * @param options.id 编程访问账号 ID
+     * @param options.secret 编程访问账号 Secret
+     * @returns ProgrammaticAccessAccount
+     */
+    fun refreshProgrammaticAccessAccountSecret(
+        options: IProgrammaticAccessAccountProps
+    ): HttpCall<RestfulResponse<ProgrammaticAccessAccount>, ProgrammaticAccessAccount> {
+        val url = "${client.host}/api/v2/applications/programmatic-access-accounts"
+
+        if (options.secret == null) options.secret = randomString(32)
+
+        return this.client.createHttpPatchCall(
+            url,
+            GsonBuilder().create().toJson(options),
+            object : TypeToken<RestfulResponse<ProgrammaticAccessAccount>>() {}) { it.data }
+
+    }
+
+    /**
+     * 编程访问账号列表
+     * @param options.appId 应用 ID
+     * @param options.page 当前页数
+     * @param options.limit 每页显示条数
+     * @returns Pagination<ProgrammaticAccessAccount>
+     */
+    fun programmaticAccessAccountList(
+        options: IProgrammaticAccessAccountListProps
+    ): HttpCall<RestfulResponse<Pagination<ProgrammaticAccessAccount>>, Pagination<ProgrammaticAccessAccount>> {
+
+        val url =
+            "${client.host}/api/v2/applications/${options.appId}/programmatic-access-accounts?limit=${options.limit}&page=${options.page}"
+
+        return this.client.createHttpGetCall(
+            url,
+            object : TypeToken<RestfulResponse<Pagination<ProgrammaticAccessAccount>>>() {}) { it.data }
+    }
+
+    /**
+     * 添加编程访问账号
+     *
+     * @param options.appId 应用 ID
+     * @param options.tokenLifetime AccessToken 过期时间（秒）
+     * @param options.remarks 备注
+     * @returns ProgrammaticAccessAccount
+     */
+    fun createProgrammaticAccessAccount(
+        options: ICreateProgrammaticAccessAccountProps
+    ): HttpCall<RestfulResponse<ProgrammaticAccessAccount>, ProgrammaticAccessAccount> {
+        val url =
+            "${client.host}/api/v2/applications/${options.appId}/programmatic-access-accounts"
+
+        return this.client.createHttpPostCall(
+            url,
+            GsonBuilder().create().toJson(options),
+            object : TypeToken<RestfulResponse<ProgrammaticAccessAccount>>() {}) { it.data }
+
+    }
+
+    /**
+     * 删除编程访问账号
+     * @param programmaticAccessAccountId 编程访问账号 ID
+     * @returns Boolean
+     */
+    fun deleteProgrammaticAccessAccount(
+        programmaticAccessAccountId: String
+    ): HttpCall<RestfulResponse<Boolean>, Boolean> {
+        val url =
+            "${client.host}/api/v2/applications/programmatic-access-accounts?id=${programmaticAccessAccountId}"
+
+        return this.client.createHttpDeleteCall(
+            url,
+            object : TypeToken<RestfulResponse<Boolean>>() {}) { it.code == 200 }
+
+    }
+
+    /**
+     * 启用编程访问账号
+     * @param programmaticAccessAccountId 编程访问账号 ID
+     * @returns ProgrammaticAccessAccount
+     */
+    fun enableProgrammaticAccessAccount(
+        programmaticAccessAccountId: String
+    ): HttpCall<RestfulResponse<ProgrammaticAccessAccount>, ProgrammaticAccessAccount> {
+        val url =
+            "${client.host}/api/v2/applications/programmatic-access-accounts"
+
+        return this.client.createHttpPatchCall(
+            url,
+            GsonBuilder().create().toJson(IEnableProgrammaticAccessAccount(programmaticAccessAccountId, true)),
+            object : TypeToken<RestfulResponse<ProgrammaticAccessAccount>>() {}) { it.data }
+
+    }
+
+    /**
+     * 禁用编程访问账号
+     * @param programmaticAccessAccountId 编程访问账号 ID
+     * @returns ProgrammaticAccessAccount
+     */
+    fun disableProgrammaticAccessAccount(
+        programmaticAccessAccountId: String
+    ): HttpCall<RestfulResponse<ProgrammaticAccessAccount>, ProgrammaticAccessAccount> {
+        val url =
+            "${client.host}/api/v2/applications/programmatic-access-accounts"
+
+        return this.client.createHttpPatchCall(
+            url,
+            GsonBuilder().create().toJson(IEnableProgrammaticAccessAccount(programmaticAccessAccountId, false)),
+            object : TypeToken<RestfulResponse<ProgrammaticAccessAccount>>() {}) { it.data }
 
     }
 }

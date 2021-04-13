@@ -3,11 +3,8 @@ package cn.authing.core.mgmt
 import cn.authing.core.graphql.GraphQLCall
 import cn.authing.core.graphql.GraphQLException
 import cn.authing.core.graphql.GraphQLResponse
-import cn.authing.core.http.HttpCall
 import cn.authing.core.types.*
-import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.sun.org.apache.xpath.internal.operations.Bool
 
 /**
  * 管理注册白名单
@@ -54,28 +51,28 @@ class WhitelistManagementClient(private val client: ManagementClient) {
      * 开启白名单
      */
     fun enable(type: WhitelistType): GraphQLCall<UpdateUserpoolResponse, UserPool> {
-        return enableOrDisable(type,true);
+        return enableOrDisable(type, true)
     }
 
     /**
      * 关闭白名单
      */
     fun disable(type: WhitelistType): GraphQLCall<UpdateUserpoolResponse, UserPool> {
-        return enableOrDisable(type,false);
+        return enableOrDisable(type, false)
     }
 
-    private fun enableOrDisable(type:WhitelistType,action:Boolean): GraphQLCall<UpdateUserpoolResponse, UserPool>{
+    private fun enableOrDisable(type: WhitelistType, action: Boolean): GraphQLCall<UpdateUserpoolResponse, UserPool> {
         val updatesWhite = RegisterWhiteListConfigInput()
         when (type) {
-            WhitelistType.EMAIL ->  updatesWhite.emailEnabled = action;
-            WhitelistType.PHONE ->  updatesWhite.phoneEnabled = action;
-            WhitelistType.USERNAME ->  updatesWhite.usernameEnabled = action;
+            WhitelistType.EMAIL -> updatesWhite.emailEnabled = action
+            WhitelistType.PHONE -> updatesWhite.phoneEnabled = action
+            WhitelistType.USERNAME -> updatesWhite.usernameEnabled = action
             else -> {
                 throw GraphQLException(message = "不支持的白名单类型")
             }
         }
 
-        val  updates= UpdateUserpoolInput(whitelist = updatesWhite)
+        val updates = UpdateUserpoolInput(whitelist = updatesWhite)
         return client.userpool().update(updates)
     }
 }

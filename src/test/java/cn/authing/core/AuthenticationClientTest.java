@@ -23,15 +23,18 @@ public class AuthenticationClientTest {
         return Integer.toString(new Random().nextInt());
     }
 
+    private final String APP_ID = "605084fe415a744f79029f09";
+
     @Before
     public void before() {
-        this.authenticationClient = new AuthenticationClient("6066d1429248923c2d3b98e6");
-        this.authenticationClient.setHost("http://localhost:3000");
+        this.authenticationClient = new AuthenticationClient("5f45cad3ece50b62de2a02cd");
+        this.authenticationClient.setHost("https://core.authing.cn");
+        this.authenticationClient.setAppId(APP_ID);
     }
 
     @Test
     public void registerByEmail() throws IOException, GraphQLException {
-        String email = randomString() + "@gmail.com";
+        String email = randomString() + "@testGmail.com";
         String password = "123456";
         User user = this.authenticationClient.registerByEmail(new RegisterByEmailInput(email, password)).execute();
         Assert.assertEquals(user.getEmail(), email);
@@ -378,7 +381,7 @@ public class AuthenticationClientTest {
         testAC.setHost("https://1604127979898-demo.authing.cn");
 
         Object result = testAC.getUserInfoByAccessToken("eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InA1OENCUTJzZ1JVYVJEdzZWcWxyT3hXT0hDdVN2MVUtN09VbE8zRkg1T2cifQ.eyJqdGkiOiJ5dExETVdzWkphTVExblk3YS1VdVYiLCJzdWIiOiI1ZjlkMjJmZjllMTcxYzY5MzJjZjViMGIiLCJpYXQiOjE2MTU5NTcxNzYsImV4cCI6MTYxNTk2MDc3Niwic2NvcGUiOiJwcm9maWxlIG9wZW5pZCBlbWFpbCBwaG9uZSIsImlzcyI6Imh0dHBzOi8vMTYwNDEyNzk3OTg5OC1kZW1vLmF1dGhpbmcuY24vb2lkYyIsImF1ZCI6IjVmOWQwY2VmMmUxMGY0ZTQ2NTE1M2E3YiJ9.hbfawBWTYHy8NvFHIdOQmeZKVD9Exdx2bHQzbLcsfW3FnATtGO7g1NEgeSXp5e64n15pmsAPNXH6Sq31a6FkmkaJQDNk5xFO9xAobbU8wmaa9taZd7tbTEfeNTuap38J53hRF9xNr5kTvMkTkMWB03CU-DHF-AsBnZTd-g6ZwEMNTGRt9JEz-em58J3RO9JTtKTIaM6YElh-5rDzuukODPVTZIkw8Hjf07beg6LM1C6AKgyH63u_SZGKrBPfDDu8S2-fDWwUgMT5V_Bx-qeX4_9tX9BMuuOnOtq2NkEv1Rf3dFjf8dS_SunV-SlifTciwl_P7u-MaQVHEWTMJkSjvQ").execute();
-        Assert.assertNotNull(result !=null);
+        Assert.assertNotNull(result);
     }
 
     @Test

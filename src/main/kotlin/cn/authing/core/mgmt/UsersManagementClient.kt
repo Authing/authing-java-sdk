@@ -5,6 +5,7 @@ import cn.authing.core.graphql.GraphQLResponse
 import cn.authing.core.http.HttpCall
 import cn.authing.core.types.*
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import java.util.*
 
@@ -478,6 +479,40 @@ class UsersManagementClient(private val client: ManagementClient) {
      */
     fun removeUdfValue(userId: String, key: String): GraphQLCall<RemoveUdvResponse, List<UserDefinedData>> {
         return removeUdv(userId, key);
+    }
+
+    /**
+     * 判断用户是否有某个角色
+     */
+    fun hasRole(
+        option: IHasRoleParam
+    ): Boolean {
+        val (totalCount, list) = this.listRoles(option.userId, option.namespace).execute()
+
+        if (totalCount < 1) return false
+
+        var hasRole = false;
+
+        list.forEach { item -> if (item.code === option.roleCode) hasRole = true }
+
+        return hasRole
+    }
+
+    /**
+     * 强制一批用户下线
+     */
+    fun kick(
+        userIds: List<String>
+    ): HttpCall<RestfulResponse<Boolean>, Boolean> {
+        val url =
+            "${client.host}/api/v2/users/kick"
+
+        val body = "{ \"userIds\": ${GsonBuilder().create().toJson(userIds)} }"
+
+        return this.client.createHttpPostCall(
+            url,
+            body,
+            object : TypeToken<RestfulResponse<Boolean>>() {}) { it.code == 200 }
     }
 
 }

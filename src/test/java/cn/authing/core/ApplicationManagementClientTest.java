@@ -3,7 +3,10 @@ package cn.authing.core;
 import cn.authing.core.graphql.GraphQLException;
 import cn.authing.core.mgmt.ApplicationManagementClient;
 import cn.authing.core.mgmt.ManagementClient;
+import cn.authing.core.types.ActiveUser;
 import cn.authing.core.types.Application;
+import cn.authing.core.types.IActiveUsersParam;
+import cn.authing.core.types.Pagination;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,26 +18,56 @@ public class ApplicationManagementClientTest {
 
     private ApplicationManagementClient applicationManagementClient;
 
+    private ManagementClient managementClient;
+
+    private final String APP_ID = "605084fe415a744f79029f09";
+
     @Before
     public void before() throws IOException, GraphQLException {
-        ManagementClient managementClient = new ManagementClient("60540b7b4cb3196d6621ef5c", "b2e3cbdd563a3f9578f9a7d60915b294");
-        managementClient.setHost("http://localhost:3000");
+
+        String userPoolId = "5f45cad3ece50b62de2a02cd";
+//        String userPoolId = "59f86b4832eb28071bdd9214";
+        String userPoolSecret = "624cb39b07ffd29b946112ea82f5b50e";
+//        String userPoolSecret = "271ba9dc00486c18488aebb0962bd50d";
+
+        ManagementClient managementClient = new ManagementClient(userPoolId, userPoolSecret);
+        managementClient.setHost("https://core.authing.cn");
+//        managementClient.setHost("http://localhost:3000");
+        this.managementClient = managementClient;
         this.applicationManagementClient = managementClient.application();
 
         managementClient.requestToken().execute();
     }
 
     @Test
-    public void listApplications() throws IOException {
-        List<Application> result = this.applicationManagementClient.listApplications(1, 2).execute();
+    public void list() throws IOException {
+        List<Application> result = this.applicationManagementClient.list(1, 2).execute();
+
         Assert.assertTrue(result.size() != 0);
     }
 
     @Test
-    public void detail() throws IOException {
-        String appId = "6066d1432adb32d1c7a6f004";
-        Application application = this.applicationManagementClient.detail(appId).execute();
-        Assert.assertEquals(appId, application.getId());
+    public void findById() throws IOException {
+        Application application = this.applicationManagementClient.findById(this.APP_ID).execute();
+        Assert.assertEquals(this.APP_ID, application.getId());
+    }
+
+    @Test
+    public void activeUsers() throws IOException {
+        IActiveUsersParam param = new IActiveUsersParam(APP_ID);
+
+        Pagination<ActiveUser> pagination = managementClient.application().activeUsers(param).execute();
+
+        System.out.println(pagination.getList().toString());
+
+        Assert.assertNotNull(pagination.getList());
+    }
+
+    @Test
+    public void refreshApplicationSecret() throws IOException {
+        Application application = managementClient.application().refreshApplicationSecret(APP_ID).execute();
+
+        Assert.assertNotNull(application);
     }
 
 }

@@ -21,9 +21,11 @@ enum class DefaultStrategy(val label: String) {
     DENY_ALL("DENY_ALL");
 }
 
-data class IAction(
+class IAction
+@JvmOverloads
+constructor(
     val name: String,
-    val description: String?
+    val description: String? = null
 )
 
 data class IResourceResponse(
@@ -47,9 +49,14 @@ data class IResourceDto(
     val namespace: String
 )
 
-data class IAppAccessPolicyQueryFilter(
-    val appId: String
-) : PaginationQuery()
+class IAppAccessPolicyQueryFilter
+@JvmOverloads
+constructor(
+    val appId: String,
+    val page: Number? = 1,
+    val limit: Number? = 10
+)
+
 
 data class Statement(
     val resource: String,
@@ -82,15 +89,58 @@ data class IApplicationAccessPolicies(
     val policy: IPolicy
 )
 
-data class IAppAccessPolicy(
+class IAppAccessPolicy
+@JvmOverloads
+constructor(
     val appId: String,
     val targetType: TargetTypeEnum,
     val targetIdentifiers: List<String>,
-    val namespace: String?,
-    val inheritByChildren: String?
+    val namespace: String? = null,
+    val inheritByChildren: String? = null
 )
 
 data class IDefaultAppAccessPolicy(
     val appId: String,
     val defaultStrategy: DefaultStrategy
+)
+
+data class ProgrammaticAccessAccount(
+    val id: String,
+    val createdAt: String,
+    val updatedAt: String,
+    val appId: String,
+    val secret: String,
+    val remarks: String,
+    val tokenLifetime: Number,
+    val enabled: Boolean,
+    val userId: String
+)
+
+class IProgrammaticAccessAccountProps
+@JvmOverloads
+constructor(
+    val id: String,
+    var secret: String? = null
+)
+
+
+class IProgrammaticAccessAccountListProps
+@JvmOverloads
+constructor(
+    val appId: String,
+    val page: Number? = 1,
+    val limit: Number? = 10
+)
+
+class ICreateProgrammaticAccessAccountProps
+@JvmOverloads
+constructor(
+    val appId: String,
+    val tokenLifetime: Number? = 600,
+    val remarks: String? = ""
+)
+
+data class IEnableProgrammaticAccessAccount(
+    val id: String,
+    val enabled: Boolean
 )

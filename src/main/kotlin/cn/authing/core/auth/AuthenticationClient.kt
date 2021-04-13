@@ -33,6 +33,14 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
         }
     }
 
+    fun checkLoggedIn(): Boolean {
+        if (this.user == null) return false
+
+        if (this.token == null) return false
+
+        return true
+    }
+
     /**
      * 通过微信登录，获取用户信息
      */

@@ -17,7 +17,9 @@ public class GroupsManagementClientTest {
 
     @Before
     public void before() throws IOException, GraphQLException {
-        ManagementClient managementClient = new ManagementClient("6006d6820d57817ed7a95f84", "4bdb08da88e47a978001d236a09e27f9");
+        String userPoolId = "5f45cad3ece50b62de2a02cd";
+        String userPoolSecret = "624cb39b07ffd29b946112ea82f5b50e";
+        ManagementClient managementClient = new ManagementClient(userPoolId, userPoolSecret);
         managementClient.setHost("https://core.authing.cn");
         this.groupsManagementClient = managementClient.group();
 
@@ -26,7 +28,10 @@ public class GroupsManagementClientTest {
 
     @Test
     public void create() throws IOException, GraphQLException {
-        Group group = this.groupsManagementClient.create(new CreateGroupParam("code1", "name1", "desc1")).execute();
+        Group group = this.groupsManagementClient.create(new CreateGroupParam("code", "name1", "desc1")).execute();
+
+        System.out.println(group);
+
         Assert.assertNotNull(group);
     }
 

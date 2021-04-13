@@ -259,3 +259,84 @@ data class ApplicationPublicDetail(
     val description: String,
     val protocol: String
 )
+
+class IActiveUsersParam
+@JvmOverloads
+constructor(
+    val appId: String,
+    val page: Number? = 1,
+    val limit: Number? = 10
+)
+
+data class IThirdPartyIdentity(
+    val provider: String,
+    val refreshToken: String,
+    val accessToken: String,
+    val scope: String,
+    val expiresIn: String,
+    val updatedAt: String
+)
+
+class ActiveUser
+@JvmOverloads
+constructor(
+    val id: String,
+    val createdAt: String,
+    val updatedAt: String,
+    val userPoolId: String,
+    val isRoot: Boolean,
+    val status: String,
+    val oauth: String? = null,
+    val email: String? = null,
+    val phone: String? = null,
+    val username: String,
+    val unionid: String? = null,
+    val openid: String? = null,
+    val nickname: String? = null,
+    val company: String? = null,
+    val photo: String,
+    val browser: String? = null,
+    val device: String? = null,
+    val password: String,
+    val salt: String? = null,
+    val token: String,
+    val tokenExpiredAt: String,
+    val loginsCount: Number,
+    val lastIp: String,
+    val name: String? = null,
+    val givenName: String? = null,
+    val familyName: String? = null,
+    val middleName: String? = null,
+    val profile: String? = null,
+    val preferredUsername: String? = null,
+    val website: String? = null,
+    val gender: String,
+    val birthdate: String? = null,
+    val zoneinfo: String? = null,
+    val locale: String? = null,
+    val address: String? = null,
+    val formatted: Boolean?,
+    val streetAddress: String? = null,
+    val locality: String? = null,
+    val region: String? = null,
+    val postalCode: String? = null,
+    val city: String? = null,
+    val province: String? = null,
+    val country: String? = null,
+    val registerSource: List<String>,
+    val secretInfo: String? = null,
+    val emailVerified: Boolean,
+    val phoneVerified: Boolean,
+    val lastLogin: String,
+    val blocked: Boolean,
+    val isDeleted: Boolean,
+    val sendSmsCount: Number,
+    val sendSmsLimitCount: Number,
+    val signedUp: String,
+    val externalId: String? = null,
+    val mainDepartmentId: String? = null,
+    val mainDepartmentCode: String? = null,
+    val lastMfaTime: String? = null,
+    val passwordSecurityLevel: Number,
+    val thirdPartyIdentity: IThirdPartyIdentity
+)
