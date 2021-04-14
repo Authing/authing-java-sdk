@@ -58,8 +58,6 @@ public class ApplicationManagementClientTest {
 
         Pagination<ActiveUser> pagination = managementClient.application().activeUsers(param).execute();
 
-        System.out.println(pagination.getList().toString());
-
         Assert.assertNotNull(pagination.getList());
     }
 

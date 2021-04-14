@@ -22,7 +22,16 @@ import javax.crypto.Cipher
 /**
  * Authing 客户端类
  */
-abstract class BaseClient(internal val userPoolId: String) {
+abstract class BaseClient {
+    constructor(userPoolId: String, secret: String) {
+        this.userPoolId = userPoolId
+
+        this.secret = secret
+    }
+    constructor(appId: String) {
+        this.appId = appId
+    }
+
     // 可选参数
     var host: String = "https://core.authing.cn"
     var publicKey: String = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC4xKeUgQ+Aoz7TLfAfs9+paePb" +
@@ -30,6 +39,7 @@ abstract class BaseClient(internal val userPoolId: String) {
             "+TiA2BKHbCvloW3w5Lnqm70iSsUi5Fmu9/2+68GZRH9L7Mlh8cFksCicW2Y2W2uM" +
             "GKl64GDcIq3au+aqJQIDAQAB"
 
+    var userPoolId: String? = null
     /**
      * 每次发出请求时会附加在请求头的 token
      *
@@ -108,7 +118,7 @@ abstract class BaseClient(internal val userPoolId: String) {
                     .url(endpoint)
                     .addHeader("Authorization", "Bearer " + this.token)
                     .addHeader("Content-Type", "application/json")
-                    .addHeader("x-authing-userpool-id", userPoolId)
+                    .addHeader("x-authing-userpool-id", "" + userPoolId)
                     .addHeader("x-authing-request-from", sdkType)
                     .addHeader("x-authing-sdk-version", sdkVersion)
                     .addHeader("x-authing-app-id", "" + this.appId)
@@ -132,7 +142,7 @@ abstract class BaseClient(internal val userPoolId: String) {
                 Request.Builder()
                     .url(url)
                     .addHeader("Authorization", "Bearer " + this.token)
-                    .addHeader("x-authing-userpool-id", userPoolId)
+                    .addHeader("x-authing-userpool-id", "" + userPoolId)
                     .addHeader("x-authing-request-from", sdkType)
                     .addHeader("x-authing-sdk-version", sdkVersion)
                     .addHeader("x-authing-app-id", "" + this.appId)
@@ -159,7 +169,7 @@ abstract class BaseClient(internal val userPoolId: String) {
                     .url(url)
                     .addHeader("Authorization", "Bearer " + this.token)
                     .addHeader("Content-Type", "application/json")
-                    .addHeader("x-authing-userpool-id", userPoolId)
+                    .addHeader("x-authing-userpool-id", "" + userPoolId)
                     .addHeader("x-authing-request-from", sdkType)
                     .addHeader("x-authing-sdk-version", sdkVersion)
                     .addHeader("x-authing-app-id", "" + this.appId)
@@ -183,7 +193,7 @@ abstract class BaseClient(internal val userPoolId: String) {
                     .url(url)
                     .addHeader("Authorization", "Bearer " + this.token)
                     .addHeader("Content-Type", "application/json")
-                    .addHeader("x-authing-userpool-id", userPoolId)
+                    .addHeader("x-authing-userpool-id", "" + userPoolId)
                     .addHeader("x-authing-request-from", sdkType)
                     .addHeader("x-authing-sdk-version", sdkVersion)
                     .addHeader("x-authing-app-id", "" + this.appId)
@@ -210,7 +220,7 @@ abstract class BaseClient(internal val userPoolId: String) {
                     .url(url)
                     .addHeader("Authorization", "Bearer " + this.token)
                     .addHeader("Content-Type", "application/json")
-                    .addHeader("x-authing-userpool-id", userPoolId)
+                    .addHeader("x-authing-userpool-id", "" + userPoolId)
                     .addHeader("x-authing-request-from", sdkType)
                     .addHeader("x-authing-sdk-version", sdkVersion)
                     .addHeader("x-authing-app-id", "" + this.appId)

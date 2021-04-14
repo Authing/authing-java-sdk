@@ -61,7 +61,8 @@ data class SetUdfValueBatchInputItem(
 enum class ProtocolEnum(val value: String) {
     OAUTH("oauth"),
     OIDC("oidc"),
-    CAS("cas");
+    CAS("cas"),
+    SAML("saml");
 
     companion object {
         @JvmStatic
