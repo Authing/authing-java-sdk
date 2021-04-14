@@ -19,7 +19,17 @@ import java.util.*
 import kotlin.collections.HashMap
 import kotlin.streams.toList
 
-class AuthenticationClient(appId: String) : BaseClient(appId) {
+class AuthenticationClient: BaseClient {
+    constructor(userPoolId: String) {
+        this.userPoolId = userPoolId
+    }
+
+    constructor(appId: String, appHost: String) {
+        this.appId = appId
+
+        this.host = appHost
+    }
+
     private var user: User? = null
 
     /**

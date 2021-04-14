@@ -37,10 +37,10 @@ public class AuthenticationClientTest {
 
     @Before
     public void before() {
-        this.authenticationClient = new AuthenticationClient(APP_ID);
-        this.authenticationClient.setUserPoolId("5f45cad3ece50b62de2a02cd");
-        this.authenticationClient.setSecret("624cb39b07ffd29b946112ea82f5b50e");
-        this.authenticationClient.setHost("https://core.authing.cn");
+//        this.authenticationClient = new AuthenticationClient("5f45cad3ece50b62de2a02cd");
+//        this.authenticationClient.setAppId(APP_ID);
+//        this.authenticationClient.setSecret("624cb39b07ffd29b946112ea82f5b50e");
+//        this.authenticationClient.setHost("https://core.authing.cn");
     }
 
     private User register(String username, String password) throws IOException, GraphQLException {

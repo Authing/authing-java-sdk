@@ -2,23 +2,82 @@ package cn.authing.core.mgmt
 
 import cn.authing.core.BaseClient
 import cn.authing.core.graphql.GraphQLCall
+import cn.authing.core.graphql.GraphQLRequest
 import cn.authing.core.graphql.GraphQLResponse
+import cn.authing.core.http.HttpCall
 import cn.authing.core.types.*
 import com.google.gson.reflect.TypeToken
 
-class ManagementClient(userPoolId: String,  secret: String) : BaseClient(userPoolId, secret) {
+class ManagementClient(userPoolId: String,  secret: String) : BaseClient() {
+
+    init {
+        this.userPoolId = userPoolId
+
+        this.secret = secret
+    }
+
+    override fun <TData, TResult> createGraphQLCall(
+        request: GraphQLRequest,
+        typeToken: TypeToken<GraphQLResponse<TData>>,
+        resolver: (data: TData) -> TResult
+    ): GraphQLCall<TData, TResult> {
+        this.getToken()
+        return super.createGraphQLCall(request, typeToken, resolver)
+    }
+
+    override fun <TData, TResult> createHttpGetCall(
+        url: String,
+        typeToken: TypeToken<TData>,
+        resolver: (data: TData) -> TResult
+    ): HttpCall<TData, TResult> {
+        this.getToken()
+        return super.createHttpGetCall(url, typeToken, resolver)
+    }
+
+    override fun <TData, TResult> createHttpDeleteCall(
+        url: String,
+        typeToken: TypeToken<TData>,
+        resolver: (data: TData) -> TResult
+    ): HttpCall<TData, TResult> {
+        this.getToken()
+        return super.createHttpDeleteCall(url, typeToken, resolver)
+    }
+
+    override fun <TData, TResult> createHttpPatchCall(
+        url: String,
+        body: String,
+        typeToken: TypeToken<TData>,
+        resolver: (data: TData) -> TResult
+    ): HttpCall<TData, TResult> {
+        this.getToken()
+        return super.createHttpPatchCall(url, body, typeToken, resolver)
+    }
+
+    override fun <TData, TResult> createHttpPostCall(
+        url: String,
+        body: String,
+        typeToken: TypeToken<TData>,
+        resolver: (data: TData) -> TResult
+    ): HttpCall<TData, TResult> {
+        this.getToken()
+        return super.createHttpPostCall(url, body, typeToken, resolver)
+    }
 
     /**
      * 获取管理员 access token，获取成功后即可使用其他接口
      */
     fun requestToken(): GraphQLCall<AccessTokenResponse, AccessTokenRes> {
         val param = AccessTokenParam(userPoolId!!, secret!!)
-        return createGraphQLCall(
+        return super@ManagementClient.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<AccessTokenResponse>>() {}) {
             token = it.result.accessToken!!
             return@createGraphQLCall it.result
         }
+    }
+
+    private fun getToken() {
+        if (this.token == null) this.requestToken().execute()
     }
 
     /**
@@ -31,6 +90,8 @@ class ManagementClient(userPoolId: String,  secret: String) : BaseClient(userPoo
             it.result
         }
     }
+
+
 
     /**
      * 获取用户管理模块

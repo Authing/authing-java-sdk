@@ -26,17 +26,13 @@ public class ApplicationManagementClientTest {
     public void before() throws IOException, GraphQLException {
 
         String userPoolId = "5f45cad3ece50b62de2a02cd";
-//        String userPoolId = "59f86b4832eb28071bdd9214";
         String userPoolSecret = "624cb39b07ffd29b946112ea82f5b50e";
-//        String userPoolSecret = "271ba9dc00486c18488aebb0962bd50d";
 
         ManagementClient managementClient = new ManagementClient(userPoolId, userPoolSecret);
         managementClient.setHost("https://core.authing.cn");
-//        managementClient.setHost("http://localhost:3000");
+
         this.managementClient = managementClient;
         this.applicationManagementClient = managementClient.application();
-
-        managementClient.requestToken().execute();
     }
 
     @Test
