@@ -1,8 +1,8 @@
-package cn.authing.core.utils;
+package cn.authing.core;
 
 import java.util.Map;
 
-public class UrlUtils {
+public class Utils {
     public static String getRqstUrl(String url, Map<String, String> params) {
         StringBuilder builder = new StringBuilder(url);
         boolean isFirst = true;
