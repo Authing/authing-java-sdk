@@ -4,7 +4,6 @@ import cn.authing.core.graphql.GraphQLRequest
 import com.google.gson.annotations.SerializedName
 
 
-
 data class Query(
     /** @param [isActionAllowed] isActionAllowed */
     @SerializedName("isActionAllowed")
@@ -183,8 +182,7 @@ enum class PolicyAssignmentTargetType(val label: String) {
 }
 
 
-
-data class ResourcePermissionsActionsInput @JvmOverloads constructor (
+data class ResourcePermissionsActionsInput @JvmOverloads constructor(
     /** @param [op] op */
     @SerializedName("op")
     var op: Operator,
@@ -212,7 +210,6 @@ enum class Operator(val label: String) {
 }
 
 
-
 data class PaginatedResourcePermissionAssignments(
     /** @param [list] list */
     @SerializedName("list")
@@ -221,7 +218,6 @@ data class PaginatedResourcePermissionAssignments(
     @SerializedName("totalCount")
     var totalCount: Int? = null
 )
-
 
 
 data class ResourcePermissionAssignment(
@@ -235,7 +231,6 @@ data class ResourcePermissionAssignment(
     @SerializedName("actions")
     var actions: List<String>? = null
 )
-
 
 
 data class SocialConnection(
@@ -257,7 +252,6 @@ data class SocialConnection(
 )
 
 
-
 data class SocialConnectionField(
     /** @param [key] key */
     @SerializedName("key")
@@ -277,7 +271,6 @@ data class SocialConnectionField(
 )
 
 
-
 data class SocialConnectionInstance(
     /** @param [provider] provider */
     @SerializedName("provider")
@@ -291,7 +284,6 @@ data class SocialConnectionInstance(
 )
 
 
-
 data class SocialConnectionInstanceField(
     /** @param [key] key */
     @SerializedName("key")
@@ -300,7 +292,6 @@ data class SocialConnectionInstanceField(
     @SerializedName("value")
     var value: String
 )
-
 
 
 data class EmailTemplate(
@@ -389,7 +380,6 @@ enum class SortByEnum(val label: String) {
 }
 
 
-
 data class PaginatedFunctions(
     /** @param [list] list */
     @SerializedName("list")
@@ -398,7 +388,6 @@ data class PaginatedFunctions(
     @SerializedName("totalCount")
     var totalCount: Int
 )
-
 
 
 data class Group(
@@ -426,7 +415,6 @@ data class Group(
 )
 
 
-
 data class PaginatedUsers(
     /** @param [totalCount] totalCount */
     @SerializedName("totalCount")
@@ -435,7 +423,6 @@ data class PaginatedUsers(
     @SerializedName("list")
     var list: List<User>
 )
-
 
 
 data class User(
@@ -621,7 +608,6 @@ enum class UserStatus(val label: String) {
 }
 
 
-
 data class Identity(
     /** @param [openid] openid */
     @SerializedName("openid")
@@ -653,7 +639,6 @@ data class Identity(
 )
 
 
-
 data class PaginatedRoles(
     /** @param [totalCount] totalCount */
     @SerializedName("totalCount")
@@ -662,7 +647,6 @@ data class PaginatedRoles(
     @SerializedName("list")
     var list: List<Role>
 )
-
 
 
 data class Role(
@@ -699,7 +683,6 @@ data class Role(
 )
 
 
-
 data class PaginatedAuthorizedResources(
     /** @param [totalCount] totalCount */
     @SerializedName("totalCount")
@@ -708,7 +691,6 @@ data class PaginatedAuthorizedResources(
     @SerializedName("list")
     var list: List<AuthorizedResource>
 )
-
 
 
 data class AuthorizedResource(
@@ -724,7 +706,6 @@ data class AuthorizedResource(
 )
 
 
-
 data class PaginatedGroups(
     /** @param [totalCount] totalCount */
     @SerializedName("totalCount")
@@ -735,7 +716,6 @@ data class PaginatedGroups(
 )
 
 
-
 data class PaginatedDepartments(
     /** @param [list] list */
     @SerializedName("list")
@@ -744,7 +724,6 @@ data class PaginatedDepartments(
     @SerializedName("totalCount")
     var totalCount: Int
 )
-
 
 
 data class UserDepartment(
@@ -758,7 +737,6 @@ data class UserDepartment(
     @SerializedName("joinedAt")
     var joinedAt: String? = null
 )
-
 
 
 data class Node(
@@ -819,7 +797,6 @@ data class Node(
 )
 
 
-
 data class Mfa(
     /** @param [id] MFA ID */
     @SerializedName("id")
@@ -839,7 +816,6 @@ data class Mfa(
 )
 
 
-
 data class Org(
     /** @param [id] 组织机构 ID */
     @SerializedName("id")
@@ -853,7 +829,6 @@ data class Org(
 )
 
 
-
 data class PaginatedOrgs(
     /** @param [totalCount] totalCount */
     @SerializedName("totalCount")
@@ -864,7 +839,6 @@ data class PaginatedOrgs(
 )
 
 
-
 data class CheckPasswordStrengthResult(
     /** @param [valid] valid */
     @SerializedName("valid")
@@ -873,7 +847,6 @@ data class CheckPasswordStrengthResult(
     @SerializedName("message")
     var message: String? = null
 )
-
 
 
 data class Policy(
@@ -907,7 +880,6 @@ data class Policy(
 )
 
 
-
 data class PolicyStatement(
     /** @param [resource] resource */
     @SerializedName("resource")
@@ -936,7 +908,6 @@ enum class PolicyEffect(val label: String) {
 }
 
 
-
 data class PolicyStatementCondition(
     /** @param [param] param */
     @SerializedName("param")
@@ -948,7 +919,6 @@ data class PolicyStatementCondition(
     @SerializedName("value")
     var value: Any
 )
-
 
 
 data class PolicyAssignment(
@@ -964,7 +934,6 @@ data class PolicyAssignment(
 )
 
 
-
 data class PaginatedPolicies(
     /** @param [totalCount] totalCount */
     @SerializedName("totalCount")
@@ -973,7 +942,6 @@ data class PaginatedPolicies(
     @SerializedName("list")
     var list: List<Policy>
 )
-
 
 
 data class PaginatedPolicyAssignments(
@@ -1001,7 +969,6 @@ enum class UdfTargetType(val label: String) {
         }
     }
 }
-
 
 
 data class UserDefinedData(
@@ -1035,7 +1002,6 @@ enum class UdfDataType(val label: String) {
 }
 
 
-
 data class UserDefinedField(
     /** @param [targetType] targetType */
     @SerializedName("targetType")
@@ -1055,7 +1021,6 @@ data class UserDefinedField(
 )
 
 
-
 data class UserDefinedDataMap(
     /** @param [targetId] targetId */
     @SerializedName("targetId")
@@ -1066,8 +1031,7 @@ data class UserDefinedDataMap(
 )
 
 
-
-data class SearchUserDepartmentOptInput @JvmOverloads constructor (
+data class SearchUserDepartmentOptInput @JvmOverloads constructor(
     /** @param [departmentId] departmentId */
     @SerializedName("departmentId")
     var departmentId: String? = null,
@@ -1094,7 +1058,6 @@ data class SearchUserDepartmentOptInput @JvmOverloads constructor (
 }
 
 
-
 data class JwtTokenStatus(
     /** @param [code] code */
     @SerializedName("code")
@@ -1117,7 +1080,6 @@ data class JwtTokenStatus(
 )
 
 
-
 data class JwtTokenStatusDetail(
     /** @param [id] id */
     @SerializedName("id")
@@ -1129,7 +1091,6 @@ data class JwtTokenStatusDetail(
     @SerializedName("arn")
     var arn: String? = null
 )
-
 
 
 data class UserPool(
@@ -1230,7 +1191,6 @@ data class UserPool(
 )
 
 
-
 data class UserPoolType(
     /** @param [code] code */
     @SerializedName("code")
@@ -1250,7 +1210,6 @@ data class UserPoolType(
 )
 
 
-
 data class FrequentRegisterCheckConfig(
     /** @param [timeInterval] timeInterval */
     @SerializedName("timeInterval")
@@ -1262,7 +1221,6 @@ data class FrequentRegisterCheckConfig(
     @SerializedName("enabled")
     var enabled: Boolean? = null
 )
-
 
 
 data class LoginFailCheckConfig(
@@ -1278,7 +1236,6 @@ data class LoginFailCheckConfig(
 )
 
 
-
 data class ChangePhoneStrategy(
     /** @param [verifyOldPhone] verifyOldPhone */
     @SerializedName("verifyOldPhone")
@@ -1286,13 +1243,11 @@ data class ChangePhoneStrategy(
 )
 
 
-
 data class ChangeEmailStrategy(
     /** @param [verifyOldEmail] verifyOldEmail */
     @SerializedName("verifyOldEmail")
     var verifyOldEmail: Boolean? = null
 )
-
 
 
 data class QrcodeLoginStrategy(
@@ -1311,7 +1266,6 @@ data class QrcodeLoginStrategy(
 )
 
 
-
 data class App2WxappLoginStrategy(
     /** @param [ticketExpriresAfter] ticketExpriresAfter */
     @SerializedName("ticketExpriresAfter")
@@ -1320,7 +1274,6 @@ data class App2WxappLoginStrategy(
     @SerializedName("ticketExchangeUserInfoNeedSecret")
     var ticketExchangeUserInfoNeedSecret: Boolean? = null
 )
-
 
 
 data class RegisterWhiteListConfig(
@@ -1336,7 +1289,6 @@ data class RegisterWhiteListConfig(
 )
 
 
-
 data class CustomSmsProvider(
     /** @param [enabled] enabled */
     @SerializedName("enabled")
@@ -1350,7 +1302,6 @@ data class CustomSmsProvider(
 )
 
 
-
 data class PaginatedUserpool(
     /** @param [totalCount] totalCount */
     @SerializedName("totalCount")
@@ -1359,7 +1310,6 @@ data class PaginatedUserpool(
     @SerializedName("list")
     var list: List<UserPool>
 )
-
 
 
 data class AccessTokenRes(
@@ -1388,7 +1338,6 @@ enum class WhitelistType(val label: String) {
 }
 
 
-
 data class WhiteList(
     /** @param [createdAt] createdAt */
     @SerializedName("createdAt")
@@ -1400,7 +1349,6 @@ data class WhiteList(
     @SerializedName("value")
     var value: String
 )
-
 
 
 data class Mutation(
@@ -1635,7 +1583,6 @@ data class Mutation(
 )
 
 
-
 data class CommonMessage(
     /** @param [message] 可读的接口响应说明，请以业务状态码 code 作为判断业务是否成功的标志 */
     @SerializedName("message")
@@ -1647,8 +1594,7 @@ data class CommonMessage(
 )
 
 
-
-data class AuthorizeResourceOptInput @JvmOverloads constructor (
+data class AuthorizeResourceOptInput @JvmOverloads constructor(
     /** @param [targetType] targetType */
     @SerializedName("targetType")
     var targetType: PolicyAssignmentTargetType,
@@ -1672,8 +1618,7 @@ data class AuthorizeResourceOptInput @JvmOverloads constructor (
 }
 
 
-
-data class CreateSocialConnectionInstanceInput @JvmOverloads constructor (
+data class CreateSocialConnectionInstanceInput @JvmOverloads constructor(
     /** @param [provider] 社会化登录 provider */
     @SerializedName("provider")
     var provider: String,
@@ -1694,8 +1639,7 @@ data class CreateSocialConnectionInstanceInput @JvmOverloads constructor (
 }
 
 
-
-data class CreateSocialConnectionInstanceFieldInput @JvmOverloads constructor (
+data class CreateSocialConnectionInstanceFieldInput @JvmOverloads constructor(
     /** @param [key] key */
     @SerializedName("key")
     var key: String,
@@ -1711,8 +1655,7 @@ data class CreateSocialConnectionInstanceFieldInput @JvmOverloads constructor (
 }
 
 
-
-data class ConfigEmailTemplateInput @JvmOverloads constructor (
+data class ConfigEmailTemplateInput @JvmOverloads constructor(
     /** @param [type] 邮件模版类型 */
     @SerializedName("type")
     var type: EmailTemplateType,
@@ -1778,8 +1721,7 @@ enum class EmailScene(val label: String) {
 }
 
 
-
-data class CreateFunctionInput @JvmOverloads constructor (
+data class CreateFunctionInput @JvmOverloads constructor(
     /** @param [name] 函数名称 */
     @SerializedName("name")
     var name: String,
@@ -1812,8 +1754,7 @@ data class CreateFunctionInput @JvmOverloads constructor (
 }
 
 
-
-data class UpdateFunctionInput @JvmOverloads constructor (
+data class UpdateFunctionInput @JvmOverloads constructor(
     /** @param [id] ID */
     @SerializedName("id")
     var id: String,
@@ -1861,8 +1802,7 @@ data class UpdateFunctionInput @JvmOverloads constructor (
 }
 
 
-
-data class LoginByEmailInput @JvmOverloads constructor (
+data class LoginByEmailInput @JvmOverloads constructor(
     /** @param [email] email */
     @SerializedName("email")
     var email: String,
@@ -1922,8 +1862,7 @@ data class LoginByEmailInput @JvmOverloads constructor (
 }
 
 
-
-data class LoginByUsernameInput @JvmOverloads constructor (
+data class LoginByUsernameInput @JvmOverloads constructor(
     /** @param [username] username */
     @SerializedName("username")
     var username: String,
@@ -1983,8 +1922,7 @@ data class LoginByUsernameInput @JvmOverloads constructor (
 }
 
 
-
-data class LoginByPhoneCodeInput @JvmOverloads constructor (
+data class LoginByPhoneCodeInput @JvmOverloads constructor(
     /** @param [phone] phone */
     @SerializedName("phone")
     var phone: String,
@@ -2035,8 +1973,7 @@ data class LoginByPhoneCodeInput @JvmOverloads constructor (
 }
 
 
-
-data class LoginByPhonePasswordInput @JvmOverloads constructor (
+data class LoginByPhonePasswordInput @JvmOverloads constructor(
     /** @param [phone] phone */
     @SerializedName("phone")
     var phone: String,
@@ -2096,8 +2033,7 @@ data class LoginByPhonePasswordInput @JvmOverloads constructor (
 }
 
 
-
-data class PolicyStatementInput @JvmOverloads constructor (
+data class PolicyStatementInput @JvmOverloads constructor(
     /** @param [resource] resource */
     @SerializedName("resource")
     var resource: String,
@@ -2130,8 +2066,7 @@ data class PolicyStatementInput @JvmOverloads constructor (
 }
 
 
-
-data class PolicyStatementConditionInput @JvmOverloads constructor (
+data class PolicyStatementConditionInput @JvmOverloads constructor(
     /** @param [param] param */
     @SerializedName("param")
     var param: String,
@@ -2150,8 +2085,7 @@ data class PolicyStatementConditionInput @JvmOverloads constructor (
 }
 
 
-
-data class RegisterByUsernameInput @JvmOverloads constructor (
+data class RegisterByUsernameInput @JvmOverloads constructor(
     /** @param [username] username */
     @SerializedName("username")
     var username: String,
@@ -2220,8 +2154,7 @@ data class RegisterByUsernameInput @JvmOverloads constructor (
 }
 
 
-
-data class RegisterProfileInput @JvmOverloads constructor (
+data class RegisterProfileInput @JvmOverloads constructor(
     /** @param [ip] ip */
     @SerializedName("ip")
     var ip: String? = null,
@@ -2473,8 +2406,7 @@ data class RegisterProfileInput @JvmOverloads constructor (
 }
 
 
-
-data class UserDdfInput @JvmOverloads constructor (
+data class UserDdfInput @JvmOverloads constructor(
     /** @param [key] key */
     @SerializedName("key")
     var key: String,
@@ -2490,8 +2422,7 @@ data class UserDdfInput @JvmOverloads constructor (
 }
 
 
-
-data class RegisterByEmailInput @JvmOverloads constructor (
+data class RegisterByEmailInput @JvmOverloads constructor(
     /** @param [email] email */
     @SerializedName("email")
     var email: String,
@@ -2560,8 +2491,7 @@ data class RegisterByEmailInput @JvmOverloads constructor (
 }
 
 
-
-data class RegisterByPhoneCodeInput @JvmOverloads constructor (
+data class RegisterByPhoneCodeInput @JvmOverloads constructor(
     /** @param [phone] phone */
     @SerializedName("phone")
     var phone: String,
@@ -2639,8 +2569,7 @@ data class RegisterByPhoneCodeInput @JvmOverloads constructor (
 }
 
 
-
-data class SetUdfValueBatchInput @JvmOverloads constructor (
+data class SetUdfValueBatchInput @JvmOverloads constructor(
     /** @param [targetId] targetId */
     @SerializedName("targetId")
     var targetId: String,
@@ -2659,8 +2588,7 @@ data class SetUdfValueBatchInput @JvmOverloads constructor (
 }
 
 
-
-data class UserDefinedDataInput @JvmOverloads constructor (
+data class UserDefinedDataInput @JvmOverloads constructor(
     /** @param [key] key */
     @SerializedName("key")
     var key: String,
@@ -2681,7 +2609,6 @@ data class UserDefinedDataInput @JvmOverloads constructor (
 }
 
 
-
 data class RefreshToken(
     /** @param [token] token */
     @SerializedName("token")
@@ -2695,8 +2622,7 @@ data class RefreshToken(
 )
 
 
-
-data class CreateUserInput @JvmOverloads constructor (
+data class CreateUserInput @JvmOverloads constructor(
     /** @param [username] 用户名，用户池内唯一 */
     @SerializedName("username")
     var username: String? = null,
@@ -3065,8 +2991,7 @@ data class CreateUserInput @JvmOverloads constructor (
 }
 
 
-
-data class UpdateUserInput @JvmOverloads constructor (
+data class UpdateUserInput @JvmOverloads constructor(
     /** @param [email] 邮箱。直接修改用户邮箱需要管理员权限，普通用户修改邮箱请使用 **updateEmail** 接口。 */
     @SerializedName("email")
     var email: String? = null,
@@ -3435,8 +3360,7 @@ data class UpdateUserInput @JvmOverloads constructor (
 }
 
 
-
-data class UpdateUserpoolInput @JvmOverloads constructor (
+data class UpdateUserpoolInput @JvmOverloads constructor(
     /** @param [name] name */
     @SerializedName("name")
     var name: String? = null,
@@ -3634,8 +3558,7 @@ data class UpdateUserpoolInput @JvmOverloads constructor (
 }
 
 
-
-data class FrequentRegisterCheckConfigInput @JvmOverloads constructor (
+data class FrequentRegisterCheckConfigInput @JvmOverloads constructor(
     /** @param [timeInterval] timeInterval */
     @SerializedName("timeInterval")
     var timeInterval: Int? = null,
@@ -3671,8 +3594,7 @@ data class FrequentRegisterCheckConfigInput @JvmOverloads constructor (
 }
 
 
-
-data class LoginFailCheckConfigInput @JvmOverloads constructor (
+data class LoginFailCheckConfigInput @JvmOverloads constructor(
     /** @param [timeInterval] timeInterval */
     @SerializedName("timeInterval")
     var timeInterval: Int? = null,
@@ -3708,8 +3630,7 @@ data class LoginFailCheckConfigInput @JvmOverloads constructor (
 }
 
 
-
-data class ChangePhoneStrategyInput @JvmOverloads constructor (
+data class ChangePhoneStrategyInput @JvmOverloads constructor(
     /** @param [verifyOldPhone] verifyOldPhone */
     @SerializedName("verifyOldPhone")
     var verifyOldPhone: Boolean? = null
@@ -3727,8 +3648,7 @@ data class ChangePhoneStrategyInput @JvmOverloads constructor (
 }
 
 
-
-data class ChangeEmailStrategyInput @JvmOverloads constructor (
+data class ChangeEmailStrategyInput @JvmOverloads constructor(
     /** @param [verifyOldEmail] verifyOldEmail */
     @SerializedName("verifyOldEmail")
     var verifyOldEmail: Boolean? = null
@@ -3746,8 +3666,7 @@ data class ChangeEmailStrategyInput @JvmOverloads constructor (
 }
 
 
-
-data class QrcodeLoginStrategyInput @JvmOverloads constructor (
+data class QrcodeLoginStrategyInput @JvmOverloads constructor(
     /** @param [qrcodeExpiresAfter] qrcodeExpiresAfter */
     @SerializedName("qrcodeExpiresAfter")
     var qrcodeExpiresAfter: Int? = null,
@@ -3792,8 +3711,7 @@ data class QrcodeLoginStrategyInput @JvmOverloads constructor (
 }
 
 
-
-data class App2WxappLoginStrategyInput @JvmOverloads constructor (
+data class App2WxappLoginStrategyInput @JvmOverloads constructor(
     /** @param [ticketExpriresAfter] ticketExpriresAfter */
     @SerializedName("ticketExpriresAfter")
     var ticketExpriresAfter: Int? = null,
@@ -3820,8 +3738,7 @@ data class App2WxappLoginStrategyInput @JvmOverloads constructor (
 }
 
 
-
-data class RegisterWhiteListConfigInput @JvmOverloads constructor (
+data class RegisterWhiteListConfigInput @JvmOverloads constructor(
     /** @param [phoneEnabled] phoneEnabled */
     @SerializedName("phoneEnabled")
     var phoneEnabled: Boolean? = null,
@@ -3857,8 +3774,7 @@ data class RegisterWhiteListConfigInput @JvmOverloads constructor (
 }
 
 
-
-data class CustomSmsProviderInput @JvmOverloads constructor (
+data class CustomSmsProviderInput @JvmOverloads constructor(
     /** @param [enabled] enabled */
     @SerializedName("enabled")
     var enabled: Boolean? = null,
@@ -3894,7 +3810,6 @@ data class CustomSmsProviderInput @JvmOverloads constructor (
 }
 
 
-
 data class RefreshAccessTokenRes(
     /** @param [accessToken] accessToken */
     @SerializedName("accessToken")
@@ -3927,7 +3842,6 @@ data class BatchOperationResult(
 )
 
 
-
 data class KeyValuePair(
     /** @param [key] key */
     @SerializedName("key")
@@ -3938,8 +3852,7 @@ data class KeyValuePair(
 )
 
 
-
-data class SocialConnectionFieldInput @JvmOverloads constructor (
+data class SocialConnectionFieldInput @JvmOverloads constructor(
     /** @param [key] key */
     @SerializedName("key")
     var key: String? = null,
@@ -3993,8 +3906,7 @@ data class SocialConnectionFieldInput @JvmOverloads constructor (
 }
 
 
-
-data class CreateSocialConnectionInput @JvmOverloads constructor (
+data class CreateSocialConnectionInput @JvmOverloads constructor(
     /** @param [provider] provider */
     @SerializedName("provider")
     var provider: String,
@@ -4030,30 +3942,32 @@ data class CreateSocialConnectionInput @JvmOverloads constructor (
 }
 
 
-data class AddMemberResponse (
+data class AddMemberResponse(
 
     @SerializedName("addMember")
     val result: Node
 )
 
-class AddMemberParam @JvmOverloads constructor (    @SerializedName("page")
-                                                    var page: Int? = null,
-                                                    @SerializedName("limit")
-                                                    var limit: Int? = null,
-                                                    @SerializedName("sortBy")
-                                                    var sortBy: SortByEnum? = null,
-                                                    @SerializedName("includeChildrenNodes")
-                                                    var includeChildrenNodes: Boolean? = null,
-                                                    @SerializedName("nodeId")
-                                                    var nodeId: String? = null,
-                                                    @SerializedName("orgId")
-                                                    var orgId: String? = null,
-                                                    @SerializedName("nodeCode")
-                                                    var nodeCode: String? = null,
-                                                    @SerializedName("userIds")
-                                                    var userIds: List<String>,
-                                                    @SerializedName("isLeader")
-                                                    var isLeader: Boolean? = null)  {
+class AddMemberParam @JvmOverloads constructor(
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null,
+    @SerializedName("sortBy")
+    var sortBy: SortByEnum? = null,
+    @SerializedName("includeChildrenNodes")
+    var includeChildrenNodes: Boolean? = null,
+    @SerializedName("nodeId")
+    var nodeId: String? = null,
+    @SerializedName("orgId")
+    var orgId: String? = null,
+    @SerializedName("nodeCode")
+    var nodeCode: String? = null,
+    @SerializedName("userIds")
+    var userIds: List<String>,
+    @SerializedName("isLeader")
+    var isLeader: Boolean? = null
+) {
 
     fun withPage(page: Int?): AddMemberParam {
         this.page = page
@@ -4184,29 +4098,30 @@ mutation addMember(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum, 
 }
 
 
-
-data class AddNodeResponse (
+data class AddNodeResponse(
 
     @SerializedName("addNode")
     val result: Org
 )
 
-class AddNodeParam @JvmOverloads constructor (    @SerializedName("orgId")
-                                                  var orgId: String,
-                                                  @SerializedName("parentNodeId")
-                                                  var parentNodeId: String? = null,
-                                                  @SerializedName("name")
-                                                  var name: String,
-                                                  @SerializedName("nameI18n")
-                                                  var nameI18n: String? = null,
-                                                  @SerializedName("description")
-                                                  var description: String? = null,
-                                                  @SerializedName("descriptionI18n")
-                                                  var descriptionI18n: String? = null,
-                                                  @SerializedName("order")
-                                                  var order: Int? = null,
-                                                  @SerializedName("code")
-                                                  var code: String? = null)  {
+class AddNodeParam @JvmOverloads constructor(
+    @SerializedName("orgId")
+    var orgId: String,
+    @SerializedName("parentNodeId")
+    var parentNodeId: String? = null,
+    @SerializedName("name")
+    var name: String,
+    @SerializedName("nameI18n")
+    var nameI18n: String? = null,
+    @SerializedName("description")
+    var description: String? = null,
+    @SerializedName("descriptionI18n")
+    var descriptionI18n: String? = null,
+    @SerializedName("order")
+    var order: Int? = null,
+    @SerializedName("code")
+    var code: String? = null
+) {
 
     fun withParentNodeId(parentNodeId: String?): AddNodeParam {
         this.parentNodeId = parentNodeId
@@ -4291,29 +4206,30 @@ mutation addNode(${'$'}orgId: String!, ${'$'}parentNodeId: String, ${'$'}name: S
 }
 
 
-
-data class AddNodeV2Response (
+data class AddNodeV2Response(
 
     @SerializedName("addNodeV2")
     val result: Node
 )
 
-class AddNodeV2Param @JvmOverloads constructor (    @SerializedName("orgId")
-                                                    var orgId: String,
-                                                    @SerializedName("parentNodeId")
-                                                    var parentNodeId: String? = null,
-                                                    @SerializedName("name")
-                                                    var name: String,
-                                                    @SerializedName("nameI18n")
-                                                    var nameI18n: String? = null,
-                                                    @SerializedName("description")
-                                                    var description: String? = null,
-                                                    @SerializedName("descriptionI18n")
-                                                    var descriptionI18n: String? = null,
-                                                    @SerializedName("order")
-                                                    var order: Int? = null,
-                                                    @SerializedName("code")
-                                                    var code: String? = null)  {
+class AddNodeV2Param @JvmOverloads constructor(
+    @SerializedName("orgId")
+    var orgId: String,
+    @SerializedName("parentNodeId")
+    var parentNodeId: String? = null,
+    @SerializedName("name")
+    var name: String,
+    @SerializedName("nameI18n")
+    var nameI18n: String? = null,
+    @SerializedName("description")
+    var description: String? = null,
+    @SerializedName("descriptionI18n")
+    var descriptionI18n: String? = null,
+    @SerializedName("order")
+    var order: Int? = null,
+    @SerializedName("code")
+    var code: String? = null
+) {
 
     fun withParentNodeId(parentNodeId: String?): AddNodeV2Param {
         this.parentNodeId = parentNodeId
@@ -4379,23 +4295,24 @@ mutation addNodeV2(${'$'}orgId: String!, ${'$'}parentNodeId: String, ${'$'}name:
 }
 
 
-
-data class AddPolicyAssignmentsResponse (
+data class AddPolicyAssignmentsResponse(
 
     @SerializedName("addPolicyAssignments")
     val result: CommonMessage
 )
 
-class AddPolicyAssignmentsParam @JvmOverloads constructor (    @SerializedName("policies")
-                                                               var policies: List<String>,
-                                                               @SerializedName("targetType")
-                                                               var targetType: PolicyAssignmentTargetType,
-                                                               @SerializedName("targetIdentifiers")
-                                                               var targetIdentifiers: List<String>? = null,
-                                                               @SerializedName("inheritByChildren")
-                                                               var inheritByChildren: Boolean? = null,
-                                                               @SerializedName("namespace")
-                                                               var namespace: String? = null)  {
+class AddPolicyAssignmentsParam @JvmOverloads constructor(
+    @SerializedName("policies")
+    var policies: List<String>,
+    @SerializedName("targetType")
+    var targetType: PolicyAssignmentTargetType,
+    @SerializedName("targetIdentifiers")
+    var targetIdentifiers: List<String>? = null,
+    @SerializedName("inheritByChildren")
+    var inheritByChildren: Boolean? = null,
+    @SerializedName("namespace")
+    var namespace: String? = null
+) {
 
     fun withTargetIdentifiers(targetIdentifiers: List<String>?): AddPolicyAssignmentsParam {
         this.targetIdentifiers = targetIdentifiers
@@ -4434,17 +4351,18 @@ mutation addPolicyAssignments(${'$'}policies: [String!]!, ${'$'}targetType: Poli
 }
 
 
-
-data class AddUserToGroupResponse (
+data class AddUserToGroupResponse(
 
     @SerializedName("addUserToGroup")
     val result: CommonMessage
 )
 
-class AddUserToGroupParam @JvmOverloads constructor (    @SerializedName("userIds")
-                                                         var userIds: List<String>,
-                                                         @SerializedName("code")
-                                                         var code: String? = null)  {
+class AddUserToGroupParam @JvmOverloads constructor(
+    @SerializedName("userIds")
+    var userIds: List<String>,
+    @SerializedName("code")
+    var code: String? = null
+) {
 
     fun withCode(code: String?): AddUserToGroupParam {
         this.code = code
@@ -4473,17 +4391,18 @@ mutation addUserToGroup(${'$'}userIds: [String!]!, ${'$'}code: String) {
 }
 
 
-
-data class AddWhitelistResponse (
+data class AddWhitelistResponse(
 
     @SerializedName("addWhitelist")
     val result: List<WhiteList>
 )
 
-class AddWhitelistParam @JvmOverloads constructor (    @SerializedName("type")
-                                                       var type: WhitelistType,
-                                                       @SerializedName("list")
-                                                       var list: List<String>)  {
+class AddWhitelistParam @JvmOverloads constructor(
+    @SerializedName("type")
+    var type: WhitelistType,
+    @SerializedName("list")
+    var list: List<String>
+) {
 
 
     fun build(): AddWhitelistParam {
@@ -4509,27 +4428,28 @@ mutation addWhitelist(${'$'}type: WhitelistType!, ${'$'}list: [String!]!) {
 }
 
 
-
-data class AllowResponse (
+data class AllowResponse(
 
     @SerializedName("allow")
     val result: CommonMessage
 )
 
-class AllowParam @JvmOverloads constructor (    @SerializedName("resource")
-                                                var resource: String,
-                                                @SerializedName("action")
-                                                var action: String,
-                                                @SerializedName("userId")
-                                                var userId: String? = null,
-                                                @SerializedName("userIds")
-                                                var userIds: List<String>? = null,
-                                                @SerializedName("roleCode")
-                                                var roleCode: String? = null,
-                                                @SerializedName("roleCodes")
-                                                var roleCodes: List<String>? = null,
-                                                @SerializedName("namespace")
-                                                var namespace: String? = null)  {
+class AllowParam @JvmOverloads constructor(
+    @SerializedName("resource")
+    var resource: String,
+    @SerializedName("action")
+    var action: String,
+    @SerializedName("userId")
+    var userId: String? = null,
+    @SerializedName("userIds")
+    var userIds: List<String>? = null,
+    @SerializedName("roleCode")
+    var roleCode: String? = null,
+    @SerializedName("roleCodes")
+    var roleCodes: List<String>? = null,
+    @SerializedName("namespace")
+    var namespace: String? = null
+) {
 
     fun withUserId(userId: String?): AllowParam {
         this.userId = userId
@@ -4578,25 +4498,26 @@ mutation allow(${'$'}resource: String!, ${'$'}action: String!, ${'$'}userId: Str
 }
 
 
-
-data class AssignRoleResponse (
+data class AssignRoleResponse(
 
     @SerializedName("assignRole")
     val result: CommonMessage
 )
 
-class AssignRoleParam @JvmOverloads constructor (    @SerializedName("namespace")
-                                                     var namespace: String? = null,
-                                                     @SerializedName("roleCode")
-                                                     var roleCode: String? = null,
-                                                     @SerializedName("roleCodes")
-                                                     var roleCodes: List<String>? = null,
-                                                     @SerializedName("userIds")
-                                                     var userIds: List<String>? = null,
-                                                     @SerializedName("groupCodes")
-                                                     var groupCodes: List<String>? = null,
-                                                     @SerializedName("nodeCodes")
-                                                     var nodeCodes: List<String>? = null)  {
+class AssignRoleParam @JvmOverloads constructor(
+    @SerializedName("namespace")
+    var namespace: String? = null,
+    @SerializedName("roleCode")
+    var roleCode: String? = null,
+    @SerializedName("roleCodes")
+    var roleCodes: List<String>? = null,
+    @SerializedName("userIds")
+    var userIds: List<String>? = null,
+    @SerializedName("groupCodes")
+    var groupCodes: List<String>? = null,
+    @SerializedName("nodeCodes")
+    var nodeCodes: List<String>? = null
+) {
 
     fun withNamespace(namespace: String?): AssignRoleParam {
         this.namespace = namespace
@@ -4650,21 +4571,22 @@ mutation assignRole(${'$'}namespace: String, ${'$'}roleCode: String, ${'$'}roleC
 }
 
 
-
-data class AuthorizeResourceResponse (
+data class AuthorizeResourceResponse(
 
     @SerializedName("authorizeResource")
     val result: CommonMessage
 )
 
-class AuthorizeResourceParam @JvmOverloads constructor (    @SerializedName("namespace")
-                                                            var namespace: String? = null,
-                                                            @SerializedName("resource")
-                                                            var resource: String? = null,
-                                                            @SerializedName("resourceType")
-                                                            var resourceType: ResourceType? = null,
-                                                            @SerializedName("opts")
-                                                            var opts: List<AuthorizeResourceOptInput>? = null)  {
+class AuthorizeResourceParam @JvmOverloads constructor(
+    @SerializedName("namespace")
+    var namespace: String? = null,
+    @SerializedName("resource")
+    var resource: String? = null,
+    @SerializedName("resourceType")
+    var resourceType: ResourceType? = null,
+    @SerializedName("opts")
+    var opts: List<AuthorizeResourceOptInput>? = null
+) {
 
     fun withNamespace(namespace: String?): AuthorizeResourceParam {
         this.namespace = namespace
@@ -4708,17 +4630,18 @@ mutation authorizeResource(${'$'}namespace: String, ${'$'}resource: String, ${'$
 }
 
 
-
-data class BindEmailResponse (
+data class BindEmailResponse(
 
     @SerializedName("bindEmail")
     val result: User
 )
 
-class BindEmailParam @JvmOverloads constructor (    @SerializedName("email")
-                                                    var email: String,
-                                                    @SerializedName("emailCode")
-                                                    var emailCode: String)  {
+class BindEmailParam @JvmOverloads constructor(
+    @SerializedName("email")
+    var email: String,
+    @SerializedName("emailCode")
+    var emailCode: String
+) {
 
 
     fun build(): BindEmailParam {
@@ -4790,17 +4713,18 @@ mutation bindEmail(${'$'}email: String!, ${'$'}emailCode: String!) {
 }
 
 
-
-data class BindPhoneResponse (
+data class BindPhoneResponse(
 
     @SerializedName("bindPhone")
     val result: User
 )
 
-class BindPhoneParam @JvmOverloads constructor (    @SerializedName("phone")
-                                                    var phone: String,
-                                                    @SerializedName("phoneCode")
-                                                    var phoneCode: String)  {
+class BindPhoneParam @JvmOverloads constructor(
+    @SerializedName("phone")
+    var phone: String,
+    @SerializedName("phoneCode")
+    var phoneCode: String
+) {
 
 
     fun build(): BindPhoneParam {
@@ -4872,23 +4796,24 @@ mutation bindPhone(${'$'}phone: String!, ${'$'}phoneCode: String!) {
 }
 
 
-
-data class ChangeMfaResponse (
+data class ChangeMfaResponse(
 
     @SerializedName("changeMfa")
     val result: Mfa
 )
 
-class ChangeMfaParam @JvmOverloads constructor (    @SerializedName("enable")
-                                                    var enable: Boolean? = null,
-                                                    @SerializedName("id")
-                                                    var id: String? = null,
-                                                    @SerializedName("userId")
-                                                    var userId: String? = null,
-                                                    @SerializedName("userPoolId")
-                                                    var userPoolId: String? = null,
-                                                    @SerializedName("refresh")
-                                                    var refresh: Boolean? = null)  {
+class ChangeMfaParam @JvmOverloads constructor(
+    @SerializedName("enable")
+    var enable: Boolean? = null,
+    @SerializedName("id")
+    var id: String? = null,
+    @SerializedName("userId")
+    var userId: String? = null,
+    @SerializedName("userPoolId")
+    var userPoolId: String? = null,
+    @SerializedName("refresh")
+    var refresh: Boolean? = null
+) {
 
     fun withEnable(enable: Boolean?): ChangeMfaParam {
         this.enable = enable
@@ -4940,15 +4865,16 @@ mutation changeMfa(${'$'}enable: Boolean, ${'$'}id: String, ${'$'}userId: String
 }
 
 
-
-data class ConfigEmailTemplateResponse (
+data class ConfigEmailTemplateResponse(
 
     @SerializedName("configEmailTemplate")
     val result: EmailTemplate
 )
 
-class ConfigEmailTemplateParam @JvmOverloads constructor (    @SerializedName("input")
-                                                              var input: ConfigEmailTemplateInput)  {
+class ConfigEmailTemplateParam @JvmOverloads constructor(
+    @SerializedName("input")
+    var input: ConfigEmailTemplateInput
+) {
 
 
     fun build(): ConfigEmailTemplateParam {
@@ -4981,15 +4907,16 @@ mutation configEmailTemplate(${'$'}input: ConfigEmailTemplateInput!) {
 }
 
 
-
-data class CreateFunctionResponse (
+data class CreateFunctionResponse(
 
     @SerializedName("createFunction")
     val result: Function
 )
 
-class CreateFunctionParam @JvmOverloads constructor (    @SerializedName("input")
-                                                         var input: CreateFunctionInput)  {
+class CreateFunctionParam @JvmOverloads constructor(
+    @SerializedName("input")
+    var input: CreateFunctionInput
+) {
 
 
     fun build(): CreateFunctionParam {
@@ -5017,19 +4944,20 @@ mutation createFunction(${'$'}input: CreateFunctionInput!) {
 }
 
 
-
-data class CreateGroupResponse (
+data class CreateGroupResponse(
 
     @SerializedName("createGroup")
     val result: Group
 )
 
-class CreateGroupParam @JvmOverloads constructor (    @SerializedName("code")
-                                                      var code: String,
-                                                      @SerializedName("name")
-                                                      var name: String,
-                                                      @SerializedName("description")
-                                                      var description: String? = null)  {
+class CreateGroupParam @JvmOverloads constructor(
+    @SerializedName("code")
+    var code: String,
+    @SerializedName("name")
+    var name: String,
+    @SerializedName("description")
+    var description: String? = null
+) {
 
     fun withDescription(description: String?): CreateGroupParam {
         this.description = description
@@ -5061,19 +4989,20 @@ mutation createGroup(${'$'}code: String!, ${'$'}name: String!, ${'$'}description
 }
 
 
-
-data class CreateOrgResponse (
+data class CreateOrgResponse(
 
     @SerializedName("createOrg")
     val result: Org
 )
 
-class CreateOrgParam @JvmOverloads constructor (    @SerializedName("name")
-                                                    var name: String,
-                                                    @SerializedName("code")
-                                                    var code: String? = null,
-                                                    @SerializedName("description")
-                                                    var description: String? = null)  {
+class CreateOrgParam @JvmOverloads constructor(
+    @SerializedName("name")
+    var name: String,
+    @SerializedName("code")
+    var code: String? = null,
+    @SerializedName("description")
+    var description: String? = null
+) {
 
     fun withCode(code: String?): CreateOrgParam {
         this.code = code
@@ -5138,21 +5067,22 @@ mutation createOrg(${'$'}name: String!, ${'$'}code: String, ${'$'}description: S
 }
 
 
-
-data class CreatePolicyResponse (
+data class CreatePolicyResponse(
 
     @SerializedName("createPolicy")
     val result: Policy
 )
 
-class CreatePolicyParam @JvmOverloads constructor (    @SerializedName("namespace")
-                                                       var namespace: String? = null,
-                                                       @SerializedName("code")
-                                                       var code: String,
-                                                       @SerializedName("description")
-                                                       var description: String? = null,
-                                                       @SerializedName("statements")
-                                                       var statements: List<PolicyStatementInput>)  {
+class CreatePolicyParam @JvmOverloads constructor(
+    @SerializedName("namespace")
+    var namespace: String? = null,
+    @SerializedName("code")
+    var code: String,
+    @SerializedName("description")
+    var description: String? = null,
+    @SerializedName("statements")
+    var statements: List<PolicyStatementInput>
+) {
 
     fun withNamespace(namespace: String?): CreatePolicyParam {
         this.namespace = namespace
@@ -5201,21 +5131,22 @@ mutation createPolicy(${'$'}namespace: String, ${'$'}code: String!, ${'$'}descri
 }
 
 
-
-data class CreateRoleResponse (
+data class CreateRoleResponse(
 
     @SerializedName("createRole")
     val result: Role
 )
 
-class CreateRoleParam @JvmOverloads constructor (    @SerializedName("namespace")
-                                                     var namespace: String? = null,
-                                                     @SerializedName("code")
-                                                     var code: String,
-                                                     @SerializedName("description")
-                                                     var description: String? = null,
-                                                     @SerializedName("parent")
-                                                     var parent: String? = null)  {
+class CreateRoleParam @JvmOverloads constructor(
+    @SerializedName("namespace")
+    var namespace: String? = null,
+    @SerializedName("code")
+    var code: String,
+    @SerializedName("description")
+    var description: String? = null,
+    @SerializedName("parent")
+    var parent: String? = null
+) {
 
     fun withNamespace(namespace: String?): CreateRoleParam {
         this.namespace = namespace
@@ -5266,15 +5197,16 @@ mutation createRole(${'$'}namespace: String, ${'$'}code: String!, ${'$'}descript
 }
 
 
-
-data class CreateSocialConnectionInstanceResponse (
+data class CreateSocialConnectionInstanceResponse(
 
     @SerializedName("createSocialConnectionInstance")
     val result: SocialConnectionInstance
 )
 
-class CreateSocialConnectionInstanceParam @JvmOverloads constructor (    @SerializedName("input")
-                                                                         var input: CreateSocialConnectionInstanceInput)  {
+class CreateSocialConnectionInstanceParam @JvmOverloads constructor(
+    @SerializedName("input")
+    var input: CreateSocialConnectionInstanceInput
+) {
 
 
     fun build(): CreateSocialConnectionInstanceParam {
@@ -5303,17 +5235,18 @@ mutation createSocialConnectionInstance(${'$'}input: CreateSocialConnectionInsta
 }
 
 
-
-data class CreateUserResponse (
+data class CreateUserResponse(
 
     @SerializedName("createUser")
     val result: User
 )
 
-class CreateUserParam @JvmOverloads constructor (    @SerializedName("userInfo")
-                                                     var userInfo: CreateUserInput,
-                                                     @SerializedName("keepPassword")
-                                                     var keepPassword: Boolean? = null)  {
+class CreateUserParam @JvmOverloads constructor(
+    @SerializedName("userInfo")
+    var userInfo: CreateUserInput,
+    @SerializedName("keepPassword")
+    var keepPassword: Boolean? = null
+) {
 
     fun withKeepPassword(keepPassword: Boolean?): CreateUserParam {
         this.keepPassword = keepPassword
@@ -5390,23 +5323,24 @@ mutation createUser(${'$'}userInfo: CreateUserInput!, ${'$'}keepPassword: Boolea
 }
 
 
-
-data class CreateUserpoolResponse (
+data class CreateUserpoolResponse(
 
     @SerializedName("createUserpool")
     val result: UserPool
 )
 
-class CreateUserpoolParam @JvmOverloads constructor (    @SerializedName("name")
-                                                         var name: String,
-                                                         @SerializedName("domain")
-                                                         var domain: String,
-                                                         @SerializedName("description")
-                                                         var description: String? = null,
-                                                         @SerializedName("logo")
-                                                         var logo: String? = null,
-                                                         @SerializedName("userpoolTypes")
-                                                         var userpoolTypes: List<String>? = null)  {
+class CreateUserpoolParam @JvmOverloads constructor(
+    @SerializedName("name")
+    var name: String,
+    @SerializedName("domain")
+    var domain: String,
+    @SerializedName("description")
+    var description: String? = null,
+    @SerializedName("logo")
+    var logo: String? = null,
+    @SerializedName("userpoolTypes")
+    var userpoolTypes: List<String>? = null
+) {
 
     fun withDescription(description: String?): CreateUserpoolParam {
         this.description = description
@@ -5503,15 +5437,16 @@ mutation createUserpool(${'$'}name: String!, ${'$'}domain: String!, ${'$'}descri
 }
 
 
-
-data class DeleteFunctionResponse (
+data class DeleteFunctionResponse(
 
     @SerializedName("deleteFunction")
     val result: CommonMessage
 )
 
-class DeleteFunctionParam @JvmOverloads constructor (    @SerializedName("id")
-                                                         var id: String)  {
+class DeleteFunctionParam @JvmOverloads constructor(
+    @SerializedName("id")
+    var id: String
+) {
 
 
     fun build(): DeleteFunctionParam {
@@ -5536,15 +5471,16 @@ mutation deleteFunction(${'$'}id: String!) {
 }
 
 
-
-data class DeleteGroupsResponse (
+data class DeleteGroupsResponse(
 
     @SerializedName("deleteGroups")
     val result: CommonMessage
 )
 
-class DeleteGroupsParam @JvmOverloads constructor (    @SerializedName("codeList")
-                                                       var codeList: List<String>)  {
+class DeleteGroupsParam @JvmOverloads constructor(
+    @SerializedName("codeList")
+    var codeList: List<String>
+) {
 
 
     fun build(): DeleteGroupsParam {
@@ -5569,17 +5505,18 @@ mutation deleteGroups(${'$'}codeList: [String!]!) {
 }
 
 
-
-data class DeleteNodeResponse (
+data class DeleteNodeResponse(
 
     @SerializedName("deleteNode")
     val result: CommonMessage
 )
 
-class DeleteNodeParam @JvmOverloads constructor (    @SerializedName("orgId")
-                                                     var orgId: String,
-                                                     @SerializedName("nodeId")
-                                                     var nodeId: String)  {
+class DeleteNodeParam @JvmOverloads constructor(
+    @SerializedName("orgId")
+    var orgId: String,
+    @SerializedName("nodeId")
+    var nodeId: String
+) {
 
 
     fun build(): DeleteNodeParam {
@@ -5604,15 +5541,16 @@ mutation deleteNode(${'$'}orgId: String!, ${'$'}nodeId: String!) {
 }
 
 
-
-data class DeleteOrgResponse (
+data class DeleteOrgResponse(
 
     @SerializedName("deleteOrg")
     val result: CommonMessage
 )
 
-class DeleteOrgParam @JvmOverloads constructor (    @SerializedName("id")
-                                                    var id: String)  {
+class DeleteOrgParam @JvmOverloads constructor(
+    @SerializedName("id")
+    var id: String
+) {
 
 
     fun build(): DeleteOrgParam {
@@ -5637,17 +5575,18 @@ mutation deleteOrg(${'$'}id: String!) {
 }
 
 
-
-data class DeletePoliciesResponse (
+data class DeletePoliciesResponse(
 
     @SerializedName("deletePolicies")
     val result: CommonMessage
 )
 
-class DeletePoliciesParam @JvmOverloads constructor (    @SerializedName("codeList")
-                                                         var codeList: List<String>,
-                                                         @SerializedName("namespace")
-                                                         var namespace: String? = null)  {
+class DeletePoliciesParam @JvmOverloads constructor(
+    @SerializedName("codeList")
+    var codeList: List<String>,
+    @SerializedName("namespace")
+    var namespace: String? = null
+) {
 
     fun withNamespace(namespace: String?): DeletePoliciesParam {
         this.namespace = namespace
@@ -5676,17 +5615,18 @@ mutation deletePolicies(${'$'}codeList: [String!]!, ${'$'}namespace: String) {
 }
 
 
-
-data class DeletePolicyResponse (
+data class DeletePolicyResponse(
 
     @SerializedName("deletePolicy")
     val result: CommonMessage
 )
 
-class DeletePolicyParam @JvmOverloads constructor (    @SerializedName("code")
-                                                       var code: String,
-                                                       @SerializedName("namespace")
-                                                       var namespace: String? = null)  {
+class DeletePolicyParam @JvmOverloads constructor(
+    @SerializedName("code")
+    var code: String,
+    @SerializedName("namespace")
+    var namespace: String? = null
+) {
 
     fun withNamespace(namespace: String?): DeletePolicyParam {
         this.namespace = namespace
@@ -5715,17 +5655,18 @@ mutation deletePolicy(${'$'}code: String!, ${'$'}namespace: String) {
 }
 
 
-
-data class DeleteRoleResponse (
+data class DeleteRoleResponse(
 
     @SerializedName("deleteRole")
     val result: CommonMessage
 )
 
-class DeleteRoleParam @JvmOverloads constructor (    @SerializedName("code")
-                                                     var code: String,
-                                                     @SerializedName("namespace")
-                                                     var namespace: String? = null)  {
+class DeleteRoleParam @JvmOverloads constructor(
+    @SerializedName("code")
+    var code: String,
+    @SerializedName("namespace")
+    var namespace: String? = null
+) {
 
     fun withNamespace(namespace: String?): DeleteRoleParam {
         this.namespace = namespace
@@ -5754,17 +5695,18 @@ mutation deleteRole(${'$'}code: String!, ${'$'}namespace: String) {
 }
 
 
-
-data class DeleteRolesResponse (
+data class DeleteRolesResponse(
 
     @SerializedName("deleteRoles")
     val result: CommonMessage
 )
 
-class DeleteRolesParam @JvmOverloads constructor (    @SerializedName("codeList")
-                                                      var codeList: List<String>,
-                                                      @SerializedName("namespace")
-                                                      var namespace: String? = null)  {
+class DeleteRolesParam @JvmOverloads constructor(
+    @SerializedName("codeList")
+    var codeList: List<String>,
+    @SerializedName("namespace")
+    var namespace: String? = null
+) {
 
     fun withNamespace(namespace: String?): DeleteRolesParam {
         this.namespace = namespace
@@ -5793,15 +5735,16 @@ mutation deleteRoles(${'$'}codeList: [String!]!, ${'$'}namespace: String) {
 }
 
 
-
-data class DeleteUserResponse (
+data class DeleteUserResponse(
 
     @SerializedName("deleteUser")
     val result: CommonMessage
 )
 
-class DeleteUserParam @JvmOverloads constructor (    @SerializedName("id")
-                                                     var id: String)  {
+class DeleteUserParam @JvmOverloads constructor(
+    @SerializedName("id")
+    var id: String
+) {
 
 
     fun build(): DeleteUserParam {
@@ -5826,14 +5769,13 @@ mutation deleteUser(${'$'}id: String!) {
 }
 
 
-
-data class DeleteUserpoolResponse (
+data class DeleteUserpoolResponse(
 
     @SerializedName("deleteUserpool")
     val result: CommonMessage
 )
 
-class DeleteUserpoolParam   {
+class DeleteUserpoolParam {
 
 
     fun build(): DeleteUserpoolParam {
@@ -5858,15 +5800,16 @@ mutation deleteUserpool {
 }
 
 
-
-data class DeleteUsersResponse (
+data class DeleteUsersResponse(
 
     @SerializedName("deleteUsers")
     val result: CommonMessage
 )
 
-class DeleteUsersParam @JvmOverloads constructor (    @SerializedName("ids")
-                                                      var ids: List<String>)  {
+class DeleteUsersParam @JvmOverloads constructor(
+    @SerializedName("ids")
+    var ids: List<String>
+) {
 
 
     fun build(): DeleteUsersParam {
@@ -5891,15 +5834,16 @@ mutation deleteUsers(${'$'}ids: [String!]!) {
 }
 
 
-
-data class DisableEmailTemplateResponse (
+data class DisableEmailTemplateResponse(
 
     @SerializedName("disableEmailTemplate")
     val result: EmailTemplate
 )
 
-class DisableEmailTemplateParam @JvmOverloads constructor (    @SerializedName("type")
-                                                               var type: EmailTemplateType)  {
+class DisableEmailTemplateParam @JvmOverloads constructor(
+    @SerializedName("type")
+    var type: EmailTemplateType
+) {
 
 
     fun build(): DisableEmailTemplateParam {
@@ -5932,15 +5876,16 @@ mutation disableEmailTemplate(${'$'}type: EmailTemplateType!) {
 }
 
 
-
-data class DisableSocialConnectionInstanceResponse (
+data class DisableSocialConnectionInstanceResponse(
 
     @SerializedName("disableSocialConnectionInstance")
     val result: SocialConnectionInstance
 )
 
-class DisableSocialConnectionInstanceParam @JvmOverloads constructor (    @SerializedName("provider")
-                                                                          var provider: String)  {
+class DisableSocialConnectionInstanceParam @JvmOverloads constructor(
+    @SerializedName("provider")
+    var provider: String
+) {
 
 
     fun build(): DisableSocialConnectionInstanceParam {
@@ -5969,21 +5914,22 @@ mutation disableSocialConnectionInstance(${'$'}provider: String!) {
 }
 
 
-
-data class DisbalePolicyAssignmentResponse (
+data class DisbalePolicyAssignmentResponse(
 
     @SerializedName("disbalePolicyAssignment")
     val result: CommonMessage
 )
 
-class DisbalePolicyAssignmentParam @JvmOverloads constructor (    @SerializedName("policy")
-                                                                  var policy: String,
-                                                                  @SerializedName("targetType")
-                                                                  var targetType: PolicyAssignmentTargetType,
-                                                                  @SerializedName("targetIdentifier")
-                                                                  var targetIdentifier: String,
-                                                                  @SerializedName("namespace")
-                                                                  var namespace: String? = null)  {
+class DisbalePolicyAssignmentParam @JvmOverloads constructor(
+    @SerializedName("policy")
+    var policy: String,
+    @SerializedName("targetType")
+    var targetType: PolicyAssignmentTargetType,
+    @SerializedName("targetIdentifier")
+    var targetIdentifier: String,
+    @SerializedName("namespace")
+    var namespace: String? = null
+) {
 
     fun withNamespace(namespace: String?): DisbalePolicyAssignmentParam {
         this.namespace = namespace
@@ -6012,15 +5958,16 @@ mutation disbalePolicyAssignment(${'$'}policy: String!, ${'$'}targetType: Policy
 }
 
 
-
-data class EnableEmailTemplateResponse (
+data class EnableEmailTemplateResponse(
 
     @SerializedName("enableEmailTemplate")
     val result: EmailTemplate
 )
 
-class EnableEmailTemplateParam @JvmOverloads constructor (    @SerializedName("type")
-                                                              var type: EmailTemplateType)  {
+class EnableEmailTemplateParam @JvmOverloads constructor(
+    @SerializedName("type")
+    var type: EmailTemplateType
+) {
 
 
     fun build(): EnableEmailTemplateParam {
@@ -6053,21 +6000,22 @@ mutation enableEmailTemplate(${'$'}type: EmailTemplateType!) {
 }
 
 
-
-data class EnablePolicyAssignmentResponse (
+data class EnablePolicyAssignmentResponse(
 
     @SerializedName("enablePolicyAssignment")
     val result: CommonMessage
 )
 
-class EnablePolicyAssignmentParam @JvmOverloads constructor (    @SerializedName("policy")
-                                                                 var policy: String,
-                                                                 @SerializedName("targetType")
-                                                                 var targetType: PolicyAssignmentTargetType,
-                                                                 @SerializedName("targetIdentifier")
-                                                                 var targetIdentifier: String,
-                                                                 @SerializedName("namespace")
-                                                                 var namespace: String? = null)  {
+class EnablePolicyAssignmentParam @JvmOverloads constructor(
+    @SerializedName("policy")
+    var policy: String,
+    @SerializedName("targetType")
+    var targetType: PolicyAssignmentTargetType,
+    @SerializedName("targetIdentifier")
+    var targetIdentifier: String,
+    @SerializedName("namespace")
+    var namespace: String? = null
+) {
 
     fun withNamespace(namespace: String?): EnablePolicyAssignmentParam {
         this.namespace = namespace
@@ -6096,15 +6044,16 @@ mutation enablePolicyAssignment(${'$'}policy: String!, ${'$'}targetType: PolicyA
 }
 
 
-
-data class EnableSocialConnectionInstanceResponse (
+data class EnableSocialConnectionInstanceResponse(
 
     @SerializedName("enableSocialConnectionInstance")
     val result: SocialConnectionInstance
 )
 
-class EnableSocialConnectionInstanceParam @JvmOverloads constructor (    @SerializedName("provider")
-                                                                         var provider: String)  {
+class EnableSocialConnectionInstanceParam @JvmOverloads constructor(
+    @SerializedName("provider")
+    var provider: String
+) {
 
 
     fun build(): EnableSocialConnectionInstanceParam {
@@ -6133,15 +6082,16 @@ mutation enableSocialConnectionInstance(${'$'}provider: String!) {
 }
 
 
-
-data class LoginByEmailResponse (
+data class LoginByEmailResponse(
 
     @SerializedName("loginByEmail")
     val result: User
 )
 
-class LoginByEmailParam @JvmOverloads constructor (    @SerializedName("input")
-                                                       var input: LoginByEmailInput)  {
+class LoginByEmailParam @JvmOverloads constructor(
+    @SerializedName("input")
+    var input: LoginByEmailInput
+) {
 
 
     fun build(): LoginByEmailParam {
@@ -6214,15 +6164,16 @@ mutation loginByEmail(${'$'}input: LoginByEmailInput!) {
 }
 
 
-
-data class LoginByPhoneCodeResponse (
+data class LoginByPhoneCodeResponse(
 
     @SerializedName("loginByPhoneCode")
     val result: User
 )
 
-class LoginByPhoneCodeParam @JvmOverloads constructor (    @SerializedName("input")
-                                                           var input: LoginByPhoneCodeInput)  {
+class LoginByPhoneCodeParam @JvmOverloads constructor(
+    @SerializedName("input")
+    var input: LoginByPhoneCodeInput
+) {
 
 
     fun build(): LoginByPhoneCodeParam {
@@ -6295,15 +6246,16 @@ mutation loginByPhoneCode(${'$'}input: LoginByPhoneCodeInput!) {
 }
 
 
-
-data class LoginByPhonePasswordResponse (
+data class LoginByPhonePasswordResponse(
 
     @SerializedName("loginByPhonePassword")
     val result: User
 )
 
-class LoginByPhonePasswordParam @JvmOverloads constructor (    @SerializedName("input")
-                                                               var input: LoginByPhonePasswordInput)  {
+class LoginByPhonePasswordParam @JvmOverloads constructor(
+    @SerializedName("input")
+    var input: LoginByPhonePasswordInput
+) {
 
 
     fun build(): LoginByPhonePasswordParam {
@@ -6376,21 +6328,22 @@ mutation loginByPhonePassword(${'$'}input: LoginByPhonePasswordInput!) {
 }
 
 
-
-data class LoginBySubAccountResponse (
+data class LoginBySubAccountResponse(
 
     @SerializedName("loginBySubAccount")
     val result: User
 )
 
-class LoginBySubAccountParam @JvmOverloads constructor (    @SerializedName("account")
-                                                            var account: String,
-                                                            @SerializedName("password")
-                                                            var password: String,
-                                                            @SerializedName("captchaCode")
-                                                            var captchaCode: String? = null,
-                                                            @SerializedName("clientIp")
-                                                            var clientIp: String? = null)  {
+class LoginBySubAccountParam @JvmOverloads constructor(
+    @SerializedName("account")
+    var account: String,
+    @SerializedName("password")
+    var password: String,
+    @SerializedName("captchaCode")
+    var captchaCode: String? = null,
+    @SerializedName("clientIp")
+    var clientIp: String? = null
+) {
 
     fun withCaptchaCode(captchaCode: String?): LoginBySubAccountParam {
         this.captchaCode = captchaCode
@@ -6472,15 +6425,16 @@ mutation loginBySubAccount(${'$'}account: String!, ${'$'}password: String!, ${'$
 }
 
 
-
-data class LoginByUsernameResponse (
+data class LoginByUsernameResponse(
 
     @SerializedName("loginByUsername")
     val result: User
 )
 
-class LoginByUsernameParam @JvmOverloads constructor (    @SerializedName("input")
-                                                          var input: LoginByUsernameInput)  {
+class LoginByUsernameParam @JvmOverloads constructor(
+    @SerializedName("input")
+    var input: LoginByUsernameInput
+) {
 
 
     fun build(): LoginByUsernameParam {
@@ -6553,19 +6507,20 @@ mutation loginByUsername(${'$'}input: LoginByUsernameInput!) {
 }
 
 
-
-data class MoveNodeResponse (
+data class MoveNodeResponse(
 
     @SerializedName("moveNode")
     val result: Org
 )
 
-class MoveNodeParam @JvmOverloads constructor (    @SerializedName("orgId")
-                                                   var orgId: String,
-                                                   @SerializedName("nodeId")
-                                                   var nodeId: String,
-                                                   @SerializedName("targetParentId")
-                                                   var targetParentId: String)  {
+class MoveNodeParam @JvmOverloads constructor(
+    @SerializedName("orgId")
+    var orgId: String,
+    @SerializedName("nodeId")
+    var nodeId: String,
+    @SerializedName("targetParentId")
+    var targetParentId: String
+) {
 
 
     fun build(): MoveNodeParam {
@@ -6621,15 +6576,16 @@ mutation moveNode(${'$'}orgId: String!, ${'$'}nodeId: String!, ${'$'}targetParen
 }
 
 
-
-data class RefreshAccessTokenResponse (
+data class RefreshAccessTokenResponse(
 
     @SerializedName("refreshAccessToken")
     val result: RefreshAccessTokenRes
 )
 
-class RefreshAccessTokenParam @JvmOverloads constructor (    @SerializedName("accessToken")
-                                                             var accessToken: String? = null)  {
+class RefreshAccessTokenParam @JvmOverloads constructor(
+    @SerializedName("accessToken")
+    var accessToken: String? = null
+) {
 
     fun withAccessToken(accessToken: String?): RefreshAccessTokenParam {
         this.accessToken = accessToken
@@ -6659,15 +6615,16 @@ mutation refreshAccessToken(${'$'}accessToken: String) {
 }
 
 
-
-data class RefreshTokenResponse (
+data class RefreshTokenResponse(
 
     @SerializedName("refreshToken")
     val result: RefreshToken
 )
 
-class RefreshTokenParam @JvmOverloads constructor (    @SerializedName("id")
-                                                       var id: String? = null)  {
+class RefreshTokenParam @JvmOverloads constructor(
+    @SerializedName("id")
+    var id: String? = null
+) {
 
     fun withId(id: String?): RefreshTokenParam {
         this.id = id
@@ -6697,14 +6654,13 @@ mutation refreshToken(${'$'}id: String) {
 }
 
 
-
-data class RefreshUserpoolSecretResponse (
+data class RefreshUserpoolSecretResponse(
 
     @SerializedName("refreshUserpoolSecret")
     val result: String
 )
 
-class RefreshUserpoolSecretParam   {
+class RefreshUserpoolSecretParam {
 
 
     fun build(): RefreshUserpoolSecretParam {
@@ -6726,15 +6682,16 @@ mutation refreshUserpoolSecret {
 }
 
 
-
-data class RegisterByEmailResponse (
+data class RegisterByEmailResponse(
 
     @SerializedName("registerByEmail")
     val result: User
 )
 
-class RegisterByEmailParam @JvmOverloads constructor (    @SerializedName("input")
-                                                          var input: RegisterByEmailInput)  {
+class RegisterByEmailParam @JvmOverloads constructor(
+    @SerializedName("input")
+    var input: RegisterByEmailInput
+) {
 
 
     fun build(): RegisterByEmailParam {
@@ -6807,15 +6764,16 @@ mutation registerByEmail(${'$'}input: RegisterByEmailInput!) {
 }
 
 
-
-data class RegisterByPhoneCodeResponse (
+data class RegisterByPhoneCodeResponse(
 
     @SerializedName("registerByPhoneCode")
     val result: User
 )
 
-class RegisterByPhoneCodeParam @JvmOverloads constructor (    @SerializedName("input")
-                                                              var input: RegisterByPhoneCodeInput)  {
+class RegisterByPhoneCodeParam @JvmOverloads constructor(
+    @SerializedName("input")
+    var input: RegisterByPhoneCodeInput
+) {
 
 
     fun build(): RegisterByPhoneCodeParam {
@@ -6888,15 +6846,16 @@ mutation registerByPhoneCode(${'$'}input: RegisterByPhoneCodeInput!) {
 }
 
 
-
-data class RegisterByUsernameResponse (
+data class RegisterByUsernameResponse(
 
     @SerializedName("registerByUsername")
     val result: User
 )
 
-class RegisterByUsernameParam @JvmOverloads constructor (    @SerializedName("input")
-                                                             var input: RegisterByUsernameInput)  {
+class RegisterByUsernameParam @JvmOverloads constructor(
+    @SerializedName("input")
+    var input: RegisterByUsernameInput
+) {
 
 
     fun build(): RegisterByUsernameParam {
@@ -6969,29 +6928,30 @@ mutation registerByUsername(${'$'}input: RegisterByUsernameInput!) {
 }
 
 
-
-data class RemoveMemberResponse (
+data class RemoveMemberResponse(
 
     @SerializedName("removeMember")
     val result: Node
 )
 
-class RemoveMemberParam @JvmOverloads constructor (    @SerializedName("page")
-                                                       var page: Int? = null,
-                                                       @SerializedName("limit")
-                                                       var limit: Int? = null,
-                                                       @SerializedName("sortBy")
-                                                       var sortBy: SortByEnum? = null,
-                                                       @SerializedName("includeChildrenNodes")
-                                                       var includeChildrenNodes: Boolean? = null,
-                                                       @SerializedName("nodeId")
-                                                       var nodeId: String? = null,
-                                                       @SerializedName("orgId")
-                                                       var orgId: String? = null,
-                                                       @SerializedName("nodeCode")
-                                                       var nodeCode: String? = null,
-                                                       @SerializedName("userIds")
-                                                       var userIds: List<String>)  {
+class RemoveMemberParam @JvmOverloads constructor(
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null,
+    @SerializedName("sortBy")
+    var sortBy: SortByEnum? = null,
+    @SerializedName("includeChildrenNodes")
+    var includeChildrenNodes: Boolean? = null,
+    @SerializedName("nodeId")
+    var nodeId: String? = null,
+    @SerializedName("orgId")
+    var orgId: String? = null,
+    @SerializedName("nodeCode")
+    var nodeCode: String? = null,
+    @SerializedName("userIds")
+    var userIds: List<String>
+) {
 
     fun withPage(page: Int?): RemoveMemberParam {
         this.page = page
@@ -7114,21 +7074,22 @@ mutation removeMember(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnu
 }
 
 
-
-data class RemovePolicyAssignmentsResponse (
+data class RemovePolicyAssignmentsResponse(
 
     @SerializedName("removePolicyAssignments")
     val result: CommonMessage
 )
 
-class RemovePolicyAssignmentsParam @JvmOverloads constructor (    @SerializedName("policies")
-                                                                  var policies: List<String>,
-                                                                  @SerializedName("targetType")
-                                                                  var targetType: PolicyAssignmentTargetType,
-                                                                  @SerializedName("targetIdentifiers")
-                                                                  var targetIdentifiers: List<String>? = null,
-                                                                  @SerializedName("namespace")
-                                                                  var namespace: String? = null)  {
+class RemovePolicyAssignmentsParam @JvmOverloads constructor(
+    @SerializedName("policies")
+    var policies: List<String>,
+    @SerializedName("targetType")
+    var targetType: PolicyAssignmentTargetType,
+    @SerializedName("targetIdentifiers")
+    var targetIdentifiers: List<String>? = null,
+    @SerializedName("namespace")
+    var namespace: String? = null
+) {
 
     fun withTargetIdentifiers(targetIdentifiers: List<String>?): RemovePolicyAssignmentsParam {
         this.targetIdentifiers = targetIdentifiers
@@ -7162,17 +7123,18 @@ mutation removePolicyAssignments(${'$'}policies: [String!]!, ${'$'}targetType: P
 }
 
 
-
-data class RemoveUdfResponse (
+data class RemoveUdfResponse(
 
     @SerializedName("removeUdf")
     val result: CommonMessage
 )
 
-class RemoveUdfParam @JvmOverloads constructor (    @SerializedName("targetType")
-                                                    var targetType: UdfTargetType,
-                                                    @SerializedName("key")
-                                                    var key: String)  {
+class RemoveUdfParam @JvmOverloads constructor(
+    @SerializedName("targetType")
+    var targetType: UdfTargetType,
+    @SerializedName("key")
+    var key: String
+) {
 
 
     fun build(): RemoveUdfParam {
@@ -7197,19 +7159,20 @@ mutation removeUdf(${'$'}targetType: UDFTargetType!, ${'$'}key: String!) {
 }
 
 
-
-data class RemoveUdvResponse (
+data class RemoveUdvResponse(
 
     @SerializedName("removeUdv")
     val result: List<UserDefinedData>
 )
 
-class RemoveUdvParam @JvmOverloads constructor (    @SerializedName("targetType")
-                                                    var targetType: UdfTargetType,
-                                                    @SerializedName("targetId")
-                                                    var targetId: String,
-                                                    @SerializedName("key")
-                                                    var key: String)  {
+class RemoveUdvParam @JvmOverloads constructor(
+    @SerializedName("targetType")
+    var targetType: UdfTargetType,
+    @SerializedName("targetId")
+    var targetId: String,
+    @SerializedName("key")
+    var key: String
+) {
 
 
     fun build(): RemoveUdvParam {
@@ -7236,17 +7199,18 @@ mutation removeUdv(${'$'}targetType: UDFTargetType!, ${'$'}targetId: String!, ${
 }
 
 
-
-data class RemoveUserFromGroupResponse (
+data class RemoveUserFromGroupResponse(
 
     @SerializedName("removeUserFromGroup")
     val result: CommonMessage
 )
 
-class RemoveUserFromGroupParam @JvmOverloads constructor (    @SerializedName("userIds")
-                                                              var userIds: List<String>,
-                                                              @SerializedName("code")
-                                                              var code: String? = null)  {
+class RemoveUserFromGroupParam @JvmOverloads constructor(
+    @SerializedName("userIds")
+    var userIds: List<String>,
+    @SerializedName("code")
+    var code: String? = null
+) {
 
     fun withCode(code: String?): RemoveUserFromGroupParam {
         this.code = code
@@ -7275,17 +7239,18 @@ mutation removeUserFromGroup(${'$'}userIds: [String!]!, ${'$'}code: String) {
 }
 
 
-
-data class RemoveWhitelistResponse (
+data class RemoveWhitelistResponse(
 
     @SerializedName("removeWhitelist")
     val result: List<WhiteList>
 )
 
-class RemoveWhitelistParam @JvmOverloads constructor (    @SerializedName("type")
-                                                          var type: WhitelistType,
-                                                          @SerializedName("list")
-                                                          var list: List<String>)  {
+class RemoveWhitelistParam @JvmOverloads constructor(
+    @SerializedName("type")
+    var type: WhitelistType,
+    @SerializedName("list")
+    var list: List<String>
+) {
 
 
     fun build(): RemoveWhitelistParam {
@@ -7311,21 +7276,22 @@ mutation removeWhitelist(${'$'}type: WhitelistType!, ${'$'}list: [String!]!) {
 }
 
 
-
-data class ResetPasswordResponse (
+data class ResetPasswordResponse(
 
     @SerializedName("resetPassword")
     val result: CommonMessage
 )
 
-class ResetPasswordParam @JvmOverloads constructor (    @SerializedName("phone")
-                                                        var phone: String? = null,
-                                                        @SerializedName("email")
-                                                        var email: String? = null,
-                                                        @SerializedName("code")
-                                                        var code: String,
-                                                        @SerializedName("newPassword")
-                                                        var newPassword: String)  {
+class ResetPasswordParam @JvmOverloads constructor(
+    @SerializedName("phone")
+    var phone: String? = null,
+    @SerializedName("email")
+    var email: String? = null,
+    @SerializedName("code")
+    var code: String,
+    @SerializedName("newPassword")
+    var newPassword: String
+) {
 
     fun withPhone(phone: String?): ResetPasswordParam {
         this.phone = phone
@@ -7359,25 +7325,26 @@ mutation resetPassword(${'$'}phone: String, ${'$'}email: String, ${'$'}code: Str
 }
 
 
-
-data class RevokeRoleResponse (
+data class RevokeRoleResponse(
 
     @SerializedName("revokeRole")
     val result: CommonMessage
 )
 
-class RevokeRoleParam @JvmOverloads constructor (    @SerializedName("namespace")
-                                                     var namespace: String? = null,
-                                                     @SerializedName("roleCode")
-                                                     var roleCode: String? = null,
-                                                     @SerializedName("roleCodes")
-                                                     var roleCodes: List<String>? = null,
-                                                     @SerializedName("userIds")
-                                                     var userIds: List<String>? = null,
-                                                     @SerializedName("groupCodes")
-                                                     var groupCodes: List<String>? = null,
-                                                     @SerializedName("nodeCodes")
-                                                     var nodeCodes: List<String>? = null)  {
+class RevokeRoleParam @JvmOverloads constructor(
+    @SerializedName("namespace")
+    var namespace: String? = null,
+    @SerializedName("roleCode")
+    var roleCode: String? = null,
+    @SerializedName("roleCodes")
+    var roleCodes: List<String>? = null,
+    @SerializedName("userIds")
+    var userIds: List<String>? = null,
+    @SerializedName("groupCodes")
+    var groupCodes: List<String>? = null,
+    @SerializedName("nodeCodes")
+    var nodeCodes: List<String>? = null
+) {
 
     fun withNamespace(namespace: String?): RevokeRoleParam {
         this.namespace = namespace
@@ -7431,17 +7398,18 @@ mutation revokeRole(${'$'}namespace: String, ${'$'}roleCode: String, ${'$'}roleC
 }
 
 
-
-data class SendEmailResponse (
+data class SendEmailResponse(
 
     @SerializedName("sendEmail")
     val result: CommonMessage
 )
 
-class SendEmailParam @JvmOverloads constructor (    @SerializedName("email")
-                                                    var email: String,
-                                                    @SerializedName("scene")
-                                                    var scene: EmailScene)  {
+class SendEmailParam @JvmOverloads constructor(
+    @SerializedName("email")
+    var email: String,
+    @SerializedName("scene")
+    var scene: EmailScene
+) {
 
 
     fun build(): SendEmailParam {
@@ -7466,17 +7434,18 @@ mutation sendEmail(${'$'}email: String!, ${'$'}scene: EmailScene!) {
 }
 
 
-
-data class SetMainDepartmentResponse (
+data class SetMainDepartmentResponse(
 
     @SerializedName("setMainDepartment")
     val result: CommonMessage
 )
 
-class SetMainDepartmentParam @JvmOverloads constructor (    @SerializedName("userId")
-                                                            var userId: String,
-                                                            @SerializedName("departmentId")
-                                                            var departmentId: String? = null)  {
+class SetMainDepartmentParam @JvmOverloads constructor(
+    @SerializedName("userId")
+    var userId: String,
+    @SerializedName("departmentId")
+    var departmentId: String? = null
+) {
 
     fun withDepartmentId(departmentId: String?): SetMainDepartmentParam {
         this.departmentId = departmentId
@@ -7505,23 +7474,24 @@ mutation setMainDepartment(${'$'}userId: String!, ${'$'}departmentId: String) {
 }
 
 
-
-data class SetUdfResponse (
+data class SetUdfResponse(
 
     @SerializedName("setUdf")
     val result: UserDefinedField
 )
 
-class SetUdfParam @JvmOverloads constructor (    @SerializedName("targetType")
-                                                 var targetType: UdfTargetType,
-                                                 @SerializedName("key")
-                                                 var key: String,
-                                                 @SerializedName("dataType")
-                                                 var dataType: UdfDataType,
-                                                 @SerializedName("label")
-                                                 var label: String,
-                                                 @SerializedName("options")
-                                                 var options: String? = null)  {
+class SetUdfParam @JvmOverloads constructor(
+    @SerializedName("targetType")
+    var targetType: UdfTargetType,
+    @SerializedName("key")
+    var key: String,
+    @SerializedName("dataType")
+    var dataType: UdfDataType,
+    @SerializedName("label")
+    var label: String,
+    @SerializedName("options")
+    var options: String? = null
+) {
 
     fun withOptions(options: String?): SetUdfParam {
         this.options = options
@@ -7553,17 +7523,18 @@ mutation setUdf(${'$'}targetType: UDFTargetType!, ${'$'}key: String!, ${'$'}data
 }
 
 
-
-data class SetUdfValueBatchResponse (
+data class SetUdfValueBatchResponse(
 
     @SerializedName("setUdfValueBatch")
     val result: CommonMessage
 )
 
-class SetUdfValueBatchParam @JvmOverloads constructor (    @SerializedName("targetType")
-                                                           var targetType: UdfTargetType,
-                                                           @SerializedName("input")
-                                                           var input: List<SetUdfValueBatchInput>)  {
+class SetUdfValueBatchParam @JvmOverloads constructor(
+    @SerializedName("targetType")
+    var targetType: UdfTargetType,
+    @SerializedName("input")
+    var input: List<SetUdfValueBatchInput>
+) {
 
 
     fun build(): SetUdfValueBatchParam {
@@ -7588,21 +7559,22 @@ mutation setUdfValueBatch(${'$'}targetType: UDFTargetType!, ${'$'}input: [SetUdf
 }
 
 
-
-data class SetUdvResponse (
+data class SetUdvResponse(
 
     @SerializedName("setUdv")
     val result: List<UserDefinedData>
 )
 
-class SetUdvParam @JvmOverloads constructor (    @SerializedName("targetType")
-                                                 var targetType: UdfTargetType,
-                                                 @SerializedName("targetId")
-                                                 var targetId: String,
-                                                 @SerializedName("key")
-                                                 var key: String,
-                                                 @SerializedName("value")
-                                                 var value: String)  {
+class SetUdvParam @JvmOverloads constructor(
+    @SerializedName("targetType")
+    var targetType: UdfTargetType,
+    @SerializedName("targetId")
+    var targetId: String,
+    @SerializedName("key")
+    var key: String,
+    @SerializedName("value")
+    var value: String
+) {
 
 
     fun build(): SetUdvParam {
@@ -7629,19 +7601,20 @@ mutation setUdv(${'$'}targetType: UDFTargetType!, ${'$'}targetId: String!, ${'$'
 }
 
 
-
-data class SetUdvBatchResponse (
+data class SetUdvBatchResponse(
 
     @SerializedName("setUdvBatch")
     val result: List<UserDefinedData>
 )
 
-class SetUdvBatchParam @JvmOverloads constructor (    @SerializedName("targetType")
-                                                      var targetType: UdfTargetType,
-                                                      @SerializedName("targetId")
-                                                      var targetId: String,
-                                                      @SerializedName("udvList")
-                                                      var udvList: List<UserDefinedDataInput>? = null)  {
+class SetUdvBatchParam @JvmOverloads constructor(
+    @SerializedName("targetType")
+    var targetType: UdfTargetType,
+    @SerializedName("targetId")
+    var targetId: String,
+    @SerializedName("udvList")
+    var udvList: List<UserDefinedDataInput>? = null
+) {
 
     fun withUdvList(udvList: List<UserDefinedDataInput>?): SetUdvBatchParam {
         this.udvList = udvList
@@ -7672,14 +7645,13 @@ mutation setUdvBatch(${'$'}targetType: UDFTargetType!, ${'$'}targetId: String!, 
 }
 
 
-
-data class UnbindEmailResponse (
+data class UnbindEmailResponse(
 
     @SerializedName("unbindEmail")
     val result: User
 )
 
-class UnbindEmailParam   {
+class UnbindEmailParam {
 
 
     fun build(): UnbindEmailParam {
@@ -7751,14 +7723,13 @@ mutation unbindEmail {
 }
 
 
-
-data class UnbindPhoneResponse (
+data class UnbindPhoneResponse(
 
     @SerializedName("unbindPhone")
     val result: User
 )
 
-class UnbindPhoneParam   {
+class UnbindPhoneParam {
 
 
     fun build(): UnbindPhoneParam {
@@ -7830,21 +7801,22 @@ mutation unbindPhone {
 }
 
 
-
-data class UpdateEmailResponse (
+data class UpdateEmailResponse(
 
     @SerializedName("updateEmail")
     val result: User
 )
 
-class UpdateEmailParam @JvmOverloads constructor (    @SerializedName("email")
-                                                      var email: String,
-                                                      @SerializedName("emailCode")
-                                                      var emailCode: String,
-                                                      @SerializedName("oldEmail")
-                                                      var oldEmail: String? = null,
-                                                      @SerializedName("oldEmailCode")
-                                                      var oldEmailCode: String? = null)  {
+class UpdateEmailParam @JvmOverloads constructor(
+    @SerializedName("email")
+    var email: String,
+    @SerializedName("emailCode")
+    var emailCode: String,
+    @SerializedName("oldEmail")
+    var oldEmail: String? = null,
+    @SerializedName("oldEmailCode")
+    var oldEmailCode: String? = null
+) {
 
     fun withOldEmail(oldEmail: String?): UpdateEmailParam {
         this.oldEmail = oldEmail
@@ -7925,15 +7897,16 @@ mutation updateEmail(${'$'}email: String!, ${'$'}emailCode: String!, ${'$'}oldEm
 }
 
 
-
-data class UpdateFunctionResponse (
+data class UpdateFunctionResponse(
 
     @SerializedName("updateFunction")
     val result: Function
 )
 
-class UpdateFunctionParam @JvmOverloads constructor (    @SerializedName("input")
-                                                         var input: UpdateFunctionInput)  {
+class UpdateFunctionParam @JvmOverloads constructor(
+    @SerializedName("input")
+    var input: UpdateFunctionInput
+) {
 
 
     fun build(): UpdateFunctionParam {
@@ -7961,21 +7934,22 @@ mutation updateFunction(${'$'}input: UpdateFunctionInput!) {
 }
 
 
-
-data class UpdateGroupResponse (
+data class UpdateGroupResponse(
 
     @SerializedName("updateGroup")
     val result: Group
 )
 
-class UpdateGroupParam @JvmOverloads constructor (    @SerializedName("code")
-                                                      var code: String,
-                                                      @SerializedName("name")
-                                                      var name: String? = null,
-                                                      @SerializedName("description")
-                                                      var description: String? = null,
-                                                      @SerializedName("newCode")
-                                                      var newCode: String? = null)  {
+class UpdateGroupParam @JvmOverloads constructor(
+    @SerializedName("code")
+    var code: String,
+    @SerializedName("name")
+    var name: String? = null,
+    @SerializedName("description")
+    var description: String? = null,
+    @SerializedName("newCode")
+    var newCode: String? = null
+) {
 
     fun withName(name: String?): UpdateGroupParam {
         this.name = name
@@ -8017,29 +7991,30 @@ mutation updateGroup(${'$'}code: String!, ${'$'}name: String, ${'$'}description:
 }
 
 
-
-data class UpdateNodeResponse (
+data class UpdateNodeResponse(
 
     @SerializedName("updateNode")
     val result: Node
 )
 
-class UpdateNodeParam @JvmOverloads constructor (    @SerializedName("page")
-                                                     var page: Int? = null,
-                                                     @SerializedName("limit")
-                                                     var limit: Int? = null,
-                                                     @SerializedName("sortBy")
-                                                     var sortBy: SortByEnum? = null,
-                                                     @SerializedName("includeChildrenNodes")
-                                                     var includeChildrenNodes: Boolean? = null,
-                                                     @SerializedName("id")
-                                                     var id: String,
-                                                     @SerializedName("name")
-                                                     var name: String? = null,
-                                                     @SerializedName("code")
-                                                     var code: String? = null,
-                                                     @SerializedName("description")
-                                                     var description: String? = null)  {
+class UpdateNodeParam @JvmOverloads constructor(
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null,
+    @SerializedName("sortBy")
+    var sortBy: SortByEnum? = null,
+    @SerializedName("includeChildrenNodes")
+    var includeChildrenNodes: Boolean? = null,
+    @SerializedName("id")
+    var id: String,
+    @SerializedName("name")
+    var name: String? = null,
+    @SerializedName("code")
+    var code: String? = null,
+    @SerializedName("description")
+    var description: String? = null
+) {
 
     fun withPage(page: Int?): UpdateNodeParam {
         this.page = page
@@ -8113,17 +8088,18 @@ mutation updateNode(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum,
 }
 
 
-
-data class UpdatePasswordResponse (
+data class UpdatePasswordResponse(
 
     @SerializedName("updatePassword")
     val result: User
 )
 
-class UpdatePasswordParam @JvmOverloads constructor (    @SerializedName("newPassword")
-                                                         var newPassword: String,
-                                                         @SerializedName("oldPassword")
-                                                         var oldPassword: String? = null)  {
+class UpdatePasswordParam @JvmOverloads constructor(
+    @SerializedName("newPassword")
+    var newPassword: String,
+    @SerializedName("oldPassword")
+    var oldPassword: String? = null
+) {
 
     fun withOldPassword(oldPassword: String?): UpdatePasswordParam {
         this.oldPassword = oldPassword
@@ -8199,21 +8175,22 @@ mutation updatePassword(${'$'}newPassword: String!, ${'$'}oldPassword: String) {
 }
 
 
-
-data class UpdatePhoneResponse (
+data class UpdatePhoneResponse(
 
     @SerializedName("updatePhone")
     val result: User
 )
 
-class UpdatePhoneParam @JvmOverloads constructor (    @SerializedName("phone")
-                                                      var phone: String,
-                                                      @SerializedName("phoneCode")
-                                                      var phoneCode: String,
-                                                      @SerializedName("oldPhone")
-                                                      var oldPhone: String? = null,
-                                                      @SerializedName("oldPhoneCode")
-                                                      var oldPhoneCode: String? = null)  {
+class UpdatePhoneParam @JvmOverloads constructor(
+    @SerializedName("phone")
+    var phone: String,
+    @SerializedName("phoneCode")
+    var phoneCode: String,
+    @SerializedName("oldPhone")
+    var oldPhone: String? = null,
+    @SerializedName("oldPhoneCode")
+    var oldPhoneCode: String? = null
+) {
 
     fun withOldPhone(oldPhone: String?): UpdatePhoneParam {
         this.oldPhone = oldPhone
@@ -8294,23 +8271,24 @@ mutation updatePhone(${'$'}phone: String!, ${'$'}phoneCode: String!, ${'$'}oldPh
 }
 
 
-
-data class UpdatePolicyResponse (
+data class UpdatePolicyResponse(
 
     @SerializedName("updatePolicy")
     val result: Policy
 )
 
-class UpdatePolicyParam @JvmOverloads constructor (    @SerializedName("namespace")
-                                                       var namespace: String? = null,
-                                                       @SerializedName("code")
-                                                       var code: String,
-                                                       @SerializedName("description")
-                                                       var description: String? = null,
-                                                       @SerializedName("statements")
-                                                       var statements: List<PolicyStatementInput>? = null,
-                                                       @SerializedName("newCode")
-                                                       var newCode: String? = null)  {
+class UpdatePolicyParam @JvmOverloads constructor(
+    @SerializedName("namespace")
+    var namespace: String? = null,
+    @SerializedName("code")
+    var code: String,
+    @SerializedName("description")
+    var description: String? = null,
+    @SerializedName("statements")
+    var statements: List<PolicyStatementInput>? = null,
+    @SerializedName("newCode")
+    var newCode: String? = null
+) {
 
     fun withNamespace(namespace: String?): UpdatePolicyParam {
         this.namespace = namespace
@@ -8367,21 +8345,22 @@ mutation updatePolicy(${'$'}namespace: String, ${'$'}code: String!, ${'$'}descri
 }
 
 
-
-data class UpdateRoleResponse (
+data class UpdateRoleResponse(
 
     @SerializedName("updateRole")
     val result: Role
 )
 
-class UpdateRoleParam @JvmOverloads constructor (    @SerializedName("code")
-                                                     var code: String,
-                                                     @SerializedName("description")
-                                                     var description: String? = null,
-                                                     @SerializedName("newCode")
-                                                     var newCode: String? = null,
-                                                     @SerializedName("namespace")
-                                                     var namespace: String? = null)  {
+class UpdateRoleParam @JvmOverloads constructor(
+    @SerializedName("code")
+    var code: String,
+    @SerializedName("description")
+    var description: String? = null,
+    @SerializedName("newCode")
+    var newCode: String? = null,
+    @SerializedName("namespace")
+    var namespace: String? = null
+) {
 
     fun withDescription(description: String?): UpdateRoleParam {
         this.description = description
@@ -8432,17 +8411,18 @@ mutation updateRole(${'$'}code: String!, ${'$'}description: String, ${'$'}newCod
 }
 
 
-
-data class UpdateUserResponse (
+data class UpdateUserResponse(
 
     @SerializedName("updateUser")
     val result: User
 )
 
-class UpdateUserParam @JvmOverloads constructor (    @SerializedName("id")
-                                                     var id: String? = null,
-                                                     @SerializedName("input")
-                                                     var input: UpdateUserInput)  {
+class UpdateUserParam @JvmOverloads constructor(
+    @SerializedName("id")
+    var id: String? = null,
+    @SerializedName("input")
+    var input: UpdateUserInput
+) {
 
     fun withId(id: String?): UpdateUserParam {
         this.id = id
@@ -8519,15 +8499,16 @@ mutation updateUser(${'$'}id: String, ${'$'}input: UpdateUserInput!) {
 }
 
 
-
-data class UpdateUserpoolResponse (
+data class UpdateUserpoolResponse(
 
     @SerializedName("updateUserpool")
     val result: UserPool
 )
 
-class UpdateUserpoolParam @JvmOverloads constructor (    @SerializedName("input")
-                                                         var input: UpdateUserpoolInput)  {
+class UpdateUserpoolParam @JvmOverloads constructor(
+    @SerializedName("input")
+    var input: UpdateUserpoolInput
+) {
 
 
     fun build(): UpdateUserpoolParam {
@@ -8614,17 +8595,18 @@ mutation updateUserpool(${'$'}input: UpdateUserpoolInput!) {
 }
 
 
-
-data class AccessTokenResponse (
+data class AccessTokenResponse(
 
     @SerializedName("accessToken")
     val result: AccessTokenRes
 )
 
-class AccessTokenParam @JvmOverloads constructor (    @SerializedName("userPoolId")
-                                                      var userPoolId: String,
-                                                      @SerializedName("secret")
-                                                      var secret: String)  {
+class AccessTokenParam @JvmOverloads constructor(
+    @SerializedName("userPoolId")
+    var userPoolId: String,
+    @SerializedName("secret")
+    var secret: String
+) {
 
 
     fun build(): AccessTokenParam {
@@ -8650,17 +8632,18 @@ query accessToken(${'$'}userPoolId: String!, ${'$'}secret: String!) {
 }
 
 
-
-data class ArchivedUsersResponse (
+data class ArchivedUsersResponse(
 
     @SerializedName("archivedUsers")
     val result: PaginatedUsers
 )
 
-class ArchivedUsersParam @JvmOverloads constructor (    @SerializedName("page")
-                                                        var page: Int? = null,
-                                                        @SerializedName("limit")
-                                                        var limit: Int? = null)  {
+class ArchivedUsersParam @JvmOverloads constructor(
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null
+) {
 
     fun withPage(page: Int?): ArchivedUsersParam {
         this.page = page
@@ -8745,15 +8728,16 @@ query archivedUsers(${'$'}page: Int, ${'$'}limit: Int) {
 }
 
 
-
-data class CheckLoginStatusResponse (
+data class CheckLoginStatusResponse(
 
     @SerializedName("checkLoginStatus")
     val result: JwtTokenStatus
 )
 
-class CheckLoginStatusParam @JvmOverloads constructor (    @SerializedName("token")
-                                                           var token: String? = null)  {
+class CheckLoginStatusParam @JvmOverloads constructor(
+    @SerializedName("token")
+    var token: String? = null
+) {
 
     fun withToken(token: String?): CheckLoginStatusParam {
         this.token = token
@@ -8790,15 +8774,16 @@ query checkLoginStatus(${'$'}token: String) {
 }
 
 
-
-data class CheckPasswordStrengthResponse (
+data class CheckPasswordStrengthResponse(
 
     @SerializedName("checkPasswordStrength")
     val result: CheckPasswordStrengthResult
 )
 
-class CheckPasswordStrengthParam @JvmOverloads constructor (    @SerializedName("password")
-                                                                var password: String)  {
+class CheckPasswordStrengthParam @JvmOverloads constructor(
+    @SerializedName("password")
+    var password: String
+) {
 
 
     fun build(): CheckPasswordStrengthParam {
@@ -8823,17 +8808,18 @@ query checkPasswordStrength(${'$'}password: String!) {
 }
 
 
-
-data class ChildrenNodesResponse (
+data class ChildrenNodesResponse(
 
     @SerializedName("childrenNodes")
     val result: List<Node>
 )
 
-class ChildrenNodesParam @JvmOverloads constructor (    @SerializedName("orgId")
-                                                        var orgId: String,
-                                                        @SerializedName("nodeId")
-                                                        var nodeId: String)  {
+class ChildrenNodesParam @JvmOverloads constructor(
+    @SerializedName("orgId")
+    var orgId: String,
+    @SerializedName("nodeId")
+    var nodeId: String
+) {
 
 
     fun build(): ChildrenNodesParam {
@@ -8870,14 +8856,13 @@ query childrenNodes(${'$'}orgId: String!, ${'$'}nodeId: String!) {
 }
 
 
-
-data class EmailTemplatesResponse (
+data class EmailTemplatesResponse(
 
     @SerializedName("emailTemplates")
     val result: List<EmailTemplate>
 )
 
-class EmailTemplatesParam   {
+class EmailTemplatesParam {
 
 
     fun build(): EmailTemplatesParam {
@@ -8910,21 +8895,22 @@ query emailTemplates {
 }
 
 
-
-data class FindUserResponse (
+data class FindUserResponse(
 
     @SerializedName("findUser")
     val result: User
 )
 
-class FindUserParam @JvmOverloads constructor (    @SerializedName("email")
-                                                   var email: String? = null,
-                                                   @SerializedName("phone")
-                                                   var phone: String? = null,
-                                                   @SerializedName("username")
-                                                   var username: String? = null,
-                                                   @SerializedName("externalId")
-                                                   var externalId: String? = null)  {
+class FindUserParam @JvmOverloads constructor(
+    @SerializedName("email")
+    var email: String? = null,
+    @SerializedName("phone")
+    var phone: String? = null,
+    @SerializedName("username")
+    var username: String? = null,
+    @SerializedName("externalId")
+    var externalId: String? = null
+) {
 
     fun withEmail(email: String?): FindUserParam {
         this.email = email
@@ -9016,15 +9002,16 @@ query findUser(${'$'}email: String, ${'$'}phone: String, ${'$'}username: String,
 }
 
 
-
-data class FunctionResponse (
+data class FunctionResponse(
 
     @SerializedName("function")
     val result: Function
 )
 
-class FunctionParam @JvmOverloads constructor (    @SerializedName("id")
-                                                   var id: String? = null)  {
+class FunctionParam @JvmOverloads constructor(
+    @SerializedName("id")
+    var id: String? = null
+) {
 
     fun withId(id: String?): FunctionParam {
         this.id = id
@@ -9056,19 +9043,20 @@ query function(${'$'}id: String) {
 }
 
 
-
-data class FunctionsResponse (
+data class FunctionsResponse(
 
     @SerializedName("functions")
     val result: PaginatedFunctions
 )
 
-class FunctionsParam @JvmOverloads constructor (    @SerializedName("page")
-                                                    var page: Int? = null,
-                                                    @SerializedName("limit")
-                                                    var limit: Int? = null,
-                                                    @SerializedName("sortBy")
-                                                    var sortBy: SortByEnum? = null)  {
+class FunctionsParam @JvmOverloads constructor(
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null,
+    @SerializedName("sortBy")
+    var sortBy: SortByEnum? = null
+) {
 
     fun withPage(page: Int?): FunctionsParam {
         this.page = page
@@ -9113,17 +9101,18 @@ query functions(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum) {
 }
 
 
-
-data class GetUserDepartmentsResponse (
+data class GetUserDepartmentsResponse(
 
     @SerializedName("user")
     val result: User
 )
 
-class GetUserDepartmentsParam @JvmOverloads constructor (    @SerializedName("id")
-                                                             var id: String,
-                                                             @SerializedName("orgId")
-                                                             var orgId: String? = null)  {
+class GetUserDepartmentsParam @JvmOverloads constructor(
+    @SerializedName("id")
+    var id: String,
+    @SerializedName("orgId")
+    var orgId: String? = null
+) {
 
     fun withOrgId(orgId: String?): GetUserDepartmentsParam {
         this.orgId = orgId
@@ -9175,15 +9164,16 @@ query getUserDepartments(${'$'}id: String!, ${'$'}orgId: String) {
 }
 
 
-
-data class GetUserGroupsResponse (
+data class GetUserGroupsResponse(
 
     @SerializedName("user")
     val result: User
 )
 
-class GetUserGroupsParam @JvmOverloads constructor (    @SerializedName("id")
-                                                        var id: String)  {
+class GetUserGroupsParam @JvmOverloads constructor(
+    @SerializedName("id")
+    var id: String
+) {
 
 
     fun build(): GetUserGroupsParam {
@@ -9216,17 +9206,18 @@ query getUserGroups(${'$'}id: String!) {
 }
 
 
-
-data class GetUserRolesResponse (
+data class GetUserRolesResponse(
 
     @SerializedName("user")
     val result: User
 )
 
-class GetUserRolesParam @JvmOverloads constructor (    @SerializedName("id")
-                                                       var id: String,
-                                                       @SerializedName("namespace")
-                                                       var namespace: String? = null)  {
+class GetUserRolesParam @JvmOverloads constructor(
+    @SerializedName("id")
+    var id: String,
+    @SerializedName("namespace")
+    var namespace: String? = null
+) {
 
     fun withNamespace(namespace: String?): GetUserRolesParam {
         this.namespace = namespace
@@ -9272,15 +9263,16 @@ query getUserRoles(${'$'}id: String!, ${'$'}namespace: String) {
 }
 
 
-
-data class GroupResponse (
+data class GroupResponse(
 
     @SerializedName("group")
     val result: Group
 )
 
-class GroupParam @JvmOverloads constructor (    @SerializedName("code")
-                                                var code: String)  {
+class GroupParam @JvmOverloads constructor(
+    @SerializedName("code")
+    var code: String
+) {
 
 
     fun build(): GroupParam {
@@ -9308,19 +9300,20 @@ query group(${'$'}code: String!) {
 }
 
 
-
-data class GroupWithUsersResponse (
+data class GroupWithUsersResponse(
 
     @SerializedName("group")
     val result: Group
 )
 
-class GroupWithUsersParam @JvmOverloads constructor (    @SerializedName("code")
-                                                         var code: String,
-                                                         @SerializedName("page")
-                                                         var page: Int? = null,
-                                                         @SerializedName("limit")
-                                                         var limit: Int? = null)  {
+class GroupWithUsersParam @JvmOverloads constructor(
+    @SerializedName("code")
+    var code: String,
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null
+) {
 
     fun withPage(page: Int?): GroupWithUsersParam {
         this.page = page
@@ -9406,21 +9399,22 @@ query groupWithUsers(${'$'}code: String!, ${'$'}page: Int, ${'$'}limit: Int) {
 }
 
 
-
-data class GroupsResponse (
+data class GroupsResponse(
 
     @SerializedName("groups")
     val result: PaginatedGroups
 )
 
-class GroupsParam @JvmOverloads constructor (    @SerializedName("userId")
-                                                 var userId: String? = null,
-                                                 @SerializedName("page")
-                                                 var page: Int? = null,
-                                                 @SerializedName("limit")
-                                                 var limit: Int? = null,
-                                                 @SerializedName("sortBy")
-                                                 var sortBy: SortByEnum? = null)  {
+class GroupsParam @JvmOverloads constructor(
+    @SerializedName("userId")
+    var userId: String? = null,
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null,
+    @SerializedName("sortBy")
+    var sortBy: SortByEnum? = null
+) {
 
     fun withUserId(userId: String?): GroupsParam {
         this.userId = userId
@@ -9470,19 +9464,20 @@ query groups(${'$'}userId: String, ${'$'}page: Int, ${'$'}limit: Int, ${'$'}sort
 }
 
 
-
-data class IsActionAllowedResponse (
+data class IsActionAllowedResponse(
 
     @SerializedName("isActionAllowed")
     val result: Boolean
 )
 
-class IsActionAllowedParam @JvmOverloads constructor (    @SerializedName("resource")
-                                                          var resource: String,
-                                                          @SerializedName("action")
-                                                          var action: String,
-                                                          @SerializedName("userId")
-                                                          var userId: String)  {
+class IsActionAllowedParam @JvmOverloads constructor(
+    @SerializedName("resource")
+    var resource: String,
+    @SerializedName("action")
+    var action: String,
+    @SerializedName("userId")
+    var userId: String
+) {
 
 
     fun build(): IsActionAllowedParam {
@@ -9504,19 +9499,20 @@ query isActionAllowed(${'$'}resource: String!, ${'$'}action: String!, ${'$'}user
 }
 
 
-
-data class IsActionDeniedResponse (
+data class IsActionDeniedResponse(
 
     @SerializedName("isActionDenied")
     val result: Boolean
 )
 
-class IsActionDeniedParam @JvmOverloads constructor (    @SerializedName("resource")
-                                                         var resource: String,
-                                                         @SerializedName("action")
-                                                         var action: String,
-                                                         @SerializedName("userId")
-                                                         var userId: String)  {
+class IsActionDeniedParam @JvmOverloads constructor(
+    @SerializedName("resource")
+    var resource: String,
+    @SerializedName("action")
+    var action: String,
+    @SerializedName("userId")
+    var userId: String
+) {
 
 
     fun build(): IsActionDeniedParam {
@@ -9538,15 +9534,16 @@ query isActionDenied(${'$'}resource: String!, ${'$'}action: String!, ${'$'}userI
 }
 
 
-
-data class IsDomainAvaliableResponse (
+data class IsDomainAvaliableResponse(
 
     @SerializedName("isDomainAvaliable")
     val result: Boolean
 )
 
-class IsDomainAvaliableParam @JvmOverloads constructor (    @SerializedName("domain")
-                                                            var domain: String)  {
+class IsDomainAvaliableParam @JvmOverloads constructor(
+    @SerializedName("domain")
+    var domain: String
+) {
 
 
     fun build(): IsDomainAvaliableParam {
@@ -9568,17 +9565,18 @@ query isDomainAvaliable(${'$'}domain: String!) {
 }
 
 
-
-data class IsRootNodeResponse (
+data class IsRootNodeResponse(
 
     @SerializedName("isRootNode")
     val result: Boolean
 )
 
-class IsRootNodeParam @JvmOverloads constructor (    @SerializedName("nodeId")
-                                                     var nodeId: String,
-                                                     @SerializedName("orgId")
-                                                     var orgId: String)  {
+class IsRootNodeParam @JvmOverloads constructor(
+    @SerializedName("nodeId")
+    var nodeId: String,
+    @SerializedName("orgId")
+    var orgId: String
+) {
 
 
     fun build(): IsRootNodeParam {
@@ -9600,19 +9598,22 @@ query isRootNode(${'$'}nodeId: String!, ${'$'}orgId: String!) {
 }
 
 
-
-data class IsUserExistsResponse (
+data class IsUserExistsResponse(
 
     @SerializedName("isUserExists")
     val result: Boolean
 )
 
-class IsUserExistsParam @JvmOverloads constructor (    @SerializedName("email")
-                                                       var email: String? = null,
-                                                       @SerializedName("phone")
-                                                       var phone: String? = null,
-                                                       @SerializedName("username")
-                                                       var username: String? = null)  {
+class IsUserExistsParam @JvmOverloads constructor(
+    @SerializedName("email")
+    var email: String? = null,
+    @SerializedName("phone")
+    var phone: String? = null,
+    @SerializedName("username")
+    var username: String? = null,
+    @SerializedName("externalId")
+    var externalId: String? = null
+) {
 
     fun withEmail(email: String?): IsUserExistsParam {
         this.email = email
@@ -9629,6 +9630,11 @@ class IsUserExistsParam @JvmOverloads constructor (    @SerializedName("email")
         return this
     }
 
+    fun withExternalId(externalId: String?): IsUserExistsParam {
+        this.externalId = externalId
+        return this
+    }
+
     fun build(): IsUserExistsParam {
         return this
     }
@@ -9641,28 +9647,29 @@ class IsUserExistsParam @JvmOverloads constructor (    @SerializedName("email")
     }
 
     private val isUserExistsDocument: String = """
-query isUserExists(${'$'}email: String, ${'$'}phone: String, ${'$'}username: String) {
-  isUserExists(email: ${'$'}email, phone: ${'$'}phone, username: ${'$'}username)
+query isUserExists(${'$'}email: String, ${'$'}phone: String, ${'$'}username: String, ${'$'}externalId: String) {
+  isUserExists(email: ${'$'}email, phone: ${'$'}phone, username: ${'$'}username, externalId: ${'$'}externalId)
 }
 """
 }
 
 
-
-data class AuthorizedResourcesResponse (
+data class AuthorizedResourcesResponse(
 
     @SerializedName("authorizedResources")
     val result: PaginatedAuthorizedResources
 )
 
-class AuthorizedResourcesParam @JvmOverloads constructor (    @SerializedName("targetType")
-                                                              var targetType: PolicyAssignmentTargetType? = null,
-                                                              @SerializedName("targetIdentifier")
-                                                              var targetIdentifier: String? = null,
-                                                              @SerializedName("namespace")
-                                                              var namespace: String? = null,
-                                                              @SerializedName("resourceType")
-                                                              var resourceType: String? = null)  {
+class AuthorizedResourcesParam @JvmOverloads constructor(
+    @SerializedName("targetType")
+    var targetType: PolicyAssignmentTargetType? = null,
+    @SerializedName("targetIdentifier")
+    var targetIdentifier: String? = null,
+    @SerializedName("namespace")
+    var namespace: String? = null,
+    @SerializedName("resourceType")
+    var resourceType: String? = null
+) {
 
     fun withTargetType(targetType: PolicyAssignmentTargetType?): AuthorizedResourcesParam {
         this.targetType = targetType
@@ -9710,19 +9717,20 @@ query authorizedResources(${'$'}targetType: PolicyAssignmentTargetType, ${'$'}ta
 }
 
 
-
-data class ListGroupAuthorizedResourcesResponse (
+data class ListGroupAuthorizedResourcesResponse(
 
     @SerializedName("group")
     val result: Group
 )
 
-class ListGroupAuthorizedResourcesParam @JvmOverloads constructor (    @SerializedName("code")
-                                                                       var code: String,
-                                                                       @SerializedName("namespace")
-                                                                       var namespace: String? = null,
-                                                                       @SerializedName("resourceType")
-                                                                       var resourceType: String? = null)  {
+class ListGroupAuthorizedResourcesParam @JvmOverloads constructor(
+    @SerializedName("code")
+    var code: String,
+    @SerializedName("namespace")
+    var namespace: String? = null,
+    @SerializedName("resourceType")
+    var resourceType: String? = null
+) {
 
     fun withNamespace(namespace: String?): ListGroupAuthorizedResourcesParam {
         this.namespace = namespace
@@ -9762,21 +9770,22 @@ query listGroupAuthorizedResources(${'$'}code: String!, ${'$'}namespace: String,
 }
 
 
-
-data class ListNodeByCodeAuthorizedResourcesResponse (
+data class ListNodeByCodeAuthorizedResourcesResponse(
 
     @SerializedName("nodeByCode")
     val result: Node
 )
 
-class ListNodeByCodeAuthorizedResourcesParam @JvmOverloads constructor (    @SerializedName("orgId")
-                                                                            var orgId: String,
-                                                                            @SerializedName("code")
-                                                                            var code: String,
-                                                                            @SerializedName("namespace")
-                                                                            var namespace: String? = null,
-                                                                            @SerializedName("resourceType")
-                                                                            var resourceType: String? = null)  {
+class ListNodeByCodeAuthorizedResourcesParam @JvmOverloads constructor(
+    @SerializedName("orgId")
+    var orgId: String,
+    @SerializedName("code")
+    var code: String,
+    @SerializedName("namespace")
+    var namespace: String? = null,
+    @SerializedName("resourceType")
+    var resourceType: String? = null
+) {
 
     fun withNamespace(namespace: String?): ListNodeByCodeAuthorizedResourcesParam {
         this.namespace = namespace
@@ -9816,19 +9825,20 @@ query listNodeByCodeAuthorizedResources(${'$'}orgId: String!, ${'$'}code: String
 }
 
 
-
-data class ListNodeByIdAuthorizedResourcesResponse (
+data class ListNodeByIdAuthorizedResourcesResponse(
 
     @SerializedName("nodeById")
     val result: Node
 )
 
-class ListNodeByIdAuthorizedResourcesParam @JvmOverloads constructor (    @SerializedName("id")
-                                                                          var id: String,
-                                                                          @SerializedName("namespace")
-                                                                          var namespace: String? = null,
-                                                                          @SerializedName("resourceType")
-                                                                          var resourceType: String? = null)  {
+class ListNodeByIdAuthorizedResourcesParam @JvmOverloads constructor(
+    @SerializedName("id")
+    var id: String,
+    @SerializedName("namespace")
+    var namespace: String? = null,
+    @SerializedName("resourceType")
+    var resourceType: String? = null
+) {
 
     fun withNamespace(namespace: String?): ListNodeByIdAuthorizedResourcesParam {
         this.namespace = namespace
@@ -9868,19 +9878,20 @@ query listNodeByIdAuthorizedResources(${'$'}id: String!, ${'$'}namespace: String
 }
 
 
-
-data class ListRoleAuthorizedResourcesResponse (
+data class ListRoleAuthorizedResourcesResponse(
 
     @SerializedName("role")
     val result: Role
 )
 
-class ListRoleAuthorizedResourcesParam @JvmOverloads constructor (    @SerializedName("code")
-                                                                      var code: String,
-                                                                      @SerializedName("namespace")
-                                                                      var namespace: String? = null,
-                                                                      @SerializedName("resourceType")
-                                                                      var resourceType: String? = null)  {
+class ListRoleAuthorizedResourcesParam @JvmOverloads constructor(
+    @SerializedName("code")
+    var code: String,
+    @SerializedName("namespace")
+    var namespace: String? = null,
+    @SerializedName("resourceType")
+    var resourceType: String? = null
+) {
 
     fun withNamespace(namespace: String?): ListRoleAuthorizedResourcesParam {
         this.namespace = namespace
@@ -9920,19 +9931,20 @@ query listRoleAuthorizedResources(${'$'}code: String!, ${'$'}namespace: String, 
 }
 
 
-
-data class ListUserAuthorizedResourcesResponse (
+data class ListUserAuthorizedResourcesResponse(
 
     @SerializedName("user")
     val result: User
 )
 
-class ListUserAuthorizedResourcesParam @JvmOverloads constructor (    @SerializedName("id")
-                                                                      var id: String,
-                                                                      @SerializedName("namespace")
-                                                                      var namespace: String? = null,
-                                                                      @SerializedName("resourceType")
-                                                                      var resourceType: String? = null)  {
+class ListUserAuthorizedResourcesParam @JvmOverloads constructor(
+    @SerializedName("id")
+    var id: String,
+    @SerializedName("namespace")
+    var namespace: String? = null,
+    @SerializedName("resourceType")
+    var resourceType: String? = null
+) {
 
     fun withNamespace(namespace: String?): ListUserAuthorizedResourcesParam {
         this.namespace = namespace
@@ -9972,17 +9984,18 @@ query listUserAuthorizedResources(${'$'}id: String!, ${'$'}namespace: String, ${
 }
 
 
-
-data class NodeByCodeResponse (
+data class NodeByCodeResponse(
 
     @SerializedName("nodeByCode")
     val result: Node
 )
 
-class NodeByCodeParam @JvmOverloads constructor (    @SerializedName("orgId")
-                                                     var orgId: String,
-                                                     @SerializedName("code")
-                                                     var code: String)  {
+class NodeByCodeParam @JvmOverloads constructor(
+    @SerializedName("orgId")
+    var orgId: String,
+    @SerializedName("code")
+    var code: String
+) {
 
 
     fun build(): NodeByCodeParam {
@@ -10019,25 +10032,26 @@ query nodeByCode(${'$'}orgId: String!, ${'$'}code: String!) {
 }
 
 
-
-data class NodeByCodeWithMembersResponse (
+data class NodeByCodeWithMembersResponse(
 
     @SerializedName("nodeByCode")
     val result: Node
 )
 
-class NodeByCodeWithMembersParam @JvmOverloads constructor (    @SerializedName("page")
-                                                                var page: Int? = null,
-                                                                @SerializedName("limit")
-                                                                var limit: Int? = null,
-                                                                @SerializedName("sortBy")
-                                                                var sortBy: SortByEnum? = null,
-                                                                @SerializedName("includeChildrenNodes")
-                                                                var includeChildrenNodes: Boolean? = null,
-                                                                @SerializedName("orgId")
-                                                                var orgId: String,
-                                                                @SerializedName("code")
-                                                                var code: String)  {
+class NodeByCodeWithMembersParam @JvmOverloads constructor(
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null,
+    @SerializedName("sortBy")
+    var sortBy: SortByEnum? = null,
+    @SerializedName("includeChildrenNodes")
+    var includeChildrenNodes: Boolean? = null,
+    @SerializedName("orgId")
+    var orgId: String,
+    @SerializedName("code")
+    var code: String
+) {
 
     fun withPage(page: Int?): NodeByCodeWithMembersParam {
         this.page = page
@@ -10147,15 +10161,16 @@ query nodeByCodeWithMembers(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: Sor
 }
 
 
-
-data class NodeByIdResponse (
+data class NodeByIdResponse(
 
     @SerializedName("nodeById")
     val result: Node
 )
 
-class NodeByIdParam @JvmOverloads constructor (    @SerializedName("id")
-                                                   var id: String)  {
+class NodeByIdParam @JvmOverloads constructor(
+    @SerializedName("id")
+    var id: String
+) {
 
 
     fun build(): NodeByIdParam {
@@ -10192,23 +10207,24 @@ query nodeById(${'$'}id: String!) {
 }
 
 
-
-data class NodeByIdWithMembersResponse (
+data class NodeByIdWithMembersResponse(
 
     @SerializedName("nodeById")
     val result: Node
 )
 
-class NodeByIdWithMembersParam @JvmOverloads constructor (    @SerializedName("page")
-                                                              var page: Int? = null,
-                                                              @SerializedName("limit")
-                                                              var limit: Int? = null,
-                                                              @SerializedName("sortBy")
-                                                              var sortBy: SortByEnum? = null,
-                                                              @SerializedName("includeChildrenNodes")
-                                                              var includeChildrenNodes: Boolean? = null,
-                                                              @SerializedName("id")
-                                                              var id: String)  {
+class NodeByIdWithMembersParam @JvmOverloads constructor(
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null,
+    @SerializedName("sortBy")
+    var sortBy: SortByEnum? = null,
+    @SerializedName("includeChildrenNodes")
+    var includeChildrenNodes: Boolean? = null,
+    @SerializedName("id")
+    var id: String
+) {
 
     fun withPage(page: Int?): NodeByIdWithMembersParam {
         this.page = page
@@ -10318,15 +10334,16 @@ query nodeByIdWithMembers(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortB
 }
 
 
-
-data class OrgResponse (
+data class OrgResponse(
 
     @SerializedName("org")
     val result: Org
 )
 
-class OrgParam @JvmOverloads constructor (    @SerializedName("id")
-                                              var id: String)  {
+class OrgParam @JvmOverloads constructor(
+    @SerializedName("id")
+    var id: String
+) {
 
 
     fun build(): OrgParam {
@@ -10382,19 +10399,20 @@ query org(${'$'}id: String!) {
 }
 
 
-
-data class OrgsResponse (
+data class OrgsResponse(
 
     @SerializedName("orgs")
     val result: PaginatedOrgs
 )
 
-class OrgsParam @JvmOverloads constructor (    @SerializedName("page")
-                                               var page: Int? = null,
-                                               @SerializedName("limit")
-                                               var limit: Int? = null,
-                                               @SerializedName("sortBy")
-                                               var sortBy: SortByEnum? = null)  {
+class OrgsParam @JvmOverloads constructor(
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null,
+    @SerializedName("sortBy")
+    var sortBy: SortByEnum? = null
+) {
 
     fun withPage(page: Int?): OrgsParam {
         this.page = page
@@ -10465,19 +10483,20 @@ query orgs(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum) {
 }
 
 
-
-data class PoliciesResponse (
+data class PoliciesResponse(
 
     @SerializedName("policies")
     val result: PaginatedPolicies
 )
 
-class PoliciesParam @JvmOverloads constructor (    @SerializedName("page")
-                                                   var page: Int? = null,
-                                                   @SerializedName("limit")
-                                                   var limit: Int? = null,
-                                                   @SerializedName("namespace")
-                                                   var namespace: String? = null)  {
+class PoliciesParam @JvmOverloads constructor(
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null,
+    @SerializedName("namespace")
+    var namespace: String? = null
+) {
 
     fun withPage(page: Int?): PoliciesParam {
         this.page = page
@@ -10532,17 +10551,18 @@ query policies(${'$'}page: Int, ${'$'}limit: Int, ${'$'}namespace: String) {
 }
 
 
-
-data class PolicyResponse (
+data class PolicyResponse(
 
     @SerializedName("policy")
     val result: Policy
 )
 
-class PolicyParam @JvmOverloads constructor (    @SerializedName("namespace")
-                                                 var namespace: String? = null,
-                                                 @SerializedName("code")
-                                                 var code: String)  {
+class PolicyParam @JvmOverloads constructor(
+    @SerializedName("namespace")
+    var namespace: String? = null,
+    @SerializedName("code")
+    var code: String
+) {
 
     fun withNamespace(namespace: String?): PolicyParam {
         this.namespace = namespace
@@ -10585,25 +10605,26 @@ query policy(${'$'}namespace: String, ${'$'}code: String!) {
 }
 
 
-
-data class PolicyAssignmentsResponse (
+data class PolicyAssignmentsResponse(
 
     @SerializedName("policyAssignments")
     val result: PaginatedPolicyAssignments
 )
 
-class PolicyAssignmentsParam @JvmOverloads constructor (    @SerializedName("namespace")
-                                                            var namespace: String? = null,
-                                                            @SerializedName("code")
-                                                            var code: String? = null,
-                                                            @SerializedName("targetType")
-                                                            var targetType: PolicyAssignmentTargetType? = null,
-                                                            @SerializedName("targetIdentifier")
-                                                            var targetIdentifier: String? = null,
-                                                            @SerializedName("page")
-                                                            var page: Int? = null,
-                                                            @SerializedName("limit")
-                                                            var limit: Int? = null)  {
+class PolicyAssignmentsParam @JvmOverloads constructor(
+    @SerializedName("namespace")
+    var namespace: String? = null,
+    @SerializedName("code")
+    var code: String? = null,
+    @SerializedName("targetType")
+    var targetType: PolicyAssignmentTargetType? = null,
+    @SerializedName("targetIdentifier")
+    var targetIdentifier: String? = null,
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null
+) {
 
     fun withNamespace(namespace: String?): PolicyAssignmentsParam {
         this.namespace = namespace
@@ -10661,19 +10682,20 @@ query policyAssignments(${'$'}namespace: String, ${'$'}code: String, ${'$'}targe
 }
 
 
-
-data class PolicyWithAssignmentsResponse (
+data class PolicyWithAssignmentsResponse(
 
     @SerializedName("policy")
     val result: Policy
 )
 
-class PolicyWithAssignmentsParam @JvmOverloads constructor (    @SerializedName("page")
-                                                                var page: Int? = null,
-                                                                @SerializedName("limit")
-                                                                var limit: Int? = null,
-                                                                @SerializedName("code")
-                                                                var code: String)  {
+class PolicyWithAssignmentsParam @JvmOverloads constructor(
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null,
+    @SerializedName("code")
+    var code: String
+) {
 
     fun withPage(page: Int?): PolicyWithAssignmentsParam {
         this.page = page
@@ -10721,15 +10743,16 @@ query policyWithAssignments(${'$'}page: Int, ${'$'}limit: Int, ${'$'}code: Strin
 }
 
 
-
-data class PreviewEmailResponse (
+data class PreviewEmailResponse(
 
     @SerializedName("previewEmail")
     val result: String
 )
 
-class PreviewEmailParam @JvmOverloads constructor (    @SerializedName("type")
-                                                       var type: EmailTemplateType)  {
+class PreviewEmailParam @JvmOverloads constructor(
+    @SerializedName("type")
+    var type: EmailTemplateType
+) {
 
 
     fun build(): PreviewEmailParam {
@@ -10751,15 +10774,16 @@ query previewEmail(${'$'}type: EmailTemplateType!) {
 }
 
 
-
-data class QiniuUptokenResponse (
+data class QiniuUptokenResponse(
 
     @SerializedName("qiniuUptoken")
     val result: String
 )
 
-class QiniuUptokenParam @JvmOverloads constructor (    @SerializedName("type")
-                                                       var type: String? = null)  {
+class QiniuUptokenParam @JvmOverloads constructor(
+    @SerializedName("type")
+    var type: String? = null
+) {
 
     fun withType(type: String?): QiniuUptokenParam {
         this.type = type
@@ -10785,19 +10809,20 @@ query qiniuUptoken(${'$'}type: String) {
 }
 
 
-
-data class QueryMfaResponse (
+data class QueryMfaResponse(
 
     @SerializedName("queryMfa")
     val result: Mfa
 )
 
-class QueryMfaParam @JvmOverloads constructor (    @SerializedName("id")
-                                                   var id: String? = null,
-                                                   @SerializedName("userId")
-                                                   var userId: String? = null,
-                                                   @SerializedName("userPoolId")
-                                                   var userPoolId: String? = null)  {
+class QueryMfaParam @JvmOverloads constructor(
+    @SerializedName("id")
+    var id: String? = null,
+    @SerializedName("userId")
+    var userId: String? = null,
+    @SerializedName("userPoolId")
+    var userPoolId: String? = null
+) {
 
     fun withId(id: String?): QueryMfaParam {
         this.id = id
@@ -10839,23 +10864,24 @@ query queryMfa(${'$'}id: String, ${'$'}userId: String, ${'$'}userPoolId: String)
 }
 
 
-
-data class ResourcePermissionsResponse (
+data class ResourcePermissionsResponse(
 
     @SerializedName("resourcePermissions")
     val result: PaginatedResourcePermissionAssignments
 )
 
-class ResourcePermissionsParam @JvmOverloads constructor (    @SerializedName("namespace")
-                                                              var namespace: String,
-                                                              @SerializedName("resourceType")
-                                                              var resourceType: ResourceType,
-                                                              @SerializedName("resource")
-                                                              var resource: String,
-                                                              @SerializedName("targetType")
-                                                              var targetType: PolicyAssignmentTargetType? = null,
-                                                              @SerializedName("actions")
-                                                              var actions: ResourcePermissionsActionsInput? = null)  {
+class ResourcePermissionsParam @JvmOverloads constructor(
+    @SerializedName("namespace")
+    var namespace: String,
+    @SerializedName("resourceType")
+    var resourceType: ResourceType,
+    @SerializedName("resource")
+    var resource: String,
+    @SerializedName("targetType")
+    var targetType: PolicyAssignmentTargetType? = null,
+    @SerializedName("actions")
+    var actions: ResourcePermissionsActionsInput? = null
+) {
 
     fun withTargetType(targetType: PolicyAssignmentTargetType?): ResourcePermissionsParam {
         this.targetType = targetType
@@ -10893,17 +10919,18 @@ query resourcePermissions(${'$'}namespace: String!, ${'$'}resourceType: Resource
 }
 
 
-
-data class RoleResponse (
+data class RoleResponse(
 
     @SerializedName("role")
     val result: Role
 )
 
-class RoleParam @JvmOverloads constructor (    @SerializedName("code")
-                                               var code: String,
-                                               @SerializedName("namespace")
-                                               var namespace: String? = null)  {
+class RoleParam @JvmOverloads constructor(
+    @SerializedName("code")
+    var code: String,
+    @SerializedName("namespace")
+    var namespace: String? = null
+) {
 
     fun withNamespace(namespace: String?): RoleParam {
         this.namespace = namespace
@@ -10944,17 +10971,18 @@ query role(${'$'}code: String!, ${'$'}namespace: String) {
 }
 
 
-
-data class RoleWithUsersResponse (
+data class RoleWithUsersResponse(
 
     @SerializedName("role")
     val result: Role
 )
 
-class RoleWithUsersParam @JvmOverloads constructor (    @SerializedName("code")
-                                                        var code: String,
-                                                        @SerializedName("namespace")
-                                                        var namespace: String? = null)  {
+class RoleWithUsersParam @JvmOverloads constructor(
+    @SerializedName("code")
+    var code: String,
+    @SerializedName("namespace")
+    var namespace: String? = null
+) {
 
     fun withNamespace(namespace: String?): RoleWithUsersParam {
         this.namespace = namespace
@@ -11036,21 +11064,22 @@ query roleWithUsers(${'$'}code: String!, ${'$'}namespace: String) {
 }
 
 
-
-data class RolesResponse (
+data class RolesResponse(
 
     @SerializedName("roles")
     val result: PaginatedRoles
 )
 
-class RolesParam @JvmOverloads constructor (    @SerializedName("namespace")
-                                                var namespace: String? = null,
-                                                @SerializedName("page")
-                                                var page: Int? = null,
-                                                @SerializedName("limit")
-                                                var limit: Int? = null,
-                                                @SerializedName("sortBy")
-                                                var sortBy: SortByEnum? = null)  {
+class RolesParam @JvmOverloads constructor(
+    @SerializedName("namespace")
+    var namespace: String? = null,
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null,
+    @SerializedName("sortBy")
+    var sortBy: SortByEnum? = null
+) {
 
     fun withNamespace(namespace: String?): RolesParam {
         this.namespace = namespace
@@ -11101,15 +11130,16 @@ query roles(${'$'}namespace: String, ${'$'}page: Int, ${'$'}limit: Int, ${'$'}so
 }
 
 
-
-data class RootNodeResponse (
+data class RootNodeResponse(
 
     @SerializedName("rootNode")
     val result: Node
 )
 
-class RootNodeParam @JvmOverloads constructor (    @SerializedName("orgId")
-                                                   var orgId: String)  {
+class RootNodeParam @JvmOverloads constructor(
+    @SerializedName("orgId")
+    var orgId: String
+) {
 
 
     fun build(): RootNodeParam {
@@ -11148,15 +11178,16 @@ query rootNode(${'$'}orgId: String!) {
 }
 
 
-
-data class SearchNodesResponse (
+data class SearchNodesResponse(
 
     @SerializedName("searchNodes")
     val result: List<Node>
 )
 
-class SearchNodesParam @JvmOverloads constructor (    @SerializedName("keyword")
-                                                      var keyword: String)  {
+class SearchNodesParam @JvmOverloads constructor(
+    @SerializedName("keyword")
+    var keyword: String
+) {
 
 
     fun build(): SearchNodesParam {
@@ -11195,23 +11226,24 @@ query searchNodes(${'$'}keyword: String!) {
 }
 
 
-
-data class SearchUserResponse (
+data class SearchUserResponse(
 
     @SerializedName("searchUser")
     val result: PaginatedUsers
 )
 
-class SearchUserParam @JvmOverloads constructor (    @SerializedName("query")
-                                                     var query: String,
-                                                     @SerializedName("fields")
-                                                     var fields: List<String>? = null,
-                                                     @SerializedName("page")
-                                                     var page: Int? = null,
-                                                     @SerializedName("limit")
-                                                     var limit: Int? = null,
-                                                     @SerializedName("departmentOpts")
-                                                     var departmentOpts: List<SearchUserDepartmentOptInput>? = null)  {
+class SearchUserParam @JvmOverloads constructor(
+    @SerializedName("query")
+    var query: String,
+    @SerializedName("fields")
+    var fields: List<String>? = null,
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null,
+    @SerializedName("departmentOpts")
+    var departmentOpts: List<SearchUserDepartmentOptInput>? = null
+) {
 
     fun withFields(fields: List<String>?): SearchUserParam {
         this.fields = fields
@@ -11306,15 +11338,16 @@ query searchUser(${'$'}query: String!, ${'$'}fields: [String], ${'$'}page: Int, 
 }
 
 
-
-data class SocialConnectionResponse (
+data class SocialConnectionResponse(
 
     @SerializedName("socialConnection")
     val result: SocialConnection
 )
 
-class SocialConnectionParam @JvmOverloads constructor (    @SerializedName("provider")
-                                                           var provider: String)  {
+class SocialConnectionParam @JvmOverloads constructor(
+    @SerializedName("provider")
+    var provider: String
+) {
 
 
     fun build(): SocialConnectionParam {
@@ -11347,15 +11380,16 @@ query socialConnection(${'$'}provider: String!) {
 }
 
 
-
-data class SocialConnectionInstanceResponse (
+data class SocialConnectionInstanceResponse(
 
     @SerializedName("socialConnectionInstance")
     val result: SocialConnectionInstance
 )
 
-class SocialConnectionInstanceParam @JvmOverloads constructor (    @SerializedName("provider")
-                                                                   var provider: String)  {
+class SocialConnectionInstanceParam @JvmOverloads constructor(
+    @SerializedName("provider")
+    var provider: String
+) {
 
 
     fun build(): SocialConnectionInstanceParam {
@@ -11384,14 +11418,13 @@ query socialConnectionInstance(${'$'}provider: String!) {
 }
 
 
-
-data class SocialConnectionInstancesResponse (
+data class SocialConnectionInstancesResponse(
 
     @SerializedName("socialConnectionInstances")
     val result: List<SocialConnectionInstance>
 )
 
-class SocialConnectionInstancesParam   {
+class SocialConnectionInstancesParam {
 
 
     fun build(): SocialConnectionInstancesParam {
@@ -11420,14 +11453,13 @@ query socialConnectionInstances {
 }
 
 
-
-data class SocialConnectionsResponse (
+data class SocialConnectionsResponse(
 
     @SerializedName("socialConnections")
     val result: List<SocialConnection>
 )
 
-class SocialConnectionsParam   {
+class SocialConnectionsParam {
 
 
     fun build(): SocialConnectionsParam {
@@ -11460,14 +11492,13 @@ query socialConnections {
 }
 
 
-
-data class TemplateCodeResponse (
+data class TemplateCodeResponse(
 
     @SerializedName("templateCode")
     val result: String
 )
 
-class TemplateCodeParam   {
+class TemplateCodeParam {
 
 
     fun build(): TemplateCodeParam {
@@ -11489,15 +11520,16 @@ query templateCode {
 }
 
 
-
-data class UdfResponse (
+data class UdfResponse(
 
     @SerializedName("udf")
     val result: List<UserDefinedField>
 )
 
-class UdfParam @JvmOverloads constructor (    @SerializedName("targetType")
-                                              var targetType: UdfTargetType)  {
+class UdfParam @JvmOverloads constructor(
+    @SerializedName("targetType")
+    var targetType: UdfTargetType
+) {
 
 
     fun build(): UdfParam {
@@ -11525,17 +11557,18 @@ query udf(${'$'}targetType: UDFTargetType!) {
 }
 
 
-
-data class UdfValueBatchResponse (
+data class UdfValueBatchResponse(
 
     @SerializedName("udfValueBatch")
     val result: List<UserDefinedDataMap>
 )
 
-class UdfValueBatchParam @JvmOverloads constructor (    @SerializedName("targetType")
-                                                        var targetType: UdfTargetType,
-                                                        @SerializedName("targetIds")
-                                                        var targetIds: List<String>)  {
+class UdfValueBatchParam @JvmOverloads constructor(
+    @SerializedName("targetType")
+    var targetType: UdfTargetType,
+    @SerializedName("targetIds")
+    var targetIds: List<String>
+) {
 
 
     fun build(): UdfValueBatchParam {
@@ -11565,17 +11598,18 @@ query udfValueBatch(${'$'}targetType: UDFTargetType!, ${'$'}targetIds: [String!]
 }
 
 
-
-data class UdvResponse (
+data class UdvResponse(
 
     @SerializedName("udv")
     val result: List<UserDefinedData>
 )
 
-class UdvParam @JvmOverloads constructor (    @SerializedName("targetType")
-                                              var targetType: UdfTargetType,
-                                              @SerializedName("targetId")
-                                              var targetId: String)  {
+class UdvParam @JvmOverloads constructor(
+    @SerializedName("targetType")
+    var targetType: UdfTargetType,
+    @SerializedName("targetId")
+    var targetId: String
+) {
 
 
     fun build(): UdvParam {
@@ -11602,15 +11636,16 @@ query udv(${'$'}targetType: UDFTargetType!, ${'$'}targetId: String!) {
 }
 
 
-
-data class UserResponse (
+data class UserResponse(
 
     @SerializedName("user")
     val result: User
 )
 
-class UserParam @JvmOverloads constructor (    @SerializedName("id")
-                                               var id: String? = null)  {
+class UserParam @JvmOverloads constructor(
+    @SerializedName("id")
+    var id: String? = null
+) {
 
     fun withId(id: String?): UserParam {
         this.id = id
@@ -11696,15 +11731,16 @@ query user(${'$'}id: String) {
 }
 
 
-
-data class UserBatchResponse (
+data class UserBatchResponse(
 
     @SerializedName("userBatch")
     val result: List<User>
 )
 
-class UserBatchParam @JvmOverloads constructor (    @SerializedName("ids")
-                                                    var ids: List<String>)  {
+class UserBatchParam @JvmOverloads constructor(
+    @SerializedName("ids")
+    var ids: List<String>
+) {
 
 
     fun build(): UserBatchParam {
@@ -11777,14 +11813,13 @@ query userBatch(${'$'}ids: [String!]!) {
 }
 
 
-
-data class UserpoolResponse (
+data class UserpoolResponse(
 
     @SerializedName("userpool")
     val result: UserPool
 )
 
-class UserpoolParam   {
+class UserpoolParam {
 
 
     fun build(): UserpoolParam {
@@ -11872,14 +11907,13 @@ query userpool {
 }
 
 
-
-data class UserpoolTypesResponse (
+data class UserpoolTypesResponse(
 
     @SerializedName("userpoolTypes")
     val result: List<UserPoolType>
 )
 
-class UserpoolTypesParam   {
+class UserpoolTypesParam {
 
 
     fun build(): UserpoolTypesParam {
@@ -11907,19 +11941,20 @@ query userpoolTypes {
 }
 
 
-
-data class UserpoolsResponse (
+data class UserpoolsResponse(
 
     @SerializedName("userpools")
     val result: PaginatedUserpool
 )
 
-class UserpoolsParam @JvmOverloads constructor (    @SerializedName("page")
-                                                    var page: Int? = null,
-                                                    @SerializedName("limit")
-                                                    var limit: Int? = null,
-                                                    @SerializedName("sortBy")
-                                                    var sortBy: SortByEnum? = null)  {
+class UserpoolsParam @JvmOverloads constructor(
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null,
+    @SerializedName("sortBy")
+    var sortBy: SortByEnum? = null
+) {
 
     fun withPage(page: Int?): UserpoolsParam {
         this.page = page
@@ -11981,19 +12016,20 @@ query userpools(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum) {
 }
 
 
-
-data class UsersResponse (
+data class UsersResponse(
 
     @SerializedName("users")
     val result: PaginatedUsers
 )
 
-class UsersParam @JvmOverloads constructor (    @SerializedName("page")
-                                                var page: Int? = null,
-                                                @SerializedName("limit")
-                                                var limit: Int? = null,
-                                                @SerializedName("sortBy")
-                                                var sortBy: SortByEnum? = null)  {
+class UsersParam @JvmOverloads constructor(
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null,
+    @SerializedName("sortBy")
+    var sortBy: SortByEnum? = null
+) {
 
     fun withPage(page: Int?): UsersParam {
         this.page = page
@@ -12083,15 +12119,16 @@ query users(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum) {
 }
 
 
-
-data class WhitelistResponse (
+data class WhitelistResponse(
 
     @SerializedName("whitelist")
     val result: List<WhiteList>
 )
 
-class WhitelistParam @JvmOverloads constructor (    @SerializedName("type")
-                                                    var type: WhitelistType)  {
+class WhitelistParam @JvmOverloads constructor(
+    @SerializedName("type")
+    var type: WhitelistType
+) {
 
 
     fun build(): WhitelistParam {
@@ -12115,4 +12152,3 @@ query whitelist(${'$'}type: WhitelistType!) {
 }
 """
 }
-    
