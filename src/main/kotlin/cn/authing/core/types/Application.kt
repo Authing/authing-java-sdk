@@ -219,7 +219,7 @@ data class ExtendsField(
 
 data class ApplicationQRCodeScanning(
     var redirect: Boolean,
-    var interval: Number
+    var interval: Int
 )
 
 data class ApplicationPermissionStrategyConfig(
@@ -246,7 +246,7 @@ data class ApplicationPermissionStrategyConfig(
 
 data class ListApplicationResponse(
     val list: List<Application>,
-    val totalCount: Number
+    val totalCount: Int
 )
 
 data class ApplicationPublicDetail(
@@ -264,8 +264,8 @@ class IActiveUsersParam
 @JvmOverloads
 constructor(
     val appId: String,
-    val page: Number? = 1,
-    val limit: Number? = 10
+    val page: Int? = 1,
+    val limit: Int? = 10
 )
 
 data class IThirdPartyIdentity(
@@ -301,7 +301,7 @@ constructor(
     val salt: String? = null,
     val token: String,
     val tokenExpiredAt: String,
-    val loginsCount: Number,
+    val loginsCount: Int,
     val lastIp: String,
     val name: String? = null,
     val givenName: String? = null,
@@ -330,13 +330,54 @@ constructor(
     val lastLogin: String,
     val blocked: Boolean,
     val isDeleted: Boolean,
-    val sendSmsCount: Number,
-    val sendSmsLimitCount: Number,
+    val sendSmsCount: Int,
+    val sendSmsLimitCount: Int,
     val signedUp: String,
     val externalId: String? = null,
     val mainDepartmentId: String? = null,
     val mainDepartmentCode: String? = null,
     val lastMfaTime: String? = null,
-    val passwordSecurityLevel: Number,
+    val passwordSecurityLevel: Int,
     val thirdPartyIdentity: IThirdPartyIdentity
+)
+
+
+data class CreateResourceParams
+@JvmOverloads
+constructor(
+    val code: String,
+    val type: ResourceType,
+    val actions: List<IAction>,
+    val description: String? = null
+)
+
+data class UpdateResourceParams
+@JvmOverloads
+constructor(
+    val code: String,
+    val type: ResourceType,
+    val actions: List<IAction>,
+    val description: String? = null
+)
+
+data class IAccessPolicyParams
+@JvmOverloads
+constructor(
+    val targetType: TargetTypeEnum,
+    val targetIdentifiers: List<String>,
+    val inheritByChildren: String? = null
+)
+
+data class CreateRoleParams
+@JvmOverloads
+constructor(
+    val code: String,
+    val description: String? = null
+)
+
+data class UpdateRoleParams
+constructor(
+    val code: String,
+    val description: String? = null,
+    val newCode: String? = null
 )

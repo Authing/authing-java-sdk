@@ -63,8 +63,17 @@ class RolesManagementClient(private val client: ManagementClient) {
     /**
      * 角色详情
      */
+    @Deprecated("use findByCode", ReplaceWith("this.findByCode(param)"))
     fun detail(code: String): GraphQLCall<RoleResponse, Role> {
         val param = RoleParam(code)
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<RoleResponse>>() {}) {
+            it.result
+        }
+    }
+
+    fun findByCode(param: RoleParam): GraphQLCall<RoleResponse, Role> {
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<RoleResponse>>() {}) {
@@ -108,11 +117,27 @@ class RolesManagementClient(private val client: ManagementClient) {
         }
     }
 
+    fun delete(param: DeleteRoleParam): GraphQLCall<DeleteRoleResponse, CommonMessage> {
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<DeleteRoleResponse>>() {}) {
+            it.result
+        }
+    }
+
     /**
      * 批量删除角色
      */
     fun deleteMany(codeList: List<String>): GraphQLCall<DeleteRolesResponse, CommonMessage> {
         val param = DeleteRolesParam(codeList)
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<DeleteRolesResponse>>() {}) {
+            it.result
+        }
+    }
+
+    fun deleteMany(param: DeleteRolesParam): GraphQLCall<DeleteRolesResponse, CommonMessage> {
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<DeleteRolesResponse>>() {}) {
@@ -132,11 +157,27 @@ class RolesManagementClient(private val client: ManagementClient) {
         }
     }
 
+    fun listUsers(param: RoleWithUsersParam): GraphQLCall<RoleWithUsersResponse, PaginatedUsers> {
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<RoleWithUsersResponse>>() {}) {
+            it.result.users
+        }
+    }
+
     /**
      * 批量添加用户
      */
     fun addUsers(code: String, userIds: List<String>): GraphQLCall<AssignRoleResponse, CommonMessage> {
         val param = AssignRoleParam().withUserIds(userIds).withRoleCode(code)
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<AssignRoleResponse>>() {}) {
+            it.result
+        }
+    }
+
+    fun addUsers(param: AssignRoleParam): GraphQLCall<AssignRoleResponse, CommonMessage> {
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<AssignRoleResponse>>() {}) {
@@ -156,6 +197,14 @@ class RolesManagementClient(private val client: ManagementClient) {
         }
     }
 
+    fun removeUsers(param: RevokeRoleParam): GraphQLCall<RevokeRoleResponse, CommonMessage> {
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<RevokeRoleResponse>>() {}) {
+            it.result
+        }
+    }
+
     /**
      * 获取策略列表
      */
@@ -167,7 +216,8 @@ class RolesManagementClient(private val client: ManagementClient) {
         namespace: String? = null,
         targetIdentifier: String? = null
     ): GraphQLCall<PolicyAssignmentsResponse, PaginatedPolicyAssignments> {
-        val param = PolicyAssignmentsParam(namespace, code, PolicyAssignmentTargetType.ROLE, targetIdentifier, page, limit)
+        val param =
+            PolicyAssignmentsParam(namespace, code, PolicyAssignmentTargetType.ROLE, targetIdentifier, page, limit)
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<PolicyAssignmentsResponse>>() {}) {
@@ -205,5 +255,14 @@ class RolesManagementClient(private val client: ManagementClient) {
             object : TypeToken<GraphQLResponse<RemovePolicyAssignmentsResponse>>() {}) {
             it.result
         }
+    }
+
+    fun listAuthorizedResources(
+        param: ListRoleAuthorizedResourcesParam
+    ): GraphQLCall<ListRoleAuthorizedResourcesResponse, PaginatedAuthorizedResources?> {
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<ListRoleAuthorizedResourcesResponse>>() {}
+        ) { it.result.authorizedResources }
     }
 }

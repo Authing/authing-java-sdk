@@ -2,11 +2,13 @@ package cn.authing.core.types
 
 import java.util.*
 
-data class IResourceQueryFilter(
-    val page: Number,
-    val limit: Number,
-    val namespaceCode: String,
-    val type: ResourceType
+data class IResourceQueryFilter
+@JvmOverloads
+constructor(
+    val page: Int? = 1,
+    val limit: Int? = 10,
+    val type: ResourceType? = null,
+    val namespaceCode: String
 )
 
 enum class TargetTypeEnum(val label: String) {
@@ -34,17 +36,19 @@ data class IResourceResponse(
     val actions: List<IAction>,
     val type: String,
     val description: String,
-    val namespaceId: Number,
+    val namespaceId: Int,
     val createdAt: Date,
     val updatedAt: Date,
     val id: String,
     val apiIdentifier: String
 )
 
-data class IResourceDto(
+data class IResourceDto
+@JvmOverloads
+constructor(
     val code: String,
     val type: ResourceType,
-    val description: String?,
+    val description: String? = null,
     val actions: List<IAction>,
     val namespace: String
 )
@@ -53,8 +57,8 @@ class IAppAccessPolicyQueryFilter
 @JvmOverloads
 constructor(
     val appId: String,
-    val page: Number? = 1,
-    val limit: Number? = 10
+    val page: Int? = 1,
+    val limit: Int? = 10
 )
 
 
@@ -77,7 +81,7 @@ data class IPolicy(
     val code: String,
     val description: String,
     val statements: List<Statement>,
-    val namespaceId: Number
+    val namespaceId: Int
 )
 
 data class IApplicationAccessPolicies(
@@ -111,7 +115,7 @@ data class ProgrammaticAccessAccount(
     val appId: String,
     val secret: String,
     val remarks: String,
-    val tokenLifetime: Number,
+    val tokenLifetime: Int,
     val enabled: Boolean,
     val userId: String
 )
@@ -128,19 +132,28 @@ class IProgrammaticAccessAccountListProps
 @JvmOverloads
 constructor(
     val appId: String,
-    val page: Number? = 1,
-    val limit: Number? = 10
+    val page: Int? = 1,
+    val limit: Int? = 10
 )
 
 class ICreateProgrammaticAccessAccountProps
 @JvmOverloads
 constructor(
     val appId: String,
-    val tokenLifetime: Number? = 600,
+    val tokenLifetime: Int? = 600,
     val remarks: String? = ""
 )
 
 data class IEnableProgrammaticAccessAccount(
     val id: String,
     val enabled: Boolean
+)
+
+data class ListAuthorizedResourcesParams
+@JvmOverloads
+constructor(
+    val targetType: PolicyAssignmentTargetType,
+    val targetIdentifier: String,
+    val namespace: String,
+    val resourceType: ResourceType? = null
 )
