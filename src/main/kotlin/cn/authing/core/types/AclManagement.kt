@@ -5,20 +5,20 @@ import java.util.*
 data class IResourceQueryFilter
 @JvmOverloads
 constructor(
-    val page: Int? = 1,
-    val limit: Int? = 10,
-    val type: ResourceType? = null,
-    val namespaceCode: String
+    var page: Int? = 1,
+    var limit: Int? = 10,
+    var type: ResourceType? = null,
+    var namespaceCode: String
 )
 
-enum class TargetTypeEnum(val label: String) {
+enum class TargetTypeEnum(var label: String) {
     USER("USER"),
     ROLE("ROLE"),
     GROUP("GROUP"),
     ORG("ORG");
 }
 
-enum class DefaultStrategy(val label: String) {
+enum class DefaultStrategy(var label: String) {
     ALLOW_ALL("ALLOW_ALL"),
     DENY_ALL("DENY_ALL");
 }
@@ -26,104 +26,104 @@ enum class DefaultStrategy(val label: String) {
 class IAction
 @JvmOverloads
 constructor(
-    val name: String,
-    val description: String? = null
+    var name: String,
+    var description: String? = null
 )
 
 data class IResourceResponse(
-    val userPoolId: String,
-    val code: String,
-    val actions: List<IAction>,
-    val type: String,
-    val description: String,
-    val namespaceId: Int,
-    val createdAt: Date,
-    val updatedAt: Date,
-    val id: String,
-    val apiIdentifier: String
+    var userPoolId: String,
+    var code: String,
+    var actions: List<IAction>,
+    var type: String,
+    var description: String,
+    var namespaceId: Int,
+    var createdAt: Date,
+    var updatedAt: Date,
+    var id: String,
+    var apiIdentifier: String
 )
 
 data class IResourceDto
 @JvmOverloads
 constructor(
-    val code: String,
-    val type: ResourceType,
-    val description: String? = null,
-    val actions: List<IAction>,
-    val namespace: String
+    var code: String,
+    var type: ResourceType,
+    var description: String? = null,
+    var actions: List<IAction>,
+    var namespace: String
 )
 
 class IAppAccessPolicyQueryFilter
 @JvmOverloads
 constructor(
-    val appId: String,
-    val page: Int? = 1,
-    val limit: Int? = 10
+    var appId: String,
+    var page: Int? = 1,
+    var limit: Int? = 10
 )
 
 
 data class Statement(
-    val resource: String,
-    val actions: List<String>,
-    val effect: String,
-    val condition: List<Any>,
-    val resourceType: ResourceType?
+    var resource: String,
+    var actions: List<String>,
+    var effect: String,
+    var condition: List<Any>,
+    var resourceType: ResourceType?
 )
 
 data class IPolicy(
-    val id: String,
-    val createdAt: Date,
-    val updatedAt: Date,
-    val userPoolId: String,
-    val isDefault: Boolean,
-    val isAuto: Boolean,
-    val hidden: Boolean,
-    val code: String,
-    val description: String,
-    val statements: List<Statement>,
-    val namespaceId: Int
+    var id: String,
+    var createdAt: Date,
+    var updatedAt: Date,
+    var userPoolId: String,
+    var isDefault: Boolean,
+    var isAuto: Boolean,
+    var hidden: Boolean,
+    var code: String,
+    var description: String,
+    var statements: List<Statement>,
+    var namespaceId: Int
 )
 
 data class IApplicationAccessPolicies(
-    val assignedAt: Date,
-    val inheritByChildren: Boolean,
-    val enabled: Boolean,
-    val policyId: String,
-    val code: String,
-    val policy: IPolicy
+    var assignedAt: Date,
+    var inheritByChildren: Boolean,
+    var enabled: Boolean,
+    var policyId: String,
+    var code: String,
+    var policy: IPolicy
 )
 
 class IAppAccessPolicy
 @JvmOverloads
 constructor(
-    val appId: String,
-    val targetType: TargetTypeEnum,
-    val targetIdentifiers: List<String>,
-    val namespace: String? = null,
-    val inheritByChildren: String? = null
+    var appId: String,
+    var targetType: TargetTypeEnum,
+    var targetIdentifiers: List<String>,
+    var namespace: String? = null,
+    var inheritByChildren: String? = null
 )
 
 data class IDefaultAppAccessPolicy(
-    val appId: String,
-    val defaultStrategy: DefaultStrategy
+    var appId: String,
+    var defaultStrategy: DefaultStrategy
 )
 
 data class ProgrammaticAccessAccount(
-    val id: String,
-    val createdAt: String,
-    val updatedAt: String,
-    val appId: String,
-    val secret: String,
-    val remarks: String,
-    val tokenLifetime: Int,
-    val enabled: Boolean,
-    val userId: String
+    var id: String,
+    var createdAt: String,
+    var updatedAt: String,
+    var appId: String,
+    var secret: String,
+    var remarks: String,
+    var tokenLifetime: Int,
+    var enabled: Boolean,
+    var userId: String
 )
 
 class IProgrammaticAccessAccountProps
 @JvmOverloads
 constructor(
-    val id: String,
+    var id: String,
     var secret: String? = null
 )
 
@@ -131,29 +131,29 @@ constructor(
 class IProgrammaticAccessAccountListProps
 @JvmOverloads
 constructor(
-    val appId: String,
-    val page: Int? = 1,
-    val limit: Int? = 10
+    var appId: String,
+    var page: Int? = 1,
+    var limit: Int? = 10
 )
 
 class ICreateProgrammaticAccessAccountProps
 @JvmOverloads
 constructor(
-    val appId: String,
-    val tokenLifetime: Int? = 600,
-    val remarks: String? = ""
+    var appId: String,
+    var tokenLifetime: Int? = 600,
+    var remarks: String? = ""
 )
 
 data class IEnableProgrammaticAccessAccount(
-    val id: String,
-    val enabled: Boolean
+    var id: String,
+    var enabled: Boolean
 )
 
 data class ListAuthorizedResourcesParams
 @JvmOverloads
 constructor(
-    val targetType: PolicyAssignmentTargetType,
-    val targetIdentifier: String,
-    val namespace: String,
-    val resourceType: ResourceType? = null
+    var targetType: PolicyAssignmentTargetType,
+    var targetIdentifier: String,
+    var namespace: String,
+    var resourceType: ResourceType? = null
 )

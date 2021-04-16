@@ -97,7 +97,7 @@ class ApplicationManagementClient(private val client: ManagementClient) {
 
     fun createResource(
         appId: String,
-        options: CreateResourceParams
+        options: ResourceOptionsParams
     ): HttpCall<RestfulResponse<IResourceResponse>, IResourceResponse> {
         return acl.createResource(
             IResourceDto(
@@ -110,18 +110,25 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         )
     }
 
+    fun findResourceByCode(
+        appId: String,
+        code: String
+    ): HttpCall<RestfulResponse<IResourceResponse>, IResourceResponse> {
+        return acl.findResourceByCode(code, appId)
+    }
+
     fun updateResource(
         appId: String,
-        options: UpdateResourceParams
+        options: ResourceOptionsParams
     ): HttpCall<RestfulResponse<IResourceResponse>, IResourceResponse> {
         return acl.updateResource(
-            appId,
+            options.code,
             IResourceDto(
-                options.code,
-                options.type,
-                options.description,
-                options.actions,
-                appId
+                code = options.code,
+                type = options.type,
+                description = options.description,
+                actions = options.actions,
+                namespace = appId
             )
         )
     }
@@ -209,7 +216,7 @@ class ApplicationManagementClient(private val client: ManagementClient) {
 
     fun denyAccess(
         appId: String,
-        options: IAppAccessPolicy
+        options: DenyAccessParams
     ): HttpCall<RestfulResponse<Boolean>, Boolean> {
         return acl.denyAccessApplication(
             IAppAccessPolicy(
