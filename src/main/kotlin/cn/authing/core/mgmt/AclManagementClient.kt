@@ -4,6 +4,7 @@ import cn.authing.core.graphql.GraphQLCall
 import cn.authing.core.graphql.GraphQLResponse
 import cn.authing.core.http.HttpCall
 import cn.authing.core.types.*
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import sun.security.util.Length
@@ -274,7 +275,8 @@ class AclManagementClient(private val client: ManagementClient) {
         return this.client.createHttpPostCall(
             url,
             GsonBuilder().create().toJson(options),
-            object : TypeToken<RestfulResponse<ProgrammaticAccessAccount>>() {}) { it.data }
+            object : TypeToken<RestfulResponse<ProgrammaticAccessAccount>>() {})
+        { it.data }
 
     }
 
@@ -328,6 +330,47 @@ class AclManagementClient(private val client: ManagementClient) {
             url,
             GsonBuilder().create().toJson(IEnableProgrammaticAccessAccount(programmaticAccessAccountId, false)),
             object : TypeToken<RestfulResponse<ProgrammaticAccessAccount>>() {}) { it.data }
+
+    }
+
+    /**
+     * 创建权限分组
+     */
+    @JvmOverloads
+    fun createNamespace(
+        code: String,
+        name: String,
+        description: String? = null
+    ): HttpCall<RestfulResponse<ResourceNamespace>, ResourceNamespace> {
+        val url = "${client.host}/api/v2/resource-namespace/${client.userPoolId}"
+        return this.client.createHttpPostCall(
+            url,
+            GsonBuilder().create().toJson(CreateNamespaceBody(code, name, description)),
+            object : TypeToken<RestfulResponse<ResourceNamespace>>() {}) { it.data }
+    }
+
+    /**
+     * 获取权限分组列表
+     */
+    @JvmOverloads
+    fun listNamespace(
+        page: Int? = 1,
+        limit: Int? = 10
+    ): HttpCall<RestfulResponse<Pagination<ResourceNamespace>>, Pagination<ResourceNamespace>> {
+        val url = "${client.host}/api/v2/resource-namespace/${client.userPoolId}?limit=$limit&page=$page"
+        return this.client.createHttpGetCall(
+            url,
+            object : TypeToken<RestfulResponse<Pagination<ResourceNamespace>>>() {}) { it.data }
+    }
+
+    /**
+     * 更新 namespace
+     */
+    fun updateNamespace() {
+
+    }
+
+    fun deleteNamespace() {
 
     }
 }

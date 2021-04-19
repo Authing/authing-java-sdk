@@ -236,4 +236,24 @@ public class AclManagementClientTest {
         Assert.assertTrue(isDelete);
     }
 
+    @Test
+    public void createNamespace() throws IOException {
+        String code = TestUtils.createRandomString();
+        String name = TestUtils.createRandomString();
+        String description = TestUtils.createRandomString();
+        ResourceNamespace namespace = this.aclManagementClient.createNamespace(code, name, description).execute();
+        Assert.assertEquals(namespace.getCode(), code);
+        Assert.assertEquals(namespace.getName(), name);
+        Assert.assertEquals(namespace.getDescription(), description);
+    }
+
+    @Test
+    public void listNamespace() throws IOException {
+        Pagination<ResourceNamespace> paginatedNamespace = this.aclManagementClient.listNamespace().execute();
+        System.out.println(paginatedNamespace.getList());
+        Number totalCount = paginatedNamespace.getTotalCount();
+        System.out.println(totalCount);
+        List<ResourceNamespace> list = paginatedNamespace.getList();
+//        Assert.assertTrue(totalCount.intValue() > 0);
+    }
 }

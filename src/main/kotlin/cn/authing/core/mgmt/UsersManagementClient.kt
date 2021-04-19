@@ -37,23 +37,9 @@ class UsersManagementClient(private val client: ManagementClient) {
     /**
      * 创建新用户
      */
-    fun create(userInfo: CreateUserInput): GraphQLCall<CreateUserResponse, User> {
-        val param = CreateUserParam(userInfo)
-        if (param.userInfo.password !== null) {
-            param.userInfo.password = client.encrypt(param.userInfo.password!!)
-        }
-        return client.createGraphQLCall(
-            param.createRequest(),
-            object : TypeToken<GraphQLResponse<CreateUserResponse>>() {}) {
-            it.result
-        }
-    }
-
-    /**
-     * 创建新用户（密码不加密存储）
-     */
-    fun create(userInfo: CreateUserInput, keepPassword: Boolean): GraphQLCall<CreateUserResponse, User> {
-        val param = CreateUserParam(userInfo, keepPassword)
+    @JvmOverloads
+    fun create(userInfo: CreateUserInput, options: CreateUserOptions? = null): GraphQLCall<CreateUserResponse, User> {
+        val param = CreateUserParam(userInfo).withKeepPassword(options?.keepPassword)
         if (param.userInfo.password !== null) {
             param.userInfo.password = client.encrypt(param.userInfo.password!!)
         }
@@ -127,12 +113,13 @@ class UsersManagementClient(private val client: ManagementClient) {
     /**
      * 通过用户 ID 列表批量获取用户信息
      */
-    fun batch(userIds: List<String>): GraphQLCall<UserBatchResponse, List<User>> {
-        val param = UserBatchParam(userIds)
-        return client.createGraphQLCall(
-            param.createRequest(),
-            object : TypeToken<GraphQLResponse<UserBatchResponse>>() {}) {
-            it.result
+    @JvmOverloads
+    fun batch(identifiers: List<String>, options: BatchGetUserOptions? = null): HttpCall<RestfulResponse<List<User>>, List<User>> {
+        return client.createHttpPostCall(
+            "${client.host}/api/v2/users/batch",
+            Gson().toJson(BatchGetUserPostData(identifiers, options?.queryField)),
+            object : TypeToken<RestfulResponse<List<User>>>() {}) {
+            it.data
         }
     }
 
