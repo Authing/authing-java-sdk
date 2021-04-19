@@ -145,6 +145,30 @@ constructor(
 )
 
 data class IEnableProgrammaticAccessAccount(
+    val id: String,
+    val enabled: Boolean
+)
+
+data class CreateNamespaceBody
+@JvmOverloads
+constructor(
+    var code: String,
+    var name: String,
+    var description: String? = null
+)
+
+data class ResourceNamespace(
+    var code: String,
+    var name: String,
+    var description: String,
+    var status: Int,
+    var applicationId: String,
+    var appName: String
+)
+
+data class PaginatedResourceNamespace(
+    val totalCount: Int,
+    var list: List<ResourceNamespace>
     var id: String,
     var enabled: Boolean
 )
