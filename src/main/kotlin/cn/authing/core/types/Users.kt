@@ -42,8 +42,20 @@ data class BatchGetUserPostData(
 data class BatchGetUserOptions
 @JvmOverloads
 constructor(
-    var queryField: BatchGetUserQueryFieldEnum
+    var queryField: BatchGetUserQueryFieldEnum,
     var userId: String,
     var roleCode: String,
     var namespace: String? = null
 )
+
+data class UserMfaStatus
+@JvmOverloads
+constructor(
+    val OTP: Boolean? = null,
+    val FACE: Boolean? = null
+)
+
+enum class UserMfaType {
+    OTP,
+    FACE
+}

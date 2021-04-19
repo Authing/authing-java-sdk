@@ -169,4 +169,8 @@ class ManagementClient(userPoolId: String,  secret: String) : BaseClient() {
     fun statistics(): StatisticsManagementClient {
         return StatisticsManagementClient(this)
     }
+
+    fun mfa(): MFAManagementClient {
+        return MFAManagementClient(this)
+    }
 }
