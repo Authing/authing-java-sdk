@@ -21,4 +21,8 @@ public class Utils {
         }
         return builder.toString();
     }
+
+    public static String getRqstUrl(Map<String, String> params) {
+        return Utils.getRqstUrl("", params);
+    }
 }

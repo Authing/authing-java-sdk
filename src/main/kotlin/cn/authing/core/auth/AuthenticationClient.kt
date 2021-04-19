@@ -1,6 +1,7 @@
 package cn.authing.core.auth
 
 import cn.authing.core.BaseClient
+import cn.authing.core.Utils
 import cn.authing.core.graphql.GraphQLCall
 import cn.authing.core.graphql.GraphQLResponse
 import cn.authing.core.http.HttpCall
@@ -593,9 +594,6 @@ class AuthenticationClient: BaseClient {
      * 根据code获得AccessToken
      */
     fun getAccessTokenByCode(code: String): HttpCall<Any, Any> {
-//        if (listOf<ProtocolEnum>(ProtocolEnum.OAUTH, ProtocolEnum.OIDC).contains(this.protocol)) {
-//            throw Exception("初始化 AuthenticationClient 时传入的 protocol 参数必须为 oauth 或 oidc，请检查参数")
-//        }
 
         if (this.secret.isNullOrBlank()
             && this.tokenEndPointAuthMethod != AuthMethodEnum.NONE
@@ -666,93 +664,6 @@ class AuthenticationClient: BaseClient {
             }
         }
     }
-
-//    private fun getAccessTokenByCodeWithClientSecretPost(code: String) {
-//        val url = URL("")
-//        val map = HashMap<String, String?>()
-//        map["client_id"] = appId
-//        map["client_secret"] = secret
-//        map["grant_type"] = "authorization_code"
-//        map["code"] = code
-//        map["redirect_uri"] = redirectUri
-//
-//        if (protocol == ProtocolEnum.OIDC)
-//    }
-
-//    fun getAccessTokenByCode(code: String): HttpCall<Any, Any> {
-//        if (listOf<ProtocolEnum>(ProtocolEnum.OAUTH, ProtocolEnum.OIDC).contains(this.protocol)) {
-//            throw Exception("初始化 AuthenticationClient 时传入的 protocol 参数必须为 oauth 或 oidc，请检查参数")
-//        }
-//
-//        if (this.secret.isNullOrBlank()
-//            && this.tokenEndPointAuthMethod != AuthMethodEnum.NONE
-//        ) {
-//            throw Exception("请在初始化 AuthenticationClient 时传入 appId 和 secret 参数")
-//        }
-//
-//        val url = "${this.host}/oidc/token"
-//        when (this.tokenEndPointAuthMethod) {
-//            AuthMethodEnum.CLIENT_SECRET_POST -> {
-//                return HttpCall(
-//                    okHttpClient.newCall(
-//                        Request.Builder()
-//                            .url(url)
-//                            .addHeader("Content-Type", "application/x-www-form-urlencoded")
-//                            .post(
-//                                FormBody.Builder().add("client_id", this.appId!!)
-//                                    .add("client_secret", this.secret!!)
-//                                    .add("grant_type", "authorization_code")
-//                                    .add("code", code)
-//                                    .add("redirect_uri", this.redirectUri!!).build()
-//                            )
-//                            .build()
-//                    ), json.getAdapter(object : TypeToken<Any>() {})
-//                ) {
-//                    it
-//                }
-//            }
-//            AuthMethodEnum.CLIENT_SECRET_BASIC -> {
-//                val basic64Str =
-//                    "Basic " + Base64.getEncoder().encodeToString(("${this.appId}:${this.secret}").toByteArray())
-//
-//                return HttpCall(
-//                    okHttpClient.newCall(
-//                        Request.Builder()
-//                            .url(url)
-//                            .addHeader("Authorization", basic64Str)
-//                            .addHeader("Content-Type", "application/x-www-form-urlencoded")
-//                            .post(
-//                                FormBody.Builder()
-//                                    .add("grant_type", "authorization_code")
-//                                    .add("code", code)
-//                                    .add("redirect_uri", this.redirectUri!!).build()
-//                            )
-//                            .build()
-//                    ), json.getAdapter(object : TypeToken<Any>() {})
-//                ) {
-//                    it
-//                }
-//            }
-//            else -> {//AuthMethodEnum.NONE
-//                return HttpCall(
-//                    okHttpClient.newCall(
-//                        Request.Builder()
-//                            .url(url)
-//                            .addHeader("Content-Type", "application/x-www-form-urlencoded")
-//                            .post(
-//                                FormBody.Builder().add("client_id", this.appId!!)
-//                                    .add("grant_type", "authorization_code")
-//                                    .add("code", code)
-//                                    .add("redirect_uri", this.redirectUri!!).build()
-//                            )
-//                            .build()
-//                    ), json.getAdapter(object : TypeToken<Any>() {})
-//                ) {
-//                    it
-//                }
-//            }
-//        }
-//    }
 
     /**
      * 根据 ClientCredentials 获得AccessToken
