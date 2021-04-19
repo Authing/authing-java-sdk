@@ -405,6 +405,16 @@ class UsersManagementClient(private val client: ManagementClient) {
         }
     }
 
+    fun listAuthorizedResources(
+        param: ListUserAuthorizedResourcesParam
+    ): GraphQLCall<ListUserAuthorizedResourcesResponse, PaginatedAuthorizedResources> {
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<ListUserAuthorizedResourcesResponse>>() {}) {
+            it.result.authorizedResources!!
+        }
+    }
+
     /**
      * 获取当前用户的所有自定义数据
      *

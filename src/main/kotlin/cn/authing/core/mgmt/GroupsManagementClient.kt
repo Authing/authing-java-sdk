@@ -126,4 +126,15 @@ class GroupsManagementClient(private val client: ManagementClient) {
             it.result
         }
     }
+
+    fun listAuthorizedResources(
+        param: ListGroupAuthorizedResourcesParam
+    ): GraphQLCall<ListGroupAuthorizedResourcesResponse, Group> {
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<ListGroupAuthorizedResourcesResponse>>() {}
+        ) {
+            it.result
+        }
+    }
 }
