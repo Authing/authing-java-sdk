@@ -12,6 +12,7 @@ import com.google.gson.reflect.TypeToken
 import okhttp3.FormBody
 import okhttp3.Request
 import java.io.IOException
+import java.nio.Buffer
 import java.util.*
 import java.util.regex.Pattern
 
@@ -25,6 +26,7 @@ class AuthenticationClient : BaseClient {
 
         this.host = appHost
     }
+
     private var user: User? = null
 
     fun mfa(): MfaAuthenticationClient {
@@ -838,7 +840,241 @@ class AuthenticationClient : BaseClient {
             "$host/cas-idp/$appId"
     }
 
-    fun getNewAccessTokenByRefreshToken(refreshToken: String) {
-        
+    fun getNewAccessTokenByRefreshToken(refreshToken: String): HttpCall<Any, Any> {
+        if (listOf<ProtocolEnum>(ProtocolEnum.OAUTH, ProtocolEnum.OIDC).contains(this.protocol)) {
+            throw Exception("初始化 AuthenticationClient 时传入的 protocol 参数必须为 ProtocolEnum.OAUTH 或 ProtocolEnum.OIDC，请检查参数")
+        }
+
+        if (this.secret.isNullOrBlank()
+            && this.tokenEndPointAuthMethod != AuthMethodEnum.NONE
+        ) {
+            throw Exception("请在初始化 AuthenticationClient 时传入 appId 和 secret 参数")
+        }
+
+        return when (this.tokenEndPointAuthMethod) {
+            AuthMethodEnum.CLIENT_SECRET_POST -> {
+                getNewAccessTokenByRefreshTokenWithClientSecretPost(refreshToken)
+            }
+            AuthMethodEnum.CLIENT_SECRET_BASIC -> {
+                getNewAccessTokenByRefreshTokenWithClientSecretBasic(refreshToken)
+            }
+            else -> {
+                getNewAccessTokenByRefreshTokenWithNone(refreshToken)
+            }
+        }
     }
+
+    fun getNewAccessTokenByRefreshTokenWithClientSecretPost(refreshToken: String): HttpCall<Any, Any> {
+        return HttpCall(
+            okHttpClient.newCall(
+                Request.Builder()
+                    .url(
+                        if (this.protocol == ProtocolEnum.OIDC) "$host/oidc/token"
+                        else "$host/oauth/token"
+                    )
+                    .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                    .post(
+                        FormBody.Builder()
+                            .add("client_id", this.appId!!)
+                            .add("client_secret", this.secret!!)
+                            .add("grant_type", "refresh_token")
+                            .add("refresh_token", refreshToken)
+                            .build()
+                    )
+                    .build()
+            ), json.getAdapter(object : TypeToken<Any>() {})
+        ) {
+            it
+        }
+    }
+
+    fun getNewAccessTokenByRefreshTokenWithClientSecretBasic(refreshToken: String): HttpCall<Any, Any> {
+        val basic64Str =
+            "Basic " + Base64.getEncoder().encodeToString(("${this.appId}:${this.secret}").toByteArray())
+        return HttpCall(
+            okHttpClient.newCall(
+                Request.Builder()
+                    .url(
+                        if (this.protocol == ProtocolEnum.OIDC) "$host/oidc/token"
+                        else "$host/oauth/token"
+                    )
+                    .addHeader("Authorization", basic64Str)
+                    .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                    .post(
+                        FormBody.Builder()
+                            .add("grant_type", "refresh_token")
+                            .add("refresh_token", refreshToken)
+                            .build()
+                    )
+                    .build()
+            ), json.getAdapter(object : TypeToken<Any>() {})
+        ) {
+            it
+        }
+    }
+
+    fun getNewAccessTokenByRefreshTokenWithNone(refreshToken: String): HttpCall<Any, Any> {
+        return HttpCall(
+            okHttpClient.newCall(
+                Request.Builder()
+                    .url(
+                        if (this.protocol == ProtocolEnum.OIDC) "$host/oidc/token"
+                        else "$host/oauth/token"
+                    )
+                    .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                    .post(
+                        FormBody.Builder()
+                            .add("client_id", this.appId!!)
+                            .add("grant_type", "refresh_token")
+                            .add("refresh_token", refreshToken)
+                            .build()
+                    )
+                    .build()
+            ), json.getAdapter(object : TypeToken<Any>() {})
+        ) {
+            it
+        }
+    }
+
+    fun introspectToken(token: String): HttpCall<Any, Any> {
+        if (listOf<ProtocolEnum>(ProtocolEnum.OAUTH, ProtocolEnum.OIDC).contains(this.protocol)) {
+            throw Exception("初始化 AuthenticationClient 时传入的 protocol 参数必须为 ProtocolEnum.OAUTH 或 ProtocolEnum.OIDC，请检查参数")
+        }
+
+        if (this.secret.isNullOrBlank()
+            && this.tokenEndPointAuthMethod != AuthMethodEnum.NONE
+        ) {
+            throw Exception("请在初始化 AuthenticationClient 时传入 appId 和 secret 参数")
+        }
+
+        return when (this.introspectionEndPointAuthMethod) {
+            AuthMethodEnum.CLIENT_SECRET_POST -> introspectTokenWithClientSecretPost(token)
+            AuthMethodEnum.CLIENT_SECRET_BASIC -> introspectTokenWithClientSecretBasic(token)
+            else -> introspectTokenWithNone(token)
+
+        }
+    }
+
+    fun introspectTokenWithClientSecretPost(token: String): HttpCall<Any, Any> {
+        return HttpCall(
+            okHttpClient.newCall(
+                Request.Builder()
+                    .url(
+                        if (this.protocol == ProtocolEnum.OIDC) "$host/oidc/token/introspection"
+                        else "$host/oauth/token/introspection"
+                    )
+                    .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                    .post(
+                        FormBody.Builder()
+                            .add("client_id", this.appId!!)
+                            .add("client_secret", this.secret!!)
+                            .add("token", token)
+                            .build()
+                    )
+                    .build()
+            ), json.getAdapter(object : TypeToken<Any>() {})
+        ) {
+            it
+        }
+    }
+
+    fun introspectTokenWithClientSecretBasic(token: String): HttpCall<Any, Any>  {
+        val basic64Str =
+            "Basic " + Base64.getEncoder().encodeToString(("${this.appId}:${this.secret}").toByteArray())
+        return HttpCall(
+            okHttpClient.newCall(
+                Request.Builder()
+                    .url(
+                        if (this.protocol == ProtocolEnum.OIDC) "$host/oidc/token/introspection"
+                        else "$host/oauth/token/introspection"
+                    )
+                    .addHeader("Authorization", basic64Str)
+                    .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                    .post(
+                        FormBody.Builder()
+                            .add("token", token)
+                            .build()
+                    )
+                    .build()
+            ), json.getAdapter(object : TypeToken<Any>() {})
+        ) {
+            it
+        }
+    }
+
+    fun introspectTokenWithNone(token: String): HttpCall<Any, Any>  {
+        return HttpCall(
+            okHttpClient.newCall(
+                Request.Builder()
+                    .url(
+                        if (this.protocol == ProtocolEnum.OIDC) "$host/oidc/token/introspection"
+                        else "$host/oauth/token/introspection"
+                    )
+                    .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                    .post(
+                        FormBody.Builder()
+                            .add("client_id", this.appId!!)
+                            .add("token", token)
+                            .build()
+                    )
+                    .build()
+            ), json.getAdapter(object : TypeToken<Any>() {})
+        ) {
+            it
+        }
+    }
+
+    @JvmOverloads
+    fun validateToken(accessToken: String? = null, idToken: String? = null): HttpCall<Any, Any> {
+        if (accessToken == null && idToken == null)
+            throw Exception("请在传入的参数对象中包含 accessToken 或 idToken 字段")
+        if (accessToken != null && idToken != null)
+            throw Exception("accessToken 和 idToken 只能传入一个，不能同时传入")
+
+        var url = "$host/api/v2/oidc/validate_token"
+        url += if (accessToken != null) "?access_token=$accessToken" else "?id_token=$idToken"
+
+        return HttpCall(
+            okHttpClient.newCall(
+                Request.Builder()
+                    .url(url)
+                    .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                    .get()
+                    .build()
+            ), json.getAdapter(object : TypeToken<Any>() {})
+        ) {
+            it
+        }
+    }
+
+//    fun revokeToken(token: String): HttpCall<Boolean, Boolean> {
+//        if (listOf<ProtocolEnum>(ProtocolEnum.OAUTH, ProtocolEnum.OIDC).contains(this.protocol)) {
+//            throw Exception("初始化 AuthenticationClient 时传入的 protocol 参数必须为 ProtocolEnum.OAUTH 或 ProtocolEnum.OIDC，请检查参数")
+//        }
+//
+//        if (this.secret.isNullOrBlank()
+//            && this.tokenEndPointAuthMethod != AuthMethodEnum.NONE
+//        ) {
+//            throw Exception("请在初始化 AuthenticationClient 时传入 appId 和 secret 参数")
+//        }
+//
+//        return when (this.introspectionEndPointAuthMethod) {
+//            AuthMethodEnum.CLIENT_SECRET_POST -> revokeTokenWithClientSecretPost(token)
+//            AuthMethodEnum.CLIENT_SECRET_BASIC -> revokeTokenWithClientSecretBasic(token)
+//            else -> revokeTokenWithNone(token)
+//
+//        }
+//    }
+//
+//    fun revokeTokenWithClientSecretPost(token: String): HttpCall<Boolean, Boolean> {
+//
+//    }
+//
+//    fun revokeTokenWithClientSecretBasic(token: String): HttpCall<Any, Any> {
+//
+//    }
+//
+//    fun revokeTokenWithNone(token: String): HttpCall<Any, Any> {
+//
+//    }
 }
