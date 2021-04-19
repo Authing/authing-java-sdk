@@ -42,10 +42,7 @@ data class BatchGetUserPostData(
 data class BatchGetUserOptions
 @JvmOverloads
 constructor(
-    var queryField: BatchGetUserQueryFieldEnum,
-    var userId: String,
-    var roleCode: String,
-    var namespace: String? = null
+    var queryField: BatchGetUserQueryFieldEnum
 )
 
 data class UserMfaStatus

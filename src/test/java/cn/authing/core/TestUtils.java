@@ -1,6 +1,9 @@
 package cn.authing.core;
 
-import java.util.Random;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class TestUtils {
@@ -50,4 +53,27 @@ public class TestUtils {
         }
         return sb.toString();
     }
+
+
+    public static Map<String, List<String>> getQueryParams(String url) {
+        Map<String, List<String>> params = new HashMap<String, List<String>>();
+        String[] urlParts = url.split("\\?");
+        if (urlParts.length > 1) {
+            String query = urlParts[1];
+            for (String param : query.split("&")) {
+                String[] pair = param.split("=");
+                String key = URLDecoder.decode(pair[0], StandardCharsets.UTF_8);
+                String value = "";
+                if (pair.length > 1) {
+                    value = URLDecoder.decode(pair[1], StandardCharsets.UTF_8);
+                }
+
+                List<String> values = params.computeIfAbsent(key, k -> new ArrayList<String>());
+                values.add(value);
+            }
+        }
+
+        return params;
+    }
+
 }

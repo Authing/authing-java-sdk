@@ -168,7 +168,7 @@ data class ResourceNamespace(
 
 data class PaginatedResourceNamespace(
     val totalCount: Int,
-    var list: List<ResourceNamespace>
+    var list: List<ResourceNamespace>,
     var id: String,
     var enabled: Boolean
 )

@@ -412,6 +412,7 @@ public class AuthenticationClientTest {
     @Test
     public void buildAuthorizeUrl() throws MalformedURLException {
 
+        // SAML
         authenticationClient.setProtocol(ProtocolEnum.SAML);
 
         String samlString = authenticationClient.buildAuthorizeUrl();
@@ -419,6 +420,44 @@ public class AuthenticationClientTest {
         URL samlUrl = new URL(samlString);
 
         Assert.assertEquals(samlUrl.getPath(), "/api/v2/saml-idp/" + this.APP_ID);
+
+        // OIDC
+        authenticationClient.setProtocol(ProtocolEnum.OIDC);
+
+        IOidcParams iOidcParams = new IOidcParams();
+
+        iOidcParams.setRedirectUri("www.baidu.com");
+        iOidcParams.setNonce("nonce test");
+
+        String oidcString = authenticationClient.buildAuthorizeUrl(iOidcParams);
+
+        URL oidcUrl = new URL(oidcString);
+
+        Map<String, Object> oidcQuery = new Utils().getQueryParams(oidcString);
+
+        Assert.assertEquals(oidcUrl.getPath(), "/oidc/auth");
+        Assert.assertEquals(oidcQuery.get("nonce"), "nonce test");
+        Assert.assertEquals(oidcQuery.get("redirect_uri"), "www.baidu.com");
+        Assert.assertEquals(oidcQuery.get("client_id"), APP_ID);
+
+        // oauth
+        authenticationClient.setProtocol(ProtocolEnum.OAUTH);
+
+        IOauthParams iOauthParams = new IOauthParams();
+
+        iOauthParams.setRedirectUri("www.baidu.com");
+
+        String oauthString = authenticationClient.buildAuthorizeUrl(iOauthParams);
+
+        URL oauthUrl = new URL(oauthString);
+
+        Map<String, Object> oauthQuery = new Utils().getQueryParams(oauthString);
+
+        Assert.assertEquals(oauthUrl.getPath(), "/oauth/auth");
+        Assert.assertEquals(oauthQuery.get("redirect_uri"), "www.baidu.com");
+        Assert.assertEquals(oauthQuery.get("client_id"), APP_ID);
+
+
     }
 
 }

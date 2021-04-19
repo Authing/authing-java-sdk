@@ -7,7 +7,6 @@ import cn.authing.core.http.HttpCall
 import cn.authing.core.types.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.sun.org.apache.xpath.internal.operations.Bool
 
 /**
  * 管理分组

@@ -2,7 +2,6 @@ package cn.authing.core.types
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import com.sun.org.apache.xpath.internal.operations.Bool
 import java.sql.Blob
 
 data class IMfaAuthenticator(

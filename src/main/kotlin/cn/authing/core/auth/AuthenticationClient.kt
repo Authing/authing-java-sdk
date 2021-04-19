@@ -751,16 +751,22 @@ class AuthenticationClient : BaseClient {
         if (this.protocol != ProtocolEnum.OIDC)
             throw Exception("初始化 AuthenticationClient 传入的 protocol 应为 ProtocolEnum.OIDC 不应该为 $protocol")
 
+        if (this.redirectUri == "" && param.redirectUri == null)
+            throw Exception("redirectUri 不应该为空 解决方法：请在 AuthenticationClient 初始化时传入 redirectUri，或者调用 buildAuthorizeUrl 时传入 redirectUri")
+
         val map = mutableMapOf<String, String?>(
             "client_id" to
                     if (param.appId != null) param.appId
                     else this.appId,
+            "scope" to
+                    if (param.scope != null) param.scope
+                    else "openid profile email phone address",
             "state" to
                     if (param.state != null) param.state
-                    else Random().toString().substring(2),
+                    else Utils().randomString(12),
             "nonce" to
                     if (param.nonce != null) param.nonce
-                    else Random().toString().substring(2),
+                    else Utils().randomString(12),
             "response_mode" to
                     if (param.responseMode != null) param.responseMode.toString()
                     else null,
@@ -770,15 +776,12 @@ class AuthenticationClient : BaseClient {
             "redirect_uri" to
                     if (param.redirectUri != null) param.redirectUri
                     else this.redirectUri,
-            "scope" to
-                    if (param.scope != null) param.scope
-                    else "openid profile email phone address",
             "prompt" to
                     if (param.scope?.contains("offline_access") == true) "consent"
                     else null
         )
 
-        val params = Utils.getRqstUrl(map.filter { (_, value) -> value != null })
+        val params = Utils().getQueryUrl(map.filter { (_, value) -> value != null })
 
         return "$host/oidc/auth$params"
     }
@@ -791,6 +794,10 @@ class AuthenticationClient : BaseClient {
             throw Exception("初始化 AuthenticationClient 传入的 protocol 应为 ProtocolEnum.OAUTH 不应该为 $protocol")
 
 
+        if (this.redirectUri == "" && param.redirectUri == null)
+            throw Exception("redirectUri 不应该为空 解决方法：请在 AuthenticationClient 初始化时传入 redirectUri，或者调用 buildAuthorizeUrl 时传入 redirectUri")
+
+
         val paramsMap = mutableMapOf<String, String?>(
             "client_id" to
                     if (param.appId != null) param.appId
@@ -800,7 +807,7 @@ class AuthenticationClient : BaseClient {
                     else "user",
             "state" to
                     if (param.state != null) param.state
-                    else Random().toString().substring(2),
+                    else Utils().randomString(12),
             "response_type" to
                     if (param.responseType != null) param.responseType
                     else "code",
@@ -809,7 +816,7 @@ class AuthenticationClient : BaseClient {
                     else this.redirectUri
         )
 
-        val params = Utils.getRqstUrl(paramsMap.filter { (_, value) -> value != null })
+        val params = Utils().getQueryUrl(paramsMap.filter { (_, value) -> value != null })
 
         return "$host/oauth/auth$params"
     }
