@@ -8,22 +8,14 @@ import cn.authing.core.http.HttpCall
 import cn.authing.core.types.*
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import okhttp3.FormBody
-import okhttp3.MediaType
 import okhttp3.Request
-import okhttp3.RequestBody.Companion.toRequestBody
-import java.io.FileInputStream
 import java.io.IOException
-import java.net.URL
-import java.nio.Buffer
 import java.util.*
 import java.util.regex.Pattern
-import kotlin.collections.HashMap
-import kotlin.streams.toList
 
-class AuthenticationClient: BaseClient {
+class AuthenticationClient : BaseClient {
     constructor(userPoolId: String) {
         this.userPoolId = userPoolId
     }
@@ -33,12 +25,12 @@ class AuthenticationClient: BaseClient {
 
         this.host = appHost
     }
-
     private var user: User? = null
 
     fun mfa(): MfaAuthenticationClient {
         return MfaAuthenticationClient(this)
     }
+
     /**
      * 获取当前用户信息
      */
@@ -740,5 +732,106 @@ class AuthenticationClient: BaseClient {
             return PasswordSecurityLevel.MIDDLE;
         }
         return PasswordSecurityLevel.LOW;
+    }
+
+    fun buildAuthorizeUrl(): String {
+        if (this.appId == null)
+            throw Exception("请在初始化 AuthenticationClient 时传入 appId")
+
+        if (this.protocol != ProtocolEnum.SAML)
+            throw Exception("初始化 AuthenticationClient 传入的 protocol 应为 ProtocolEnum.SAML 不应该为 $protocol")
+
+        return "$host/api/v2/saml-idp/$appId"
+    }
+
+    fun buildAuthorizeUrl(param: IOidcParams): String {
+        if (this.appId == null)
+            throw Exception("请在初始化 AuthenticationClient 时传入 appId")
+
+        if (this.protocol != ProtocolEnum.OIDC)
+            throw Exception("初始化 AuthenticationClient 传入的 protocol 应为 ProtocolEnum.OIDC 不应该为 $protocol")
+
+        val map = mutableMapOf<String, String?>(
+            "client_id" to
+                    if (param.appId != null) param.appId
+                    else this.appId,
+            "state" to
+                    if (param.state != null) param.state
+                    else Random().toString().substring(2),
+            "nonce" to
+                    if (param.nonce != null) param.nonce
+                    else Random().toString().substring(2),
+            "response_mode" to
+                    if (param.responseMode != null) param.responseMode.toString()
+                    else null,
+            "response_type" to
+                    if (param.responseType != null) param.responseType
+                    else "code",
+            "redirect_uri" to
+                    if (param.redirectUri != null) param.redirectUri
+                    else this.redirectUri,
+            "scope" to
+                    if (param.scope != null) param.scope
+                    else "openid profile email phone address",
+            "prompt" to
+                    if (param.scope?.contains("offline_access") == true) "consent"
+                    else null
+        )
+
+        val params = Utils.getRqstUrl(map.filter { (_, value) -> value != null })
+
+        return "$host/oidc/auth$params"
+    }
+
+    fun buildAuthorizeUrl(param: IOauthParams): String {
+        if (this.appId == null)
+            throw Exception("请在初始化 AuthenticationClient 时传入 appId")
+
+        if (this.protocol != ProtocolEnum.OAUTH)
+            throw Exception("初始化 AuthenticationClient 传入的 protocol 应为 ProtocolEnum.OAUTH 不应该为 $protocol")
+
+
+        val paramsMap = mutableMapOf<String, String?>(
+            "client_id" to
+                    if (param.appId != null) param.appId
+                    else this.appId,
+            "scope" to
+                    if (param.scope != null) param.scope
+                    else "user",
+            "state" to
+                    if (param.state != null) param.state
+                    else Random().toString().substring(2),
+            "response_type" to
+                    if (param.responseType != null) param.responseType
+                    else "code",
+            "redirect_uri" to
+                    if (param.redirectUri != null) param.redirectUri
+                    else this.redirectUri
+        )
+
+        val params = Utils.getRqstUrl(paramsMap.filter { (_, value) -> value != null })
+
+        return "$host/oauth/auth$params"
+    }
+
+    fun buildAuthorizeUrl(param: ICasParams): String {
+        if (this.appId == null)
+            throw Exception("请在初始化 AuthenticationClient 时传入 appId")
+
+        if (this.protocol != ProtocolEnum.CAS)
+            throw Exception("初始化 AuthenticationClient 传入的 protocol 应为 ProtocolEnum.CAS 不应该为 $protocol")
+
+        if (this.appId == null) {
+            throw Exception("请在初始化 AuthenticationClient 时传入 appId")
+        }
+
+        return if (param.service != null)
+            "$host/cas-idp/$appId?service=${param.service}"
+        else
+            "$host/cas-idp/$appId"
+    }
+
+    fun getNewAccessTokenByRefreshToken(refreshToken: String) {
+        
     }
 }

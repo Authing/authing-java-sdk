@@ -11,6 +11,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -405,6 +407,18 @@ public class AuthenticationClientTest {
         PasswordSecurityLevel passwordSecurityLevel = authenticationClient.computedPasswordSecurityLevel(password);
 
         Assert.assertEquals(passwordSecurityLevel, PasswordSecurityLevel.LOW);
+    }
+
+    @Test
+    public void buildAuthorizeUrl() throws MalformedURLException {
+
+        authenticationClient.setProtocol(ProtocolEnum.SAML);
+
+        String samlString = authenticationClient.buildAuthorizeUrl();
+
+        URL samlUrl = new URL(samlString);
+
+        Assert.assertEquals(samlUrl.getPath(), "/api/v2/saml-idp/" + this.APP_ID);
     }
 
 }
