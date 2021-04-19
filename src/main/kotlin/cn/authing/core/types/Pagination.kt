@@ -1,6 +1,13 @@
 package cn.authing.core.types
 
 class Pagination<T>(
-    val list: List<T>,
-    val totalCount: Number
+    var list: List<T>,
+    var totalCount: Int
+)
+
+data class PageOptions
+@JvmOverloads
+constructor(
+    var page: Int? = 1,
+    var limit: Int? = 10
 )

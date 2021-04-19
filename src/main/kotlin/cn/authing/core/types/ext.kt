@@ -1,6 +1,8 @@
 package cn.authing.core.types
 
 import com.google.gson.Gson
+import com.google.gson.annotations.SerializedName
+import java.awt.Label
 import java.util.*
 
 //此文件放置自定义扩展类型
@@ -33,11 +35,11 @@ enum class PasswordSecurityLevel(val level: Int) {
     }
 }
 
-fun convertUdvToKeyValuePair(data:List<UserDefinedData>): Map<String,Any> {
+fun convertUdvToKeyValuePair(data: List<UserDefinedData>): Map<String, Any> {
     val hashtable = Hashtable<String, Any>()
     val gson = Gson()
-    for (item in data){
-        hashtable.put(item.key,item.value)
+    for (item in data) {
+        hashtable.put(item.key, item.value)
 //        if (item.dataType === UdfDataType.NUMBER) {
 //            hashtable.put(item.key,gson.fromJson(item.value, Map::class.java))
 //        } else if (item.dataType === UdfDataType.BOOLEAN) {
@@ -55,7 +57,7 @@ data class SetUdfValueBatchInputItem(
     // 用户id
     var userId: String,
     // 用户自定义属性键值对
-    var data: Map<String,String>
+    var data: Map<String, String>
 )
 
 enum class ProtocolEnum(val value: String) {
@@ -83,6 +85,47 @@ enum class AuthMethodEnum(val value: String) {
             return values().find { it.value == value }
         }
     }
+}
+
+enum class ProviderType {
+    @SerializedName("wechat:pc")
+    WECHAT_PC,
+    @SerializedName("github")
+    GITHUB,
+    @SerializedName("google")
+    GOOGLE,
+    @SerializedName("qq")
+    QQ,
+    @SerializedName("apple")
+    APPLE,
+    @SerializedName("baidu")
+    BAIDU,
+    @SerializedName("alipay")
+    ALIPAY,
+    @SerializedName("lark:app-store")
+    APP_STORE,
+    @SerializedName("lark:custom-app")
+    CUSTOM_APP,
+    @SerializedName("weibo")
+    WEIBO,
+    @SerializedName("dingtalk")
+    DINGTALK,
+    @SerializedName("wechat:webpage-authorization")
+    WEBPAGE_AUTHORIZATION,
+    @SerializedName("wechat:miniprogram:default")
+    MINIPROGRAM,
+    @SerializedName("wechat:mobile")
+    WECHAT_MOBILE,
+    @SerializedName("wechatwork:service-provider:service")
+    WECHATWORK_SERVICE_SERVICE,
+    @SerializedName("wechatwork:service-provider:qrconnect")
+    WECHATWORK_SERVICE_QRCONNECT,
+    @SerializedName("wechatwork:corp:qrconnect")
+    WECHATWORK_CORP_QRCONNECT,
+    @SerializedName("wechat:miniprogram:app-launch")
+    WECHAT_MINIPROGRAM_APP,
+    @SerializedName("wechat:miniprogram:qrconnect")
+    WECHAT_MINIPROGRAM_QRCONNECT;
 }
 
 data class ClientCredentialInput(

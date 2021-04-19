@@ -7,7 +7,6 @@ import cn.authing.core.types.*
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
-import sun.security.util.Length
 import kotlin.random.Random
 
 /**
@@ -60,12 +59,23 @@ class AclManagementClient(private val client: ManagementClient) {
     /**
      * 获取资源
      */
+    @Deprecated("use listResources", ReplaceWith("this.listResources(namespaceCode, type, limit, page)"))
     @JvmOverloads
     fun getResources(
         namespaceCode: String? = null,
         type: ResourceType? = null,
-        limit: Number? = 10,
-        page: Number? = 1
+        limit: Number = 10,
+        page: Number = 1
+    ): HttpCall<RestfulResponse<Pagination<IResourceResponse>>, Pagination<IResourceResponse>> {
+        return this.listResources(namespaceCode, type, limit, page)
+    }
+
+    @JvmOverloads
+    fun listResources(
+        namespaceCode: String? = null,
+        type: ResourceType? = null,
+        limit: Number = 10,
+        page: Number = 1
     ): HttpCall<RestfulResponse<Pagination<IResourceResponse>>, Pagination<IResourceResponse>> {
         var url = "${client.host}/api/v2/resources?limit=$limit&page=$page"
 
@@ -90,6 +100,20 @@ class AclManagementClient(private val client: ManagementClient) {
             object : TypeToken<RestfulResponse<IResourceResponse>>() {}) { it.data }
     }
 
+    @JvmOverloads
+    fun findResourceByCode(
+        code: String,
+        namespace: String? = null
+    ): HttpCall<RestfulResponse<IResourceResponse>, IResourceResponse> {
+        var url = "${client.host}/api/v2/resources/by-code/$code"
+
+        url += if (namespace != null) "?namespace=$namespace" else ""
+
+        return this.client.createHttpGetCall(
+            url,
+            object : TypeToken<RestfulResponse<IResourceResponse>>() {}) { it.data }
+    }
+
     /**
      * 更新资源
      */
@@ -98,9 +122,10 @@ class AclManagementClient(private val client: ManagementClient) {
         options: IResourceDto
     ): HttpCall<RestfulResponse<IResourceResponse>, IResourceResponse> {
 
+        val data = Gson().toJson(options);
         return this.client.createHttpPostCall(
             "${client.host}/api/v2/resources/$code",
-            GsonBuilder().create().toJson(options),
+            Gson().toJson(options),
             object : TypeToken<RestfulResponse<IResourceResponse>>() {}) { it.data }
     }
 

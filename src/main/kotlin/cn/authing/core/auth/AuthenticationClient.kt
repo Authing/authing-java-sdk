@@ -13,9 +13,12 @@ import okhttp3.FormBody
 import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.FileInputStream
 import java.io.IOException
 import java.net.URL
+import java.nio.Buffer
 import java.util.*
+import java.util.regex.Pattern
 import kotlin.collections.HashMap
 import kotlin.streams.toList
 
@@ -32,6 +35,9 @@ class AuthenticationClient: BaseClient {
 
     private var user: User? = null
 
+    fun mfa(): MfaAuthenticationClient {
+        return MfaAuthenticationClient(this)
+    }
     /**
      * 获取当前用户信息
      */
@@ -375,6 +381,16 @@ class AuthenticationClient: BaseClient {
                 it
             }
         }
+    }
+
+    fun unLinkAccount(options: UnLinkAccountParam): HttpCall<RestfulResponse<Boolean>, Boolean> {
+        val url = "$host/api/v2/users/unlink"
+
+        return createHttpPostCall(
+            url,
+            Gson().toJson(options),
+            object : TypeToken<RestfulResponse<Boolean>>() {}
+        ) { it.code == 200 }
     }
 
     /**
@@ -798,5 +814,20 @@ class AuthenticationClient: BaseClient {
         return createHttpGetCall(
             url,
             object : TypeToken<RestfulResponse<Pagination<ApplicationPublicDetail>>>() {}) { it.data }
+    }
+
+    fun computedPasswordSecurityLevel(
+        password: String
+    ): PasswordSecurityLevel {
+        val highLevel = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[\\^]{12,}\$"
+        val middleLevel = "^(?=.*[a-zA-Z])(?=.*\\d)[\\^]{8,}\$"
+
+        if (Pattern.matches(highLevel, password)) {
+            return PasswordSecurityLevel.HIGH;
+        }
+        if (Pattern.matches(middleLevel, password)) {
+            return PasswordSecurityLevel.MIDDLE;
+        }
+        return PasswordSecurityLevel.LOW;
     }
 }

@@ -37,10 +37,10 @@ public class AuthenticationClientTest {
 
     @Before
     public void before() {
-//        this.authenticationClient = new AuthenticationClient("5f45cad3ece50b62de2a02cd");
-//        this.authenticationClient.setAppId(APP_ID);
-//        this.authenticationClient.setSecret("624cb39b07ffd29b946112ea82f5b50e");
-//        this.authenticationClient.setHost("https://core.authing.cn");
+        this.authenticationClient = new AuthenticationClient("5f45cad3ece50b62de2a02cd");
+        this.authenticationClient.setAppId(APP_ID);
+        this.authenticationClient.setSecret("624cb39b07ffd29b946112ea82f5b50e");
+        this.authenticationClient.setHost("https://core.authing.cn");
     }
 
     private User register(String username, String password) throws IOException, GraphQLException {
@@ -391,10 +391,20 @@ public class AuthenticationClientTest {
     public void list() throws IOException, InterruptedException, ExecutionException, GraphQLException {
         loginByUsername();
 
-        Pagination<ApplicationPublicDetail> result = authenticationClient.listApplications(1, 10).execute();
+        Pagination<ApplicationPublicDetail> result = authenticationClient.listApplications().execute();
         Pagination<ApplicationPublicDetail> resultNotProps = authenticationClient.listApplications().execute();
         Assert.assertNotNull(result);
         Assert.assertNotNull(resultNotProps);
+    }
+
+
+    @Test
+    public void computedPasswordSecurityLevel() {
+        String password = "12312312";
+
+        PasswordSecurityLevel passwordSecurityLevel = authenticationClient.computedPasswordSecurityLevel(password);
+
+        Assert.assertEquals(passwordSecurityLevel, PasswordSecurityLevel.LOW);
     }
 
 }
