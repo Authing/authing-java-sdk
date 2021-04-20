@@ -351,7 +351,8 @@ public class UsersManagementClientTest {
         p.put("dnum", "189");
         SetUdfValueBatchInputItem a = new SetUdfValueBatchInputItem("5f9d0cef60d09ff5a4c87c06", p);
 
-        List<UserDefinedData> result = this.usersManagementClient.setUdfValueBatch(Arrays.asList(a)).execute();
+        List<UserDefinedData> result = this.usersManagementClient
+                .setUdfValueBatch(Arrays.asList(a)).execute();
         Assert.assertNotNull(result);
     }
 

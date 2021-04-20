@@ -51,3 +51,10 @@ data class ICasParams
 constructor(
     var service: String? = null
 )
+
+data class ValidateTokenParams
+@JvmOverloads
+constructor(
+    var accessToken: String? = null,
+    var idToken: String? = null
+)

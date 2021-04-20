@@ -463,6 +463,13 @@ class AuthenticationClient : BaseClient {
         }
     }
 
+    fun setUdvValue(param: SetUdfValueBatchParam): GraphQLCall<SetUdvResponse, List<UserDefinedData>> {
+        return createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<SetUdvResponse>>() {}
+        ) { it.result }
+    }
+
     /**
      * 移除自定义数据
      */
@@ -1024,8 +1031,8 @@ class AuthenticationClient : BaseClient {
         }
     }
 
-    @JvmOverloads
-    fun validateToken(accessToken: String? = null, idToken: String? = null): HttpCall<Any, Any> {
+    fun validateToken(param: ValidateTokenParams): HttpCall<Any, Any> {
+        val ( accessToken, idToken ) = param
         if (accessToken == null && idToken == null)
             throw Exception("请在传入的参数对象中包含 accessToken 或 idToken 字段")
         if (accessToken != null && idToken != null)
@@ -1046,6 +1053,7 @@ class AuthenticationClient : BaseClient {
             it
         }
     }
+
 
 //    fun revokeToken(token: String): HttpCall<Boolean, Boolean> {
 //        if (listOf<ProtocolEnum>(ProtocolEnum.OAUTH, ProtocolEnum.OIDC).contains(this.protocol)) {
