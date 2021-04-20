@@ -39,6 +39,34 @@ public class ApplicationManagementClientTest {
     }
 
     @Test
+    public void create() throws IOException {
+        CreateAppParams params = new CreateAppParams(
+                "APP_NAME",
+                "Identiflistier",
+                Arrays.asList("www.xxxxx.com")
+        );
+
+        Application app = managementClient.application().create(params).execute();
+
+        Assert.assertNotNull(app);
+    }
+
+    public void delete() throws IOException {
+        CreateAppParams params = new CreateAppParams(
+                "APP_NAME",
+                "Identifier",
+                Arrays.asList("www.xxxxx.com")
+        );
+
+        Application app = managementClient.application().create(params).execute();
+
+        Boolean deleted = managementClient.application().delete(app.getId()).execute();
+
+        Assert.assertTrue(deleted);
+
+    }
+
+    @Test
     public void list() throws IOException {
         List<Application> result = this.applicationManagementClient.list(1, 2).execute();
 
@@ -47,7 +75,7 @@ public class ApplicationManagementClientTest {
 
     @Test
     public void findById() throws IOException {
-        Application application = this.applicationManagementClient.findById(this.APP_ID).execute();
+        Application application = this.applicationManagementClient.findById(APP_ID).execute();
         Assert.assertEquals(this.APP_ID, application.getId());
     }
 
@@ -106,6 +134,14 @@ public class ApplicationManagementClientTest {
     }
 
     @Test
+    public void listResources() {
+        ListResourcesParams params = new ListResourcesParams(APP_ID);
+        params.setLimit(1);
+        params.setPage(1);
+        managementClient.application().listResources(params);
+    }
+
+    @Test
     public void updateResource() throws IOException {
         IResourceResponse create = createResponse();
 
@@ -155,18 +191,24 @@ public class ApplicationManagementClientTest {
 
     @Test
     public void allowAccess() throws IOException {
-        Boolean res = managementClient
-                .application()
-                .allowAccess(
+        IAccessPolicyParams params = new IAccessPolicyParams(
+                TargetTypeEnum.GROUP,
+                Arrays.asList("1", "2", "3")
+        );
+        Boolean res = managementClient.application().allowAccess(
                         APP_ID,
-                        new IAccessPolicyParams(
-                                TargetTypeEnum.GROUP,
-                                Arrays.asList("1", "2", "3")
-                        )
+                        params
                 )
                 .execute();
 
         Assert.assertTrue(res);
+
+        Boolean deleted = managementClient.application().deleteAccessPolicy(
+                APP_ID,
+                params
+        ).execute();
+
+        Assert.assertTrue(deleted);
     }
 
     @Test
@@ -219,10 +261,7 @@ public class ApplicationManagementClientTest {
 
         Assert.assertEquals(execute.getCode().intValue(), 200);
 
-        Role findRole = managementClient
-                .application()
-                .findRole(APP_ID, role.getCode())
-                .execute();
+        Role findRole = managementClient.application().findRole(APP_ID, role.getCode()).execute();
 
         System.out.println(findRole);
         Assert.assertNull(findRole);
@@ -253,8 +292,7 @@ public class ApplicationManagementClientTest {
 
         String description = "description description description description";
 
-        Role updateRole = managementClient
-                .application()
+        Role updateRole = managementClient.application()
                 .updateRole(
                         APP_ID,
                         new UpdateRoleParams(
@@ -307,5 +345,33 @@ public class ApplicationManagementClientTest {
         Assert.assertEquals(roleListPageTest.getList().size(), 1);
     }
 
+    @Test
+    public void enableAccessPolicy() throws IOException {
+        IAccessPolicyParams params = new IAccessPolicyParams(
+                TargetTypeEnum.GROUP,
+                Arrays.asList("xxxxx", "xxxxx")
+        );
+        Boolean enabled = managementClient.application().enableAccessPolicy(
+                APP_ID,
+                params
+        ).execute();
 
+        Boolean disabled = managementClient.application().disableAccessPolicy(
+                APP_ID,
+                params
+        ).execute();
+
+        Assert.assertTrue(enabled);
+        Assert.assertTrue(disabled);
+    }
+
+    @Test
+    public void updateDefaultAccessPolicy() throws IOException {
+        Application app = managementClient.application().updateDefaultAccessPolicy(
+                APP_ID,
+                DefaultStrategy.DENY_ALL
+        ).execute();
+
+        Assert.assertNotNull(app);
+    }
 }

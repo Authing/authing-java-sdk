@@ -89,6 +89,11 @@ class AclManagementClient(private val client: ManagementClient) {
 
     }
 
+    fun listResources(params: AclListResourcesParams): HttpCall<RestfulResponse<Pagination<IResourceResponse>>, Pagination<IResourceResponse>> {
+        val (namespaceCode, type, limit, page) = params
+        return this.listResources(namespaceCode, type, limit, page)
+    }
+
     /**
      * 创建资源
      */

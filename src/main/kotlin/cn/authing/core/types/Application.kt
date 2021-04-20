@@ -397,3 +397,22 @@ constructor(
     var targetIdentifiers: List<String>,
     var inheritByChildren: String? = null
 )
+
+data class CreateAppParams
+@JvmOverloads
+constructor(
+    var name: String,
+    var identifier: String,
+    var redirectUris: List<String>,
+    var logo: String? = null
+
+)
+
+data class ListResourcesParams
+@JvmOverloads
+constructor(
+    var appId: String,
+    var type: ResourceType? = null,
+    var limit: Number = 10,
+    var page: Number = 1
+)

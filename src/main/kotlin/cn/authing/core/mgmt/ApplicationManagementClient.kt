@@ -3,6 +3,7 @@ package cn.authing.core.mgmt
 import cn.authing.core.graphql.GraphQLCall
 import cn.authing.core.http.HttpCall
 import cn.authing.core.types.*
+import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 /**
@@ -12,6 +13,29 @@ class ApplicationManagementClient(private val client: ManagementClient) {
 
     private val acl: AclManagementClient = client.acl()
     private val role: RolesManagementClient = client.roles()
+
+    fun create(
+        options: CreateAppParams
+    ): HttpCall<RestfulResponse<Application>, Application> {
+        val url = "${this.client.host}/api/v2/applications"
+
+        return client.createHttpPostCall(
+            url,
+            Gson().toJson(options),
+            object : TypeToken<RestfulResponse<Application>>() {}
+        ) { it.data }
+    }
+
+    fun delete(
+        appId: String
+    ): HttpCall<RestfulResponse<Boolean>, Boolean> {
+        val url = "${this.client.host}/api/v2/applications/${appId}"
+
+        return client.createHttpDeleteCall(
+            url,
+            object : TypeToken<RestfulResponse<Boolean>>() {}
+        ) { it.code == 200 }
+    }
 
     /**
      * 获取应用列表
@@ -85,13 +109,10 @@ class ApplicationManagementClient(private val client: ManagementClient) {
 
     }
 
-    @JvmOverloads
     fun listResources(
-        appId: String,
-        type: ResourceType? = null,
-        limit: Number = 10,
-        page: Number = 1
+        options: ListResourcesParams
     ): HttpCall<RestfulResponse<Pagination<IResourceResponse>>, Pagination<IResourceResponse>> {
+        val (appId, type, limit, page) = options
         return acl.listResources(appId, type, limit, page)
     }
 
