@@ -383,7 +383,7 @@ class AclManagementClient(private val client: ManagementClient) {
      * 获取权限分组列表
      */
     @JvmOverloads
-    fun listNamespace(
+    fun listNamespaces(
         page: Int? = 1,
         limit: Int? = 10
     ): HttpCall<RestfulResponse<Pagination<ResourceNamespace>>, Pagination<ResourceNamespace>> {
@@ -396,11 +396,25 @@ class AclManagementClient(private val client: ManagementClient) {
     /**
      * 更新 namespace
      */
-    fun updateNamespace() {
+    fun updateNamespace(
+        code: String,
+        updates: UpdateNamespaceParams
+    ): HttpCall<RestfulResponse<ResourceNamespace>, ResourceNamespace> {
+        val url = "${client.host}/api/v2/resource-namespace/${client.userPoolId}/code/${code}"
 
+        return client.createHttpPutCall(
+            url,
+            Gson().toJson(updates),
+            object : TypeToken<RestfulResponse<ResourceNamespace>>() {}
+        ) { it.data }
     }
 
-    fun deleteNamespace() {
+    fun deleteNamespace(code: String): HttpCall<RestfulResponse<Boolean>, Boolean> {
+        val url = "${this.client.host}/api/v2/resource-namespace/${this.client.userPoolId}/code/${code}"
 
+        return client.createHttpDeleteCall(
+            url,
+            object : TypeToken<RestfulResponse<Boolean>>() {}
+        ) { it.code == 200 }
     }
 }

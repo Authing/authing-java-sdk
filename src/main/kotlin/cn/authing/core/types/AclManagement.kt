@@ -190,3 +190,11 @@ constructor(
     var limit: Number = 10,
     var page: Number = 1
 )
+
+data class UpdateNamespaceParams
+@JvmOverloads
+constructor(
+    var name: String? = null,
+    var code: String? = null,
+    var description: String? = null
+)

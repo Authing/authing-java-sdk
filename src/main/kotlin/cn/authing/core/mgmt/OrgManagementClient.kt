@@ -233,4 +233,13 @@ class OrgManagementClient(private val client: ManagementClient) {
             it.data
         }
     }
+
+    fun listAuthorizedResourcesByNodeId(
+        param: ListNodeByIdAuthorizedResourcesParam
+    ): GraphQLCall<ListNodeByCodeAuthorizedResourcesResponse, Node> {
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<ListNodeByCodeAuthorizedResourcesResponse>>() {}
+        ) { it.result }
+    }
 }

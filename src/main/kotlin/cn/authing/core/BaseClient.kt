@@ -220,4 +220,30 @@ abstract class BaseClient {
             ), adapter, resolver
         )
     }
+
+    /**
+     * PUT
+     */
+    internal open fun <TData, TResult> createHttpPutCall(
+        url: String,
+        body: String,
+        typeToken: TypeToken<TData>,
+        resolver: (data: TData) -> TResult
+    ): HttpCall<TData, TResult> {
+        val adapter = json.getAdapter(typeToken)
+        return HttpCall(
+            okHttpClient.newCall(
+                Request.Builder()
+                    .url(url)
+                    .addHeader("Authorization", "Bearer " + this.token)
+                    .addHeader("Content-Type", "application/json")
+                    .addHeader("x-authing-userpool-id", "" + userPoolId)
+                    .addHeader("x-authing-request-from", sdkType)
+                    .addHeader("x-authing-sdk-version", sdkVersion)
+                    .addHeader("x-authing-app-id", "" + this.appId)
+                    .put(body.toRequestBody(mediaTypeJson))
+                    .build()
+            ), adapter, resolver
+        )
+    }
 }

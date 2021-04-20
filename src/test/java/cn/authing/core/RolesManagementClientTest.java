@@ -15,13 +15,15 @@ public class RolesManagementClientTest {
     
     private RolesManagementClient rolesManagementClient;
 
+    private ManagementClient managementClient;
+
     private String randomString() {
         return Integer.toString(new Random().nextInt());
     }
 
     @Before
     public void before() throws IOException, GraphQLException {
-        ManagementClient managementClient = new ManagementClient("5f9d0cee4a8f5e150cf6470d", "ea4e02cd9dbff480a64813f7fe3b5cf0");
+        managementClient = new ManagementClient("5f9d0cee4a8f5e150cf6470d", "ea4e02cd9dbff480a64813f7fe3b5cf0");
         managementClient.setHost("https://core.authing.cn");
         this.rolesManagementClient = managementClient.roles();
 
@@ -110,5 +112,16 @@ public class RolesManagementClientTest {
 
         PaginatedPolicyAssignments result = this.rolesManagementClient.listPolicies(code).execute();
         Assert.assertEquals(0, result.getTotalCount());
+    }
+
+    @Test
+    public void listAuthorizedResources() throws IOException, GraphQLException {
+        ListRoleAuthorizedResourcesParam param = new ListRoleAuthorizedResourcesParam("123")
+                .withNamespace("default")
+                .withResourceType("DATA");
+
+        PaginatedAuthorizedResources res = managementClient.roles().listAuthorizedResources(param).execute();
+
+        Assert.assertNotNull(res);
     }
 }

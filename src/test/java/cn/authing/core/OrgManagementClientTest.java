@@ -15,12 +15,13 @@ import java.util.*;
 public class OrgManagementClientTest {
 
     private OrgManagementClient orgManagementClient;
+    private ManagementClient managementClient;
     private Org org1 = null;
     private Org org2 = null;
 
     @Before
     public void before() throws IOException, GraphQLException {
-        ManagementClient managementClient = new ManagementClient("5f9d0cee4a8f5e150cf6470d", "ea4e02cd9dbff480a64813f7fe3b5cf0");
+        managementClient = new ManagementClient("5f9d0cee4a8f5e150cf6470d", "ea4e02cd9dbff480a64813f7fe3b5cf0");
         managementClient.setHost("https://core.authing.cn");
         this.orgManagementClient = managementClient.org();
 
@@ -170,6 +171,15 @@ public class OrgManagementClientTest {
         String orgId = "60210d36262e1086cd2d1209";
         Node node = this.orgManagementClient.exportByOrgId(orgId).execute();
         Assert.assertNotNull(node);
+    }
+
+    @Test
+    public void listAuthorizedResourcesByNodeId() throws IOException, GraphQLException {
+        ListNodeByIdAuthorizedResourcesParam param = new ListNodeByIdAuthorizedResourcesParam("ORG_ID")
+                .withNamespace("default")
+                .withResourceType("DATA");
+
+        Node res = managementClient.org().listAuthorizedResourcesByNodeId(param).execute();
     }
 }
 

@@ -249,7 +249,7 @@ public class AclManagementClientTest {
 
     @Test
     public void listNamespace() throws IOException {
-        Pagination<ResourceNamespace> paginatedNamespace = this.aclManagementClient.listNamespace().execute();
+        Pagination<ResourceNamespace> paginatedNamespace = this.aclManagementClient.listNamespaces().execute();
         System.out.println(paginatedNamespace.getList());
         Number totalCount = paginatedNamespace.getTotalCount();
         System.out.println(totalCount);

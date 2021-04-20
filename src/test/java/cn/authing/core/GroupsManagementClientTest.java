@@ -15,11 +15,13 @@ public class GroupsManagementClientTest {
 
     private GroupsManagementClient groupsManagementClient;
 
+    private ManagementClient managementClient;
+
     @Before
     public void before() throws IOException, GraphQLException {
         String userPoolId = "5f45cad3ece50b62de2a02cd";
         String userPoolSecret = "624cb39b07ffd29b946112ea82f5b50e";
-        ManagementClient managementClient = new ManagementClient(userPoolId, userPoolSecret);
+        managementClient = new ManagementClient(userPoolId, userPoolSecret);
         managementClient.setHost("https://core.authing.cn");
         this.groupsManagementClient = managementClient.group();
 
@@ -87,5 +89,15 @@ public class GroupsManagementClientTest {
     public void deleteMany() throws IOException, GraphQLException {
         CommonMessage commonMessage = this.groupsManagementClient.deleteMany(Collections.singletonList("code1")).execute();
         Assert.assertNotNull(commonMessage);
+    }
+
+    @Test
+    public void listAuthorizedResources() throws IOException, GraphQLException {
+        ListGroupAuthorizedResourcesParam param = new ListGroupAuthorizedResourcesParam("code")
+                .withNamespace("default")
+                .withResourceType("DATA");
+        Group res = managementClient.group().listAuthorizedResources(param).execute();
+
+        Assert.assertNotNull(res);
     }
 }

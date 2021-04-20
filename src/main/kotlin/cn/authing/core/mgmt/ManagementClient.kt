@@ -63,6 +63,16 @@ class ManagementClient(userPoolId: String,  secret: String) : BaseClient() {
         return super.createHttpPostCall(url, body, typeToken, resolver)
     }
 
+    override fun <TData, TResult> createHttpPutCall(
+        url: String,
+        body: String,
+        typeToken: TypeToken<TData>,
+        resolver: (data: TData) -> TResult
+    ): HttpCall<TData, TResult> {
+        this.getToken()
+        return super.createHttpPutCall(url, body, typeToken, resolver)
+    }
+
     /**
      * 获取管理员 access token，获取成功后即可使用其他接口
      */

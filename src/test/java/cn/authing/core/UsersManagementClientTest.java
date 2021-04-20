@@ -20,6 +20,8 @@ public class UsersManagementClientTest {
     private GroupsManagementClient groupsManagementClient;
     private UsersManagementClient usersManagementClient;
 
+    private ManagementClient managementClient;
+
     // user attribute
     private String password = TestUtils.createRandomString();
     private String email;
@@ -40,7 +42,7 @@ public class UsersManagementClientTest {
     public void before() throws IOException, GraphQLException {
         String userPoolId = "6077d4bf1726c78d052a48d3";
         String userPoolSecret = "f205677ceb5fb55462f71067e5f2bc7a";
-        ManagementClient managementClient = new ManagementClient(userPoolId, userPoolSecret);
+        managementClient = new ManagementClient(userPoolId, userPoolSecret);
         managementClient.setHost("http://localhost:3000");
         this.usersManagementClient = managementClient.users();
         this.groupsManagementClient = managementClient.group();
@@ -317,6 +319,15 @@ public class UsersManagementClientTest {
         String namespace = "default";
         PaginatedAuthorizedResources result = this.usersManagementClient.listAuthorizedResources("5f9d0cef60d09ff5a4c87c06", namespace).execute();
         Assert.assertNotNull(result.getList());
+
+            ListUserAuthorizedResourcesParam param = new ListUserAuthorizedResourcesParam("5f9d0cef60d09ff5a4c87c06")
+                    .withNamespace("default")
+                    .withResourceType("DATA");
+
+            PaginatedAuthorizedResources res = managementClient.users().listAuthorizedResources(param).execute();
+
+        Assert.assertNotNull(res);
+
     }
 
     @Test
