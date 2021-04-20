@@ -4,7 +4,7 @@ def binApiKey = ""
 def mavenCentralPassword = "!"
 def mavenPrivatePassword = ""
 def binUser = "authing"
-def versionCode = '4.3.12'
+def versionCode = '4.3.13'
 def pomConfig = {
     licenses {
         license {
