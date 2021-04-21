@@ -134,11 +134,13 @@ public class ApplicationManagementClientTest {
     }
 
     @Test
-    public void listResources() {
+    public void listResources() throws IOException {
         ListResourcesParams params = new ListResourcesParams(APP_ID);
         params.setLimit(1);
         params.setPage(1);
-        managementClient.application().listResources(params);
+        Pagination<IResourceResponse> res = managementClient.application().listResources(params).execute();
+
+        Assert.assertNotNull(res);
     }
 
     @Test
@@ -373,5 +375,75 @@ public class ApplicationManagementClientTest {
         ).execute();
 
         Assert.assertNotNull(app);
+    }
+
+    @Test
+    public void createAgreement() throws IOException {
+        String title = " this title ";
+        AgreementParams params = new AgreementParams(title);
+
+        AgreementDetail agreement = managementClient.application().createAgreement(
+                APP_ID,
+                params
+        ).execute();
+
+        Assert.assertEquals(agreement.getTitle(), title);
+    }
+
+    private AgreementDetail createAgreementE() throws IOException {
+        String title = " this title ";
+        AgreementParams params = new AgreementParams(title);
+
+        return managementClient.application().createAgreement(
+                APP_ID,
+                params
+        ).execute();
+    }
+
+    @Test
+    public void modifyAgreement() throws IOException {
+        AgreementDetail agreement = this.createAgreementE();
+
+        String title = "new agreement title";
+
+        AgreementDetail res = managementClient.application().modifyAgreement(
+                APP_ID,
+                agreement.getId(),
+                new AgreementParams(title)
+        ).execute();
+
+        Assert.assertEquals(res.getTitle(), title);
+    }
+
+    @Test
+    public void listAgreement() throws IOException {
+        AgreementDetail agreement = this.createAgreementE();
+
+        Pagination<AgreementDetail> listAgreement = managementClient.application()
+                .listAgreement(APP_ID).execute();
+
+        Assert.assertNotEquals(listAgreement.getTotalCount(), 0);
+    }
+
+    @Test
+    public void deleteAgreement() throws IOException {
+        AgreementDetail agreement = this.createAgreementE();
+
+        Boolean deleted = managementClient.application()
+                .deleteAgreement(APP_ID, agreement.getId()).execute();
+
+        Assert.assertTrue(deleted);
+    }
+
+    public void sortAgreement() throws IOException {
+        Pagination<AgreementDetail> listAgreement = managementClient.application()
+                .listAgreement(APP_ID).execute();
+
+        List<String> list = Arrays.asList("id_1", "id_2");
+
+        Boolean res = managementClient.application().sortAgreement(
+                APP_ID,
+                list
+        ).execute();
     }
 }

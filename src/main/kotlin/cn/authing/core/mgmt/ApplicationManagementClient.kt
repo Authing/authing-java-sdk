@@ -362,4 +362,78 @@ class ApplicationManagementClient(private val client: ManagementClient) {
             ).withResourceType(resourceType.toString())
         )
     }
+
+    fun createAgreement(
+        appId: String,
+        agreement: AgreementParams
+    ): HttpCall<RestfulResponse<AgreementDetail>, AgreementDetail> {
+        val url = "${client.host}/api/v2/applications/${appId}/agreements"
+
+        return client.createHttpPostCall(
+            url,
+            Gson().toJson(agreement),
+            object : TypeToken<RestfulResponse<AgreementDetail>>() {}
+        ) { it.data }
+    }
+
+    fun listAgreement(appId: String): HttpCall<RestfulResponse<Pagination<AgreementDetail>>, Pagination<AgreementDetail>> {
+        val url = "${client.host}/api/v2/applications/${appId}/agreements"
+
+        return client.createHttpGetCall(
+            url,
+            object : TypeToken<RestfulResponse<Pagination<AgreementDetail>>>() {}
+        ) { it.data }
+    }
+
+    fun modifyAgreement(
+        appId: String,
+        agreementId: String,
+        updates: AgreementParams
+    ): HttpCall<RestfulResponse<AgreementDetail>, AgreementDetail> {
+        val url = "${client.host}/api/v2/applications/${appId}/agreements/${agreementId}"
+
+        return client.createHttpPutCall(
+            url,
+            Gson().toJson(updates),
+            object : TypeToken<RestfulResponse<AgreementDetail>>() {}
+        ) { it.data }
+    }
+
+    fun deleteAgreement(
+        appId: String,
+        agreementId: String
+    ): HttpCall<RestfulResponse<Boolean>, Boolean> {
+        val url = "${client.host}/api/v2/applications/${appId}/agreements/${agreementId}"
+
+        return client.createHttpDeleteCall(
+            url,
+            object : TypeToken<RestfulResponse<Boolean>>() {}
+        ) { it.code == 200 }
+    }
+
+    fun sortAgreement(
+        appId: String,
+        order: List<String>
+    ): HttpCall<RestfulResponse<Boolean>, Boolean> {
+        val url = "${client.host}/api/v2/applications/${appId}/agreements/sort"
+
+        return client.createHttpPostCall(
+            url,
+            "{ ids: ${Gson().toJson(order)} }",
+            object : TypeToken<RestfulResponse<Boolean>>() {}
+        ) { it.code == 200 }
+    }
+
+    @JvmOverloads
+    fun activeUsers(
+        appId: String,
+        options: PageOptions? = PageOptions()
+    ): HttpCall<RestfulResponse<ActiveUser>, ActiveUser> {
+        val url = "${client.host}/api/v2/applications/${appId}/active-users?page=${options?.page}&limit=${options?.limit}"
+
+        return client.createHttpGetCall(
+            url,
+            object : TypeToken<RestfulResponse<ActiveUser>>() {}
+        ) { it.data }
+    }
 }

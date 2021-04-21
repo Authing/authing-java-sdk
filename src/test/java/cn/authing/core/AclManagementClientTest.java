@@ -256,4 +256,17 @@ public class AclManagementClientTest {
         List<ResourceNamespace> list = paginatedNamespace.getList();
 //        Assert.assertTrue(totalCount.intValue() > 0);
     }
+
+    @Test
+    public void updateNamespace() throws IOException {
+        ResourceNamespace res = managementClient.acl().updateNamespace(
+                "CODE",
+                new UpdateNamespaceParams(
+                        "NAME",
+                        "CODE"
+                )
+        ).execute();
+
+        Boolean deleted = managementClient.acl().deleteNamespace("CODE").execute();
+    }
 }

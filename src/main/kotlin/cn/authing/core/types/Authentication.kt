@@ -58,3 +58,11 @@ constructor(
     var accessToken: String? = null,
     var idToken: String? = null
 )
+
+data class ILogoutParams
+@JvmOverloads
+constructor(
+    var expert: String? = null,
+    var redirectUri: String? = null,
+    var idToken: String? = null
+)

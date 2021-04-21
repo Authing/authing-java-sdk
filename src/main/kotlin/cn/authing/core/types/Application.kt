@@ -413,6 +413,25 @@ data class ListResourcesParams
 constructor(
     var appId: String,
     var type: ResourceType? = null,
-    var limit: Number = 10,
-    var page: Number = 1
+    var limit: Int = 10,
+    var page: Int = 1
+)
+
+data class AgreementParams
+@JvmOverloads
+constructor(
+    var title: String,
+    var required: Boolean? = true,
+    var lang: String? = "zh-CN"
+)
+
+data class AgreementDetail
+constructor(
+    var title: String,
+    var required: Boolean,
+    var lang: String,
+    var appId: String,
+    var order: String,
+    var userPoolId: String,
+    var id: String
 )

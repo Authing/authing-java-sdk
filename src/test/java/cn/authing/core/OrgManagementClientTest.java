@@ -5,6 +5,7 @@ import cn.authing.core.mgmt.ManagementClient;
 import cn.authing.core.mgmt.OrgManagementClient;
 import cn.authing.core.types.*;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,8 +22,15 @@ public class OrgManagementClientTest {
 
     @Before
     public void before() throws IOException, GraphQLException {
-        managementClient = new ManagementClient("5f9d0cee4a8f5e150cf6470d", "ea4e02cd9dbff480a64813f7fe3b5cf0");
+        String userPoolId = "5ebbe0591c6c6b9aab65b185";
+//        String userPoolId = "606d9b8468d2655d5ec3e6ce";
+        String userPoolSecret = "e6f295760637ffd21489788ef8aabb65";
+//        String userPoolSecret = "340bcc1ff7a40a0178ba637cde965e6c";
+
+        ManagementClient managementClient = new ManagementClient(userPoolId, userPoolSecret);
+//        managementClient.setHost("http://localhost:3000");
         managementClient.setHost("https://core.authing.cn");
+
         this.orgManagementClient = managementClient.org();
 
         managementClient.requestToken().execute();
@@ -37,12 +45,14 @@ public class OrgManagementClientTest {
 
     @Test
     public void findById() throws IOException, GraphQLException {
+        this.create();
         Org org = this.orgManagementClient.findById(org1.getId()).execute();
         Assert.assertNotNull(org);
     }
 
     @Test
     public void deleteById() throws IOException, GraphQLException {
+        this.create();
         CommonMessage commonMessage = this.orgManagementClient.deleteById(org1.getId()).execute();
         CommonMessage commonMessage2 = this.orgManagementClient.deleteById(org2.getId()).execute();
         Assert.assertTrue(commonMessage != null && commonMessage2 != null);
@@ -116,6 +126,7 @@ public class OrgManagementClientTest {
 
     @Test
     public void listChildren() throws IOException, GraphQLException {
+        this.create();
         PaginatedOrgs paginatedOrgs = this.orgManagementClient.list(new OrgsParam()).execute();
         List<Node> nodes = this.orgManagementClient.listChildren(paginatedOrgs.getList().get(2).getId(), "5fa4aeb7e1c8bd0e625441e1").execute();
         Assert.assertNotNull(nodes);
@@ -162,14 +173,19 @@ public class OrgManagementClientTest {
 
     @Test
     public void exportAll() throws IOException {
-        List<Node> nodes = this.orgManagementClient.exportAll().execute();
+        List<List<OrgNode>> nodes = this.orgManagementClient.exportAll().execute();
+
+        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(nodes));
         Assert.assertNotNull(nodes);
     }
 
     @Test
     public void exportByOrgId() throws IOException {
-        String orgId = "60210d36262e1086cd2d1209";
-        Node node = this.orgManagementClient.exportByOrgId(orgId).execute();
+        String orgId = "5f0e7e4d061ec4dba32376d9";
+        List<OrgNode> node = this.orgManagementClient.exportByOrgId(orgId).execute();
+
+        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(node));
+
         Assert.assertNotNull(node);
     }
 

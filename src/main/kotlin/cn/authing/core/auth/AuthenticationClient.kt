@@ -985,7 +985,7 @@ class AuthenticationClient : BaseClient {
         }
     }
 
-    fun introspectTokenWithClientSecretBasic(token: String): HttpCall<Any, Any>  {
+    fun introspectTokenWithClientSecretBasic(token: String): HttpCall<Any, Any> {
         val basic64Str =
             "Basic " + Base64.getEncoder().encodeToString(("${this.appId}:${this.secret}").toByteArray())
         return HttpCall(
@@ -1009,7 +1009,7 @@ class AuthenticationClient : BaseClient {
         }
     }
 
-    fun introspectTokenWithNone(token: String): HttpCall<Any, Any>  {
+    fun introspectTokenWithNone(token: String): HttpCall<Any, Any> {
         return HttpCall(
             okHttpClient.newCall(
                 Request.Builder()
@@ -1032,7 +1032,7 @@ class AuthenticationClient : BaseClient {
     }
 
     fun validateToken(param: ValidateTokenParams): HttpCall<Any, Any> {
-        val ( accessToken, idToken ) = param
+        val (accessToken, idToken) = param
         if (accessToken == null && idToken == null)
             throw Exception("请在传入的参数对象中包含 accessToken 或 idToken 字段")
         if (accessToken != null && idToken != null)
@@ -1055,34 +1055,125 @@ class AuthenticationClient : BaseClient {
     }
 
 
-//    fun revokeToken(token: String): HttpCall<Boolean, Boolean> {
-//        if (listOf<ProtocolEnum>(ProtocolEnum.OAUTH, ProtocolEnum.OIDC).contains(this.protocol)) {
-//            throw Exception("初始化 AuthenticationClient 时传入的 protocol 参数必须为 ProtocolEnum.OAUTH 或 ProtocolEnum.OIDC，请检查参数")
-//        }
-//
-//        if (this.secret.isNullOrBlank()
-//            && this.tokenEndPointAuthMethod != AuthMethodEnum.NONE
-//        ) {
-//            throw Exception("请在初始化 AuthenticationClient 时传入 appId 和 secret 参数")
-//        }
-//
-//        return when (this.introspectionEndPointAuthMethod) {
-//            AuthMethodEnum.CLIENT_SECRET_POST -> revokeTokenWithClientSecretPost(token)
-//            AuthMethodEnum.CLIENT_SECRET_BASIC -> revokeTokenWithClientSecretBasic(token)
-//            else -> revokeTokenWithNone(token)
-//
-//        }
-//    }
-//
-//    fun revokeTokenWithClientSecretPost(token: String): HttpCall<Boolean, Boolean> {
-//
-//    }
-//
-//    fun revokeTokenWithClientSecretBasic(token: String): HttpCall<Any, Any> {
-//
-//    }
-//
-//    fun revokeTokenWithNone(token: String): HttpCall<Any, Any> {
-//
-//    }
+    fun revokeToken(token: String): HttpCall<Any, Boolean> {
+        if (listOf<ProtocolEnum>(ProtocolEnum.OAUTH, ProtocolEnum.OIDC).contains(this.protocol)) {
+            throw Exception("初始化 AuthenticationClient 时传入的 protocol 参数必须为 ProtocolEnum.OAUTH 或 ProtocolEnum.OIDC，请检查参数")
+        }
+
+        if (this.secret.isNullOrBlank()
+            && this.tokenEndPointAuthMethod != AuthMethodEnum.NONE
+        ) {
+            throw Exception("请在初始化 AuthenticationClient 时传入 appId 和 secret 参数")
+        }
+
+        return when (this.introspectionEndPointAuthMethod) {
+            AuthMethodEnum.CLIENT_SECRET_POST -> revokeTokenWithClientSecretPost(token)
+            AuthMethodEnum.CLIENT_SECRET_BASIC -> revokeTokenWithClientSecretBasic(token)
+            else -> revokeTokenWithNone(token)
+
+        }
+    }
+
+    fun revokeTokenWithClientSecretPost(token: String): HttpCall<Any, Boolean> {
+        return HttpCall(
+            okHttpClient.newCall(
+                Request.Builder()
+                    .url(
+                        if (this.protocol == ProtocolEnum.OIDC) "$host/oidc/token/revocation"
+                        else "$host/oauth/token/revocation"
+                    )
+                    .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                    .post(
+                        FormBody.Builder()
+                            .add("token", token)
+                            .add("client_id", this.appId!!)
+                            .add("client_secret", this.secret!!)
+                            .build()
+                    )
+                    .build()
+            ), json.getAdapter(object : TypeToken<Any>() {})
+        ) {
+            it != null
+        }
+    }
+
+    fun revokeTokenWithClientSecretBasic(token: String): HttpCall<Any, Boolean> {
+        if (this.protocol == ProtocolEnum.OAUTH)
+            throw Exception("OAuth 2.0 暂不支持用 client_secret_basic 模式身份验证撤回 Token")
+
+        val basic64Str =
+            "Basic " + Base64.getEncoder().encodeToString(("${this.appId}:${this.secret}").toByteArray())
+        return HttpCall(
+            okHttpClient.newCall(
+                Request.Builder()
+                    .url("$host/oidc/token/revocation")
+                    .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                    .addHeader("Authorization", basic64Str)
+                    .post(
+                        FormBody.Builder()
+                            .add("token", token)
+                            .build()
+                    )
+                    .build()
+            ), json.getAdapter(object : TypeToken<Any>() {})
+        ) {
+            it != null
+        }
+    }
+
+    fun revokeTokenWithNone(token: String): HttpCall<Any, Boolean> {
+        return HttpCall(
+            okHttpClient.newCall(
+                Request.Builder()
+                    .url(
+                        if (this.protocol == ProtocolEnum.OIDC) "$host/oidc/token/revocation"
+                        else "$host/oauth/token/revocation"
+                    )
+                    .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                    .post(
+                        FormBody.Builder()
+                            .add("token", token)
+                            .add("client_id", this.appId!!)
+                            .build()
+                    )
+                    .build()
+            ), json.getAdapter(object : TypeToken<Any>() {})
+        ) {
+            it != null
+        }
+    }
+
+    fun buildLogoutUrl(options: ILogoutParams): String {
+        if (this.protocol == ProtocolEnum.OAUTH)
+            return this.buildCasLogoutUrl(options)
+
+        if (this.protocol == ProtocolEnum.OIDC && options.expert != null)
+            return this.buildOidcLogoutUrl(options)
+
+        return buildEasyLogoutUrl(options)
+    }
+
+    fun buildCasLogoutUrl(options: ILogoutParams): String {
+        return if (options.redirectUri != null)
+            "$host/cas-idp/logout?url=${options.redirectUri}"
+        else
+            "$host/cas-idp/logout"
+    }
+
+    fun buildOidcLogoutUrl(options: ILogoutParams): String {
+        if ((options.redirectUri != null && options.idToken != null) || (options.redirectUri == null && options.idToken == null))
+            throw Exception("必须同时传入 idToken 和 redirectUri 参数，或者同时都不传入")
+
+        return if (options.redirectUri != null)
+            "${host}/oidc/session/end?id_token_hint=${options.idToken}&post_logout_redirect_uri=${options.redirectUri}"
+        else
+            "${host}/oidc/session/end"
+    }
+
+    fun buildEasyLogoutUrl(options: ILogoutParams): String {
+        return if (options.redirectUri != null)
+            "${host}/login/profile/logout?redirect_uri=${options.redirectUri}"
+        else
+            "${host}/login/profile/logout"
+    }
 }
