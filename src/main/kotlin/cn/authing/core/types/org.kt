@@ -54,8 +54,8 @@ data class OrgNode(
     @SerializedName("children")
     var children: List<OrgNode>? = null,
     /** @param [users] 节点的用户列表 */
-    @SerializedName("users")
-    var users: PaginatedUsers,
+    @SerializedName("members")
+    var users: List<User>,
     /** @param [authorizedResources] 被授权访问的所有资源 */
     @SerializedName("authorizedResources")
     var authorizedResources: PaginatedAuthorizedResources? = null

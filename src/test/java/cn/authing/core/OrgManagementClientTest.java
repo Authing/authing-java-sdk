@@ -22,14 +22,14 @@ public class OrgManagementClientTest {
 
     @Before
     public void before() throws IOException, GraphQLException {
-        String userPoolId = "5ebbe0591c6c6b9aab65b185";
+        String userPoolId = "608025a840f01ed816f4d8b6";
 //        String userPoolId = "606d9b8468d2655d5ec3e6ce";
-        String userPoolSecret = "e6f295760637ffd21489788ef8aabb65";
+        String userPoolSecret = "cf3039fa31aac038c15b164f592130e8";
 //        String userPoolSecret = "340bcc1ff7a40a0178ba637cde965e6c";
 
         ManagementClient managementClient = new ManagementClient(userPoolId, userPoolSecret);
 //        managementClient.setHost("http://localhost:3000");
-        managementClient.setHost("https://core.authing.cn");
+        managementClient.setHost("http://10.0.0.47:3000");
 
         this.orgManagementClient = managementClient.org();
 
@@ -167,13 +167,15 @@ public class OrgManagementClientTest {
 
         Gson gson = new Gson();
         String jsonStr = gson.toJson(map);
-        Node nodes = this.orgManagementClient.importByJson(jsonStr).execute();
+        OrgNode nodes = this.orgManagementClient.importByJson(jsonStr).execute();
+
+        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(nodes));
         Assert.assertNotNull(nodes);
     }
 
     @Test
     public void exportAll() throws IOException {
-        List<List<OrgNode>> nodes = this.orgManagementClient.exportAll().execute();
+        List<OrgNode> nodes = this.orgManagementClient.exportAll().execute();
 
         System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(nodes));
         Assert.assertNotNull(nodes);
@@ -181,8 +183,8 @@ public class OrgManagementClientTest {
 
     @Test
     public void exportByOrgId() throws IOException {
-        String orgId = "5f0e7e4d061ec4dba32376d9";
-        List<OrgNode> node = this.orgManagementClient.exportByOrgId(orgId).execute();
+        String orgId = "608025f2dc748d4580290055";
+        OrgNode node = this.orgManagementClient.exportByOrgId(orgId).execute();
 
         System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(node));
 

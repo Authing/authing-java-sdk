@@ -198,7 +198,7 @@ class OrgManagementClient(private val client: ManagementClient) {
     /**
      * 通过一个 JSON 树结构导入组织机构
      */
-    fun importByJson(json: String): HttpCall<RestfulResponse<Node>, Node> {
+    fun importByJson(json: String): HttpCall<RestfulResponse<OrgNode>, OrgNode> {
         val gson = Gson()
         val node = gson.fromJson(json, Map::class.java)
         val data = mapOf("filetype" to "json", "file" to node)
@@ -207,7 +207,7 @@ class OrgManagementClient(private val client: ManagementClient) {
         return client.createHttpPostCall(
             "${client.host}/api/v2/orgs/import",
             dataStr,
-            object : TypeToken<RestfulResponse<Node>>() {}) {
+            object : TypeToken<RestfulResponse<OrgNode>>() {}) {
             it.data
         }
     }
@@ -215,10 +215,10 @@ class OrgManagementClient(private val client: ManagementClient) {
     /**
      * 导出所有组织机构数据
      */
-    fun exportAll(): HttpCall<RestfulResponse<List<List<OrgNode>>>, List<List<OrgNode>>> {
+    fun exportAll(): HttpCall<RestfulResponse<List<OrgNode>>, List<OrgNode>> {
         return client.createHttpGetCall(
             "${client.host}/api/v2/orgs/export",
-            object : TypeToken<RestfulResponse<List<List<OrgNode>>>>() {}) {
+            object : TypeToken<RestfulResponse<List<OrgNode>>>() {}) {
             it.data
         }
     }
@@ -226,10 +226,10 @@ class OrgManagementClient(private val client: ManagementClient) {
     /**
      * 导入某个组织机构数据
      */
-    fun exportByOrgId(orgId: String): HttpCall<RestfulResponse<List<OrgNode>>, List<OrgNode>> {
+    fun exportByOrgId(orgId: String): HttpCall<RestfulResponse<OrgNode>, OrgNode> {
         return client.createHttpGetCall(
             "${client.host}/api/v2/orgs/export?org_id=${orgId}",
-            object : TypeToken<RestfulResponse<List<OrgNode>>>() {}) {
+            object : TypeToken<RestfulResponse<OrgNode>>() {}) {
             it.data
         }
     }
