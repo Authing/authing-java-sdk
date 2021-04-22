@@ -40,10 +40,10 @@ public class UsersManagementClientTest {
 
     @Before
     public void before() throws IOException, GraphQLException {
-        String userPoolId = "6077d4bf1726c78d052a48d3";
-        String userPoolSecret = "f205677ceb5fb55462f71067e5f2bc7a";
+        String userPoolId = "5f45cad3ece50b62de2a02cd";
+        String userPoolSecret = "624cb39b07ffd29b946112ea82f5b50e";
         managementClient = new ManagementClient(userPoolId, userPoolSecret);
-        managementClient.setHost("http://localhost:3000");
+        managementClient.setHost("https://core.authing.cn");
         this.usersManagementClient = managementClient.users();
         this.groupsManagementClient = managementClient.group();
 
@@ -415,5 +415,12 @@ public class UsersManagementClientTest {
         PaginatedGroups paginatedGroups = this.usersManagementClient.listGroups(user.getId()).execute();
         Integer totalCount = paginatedGroups.getTotalCount();
         Assert.assertTrue(totalCount == 0);
+    }
+
+    @Test
+    public void listUserActions() throws IOException {
+        Pagination<Object> res = managementClient.users().listUserActions().execute();
+
+        Assert.assertNotNull(res);
     }
 }

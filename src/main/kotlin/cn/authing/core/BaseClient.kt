@@ -37,6 +37,10 @@ abstract class BaseClient {
      * 访问某些需要权限的接口则必须设置此变量
      */
     var token: String? = null
+    /**
+     * token 过期时间
+     */
+    var accessTokenExpiresAt: Long? = null
 
     /**
      * 应用 Id

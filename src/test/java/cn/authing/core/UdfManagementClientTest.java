@@ -37,20 +37,20 @@ public class UdfManagementClientTest {
 
     @Test
     public void list() throws IOException, GraphQLException {
-        List<UserDefinedField> list = this.udfManagementClient.list(UdfTargetType.USER).execute();
+        List<UserDefinedField> list = this.udfManagementClient.list(UdfTargetType.ROLE).execute();
         Assert.assertTrue(list.size() > 0);
     }
 
     @Test
     public void set() throws IOException, GraphQLException {
-        UserDefinedField udf = this.udfManagementClient.set(UdfTargetType.USER, "key", UdfDataType.STRING, "label").execute();
+        UserDefinedField udf = this.udfManagementClient.set(UdfTargetType.ROLE, "key", UdfDataType.STRING, "label").execute();
         Assert.assertEquals(udf.getKey(), "key");
     }
 
     @Test
     public void remove() throws IOException, GraphQLException {
-        this.udfManagementClient.set(UdfTargetType.USER, "key", UdfDataType.STRING, "label").execute();
-        CommonMessage message = this.udfManagementClient.remove(UdfTargetType.USER, "key").execute();
+        this.udfManagementClient.set(UdfTargetType.ROLE, "key", UdfDataType.STRING, "label").execute();
+        CommonMessage message = this.udfManagementClient.remove(UdfTargetType.ROLE, "key").execute();
         Assert.assertEquals(Objects.requireNonNull(message.getCode()).intValue(), 200);
     }
 
@@ -62,7 +62,7 @@ public class UdfManagementClientTest {
 
         String userId = "604b34ca6aa796c8b77d6c26";
 
-        List<UserDefinedData> list = managementClient.udf().setUdvBatch(UdfTargetType.USER, userId, inputs).execute();
+        List<UserDefinedData> list = managementClient.udf().setUdvBatch(UdfTargetType.ROLE, userId, inputs).execute();
 
         Assert.assertNotNull(list);
     }

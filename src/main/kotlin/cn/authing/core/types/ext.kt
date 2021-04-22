@@ -60,6 +60,13 @@ data class SetUdfValueBatchInputItem(
     var data: Map<String, String>
 )
 
+data class S(
+    // 用户id
+    var userId: String,
+    // 用户自定义属性键值对
+    var data: Map<String, String>
+)
+
 enum class ProtocolEnum(val value: String) {
     OAUTH("oauth"),
     OIDC("oidc"),

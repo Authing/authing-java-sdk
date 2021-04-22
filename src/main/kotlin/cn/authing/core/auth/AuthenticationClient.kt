@@ -136,6 +136,19 @@ class AuthenticationClient : BaseClient {
         }
     }
 
+    fun loginBySubAccount(
+        options: LoginBySubAccountParam
+    ): GraphQLCall<LoginBySubAccountResponse, User> {
+        return createGraphQLCall(
+            options.createRequest(),
+            object : TypeToken<GraphQLResponse<LoginBySubAccountResponse>>() {}
+        ) {
+            user = it.result
+            token = it.result.token ?: token
+            return@createGraphQLCall it.result
+        }
+    }
+
     /**
      * 检查密码强度
      */
@@ -231,7 +244,9 @@ class AuthenticationClient : BaseClient {
      */
     fun sendEmail(email: String, scene: EmailScene): GraphQLCall<SendEmailResponse, CommonMessage> {
         val param = SendEmailParam(email, scene)
-        return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<SendEmailResponse>>() {}) {
+        return createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<SendEmailResponse>>() {}) {
             it.result
         }
     }
@@ -275,7 +290,9 @@ class AuthenticationClient : BaseClient {
      */
     fun updateProfile(input: UpdateUserInput): GraphQLCall<UpdateUserResponse, User> {
         val param = UpdateUserParam(input = input)
-        return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<UpdateUserResponse>>() {}) {
+        return createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<UpdateUserResponse>>() {}) {
             user = it.result
             token = it.result.token ?: token
             return@createGraphQLCall it.result
@@ -310,7 +327,9 @@ class AuthenticationClient : BaseClient {
     ): GraphQLCall<UpdatePhoneResponse, User> {
         val param = UpdatePhoneParam(phone, phoneCode, oldPhone, oldPhoneCode)
 
-        return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<UpdatePhoneResponse>>() {}) {
+        return createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<UpdatePhoneResponse>>() {}) {
             user = it.result
             token = it.result.token ?: token
             return@createGraphQLCall it.result
@@ -329,7 +348,9 @@ class AuthenticationClient : BaseClient {
     ): GraphQLCall<UpdateEmailResponse, User> {
         val param = UpdateEmailParam(email, emailCode, oldEmail, oldEmailCode)
 
-        return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<UpdateEmailResponse>>() {}) {
+        return createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<UpdateEmailResponse>>() {}) {
             user = it.result
             token = it.result.token ?: token
             return@createGraphQLCall it.result
@@ -341,7 +362,9 @@ class AuthenticationClient : BaseClient {
      */
     fun bindEmail(email: String, emailCode: String): GraphQLCall<BindEmailResponse, User> {
         val param = BindEmailParam(email, emailCode)
-        return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<BindEmailResponse>>() {}) {
+        return createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<BindEmailResponse>>() {}) {
             user = it.result
             token = it.result.token ?: token
             return@createGraphQLCall it.result
@@ -353,7 +376,9 @@ class AuthenticationClient : BaseClient {
      */
     fun unbindEmail(): GraphQLCall<UnbindEmailResponse, User> {
         val param = UnbindEmailParam()
-        return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<UnbindEmailResponse>>() {}) {
+        return createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<UnbindEmailResponse>>() {}) {
             user = it.result
             token = it.result.token ?: token
             return@createGraphQLCall it.result
@@ -406,7 +431,9 @@ class AuthenticationClient : BaseClient {
      */
     fun bindPhone(phone: String, phoneCode: String): GraphQLCall<BindPhoneResponse, User> {
         val param = BindPhoneParam(phone, phoneCode)
-        return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<BindPhoneResponse>>() {}) {
+        return createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<BindPhoneResponse>>() {}) {
             user = it.result
             token = it.result.token ?: token
             return@createGraphQLCall it.result
@@ -418,7 +445,9 @@ class AuthenticationClient : BaseClient {
      */
     fun unbindPhone(): GraphQLCall<UnbindPhoneResponse, User> {
         val param = UnbindPhoneParam()
-        return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<UnbindPhoneResponse>>() {}) {
+        return createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<UnbindPhoneResponse>>() {}) {
             user = it.result
             token = it.result.token ?: token
             return@createGraphQLCall it.result
@@ -458,7 +487,9 @@ class AuthenticationClient : BaseClient {
         }
         val json = Gson()
         val param = SetUdvParam(UdfTargetType.USER, user!!.id, key, json.toJson(value))
-        return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<SetUdvResponse>>() {}) {
+        return createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<SetUdvResponse>>() {}) {
             it.result
         }
     }
@@ -473,12 +504,14 @@ class AuthenticationClient : BaseClient {
     /**
      * 移除自定义数据
      */
-    fun removeUdv(key: String): GraphQLCall<RemoveUdvResponse, List<UserDefinedData>> {
+    private fun removeUdv(key: String): GraphQLCall<RemoveUdvResponse, List<UserDefinedData>> {
         if (user == null) {
             throw Exception("login first")
         }
         val param = RemoveUdvParam(UdfTargetType.USER, user!!.id, key)
-        return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<RemoveUdvResponse>>() {}) {
+        return createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<RemoveUdvResponse>>() {}) {
             it.result
         }
     }
@@ -579,7 +612,9 @@ class AuthenticationClient : BaseClient {
 
         val udvList = data.entries.map { UserDefinedDataInput(it.key, it.value) }
         val param = SetUdvBatchParam(UdfTargetType.USER, user!!.id, udvList)
-        return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<SetUdvBatchResponse>>() {}) {
+        return createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<SetUdvBatchResponse>>() {}) {
             it.result
         }
     }
@@ -588,7 +623,7 @@ class AuthenticationClient : BaseClient {
      * 移除自定义数据
      */
     fun removeUdfValue(key: String): GraphQLCall<RemoveUdvResponse, List<UserDefinedData>> {
-        return removeUdv(key);
+        return removeUdv(key)
     }
 
     /**
@@ -871,7 +906,7 @@ class AuthenticationClient : BaseClient {
         }
     }
 
-    fun getNewAccessTokenByRefreshTokenWithClientSecretPost(refreshToken: String): HttpCall<Any, Any> {
+    private fun getNewAccessTokenByRefreshTokenWithClientSecretPost(refreshToken: String): HttpCall<Any, Any> {
         return HttpCall(
             okHttpClient.newCall(
                 Request.Builder()
@@ -895,7 +930,7 @@ class AuthenticationClient : BaseClient {
         }
     }
 
-    fun getNewAccessTokenByRefreshTokenWithClientSecretBasic(refreshToken: String): HttpCall<Any, Any> {
+    private fun getNewAccessTokenByRefreshTokenWithClientSecretBasic(refreshToken: String): HttpCall<Any, Any> {
         val basic64Str =
             "Basic " + Base64.getEncoder().encodeToString(("${this.appId}:${this.secret}").toByteArray())
         return HttpCall(
@@ -920,7 +955,7 @@ class AuthenticationClient : BaseClient {
         }
     }
 
-    fun getNewAccessTokenByRefreshTokenWithNone(refreshToken: String): HttpCall<Any, Any> {
+    private fun getNewAccessTokenByRefreshTokenWithNone(refreshToken: String): HttpCall<Any, Any> {
         return HttpCall(
             okHttpClient.newCall(
                 Request.Builder()
@@ -962,7 +997,7 @@ class AuthenticationClient : BaseClient {
         }
     }
 
-    fun introspectTokenWithClientSecretPost(token: String): HttpCall<Any, Any> {
+    private fun introspectTokenWithClientSecretPost(token: String): HttpCall<Any, Any> {
         return HttpCall(
             okHttpClient.newCall(
                 Request.Builder()
@@ -985,7 +1020,7 @@ class AuthenticationClient : BaseClient {
         }
     }
 
-    fun introspectTokenWithClientSecretBasic(token: String): HttpCall<Any, Any> {
+    private fun introspectTokenWithClientSecretBasic(token: String): HttpCall<Any, Any> {
         val basic64Str =
             "Basic " + Base64.getEncoder().encodeToString(("${this.appId}:${this.secret}").toByteArray())
         return HttpCall(
@@ -1009,7 +1044,7 @@ class AuthenticationClient : BaseClient {
         }
     }
 
-    fun introspectTokenWithNone(token: String): HttpCall<Any, Any> {
+    private fun introspectTokenWithNone(token: String): HttpCall<Any, Any> {
         return HttpCall(
             okHttpClient.newCall(
                 Request.Builder()
@@ -1074,7 +1109,7 @@ class AuthenticationClient : BaseClient {
         }
     }
 
-    fun revokeTokenWithClientSecretPost(token: String): HttpCall<Any, Boolean> {
+    private fun revokeTokenWithClientSecretPost(token: String): HttpCall<Any, Boolean> {
         return HttpCall(
             okHttpClient.newCall(
                 Request.Builder()
@@ -1097,7 +1132,7 @@ class AuthenticationClient : BaseClient {
         }
     }
 
-    fun revokeTokenWithClientSecretBasic(token: String): HttpCall<Any, Boolean> {
+    private fun revokeTokenWithClientSecretBasic(token: String): HttpCall<Any, Boolean> {
         if (this.protocol == ProtocolEnum.OAUTH)
             throw Exception("OAuth 2.0 暂不支持用 client_secret_basic 模式身份验证撤回 Token")
 
@@ -1121,7 +1156,7 @@ class AuthenticationClient : BaseClient {
         }
     }
 
-    fun revokeTokenWithNone(token: String): HttpCall<Any, Boolean> {
+    private fun revokeTokenWithNone(token: String): HttpCall<Any, Boolean> {
         return HttpCall(
             okHttpClient.newCall(
                 Request.Builder()
@@ -1153,14 +1188,14 @@ class AuthenticationClient : BaseClient {
         return buildEasyLogoutUrl(options)
     }
 
-    fun buildCasLogoutUrl(options: ILogoutParams): String {
+    private fun buildCasLogoutUrl(options: ILogoutParams): String {
         return if (options.redirectUri != null)
             "$host/cas-idp/logout?url=${options.redirectUri}"
         else
             "$host/cas-idp/logout"
     }
 
-    fun buildOidcLogoutUrl(options: ILogoutParams): String {
+    private fun buildOidcLogoutUrl(options: ILogoutParams): String {
         if ((options.redirectUri != null && options.idToken != null) || (options.redirectUri == null && options.idToken == null))
             throw Exception("必须同时传入 idToken 和 redirectUri 参数，或者同时都不传入")
 
@@ -1170,7 +1205,7 @@ class AuthenticationClient : BaseClient {
             "${host}/oidc/session/end"
     }
 
-    fun buildEasyLogoutUrl(options: ILogoutParams): String {
+    private fun buildEasyLogoutUrl(options: ILogoutParams): String {
         return if (options.redirectUri != null)
             "${host}/login/profile/logout?redirect_uri=${options.redirectUri}"
         else

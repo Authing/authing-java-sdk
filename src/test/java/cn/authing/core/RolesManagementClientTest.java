@@ -23,8 +23,8 @@ public class RolesManagementClientTest {
 
     @Before
     public void before() throws IOException, GraphQLException {
-        managementClient = new ManagementClient("5f9d0cee4a8f5e150cf6470d", "ea4e02cd9dbff480a64813f7fe3b5cf0");
-        managementClient.setHost("https://core.authing.cn");
+        managementClient = new ManagementClient("59f86b4832eb28071bdd9214", "271ba9dc00486c18488aebb0962bd50d");
+        managementClient.setHost("http://localhost:3000");
         this.rolesManagementClient = managementClient.roles();
 
         managementClient.requestToken().execute();
@@ -41,6 +41,12 @@ public class RolesManagementClientTest {
         String code = randomString();
         Role role = this.rolesManagementClient.create(new CreateRoleParam(code)).execute();
         Assert.assertEquals(role.getCode(), code);
+    }
+
+    private Role createE() throws IOException, GraphQLException {
+        String code = randomString();
+
+        return this.rolesManagementClient.create(new CreateRoleParam(code)).execute();
     }
 
     @Test
@@ -123,5 +129,27 @@ public class RolesManagementClientTest {
         PaginatedAuthorizedResources res = managementClient.roles().listAuthorizedResources(param).execute();
 
         Assert.assertNotNull(res);
+    }
+
+    @Test
+    public void getUdfValue() throws IOException, GraphQLException {
+        Role role = this.createE();
+        Map<String, Object> udfMap = managementClient.roles().getUdfValue(role.getCode()).execute();
+
+        System.out.println(udfMap);
+        Assert.assertNotNull(udfMap);
+    }
+
+    @Test
+    public void setUdfValue() throws IOException, GraphQLException {
+        Role role = this.createE();
+
+        List<UserDefinedData> list = managementClient.roles().setUdfValue(role.getCode(), "key1", "\"suntianxiang\"").execute();
+
+        Assert.assertNotNull(list);
+    }
+
+    public void setUdfValueBatch() {
+
     }
 }

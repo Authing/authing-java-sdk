@@ -4,6 +4,7 @@ import cn.authing.core.graphql.GraphQLCall
 import cn.authing.core.graphql.GraphQLResponse
 import cn.authing.core.types.*
 import com.google.gson.reflect.TypeToken
+import java.util.*
 
 /**
  * 角色管理类
@@ -265,4 +266,87 @@ class RolesManagementClient(private val client: ManagementClient) {
             object : TypeToken<GraphQLResponse<ListRoleAuthorizedResourcesResponse>>() {}
         ) { it.result.authorizedResources }
     }
+
+    fun getUdfValue(roleId: String): GraphQLCall<UdvResponse, Map<String, Any>> {
+        val param = UdvParam(UdfTargetType.ROLE, roleId)
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<UdvResponse>>() {}) {
+            convertUdvToKeyValuePair(it.result)
+        }
+    }
+
+    fun getUdfValueBatch(roleIds: List<String>): GraphQLCall<UdfValueBatchResponse, Map<String, Map<String, Any>>> {
+        if (roleIds.isEmpty()) {
+            throw Exception("userIds can't be null")
+        }
+
+        val param = UdfValueBatchParam(UdfTargetType.ROLE, roleIds)
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<UdfValueBatchResponse>>() {}) {
+            val hashtable = Hashtable<String, Map<String, Any>>()
+            it.result.map { hashtable.put(it.targetId, convertUdvToKeyValuePair(it.data)) }
+            hashtable
+        }
+    }
+
+    fun setUdfValue(
+        roleId: String,
+        data: Map<String, String>
+    ): GraphQLCall<SetUdvBatchResponse, List<UserDefinedData>> {
+        val udvList = data.entries.map { UserDefinedDataInput(it.key, it.value) }
+        val param = SetUdvBatchParam(UdfTargetType.ROLE, roleId, udvList)
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<SetUdvBatchResponse>>() {}) {
+            it.result
+        }
+    }
+
+    fun setUdfValue(
+        roleCode: String,
+        key: String,
+        value: String
+    ): GraphQLCall<SetUdvResponse, List<UserDefinedData>> {
+        val param = SetUdvParam(
+            targetType = UdfTargetType.ROLE,
+            targetId = roleCode,
+            key = key,
+            value = value
+        )
+
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<SetUdvResponse>>() {}
+        ) { it.result }
+    }
+
+    fun setUdfValueBatch(input: List<SetUdfValueBatchInputItem>): GraphQLCall<SetUdvBatchResponse, List<UserDefinedData>> {
+        if (input.isEmpty()) {
+            throw Exception("empty input list")
+        }
+
+        val inputList = input.flatMap { item ->
+            item.data.map { SetUdfValueBatchInput(item.userId, it.key, it.value) }
+        }
+        val param = SetUdfValueBatchParam(UdfTargetType.ROLE, inputList)
+
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<SetUdvBatchResponse>>() {})
+        {
+            it.result
+        }
+    }
+
+    fun removeUdfValue(roelId: String, key: String): GraphQLCall<RemoveUdvResponse, List<UserDefinedData>> {
+        val param = RemoveUdvParam(UdfTargetType.ROLE, roelId, key)
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<RemoveUdvResponse>>() {}) {
+            it.result
+        }
+    }
+
 }

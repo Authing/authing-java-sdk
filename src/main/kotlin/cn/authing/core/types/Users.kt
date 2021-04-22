@@ -56,3 +56,16 @@ enum class UserMfaType {
     OTP,
     FACE
 }
+
+data class ListUserActionsParams
+@JvmOverloads
+constructor(
+    @SerializedName("clientip")
+    var clientIp: String? = null,
+    @SerializedName("operation_name")
+    var operationName: String? = null,
+    @SerializedName("operator_arn")
+    var operatoArn: String? = null,
+    var page: Int? = 1,
+    var limit: Int? = 10
+)

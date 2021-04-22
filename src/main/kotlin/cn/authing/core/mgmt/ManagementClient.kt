@@ -6,9 +6,11 @@ import cn.authing.core.graphql.GraphQLRequest
 import cn.authing.core.graphql.GraphQLResponse
 import cn.authing.core.http.HttpCall
 import cn.authing.core.types.*
+import com.auth0.jwt.JWT
 import com.google.gson.reflect.TypeToken
+import java.util.*
 
-class ManagementClient(userPoolId: String,  secret: String) : BaseClient() {
+class ManagementClient(userPoolId: String, secret: String) : BaseClient() {
 
     init {
         this.userPoolId = userPoolId
@@ -16,12 +18,13 @@ class ManagementClient(userPoolId: String,  secret: String) : BaseClient() {
         this.secret = secret
     }
 
+
     override fun <TData, TResult> createGraphQLCall(
         request: GraphQLRequest,
         typeToken: TypeToken<GraphQLResponse<TData>>,
         resolver: (data: TData) -> TResult
     ): GraphQLCall<TData, TResult> {
-        this.getToken()
+        this.checkToken()
         return super.createGraphQLCall(request, typeToken, resolver)
     }
 
@@ -30,7 +33,7 @@ class ManagementClient(userPoolId: String,  secret: String) : BaseClient() {
         typeToken: TypeToken<TData>,
         resolver: (data: TData) -> TResult
     ): HttpCall<TData, TResult> {
-        this.getToken()
+        this.checkToken()
         return super.createHttpGetCall(url, typeToken, resolver)
     }
 
@@ -39,7 +42,7 @@ class ManagementClient(userPoolId: String,  secret: String) : BaseClient() {
         typeToken: TypeToken<TData>,
         resolver: (data: TData) -> TResult
     ): HttpCall<TData, TResult> {
-        this.getToken()
+        this.checkToken()
         return super.createHttpDeleteCall(url, typeToken, resolver)
     }
 
@@ -49,7 +52,7 @@ class ManagementClient(userPoolId: String,  secret: String) : BaseClient() {
         typeToken: TypeToken<TData>,
         resolver: (data: TData) -> TResult
     ): HttpCall<TData, TResult> {
-        this.getToken()
+        this.checkToken()
         return super.createHttpPatchCall(url, body, typeToken, resolver)
     }
 
@@ -59,7 +62,7 @@ class ManagementClient(userPoolId: String,  secret: String) : BaseClient() {
         typeToken: TypeToken<TData>,
         resolver: (data: TData) -> TResult
     ): HttpCall<TData, TResult> {
-        this.getToken()
+        this.checkToken()
         return super.createHttpPostCall(url, body, typeToken, resolver)
     }
 
@@ -69,7 +72,7 @@ class ManagementClient(userPoolId: String,  secret: String) : BaseClient() {
         typeToken: TypeToken<TData>,
         resolver: (data: TData) -> TResult
     ): HttpCall<TData, TResult> {
-        this.getToken()
+        this.checkToken()
         return super.createHttpPutCall(url, body, typeToken, resolver)
     }
 
@@ -82,12 +85,16 @@ class ManagementClient(userPoolId: String,  secret: String) : BaseClient() {
             param.createRequest(),
             object : TypeToken<GraphQLResponse<AccessTokenResponse>>() {}) {
             token = it.result.accessToken!!
+            accessTokenExpiresAt = JWT.decode(token).claims["exp"]?.asLong()?.times(1000)
             return@createGraphQLCall it.result
         }
     }
 
-    private fun getToken() {
-        if (this.token == null) this.requestToken().execute()
+    private fun checkToken() {
+        if (this.token == null)
+            this.requestToken().execute()
+        if (accessTokenExpiresAt!! < Date().time + 3600 * 1000)
+            this.requestToken().execute()
     }
 
     /**
@@ -100,7 +107,6 @@ class ManagementClient(userPoolId: String,  secret: String) : BaseClient() {
             it.result
         }
     }
-
 
 
     /**

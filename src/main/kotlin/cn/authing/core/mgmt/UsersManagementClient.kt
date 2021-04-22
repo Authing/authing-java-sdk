@@ -114,7 +114,10 @@ class UsersManagementClient(private val client: ManagementClient) {
      * 通过用户 ID 列表批量获取用户信息
      */
     @JvmOverloads
-    fun batch(identifiers: List<String>, options: BatchGetUserOptions? = null): HttpCall<RestfulResponse<List<User>>, List<User>> {
+    fun batch(
+        identifiers: List<String>,
+        options: BatchGetUserOptions? = null
+    ): HttpCall<RestfulResponse<List<User>>, List<User>> {
         return client.createHttpPostCall(
             "${client.host}/api/v2/users/batch",
             Gson().toJson(BatchGetUserPostData(identifiers, options?.queryField)),
@@ -336,7 +339,9 @@ class UsersManagementClient(private val client: ManagementClient) {
      */
     fun listUdv(userId: String): GraphQLCall<UdvResponse, List<UserDefinedData>> {
         val param = UdvParam(UdfTargetType.USER, userId)
-        return client.createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<UdvResponse>>() {}) {
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<UdvResponse>>() {}) {
             it.result
         }
     }
@@ -510,6 +515,22 @@ class UsersManagementClient(private val client: ManagementClient) {
             url,
             body,
             object : TypeToken<RestfulResponse<Boolean>>() {}) { it.code == 200 }
+    }
+
+    @JvmOverloads
+    fun listUserActions(
+        options: ListUserActionsParams? = ListUserActionsParams()
+    ): HttpCall<RestfulResponse<Pagination<Any>>, Pagination<Any>> {
+        var url = "${client.host}/api/v2/analysis/user-action?page=${options?.page}&limit=${options?.limit}"
+
+        url += if (options?.clientIp != null) "&clientip=${options.clientIp}" else ""
+        url += if (options?.operationName != null) "&operation_name=${options.operationName}" else ""
+        url += if (options?.operatoArn != null) "&operator_arn=${options.operatoArn}" else ""
+
+        return client.createHttpGetCall(
+            url,
+            object : TypeToken<RestfulResponse<Pagination<Any>>>() {}
+        ) { it.data }
     }
 
 }

@@ -22,14 +22,14 @@ public class OrgManagementClientTest {
 
     @Before
     public void before() throws IOException, GraphQLException {
-        String userPoolId = "608025a840f01ed816f4d8b6";
+        String userPoolId = "5fadf578bf55f793e7a81dca";
 //        String userPoolId = "606d9b8468d2655d5ec3e6ce";
-        String userPoolSecret = "cf3039fa31aac038c15b164f592130e8";
+        String userPoolSecret = "f290a539878dc68506641937a7592725";
 //        String userPoolSecret = "340bcc1ff7a40a0178ba637cde965e6c";
 
         ManagementClient managementClient = new ManagementClient(userPoolId, userPoolSecret);
 //        managementClient.setHost("http://localhost:3000");
-        managementClient.setHost("http://10.0.0.47:3000");
+        managementClient.setHost("https://core.authing.cn");
 
         this.orgManagementClient = managementClient.org();
 
@@ -183,7 +183,7 @@ public class OrgManagementClientTest {
 
     @Test
     public void exportByOrgId() throws IOException {
-        String orgId = "608025f2dc748d4580290055";
+        String orgId = "6080281309bf790c1f9138db";
         OrgNode node = this.orgManagementClient.exportByOrgId(orgId).execute();
 
         System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(node));

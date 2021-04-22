@@ -9,9 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class ApplicationManagementClientTest {
 
@@ -25,14 +23,14 @@ public class ApplicationManagementClientTest {
     @Before
     public void before() throws IOException, GraphQLException {
 
-//        String userPoolId = "5f45cad3ece50b62de2a02cd";
-        String userPoolId = "606d9b8468d2655d5ec3e6ce";
-//        String userPoolSecret = "624cb39b07ffd29b946112ea82f5b50e";
-        String userPoolSecret = "340bcc1ff7a40a0178ba637cde965e6c";
+        String userPoolId = "5f45cad3ece50b62de2a02cd";
+//        String userPoolId = "606d9b76fe845b4cde293413";
+        String userPoolSecret = "624cb39b07ffd29b946112ea82f5b50e";
+//        String userPoolSecret = "ca814ba7921c87500f301c12f78b29eb";
 
         ManagementClient managementClient = new ManagementClient(userPoolId, userPoolSecret);
-        managementClient.setHost("http://localhost:3000");
-//        managementClient.setHost("https://core.authing.cn");
+//        managementClient.setHost("http://localhost:3000");
+        managementClient.setHost("https://core.authing.cn");
 
         this.managementClient = managementClient;
         this.applicationManagementClient = managementClient.application();
@@ -435,6 +433,7 @@ public class ApplicationManagementClientTest {
         Assert.assertTrue(deleted);
     }
 
+    @Test
     public void sortAgreement() throws IOException {
         Pagination<AgreementDetail> listAgreement = managementClient.application()
                 .listAgreement(APP_ID).execute();
@@ -445,5 +444,23 @@ public class ApplicationManagementClientTest {
                 APP_ID,
                 list
         ).execute();
+    }
+
+    @Test
+    public void testToken() throws IOException, GraphQLException {
+        String userPoolId = "606d9b76fe845b4cde293413";
+        String userPoolSecret = "ca814ba7921c87500f301c12f78b29eb";
+
+        ManagementClient managementClient = new ManagementClient(userPoolId, userPoolSecret);
+        managementClient.setHost("http://localhost:3000");
+
+        managementClient.application()
+                .listAgreement(APP_ID).execute();
+
+        System.out.println(managementClient.getToken());
+        System.out.println(managementClient.getAccessTokenExpiresAt());
+
+        managementClient.application()
+                .listAgreement(APP_ID).execute();
     }
 }
