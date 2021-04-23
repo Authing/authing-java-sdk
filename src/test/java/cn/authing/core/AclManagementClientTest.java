@@ -268,5 +268,20 @@ public class AclManagementClientTest {
         ).execute();
 
         Boolean deleted = managementClient.acl().deleteNamespace("CODE").execute();
+
+        Assert.assertTrue(deleted);
+    }
+
+    @Test
+    public void getAuthorizedTargets() throws IOException, GraphQLException {
+        AuthorizedTargetsParam book = new AuthorizedTargetsParam(
+                "6063f88dabb536e9a23a6c80",
+                ResourceType.DATA,
+                "book"
+        );
+
+        PaginatedAuthorizedTargets res = managementClient.acl().getAuthorizedTargets(book).execute();
+
+        Assert.assertNotNull(res);
     }
 }

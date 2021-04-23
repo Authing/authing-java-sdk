@@ -417,4 +417,17 @@ class AclManagementClient(private val client: ManagementClient) {
             object : TypeToken<RestfulResponse<Boolean>>() {}
         ) { it.code == 200 }
     }
+
+    /**
+     * 获取具备某个（类）资源操作权限的用户、分组、角色、组织机构。
+     */
+    fun getAuthorizedTargets(
+        options: AuthorizedTargetsParam
+    ): GraphQLCall<AuthorizedTargetsResponse, PaginatedAuthorizedTargets> {
+
+        return client.createGraphQLCall(
+            options.createRequest(),
+            object : TypeToken<GraphQLResponse<AuthorizedTargetsResponse>>() {}
+        ) { it.result }
+    }
 }
