@@ -144,12 +144,57 @@ public class RolesManagementClientTest {
     public void setUdfValue() throws IOException, GraphQLException {
         Role role = this.createE();
 
-        List<UserDefinedData> list = managementClient.roles().setUdfValue(role.getCode(), "key1", "\"suntianxiang\"").execute();
+        List<UserDefinedData> list = managementClient.roles().setUdfValue(role.getCode(), "key1", "\"123\"").execute();
 
         Assert.assertNotNull(list);
     }
 
-    public void setUdfValueBatch() {
+    @Test
+    public void setUdfValueBatch() throws IOException, GraphQLException {
+        Role role = this.createE();
 
+        managementClient.udf().set(UdfTargetType.ROLE, "key2", UdfDataType.STRING, "2").execute();
+        managementClient.udf().set(UdfTargetType.ROLE, "key3", UdfDataType.STRING, "3").execute();
+        managementClient.udf().set(UdfTargetType.ROLE, "key4", UdfDataType.STRING, "4").execute();
+
+        HashMap<String, String> udfMap = new HashMap<>();
+
+        udfMap.put("key1", "\"aaa\"");
+        udfMap.put("key2", "\"aaa\"");
+        udfMap.put("key3", "\"aaa\"");
+        udfMap.put("key4", "\"aaa\"");
+        RoleSetUdfValueBatchParams params = new RoleSetUdfValueBatchParams(
+                role.getCode(),
+                udfMap
+        );
+        managementClient.roles().setUdfValueBatch(Arrays.asList(params)).execute();
+
+        Map<String, Object> map = managementClient.roles().getUdfValue(role.getCode()).execute();
+
+        Assert.assertEquals(map.get("key1"), "\"aaa\"");
+        Assert.assertEquals(map.get("key2"), "\"aaa\"");
+        Assert.assertEquals(map.get("key3"), "\"aaa\"");
+        Assert.assertEquals(map.get("key4"), "\"aaa\"");
+    }
+
+    @Test
+    public void removeUdfValue() throws IOException, GraphQLException {
+        Role role = this.createE();
+
+        HashMap<String, String> udfMap = new HashMap<>();
+
+        udfMap.put("key1", "\"aaa\"");
+        RoleSetUdfValueBatchParams params = new RoleSetUdfValueBatchParams(
+                role.getCode(),
+                udfMap
+        );
+        managementClient.roles().setUdfValueBatch(Arrays.asList(params)).execute();
+
+        managementClient.roles().removeUdfValue(role.getCode(), "key1").execute();
+
+        Map<String, Object> map = managementClient.roles().getUdfValue(role.getCode()).execute();
+
+
+        Assert.assertNull(map.get("key1"));
     }
 }
