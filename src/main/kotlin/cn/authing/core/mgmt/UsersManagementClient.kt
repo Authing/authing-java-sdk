@@ -533,4 +533,13 @@ class UsersManagementClient(private val client: ManagementClient) {
         ) { it.data }
     }
 
+    fun listDepartment(
+        userId: String
+    ): GraphQLCall<GetUserDepartmentsResponse, User> {
+        return client.createGraphQLCall(
+            GetUserDepartmentsParam(userId).createRequest(),
+            object : TypeToken<GraphQLResponse<GetUserDepartmentsResponse>>() {}
+        ) { it.result }
+    }
+
 }
