@@ -38,6 +38,7 @@ class OrgManagementClient(private val client: ManagementClient) {
      * 获取分组列表
      */
     fun list(param: OrgsParam): GraphQLCall<OrgsResponse, PaginatedOrgs> {
+        if (param.limit == null) param.limit = -1
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<OrgsResponse>>() {}) {

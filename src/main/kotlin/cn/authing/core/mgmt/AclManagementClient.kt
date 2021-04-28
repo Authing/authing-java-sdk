@@ -75,14 +75,15 @@ class AclManagementClient(private val client: ManagementClient) {
         namespaceCode: String? = null,
         type: ResourceType? = null,
         limit: Number = 10,
-        page: Number = 1
+        page: Number = 1,
+        fetchAll: Boolean = false
     ): HttpCall<RestfulResponse<Pagination<IResourceResponse>>, Pagination<IResourceResponse>> {
-        var url = "${client.host}/api/v2/resources?limit=$limit&page=$page"
+
+        var url = "${client.host}/api/v2/resources?limit=${if (fetchAll) -1 else limit}&page=$page"
 
         url += if (namespaceCode != null) "&namespace=${namespaceCode}" else ""
         url += if (type != null) "&type=${type}" else ""
 
-        println(url)
         return this.client.createHttpGetCall(
             url,
             object : TypeToken<RestfulResponse<Pagination<IResourceResponse>>>() {}) { it.data }
@@ -90,7 +91,8 @@ class AclManagementClient(private val client: ManagementClient) {
     }
 
     fun listResources(params: AclListResourcesParams): HttpCall<RestfulResponse<Pagination<IResourceResponse>>, Pagination<IResourceResponse>> {
-        val (namespaceCode, type, limit, page) = params
+        var (namespaceCode, type, limit, page, fetchAll) = params
+        if (fetchAll) limit = -1
         return this.listResources(namespaceCode, type, limit, page)
     }
 

@@ -188,7 +188,8 @@ constructor(
     var namespaceCode: String? = null,
     var type: ResourceType? = null,
     var limit: Number = 10,
-    var page: Number = 1
+    var page: Number = 1,
+    var fetchAll: Boolean = false
 )
 
 data class UpdateNamespaceParams
