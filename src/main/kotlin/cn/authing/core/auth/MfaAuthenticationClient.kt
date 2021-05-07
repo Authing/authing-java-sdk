@@ -159,4 +159,36 @@ class MfaAuthenticationClient(private val client: AuthenticationClient) {
             object : TypeToken<RestfulResponse<User>>() {}
         ) { it.data }
     }
+
+    /**
+     * verifyAppSmsMfa
+     * 检验二次验证 MFA 短信验证码
+     */
+    fun verifyAppSmsMfa(
+        options: VerifyAppSmsMfaParams
+    ): HttpCall<RestfulResponse<User>, User> {
+        val url = "${client.host}/api/v2/applications/mfa/sms/verify"
+
+        client.token = options.mfaToken
+
+        return client.createHttpPostCall(
+            url,
+            Gson().toJson(options),
+            object : TypeToken<RestfulResponse<User>>() {}
+        ) { it.data }
+    }
+
+    fun verifyAppEmailMfa(
+        options: VerifyAppEmailMfaParams
+    ): HttpCall<RestfulResponse<User>, User> {
+        val url = "${client.host}/api/v2/applications/mfa/email/verify"
+
+        client.token = options.mfaToken
+
+        return client.createHttpPostCall(
+            url,
+            Gson().toJson(options),
+            object : TypeToken<RestfulResponse<User>>() {}
+        ) { it.data }
+    }
 }

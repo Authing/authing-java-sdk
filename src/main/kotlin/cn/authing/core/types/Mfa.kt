@@ -102,3 +102,21 @@ constructor(
     val compareFace: Blob,
     val mfaToken: String? = null
 )
+
+data class VerifyAppSmsMfaParams
+constructor(
+    @Expose
+    val phone: String,
+    @Expose
+    val code: String,
+    val mfaToken: String
+)
+
+data class VerifyAppEmailMfaParams
+constructor(
+    @Expose
+    val email: String,
+    @Expose
+    val code: String,
+    val mfaToken: String
+)
