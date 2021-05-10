@@ -423,4 +423,14 @@ public class UsersManagementClientTest {
 
         Assert.assertNotNull(res);
     }
+
+    @Test
+    public void checkLoginStatus() throws IOException {
+        UserCheckLoginStatusResponse res = managementClient.users()
+                .checkLoginStatus(new CheckLoginStatusParams("609923562e1a788a794879fa"))
+                .execute();
+
+        System.out.println(res);
+        Assert.assertNotNull(res);
+    }
 }

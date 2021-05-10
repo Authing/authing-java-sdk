@@ -5,14 +5,14 @@ import com.google.gson.annotations.SerializedName
 import java.sql.Blob
 
 data class IMfaAuthenticator(
-    val id: String,
-    val createdAt: String,
-    val updatedAt: String,
-    val userId: String,
-    val enable: Boolean,
-    val secret: String,
-    val authenticatorType: String,
-    val recoveryCode: String
+    var id: String,
+    var createdAt: String,
+    var updatedAt: String,
+    var userId: String,
+    var enable: Boolean,
+    var secret: String,
+    var authenticatorType: String,
+    var recoveryCode: String
 )
 
 enum class TotpSource {
@@ -26,10 +26,10 @@ data class GetMfaAuthenticatorsParams
 @JvmOverloads
 constructor(
     @Expose
-    val type: String,
-    val mfaToken: String? = null ,
+    var type: String,
+    var mfaToken: String? = null ,
     @Expose
-    val source: TotpSource? = TotpSource.SELF
+    var source: TotpSource? = TotpSource.SELF
 )
 
 data class AssosicateMfaAuthenticatorParams
@@ -37,18 +37,18 @@ data class AssosicateMfaAuthenticatorParams
 constructor(
     @Expose
     @SerializedName("authenticator_type")
-    val authenticatorType: String,
-    val mfaToken: String? = null,
+    var authenticatorType: String,
+    var mfaToken: String? = null,
     @Expose
-    val source: TotpSource? = TotpSource.SELF
+    var source: TotpSource? = TotpSource.SELF
 )
 
 data class IMfaAssociation(
-    val authenticator_type: String,
-    val secret: String,
-    val qrcode_uri: String,
-    val qrcode_data_url: String,
-    val recovery_code: String
+    var authenticator_type: String,
+    var secret: String,
+    var qrcode_uri: String,
+    var qrcode_data_url: String,
+    var recovery_code: String
 )
 
 data class ConfirmAssosicateMfaAuthenticatorParams
@@ -56,67 +56,67 @@ data class ConfirmAssosicateMfaAuthenticatorParams
 constructor(
     @Expose
     @SerializedName("authenticator_type")
-    val authenticatorType: String,
+    var authenticatorType: String,
     @Expose
-    val totp: String? = null,
+    var totp: String? = null,
     @Expose
-    val source: TotpSource? = TotpSource.SELF,
-    val mfaToken: String? = null
+    var source: TotpSource? = TotpSource.SELF,
+    var mfaToken: String? = null
 )
 
 data class VerifyTotpMfaParams(
-    val totp: String,
-    val mfaToken: String
+    var totp: String,
+    var mfaToken: String
 )
 
 data class PhoneOrEmailBindableParams
 @JvmOverloads
 constructor(
     @Expose
-    val phone: String? = null,
+    var phone: String? = null,
     @Expose
-    val email: String? = null,
-    val mfaToken: String
+    var email: String? = null,
+    var mfaToken: String
 )
 
 data class VerifyTotpRecoveryCodeParams(
     @Expose
-    val recoveryCode: String,
-    val mfaToken: String
+    var recoveryCode: String,
+    var mfaToken: String
 )
 
 data class AssociateFaceByUrlParams
 @JvmOverloads
 constructor(
     @Expose
-    val baseFace: String,
+    var baseFace: String,
     @Expose
-    val compareFace: String,
-    val mfaToken: String? = null
+    var compareFace: String,
+    var mfaToken: String? = null
 )
 
 data class AssociateFaceByBlobParams
 @JvmOverloads
 constructor(
-    val baseFace: Blob,
-    val compareFace: Blob,
-    val mfaToken: String? = null
+    var baseFace: Blob,
+    var compareFace: Blob,
+    var mfaToken: String? = null
 )
 
 data class VerifyAppSmsMfaParams
 constructor(
     @Expose
-    val phone: String,
+    var phone: String,
     @Expose
-    val code: String,
-    val mfaToken: String
+    var code: String,
+    var mfaToken: String
 )
 
 data class VerifyAppEmailMfaParams
 constructor(
     @Expose
-    val email: String,
+    var email: String,
     @Expose
-    val code: String,
-    val mfaToken: String
+    var code: String,
+    var mfaToken: String
 )

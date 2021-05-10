@@ -542,4 +542,16 @@ class UsersManagementClient(private val client: ManagementClient) {
         ) { it.result }
     }
 
+    fun checkLoginStatus(
+        param: CheckLoginStatusParams
+    ): HttpCall<RestfulResponse<UserCheckLoginStatusResponse>, UserCheckLoginStatusResponse> {
+        var url = "${client.host}/api/v2/users/login-status?userId=${param.userId}"
+
+        url += if (param.appId != null) "&appId=${param.appId}" else ""
+        url += if (param.deviceId != null) "&deviceId=${param.deviceId}" else ""
+
+        return client.createHttpGetCall(
+            url,
+            object : TypeToken<RestfulResponse<UserCheckLoginStatusResponse>>() {}) { it.data }
+    }
 }

@@ -603,7 +603,10 @@ data class User(
     var authorizedResources: PaginatedAuthorizedResources? = null,
     /** @param [externalId] 用户外部 ID */
     @SerializedName("externalId")
-    var externalId: String? = null
+    var externalId: String? = null,
+    /** @param [customData] 用户自定义数据 */
+    @SerializedName("customData")
+    var customData: List<UserCustomData>? = null
 )
 
 enum class UserStatus(val label: String) {
@@ -666,6 +669,9 @@ data class PaginatedRoles(
 
 
 data class Role(
+    /** @param [id] id */
+    @SerializedName("id")
+    var id: String,
     /** @param [namespace] 权限组 code */
     @SerializedName("namespace")
     var namespace: String,
@@ -817,6 +823,38 @@ data class Node(
     @SerializedName("authorizedResources")
     var authorizedResources: PaginatedAuthorizedResources? = null
 )
+
+
+
+data class UserCustomData(
+    /** @param [key] key */
+    @SerializedName("key")
+    var key: String,
+    /** @param [value] value */
+    @SerializedName("value")
+    var value: String? = null,
+    /** @param [label] label */
+    @SerializedName("label")
+    var label: String? = null,
+    /** @param [dataType] dataType */
+    @SerializedName("dataType")
+    var dataType: UdfDataType
+)
+
+enum class UdfDataType(val label: String) {
+      STRING("STRING"),
+      NUMBER("NUMBER"),
+      DATETIME("DATETIME"),
+      BOOLEAN("BOOLEAN"),
+      OBJECT("OBJECT");
+
+  companion object {
+    @JvmStatic
+    fun valueOfLabel(label: String): UdfDataType? {
+      return values().find { it.label == label }
+    }
+  }
+}
 
 
 
@@ -1018,21 +1056,6 @@ data class UserDefinedData(
     @SerializedName("label")
     var label: String? = null
 )
-
-enum class UdfDataType(val label: String) {
-      STRING("STRING"),
-      NUMBER("NUMBER"),
-      DATETIME("DATETIME"),
-      BOOLEAN("BOOLEAN"),
-      OBJECT("OBJECT");
-
-  companion object {
-    @JvmStatic
-    fun valueOfLabel(label: String): UdfDataType? {
-      return values().find { it.label == label }
-    }
-  }
-}
 
 
 
@@ -5287,6 +5310,7 @@ mutation createPolicy(${'$'}namespace: String, ${'$'}code: String!, ${'$'}descri
       private val createRoleDocument: String = """
 mutation createRole(${'$'}namespace: String, ${'$'}code: String!, ${'$'}description: String, ${'$'}parent: String) {
   createRole(namespace: ${'$'}namespace, code: ${'$'}code, description: ${'$'}description, parent: ${'$'}parent) {
+    id
     namespace
     code
     arn
@@ -5425,6 +5449,106 @@ mutation createUser(${'$'}userInfo: CreateUserInput!, ${'$'}keepPassword: Boolea
     createdAt
     updatedAt
     externalId
+  }
+}
+"""
+    }
+    
+
+    
+    data class CreateUserWithCustomDataResponse (
+        
+        @SerializedName("createUser")
+        val result: User
+    )
+    
+    class CreateUserWithCustomDataParam @JvmOverloads constructor (    @SerializedName("userInfo")
+    var userInfo: CreateUserInput,
+    @SerializedName("keepPassword")
+    var keepPassword: Boolean? = null,
+    @SerializedName("params")
+    var params: String? = null)  {
+          
+    fun withKeepPassword(keepPassword: Boolean?): CreateUserWithCustomDataParam {
+      this.keepPassword = keepPassword
+      return this
+    }
+    
+    fun withParams(params: String?): CreateUserWithCustomDataParam {
+      this.params = params
+      return this
+    }
+
+      fun build(): CreateUserWithCustomDataParam {
+        return this
+      }
+
+      fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+          createUserWithCustomDataDocument,
+          this
+        );
+      }
+
+      private val createUserWithCustomDataDocument: String = """
+mutation createUserWithCustomData(${'$'}userInfo: CreateUserInput!, ${'$'}keepPassword: Boolean, ${'$'}params: String) {
+  createUser(userInfo: ${'$'}userInfo, keepPassword: ${'$'}keepPassword, params: ${'$'}params) {
+    id
+    arn
+    userPoolId
+    status
+    username
+    email
+    emailVerified
+    phone
+    phoneVerified
+    unionid
+    openid
+    nickname
+    registerSource
+    photo
+    password
+    oauth
+    token
+    tokenExpiredAt
+    loginsCount
+    lastLogin
+    lastIP
+    signedUp
+    blocked
+    isDeleted
+    device
+    browser
+    company
+    name
+    givenName
+    familyName
+    middleName
+    profile
+    preferredUsername
+    website
+    gender
+    birthdate
+    zoneinfo
+    locale
+    address
+    formatted
+    streetAddress
+    locality
+    region
+    postalCode
+    city
+    province
+    country
+    createdAt
+    updatedAt
+    externalId
+    customData {
+      key
+      value
+      dataType
+      label
+    }
   }
 }
 """
@@ -8453,6 +8577,7 @@ mutation updatePolicy(${'$'}namespace: String, ${'$'}code: String!, ${'$'}descri
       private val updateRoleDocument: String = """
 mutation updateRole(${'$'}code: String!, ${'$'}description: String, ${'$'}newCode: String, ${'$'}namespace: String) {
   updateRole(code: ${'$'}code, description: ${'$'}description, newCode: ${'$'}newCode, namespace: ${'$'}namespace) {
+    id
     namespace
     code
     arn
@@ -8793,7 +8918,7 @@ query archivedUsers(${'$'}page: Int, ${'$'}limit: Int) {
         val result: PaginatedAuthorizedTargets
     )
     
-    class AuthorizedTargetsParam @JvmOverloads constructor (   @SerializedName("namespace")
+    class AuthorizedTargetsParam @JvmOverloads constructor (    @SerializedName("namespace")
     var namespace: String,
     @SerializedName("resourceType")
     var resourceType: ResourceType,
@@ -9105,6 +9230,118 @@ query findUser(${'$'}email: String, ${'$'}phone: String, ${'$'}username: String,
     createdAt
     updatedAt
     externalId
+  }
+}
+"""
+    }
+    
+
+    
+    data class FindUserWithCustomDataResponse (
+        
+        @SerializedName("findUser")
+        val result: User
+    )
+    
+    class FindUserWithCustomDataParam @JvmOverloads constructor (    @SerializedName("email")
+    var email: String? = null,
+    @SerializedName("phone")
+    var phone: String? = null,
+    @SerializedName("username")
+    var username: String? = null,
+    @SerializedName("externalId")
+    var externalId: String? = null)  {
+          
+    fun withEmail(email: String?): FindUserWithCustomDataParam {
+      this.email = email
+      return this
+    }
+    
+    fun withPhone(phone: String?): FindUserWithCustomDataParam {
+      this.phone = phone
+      return this
+    }
+    
+    fun withUsername(username: String?): FindUserWithCustomDataParam {
+      this.username = username
+      return this
+    }
+    
+    fun withExternalId(externalId: String?): FindUserWithCustomDataParam {
+      this.externalId = externalId
+      return this
+    }
+
+      fun build(): FindUserWithCustomDataParam {
+        return this
+      }
+
+      fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+          findUserWithCustomDataDocument,
+          this
+        );
+      }
+
+      private val findUserWithCustomDataDocument: String = """
+query findUserWithCustomData(${'$'}email: String, ${'$'}phone: String, ${'$'}username: String, ${'$'}externalId: String) {
+  findUser(email: ${'$'}email, phone: ${'$'}phone, username: ${'$'}username, externalId: ${'$'}externalId) {
+    id
+    arn
+    userPoolId
+    status
+    username
+    email
+    emailVerified
+    phone
+    phoneVerified
+    unionid
+    openid
+    nickname
+    registerSource
+    photo
+    password
+    oauth
+    token
+    tokenExpiredAt
+    loginsCount
+    lastLogin
+    lastIP
+    signedUp
+    blocked
+    isDeleted
+    device
+    browser
+    company
+    name
+    givenName
+    familyName
+    middleName
+    profile
+    preferredUsername
+    website
+    gender
+    birthdate
+    zoneinfo
+    locale
+    address
+    formatted
+    streetAddress
+    locality
+    region
+    postalCode
+    city
+    province
+    country
+    createdAt
+    updatedAt
+    externalId
+    customData {
+      key
+      value
+      dataType
+      label
+    }
   }
 }
 """
@@ -9493,6 +9730,110 @@ query groupWithUsers(${'$'}code: String!, ${'$'}page: Int, ${'$'}limit: Int) {
         createdAt
         updatedAt
         externalId
+      }
+    }
+  }
+}
+"""
+    }
+    
+
+    
+    data class GroupWithUsersWithCustomDataResponse (
+        
+        @SerializedName("group")
+        val result: Group
+    )
+    
+    class GroupWithUsersWithCustomDataParam @JvmOverloads constructor (    @SerializedName("code")
+    var code: String,
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null)  {
+          
+    fun withPage(page: Int?): GroupWithUsersWithCustomDataParam {
+      this.page = page
+      return this
+    }
+    
+    fun withLimit(limit: Int?): GroupWithUsersWithCustomDataParam {
+      this.limit = limit
+      return this
+    }
+
+      fun build(): GroupWithUsersWithCustomDataParam {
+        return this
+      }
+
+      fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+          groupWithUsersWithCustomDataDocument,
+          this
+        );
+      }
+
+      private val groupWithUsersWithCustomDataDocument: String = """
+query groupWithUsersWithCustomData(${'$'}code: String!, ${'$'}page: Int, ${'$'}limit: Int) {
+  group(code: ${'$'}code) {
+    users(page: ${'$'}page, limit: ${'$'}limit) {
+      totalCount
+      list {
+        id
+        arn
+        userPoolId
+        username
+        email
+        emailVerified
+        phone
+        phoneVerified
+        unionid
+        openid
+        nickname
+        registerSource
+        photo
+        password
+        oauth
+        token
+        tokenExpiredAt
+        loginsCount
+        lastLogin
+        lastIP
+        signedUp
+        blocked
+        isDeleted
+        device
+        browser
+        company
+        name
+        givenName
+        familyName
+        middleName
+        profile
+        preferredUsername
+        website
+        gender
+        birthdate
+        zoneinfo
+        locale
+        address
+        formatted
+        streetAddress
+        locality
+        region
+        postalCode
+        city
+        province
+        country
+        createdAt
+        updatedAt
+        externalId
+        customData {
+          key
+          value
+          dataType
+          label
+        }
       }
     }
   }
@@ -10978,6 +11319,7 @@ query queryMfa(${'$'}id: String, ${'$'}userId: String, ${'$'}userPoolId: String)
       private val roleDocument: String = """
 query role(${'$'}code: String!, ${'$'}namespace: String) {
   role(code: ${'$'}code, namespace: ${'$'}namespace) {
+    id
     namespace
     code
     arn
@@ -11008,10 +11350,24 @@ query role(${'$'}code: String!, ${'$'}namespace: String) {
     class RoleWithUsersParam @JvmOverloads constructor (    @SerializedName("code")
     var code: String,
     @SerializedName("namespace")
-    var namespace: String? = null)  {
+    var namespace: String? = null,
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null)  {
           
     fun withNamespace(namespace: String?): RoleWithUsersParam {
       this.namespace = namespace
+      return this
+    }
+    
+    fun withPage(page: Int?): RoleWithUsersParam {
+      this.page = page
+      return this
+    }
+    
+    fun withLimit(limit: Int?): RoleWithUsersParam {
+      this.limit = limit
       return this
     }
 
@@ -11027,9 +11383,9 @@ query role(${'$'}code: String!, ${'$'}namespace: String) {
       }
 
       private val roleWithUsersDocument: String = """
-query roleWithUsers(${'$'}code: String!, ${'$'}namespace: String) {
+query roleWithUsers(${'$'}code: String!, ${'$'}namespace: String, ${'$'}page: Int, ${'$'}limit: Int) {
   role(code: ${'$'}code, namespace: ${'$'}namespace) {
-    users {
+    users(page: ${'$'}page, limit: ${'$'}limit) {
       totalCount
       list {
         id
@@ -11091,6 +11447,118 @@ query roleWithUsers(${'$'}code: String!, ${'$'}namespace: String) {
     
 
     
+    data class RoleWithUsersWithCustomDataResponse (
+        
+        @SerializedName("role")
+        val result: Role
+    )
+    
+    class RoleWithUsersWithCustomDataParam @JvmOverloads constructor (    @SerializedName("code")
+    var code: String,
+    @SerializedName("namespace")
+    var namespace: String? = null,
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null)  {
+          
+    fun withNamespace(namespace: String?): RoleWithUsersWithCustomDataParam {
+      this.namespace = namespace
+      return this
+    }
+    
+    fun withPage(page: Int?): RoleWithUsersWithCustomDataParam {
+      this.page = page
+      return this
+    }
+    
+    fun withLimit(limit: Int?): RoleWithUsersWithCustomDataParam {
+      this.limit = limit
+      return this
+    }
+
+      fun build(): RoleWithUsersWithCustomDataParam {
+        return this
+      }
+
+      fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+          roleWithUsersWithCustomDataDocument,
+          this
+        );
+      }
+
+      private val roleWithUsersWithCustomDataDocument: String = """
+query roleWithUsersWithCustomData(${'$'}code: String!, ${'$'}namespace: String, ${'$'}page: Int, ${'$'}limit: Int) {
+  role(code: ${'$'}code, namespace: ${'$'}namespace) {
+    users(page: ${'$'}page, limit: ${'$'}limit) {
+      totalCount
+      list {
+        id
+        arn
+        status
+        userPoolId
+        username
+        email
+        emailVerified
+        phone
+        phoneVerified
+        unionid
+        openid
+        nickname
+        registerSource
+        photo
+        password
+        oauth
+        token
+        tokenExpiredAt
+        loginsCount
+        lastLogin
+        lastIP
+        signedUp
+        blocked
+        isDeleted
+        device
+        browser
+        company
+        name
+        givenName
+        familyName
+        middleName
+        profile
+        preferredUsername
+        website
+        gender
+        birthdate
+        zoneinfo
+        locale
+        address
+        formatted
+        streetAddress
+        locality
+        region
+        postalCode
+        city
+        province
+        country
+        createdAt
+        updatedAt
+        externalId
+        customData {
+          key
+          value
+          dataType
+          label
+        }
+      }
+    }
+  }
+}
+"""
+    }
+    
+
+    
     data class RolesResponse (
         
         @SerializedName("roles")
@@ -11142,6 +11610,7 @@ query roles(${'$'}namespace: String, ${'$'}page: Int, ${'$'}limit: Int, ${'$'}so
   roles(namespace: ${'$'}namespace, page: ${'$'}page, limit: ${'$'}limit, sortBy: ${'$'}sortBy) {
     totalCount
     list {
+      id
       namespace
       code
       arn
@@ -11367,6 +11836,137 @@ query searchUser(${'$'}query: String!, ${'$'}fields: [String], ${'$'}page: Int, 
       createdAt
       updatedAt
       externalId
+    }
+  }
+}
+"""
+    }
+    
+
+    
+    data class SearchUserWithCustomDataResponse (
+        
+        @SerializedName("searchUser")
+        val result: PaginatedUsers
+    )
+    
+    class SearchUserWithCustomDataParam @JvmOverloads constructor (    @SerializedName("query")
+    var query: String,
+    @SerializedName("fields")
+    var fields: List<String>? = null,
+    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null,
+    @SerializedName("departmentOpts")
+    var departmentOpts: List<SearchUserDepartmentOptInput>? = null,
+    @SerializedName("groupOpts")
+    var groupOpts: List<SearchUserGroupOptInput>? = null,
+    @SerializedName("roleOpts")
+    var roleOpts: List<SearchUserRoleOptInput>? = null)  {
+          
+    fun withFields(fields: List<String>?): SearchUserWithCustomDataParam {
+      this.fields = fields
+      return this
+    }
+    
+    fun withPage(page: Int?): SearchUserWithCustomDataParam {
+      this.page = page
+      return this
+    }
+    
+    fun withLimit(limit: Int?): SearchUserWithCustomDataParam {
+      this.limit = limit
+      return this
+    }
+    
+    fun withDepartmentOpts(departmentOpts: List<SearchUserDepartmentOptInput>?): SearchUserWithCustomDataParam {
+      this.departmentOpts = departmentOpts
+      return this
+    }
+    
+    fun withGroupOpts(groupOpts: List<SearchUserGroupOptInput>?): SearchUserWithCustomDataParam {
+      this.groupOpts = groupOpts
+      return this
+    }
+    
+    fun withRoleOpts(roleOpts: List<SearchUserRoleOptInput>?): SearchUserWithCustomDataParam {
+      this.roleOpts = roleOpts
+      return this
+    }
+
+      fun build(): SearchUserWithCustomDataParam {
+        return this
+      }
+
+      fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+          searchUserWithCustomDataDocument,
+          this
+        );
+      }
+
+      private val searchUserWithCustomDataDocument: String = """
+query searchUserWithCustomData(${'$'}query: String!, ${'$'}fields: [String], ${'$'}page: Int, ${'$'}limit: Int, ${'$'}departmentOpts: [SearchUserDepartmentOpt], ${'$'}groupOpts: [SearchUserGroupOpt], ${'$'}roleOpts: [SearchUserRoleOpt]) {
+  searchUser(query: ${'$'}query, fields: ${'$'}fields, page: ${'$'}page, limit: ${'$'}limit, departmentOpts: ${'$'}departmentOpts, groupOpts: ${'$'}groupOpts, roleOpts: ${'$'}roleOpts) {
+    totalCount
+    list {
+      id
+      arn
+      userPoolId
+      status
+      username
+      email
+      emailVerified
+      phone
+      phoneVerified
+      unionid
+      openid
+      nickname
+      registerSource
+      photo
+      password
+      oauth
+      token
+      tokenExpiredAt
+      loginsCount
+      lastLogin
+      lastIP
+      signedUp
+      blocked
+      isDeleted
+      device
+      browser
+      company
+      name
+      givenName
+      familyName
+      middleName
+      profile
+      preferredUsername
+      website
+      gender
+      birthdate
+      zoneinfo
+      locale
+      address
+      formatted
+      streetAddress
+      locality
+      region
+      postalCode
+      city
+      province
+      country
+      createdAt
+      updatedAt
+      externalId
+      customData {
+        key
+        value
+        dataType
+        label
+      }
     }
   }
 }
@@ -11772,8 +12372,14 @@ query user(${'$'}id: String) {
     )
     
     class UserBatchParam @JvmOverloads constructor (    @SerializedName("ids")
-    var ids: List<String>)  {
-      
+    var ids: List<String>,
+    @SerializedName("type")
+    var type: String? = null)  {
+          
+    fun withType(type: String?): UserBatchParam {
+      this.type = type
+      return this
+    }
 
       fun build(): UserBatchParam {
         return this
@@ -11787,8 +12393,8 @@ query user(${'$'}id: String) {
       }
 
       private val userBatchDocument: String = """
-query userBatch(${'$'}ids: [String!]!) {
-  userBatch(ids: ${'$'}ids) {
+query userBatch(${'$'}ids: [String!]!, ${'$'}type: String) {
+  userBatch(ids: ${'$'}ids, type: ${'$'}type) {
     id
     arn
     userPoolId
@@ -11839,6 +12445,199 @@ query userBatch(${'$'}ids: [String!]!) {
     createdAt
     updatedAt
     externalId
+  }
+}
+"""
+    }
+    
+
+    
+    data class UserBatchWithCustomDataResponse (
+        
+        @SerializedName("userBatch")
+        val result: List<User>
+    )
+    
+    class UserBatchWithCustomDataParam @JvmOverloads constructor (    @SerializedName("ids")
+    var ids: List<String>,
+    @SerializedName("type")
+    var type: String? = null)  {
+          
+    fun withType(type: String?): UserBatchWithCustomDataParam {
+      this.type = type
+      return this
+    }
+
+      fun build(): UserBatchWithCustomDataParam {
+        return this
+      }
+
+      fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+          userBatchWithCustomDataDocument,
+          this
+        );
+      }
+
+      private val userBatchWithCustomDataDocument: String = """
+query userBatchWithCustomData(${'$'}ids: [String!]!, ${'$'}type: String) {
+  userBatch(ids: ${'$'}ids, type: ${'$'}type) {
+    id
+    arn
+    userPoolId
+    status
+    username
+    email
+    emailVerified
+    phone
+    phoneVerified
+    unionid
+    openid
+    nickname
+    registerSource
+    photo
+    password
+    oauth
+    token
+    tokenExpiredAt
+    loginsCount
+    lastLogin
+    lastIP
+    signedUp
+    blocked
+    isDeleted
+    device
+    browser
+    company
+    name
+    givenName
+    familyName
+    middleName
+    profile
+    preferredUsername
+    website
+    gender
+    birthdate
+    zoneinfo
+    locale
+    address
+    formatted
+    streetAddress
+    locality
+    region
+    postalCode
+    city
+    province
+    country
+    createdAt
+    updatedAt
+    externalId
+    customData {
+      key
+      value
+      dataType
+      label
+    }
+  }
+}
+"""
+    }
+    
+
+    
+    data class UserWithCustomDataResponse (
+        
+        @SerializedName("user")
+        val result: User
+    )
+    
+    class UserWithCustomDataParam @JvmOverloads constructor (    @SerializedName("id")
+    var id: String? = null)  {
+          
+    fun withId(id: String?): UserWithCustomDataParam {
+      this.id = id
+      return this
+    }
+
+      fun build(): UserWithCustomDataParam {
+        return this
+      }
+
+      fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+          userWithCustomDataDocument,
+          this
+        );
+      }
+
+      private val userWithCustomDataDocument: String = """
+query userWithCustomData(${'$'}id: String) {
+  user(id: ${'$'}id) {
+    id
+    arn
+    userPoolId
+    status
+    username
+    email
+    emailVerified
+    phone
+    phoneVerified
+    identities {
+      openid
+      userIdInIdp
+      userId
+      connectionId
+      isSocial
+      provider
+      userPoolId
+    }
+    unionid
+    openid
+    nickname
+    registerSource
+    photo
+    password
+    oauth
+    token
+    tokenExpiredAt
+    loginsCount
+    lastLogin
+    lastIP
+    signedUp
+    blocked
+    isDeleted
+    device
+    browser
+    company
+    name
+    givenName
+    familyName
+    middleName
+    profile
+    preferredUsername
+    website
+    gender
+    birthdate
+    zoneinfo
+    locale
+    address
+    formatted
+    streetAddress
+    locality
+    region
+    postalCode
+    city
+    province
+    country
+    createdAt
+    updatedAt
+    externalId
+    customData {
+      key
+      value
+      dataType
+      label
+    }
   }
 }
 """
@@ -12144,6 +12943,114 @@ query users(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum) {
       createdAt
       updatedAt
       externalId
+    }
+  }
+}
+"""
+    }
+    
+
+    
+    data class UsersWithCustomDataResponse (
+        
+        @SerializedName("users")
+        val result: PaginatedUsers
+    )
+    
+    class UsersWithCustomDataParam @JvmOverloads constructor (    @SerializedName("page")
+    var page: Int? = null,
+    @SerializedName("limit")
+    var limit: Int? = null,
+    @SerializedName("sortBy")
+    var sortBy: SortByEnum? = null)  {
+          
+    fun withPage(page: Int?): UsersWithCustomDataParam {
+      this.page = page
+      return this
+    }
+    
+    fun withLimit(limit: Int?): UsersWithCustomDataParam {
+      this.limit = limit
+      return this
+    }
+    
+    fun withSortBy(sortBy: SortByEnum?): UsersWithCustomDataParam {
+      this.sortBy = sortBy
+      return this
+    }
+
+      fun build(): UsersWithCustomDataParam {
+        return this
+      }
+
+      fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+          usersWithCustomDataDocument,
+          this
+        );
+      }
+
+      private val usersWithCustomDataDocument: String = """
+query usersWithCustomData(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum) {
+  users(page: ${'$'}page, limit: ${'$'}limit, sortBy: ${'$'}sortBy) {
+    totalCount
+    list {
+      id
+      arn
+      userPoolId
+      status
+      username
+      email
+      emailVerified
+      phone
+      phoneVerified
+      unionid
+      openid
+      nickname
+      registerSource
+      photo
+      password
+      oauth
+      token
+      tokenExpiredAt
+      loginsCount
+      lastLogin
+      lastIP
+      signedUp
+      blocked
+      isDeleted
+      device
+      browser
+      company
+      name
+      givenName
+      familyName
+      middleName
+      profile
+      preferredUsername
+      website
+      gender
+      birthdate
+      zoneinfo
+      locale
+      address
+      formatted
+      streetAddress
+      locality
+      region
+      postalCode
+      city
+      province
+      country
+      createdAt
+      updatedAt
+      externalId
+      customData {
+        key
+        value
+        dataType
+        label
+      }
     }
   }
 }

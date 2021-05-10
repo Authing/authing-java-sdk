@@ -5,15 +5,15 @@ import com.google.gson.annotations.SerializedName
 class IHasRoleParam
 @JvmOverloads
 constructor(
-    val userId: String,
-    val roleCode: String,
-    val namespace: String? = null
+    var userId: String,
+    var roleCode: String,
+    var namespace: String? = null
 )
 
 data class CreateUserOptions
 @JvmOverloads
 constructor(
-    val keepPassword: Boolean?
+    var keepPassword: Boolean?
 )
 
 enum class BatchGetUserQueryFieldEnum {
@@ -35,8 +35,8 @@ enum class BatchGetUserQueryFieldEnum {
 }
 
 data class BatchGetUserPostData(
-    val ids: List<String>,
-    val type: BatchGetUserQueryFieldEnum? = BatchGetUserQueryFieldEnum.Id
+    var ids: List<String>,
+    var type: BatchGetUserQueryFieldEnum? = BatchGetUserQueryFieldEnum.Id
 )
 
 data class BatchGetUserOptions
@@ -48,8 +48,8 @@ constructor(
 data class UserMfaStatus
 @JvmOverloads
 constructor(
-    val OTP: Boolean? = null,
-    val FACE: Boolean? = null
+    var OTP: Boolean? = null,
+    var FACE: Boolean? = null
 )
 
 enum class UserMfaType {
@@ -68,4 +68,20 @@ constructor(
     var operatoArn: String? = null,
     var page: Int? = 1,
     var limit: Int? = 10
+)
+
+data class CheckLoginStatusParams
+@JvmOverloads
+constructor(
+    var userId: String,
+    var appId: String? = null,
+    var deviceId: String? = null
+)
+
+data class UserCheckLoginStatusResponse
+@JvmOverloads
+constructor(
+    var isLogin: Boolean,
+    var user: User? = null,
+    var application: List<Application>? = null
 )
