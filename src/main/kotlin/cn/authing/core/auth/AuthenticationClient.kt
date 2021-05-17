@@ -12,6 +12,7 @@ import com.google.gson.reflect.TypeToken
 import okhttp3.FormBody
 import okhttp3.Request
 import java.io.IOException
+import java.net.http.HttpRequest
 import java.nio.Buffer
 import java.util.*
 import java.util.regex.Pattern
@@ -457,13 +458,20 @@ class AuthenticationClient : BaseClient {
     /**
      * 注销当前用户
      */
-    fun logout(): GraphQLCall<Unit, Unit> {
-        val param = UpdateUserParam(input = UpdateUserInput().withTokenExpiredAt("0"))
-        return createGraphQLCall(param.createRequest(), object : TypeToken<GraphQLResponse<Unit>>() {}) {
+    fun logout(): HttpCall<RestfulResponse<Unit>, Unit> {
+        if (appId == null) {
+            throw Exception("appId cannot be null")
+        }
+        val url = "$host/api/v2/logout?app_id=$appId"
+        return createHttpGetCall(
+            url,
+            object : TypeToken<RestfulResponse<Unit>>() {}
+        ) {
             user = null
             token = null
         }
     }
+
 
     /**
      * 获取当前用户的自定义数据列表

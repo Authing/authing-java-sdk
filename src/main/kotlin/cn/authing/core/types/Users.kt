@@ -85,3 +85,10 @@ constructor(
     var user: User? = null,
     var application: List<Application>? = null
 )
+
+data class UserLogoutParams
+@JvmOverloads
+constructor(
+    var userId: String,
+    var appId: String? = null
+)

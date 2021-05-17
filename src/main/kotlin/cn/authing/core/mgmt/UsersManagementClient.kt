@@ -554,4 +554,18 @@ class UsersManagementClient(private val client: ManagementClient) {
             url,
             object : TypeToken<RestfulResponse<UserCheckLoginStatusResponse>>() {}) { it.data }
     }
+
+    fun logout(options: UserLogoutParams): HttpCall<RestfulResponse<Boolean>, Boolean> {
+
+        var url = "${client.host}/logout?userId=${options.userId}"
+
+        url += if (options.appId != null) "&appId=${options.appId}" else ""
+
+        return client.createHttpGetCall(
+            url,
+            object : TypeToken<RestfulResponse<Boolean>> () {}
+        ) {
+            it.code == 200
+        }
+    }
 }
