@@ -1,5 +1,6 @@
 package cn.authing.core;
 
+import cn.authing.core.auth.AuthenticationClient;
 import cn.authing.core.graphql.GraphQLException;
 import cn.authing.core.mgmt.GroupsManagementClient;
 import cn.authing.core.mgmt.ManagementClient;
@@ -320,11 +321,11 @@ public class UsersManagementClientTest {
         PaginatedAuthorizedResources result = this.usersManagementClient.listAuthorizedResources("5f9d0cef60d09ff5a4c87c06", namespace).execute();
         Assert.assertNotNull(result.getList());
 
-            ListUserAuthorizedResourcesParam param = new ListUserAuthorizedResourcesParam("5f9d0cef60d09ff5a4c87c06")
-                    .withNamespace("default")
-                    .withResourceType("DATA");
+        ListUserAuthorizedResourcesParam param = new ListUserAuthorizedResourcesParam("5f9d0cef60d09ff5a4c87c06")
+                .withNamespace("default")
+                .withResourceType("DATA");
 
-            PaginatedAuthorizedResources res = managementClient.users().listAuthorizedResources(param).execute();
+        PaginatedAuthorizedResources res = managementClient.users().listAuthorizedResources(param).execute();
 
         Assert.assertNotNull(res);
 
@@ -432,5 +433,49 @@ public class UsersManagementClientTest {
 
         System.out.println(res);
         Assert.assertNotNull(res);
+    }
+
+    public static void main(String[] args) {
+        String userPoolId = "60960a4120cfd0a5a8306ffe";
+        String userPoolSecret = "ca869fa487e44f42e39175fef7a76e3d";
+
+        ManagementClient managementClient = new ManagementClient(userPoolId, userPoolSecret);
+        managementClient.setHost("http://localhost:3000");
+
+        try {
+            managementClient.udf().set(UdfTargetType.USER, "key2", UdfDataType.STRING, "2").execute();
+            managementClient.udf().set(UdfTargetType.USER, "key3", UdfDataType.STRING, "3").execute();
+            managementClient.udf().set(UdfTargetType.USER, "key4", UdfDataType.STRING, "4").execute();
+        } catch (IOException | GraphQLException e) {
+            e.printStackTrace();
+        }
+
+        Map<String, String> p = new HashMap();
+        p.put("key2", "aaaaaaaaaaaaaaaaa");
+        p.put("key3", "aaaaaaaaaaaaaaaaa");
+        p.put("key4", "aaaaaaaaaaaaaaaaa");
+        try {
+            List<UserDefinedData> res = managementClient.users().setUdfValue("60a392255df2c97ef795f9db", p).execute();
+            Map<String, Object> execute = managementClient.users().getUdfValue("60a392255df2c97ef795f9db").execute();
+            System.out.println(execute);
+        } catch (IOException | GraphQLException e) {
+            e.printStackTrace();
+        }
+
+        Map<String, String> p2 = new HashMap();
+        p2.put("key2", "bbbbbbbbbbbbbbbbb");
+        p2.put("key3", "bbbbbbbbbbbbbbbbb");
+        p2.put("key4", "bbbbbbbbbbbbbbbbb");
+        SetUdfValueBatchInputItem a = new SetUdfValueBatchInputItem("60a392255df2c97ef795f9db", p2);
+
+        List<UserDefinedData> result = null;
+        try {
+            managementClient.users().setUdfValueBatch(Arrays.asList(a)).execute();
+
+            Map<String, Object> execute = managementClient.users().getUdfValue("60a392255df2c97ef795f9db").execute();
+            System.out.println(execute);
+        } catch (IOException | GraphQLException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -3,6 +3,7 @@ package cn.authing.core.mgmt
 import cn.authing.core.graphql.GraphQLCall
 import cn.authing.core.graphql.GraphQLResponse
 import cn.authing.core.types.*
+import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.util.*
 
@@ -295,7 +296,7 @@ class RolesManagementClient(private val client: ManagementClient) {
         roleCode: String,
         data: Map<String, String>
     ): GraphQLCall<SetUdvBatchResponse, List<UserDefinedData>> {
-        val udvList = data.entries.map { UserDefinedDataInput(it.key, it.value) }
+        val udvList = data.entries.map { UserDefinedDataInput(it.key, Gson().toJson(it.value)) }
         val param = SetUdvBatchParam(UdfTargetType.ROLE, roleCode, udvList)
         return client.createGraphQLCall(
             param.createRequest(),
@@ -313,7 +314,7 @@ class RolesManagementClient(private val client: ManagementClient) {
             targetType = UdfTargetType.ROLE,
             targetId = roleCode,
             key = key,
-            value = value
+            value = Gson().toJson(value)
         )
 
         return client.createGraphQLCall(
@@ -329,7 +330,7 @@ class RolesManagementClient(private val client: ManagementClient) {
 
         val param = SetUdfValueBatchParam(UdfTargetType.ROLE,
             input.flatMap { item ->
-                item.data.map { SetUdfValueBatchInput(item.roleCode, it.key, it.value) }
+                item.data.map { SetUdfValueBatchInput(item.roleCode, it.key, Gson().toJson(it.value)) }
             }
         )
 

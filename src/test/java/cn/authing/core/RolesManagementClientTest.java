@@ -23,7 +23,10 @@ public class RolesManagementClientTest {
 
     @Before
     public void before() throws IOException, GraphQLException {
-        managementClient = new ManagementClient("59f86b4832eb28071bdd9214", "271ba9dc00486c18488aebb0962bd50d");
+        String userPoolId = "60960a4120cfd0a5a8306ffe";
+        String userPoolSecret = "ca869fa487e44f42e39175fef7a76e3d";
+        managementClient = new ManagementClient(userPoolId, userPoolSecret);
+
         managementClient.setHost("http://localhost:3000");
         this.rolesManagementClient = managementClient.roles();
 
@@ -144,7 +147,7 @@ public class RolesManagementClientTest {
     public void setUdfValue() throws IOException, GraphQLException {
         Role role = this.createE();
 
-        List<UserDefinedData> list = managementClient.roles().setUdfValue(role.getCode(), "key1", "\"123\"").execute();
+        List<UserDefinedData> list = managementClient.roles().setUdfValue(role.getCode(), "key1", "\"aaaa\"").execute();
 
         Assert.assertNotNull(list);
     }
@@ -153,16 +156,17 @@ public class RolesManagementClientTest {
     public void setUdfValueBatch() throws IOException, GraphQLException {
         Role role = this.createE();
 
+        managementClient.udf().set(UdfTargetType.ROLE, "key1", UdfDataType.STRING, "1").execute();
         managementClient.udf().set(UdfTargetType.ROLE, "key2", UdfDataType.STRING, "2").execute();
         managementClient.udf().set(UdfTargetType.ROLE, "key3", UdfDataType.STRING, "3").execute();
         managementClient.udf().set(UdfTargetType.ROLE, "key4", UdfDataType.STRING, "4").execute();
 
         HashMap<String, String> udfMap = new HashMap<>();
 
-        udfMap.put("key1", "\"aaa\"");
-        udfMap.put("key2", "\"aaa\"");
-        udfMap.put("key3", "\"aaa\"");
-        udfMap.put("key4", "\"aaa\"");
+        udfMap.put("key1", "aaa");
+        udfMap.put("key2", "aaa");
+        udfMap.put("key3", "aaa");
+        udfMap.put("key4", "aaa");
         RoleSetUdfValueBatchParams params = new RoleSetUdfValueBatchParams(
                 role.getCode(),
                 udfMap
@@ -171,10 +175,10 @@ public class RolesManagementClientTest {
 
         Map<String, Object> map = managementClient.roles().getUdfValue(role.getCode()).execute();
 
-        Assert.assertEquals(map.get("key1"), "\"aaa\"");
-        Assert.assertEquals(map.get("key2"), "\"aaa\"");
-        Assert.assertEquals(map.get("key3"), "\"aaa\"");
-        Assert.assertEquals(map.get("key4"), "\"aaa\"");
+        Assert.assertEquals(map.get("key1"), "aaa");
+        Assert.assertEquals(map.get("key2"), "aaa");
+        Assert.assertEquals(map.get("key3"), "aaa");
+        Assert.assertEquals(map.get("key4"), "aaa");
     }
 
     @Test
@@ -183,7 +187,7 @@ public class RolesManagementClientTest {
 
         HashMap<String, String> udfMap = new HashMap<>();
 
-        udfMap.put("key1", "\"aaa\"");
+        udfMap.put("key1", "aaa");
         RoleSetUdfValueBatchParams params = new RoleSetUdfValueBatchParams(
                 role.getCode(),
                 udfMap

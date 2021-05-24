@@ -343,7 +343,7 @@ public class AuthenticationClientTest {
         Map<String, String> p = new HashMap();
         p.put("dnum", "234");
         List<UserDefinedData> result = this.authenticationClient.setUdfValue(p).execute();
-        Assert.assertNotNull(result != null);
+        Assert.assertNotNull(result);
     }
 
     @Test

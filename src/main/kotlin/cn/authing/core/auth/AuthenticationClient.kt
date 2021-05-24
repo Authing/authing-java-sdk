@@ -70,8 +70,13 @@ class AuthenticationClient : BaseClient {
         url += if (country != null) "&country=$country" else ""
         url += if (lang != null) "&lang=$lang" else ""
         url += if (state != null) "&state=$state" else ""
+        url += if (appId != null) "&appId=$appId" else ""
 
-        return createHttpGetCall(url, object : TypeToken<RestfulResponse<User>>() {}) { it.data }
+        return createHttpGetCall(url, object : TypeToken<RestfulResponse<User>>() {}) {
+            user = it.data
+            token = it.data.token ?: token
+            it.data
+        }
     }
 
     /**
@@ -618,7 +623,7 @@ class AuthenticationClient : BaseClient {
             throw Exception("login first")
         }
 
-        val udvList = data.entries.map { UserDefinedDataInput(it.key, it.value) }
+        val udvList = data.entries.map { UserDefinedDataInput(it.key, Gson().toJson(it.value)) }
         val param = SetUdvBatchParam(UdfTargetType.USER, user!!.id, udvList)
         return createGraphQLCall(
             param.createRequest(),
