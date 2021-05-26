@@ -18,6 +18,7 @@ data class IMfaAuthenticator(
 enum class TotpSource {
     @SerializedName("APPLICATION")
     APPLICATION,
+
     @SerializedName("SELF")
     SELF;
 }
@@ -27,7 +28,7 @@ data class GetMfaAuthenticatorsParams
 constructor(
     @Expose
     var type: String,
-    var mfaToken: String? = null ,
+    var mfaToken: String? = null,
     @Expose
     var source: TotpSource? = TotpSource.SELF
 )
@@ -119,4 +120,24 @@ constructor(
     @Expose
     var code: String,
     var mfaToken: String
+)
+
+data class ImportTotpParams
+@JvmOverloads
+constructor(
+    var userId: String,
+    var secret: String,
+    var recoveryCode: String? = null
+)
+
+data class ISetTotpResp
+constructor(
+    var userId: String,
+    var enable: Boolean,
+    var secret: String,
+    var authenticatorType: String,
+    var recoveryCode: String,
+    var createdAt: String,
+    var updatedAt: String,
+    var id: String
 )
