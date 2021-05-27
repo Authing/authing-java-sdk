@@ -191,26 +191,4 @@ class MfaAuthenticationClient(private val client: AuthenticationClient) {
             object : TypeToken<RestfulResponse<User>>() {}
         ) { it.data }
     }
-
-    /**
-     * @name importTotp
-     * @name_zh 将已有的 TOTP 的 secret 和恢复代码导入到 Authing，并为用户开启 TOTP 多因素认证
-     * @description 设置用户 TOTP 的 secret 和恢复代码，并自动启用 MFA
-     *
-     * @param {ImportTotpParams} options
-     * @param options - {String} userId 用户 ID
-     * @param options - {String} secret TOTP 密钥
-     * @param options - {String} recoveryCode 恢复代码
-     */
-    fun importTotp(
-        options: ImportTotpParams
-    ): HttpCall<RestfulResponse<ISetTotpResp>, ISetTotpResp> {
-        val url = "${client.host}/api/v2/mfa/totp/import"
-
-        return client.createHttpPostCall(
-            url,
-            Gson().toJson(options),
-            object : TypeToken<RestfulResponse<ISetTotpResp>>() {}
-        ) { it.data }
-    }
 }
