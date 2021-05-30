@@ -70,7 +70,7 @@ class AuthenticationClient : BaseClient {
         url += if (country != null) "&country=$country" else ""
         url += if (lang != null) "&lang=$lang" else ""
         url += if (state != null) "&state=$state" else ""
-        url += if (appId != null) "&appId=$appId" else ""
+        url += if (appId != null) "&app_id=$appId" else ""
 
         return createHttpGetCall(url, object : TypeToken<RestfulResponse<User>>() {}) {
             user = it.data
