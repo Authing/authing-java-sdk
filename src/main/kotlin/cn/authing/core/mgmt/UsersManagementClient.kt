@@ -51,6 +51,21 @@ class UsersManagementClient(private val client: ManagementClient) {
         }
     }
 
+    @JvmOverloads
+    fun restCreate(userInfo: CreateUserInput, options: CreateUserOptions? = null): HttpCall<RestfulResponse<User>, User> {
+        val param = CreateUserParam(userInfo).withKeepPassword(options?.keepPassword)
+        if (param.userInfo.password !== null) {
+            param.userInfo.password = client.encrypt(param.userInfo.password!!)
+        }
+        return client.createHttpPostCall(
+            "${client.host}/api/v2/users",
+            GsonBuilder().create().toJson(param),
+            object : TypeToken<RestfulResponse<User>> () {}
+        ) { it.data }
+    }
+
+
+
     /**
      * 更新用户信息
      */
@@ -76,6 +91,13 @@ class UsersManagementClient(private val client: ManagementClient) {
             object : TypeToken<GraphQLResponse<UserResponse>>() {}) {
             it.result
         }
+    }
+
+    fun findById(userId: String): HttpCall<RestfulResponse<User>, User> {
+        return client.createHttpGetCall(
+            "${client.host}/api/v2/users/$userId",
+            object : TypeToken<RestfulResponse<User>> () {}
+        ) { it.data }
     }
 
     /**
@@ -206,6 +228,18 @@ class UsersManagementClient(private val client: ManagementClient) {
             param.createRequest(),
             object : TypeToken<GraphQLResponse<AssignRoleResponse>>() {}) {
             it.result
+        }
+    }
+
+    fun restAddRoles(
+        options: RestAddRolesParams
+    ): HttpCall<RestfulResponse<Boolean>, Boolean> {
+        return client.createHttpPostCall(
+            "${client.host}/api/v2/users/${options.userId}/roles",
+            GsonBuilder().create().toJson(options),
+            object : TypeToken<RestfulResponse<Boolean>> () {}
+        ) {
+            it.code == 200
         }
     }
 
@@ -454,6 +488,25 @@ class UsersManagementClient(private val client: ManagementClient) {
             param.createRequest(),
             object : TypeToken<GraphQLResponse<SetUdvBatchResponse>>() {}) {
             it.result
+        }
+    }
+
+    fun restSetUdfValue(
+        userId: String,
+        key: String,
+        value: Any
+    ): HttpCall<RestfulResponse<List<UserDefinedData>>, List<UserDefinedData>> {
+        val map: MutableMap<String, Any> = HashMap()
+        map[key] = value
+
+        val params = RestSetUdfValueParams("USER", userId, map)
+
+        return client.createHttpPostCall(
+            "${client.host}/api/v2/udvs",
+            GsonBuilder().create().toJson(params),
+            object : TypeToken<RestfulResponse<List<UserDefinedData>>> () {}
+        ) {
+            it.data
         }
     }
 

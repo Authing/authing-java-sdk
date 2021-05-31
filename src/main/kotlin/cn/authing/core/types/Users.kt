@@ -1,5 +1,6 @@
 package cn.authing.core.types
 
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 class IHasRoleParam
@@ -91,4 +92,20 @@ data class UserLogoutParams
 constructor(
     var userId: String,
     var appId: String? = null
+)
+
+data class RestSetUdfValueParams
+constructor(
+    val targetType: String,
+    val targetId: String,
+    val data: Map<String, Any>
+)
+
+data class RestAddRolesParams
+constructor(
+    val userId: String,
+    @Expose
+    val namespace: String,
+    @Expose
+    val list: List<String>
 )

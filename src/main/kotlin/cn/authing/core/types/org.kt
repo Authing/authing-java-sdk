@@ -1,6 +1,7 @@
 package cn.authing.core.types
 
 import cn.authing.core.graphql.GraphQLRequest
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
@@ -59,4 +60,11 @@ data class OrgNode(
     /** @param [authorizedResources] 被授权访问的所有资源 */
     @SerializedName("authorizedResources")
     var authorizedResources: PaginatedAuthorizedResources? = null
+)
+
+data class RestAddMembersParams
+constructor(
+    val nodeId: String,
+    @Expose
+    val userIds: List<String>
 )

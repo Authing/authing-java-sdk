@@ -93,6 +93,26 @@ public class UsersManagementClientTest {
     }
 
     @Test
+    public void restCreate() throws IOException {
+        email = TestUtils.createRandomEmail();
+        username = TestUtils.createRandomString();
+        externalId = TestUtils.createRandomString();
+        phone = TestUtils.createRandomMobile();
+        nickname = TestUtils.createRandomString();
+
+        CreateUserInput input = new CreateUserInput()
+                .withEmail(email)
+                .withPassword(password)
+                .withUsername(username)
+                .withPhone(phone)
+                .withExternalId(externalId);
+
+        User user = this.usersManagementClient.restCreate(input).execute();
+
+        Assert.assertNotNull(user);
+    }
+
+    @Test
     public void createWithKeepPassword() throws IOException, GraphQLException {
         String email = TestUtils.createRandomEmail();
         String password = TestUtils.createRandomString();
@@ -116,6 +136,30 @@ public class UsersManagementClientTest {
     public void detail() throws IOException, GraphQLException {
         User result = this.usersManagementClient.detail(user.getId()).execute();
         Assert.assertEquals(result.getEmail(), email);
+    }
+
+    @Test
+    public void findById() throws IOException {
+
+        email = TestUtils.createRandomEmail();
+        username = TestUtils.createRandomString();
+        externalId = TestUtils.createRandomString();
+        phone = TestUtils.createRandomMobile();
+        nickname = TestUtils.createRandomString();
+
+        CreateUserInput input = new CreateUserInput()
+                .withEmail(email)
+                .withPassword(password)
+                .withUsername(username)
+                .withPhone(phone)
+                .withExternalId(externalId);
+
+        User user = this.usersManagementClient.restCreate(input).execute();
+
+
+        User user2 = this.usersManagementClient.findById(user.getId()).execute();
+
+        Assert.assertNotNull(user2);
     }
 
     @Test
@@ -297,6 +341,17 @@ public class UsersManagementClientTest {
     }
 
     @Test
+    public void restAddRoles() throws IOException {
+        String userId = "60b5035bc7bc290503e3c681";
+        String namespace = "60b49b1f7bf063e78bb63529";
+        List<String> list = Arrays.asList("test1", "test2");
+        RestAddRolesParams params = new RestAddRolesParams(userId, namespace, list);
+        Boolean aBoolean = this.usersManagementClient.restAddRoles(params).execute();
+
+        Assert.assertTrue(aBoolean);
+    }
+
+    @Test
     public void listPolicies() throws IOException, GraphQLException {
         PaginatedPolicyAssignments result = this.usersManagementClient.listPolicies(user.getId()).execute();
         Assert.assertEquals(0, result.getTotalCount());
@@ -329,6 +384,17 @@ public class UsersManagementClientTest {
 
         Assert.assertNotNull(res);
 
+    }
+
+    @Test
+    public void restSetUdfValue() throws IOException {
+        List<UserDefinedData> list = this.usersManagementClient.restSetUdfValue("60b5035bc7bc290503e3c681", "school", "大连东软信息学院").execute();
+
+        Assert.assertNotNull(list);
+
+//        List<UserDefinedData> list2 = this.usersManagementClient.restSetUdfValue("60b5035bc7bc290503e3c681", "age", 1231).execute();
+//
+//        Assert.assertNotNull(list2);
     }
 
     @Test

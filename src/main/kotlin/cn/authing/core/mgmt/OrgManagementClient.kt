@@ -5,7 +5,9 @@ import cn.authing.core.graphql.GraphQLResponse
 import cn.authing.core.http.HttpCall
 import cn.authing.core.types.*
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
 
 /**
  * 管理组织机构
@@ -149,6 +151,15 @@ class OrgManagementClient(private val client: ManagementClient) {
         }
     }
 
+    fun restSearchNodes(keyword: String): HttpCall<RestfulResponse<List<Node>>, List<Node>> {
+        return client.createHttpGetCall(
+            "${client.host}/api/v2/orgs/nodes/search?q=${keyword}",
+            object : TypeToken<RestfulResponse<List<Node>>> () {}
+        ) {
+            it.data
+        }
+    }
+
     /**
      * 节点添加成员
      */
@@ -158,6 +169,16 @@ class OrgManagementClient(private val client: ManagementClient) {
             param.createRequest(),
             object : TypeToken<GraphQLResponse<AddMemberResponse>>() {}) {
             it.result
+        }
+    }
+
+    fun restAddMembers(options: RestAddMembersParams): HttpCall<RestfulResponse<Boolean>, Boolean> {
+        return client.createHttpPostCall(
+            "${client.host}/api/v2/orgs/nodes/${options.nodeId}/members",
+            GsonBuilder().create().toJson(options),
+            object : TypeToken<RestfulResponse<Boolean>> () {}
+        ) {
+            it.code == 200
         }
     }
 

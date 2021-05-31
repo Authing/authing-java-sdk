@@ -71,6 +71,13 @@ public class OrgManagementClientTest {
     }
 
     @Test
+    public void restSearchNodes() throws IOException {
+        List<Node> list = this.orgManagementClient.restSearchNodes("部门").execute();
+
+        Assert.assertNotNull(list);
+    }
+
+    @Test
     public void findNodeById() throws IOException, GraphQLException {
         Node node = this.orgManagementClient.findNodeById("5fa400e2e925831ca4c65d5e").execute();
         Assert.assertNotNull(node);
@@ -136,6 +143,14 @@ public class OrgManagementClientTest {
     public void addMembers() throws IOException, GraphQLException {
         Node node = this.orgManagementClient.addMembers("5fa406f6d24bb9320d7192b2", Collections.singletonList("5f8d2827c41264570d13200f")).execute();
         Assert.assertNotNull(node);
+    }
+
+    @Test
+    public void restAddMembers() throws IOException {
+        RestAddMembersParams params = new RestAddMembersParams("60b5077d5f15212c133b29a6", Arrays.asList("60b5035bc7bc290503e3c681"));
+        Boolean isNode = this.orgManagementClient.restAddMembers(params).execute();
+
+        Assert.assertTrue(isNode);
     }
 
     @Test
