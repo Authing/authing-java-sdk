@@ -143,17 +143,9 @@ class OrgManagementClient(private val client: ManagementClient) {
     /**
      * 模糊搜索组织节点
      */
-    fun searchNodes(param: SearchNodesParam): GraphQLCall<SearchNodesResponse, List<Node>> {
-        return client.createGraphQLCall(
-            param.createRequest(),
-            object : TypeToken<GraphQLResponse<SearchNodesResponse>>() {}) {
-            it.result
-        }
-    }
-
-    fun restSearchNodes(keyword: String): HttpCall<RestfulResponse<List<Node>>, List<Node>> {
+    fun searchNodes(param: SearchNodesParam): HttpCall<RestfulResponse<List<Node>>, List<Node>> {
         return client.createHttpGetCall(
-            "${client.host}/api/v2/orgs/nodes/search?q=${keyword}",
+            "${client.host}/api/v2/orgs/nodes/search?q=${param.keyword}",
             object : TypeToken<RestfulResponse<List<Node>>> () {}
         ) {
             it.data
@@ -163,22 +155,14 @@ class OrgManagementClient(private val client: ManagementClient) {
     /**
      * 节点添加成员
      */
-    fun addMembers(nodeId: String, userIds: List<String>): GraphQLCall<AddMemberResponse, Node> {
-        val param = AddMemberParam(nodeId = nodeId, userIds = userIds)
-        return client.createGraphQLCall(
-            param.createRequest(),
-            object : TypeToken<GraphQLResponse<AddMemberResponse>>() {}) {
-            it.result
-        }
-    }
-
-    fun restAddMembers(options: RestAddMembersParams): HttpCall<RestfulResponse<Boolean>, Boolean> {
+    fun addMembers(nodeId: String, userIds: List<String>): HttpCall<RestfulResponse<Node>, Node> {
+        val options = RestAddMembersParams(nodeId, userIds)
         return client.createHttpPostCall(
             "${client.host}/api/v2/orgs/nodes/${options.nodeId}/members",
             GsonBuilder().create().toJson(options),
-            object : TypeToken<RestfulResponse<Boolean>> () {}
+            object : TypeToken<RestfulResponse<Node>> () {}
         ) {
-            it.code == 200
+            it.data
         }
     }
 

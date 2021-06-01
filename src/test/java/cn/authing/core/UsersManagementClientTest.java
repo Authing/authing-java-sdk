@@ -41,8 +41,8 @@ public class UsersManagementClientTest {
 
     @Before
     public void before() throws IOException, GraphQLException {
-        String userPoolId = "5f45cad3ece50b62de2a02cd";
-        String userPoolSecret = "624cb39b07ffd29b946112ea82f5b50e";
+        String userPoolId = "60adc2fef7ae7440c9265f07";
+        String userPoolSecret = "19cd7e941c1af56c5b3fafef72359a3b";
         managementClient = new ManagementClient(userPoolId, userPoolSecret);
         managementClient.setHost("https://core.authing.cn");
         this.usersManagementClient = managementClient.users();
@@ -93,26 +93,6 @@ public class UsersManagementClientTest {
     }
 
     @Test
-    public void restCreate() throws IOException {
-        email = TestUtils.createRandomEmail();
-        username = TestUtils.createRandomString();
-        externalId = TestUtils.createRandomString();
-        phone = TestUtils.createRandomMobile();
-        nickname = TestUtils.createRandomString();
-
-        CreateUserInput input = new CreateUserInput()
-                .withEmail(email)
-                .withPassword(password)
-                .withUsername(username)
-                .withPhone(phone)
-                .withExternalId(externalId);
-
-        User user = this.usersManagementClient.restCreate(input).execute();
-
-        Assert.assertNotNull(user);
-    }
-
-    @Test
     public void createWithKeepPassword() throws IOException, GraphQLException {
         String email = TestUtils.createRandomEmail();
         String password = TestUtils.createRandomString();
@@ -137,31 +117,6 @@ public class UsersManagementClientTest {
         User result = this.usersManagementClient.detail(user.getId()).execute();
         Assert.assertEquals(result.getEmail(), email);
     }
-
-    @Test
-    public void findById() throws IOException {
-
-        email = TestUtils.createRandomEmail();
-        username = TestUtils.createRandomString();
-        externalId = TestUtils.createRandomString();
-        phone = TestUtils.createRandomMobile();
-        nickname = TestUtils.createRandomString();
-
-        CreateUserInput input = new CreateUserInput()
-                .withEmail(email)
-                .withPassword(password)
-                .withUsername(username)
-                .withPhone(phone)
-                .withExternalId(externalId);
-
-        User user = this.usersManagementClient.restCreate(input).execute();
-
-
-        User user2 = this.usersManagementClient.findById(user.getId()).execute();
-
-        Assert.assertNotNull(user2);
-    }
-
     @Test
     public void search() throws IOException, GraphQLException {
         String query = "t";
@@ -342,13 +297,11 @@ public class UsersManagementClientTest {
 
     @Test
     public void restAddRoles() throws IOException {
-        String userId = "60b5035bc7bc290503e3c681";
-        String namespace = "60b49b1f7bf063e78bb63529";
+        String userId = "60b5db8f31f1ca6c64691c48";
+        String namespace = "default";
         List<String> list = Arrays.asList("test1", "test2");
-        RestAddRolesParams params = new RestAddRolesParams(userId, namespace, list);
-        Boolean aBoolean = this.usersManagementClient.restAddRoles(params).execute();
 
-        Assert.assertTrue(aBoolean);
+        this.usersManagementClient.addRoles(userId, list, namespace).execute();
     }
 
     @Test
@@ -387,17 +340,6 @@ public class UsersManagementClientTest {
     }
 
     @Test
-    public void restSetUdfValue() throws IOException {
-        List<UserDefinedData> list = this.usersManagementClient.restSetUdfValue("60b5035bc7bc290503e3c681", "school", "大连东软信息学院").execute();
-
-        Assert.assertNotNull(list);
-
-//        List<UserDefinedData> list2 = this.usersManagementClient.restSetUdfValue("60b5035bc7bc290503e3c681", "age", 1231).execute();
-//
-//        Assert.assertNotNull(list2);
-    }
-
-    @Test
     public void UdfValue() throws IOException, GraphQLException, ExecutionException, InterruptedException {
         setUdfValue();
         removeUdfValue();
@@ -419,7 +361,7 @@ public class UsersManagementClientTest {
     public void setUdfValue() throws IOException, GraphQLException, ExecutionException, InterruptedException {
         Map<String, String> p = new HashMap();
         p.put("dnum", "234");
-        List<UserDefinedData> result = this.usersManagementClient.setUdfValue("5f9d0cef60d09ff5a4c87c06", p).execute();
+        List<UserDefinedData> result = this.usersManagementClient.setUdfValue("60b5db8f31f1ca6c64691c48", p).execute();
         Assert.assertNotNull(result);
     }
 

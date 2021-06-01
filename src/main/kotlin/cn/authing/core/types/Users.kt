@@ -102,10 +102,11 @@ constructor(
 )
 
 data class RestAddRolesParams
+@JvmOverloads
 constructor(
-    val userId: String,
+    var userId: String,
     @Expose
-    val namespace: String,
+    var namespace: String? = null,
     @Expose
-    val list: List<String>
+    var list: List<String>
 )

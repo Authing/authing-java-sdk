@@ -39,20 +39,7 @@ class UsersManagementClient(private val client: ManagementClient) {
      * 创建新用户
      */
     @JvmOverloads
-    fun create(userInfo: CreateUserInput, options: CreateUserOptions? = null): GraphQLCall<CreateUserResponse, User> {
-        val param = CreateUserParam(userInfo).withKeepPassword(options?.keepPassword)
-        if (param.userInfo.password !== null) {
-            param.userInfo.password = client.encrypt(param.userInfo.password!!)
-        }
-        return client.createGraphQLCall(
-            param.createRequest(),
-            object : TypeToken<GraphQLResponse<CreateUserResponse>>() {}) {
-            it.result
-        }
-    }
-
-    @JvmOverloads
-    fun restCreate(userInfo: CreateUserInput, options: CreateUserOptions? = null): HttpCall<RestfulResponse<User>, User> {
+    fun create(userInfo: CreateUserInput, options: CreateUserOptions? = null): HttpCall<RestfulResponse<User>, User> {
         val param = CreateUserParam(userInfo).withKeepPassword(options?.keepPassword)
         if (param.userInfo.password !== null) {
             param.userInfo.password = client.encrypt(param.userInfo.password!!)
@@ -63,8 +50,6 @@ class UsersManagementClient(private val client: ManagementClient) {
             object : TypeToken<RestfulResponse<User>> () {}
         ) { it.data }
     }
-
-
 
     /**
      * 更新用户信息
@@ -84,16 +69,7 @@ class UsersManagementClient(private val client: ManagementClient) {
     /**
      * 获取用户信息，需要传入用户 ID
      */
-    fun detail(userId: String): GraphQLCall<UserResponse, User> {
-        val param = UserParam(userId)
-        return client.createGraphQLCall(
-            param.createRequest(),
-            object : TypeToken<GraphQLResponse<UserResponse>>() {}) {
-            it.result
-        }
-    }
-
-    fun findById(userId: String): HttpCall<RestfulResponse<User>, User> {
+    fun detail(userId: String): HttpCall<RestfulResponse<User>, User>  {
         return client.createHttpGetCall(
             "${client.host}/api/v2/users/$userId",
             object : TypeToken<RestfulResponse<User>> () {}
@@ -211,7 +187,7 @@ class UsersManagementClient(private val client: ManagementClient) {
      * TODO: 高版本删除
      */
     @Deprecated("请使用addRoles(userId: String, roles: List<String>, namespace: String?)替换此方法")
-    fun addRoles(userId: String, roleCodes: List<String>): GraphQLCall<AssignRoleResponse, CommonMessage> {
+    fun addRoles(userId: String, roleCodes: List<String>): HttpCall<RestfulResponse<CommonMessage>, CommonMessage> {
         return addRoles(userId, roleCodes, null);
     }
 
@@ -222,24 +198,14 @@ class UsersManagementClient(private val client: ManagementClient) {
         userId: String,
         roleCodes: List<String>,
         namespace: String?
-    ): GraphQLCall<AssignRoleResponse, CommonMessage> {
-        val param = AssignRoleParam().withUserIds(listOf(userId)).withRoleCodes(roleCodes).withNamespace(namespace)
-        return client.createGraphQLCall(
-            param.createRequest(),
-            object : TypeToken<GraphQLResponse<AssignRoleResponse>>() {}) {
-            it.result
-        }
-    }
-
-    fun restAddRoles(
-        options: RestAddRolesParams
-    ): HttpCall<RestfulResponse<Boolean>, Boolean> {
+    ): HttpCall<RestfulResponse<CommonMessage>, CommonMessage> {
+        val options = RestAddRolesParams(userId = userId, namespace = namespace, list = roleCodes)
         return client.createHttpPostCall(
             "${client.host}/api/v2/users/${options.userId}/roles",
             GsonBuilder().create().toJson(options),
-            object : TypeToken<RestfulResponse<Boolean>> () {}
+            object : TypeToken<RestfulResponse<CommonMessage>> () {}
         ) {
-            it.code == 200
+            it.data
         }
     }
 
@@ -480,26 +446,8 @@ class UsersManagementClient(private val client: ManagementClient) {
     fun setUdfValue(
         userId: String,
         data: Map<String, String>
-    ): GraphQLCall<SetUdvBatchResponse, List<UserDefinedData>> {
-        val udvList = data.entries.map { UserDefinedDataInput(it.key, Gson().toJson(it.value)) }
-        val param = SetUdvBatchParam(UdfTargetType.USER, userId, udvList)
-
-        return client.createGraphQLCall(
-            param.createRequest(),
-            object : TypeToken<GraphQLResponse<SetUdvBatchResponse>>() {}) {
-            it.result
-        }
-    }
-
-    fun restSetUdfValue(
-        userId: String,
-        key: String,
-        value: Any
     ): HttpCall<RestfulResponse<List<UserDefinedData>>, List<UserDefinedData>> {
-        val map: MutableMap<String, Any> = HashMap()
-        map[key] = value
-
-        val params = RestSetUdfValueParams("USER", userId, map)
+        val params = RestSetUdfValueParams("USER", userId, data)
 
         return client.createHttpPostCall(
             "${client.host}/api/v2/udvs",

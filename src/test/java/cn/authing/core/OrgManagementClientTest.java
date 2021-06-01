@@ -22,13 +22,10 @@ public class OrgManagementClientTest {
 
     @Before
     public void before() throws IOException, GraphQLException {
-        String userPoolId = "5fadf578bf55f793e7a81dca";
-//        String userPoolId = "606d9b8468d2655d5ec3e6ce";
-        String userPoolSecret = "f290a539878dc68506641937a7592725";
-//        String userPoolSecret = "340bcc1ff7a40a0178ba637cde965e6c";
+        String userPoolId = "60adc2fef7ae7440c9265f07";
+        String userPoolSecret = "19cd7e941c1af56c5b3fafef72359a3b";
 
         ManagementClient managementClient = new ManagementClient(userPoolId, userPoolSecret);
-//        managementClient.setHost("http://localhost:3000");
         managementClient.setHost("https://core.authing.cn");
 
         this.orgManagementClient = managementClient.org();
@@ -66,15 +63,8 @@ public class OrgManagementClientTest {
 
     @Test
     public void searchNodes() throws IOException, GraphQLException {
-        List<Node> list = this.orgManagementClient.searchNodes(new SearchNodesParam("1")).execute();
+        List<Node> list = this.orgManagementClient.searchNodes(new SearchNodesParam("Xuancao")).execute();
         Assert.assertTrue(list.size() != 0);
-    }
-
-    @Test
-    public void restSearchNodes() throws IOException {
-        List<Node> list = this.orgManagementClient.restSearchNodes("部门").execute();
-
-        Assert.assertNotNull(list);
     }
 
     @Test
@@ -141,16 +131,8 @@ public class OrgManagementClientTest {
 
     @Test
     public void addMembers() throws IOException, GraphQLException {
-        Node node = this.orgManagementClient.addMembers("5fa406f6d24bb9320d7192b2", Collections.singletonList("5f8d2827c41264570d13200f")).execute();
+        Node node = this.orgManagementClient.addMembers("60b0699640becb72dbfaef15", Collections.singletonList("60b5db8f31f1ca6c64691c48")).execute();
         Assert.assertNotNull(node);
-    }
-
-    @Test
-    public void restAddMembers() throws IOException {
-        RestAddMembersParams params = new RestAddMembersParams("60b5077d5f15212c133b29a6", Arrays.asList("60b5035bc7bc290503e3c681"));
-        Boolean isNode = this.orgManagementClient.restAddMembers(params).execute();
-
-        Assert.assertTrue(isNode);
     }
 
     @Test
