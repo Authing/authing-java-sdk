@@ -23,6 +23,11 @@ import javax.crypto.Cipher
  * Authing 客户端类
  */
 abstract class BaseClient {
+
+    init {
+        System.setProperty("https.protocols", "TLSv1,TLSv1.1,TLSv1.2")
+    }
+
     // 可选参数
     var host: String = "https://core.authing.cn"
     var publicKey: String = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC4xKeUgQ+Aoz7TLfAfs9+paePb" +
