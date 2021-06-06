@@ -262,7 +262,7 @@ class ApplicationManagementClient(private val client: ManagementClient) {
     fun createRole(
         appId: String,
         options: CreateRoleParams
-    ): GraphQLCall<CreateRoleResponse, Role> {
+    ): HttpCall<RestfulResponse<Role>, Role> {
         return role.create(
             CreateRoleParam(code = options.code).withNamespace(appId).withDescription(options.description)
         )
@@ -308,7 +308,7 @@ class ApplicationManagementClient(private val client: ManagementClient) {
     fun getRoles(
         appId: String,
         options: PageOptions = PageOptions()
-    ): GraphQLCall<RolesResponse, PaginatedRoles> {
+    ): HttpCall<RestfulResponse<PaginatedRoles>, PaginatedRoles> {
         return role.list(
             RolesParam(namespace = appId).withPage(options.page).withLimit(options.limit)
         )
@@ -429,7 +429,8 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         appId: String,
         options: PageOptions? = PageOptions()
     ): HttpCall<RestfulResponse<ActiveUser>, ActiveUser> {
-        val url = "${client.host}/api/v2/applications/${appId}/active-users?page=${options?.page}&limit=${options?.limit}"
+        val url =
+            "${client.host}/api/v2/applications/${appId}/active-users?page=${options?.page}&limit=${options?.limit}"
 
         return client.createHttpGetCall(
             url,

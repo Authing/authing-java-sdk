@@ -1,9 +1,12 @@
 package cn.authing.core.mgmt
 
+import cn.authing.core.Utils
 import cn.authing.core.graphql.GraphQLCall
 import cn.authing.core.graphql.GraphQLResponse
+import cn.authing.core.http.HttpCall
 import cn.authing.core.types.*
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import java.util.*
 
@@ -21,7 +24,7 @@ class RolesManagementClient(private val client: ManagementClient) {
         limit: Int? = null,
         sortBy: SortByEnum? = null,
         namespace: String? = null
-    ): GraphQLCall<RolesResponse, PaginatedRoles> {
+    ): HttpCall<RestfulResponse<PaginatedRoles>, PaginatedRoles> {
         val param = RolesParam(namespace, page, limit, sortBy)
         return list(param)
     }
@@ -29,11 +32,17 @@ class RolesManagementClient(private val client: ManagementClient) {
     /**
      * 获取角色列表
      */
-    fun list(param: RolesParam): GraphQLCall<RolesResponse, PaginatedRoles> {
-        return client.createGraphQLCall(
-            param.createRequest(),
-            object : TypeToken<GraphQLResponse<RolesResponse>>() {}) {
-            it.result
+    fun list(param: RolesParam): HttpCall<RestfulResponse<PaginatedRoles>, PaginatedRoles> {
+        var url = "${client.host}/api/v2/roles"
+        url += if (param.page != null) "?page=${param.page}" else "?page=1"
+        url += if (param.limit != null) "&limit=${param.limit}" else "&limit=10"
+        url += if (param.sortBy != null) "&sortBy=${param.sortBy}" else ""
+
+        return client.createHttpGetCall(
+            url,
+            object : TypeToken<RestfulResponse<PaginatedRoles>> () {}
+        ) {
+            it.data
         }
     }
 
@@ -46,7 +55,7 @@ class RolesManagementClient(private val client: ManagementClient) {
         description: String? = null,
         parent: String? = null,
         namespace: String? = null
-    ): GraphQLCall<CreateRoleResponse, Role> {
+    ): HttpCall<RestfulResponse<Role>, Role> {
         val param = CreateRoleParam(namespace, code, description, parent)
         return create(param)
     }
@@ -54,11 +63,13 @@ class RolesManagementClient(private val client: ManagementClient) {
     /**
      * 创建角色
      */
-    fun create(param: CreateRoleParam): GraphQLCall<CreateRoleResponse, Role> {
-        return client.createGraphQLCall(
-            param.createRequest(),
-            object : TypeToken<GraphQLResponse<CreateRoleResponse>>() {}) {
-            it.result
+    fun create(param: CreateRoleParam): HttpCall<RestfulResponse<Role>, Role> {
+        return client.createHttpPostCall(
+            "${client.host}/api/v2/roles",
+            GsonBuilder().create().toJson(param),
+            object : TypeToken<RestfulResponse<Role>> () {}
+        ) {
+            it.data
         }
     }
 

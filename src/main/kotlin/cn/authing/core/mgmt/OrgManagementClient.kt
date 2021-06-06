@@ -1,5 +1,6 @@
 package cn.authing.core.mgmt
 
+import cn.authing.core.Utils
 import cn.authing.core.graphql.GraphQLCall
 import cn.authing.core.graphql.GraphQLResponse
 import cn.authing.core.http.HttpCall
@@ -39,12 +40,17 @@ class OrgManagementClient(private val client: ManagementClient) {
     /**
      * 获取分组列表
      */
-    fun list(param: OrgsParam): GraphQLCall<OrgsResponse, PaginatedOrgs> {
-        if (param.limit == null) param.limit = -1
-        return client.createGraphQLCall(
-            param.createRequest(),
-            object : TypeToken<GraphQLResponse<OrgsResponse>>() {}) {
-            it.result
+    fun list(param: OrgsParam): HttpCall<RestfulResponse<PaginatedOrgs>, PaginatedOrgs> {
+        var url = "${client.host}/api/v2/orgs/pagination"
+        url += "?limit=${param.limit ?: -1}"
+        url += if (param.page != null) "&page=${param.page}" else ""
+        url += if (param.sortBy != null) "&sortBy=${param.sortBy}" else ""
+
+        return client.createHttpGetCall(
+            url,
+            object : TypeToken<RestfulResponse<PaginatedOrgs>> () {}
+        ) {
+            it.data
         }
     }
 
@@ -63,11 +69,13 @@ class OrgManagementClient(private val client: ManagementClient) {
     /**
      * 创建节点
      */
-    fun addNode(param: AddNodeV2Param): GraphQLCall<AddNodeV2Response, Node> {
-        return client.createGraphQLCall(
-            param.createRequest(),
-            object : TypeToken<GraphQLResponse<AddNodeV2Response>>() {}) {
-            it.result
+    fun addNode(param: AddNodeV2Param): HttpCall<RestfulResponse<Node>, Node> {
+        return client.createHttpPostCall(
+            "${client.host}/api/v2/orgs/${param.orgId}/nodes",
+            GsonBuilder().create().toJson(param),
+            object : TypeToken<RestfulResponse<Node>> () {}
+        ) {
+            it.data
         }
     }
 

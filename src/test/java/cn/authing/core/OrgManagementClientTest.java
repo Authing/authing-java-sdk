@@ -37,6 +37,7 @@ public class OrgManagementClientTest {
     public void create() throws IOException, GraphQLException {
         org1 = this.orgManagementClient.create(new CreateOrgParam("org1", "name1", "desc1")).execute();
         org2 = this.orgManagementClient.create(new CreateOrgParam("org2", "name2", "desc2")).execute();
+
         Assert.assertNotNull(org1);
     }
 
@@ -57,7 +58,8 @@ public class OrgManagementClientTest {
 
     @Test
     public void list() throws IOException, GraphQLException {
-        PaginatedOrgs paginatedOrgs = this.orgManagementClient.list(new OrgsParam()).execute();
+        OrgsParam param = new OrgsParam();
+        PaginatedOrgs paginatedOrgs = this.orgManagementClient.list(param).execute();
         Assert.assertNotNull(paginatedOrgs);
     }
 
@@ -77,7 +79,7 @@ public class OrgManagementClientTest {
     public void addNode() throws IOException, GraphQLException {
         Org org3 = this.orgManagementClient.create(new CreateOrgParam("org3", "name3", "desc3")).execute();
         AddNodeV2Param param = new AddNodeV2Param(org3.getId(), "org1nodename")
-                .withParentNodeId(org3.getRootNode().getId());
+                .withParentNodeId("60bc3acf2709aac85d7fcde9");
         Node node = this.orgManagementClient.addNode(param).execute();
         this.orgManagementClient.deleteById(node.getId());
         Assert.assertEquals(org3.getId(), node.getOrgId());

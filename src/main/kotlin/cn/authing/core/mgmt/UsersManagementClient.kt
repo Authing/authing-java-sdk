@@ -1,12 +1,12 @@
 package cn.authing.core.mgmt
 
+import cn.authing.core.Utils
 import cn.authing.core.graphql.GraphQLCall
 import cn.authing.core.graphql.GraphQLResponse
 import cn.authing.core.http.HttpCall
 import cn.authing.core.types.*
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import java.util.*
 
@@ -54,16 +54,16 @@ class UsersManagementClient(private val client: ManagementClient) {
     /**
      * 更新用户信息
      */
-    fun update(userId: String, updates: UpdateUserInput): GraphQLCall<UpdateUserResponse, User> {
-        val param = UpdateUserParam(userId, updates)
-        if (param.input.password !== null) {
-            param.input.password = client.encrypt(param.input.password!!)
+    fun update(userId: String, updates: UpdateUserInput): HttpCall<RestfulResponse<User>, User> {
+
+        return client.createHttpPostCall(
+            "${client.host}/api/v2/users/${userId}",
+            GsonBuilder().create().toJson(updates),
+            object : TypeToken<RestfulResponse<User>> () {}
+        ) {
+            it.data
         }
-        return client.createGraphQLCall(
-            param.createRequest(),
-            object : TypeToken<GraphQLResponse<UpdateUserResponse>>() {}) {
-            it.result
-        }
+
     }
 
     /**
@@ -152,11 +152,14 @@ class UsersManagementClient(private val client: ManagementClient) {
     /**
      * 检查用户是否存在，目前可检测的字段有用户名、邮箱、手机号。
      */
-    fun exists(param: IsUserExistsParam): GraphQLCall<IsUserExistsResponse, Boolean> {
-        return client.createGraphQLCall(
-            param.createRequest(),
-            object : TypeToken<GraphQLResponse<IsUserExistsResponse>>() {}) {
-            it.result
+    fun exists(param: IsUserExistsParam): HttpCall<RestfulResponse<Boolean>, Boolean> {
+        val url = "${client.host}/api/v2/users/is-user-exists"
+
+        return client.createHttpGetCall(
+            Utils().getQueryUrl(url, param),
+            object : TypeToken<RestfulResponse<Boolean>> () {}
+        ) {
+            it.data
         }
     }
 
@@ -165,20 +168,23 @@ class UsersManagementClient(private val client: ManagementClient) {
      * TODO: 高版本删除
      */
     @Deprecated("请使用listRoles(userId: String, namespace: String?)替换此方法")
-    fun listRoles(userId: String): GraphQLCall<GetUserRolesResponse, PaginatedRoles> {
+    fun listRoles(userId: String): HttpCall<RestfulResponse<PaginatedRoles>, PaginatedRoles> {
         return listRoles(userId, null);
     }
 
     /**
      * 查询用户角色列表
      */
-    fun listRoles(userId: String, namespace: String?): GraphQLCall<GetUserRolesResponse, PaginatedRoles> {
-        val param = GetUserRolesParam(userId, namespace)
+    fun listRoles(userId: String, namespace: String?): HttpCall<RestfulResponse<PaginatedRoles>, PaginatedRoles> {
+        var url = "${client.host}/api/v2/users/${userId}/roles"
 
-        return client.createGraphQLCall(
-            param.createRequest(),
-            object : TypeToken<GraphQLResponse<GetUserRolesResponse>>() {}) {
-            it.result.roles!!
+        url += if (namespace != null) "?namespace=${namespace}" else ""
+
+        return client.createHttpGetCall(
+            url,
+            object : TypeToken<RestfulResponse<PaginatedRoles>> () {}
+        ) {
+            it.data
         }
     }
 
@@ -412,13 +418,15 @@ class UsersManagementClient(private val client: ManagementClient) {
      * 获取当前用户的所有自定义数据
      *
      */
-    fun getUdfValue(userId: String): GraphQLCall<UdvResponse, Map<String, Any>> {
-        val param = UdvParam(UdfTargetType.USER, userId)
-        return client.createGraphQLCall(
-            param.createRequest(),
-            object : TypeToken<GraphQLResponse<UdvResponse>>() {}) {
-            convertUdvToKeyValuePair(it.result)
+    fun getUdfValue(userId: String): HttpCall<RestfulResponse<List<UserDefinedData>>, Map<String, Any>> {
+
+        return client.createHttpGetCall(
+            "${client.host}/api/v2/udfs/values?targetId=${userId}&targetType=${UdfTargetType.USER}",
+            object : TypeToken<RestfulResponse<List<UserDefinedData>>> () {}
+        ) {
+            convertUdvToKeyValuePair(it.data)
         }
+
     }
 
     /**
@@ -540,11 +548,13 @@ class UsersManagementClient(private val client: ManagementClient) {
 
     fun listDepartment(
         userId: String
-    ): GraphQLCall<GetUserDepartmentsResponse, User> {
-        return client.createGraphQLCall(
-            GetUserDepartmentsParam(userId).createRequest(),
-            object : TypeToken<GraphQLResponse<GetUserDepartmentsResponse>>() {}
-        ) { it.result }
+    ): HttpCall<RestfulResponse<Pagination<UserDepartment>>, Pagination<UserDepartment>> {
+        return client.createHttpGetCall(
+            "${client.host}/api/v2/users/${userId}/departments",
+            object : TypeToken<RestfulResponse<Pagination<UserDepartment>>> () {}
+        ) {
+            it.data
+        }
     }
 
     fun checkLoginStatus(

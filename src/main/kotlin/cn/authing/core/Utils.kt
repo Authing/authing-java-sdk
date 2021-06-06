@@ -1,11 +1,32 @@
 package cn.authing.core
 
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import java.net.URLDecoder
+import java.util.*
+import kotlin.collections.HashMap
 import kotlin.random.Random
 
 
 class Utils {
-    fun getQueryUrl(url: String?, params: Map<String, String?>): String {
+    val gson = Gson()
+
+
+    fun <T> T.serializeToMap(): Map<String, Any> {
+        return convert()
+    }
+
+    inline fun <reified T> Map<String, Any>.toDataClass(): T {
+        return convert()
+    }
+
+    inline fun <I, reified O> I.convert(): O {
+        val json = gson.toJson(this)
+        return gson.fromJson(json, object : TypeToken<O>() {}.type)
+    }
+
+
+    fun getQueryUrl(url: String?, params: Map<String, Any?>): String {
         val builder = StringBuilder(url)
         var isFirst = true
         for (key in params.keys) {
@@ -26,6 +47,12 @@ class Utils {
 
     fun getQueryUrl(params: Map<String, String?>): String {
         return this.getQueryUrl("", params)
+    }
+
+    fun getQueryUrl(url: String?, params: Any): String {
+
+        return this.getQueryUrl(url, params.serializeToMap())
+
     }
 
     fun randomString(randomLength: Number): String {
@@ -60,4 +87,6 @@ class Utils {
         }
         return map
     }
+
+
 }

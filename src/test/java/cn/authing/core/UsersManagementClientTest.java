@@ -1,6 +1,5 @@
 package cn.authing.core;
 
-import cn.authing.core.auth.AuthenticationClient;
 import cn.authing.core.graphql.GraphQLException;
 import cn.authing.core.mgmt.GroupsManagementClient;
 import cn.authing.core.mgmt.ManagementClient;
@@ -20,7 +19,6 @@ public class UsersManagementClientTest {
     // clients
     private GroupsManagementClient groupsManagementClient;
     private UsersManagementClient usersManagementClient;
-
     private ManagementClient managementClient;
 
     // user attribute
@@ -277,15 +275,14 @@ public class UsersManagementClientTest {
     private void listRoles() throws IOException, GraphQLException {
         PaginatedRoles roles1 = this.usersManagementClient.listRoles(user.getId()).execute();
         Assert.assertTrue(roles1.getTotalCount() >= 0);
-        PaginatedRoles roles = this.usersManagementClient.listRoles(user.getId(), "5f9d0cefd9ad0ef8f8107a53").execute();
+        PaginatedRoles roles = this.usersManagementClient.listRoles(user.getId(), "default").execute();
         Assert.assertTrue(roles.getTotalCount() >= 0);
     }
 
     private void addRoles() throws IOException, GraphQLException {
-        CommonMessage commonMessage1 = this.usersManagementClient.addRoles(user.getId(), Arrays.asList("xxx", "qqq")).execute();
-        Assert.assertEquals(200, (int) commonMessage1.getCode());
-        CommonMessage commonMessage = this.usersManagementClient.addRoles(user.getId(), Arrays.asList("aaa", "bbb"), "5f9d0cefd9ad0ef8f8107a53").execute();
-        Assert.assertEquals(200, (int) commonMessage.getCode());
+        Role role = managementClient.roles().create(new CreateRoleParam(TestUtils.createRandomString())).execute();
+        Role role2 = managementClient.roles().create(new CreateRoleParam(TestUtils.createRandomString())).execute();
+        this.usersManagementClient.addRoles(user.getId(), Arrays.asList(role.getCode(), role2.getCode()), "default").execute();
     }
 
     private void removeRoles() throws IOException, GraphQLException {
@@ -347,7 +344,8 @@ public class UsersManagementClientTest {
 
     @Test
     public void getUdfValue() throws IOException, GraphQLException, ExecutionException, InterruptedException {
-        Map result = this.usersManagementClient.getUdfValue("5f9d0cef60d09ff5a4c87c06").execute();
+        Map<String, Object> result = this.usersManagementClient.getUdfValue("60bc2cf1df5732f1e02c5fc6").execute();
+        System.out.println(result);
         Assert.assertNotNull(result);
     }
 
@@ -442,6 +440,16 @@ public class UsersManagementClientTest {
         System.out.println(res);
         Assert.assertNotNull(res);
     }
+    
+    @Test
+    public void listDepartment() throws IOException {
+        Pagination<UserDepartment> resUser = this.usersManagementClient.listDepartment("60bc2cf1df5732f1e02c5fc6").execute();
+        System.out.println(resUser.getList());
+
+        Assert.assertNotNull(resUser);
+
+
+    }
 
     public static void main(String[] args) {
         String userPoolId = "60960a4120cfd0a5a8306ffe";
@@ -466,7 +474,7 @@ public class UsersManagementClientTest {
             List<UserDefinedData> res = managementClient.users().setUdfValue("60a392255df2c97ef795f9db", p).execute();
             Map<String, Object> execute = managementClient.users().getUdfValue("60a392255df2c97ef795f9db").execute();
             System.out.println(execute);
-        } catch (IOException | GraphQLException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
