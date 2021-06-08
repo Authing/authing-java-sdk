@@ -17,11 +17,13 @@ class OrgManagementClient(private val client: ManagementClient) {
     /**
      * 创建分组
      */
-    fun create(param: CreateOrgParam): GraphQLCall<CreateOrgResponse, Org> {
-        return client.createGraphQLCall(
-            param.createRequest(),
-            object : TypeToken<GraphQLResponse<CreateOrgResponse>>() {}) {
-            it.result
+    fun create(param: CreateOrgParam): HttpCall<RestfulResponse<Org>, Org> {
+        return client.createHttpPostCall(
+            "${client.host}/api/v2/orgs",
+            GsonBuilder().create().toJson(param),
+            object : TypeToken<RestfulResponse<Org>> () {}
+        ) {
+            it.data
         }
     }
 
