@@ -306,13 +306,16 @@ class RolesManagementClient(private val client: ManagementClient) {
     fun setUdfValue(
         roleCode: String,
         data: Map<String, String>
-    ): GraphQLCall<SetUdvBatchResponse, List<UserDefinedData>> {
-        val udvList = data.entries.map { UserDefinedDataInput(it.key, Gson().toJson(it.value)) }
-        val param = SetUdvBatchParam(UdfTargetType.ROLE, roleCode, udvList)
-        return client.createGraphQLCall(
-            param.createRequest(),
-            object : TypeToken<GraphQLResponse<SetUdvBatchResponse>>() {}) {
-            it.result
+    ): HttpCall<RestfulResponse<List<UserDefinedData>>, List<UserDefinedData>> {
+
+        val params = RestSetUdfValueParams(UdfTargetType.ROLE, roleCode, data)
+
+        return client.createHttpPostCall(
+            "${client.host}/api/v2/udvs",
+            GsonBuilder().create().toJson(params),
+            object : TypeToken<RestfulResponse<List<UserDefinedData>>> () {}
+        ) {
+            it.data
         }
     }
 
@@ -320,18 +323,18 @@ class RolesManagementClient(private val client: ManagementClient) {
         roleCode: String,
         key: String,
         value: String
-    ): GraphQLCall<SetUdvResponse, List<UserDefinedData>> {
-        val param = SetUdvParam(
-            targetType = UdfTargetType.ROLE,
-            targetId = roleCode,
-            key = key,
-            value = Gson().toJson(value)
-        )
+    ): HttpCall<RestfulResponse<List<UserDefinedData>>, List<UserDefinedData>> {
+        val map: MutableMap<String, Any> = HashMap()
+        map[key] = value
+        val param = RestSetUdfValueParams(UdfTargetType.ROLE, roleCode, map)
 
-        return client.createGraphQLCall(
-            param.createRequest(),
-            object : TypeToken<GraphQLResponse<SetUdvResponse>>() {}
-        ) { it.result }
+        return client.createHttpPostCall(
+            "${client.host}/api/v2/udvs",
+            GsonBuilder().create().toJson(param),
+            object : TypeToken<RestfulResponse<List<UserDefinedData>>> () {}
+        ) {
+            it.data
+        }
     }
 
     fun setUdfValueBatch(input: List<RoleSetUdfValueBatchParams>): GraphQLCall<SetUdvBatchResponse, List<UserDefinedData>> {

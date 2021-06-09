@@ -894,15 +894,7 @@ class AuthenticationClient : BaseClient {
     }
 
     fun getNewAccessTokenByRefreshToken(refreshToken: String): HttpCall<Any, Any> {
-        if (listOf<ProtocolEnum>(ProtocolEnum.OAUTH, ProtocolEnum.OIDC).contains(this.protocol)) {
-            throw Exception("初始化 AuthenticationClient 时传入的 protocol 参数必须为 ProtocolEnum.OAUTH 或 ProtocolEnum.OIDC，请检查参数")
-        }
-
-        if (this.secret.isNullOrBlank()
-            && this.tokenEndPointAuthMethod != AuthMethodEnum.NONE
-        ) {
-            throw Exception("请在初始化 AuthenticationClient 时传入 appId 和 secret 参数")
-        }
+        this.verificationProtocol()
 
         return when (this.tokenEndPointAuthMethod) {
             AuthMethodEnum.CLIENT_SECRET_POST -> {
@@ -990,15 +982,7 @@ class AuthenticationClient : BaseClient {
     }
 
     fun introspectToken(token: String): HttpCall<Any, Any> {
-        if (listOf<ProtocolEnum>(ProtocolEnum.OAUTH, ProtocolEnum.OIDC).contains(this.protocol)) {
-            throw Exception("初始化 AuthenticationClient 时传入的 protocol 参数必须为 ProtocolEnum.OAUTH 或 ProtocolEnum.OIDC，请检查参数")
-        }
-
-        if (this.secret.isNullOrBlank()
-            && this.tokenEndPointAuthMethod != AuthMethodEnum.NONE
-        ) {
-            throw Exception("请在初始化 AuthenticationClient 时传入 appId 和 secret 参数")
-        }
+        this.verificationProtocol()
 
         return when (this.introspectionEndPointAuthMethod) {
             AuthMethodEnum.CLIENT_SECRET_POST -> introspectTokenWithClientSecretPost(token)
@@ -1102,7 +1086,18 @@ class AuthenticationClient : BaseClient {
 
 
     fun revokeToken(token: String): HttpCall<Any, Boolean> {
-        if (listOf<ProtocolEnum>(ProtocolEnum.OAUTH, ProtocolEnum.OIDC).contains(this.protocol)) {
+        this.verificationProtocol()
+
+        return when (this.introspectionEndPointAuthMethod) {
+            AuthMethodEnum.CLIENT_SECRET_POST -> revokeTokenWithClientSecretPost(token)
+            AuthMethodEnum.CLIENT_SECRET_BASIC -> revokeTokenWithClientSecretBasic(token)
+            else -> revokeTokenWithNone(token)
+
+        }
+    }
+
+    private fun verificationProtocol(){
+        if (!listOf<ProtocolEnum>(ProtocolEnum.OAUTH, ProtocolEnum.OIDC).contains(this.protocol)) {
             throw Exception("初始化 AuthenticationClient 时传入的 protocol 参数必须为 ProtocolEnum.OAUTH 或 ProtocolEnum.OIDC，请检查参数")
         }
 
@@ -1110,13 +1105,6 @@ class AuthenticationClient : BaseClient {
             && this.tokenEndPointAuthMethod != AuthMethodEnum.NONE
         ) {
             throw Exception("请在初始化 AuthenticationClient 时传入 appId 和 secret 参数")
-        }
-
-        return when (this.introspectionEndPointAuthMethod) {
-            AuthMethodEnum.CLIENT_SECRET_POST -> revokeTokenWithClientSecretPost(token)
-            AuthMethodEnum.CLIENT_SECRET_BASIC -> revokeTokenWithClientSecretBasic(token)
-            else -> revokeTokenWithNone(token)
-
         }
     }
 

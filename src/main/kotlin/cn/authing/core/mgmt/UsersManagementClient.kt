@@ -455,7 +455,7 @@ class UsersManagementClient(private val client: ManagementClient) {
         userId: String,
         data: Map<String, String>
     ): HttpCall<RestfulResponse<List<UserDefinedData>>, List<UserDefinedData>> {
-        val params = RestSetUdfValueParams("USER", userId, data)
+        val params = RestSetUdfValueParams(UdfTargetType.USER, userId, data)
 
         return client.createHttpPostCall(
             "${client.host}/api/v2/udvs",

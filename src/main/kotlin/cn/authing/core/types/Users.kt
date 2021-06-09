@@ -96,7 +96,7 @@ constructor(
 
 data class RestSetUdfValueParams
 constructor(
-    val targetType: String,
+    val targetType: UdfTargetType,
     val targetId: String,
     val data: Map<String, Any>
 )
