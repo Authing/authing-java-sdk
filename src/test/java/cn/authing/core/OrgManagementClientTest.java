@@ -26,6 +26,7 @@ public class OrgManagementClientTest {
         String userPoolSecret = "19cd7e941c1af56c5b3fafef72359a3b";
 
         ManagementClient managementClient = new ManagementClient(userPoolId, userPoolSecret);
+        managementClient.setClientTimeOut(10000L,600000L);
         managementClient.setHost("https://core.authing.cn");
 
         this.orgManagementClient = managementClient.org();

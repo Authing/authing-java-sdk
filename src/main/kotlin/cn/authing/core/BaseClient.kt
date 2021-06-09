@@ -16,6 +16,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import java.security.KeyFactory
 import java.security.spec.X509EncodedKeySpec
 import java.util.*
+import java.util.concurrent.TimeUnit
 import javax.crypto.Cipher
 
 
@@ -80,8 +81,13 @@ abstract class BaseClient {
             return "$host/graphql/v2"
         }
 
-    protected val okHttpClient: OkHttpClient = OkHttpClient()
+    protected var okHttpClient: OkHttpClient = OkHttpClient()
     protected val json = GsonBuilder().create()
+
+    open fun setClientTimeOut(connectTimeOut: Long, readTimeOut: Long) {
+        var okHttp = OkHttpClient.Builder().connectTimeout(connectTimeOut, TimeUnit.MILLISECONDS).readTimeout(readTimeOut, TimeUnit.MILLISECONDS).build()
+        this.okHttpClient = okHttp
+    }
 
     /**
      * 密码加密方法
