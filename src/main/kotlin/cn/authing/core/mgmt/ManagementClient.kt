@@ -79,14 +79,17 @@ class ManagementClient(userPoolId: String, secret: String) : BaseClient() {
     /**
      * 获取管理员 access token，获取成功后即可使用其他接口
      */
-    fun requestToken(): GraphQLCall<AccessTokenResponse, AccessTokenRes> {
-        val param = AccessTokenParam(userPoolId!!, secret!!)
-        return super@ManagementClient.createGraphQLCall(
-            param.createRequest(),
-            object : TypeToken<GraphQLResponse<AccessTokenResponse>>() {}) {
-            token = it.result.accessToken!!
+    fun requestToken(): HttpCall<AccessTokenRes, AccessTokenRes> {
+
+        val url = "${this.host}/api/v2/userpools/accessToken?userPoolId=${this.userPoolId}&secret=${this.secret}"
+
+        return super.createHttpGetCall(
+            url,
+            object : TypeToken<AccessTokenRes> () {}
+        ) {
+            token = it.accessToken!!
             accessTokenExpiresAt = JWT.decode(token).claims["exp"]?.asLong()?.times(1000)
-            return@createGraphQLCall it.result
+            it
         }
     }
 
