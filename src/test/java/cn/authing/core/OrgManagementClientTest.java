@@ -22,12 +22,14 @@ public class OrgManagementClientTest {
 
     @Before
     public void before() throws IOException, GraphQLException {
-        String userPoolId = "60adc2fef7ae7440c9265f07";
-        String userPoolSecret = "19cd7e941c1af56c5b3fafef72359a3b";
-
+        //String userPoolId = "60adc2fef7ae7440c9265f07";
+        //String userPoolSecret = "19cd7e941c1af56c5b3fafef72359a3b";
+        String userPoolId = "60b5f0f0fd968f101eb20187";//""60adc2fef7ae7440c9265f07";
+        String userPoolSecret = "d50e0f2eafbc30e44fbd0a9ca8434ae2";//""19cd7e941c1af56c5b3fafef72359a3b";
         ManagementClient managementClient = new ManagementClient(userPoolId, userPoolSecret);
         managementClient.setClientTimeOut(10000L,600000L);
-        managementClient.setHost("https://core.authing.cn");
+        managementClient.setSkipCheckHttps(true);
+        managementClient.setHost("https://core.cctv.issac.top"); //.setHost("https://core.authing.cn");
 
         this.orgManagementClient = managementClient.org();
 

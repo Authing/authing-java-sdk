@@ -14,10 +14,17 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.security.KeyFactory
+import java.security.SecureRandom
+import java.security.cert.X509Certificate
 import java.security.spec.X509EncodedKeySpec
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.crypto.Cipher
+import javax.net.ssl.HostnameVerifier
+import javax.net.ssl.SSLContext
+import javax.net.ssl.TrustManager
+import javax.net.ssl.X509TrustManager
+import javax.security.cert.CertificateException
 
 
 /**
@@ -69,6 +76,10 @@ abstract class BaseClient {
     //Websocket 服务器域名
     var websocketHost: String? = ""
 
+    var skipHttpsApprove = false;
+    var connectTimeOut = 10000L;
+    var readTimeOut = 10000L;
+
     // 常量
     protected val mediaTypeJson: MediaType? = "application/json".toMediaTypeOrNull()
     protected val mediaTypeUrlencoded: MediaType? = "application/x-www-form-urlencoded".toMediaTypeOrNull()
@@ -84,9 +95,62 @@ abstract class BaseClient {
     protected var okHttpClient: OkHttpClient = OkHttpClient()
     protected val json = GsonBuilder().create()
 
+    private val unsafeOkHttpClient: OkHttpClient
+        // Install the all-trusting trust manager
+        // Create an ssl socket factory with our all-trusting manager
+        private get() = try {
+            // Create a trust manager that does not validate certificate chains
+            val trustAllCerts = arrayOf<TrustManager>(
+                object : X509TrustManager {
+                    @Throws(CertificateException::class)
+                    override fun checkClientTrusted(
+                        chain: Array<X509Certificate>,
+                        authType: String
+                    ) {
+                    }
+
+                    @Throws(CertificateException::class)
+                    override fun checkServerTrusted(
+                        chain: Array<X509Certificate>,
+                        authType: String
+                    ) {
+                    }
+
+                    override fun getAcceptedIssuers(): Array<X509Certificate> {
+                        return arrayOf()
+                    }
+                }
+            )
+
+            // Install the all-trusting trust manager
+            val sslContext = SSLContext.getInstance("SSL")
+            sslContext.init(null, trustAllCerts, SecureRandom())
+            // Create an ssl socket factory with our all-trusting manager
+            val sslSocketFactory = sslContext.socketFactory
+            val builder = OkHttpClient.Builder()
+            var trustManager = trustAllCerts[0] as X509TrustManager;
+            builder.sslSocketFactory(sslSocketFactory,trustManager)
+            builder.hostnameVerifier(HostnameVerifier { hostname, session -> true })
+            builder.connectTimeout(connectTimeOut, TimeUnit.MILLISECONDS).readTimeout(readTimeOut, TimeUnit.MILLISECONDS)
+            builder.build()
+        } catch (e: Exception) {
+            throw RuntimeException(e)
+        }
+
     open fun setClientTimeOut(connectTimeOut: Long, readTimeOut: Long) {
+        this.connectTimeOut = connectTimeOut;
+        this.readTimeOut = readTimeOut;
         var okHttp = OkHttpClient.Builder().connectTimeout(connectTimeOut, TimeUnit.MILLISECONDS).readTimeout(readTimeOut, TimeUnit.MILLISECONDS).build()
         this.okHttpClient = okHttp
+    }
+
+    open fun setSkipCheckHttps(skipHttpsApprove: Boolean) {
+        if (skipHttpsApprove) {
+            this.okHttpClient = unsafeOkHttpClient
+        } else {
+            var okHttp = OkHttpClient.Builder().connectTimeout(this.connectTimeOut, TimeUnit.MILLISECONDS).readTimeout(this.readTimeOut, TimeUnit.MILLISECONDS).build()
+            this.okHttpClient = okHttp
+        }
     }
 
     /**
