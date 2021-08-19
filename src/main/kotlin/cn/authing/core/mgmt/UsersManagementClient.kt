@@ -56,6 +56,10 @@ class UsersManagementClient(private val client: ManagementClient) {
      */
     fun update(userId: String, updates: UpdateUserInput): HttpCall<RestfulResponse<User>, User> {
 
+        if (updates.password != null && !updates.password.equals("")) {
+            updates.password = client.encrypt(updates.password)
+        }
+
         return client.createHttpPostCall(
             "${client.host}/api/v2/users/${userId}",
             GsonBuilder().create().toJson(updates),
