@@ -37,6 +37,7 @@ class RolesManagementClient(private val client: ManagementClient) {
         url += if (param.page != null) "?page=${param.page}" else "?page=1"
         url += if (param.limit != null) "&limit=${param.limit}" else "&limit=10"
         url += if (param.sortBy != null) "&sortBy=${param.sortBy}" else ""
+        url += if (param.namespace != null) "&namespace=${param.namespace}" else ""
 
         return client.createHttpGetCall(
             url,
