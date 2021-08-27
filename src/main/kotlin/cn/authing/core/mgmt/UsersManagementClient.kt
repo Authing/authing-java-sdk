@@ -512,7 +512,7 @@ class UsersManagementClient(private val client: ManagementClient) {
 
         var hasRole = false;
 
-        list.forEach { item -> if (item.code === option.roleCode) hasRole = true }
+        list.forEach { item -> if (item.code == option.roleCode) hasRole = true }
 
         return hasRole
     }
