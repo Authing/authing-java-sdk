@@ -203,7 +203,7 @@ class RolesManagementClient(private val client: ManagementClient) {
      * 批量移除用户
      */
     fun removeUsers(code: String, userIds: List<String>): GraphQLCall<RevokeRoleResponse, CommonMessage> {
-        val param = RevokeRoleParam(code).withUserIds(userIds)
+        val param = RevokeRoleParam().withRoleCode(code).withUserIds(userIds)
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<RevokeRoleResponse>>() {}) {
