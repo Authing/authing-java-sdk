@@ -257,20 +257,6 @@ public class AclManagementClientTest {
 //        Assert.assertTrue(totalCount.intValue() > 0);
     }
 
-    @Test
-    public void updateNamespace() throws IOException {
-        ResourceNamespace res = managementClient.acl().updateNamespace(
-                "CODE",
-                new UpdateNamespaceParams(
-                        "NAME",
-                        "CODE"
-                )
-        ).execute();
-
-        Boolean deleted = managementClient.acl().deleteNamespace("CODE").execute();
-
-        Assert.assertTrue(deleted);
-    }
 
     @Test
     public void getAuthorizedTargets() throws IOException, GraphQLException {
