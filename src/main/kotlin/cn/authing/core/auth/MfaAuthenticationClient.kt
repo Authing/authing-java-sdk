@@ -20,15 +20,23 @@ class MfaAuthenticationClient(private val client: AuthenticationClient) {
                 source = TotpSource.SELF
             )
     ): HttpCall<RestfulResponse<IMfaAuthenticator>, IMfaAuthenticator> {
-        val url = "${client.host}/api/v2/mfa/authenticator"
+//        val url = "${client.host}/api/v2/mfa/authenticator"
+//
+//        if (options?.mfaToken != null) client.token = options.mfaToken
 
+//        return client.createHttpPostCall(
+//            url,
+//            Gson().toJson(options),
+//            object : TypeToken<RestfulResponse<IMfaAuthenticator>>() {}
+//        ) { it.data }
+
+        val url = "${client.host}/api/v2/mfa/authenticator?client.token=${options?.mfaToken}&type=${options?.type}&source=${options?.source}"
         if (options?.mfaToken != null) client.token = options.mfaToken
-
-        return client.createHttpPostCall(
+        return client.createHttpGetCall(
             url,
-            Gson().toJson(options),
             object : TypeToken<RestfulResponse<IMfaAuthenticator>>() {}
-        ) { it.data }
+        ){it.data}
+
     }
 
     /**
