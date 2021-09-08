@@ -143,6 +143,9 @@ class AuthenticationClient : BaseClient {
     fun loginBySubAccount(
         options: LoginBySubAccountParam
     ): GraphQLCall<LoginBySubAccountResponse, User> {
+
+        options.password = encrypt(options.password)
+
         return createGraphQLCall(
             options.createRequest(),
             object : TypeToken<GraphQLResponse<LoginBySubAccountResponse>>() {}
@@ -557,7 +560,7 @@ class AuthenticationClient : BaseClient {
      */
     fun loginByAd(username: String, password: String): HttpCall<RestfulResponse<User>, User> {
         return this.createHttpPostCall(
-            "ws.${this.host}/api/v2/ad/verify-user",
+            "${this.host}/api/v2/ad/verify-user",
             "{ \"username\": \"$username\", \"password\": \"$password\" }",
             object : TypeToken<RestfulResponse<User>>() {}) {
             user = it.data
