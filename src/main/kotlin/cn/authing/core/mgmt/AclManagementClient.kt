@@ -399,10 +399,10 @@ class AclManagementClient(private val client: ManagementClient) {
      * 更新 namespace
      */
     fun updateNamespace(
-        code: String,
+        id: Int,
         updates: UpdateNamespaceParams
     ): HttpCall<RestfulResponse<ResourceNamespace>, ResourceNamespace> {
-        val url = "${client.host}/api/v2/resource-namespace/${client.userPoolId}/code/${code}"
+        val url = "${client.host}/api/v2/resource-namespace/${client.userPoolId}/${id}"
 
         return client.createHttpPutCall(
             url,
@@ -411,8 +411,8 @@ class AclManagementClient(private val client: ManagementClient) {
         ) { it.data }
     }
 
-    fun deleteNamespace(code: String): HttpCall<RestfulResponse<Boolean>, Boolean> {
-        val url = "${this.client.host}/api/v2/resource-namespace/${this.client.userPoolId}/code/${code}"
+    fun deleteNamespace(id: Int): HttpCall<RestfulResponse<Boolean>, Boolean> {
+        val url = "${this.client.host}/api/v2/resource-namespace/${this.client.userPoolId}/${id}"
 
         return client.createHttpDeleteCall(
             url,

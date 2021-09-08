@@ -158,6 +158,7 @@ constructor(
 )
 
 data class ResourceNamespace(
+    var id: Int,
     var code: String,
     var name: String,
     var description: String,
