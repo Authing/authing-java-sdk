@@ -432,4 +432,29 @@ class AclManagementClient(private val client: ManagementClient) {
             object : TypeToken<GraphQLResponse<AuthorizedTargetsResponse>>() {}
         ) { it.result }
     }
+
+    /**
+     *  根据 id 获取资源
+     */
+    fun getResourceById(id: String) : HttpCall<RestfulResponse<IResourceResponse>, IResourceResponse>{
+        val url = "${client.host}/api/v2/resources/detail?id=" + id;
+        return client.createHttpGetCall(
+            url,
+            object : TypeToken<RestfulResponse<IResourceResponse>>() {}
+        ) { it.data }
+    }
+
+    /**
+     * 获取用户被授权的所有资源
+     */
+    fun listAuthorizedResources(targetType: PolicyAssignmentTargetType,
+                                targetIdentifier: String,
+                                namespace: String,
+                                options: ListAuthorizedResourcesOptions?
+    ) : GraphQLCall<ListAuthorizedResourcesResponse, PaginatedAuthorizedResources> {
+        var param = ListAuthorizedResourcesParam(targetType, targetIdentifier, namespace, options?.resourceType)
+        return this.client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<ListAuthorizedResourcesResponse>>() {}) { it.authorizedResources }
+    }
 }

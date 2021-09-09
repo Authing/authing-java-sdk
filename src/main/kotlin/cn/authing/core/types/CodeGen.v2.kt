@@ -13090,4 +13090,178 @@ query whitelist(${'$'}type: WhitelistType!) {
 }
 """
     }
-    
+
+    data class SendFirstLoginVerifyEmailResponse (
+        @SerializedName("sendFirstLoginVerifyEmail")
+        var sendFirstLoginVerifyEmail: CommonMessage
+    )
+
+
+    class SendFirstLoginVerifyEmailParam @JvmOverloads constructor (
+        @SerializedName("appId")
+        var appId: String,
+        @SerializedName("userId")
+        var userId: String) {
+
+        fun createRequest(): GraphQLRequest {
+            return GraphQLRequest(
+                sendFirstLoginVerifyEmailDocument,
+                this
+            );
+        }
+
+        private val sendFirstLoginVerifyEmailDocument: String = """
+    mutation sendFirstLoginVerifyEmail($userId: String!, $appId: String!) {
+  sendFirstLoginVerifyEmail(userId: $userId, appId: $appId) {
+    message
+    code
+  }
+}
+"""
+    }
+
+
+    data class DisableAssignmentResponse (
+
+        @SerializedName("disbalePolicyAssignment")
+        var disbalePolicyAssignment: CommonMessage
+
+    )
+
+
+    class DisableAssignmentParam @JvmOverloads constructor (
+
+        @SerializedName("policy")
+        var policy: String,
+        @SerializedName("targetType")
+        var targetType: PolicyAssignmentTargetType,
+        @SerializedName("targetIdentifier")
+        var targetIdentifier: String,
+        @SerializedName("namespace")
+        var namespace: String?) {
+
+        fun createRequest(): GraphQLRequest {
+            return GraphQLRequest(
+                disableAssignmentDocument,
+                this
+            );
+        }
+
+        private val disableAssignmentDocument: String = """
+    mutation disbalePolicyAssignment($policy: String!, $targetType: PolicyAssignmentTargetType!, $targetIdentifier: String!, $namespace: String) {
+  disbalePolicyAssignment(policy: $policy, targetType: $targetType, targetIdentifier: $targetIdentifier, namespace: $namespace) {
+    message
+    code
+  }
+}
+    """
+    }
+
+
+    data class EnableAssignmentResponse (
+
+        @SerializedName("enablePolicyAssignment")
+        var enablePolicyAssignment: CommonMessage
+
+    )
+
+
+    class EnableAssignmentParam @JvmOverloads constructor (
+
+        @SerializedName("policy")
+        var policy: String,
+        @SerializedName("targetType")
+        var targetType: PolicyAssignmentTargetType,
+        @SerializedName("targetIdentifier")
+        var targetIdentifier: String,
+        @SerializedName("namespace")
+        var namespace: String?) {
+
+        fun createRequest(): GraphQLRequest {
+            return GraphQLRequest(
+                enableAssignmentDocument,
+                this
+            );
+        }
+
+        private val enableAssignmentDocument: String = """
+        mutation enablePolicyAssignment($policy: String!, $targetType: PolicyAssignmentTargetType!, $targetIdentifier: String!, $namespace: String) {
+      enablePolicyAssignment(policy: $policy, targetType: $targetType, targetIdentifier: $targetIdentifier, namespace: $namespace) {
+        message
+        code
+      }
+    }
+        """
+    }
+
+
+    data class MoveMembersResponse (
+        @SerializedName("moveMembers")
+        var moveMembers: CommonMessage
+    )
+
+
+    class MoveMembersParam @JvmOverloads constructor (
+
+        @SerializedName("userIds")
+        var userIds: List<String>,
+        @SerializedName("targetNodeId")
+        var targetNodeId: String,
+        @SerializedName("sourceNodeId")
+        var sourceNodeId: String) {
+
+        fun createRequest(): GraphQLRequest {
+            return GraphQLRequest(
+                moveMembersParamDocument,
+                this
+            );
+        }
+
+        private val moveMembersParamDocument: String = """
+        mutation moveMembers($userIds: [String!]!, $sourceNodeId: String!, $targetNodeId: String!) {
+      moveMembers(userIds: $userIds, sourceNodeId: $sourceNodeId, targetNodeId: $targetNodeId) {
+        code
+        message
+      }
+    }
+            """
+    }
+
+
+    data class ListAuthorizedResourcesResponse (
+        @SerializedName("authorizedResources")
+        var authorizedResources: PaginatedAuthorizedResources
+    )
+
+
+    class ListAuthorizedResourcesParam @JvmOverloads constructor (
+
+        @SerializedName("targetType")
+        var targetType: PolicyAssignmentTargetType,
+        @SerializedName("targetIdentifier")
+        var targetIdentifier: String,
+        @SerializedName("namespace")
+        var namespace: String,
+        @SerializedName("resourceType")
+        var resourceType: ResourceType?) {
+
+        fun createRequest(): GraphQLRequest {
+            return GraphQLRequest(
+                authorizedResourcesDocument,
+                this
+            );
+        }
+
+        private val authorizedResourcesDocument: String = """
+        query authorizedResources($targetType: PolicyAssignmentTargetType, $targetIdentifier: String, $namespace: String, $resourceType: String) {
+      authorizedResources(targetType: $targetType, targetIdentifier: $targetIdentifier, namespace: $namespace, resourceType: $resourceType) {
+        totalCount
+        list {
+          code
+          type
+          actions
+        }
+      }
+    }
+                """
+    }

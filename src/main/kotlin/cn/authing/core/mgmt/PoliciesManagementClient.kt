@@ -168,4 +168,39 @@ class PoliciesManagementClient(private val client: ManagementClient) {
             it.result
         }
     }
+
+    /**
+     * 设置策略授权状态为关闭
+     */
+    fun disableAssignment(
+        policy: String,
+        targetType: PolicyAssignmentTargetType,
+        targetIdentifier: String,
+        namespace: String?
+    ): GraphQLCall<DisableAssignmentResponse, CommonMessage> {
+        var param = DisableAssignmentParam(policy, targetType, targetIdentifier, namespace)
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<DisableAssignmentResponse>>() {}) {
+            it.disbalePolicyAssignment
+        }
+    }
+
+    /**
+     * 设置策略授权状态为开启
+     */
+    fun enableAssignment(
+        policy: String,
+        targetType: PolicyAssignmentTargetType,
+        targetIdentifier: String,
+        namespace: String?
+    ): GraphQLCall<EnableAssignmentResponse, CommonMessage> {
+        var param = DisableAssignmentParam(policy, targetType, targetIdentifier, namespace)
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<EnableAssignmentResponse>>() {}) {
+            it.enablePolicyAssignment
+        }
+    }
+
 }

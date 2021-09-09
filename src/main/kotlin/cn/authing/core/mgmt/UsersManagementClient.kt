@@ -588,4 +588,28 @@ class UsersManagementClient(private val client: ManagementClient) {
         }
     }
 
+    /**
+     * 获取已归档用户列表
+     */
+    fun listArchivedUsers(page: Int, limit: Int): GraphQLCall<ArchivedUsersResponse, PaginatedUsers> {
+        val param = ArchivedUsersParam(page, limit)
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<ArchivedUsersResponse>>() {}) {
+            it.result
+        }
+    }
+
+    /**
+     * 发送首次登录验证邮件
+     */
+    fun sendFirstLoginVerifyEmail(appId: String, userId: String): GraphQLCall<SendFirstLoginVerifyEmailResponse, Boolean> {
+        val param = SendFirstLoginVerifyEmailParam(appId, userId);
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<SendFirstLoginVerifyEmailResponse>>() {}) {
+            it.sendFirstLoginVerifyEmail.code == 200
+        }
+    }
+
 }

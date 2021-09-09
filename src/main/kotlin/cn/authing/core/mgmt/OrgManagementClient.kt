@@ -258,4 +258,35 @@ class OrgManagementClient(private val client: ManagementClient) {
             object : TypeToken<GraphQLResponse<ListNodeByCodeAuthorizedResourcesResponse>>() {}
         ) { it.result }
     }
+
+    /**
+     * 获取组织机构节点被授权的所有资源
+     */
+    fun listAuthorizedResourcesByNodeCode(orgId: String,
+                                          code: String,
+                                          namespace: String,
+                                          options: ListAuthorizedResourcesOptions
+    ) {
+    }
+
+    /**
+     * 移动成员
+     */
+    fun moveMembers(options: MoveMembersParam) : GraphQLCall<MoveMembersResponse, Boolean>  {
+        return client.createGraphQLCall(
+            options.createRequest(),
+            object : TypeToken<GraphQLResponse<MoveMembersResponse>>() {}
+        ) { it.moveMembers.code == 200 }
+    }
+
+    /**
+     * 设置用户主部门
+     */
+    fun setMainDepartment(userId: String, departmentId: String):GraphQLCall<SetMainDepartmentResponse, CommonMessage> {
+        var param = SetMainDepartmentParam(userId, departmentId)
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<SetMainDepartmentResponse>>() {}
+        ) { it.result}
+    }
 }
