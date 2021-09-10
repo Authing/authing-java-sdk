@@ -74,7 +74,8 @@ class PoliciesManagementClient(private val client: ManagementClient) {
         newCode: String? = null,
         namespace: String? = null
     ): GraphQLCall<UpdatePolicyResponse, Policy> {
-        val param = UpdatePolicyParam(namespace, code).withStatements(statements).withDescription(description).withNewCode(newCode)
+        val param = UpdatePolicyParam(namespace, code).withStatements(statements).withDescription(description)
+            .withNewCode(newCode)
         return update(param)
     }
 
@@ -176,9 +177,9 @@ class PoliciesManagementClient(private val client: ManagementClient) {
         policy: String,
         targetType: PolicyAssignmentTargetType,
         targetIdentifier: String,
-        namespace: String?
+        namespace: String? = null
     ): GraphQLCall<DisableAssignmentResponse, CommonMessage> {
-        var param = DisableAssignmentParam(policy, targetType, targetIdentifier, namespace)
+        val param = DisableAssignmentParam(policy, targetType, targetIdentifier, namespace)
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<DisableAssignmentResponse>>() {}) {
@@ -193,9 +194,9 @@ class PoliciesManagementClient(private val client: ManagementClient) {
         policy: String,
         targetType: PolicyAssignmentTargetType,
         targetIdentifier: String,
-        namespace: String?
+        namespace: String? = null
     ): GraphQLCall<EnableAssignmentResponse, CommonMessage> {
-        var param = DisableAssignmentParam(policy, targetType, targetIdentifier, namespace)
+        val param = EnableAssignmentParam(policy, targetType, targetIdentifier, namespace)
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<EnableAssignmentResponse>>() {}) {

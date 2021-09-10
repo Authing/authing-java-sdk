@@ -366,4 +366,24 @@ class RolesManagementClient(private val client: ManagementClient) {
         }
     }
 
+    /**
+     * 获取某个角色某个扩展字段
+     */
+    fun getSpecificUdfValue(roleCode: String, udfKey: String) : GraphQLCall<UdvResponse, UserDefinedData?> {
+        val param = UdvParam(UdfTargetType.ROLE, roleCode)
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<UdvResponse>>() {}) {
+            val iterator = it.result.iterator()
+            var res: UserDefinedData? = null
+            while (iterator.hasNext()) {
+                val next = iterator.next()
+                if (next.key == udfKey) {
+                    res = next
+                }
+            }
+            res
+        }
+    }
+
 }

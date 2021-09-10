@@ -603,12 +603,12 @@ class UsersManagementClient(private val client: ManagementClient) {
     /**
      * 发送首次登录验证邮件
      */
-    fun sendFirstLoginVerifyEmail(appId: String, userId: String): GraphQLCall<SendFirstLoginVerifyEmailResponse, Boolean> {
+    fun sendFirstLoginVerifyEmail(appId: String, userId: String): GraphQLCall<SendFirstLoginVerifyEmailResponse, CommonMessage> {
         val param = SendFirstLoginVerifyEmailParam(appId, userId);
         return client.createGraphQLCall(
             param.createRequest(),
             object : TypeToken<GraphQLResponse<SendFirstLoginVerifyEmailResponse>>() {}) {
-            it.sendFirstLoginVerifyEmail.code == 200
+            it.sendFirstLoginVerifyEmail
         }
     }
 
