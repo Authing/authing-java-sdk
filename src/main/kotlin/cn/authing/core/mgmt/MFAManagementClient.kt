@@ -7,6 +7,9 @@ import com.google.gson.reflect.TypeToken
 
 class MFAManagementClient(private val client: ManagementClient) {
 
+    /**
+     * 用户是否绑定了 TOTP MFA
+     */
     fun getStatus(
         userId: String
     ): HttpCall<RestfulResponse<UserMfaStatus>, UserMfaStatus> {
@@ -18,6 +21,9 @@ class MFAManagementClient(private val client: ManagementClient) {
         ) { it.data }
     }
 
+    /**
+     * 解绑用户 TOTP MFA
+     */
     fun unAssociateMfa(
         userId: String,
         type: UserMfaType

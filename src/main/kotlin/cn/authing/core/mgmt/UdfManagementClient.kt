@@ -11,7 +11,7 @@ import com.google.gson.reflect.TypeToken
  */
 class UdfManagementClient(private val client: ManagementClient) {
     /**
-     * 获取自定义字段元数据列表
+     * 获取自定义字段定义
      */
     fun list(targetType: UdfTargetType): GraphQLCall<UdfResponse, List<UserDefinedField>> {
         val param = UdfParam(targetType)
@@ -23,7 +23,7 @@ class UdfManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 设置元数据，如果不存在会创建
+     * 设置自定义字段元数据
      */
     fun set(
         targetType: UdfTargetType,
@@ -40,7 +40,7 @@ class UdfManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 移除元数据
+     * 删除自定义字段
      */
     fun remove(targetType: UdfTargetType, key: String): GraphQLCall<RemoveUdfResponse, CommonMessage> {
         val param = RemoveUdfParam(targetType, key)

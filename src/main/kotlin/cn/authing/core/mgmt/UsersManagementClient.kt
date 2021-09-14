@@ -14,6 +14,10 @@ import java.util.*
  * 用户管理类
  */
 class UsersManagementClient(private val client: ManagementClient) {
+
+    /**
+     * 获取用户列表
+     */
     @JvmOverloads
     fun list(
         page: Int? = null,
@@ -25,7 +29,7 @@ class UsersManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 获取用户池用户列表
+     * 获取用户列表
      */
     fun list(param: UsersParam): GraphQLCall<UsersResponse, PaginatedUsers> {
         return client.createGraphQLCall(
@@ -36,7 +40,7 @@ class UsersManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 创建新用户
+     * 创建用户
      */
     @JvmOverloads
     fun create(userInfo: CreateUserInput, options: CreateUserOptions? = null): HttpCall<RestfulResponse<User>, User> {
@@ -52,7 +56,7 @@ class UsersManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 更新用户信息
+     * 修改用户资料
      */
     fun update(userId: String, updates: UpdateUserInput): HttpCall<RestfulResponse<User>, User> {
 
@@ -71,7 +75,7 @@ class UsersManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 获取用户信息，需要传入用户 ID
+     * 获取用户详情
      */
     fun detail(userId: String): HttpCall<RestfulResponse<User>, User>  {
         return client.createHttpGetCall(
@@ -81,7 +85,7 @@ class UsersManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 模糊搜索用户
+     * 搜索用户
      */
     @JvmOverloads
     fun search(
@@ -92,7 +96,7 @@ class UsersManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 模糊搜索用户
+     * 搜索用户
      */
     fun search(param: SearchUserParam): GraphQLCall<SearchUserResponse, PaginatedUsers> {
         return client.createGraphQLCall(
@@ -114,7 +118,7 @@ class UsersManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 通过用户 ID 列表批量获取用户信息
+     * 通过 ID、username、email、phone、email、externalId 批量获取用户详情
      */
     @JvmOverloads
     fun batch(
@@ -130,7 +134,7 @@ class UsersManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 删除单个用户
+     * 删除用户
      */
     fun delete(userId: String): GraphQLCall<DeleteUserResponse, CommonMessage> {
         val param = DeleteUserParam(userId)
@@ -142,7 +146,7 @@ class UsersManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 删除多个用户
+     * 批量删除用户
      */
     fun deleteMany(userIds: List<String>): GraphQLCall<DeleteUsersResponse, CommonMessage> {
         val param = DeleteUsersParam(userIds)
@@ -168,7 +172,7 @@ class UsersManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 查询用户角色列表
+     * 获取用户角色列表
      * TODO: 高版本删除
      */
     @Deprecated("请使用listRoles(userId: String, namespace: String?)替换此方法")
@@ -177,7 +181,7 @@ class UsersManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 查询用户角色列表
+     * 获取用户角色列表
      */
     fun listRoles(userId: String, namespace: String?): HttpCall<RestfulResponse<PaginatedRoles>, PaginatedRoles> {
         var url = "${client.host}/api/v2/users/${userId}/roles"
@@ -193,7 +197,7 @@ class UsersManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 批量添加用户角色
+     * 将用户加入角色
      * TODO: 高版本删除
      */
     @Deprecated("请使用addRoles(userId: String, roles: List<String>, namespace: String?)替换此方法")
@@ -202,7 +206,7 @@ class UsersManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     *  批量添加用户角色
+     *  将用户加入角色
      */
     fun addRoles(
         userId: String,
@@ -220,7 +224,7 @@ class UsersManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 批量撤销用户角色
+     * 将用户从角色中移除
      * TODO: 高版本删除
      */
     @Deprecated("请使用removeRoles(userId: String, roles: List<String>, namespace: String?)替换此方法")
@@ -229,7 +233,7 @@ class UsersManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 批量撤销用户角色
+     * 将用户从角色中移除
      */
     fun removeRoles(
         userId: String,
@@ -281,7 +285,7 @@ class UsersManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 退出分组
+     * 将用户退出分组
      */
     fun removeGroup(userId: String, group: String): GraphQLCall<RemoveUserFromGroupResponse, CommonMessage> {
         val param = RemoveUserFromGroupParam(listOf(userId), group)
@@ -383,7 +387,7 @@ class UsersManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 获取用户所在组织机构数据列表
+     * 获取用户所在组织机构
      */
     fun listOrgs(userId: String): HttpCall<RestfulResponse<List<List<Org>>>, List<List<Org>>> {
         return client.createHttpGetCall(
@@ -408,6 +412,9 @@ class UsersManagementClient(private val client: ManagementClient) {
         }
     }
 
+    /**
+     * 获取用户被授权的所有资源
+     */
     fun listAuthorizedResources(
         param: ListUserAuthorizedResourcesParam
     ): GraphQLCall<ListUserAuthorizedResourcesResponse, PaginatedAuthorizedResources> {
@@ -419,7 +426,7 @@ class UsersManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 获取当前用户的所有自定义数据
+     * 获取某个用户的所有自定义数据
      *
      */
     fun getUdfValue(userId: String): HttpCall<RestfulResponse<List<UserDefinedData>>, Map<String, Any>> {
@@ -471,7 +478,7 @@ class UsersManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 设置某个用户的自定义数据
+     * 批量设置自定义数据
      */
     fun setUdfValueBatch(input: List<SetUdfValueBatchInputItem>): GraphQLCall<SetUdvBatchResponse, List<UserDefinedData>> {
         if (input.isEmpty()) {
@@ -534,6 +541,9 @@ class UsersManagementClient(private val client: ManagementClient) {
             object : TypeToken<RestfulResponse<Boolean>>() {}) { it.code == 200 }
     }
 
+    /**
+     * 查看用户操作日志
+     */
     @JvmOverloads
     fun listUserActions(
         options: ListUserActionsParams? = ListUserActionsParams()
@@ -550,6 +560,9 @@ class UsersManagementClient(private val client: ManagementClient) {
         ) { it.data }
     }
 
+    /**
+     * 获取用户所在部门
+     */
     fun listDepartment(
         userId: String
     ): HttpCall<RestfulResponse<Pagination<UserDepartment>>, Pagination<UserDepartment>> {
@@ -561,6 +574,9 @@ class UsersManagementClient(private val client: ManagementClient) {
         }
     }
 
+    /**
+     * 检查用户登录状态
+     */
     fun checkLoginStatus(
         param: CheckLoginStatusParams
     ): HttpCall<RestfulResponse<UserCheckLoginStatusResponse>, UserCheckLoginStatusResponse> {
@@ -574,6 +590,9 @@ class UsersManagementClient(private val client: ManagementClient) {
             object : TypeToken<RestfulResponse<UserCheckLoginStatusResponse>>() {}) { it.data }
     }
 
+    /**
+     * 用户退出登录
+     */
     fun logout(options: UserLogoutParams): HttpCall<RestfulResponse<Boolean>, Boolean> {
 
         var url = "${client.host}/logout?userId=${options.userId}"

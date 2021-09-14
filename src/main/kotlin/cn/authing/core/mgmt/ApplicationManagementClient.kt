@@ -14,6 +14,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
     private val acl: AclManagementClient = client.acl()
     private val role: RolesManagementClient = client.roles()
 
+    /**
+     * 创建应用
+     */
     fun create(
         options: CreateAppParams
     ): HttpCall<RestfulResponse<Application>, Application> {
@@ -26,6 +29,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         ) { it.data }
     }
 
+    /**
+     * 删除应用
+     */
     fun delete(
         appId: String
     ): HttpCall<RestfulResponse<Boolean>, Boolean> {
@@ -65,13 +71,16 @@ class ApplicationManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 获取应用详情
+     * 通过应用 id 查找应用详情
      */
     @Deprecated("方法已弃用，请使用 findById ()", ReplaceWith("findById (appId)"))
     fun detail(appId: String): HttpCall<RestfulResponse<Application>, Application> {
         return this.findById(appId)
     }
 
+    /**
+     * 通过应用 id 查找应用详情
+     */
     fun findById(appId: String): HttpCall<RestfulResponse<Application>, Application> {
         return client.createHttpGetCall(
             "${client.host}/api/v2/applications/${appId}",
@@ -109,6 +118,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
 
     }
 
+    /**
+     * 获取资源列表
+     */
     fun listResources(
         options: ListResourcesParams
     ): HttpCall<RestfulResponse<Pagination<IResourceResponse>>, Pagination<IResourceResponse>> {
@@ -116,6 +128,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         return acl.listResources(appId, type, limit, page)
     }
 
+    /**
+     * 创建资源
+     */
     fun createResource(
         appId: String,
         options: ResourceOptionsParams
@@ -131,6 +146,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         )
     }
 
+    /**
+     * 根据 Code 获取单个资源
+     */
     fun findResourceByCode(
         appId: String,
         code: String
@@ -138,6 +156,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         return acl.findResourceByCode(code, appId)
     }
 
+    /**
+     * 更新资源
+     */
     fun updateResource(
         appId: String,
         options: ResourceOptionsParams
@@ -154,6 +175,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         )
     }
 
+    /**
+     * 删除资源
+     */
     fun deleteResource(
         appId: String,
         code: String
@@ -161,6 +185,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         return acl.deleteResource(code, appId)
     }
 
+    /**
+     * 获取应用访问控制策略列表
+     */
     @JvmOverloads
     fun getAccessPolicies(
         appId: String,
@@ -175,6 +202,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         )
     }
 
+    /**
+     * 启用应用访问控制策略
+     */
     fun enableAccessPolicy(
         appId: String,
         options: IAccessPolicyParams
@@ -190,6 +220,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         )
     }
 
+    /**
+     * 停用应用访问控制策略
+     */
     fun disableAccessPolicy(
         appId: String,
         options: IAccessPolicyParams
@@ -205,6 +238,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         )
     }
 
+    /**
+     * 删除应用访问控制策略
+     */
     fun deleteAccessPolicy(
         appId: String,
         options: IAccessPolicyParams
@@ -220,6 +256,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         )
     }
 
+    /**
+     * 配置「允许主体（用户、角色、分组、组织机构节点）访问应用」的控制策略
+     */
     fun allowAccess(
         appId: String,
         options: IAccessPolicyParams
@@ -235,6 +274,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         )
     }
 
+    /**
+     * 配置「拒绝主体（用户、角色、分组、组织机构节点）访问应用」的控制策略
+     */
     fun denyAccess(
         appId: String,
         options: DenyAccessParams
@@ -250,6 +292,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         )
     }
 
+    /**
+     * 更改默认应用访问策略（默认拒绝所有用户访问应用、默认允许所有用户访问应用）
+     */
     fun updateDefaultAccessPolicy(
         appId: String,
         defaultStrategy: DefaultStrategy
@@ -259,6 +304,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         )
     }
 
+    /**
+     * 创建角色
+     */
     fun createRole(
         appId: String,
         options: CreateRoleParams
@@ -268,6 +316,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         )
     }
 
+    /**
+     * 删除角色
+     */
     fun deleteRole(
         appId: String,
         code: String
@@ -277,6 +328,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         )
     }
 
+    /**
+     * 批量删除角色
+     */
     fun deleteRoles(
         appId: String,
         codes: List<String>
@@ -286,6 +340,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         )
     }
 
+    /**
+     * 修改角色
+     */
     fun updateRole(
         appId: String,
         options: UpdateRoleParams
@@ -297,6 +354,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         )
     }
 
+    /**
+     * 获取角色详情
+     */
     fun findRole(
         appId: String,
         code: String
@@ -304,6 +364,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         return role.findByCode(RoleParam(code).withNamespace(appId))
     }
 
+    /**
+     * 获取角色列表
+     */
     @JvmOverloads
     fun getRoles(
         appId: String,
@@ -314,6 +377,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         )
     }
 
+    /**
+     * 获取角色用户列表
+     */
     fun getUsersByRoleCode(
         appId: String,
         code: String
@@ -321,6 +387,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         return role.listUsers(RoleWithUsersParam(code).withNamespace(appId))
     }
 
+    /**
+     * 添加用户
+     */
     fun addUsersToRole(
         appId: String,
         code: String,
@@ -335,6 +404,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         )
     }
 
+    /**
+     * 移除用户
+     */
     fun removeUsersFromRole(
         appId: String,
         code: String,
@@ -349,6 +421,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         )
     }
 
+    /**
+     * 获取角色被授权的所有资源
+     */
     @JvmOverloads
     fun listAuthorizedResourcesByRole(
         appId: String,
@@ -363,6 +438,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         )
     }
 
+    /**
+     * 创建应用协议
+     */
     fun createAgreement(
         appId: String,
         agreement: AgreementParams
@@ -376,6 +454,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         ) { it.data }
     }
 
+    /**
+     * 应用协议列表
+     */
     fun listAgreement(appId: String): HttpCall<RestfulResponse<Pagination<AgreementDetail>>, Pagination<AgreementDetail>> {
         val url = "${client.host}/api/v2/applications/${appId}/agreements"
 
@@ -385,6 +466,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         ) { it.data }
     }
 
+    /**
+     * 修改应用协议
+     */
     fun modifyAgreement(
         appId: String,
         agreementId: String,
@@ -399,6 +483,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         ) { it.data }
     }
 
+    /**
+     * 删除应用协议
+     */
     fun deleteAgreement(
         appId: String,
         agreementId: String
@@ -411,6 +498,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         ) { it.code == 200 }
     }
 
+    /**
+     * 应用协议排序
+     */
     fun sortAgreement(
         appId: String,
         order: List<String>
@@ -424,6 +514,9 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         ) { it.code == 200 }
     }
 
+    /**
+     * 查看应用下已登录用户
+     */
     @JvmOverloads
     fun activeUsers(
         appId: String,

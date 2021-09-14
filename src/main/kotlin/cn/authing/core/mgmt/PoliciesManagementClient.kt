@@ -64,7 +64,7 @@ class PoliciesManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 更新策略
+     * 修改策略
      */
     @JvmOverloads
     fun update(
@@ -80,7 +80,7 @@ class PoliciesManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 更新策略
+     * 修改策略
      */
     fun update(param: UpdatePolicyParam): GraphQLCall<UpdatePolicyResponse, Policy> {
         return client.createGraphQLCall(
@@ -155,7 +155,7 @@ class PoliciesManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 移除策略授权
+     * 撤销策略授权
      */
     fun removeAssignments(
         policies: List<String>,

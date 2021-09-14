@@ -15,7 +15,7 @@ import java.lang.reflect.Type
  */
 class OrgManagementClient(private val client: ManagementClient) {
     /**
-     * 创建分组
+     * 创建组织机构
      */
     fun create(param: CreateOrgParam): HttpCall<RestfulResponse<Org>, Org> {
         return client.createHttpPostCall(
@@ -28,7 +28,7 @@ class OrgManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 删除分组
+     * 删除组织机构
      */
     fun deleteById(id: String): GraphQLCall<DeleteOrgResponse, CommonMessage> {
         val param = DeleteOrgParam(id)
@@ -40,7 +40,7 @@ class OrgManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 获取分组列表
+     * 获取用户池组织机构列表
      */
     fun list(param: OrgsParam): HttpCall<RestfulResponse<PaginatedOrgs>, PaginatedOrgs> {
         var url = "${client.host}/api/v2/orgs/pagination"
@@ -57,7 +57,7 @@ class OrgManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 根据节点Id查询节点
+     * 获取某个节点详情
      */
     fun findNodeById(nodeId: String): GraphQLCall<NodeByIdResponse, Node> {
         val param = NodeByIdParam(id = nodeId)
@@ -69,7 +69,7 @@ class OrgManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 创建节点
+     * 在组织机构中添加一个节点
      */
     fun addNode(param: AddNodeV2Param): HttpCall<RestfulResponse<Node>, Node> {
         return client.createHttpPostCall(
@@ -128,7 +128,7 @@ class OrgManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 获取一个组织的根节点
+     * 获取根节点
      */
     fun rootNode(param: RootNodeParam): GraphQLCall<RootNodeResponse, Node> {
         return client.createGraphQLCall(
@@ -151,7 +151,7 @@ class OrgManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 模糊搜索组织节点
+     * 搜索组织机构节点
      */
     fun searchNodes(param: SearchNodesParam): HttpCall<RestfulResponse<List<Node>>, List<Node>> {
         return client.createHttpGetCall(
@@ -200,7 +200,7 @@ class OrgManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 分组详情
+     * 获取组织机构详情
      */
     fun findById(id: String): GraphQLCall<OrgResponse, Org> {
         val param = OrgParam(id)
@@ -212,7 +212,7 @@ class OrgManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 通过一个 JSON 树结构导入组织机构
+     * 通过 JSON 导入
      */
     fun importByJson(json: String): HttpCall<RestfulResponse<OrgNode>, OrgNode> {
         val gson = Gson()
@@ -229,7 +229,7 @@ class OrgManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 导出所有组织机构数据
+     * 导出所有组织机构
      */
     fun exportAll(): HttpCall<RestfulResponse<List<OrgNode>>, List<OrgNode>> {
         return client.createHttpGetCall(
@@ -240,7 +240,7 @@ class OrgManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 导入某个组织机构数据
+     * 导出某个组织机构
      */
     fun exportByOrgId(orgId: String): HttpCall<RestfulResponse<OrgNode>, OrgNode> {
         return client.createHttpGetCall(
@@ -250,6 +250,9 @@ class OrgManagementClient(private val client: ManagementClient) {
         }
     }
 
+    /**
+     * 获取组织机构节点被授权的所有资源
+     */
     fun listAuthorizedResourcesByNodeId(
         param: ListNodeByIdAuthorizedResourcesParam
     ): GraphQLCall<ListNodeByCodeAuthorizedResourcesResponse, Node> {
@@ -260,23 +263,13 @@ class OrgManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 获取组织机构节点被授权的所有资源
+     * 移动节点成员
      */
-    fun listAuthorizedResourcesByNodeCode(orgId: String,
-                                          code: String,
-                                          namespace: String,
-                                          options: ListAuthorizedResourcesOptions
-    ) {
-    }
-
-    /**
-     * 移动成员
-     */
-    fun moveMembers(options: MoveMembersParam) : GraphQLCall<MoveMembersResponse, Boolean>  {
+    fun moveMembers(options: MoveMembersParam) : GraphQLCall<MoveMembersResponse, CommonMessage>  {
         return client.createGraphQLCall(
             options.createRequest(),
             object : TypeToken<GraphQLResponse<MoveMembersResponse>>() {}
-        ) { it.moveMembers.code == 200 }
+        ) { it.moveMembers }
     }
 
     /**

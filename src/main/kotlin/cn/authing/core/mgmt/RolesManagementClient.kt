@@ -87,6 +87,9 @@ class RolesManagementClient(private val client: ManagementClient) {
         }
     }
 
+    /**
+     * 获取角色详情
+     */
     fun findByCode(param: RoleParam): GraphQLCall<RoleResponse, Role> {
         return client.createGraphQLCall(
             param.createRequest(),
@@ -96,7 +99,7 @@ class RolesManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 更新角色
+     * 修改角色
      */
     @JvmOverloads
     fun update(
@@ -109,7 +112,7 @@ class RolesManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 更新角色
+     * 修改角色
      */
     fun update(param: UpdateRoleParam): GraphQLCall<UpdateRoleResponse, Role> {
         return client.createGraphQLCall(
@@ -131,6 +134,9 @@ class RolesManagementClient(private val client: ManagementClient) {
         }
     }
 
+    /**
+     * 删除角色
+     */
     fun delete(param: DeleteRoleParam): GraphQLCall<DeleteRoleResponse, CommonMessage> {
         return client.createGraphQLCall(
             param.createRequest(),
@@ -151,6 +157,9 @@ class RolesManagementClient(private val client: ManagementClient) {
         }
     }
 
+    /**
+     * 批量删除角色
+     */
     fun deleteMany(param: DeleteRolesParam): GraphQLCall<DeleteRolesResponse, CommonMessage> {
         return client.createGraphQLCall(
             param.createRequest(),
@@ -160,7 +169,7 @@ class RolesManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 获取用户列表
+     * 获取角色用户列表
      */
     fun listUsers(code: String): GraphQLCall<RoleWithUsersResponse, PaginatedUsers> {
         val param = RoleWithUsersParam(code)
@@ -171,6 +180,9 @@ class RolesManagementClient(private val client: ManagementClient) {
         }
     }
 
+    /**
+     * 获取角色用户列表
+     */
     fun listUsers(param: RoleWithUsersParam): GraphQLCall<RoleWithUsersResponse, PaginatedUsers> {
         return client.createGraphQLCall(
             param.createRequest(),
@@ -180,7 +192,7 @@ class RolesManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 批量添加用户
+     * 添加用户
      */
     fun addUsers(code: String, userIds: List<String>): GraphQLCall<AssignRoleResponse, CommonMessage> {
         val param = AssignRoleParam().withUserIds(userIds).withRoleCode(code)
@@ -191,6 +203,9 @@ class RolesManagementClient(private val client: ManagementClient) {
         }
     }
 
+    /**
+     * 添加用户
+     */
     fun addUsers(param: AssignRoleParam): GraphQLCall<AssignRoleResponse, CommonMessage> {
         return client.createGraphQLCall(
             param.createRequest(),
@@ -200,7 +215,7 @@ class RolesManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 批量移除用户
+     * 移除用户
      */
     fun removeUsers(code: String, userIds: List<String>): GraphQLCall<RevokeRoleResponse, CommonMessage> {
         val param = RevokeRoleParam().withRoleCode(code).withUserIds(userIds)
@@ -211,6 +226,9 @@ class RolesManagementClient(private val client: ManagementClient) {
         }
     }
 
+    /**
+     * 移除用户
+     */
     fun removeUsers(param: RevokeRoleParam): GraphQLCall<RevokeRoleResponse, CommonMessage> {
         return client.createGraphQLCall(
             param.createRequest(),
@@ -220,7 +238,7 @@ class RolesManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 获取策略列表
+     * 获取角色策略列表
      */
     @JvmOverloads
     fun listPolicies(
@@ -240,7 +258,7 @@ class RolesManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 批量添加策略
+     * 给角色授权策略
      */
     fun addPolicies(
         code: String,
@@ -256,7 +274,7 @@ class RolesManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 批量移除策略
+     * 角色移除策略
      */
     fun removePolicies(
         code: String,
@@ -271,6 +289,9 @@ class RolesManagementClient(private val client: ManagementClient) {
         }
     }
 
+    /**
+     * 获取角色被授权的所有资源
+     */
     fun listAuthorizedResources(
         param: ListRoleAuthorizedResourcesParam
     ): GraphQLCall<ListRoleAuthorizedResourcesResponse, PaginatedAuthorizedResources?> {
@@ -280,6 +301,9 @@ class RolesManagementClient(private val client: ManagementClient) {
         ) { it.result.authorizedResources }
     }
 
+    /**
+     * 获取某个角色扩展字段列表
+     */
     fun getUdfValue(roleCode: String): GraphQLCall<UdvResponse, Map<String, Any>> {
         val param = UdvParam(UdfTargetType.ROLE, roleCode)
         return client.createGraphQLCall(
@@ -289,6 +313,9 @@ class RolesManagementClient(private val client: ManagementClient) {
         }
     }
 
+    /**
+     * 获取多个角色扩展字段列表
+     */
     fun getUdfValueBatch(roleCodes: List<String>): GraphQLCall<UdfValueBatchResponse, Map<String, Map<String, Any>>> {
         if (roleCodes.isEmpty()) {
             throw Exception("userIds can't be null")
@@ -304,6 +331,9 @@ class RolesManagementClient(private val client: ManagementClient) {
         }
     }
 
+    /**
+     * 设置某个角色扩展字段列表
+     */
     fun setUdfValue(
         roleCode: String,
         data: Map<String, String>
@@ -320,6 +350,9 @@ class RolesManagementClient(private val client: ManagementClient) {
         }
     }
 
+    /**
+     * 设置某个角色扩展字段列表
+     */
     fun setUdfValue(
         roleCode: String,
         key: String,
@@ -338,6 +371,9 @@ class RolesManagementClient(private val client: ManagementClient) {
         }
     }
 
+    /**
+     * 设置多个角色扩展字段列表
+     */
     fun setUdfValueBatch(input: List<RoleSetUdfValueBatchParams>): GraphQLCall<SetUdvBatchResponse, List<UserDefinedData>> {
         if (input.isEmpty()) {
             throw Exception("empty input list")
@@ -357,6 +393,9 @@ class RolesManagementClient(private val client: ManagementClient) {
         }
     }
 
+    /**
+     * 删除用户的扩展字段
+     */
     fun removeUdfValue(roleCode: String, key: String): GraphQLCall<RemoveUdvResponse, List<UserDefinedData>> {
         val param = RemoveUdvParam(UdfTargetType.ROLE, roleCode, key)
         return client.createGraphQLCall(
