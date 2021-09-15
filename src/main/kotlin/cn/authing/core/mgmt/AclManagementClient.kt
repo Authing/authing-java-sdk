@@ -112,10 +112,20 @@ class AclManagementClient(private val client: ManagementClient) {
         code: String,
         namespace: String? = null
     ): HttpCall<RestfulResponse<IResourceResponse>, IResourceResponse> {
-        var url = "${client.host}/api/v2/resources/by-code/$code"
+        var url = "${client.host}/api/v2/resources/detail/$code"
 
         url += if (namespace != null) "?namespace=$namespace" else ""
 
+        return this.client.createHttpGetCall(
+            url,
+            object : TypeToken<RestfulResponse<IResourceResponse>>() {}) { it.data }
+    }
+
+    fun getResourceById(
+        id: String
+    ): HttpCall<RestfulResponse<IResourceResponse>, IResourceResponse> {
+        var url = "${client.host}/api/v2/resources/detail"
+        url += "?id=${id}"
         return this.client.createHttpGetCall(
             url,
             object : TypeToken<RestfulResponse<IResourceResponse>>() {}) { it.data }
