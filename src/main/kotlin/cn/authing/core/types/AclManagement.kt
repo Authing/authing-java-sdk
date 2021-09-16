@@ -200,3 +200,10 @@ constructor(
     var code: String? = null,
     var description: String? = null
 )
+
+data class UpdateDefaultApplicationParams
+@JvmOverloads
+constructor(
+    var permissionStrategy: IDefaultAppAccessPolicy? = null
+
+)

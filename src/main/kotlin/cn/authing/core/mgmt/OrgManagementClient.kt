@@ -8,7 +8,7 @@ import cn.authing.core.types.*
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
-import java.lang.reflect.Type
+import java.lang.Exception
 
 /**
  * 管理组织机构
@@ -255,10 +255,10 @@ class OrgManagementClient(private val client: ManagementClient) {
      */
     fun listAuthorizedResourcesByNodeId(
         param: ListNodeByIdAuthorizedResourcesParam
-    ): GraphQLCall<ListNodeByCodeAuthorizedResourcesResponse, Node> {
+    ): GraphQLCall<ListNodeByIdAuthorizedResourcesResponse, Node> {
         return client.createGraphQLCall(
             param.createRequest(),
-            object : TypeToken<GraphQLResponse<ListNodeByCodeAuthorizedResourcesResponse>>() {}
+            object : TypeToken<GraphQLResponse<ListNodeByIdAuthorizedResourcesResponse>>() {}
         ) { it.result }
     }
 
@@ -281,5 +281,52 @@ class OrgManagementClient(private val client: ManagementClient) {
             param.createRequest(),
             object : TypeToken<GraphQLResponse<SetMainDepartmentResponse>>() {}
         ) { it.result}
+    }
+
+    /**
+     * @description 获取组织机构节点被授权的所有资源
+     *
+     * @param orgId: 组织机构 ID；
+     * @param code: 节点 code
+     * @param namespace: 权限组 namespace code
+     * @param options.resourceType 资源类型
+     */
+    fun listAuthorizedResourcesByNodeCode(
+        param: ListNodeByCodeAuthorizedResourcesParam
+    ): GraphQLCall<ListNodeByCodeAuthorizedResourcesResponse, Node> {
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<ListNodeByCodeAuthorizedResourcesResponse>>() {}
+        ) {
+            it.result
+        }
+    }
+
+    /**
+     * 组织机构同步
+     */
+    fun startSync(options: OrgStartSyncOptions): HttpCall<RestfulResponse<Org>, Boolean> {
+        val providerType = options.providerType;
+        val adConnectorId = options.adConnectorId;
+        var url = "";
+        if (providerType == "wechatwork") {
+            url = "${client.host}/connections/enterprise/wechatwork/start-sync"
+        } else if (providerType == "dingtalk") {
+            url = "${client.host}/connections/enterprise/dingtalk/start-sync"
+        } else if (providerType == "ad") {
+            if (adConnectorId == null || adConnectorId == "") {
+                throw Exception("must provider adConnectorId");
+            }
+            url = "${client.host}/api/v2/ad/sync"
+        }
+
+        val param = OrgStartSyncParam(adConnectorId)
+        return client.createHttpPostCall(
+            url,
+            GsonBuilder().create().toJson(param),
+            object : TypeToken<RestfulResponse<Org>> () {}
+        ) {
+            it.code == 200
+        }
     }
 }
