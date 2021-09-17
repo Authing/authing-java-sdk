@@ -26,7 +26,13 @@ class ApplicationManagementClient(private val client: ManagementClient) {
             url,
             Gson().toJson(options),
             object : TypeToken<RestfulResponse<Application>>() {}
-        ) { it.data }
+        ) {
+            if (it.code == 200) {
+                it.data
+            } else {
+                throw Exception(it.message)
+            }
+        }
     }
 
     /**
