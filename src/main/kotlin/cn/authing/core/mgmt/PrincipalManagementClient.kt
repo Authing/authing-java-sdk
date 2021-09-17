@@ -5,7 +5,7 @@ import cn.authing.core.types.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-class PrincipalManagement(private val client: ManagementClient)  {
+class PrincipalManagementClient(private val client: ManagementClient)  {
     /**
      * @name detail
      * @name_zh 获取主体认证详情

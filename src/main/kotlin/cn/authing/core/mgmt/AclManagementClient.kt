@@ -130,16 +130,6 @@ class AclManagementClient(private val client: ManagementClient) {
             object : TypeToken<RestfulResponse<IResourceResponse>>() {}) { it.data }
     }
 
-    fun getResourceById(
-        id: String
-    ): HttpCall<RestfulResponse<IResourceResponse>, IResourceResponse> {
-        var url = "${client.host}/api/v2/resources/detail"
-        url += "?id=${id}"
-        return this.client.createHttpGetCall(
-            url,
-            object : TypeToken<RestfulResponse<IResourceResponse>>() {}) { it.data }
-    }
-
     /**
      * 更新资源
      */
