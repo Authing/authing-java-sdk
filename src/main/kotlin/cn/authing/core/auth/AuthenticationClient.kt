@@ -1267,11 +1267,6 @@ class AuthenticationClient : BaseClient {
             "${host}/login/profile/logout"
     }
 
-
-    fun decryptTokenLocally() {
-        // TODO
-    }
-
     /**
      * 生成一个 PKCE 校验码，长度必须大于等于 43。
      */
