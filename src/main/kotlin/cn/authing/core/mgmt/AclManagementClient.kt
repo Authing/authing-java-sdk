@@ -121,7 +121,7 @@ class AclManagementClient(private val client: ManagementClient) {
         code: String,
         namespace: String? = null
     ): HttpCall<RestfulResponse<IResourceResponse>, IResourceResponse> {
-        var url = "${client.host}/api/v2/resources/detail/$code"
+        var url = "${client.host}/api/v2/resources/by-code/$code"
 
         url += if (namespace != null) "?namespace=$namespace" else ""
 
@@ -148,9 +148,9 @@ class AclManagementClient(private val client: ManagementClient) {
     /**
      * 删除资源
      */
-    fun deleteResource(code: String, namespaceCode: String): HttpCall<RestfulResponse<Boolean>, Boolean> {
+    fun deleteResource(codes: String, namespaceCode: String): HttpCall<RestfulResponse<Boolean>, Boolean> {
         return this.client.createHttpDeleteCall(
-            "${client.host}/api/v2/resources/$code?namespace=$namespaceCode",
+            "${client.host}/api/v2/resources/$codes?namespace=$namespaceCode",
             object : TypeToken<RestfulResponse<Boolean>>() {}) { it.code == 200 }
     }
 
