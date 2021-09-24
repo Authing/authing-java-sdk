@@ -5,6 +5,7 @@ import cn.authing.core.http.HttpCall
 import cn.authing.core.types.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlin.collections.HashMap
 
 /**
  * 应用管理类
@@ -512,10 +513,11 @@ class ApplicationManagementClient(private val client: ManagementClient) {
         order: List<String>
     ): HttpCall<RestfulResponse<Boolean>, Boolean> {
         val url = "${client.host}/api/v2/applications/${appId}/agreements/sort"
-
+        val body = HashMap<String, Any>()
+        body["ids"] = order
         return client.createHttpPostCall(
             url,
-            "{ ids: ${Gson().toJson(order)} }",
+            Gson().toJson(body),
             object : TypeToken<RestfulResponse<Boolean>>() {}
         ) { it.code == 200 }
     }
