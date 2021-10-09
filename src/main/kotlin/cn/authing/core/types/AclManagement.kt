@@ -50,7 +50,8 @@ constructor(
     var type: ResourceType,
     var description: String? = null,
     var actions: List<IAction>,
-    var namespace: String
+    var namespace: String,
+    var apiIdentifier: String? = null
 )
 
 class IAppAccessPolicyQueryFilter

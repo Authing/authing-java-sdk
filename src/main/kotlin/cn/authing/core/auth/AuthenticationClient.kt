@@ -11,6 +11,7 @@ import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import okhttp3.FormBody
 import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.IOException
 import java.nio.charset.Charset
 import java.util.*
@@ -675,7 +676,10 @@ class AuthenticationClient : BaseClient {
             throw Exception("请在初始化 AuthenticationClient 时传入 appId 和 secret 参数")
         }
 
-        val url = "${this.host}/oidc/token"
+        var url = "${this.host}/oidc/token"
+        if(this.protocol == ProtocolEnum.OAUTH) {
+            url = "${this.host}/oauth/token"
+        }
         when (this.tokenEndPointAuthMethod) {
             AuthMethodEnum.CLIENT_SECRET_POST -> {
                 return HttpCall(
@@ -773,6 +777,18 @@ class AuthenticationClient : BaseClient {
      * accessToken 换取用户信息
      */
     fun getUserInfoByAccessToken(accessToken: String): HttpCall<Any, Any> {
+        if (this.protocol == ProtocolEnum.OAUTH) {
+            return HttpCall(
+                okHttpClient.newCall(
+                    Request.Builder()
+                        .url("${this.host}/oauth/me?access_token=${accessToken}")
+                        .post("{}".toRequestBody(mediaTypeJson))
+                        .build()
+                ), json.getAdapter(object : TypeToken<Any>() {})
+            ) {
+                it
+            }
+        }
         return HttpCall(
             okHttpClient.newCall(
                 Request.Builder()
