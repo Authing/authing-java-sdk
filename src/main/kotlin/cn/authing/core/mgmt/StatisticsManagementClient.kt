@@ -41,7 +41,7 @@ class StatisticsManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 查看审计日志
+     * 审计日志列表查询
      */
     fun listAuditLogs(options: AuditLogPageParam?): HttpCall<RestfulResponse<PaginatedAuditLogs>, PaginatedAuditLog> {
         var url = "${client.host}/api/v2/analysis/audit?"

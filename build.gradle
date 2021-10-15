@@ -4,6 +4,12 @@ plugins {
     id "com.jfrog.bintray" version "1.8.5"
 }
 
+apply plugin: 'maven'
+
+group 'cn.authing'
+version '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
+
 repositories {
     mavenCentral()
 }

@@ -37,7 +37,7 @@ class GroupsManagementClient(private val client: ManagementClient) {
 
 
     /**
-     * 更新分组
+     * 修改分组
      */
     fun update(param: UpdateGroupParam): GraphQLCall<UpdateGroupResponse, Group> {
         return client.createGraphQLCall(
@@ -48,7 +48,7 @@ class GroupsManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 分组详情
+     * 获取分组详情
      */
     fun detail(code: String): GraphQLCall<GroupResponse, Group> {
         val param = GroupParam(code)
@@ -83,7 +83,7 @@ class GroupsManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 获取用户列表
+     * 获取分组用户列表
      */
     fun listUsers(code: String): GraphQLCall<GroupWithUsersResponse, PaginatedUsers> {
         val param = GroupWithUsersParam(code)
@@ -94,7 +94,7 @@ class GroupsManagementClient(private val client: ManagementClient) {
         }
     }
     /**
-     * 获取用户列表, 带分页参数
+     * 获取分组用户列表
      */
     fun listUsers(param: GroupWithUsersParam): GraphQLCall<GroupWithUsersResponse, PaginatedUsers> {
         return client.createGraphQLCall(
@@ -105,7 +105,7 @@ class GroupsManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 批量添加用户
+     * 添加用户
      */
     fun addUsers(param: AddUserToGroupParam): GraphQLCall<AddUserToGroupResponse, CommonMessage> {
         return client.createGraphQLCall(
@@ -116,7 +116,7 @@ class GroupsManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 批量移除用户
+     * 移除用户
      */
     fun removeUsers(param: RemoveUserFromGroupParam): GraphQLCall<RemoveUserFromGroupResponse, CommonMessage> {
         return client.createGraphQLCall(
@@ -126,6 +126,9 @@ class GroupsManagementClient(private val client: ManagementClient) {
         }
     }
 
+    /**
+     * 获取分组被授权的所有资源
+     */
     fun listAuthorizedResources(
         param: ListGroupAuthorizedResourcesParam
     ): GraphQLCall<ListGroupAuthorizedResourcesResponse, Group> {

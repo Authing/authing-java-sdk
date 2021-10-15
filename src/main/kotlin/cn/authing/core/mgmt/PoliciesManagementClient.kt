@@ -64,7 +64,7 @@ class PoliciesManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 更新策略
+     * 修改策略
      */
     @JvmOverloads
     fun update(
@@ -74,12 +74,13 @@ class PoliciesManagementClient(private val client: ManagementClient) {
         newCode: String? = null,
         namespace: String? = null
     ): GraphQLCall<UpdatePolicyResponse, Policy> {
-        val param = UpdatePolicyParam(namespace, code).withStatements(statements).withDescription(description).withNewCode(newCode)
+        val param = UpdatePolicyParam(namespace, code).withStatements(statements).withDescription(description)
+            .withNewCode(newCode)
         return update(param)
     }
 
     /**
-     * 更新策略
+     * 修改策略
      */
     fun update(param: UpdatePolicyParam): GraphQLCall<UpdatePolicyResponse, Policy> {
         return client.createGraphQLCall(
@@ -154,7 +155,7 @@ class PoliciesManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 移除策略授权
+     * 撤销策略授权
      */
     fun removeAssignments(
         policies: List<String>,
@@ -168,4 +169,39 @@ class PoliciesManagementClient(private val client: ManagementClient) {
             it.result
         }
     }
+
+    /**
+     * 设置策略授权状态为关闭
+     */
+    fun disableAssignment(
+        policy: String,
+        targetType: PolicyAssignmentTargetType,
+        targetIdentifier: String,
+        namespace: String? = null
+    ): GraphQLCall<DisableAssignmentResponse, CommonMessage> {
+        val param = DisableAssignmentParam(policy, targetType, targetIdentifier, namespace)
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<DisableAssignmentResponse>>() {}) {
+            it.disbalePolicyAssignment
+        }
+    }
+
+    /**
+     * 设置策略授权状态为开启
+     */
+    fun enableAssignment(
+        policy: String,
+        targetType: PolicyAssignmentTargetType,
+        targetIdentifier: String,
+        namespace: String? = null
+    ): GraphQLCall<EnableAssignmentResponse, CommonMessage> {
+        val param = EnableAssignmentParam(policy, targetType, targetIdentifier, namespace)
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<EnableAssignmentResponse>>() {}) {
+            it.enablePolicyAssignment
+        }
+    }
+
 }

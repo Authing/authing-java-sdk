@@ -50,7 +50,8 @@ constructor(
     var type: ResourceType,
     var description: String? = null,
     var actions: List<IAction>,
-    var namespace: String
+    var namespace: String,
+    var apiIdentifier: String? = null
 )
 
 class IAppAccessPolicyQueryFilter
@@ -158,6 +159,7 @@ constructor(
 )
 
 data class ResourceNamespace(
+    var id: Int,
     var code: String,
     var name: String,
     var description: String,
@@ -198,4 +200,11 @@ constructor(
     var name: String? = null,
     var code: String? = null,
     var description: String? = null
+)
+
+data class UpdateDefaultApplicationParams
+@JvmOverloads
+constructor(
+    var permissionStrategy: IDefaultAppAccessPolicy? = null
+
 )

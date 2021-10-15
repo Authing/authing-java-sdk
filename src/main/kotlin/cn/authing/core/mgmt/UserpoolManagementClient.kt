@@ -61,7 +61,7 @@ class UserpoolManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 移除环境变量
+     * 删除环境变量
      */
     fun removeEnv(key: String): HttpCall<CommonMessage, CommonMessage> {
         return client.createHttpDeleteCall("${client.host}/api/v2/env/$key", object : TypeToken<CommonMessage>() {}) {

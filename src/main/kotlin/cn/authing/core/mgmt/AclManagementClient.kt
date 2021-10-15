@@ -27,7 +27,7 @@ class AclManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 允许某用户操作某资源
+     * 允许某个用户对某个资源进行某个操作
      */
     fun allow(
         resource: String,
@@ -44,7 +44,7 @@ class AclManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 是否允许某用户操作某资源
+     * 判断某个用户是否对某个资源有某个操作权限
      */
     fun isAllowed(userId: String, resource: String, action: String): GraphQLCall<IsActionAllowedResponse, Boolean> {
         val param = IsActionAllowedParam(resource, action, userId)
@@ -57,7 +57,7 @@ class AclManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 获取资源
+     * 获取资源列表
      */
     @Deprecated("use listResources", ReplaceWith("this.listResources(namespaceCode, type, limit, page)"))
     @JvmOverloads
@@ -70,6 +70,9 @@ class AclManagementClient(private val client: ManagementClient) {
         return this.listResources(namespaceCode, type, limit, page)
     }
 
+    /**
+     * 获取资源列表
+     */
     @JvmOverloads
     fun listResources(
         namespaceCode: String? = null,
@@ -90,6 +93,9 @@ class AclManagementClient(private val client: ManagementClient) {
 
     }
 
+    /**
+     * 获取资源列表
+     */
     fun listResources(params: AclListResourcesParams): HttpCall<RestfulResponse<Pagination<IResourceResponse>>, Pagination<IResourceResponse>> {
         var (namespaceCode, type, limit, page, fetchAll) = params
         if (fetchAll) limit = -1
@@ -107,6 +113,9 @@ class AclManagementClient(private val client: ManagementClient) {
             object : TypeToken<RestfulResponse<IResourceResponse>>() {}) { it.data }
     }
 
+    /**
+     * 根据资源 Code 获取资源
+     */
     @JvmOverloads
     fun findResourceByCode(
         code: String,
@@ -139,14 +148,14 @@ class AclManagementClient(private val client: ManagementClient) {
     /**
      * 删除资源
      */
-    fun deleteResource(code: String, namespaceCode: String): HttpCall<RestfulResponse<Boolean>, Boolean> {
+    fun deleteResource(codes: String, namespaceCode: String): HttpCall<RestfulResponse<Boolean>, Boolean> {
         return this.client.createHttpDeleteCall(
-            "${client.host}/api/v2/resources/$code?namespace=$namespaceCode",
+            "${client.host}/api/v2/resources/$codes?namespace=$namespaceCode",
             object : TypeToken<RestfulResponse<Boolean>>() {}) { it.code == 200 }
     }
 
     /**
-     * 获取应用访问控制策略
+     * 获取应用访问控制策略列表
      */
     fun getApplicationAccessPolicies(options: IAppAccessPolicyQueryFilter):
             HttpCall<RestfulResponse<Pagination<IApplicationAccessPolicies>>, Pagination<IApplicationAccessPolicies>> {
@@ -228,16 +237,16 @@ class AclManagementClient(private val client: ManagementClient) {
      */
     fun updateDefaultApplicationAccessPolicy(options: IDefaultAppAccessPolicy): HttpCall<RestfulResponse<Application>, Application> {
         val url = "${client.host}/api/v2/applications/${options.appId}"
-
+        val param = UpdateDefaultApplicationParams(options)
         return this.client.createHttpPostCall(
             url,
-            GsonBuilder().create().toJson(options),
+            GsonBuilder().create().toJson(param),
             object : TypeToken<RestfulResponse<Application>>() {}) { it.data }
 
     }
 
     /**
-     * 将一个（类）资源授权给用户、角色、分组、组织机构，且可以分别指定不同的操作权限
+     * 将一个（类）资源授权给用户、角色、分组、组织机构，且可以分别指定不同的操作权限。
      */
     fun authorizeResource(
         namespace: String,
@@ -382,7 +391,7 @@ class AclManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 获取权限分组列表
+     * 权限分组列表
      */
     @JvmOverloads
     fun listNamespaces(
@@ -396,13 +405,13 @@ class AclManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 更新 namespace
+     * 修改权限分组
      */
     fun updateNamespace(
-        code: String,
+        id: Int,
         updates: UpdateNamespaceParams
     ): HttpCall<RestfulResponse<ResourceNamespace>, ResourceNamespace> {
-        val url = "${client.host}/api/v2/resource-namespace/${client.userPoolId}/code/${code}"
+        val url = "${client.host}/api/v2/resource-namespace/${client.userPoolId}/${id}"
 
         return client.createHttpPutCall(
             url,
@@ -411,8 +420,11 @@ class AclManagementClient(private val client: ManagementClient) {
         ) { it.data }
     }
 
-    fun deleteNamespace(code: String): HttpCall<RestfulResponse<Boolean>, Boolean> {
-        val url = "${this.client.host}/api/v2/resource-namespace/${this.client.userPoolId}/code/${code}"
+    /**
+     * 删除权限分组
+     */
+    fun deleteNamespace(id: Int): HttpCall<RestfulResponse<Boolean>, Boolean> {
+        val url = "${this.client.host}/api/v2/resource-namespace/${this.client.userPoolId}/${id}"
 
         return client.createHttpDeleteCall(
             url,
@@ -421,7 +433,7 @@ class AclManagementClient(private val client: ManagementClient) {
     }
 
     /**
-     * 获取具备某个（类）资源操作权限的用户、分组、角色、组织机构。
+     * 获取具备某些资源操作权限的主体
      */
     fun getAuthorizedTargets(
         options: AuthorizedTargetsParam
@@ -431,5 +443,30 @@ class AclManagementClient(private val client: ManagementClient) {
             options.createRequest(),
             object : TypeToken<GraphQLResponse<AuthorizedTargetsResponse>>() {}
         ) { it.result }
+    }
+
+    /**
+     *  根据 id 获取资源
+     */
+    fun getResourceById(id: String) : HttpCall<RestfulResponse<IResourceResponse>, IResourceResponse>{
+        val url = "${client.host}/api/v2/resources/detail?id=" + id;
+        return client.createHttpGetCall(
+            url,
+            object : TypeToken<RestfulResponse<IResourceResponse>>() {}
+        ) { it.data }
+    }
+
+    /**
+     * 获取用户被授权的所有资源
+     */
+    fun listAuthorizedResources(targetType: PolicyAssignmentTargetType,
+                                targetIdentifier: String,
+                                namespace: String,
+                                options: ListAuthorizedResourcesOptions?
+    ) : GraphQLCall<ListAuthorizedResourcesResponse, PaginatedAuthorizedResources> {
+        var param = ListAuthorizedResourcesParam(targetType, targetIdentifier, namespace, options?.resourceType)
+        return this.client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<ListAuthorizedResourcesResponse>>() {}) { it.authorizedResources }
     }
 }

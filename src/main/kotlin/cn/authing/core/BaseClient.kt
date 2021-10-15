@@ -84,7 +84,7 @@ abstract class BaseClient {
     protected val mediaTypeJson: MediaType? = "application/json".toMediaTypeOrNull()
     protected val mediaTypeUrlencoded: MediaType? = "application/x-www-form-urlencoded".toMediaTypeOrNull()
     protected val sdkType: String = "SDK"
-    protected val sdkVersion: String = "java:4.3.9"
+    protected val sdkVersion: String = "java:4.3.40"
 
     // graphql 端点
     private val endpoint: String

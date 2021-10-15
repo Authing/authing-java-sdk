@@ -1,5 +1,7 @@
 package cn.authing.core.types
 
+import org.intellij.lang.annotations.Language
+
 /**
  * 应用信息
  */
@@ -435,3 +437,96 @@ constructor(
     var userPoolId: String,
     var id: String
 )
+
+data class PrincipalDetail
+constructor(
+    var authenticationTime: String,
+    var createdAt: String,
+    var id: String,
+    var principalCode: String,
+    var principalName: String,
+    val principalType: String? = "P",
+    var updatedAt: String,
+    var userId: String,
+    var userPoolId: String
+)
+
+data class PrincipalInput
+constructor(
+    var type: Char? = 'P',
+     /** 姓名 */
+    var name: String,
+    /** 身份证 */
+    var idCard: String,
+    /** 银行卡号 */
+    var bankCard: String,
+    /** 企业名称 */
+    var enterpriseName: String,
+    /** 统一社会信用代码/注册号/组织机构代码 */
+    var enterpriseCode: String,
+    /** 企业法人名称 */
+    var legalPersonName: String
+)
+
+data class AgreementList
+constructor(
+    var list: List<AgreementDetail>,
+    var totalCount: Number
+)
+
+data class UserActionParam
+constructor(
+    var page: Number,
+    var limit: Number?=10,
+    var clientIp: String,
+    var operationName: String,
+    var operatoArn: String
+)
+
+data class UserAction
+constructor(
+    var operator_arn: String,
+    var timestamp: String,
+    var user_agent:String,
+    var geoip:GeoIP,
+    var message: String,
+    var ua:UA,
+    val userpool_id: String,
+    var host: String,
+    var version: String,
+    var app_id: String,
+    var operation_name: String,
+    var clientip: String,
+    var extra_data: String,
+    var request_id: String,
+    var path: String,
+    var user:LogUser,
+    var app:App,
+    var operation_desc: String
+)
+
+data class App
+constructor(
+    var qrcodeScanning: Any,
+    var id: String,
+    var name: String,
+    var description:Any,
+    var identifier: String,
+    var logo: String,
+    var loginTabs: List<String>,
+    var registerTabs: List<String>,
+    var adConnections: List<Any>,
+    var disabledOidcConnections: List<Any>,
+    var disabledSamlConnections: List<Any>,
+    var extendsFields: List<Any>,
+    var disabledAzureAdConnections: List<Any>,
+    var disabledOauth2Connections: List<Any>,
+    var disabledCasConnections: List<Any>
+)
+
+data class UserActions
+constructor(
+   var totalCount: Number,
+   var list: List<UserAction>
+)
+

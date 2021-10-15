@@ -68,3 +68,15 @@ constructor(
     @Expose
     val userIds: List<String>
 )
+
+data class ListAuthorizedResourcesOptions
+constructor(
+    var resourceType: ResourceType?
+)
+
+
+data class OrgStartSyncOptions
+constructor(
+    var providerType: String,
+    var adConnectorId: String? = null
+)

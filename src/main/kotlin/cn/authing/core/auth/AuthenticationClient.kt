@@ -11,9 +11,12 @@ import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import okhttp3.FormBody
 import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.IOException
+import java.nio.charset.Charset
 import java.util.*
 import java.util.regex.Pattern
+import kotlin.collections.HashMap
 
 class AuthenticationClient : BaseClient {
     constructor(userPoolId: String) {
@@ -33,7 +36,7 @@ class AuthenticationClient : BaseClient {
     }
 
     /**
-     * 获取当前用户信息
+     * 获取当前登录的用户信息
      */
     fun getCurrentUser(): GraphQLCall<UserResponse, User> {
         val param = UserParam()
@@ -46,6 +49,17 @@ class AuthenticationClient : BaseClient {
         }
     }
 
+    /**
+     * 设置当前用户
+     */
+    fun setCurrentUser(user: User) {
+        this.user = user
+        this.token = user.token
+    }
+
+    /**
+     * 检测当前登录状态
+     */
     fun checkLoggedIn(): Boolean {
         if (this.user == null) return false
 
@@ -55,7 +69,7 @@ class AuthenticationClient : BaseClient {
     }
 
     /**
-     * 通过微信登录，获取用户信息
+     * 通过微信登陆
      */
     @JvmOverloads
     fun loginByWechat(
@@ -78,7 +92,7 @@ class AuthenticationClient : BaseClient {
     }
 
     /**
-     * 通过用户名和密码登录
+     * 使用用户名登录
      */
     fun loginByUsername(input: LoginByUsernameInput): GraphQLCall<LoginByUsernameResponse, User> {
         val param = LoginByUsernameParam(input)
@@ -94,7 +108,7 @@ class AuthenticationClient : BaseClient {
     }
 
     /**
-     * 通过邮箱密码登录
+     * 使用邮箱登录
      */
     fun loginByEmail(input: LoginByEmailInput): GraphQLCall<LoginByEmailResponse, User> {
         val param = LoginByEmailParam(input)
@@ -110,7 +124,7 @@ class AuthenticationClient : BaseClient {
     }
 
     /**
-     * 通过手机号和验证码登录
+     * 使用手机号验证码登录
      */
     fun loginByPhoneCode(input: LoginByPhoneCodeInput): GraphQLCall<LoginByPhoneCodeResponse, User> {
         val param = LoginByPhoneCodeParam(input)
@@ -125,7 +139,7 @@ class AuthenticationClient : BaseClient {
     }
 
     /**
-     * 通过手机号和密码登录
+     * 使用手机号密码登录
      */
     fun loginByPhonePassword(input: LoginByPhonePasswordInput): GraphQLCall<LoginByPhonePasswordResponse, User> {
         val param = LoginByPhonePasswordParam(input)
@@ -140,9 +154,15 @@ class AuthenticationClient : BaseClient {
         }
     }
 
+    /**
+     * 登录子账号
+     */
     fun loginBySubAccount(
         options: LoginBySubAccountParam
     ): GraphQLCall<LoginBySubAccountResponse, User> {
+
+        options.password = encrypt(options.password)
+
         return createGraphQLCall(
             options.createRequest(),
             object : TypeToken<GraphQLResponse<LoginBySubAccountResponse>>() {}
@@ -166,7 +186,7 @@ class AuthenticationClient : BaseClient {
     }
 
     /**
-     * 通过用户名注册
+     * 使用用户名注册
      */
     fun registerByUsername(input: RegisterByUsernameInput): GraphQLCall<RegisterByUsernameResponse, User> {
         val param = RegisterByUsernameParam(input)
@@ -182,7 +202,7 @@ class AuthenticationClient : BaseClient {
     }
 
     /**
-     * 通过邮箱注册
+     * 使用邮箱注册
      */
     fun registerByEmail(input: RegisterByEmailInput): GraphQLCall<RegisterByEmailResponse, User> {
         val param = RegisterByEmailParam(input)
@@ -198,7 +218,7 @@ class AuthenticationClient : BaseClient {
     }
 
     /**
-     * 通过手机号验证码注册
+     * 使用手机号及验证码注册
      */
     fun registerByPhoneCode(input: RegisterByPhoneCodeInput): GraphQLCall<RegisterByPhoneCodeResponse, User> {
         val param = RegisterByPhoneCodeParam(input)
@@ -216,7 +236,7 @@ class AuthenticationClient : BaseClient {
     }
 
     /**
-     * 发送手机验证码
+     * 发送短信验证码
      */
     fun sendSmsCode(phone: String): HttpCall<CommonMessage, CommonMessage> {
         val url = "$host/api/v2/sms/send"
@@ -232,7 +252,7 @@ class AuthenticationClient : BaseClient {
     }
 
     /**
-     * 检查当前登录状态
+     * 检测 Token 登录状态
      */
     fun checkLoginStatus(): GraphQLCall<CheckLoginStatusResponse, JwtTokenStatus> {
         val param = CheckLoginStatusParam(token = token)
@@ -256,7 +276,7 @@ class AuthenticationClient : BaseClient {
     }
 
     /**
-     * 通过邮件验证码来重置密码
+     * 通过邮件验证码重置密码
      */
     fun resetPasswordByEmailCode(
         email: String,
@@ -273,7 +293,7 @@ class AuthenticationClient : BaseClient {
     }
 
     /**
-     * 通过手机号验证码来重置密码
+     * 通过短信验证码重置密码
      */
     fun resetPasswordByPhoneCode(
         phone: String,
@@ -290,7 +310,7 @@ class AuthenticationClient : BaseClient {
     }
 
     /**
-     * 更新用户信息，ID 参数为当前用户 ID
+     * 修改用户资料
      */
     fun updateProfile(input: UpdateUserInput): GraphQLCall<UpdateUserResponse, User> {
         val param = UpdateUserParam(input = input)
@@ -362,7 +382,7 @@ class AuthenticationClient : BaseClient {
     }
 
     /**
-     * 绑定邮箱
+     * 绑定邮箱号
      */
     fun bindEmail(email: String, emailCode: String): GraphQLCall<BindEmailResponse, User> {
         val param = BindEmailParam(email, emailCode)
@@ -376,7 +396,7 @@ class AuthenticationClient : BaseClient {
     }
 
     /**
-     * 解绑邮箱
+     * 解绑邮箱号
      */
     fun unbindEmail(): GraphQLCall<UnbindEmailResponse, User> {
         val param = UnbindEmailParam()
@@ -407,6 +427,9 @@ class AuthenticationClient : BaseClient {
         }
     }
 
+    /**
+     * 主账号解绑社会化登录账号
+     */
     fun unLinkAccount(options: UnLinkAccountParam): HttpCall<RestfulResponse<Boolean>, Boolean> {
         val url = "$host/api/v2/users/unlink"
 
@@ -418,7 +441,7 @@ class AuthenticationClient : BaseClient {
     }
 
     /**
-     * 刷新用户 access token
+     * 刷新当前用户的 token
      */
     fun refreshToken(): GraphQLCall<RefreshTokenResponse, RefreshToken> {
         val param = RefreshTokenParam()
@@ -445,7 +468,7 @@ class AuthenticationClient : BaseClient {
     }
 
     /**
-     * 解绑定手机号
+     * 解绑手机号
      */
     fun unbindPhone(): GraphQLCall<UnbindPhoneResponse, User> {
         val param = UnbindPhoneParam()
@@ -459,6 +482,7 @@ class AuthenticationClient : BaseClient {
     }
 
     /**
+     * 退出登录
      * 注销当前用户
      */
     fun logout(): HttpCall<RestfulResponse<Unit>, Unit> {
@@ -505,6 +529,9 @@ class AuthenticationClient : BaseClient {
         }
     }
 
+    /**
+     * 添加自定义数据
+     */
     fun setUdvValue(param: SetUdfValueBatchParam): GraphQLCall<SetUdvResponse, List<UserDefinedData>> {
         return createGraphQLCall(
             param.createRequest(),
@@ -513,7 +540,7 @@ class AuthenticationClient : BaseClient {
     }
 
     /**
-     * 移除自定义数据
+     * 删除自定义数据
      */
     private fun removeUdv(key: String): GraphQLCall<RemoveUdvResponse, List<UserDefinedData>> {
         if (user == null) {
@@ -528,7 +555,7 @@ class AuthenticationClient : BaseClient {
     }
 
     /**
-     * 获取用户所在组织机构数据列表
+     * 获取用户所在组织机构
      */
     fun listOrgs(): HttpCall<RestfulResponse<List<List<Org>>>, List<List<Org>>> {
         return this.createHttpGetCall(
@@ -557,7 +584,7 @@ class AuthenticationClient : BaseClient {
      */
     fun loginByAd(username: String, password: String): HttpCall<RestfulResponse<User>, User> {
         return this.createHttpPostCall(
-            "ws.${this.host}/api/v2/ad/verify-user",
+            "${this.host}/api/v2/ad/verify-user",
             "{ \"username\": \"$username\", \"password\": \"$password\" }",
             object : TypeToken<RestfulResponse<User>>() {}) {
             user = it.data
@@ -582,6 +609,7 @@ class AuthenticationClient : BaseClient {
     }
 
     /**
+     * 用户安全等级
      * 获取用户的安全等级评分
      * 此接口需要登录后才可以调用
      */
@@ -631,14 +659,14 @@ class AuthenticationClient : BaseClient {
     }
 
     /**
-     * 移除自定义数据
+     * 删除用户自定义数据
      */
     fun removeUdfValue(key: String): GraphQLCall<RemoveUdvResponse, List<UserDefinedData>> {
         return removeUdv(key)
     }
 
     /**
-     * 根据code获得AccessToken
+     * code 换取 accessToken
      */
     fun getAccessTokenByCode(code: String): HttpCall<Any, Any> {
 
@@ -648,7 +676,10 @@ class AuthenticationClient : BaseClient {
             throw Exception("请在初始化 AuthenticationClient 时传入 appId 和 secret 参数")
         }
 
-        val url = "${this.host}/oidc/token"
+        var url = "${this.host}/oidc/token"
+        if(this.protocol == ProtocolEnum.OAUTH) {
+            url = "${this.host}/oauth/token"
+        }
         when (this.tokenEndPointAuthMethod) {
             AuthMethodEnum.CLIENT_SECRET_POST -> {
                 return HttpCall(
@@ -713,7 +744,7 @@ class AuthenticationClient : BaseClient {
     }
 
     /**
-     * 根据 ClientCredentials 获得AccessToken
+     * Client Credentials 模式获取 Access Token
      */
     fun getAccessTokenByClientCredentials(scope: String, options: ClientCredentialInput?): HttpCall<Any, Any> {
         if (scope.isBlank()) {
@@ -743,9 +774,21 @@ class AuthenticationClient : BaseClient {
     }
 
     /**
-     * 根据token获取用户信息
+     * accessToken 换取用户信息
      */
     fun getUserInfoByAccessToken(accessToken: String): HttpCall<Any, Any> {
+        if (this.protocol == ProtocolEnum.OAUTH) {
+            return HttpCall(
+                okHttpClient.newCall(
+                    Request.Builder()
+                        .url("${this.host}/oauth/me?access_token=${accessToken}")
+                        .post("{}".toRequestBody(mediaTypeJson))
+                        .build()
+                ), json.getAdapter(object : TypeToken<Any>() {})
+            ) {
+                it
+            }
+        }
         return HttpCall(
             okHttpClient.newCall(
                 Request.Builder()
@@ -774,6 +817,9 @@ class AuthenticationClient : BaseClient {
             object : TypeToken<RestfulResponse<Pagination<ApplicationPublicDetail>>>() {}) { it.data }
     }
 
+    /**
+     * 计算密码安全等级
+     */
     fun computedPasswordSecurityLevel(
         password: String
     ): PasswordSecurityLevel {
@@ -789,6 +835,9 @@ class AuthenticationClient : BaseClient {
         return PasswordSecurityLevel.LOW;
     }
 
+    /**
+     * 拼接 OIDC、OAuth 2.0、SAML、CAS 协议授权链接
+     */
     fun buildAuthorizeUrl(): String {
         if (this.appId == null)
             throw Exception("请在初始化 AuthenticationClient 时传入 appId")
@@ -799,6 +848,9 @@ class AuthenticationClient : BaseClient {
         return "$host/api/v2/saml-idp/$appId"
     }
 
+    /**
+     * 拼接 OIDC、OAuth 2.0、SAML、CAS 协议授权链接
+     */
     fun buildAuthorizeUrl(param: IOidcParams): String {
         if (this.appId == null)
             throw Exception("请在初始化 AuthenticationClient 时传入 appId")
@@ -841,6 +893,9 @@ class AuthenticationClient : BaseClient {
         return "$host/oidc/auth$params"
     }
 
+    /**
+     * 拼接 OIDC、OAuth 2.0、SAML、CAS 协议授权链接
+     */
     fun buildAuthorizeUrl(param: IOauthParams): String {
         if (this.appId == null)
             throw Exception("请在初始化 AuthenticationClient 时传入 appId")
@@ -876,6 +931,9 @@ class AuthenticationClient : BaseClient {
         return "$host/oauth/auth$params"
     }
 
+    /**
+     * 拼接 OIDC、OAuth 2.0、SAML、CAS 协议授权链接
+     */
     fun buildAuthorizeUrl(param: ICasParams): String {
         if (this.appId == null)
             throw Exception("请在初始化 AuthenticationClient 时传入 appId")
@@ -893,6 +951,9 @@ class AuthenticationClient : BaseClient {
             "$host/cas-idp/$appId"
     }
 
+    /**
+     * 使用 Refresh token 获取新的 Access token
+     */
     fun getNewAccessTokenByRefreshToken(refreshToken: String): HttpCall<Any, Any> {
         this.verificationProtocol()
 
@@ -981,6 +1042,9 @@ class AuthenticationClient : BaseClient {
         }
     }
 
+    /**
+     * 检查 Access token 或 Refresh token 的状态
+     */
     fun introspectToken(token: String): HttpCall<Any, Any> {
         this.verificationProtocol()
 
@@ -1061,6 +1125,9 @@ class AuthenticationClient : BaseClient {
         }
     }
 
+    /**
+     * 效验Token合法性
+     */
     fun validateToken(param: ValidateTokenParams): HttpCall<Any, Any> {
         val (accessToken, idToken) = param
         if (accessToken == null && idToken == null)
@@ -1084,7 +1151,9 @@ class AuthenticationClient : BaseClient {
         }
     }
 
-
+    /**
+     * 撤回 Access token 或 Refresh token
+     */
     fun revokeToken(token: String): HttpCall<Any, Boolean> {
         this.verificationProtocol()
 
@@ -1177,6 +1246,9 @@ class AuthenticationClient : BaseClient {
         }
     }
 
+    /**
+     * 拼接登出 URL
+     */
     fun buildLogoutUrl(options: ILogoutParams): String {
         if (this.protocol == ProtocolEnum.OAUTH)
             return this.buildCasLogoutUrl(options)
@@ -1209,5 +1281,203 @@ class AuthenticationClient : BaseClient {
             "${host}/login/profile/logout?redirect_uri=${options.redirectUri}"
         else
             "${host}/login/profile/logout"
+    }
+
+    /**
+     * 生成一个 PKCE 校验码，长度必须大于等于 43。
+     */
+    fun generateCodeChallenge(): String {
+        return Utils().randomString(43)
+    }
+
+    /**
+     * 生成一个 PKCE 校验码摘要值
+     */
+    fun getCodeChallengeDigest(options: CodeChallengeDigestParam): String{
+        val codeChallenge = options.codeChallenge;
+        val method = options.method;
+        if(codeChallenge == "") {
+            throw Exception(
+                    "请提供 options.codeChallenge，值为一个长度大于等于 43 的字符串")
+        }
+
+        if (method == "S256" || method == "") {
+            val encode = Base64.getEncoder().encode(Utils().sha256(codeChallenge))
+            return String(encode, Charset.forName("UTF-8")).replace("+", "-")
+                .replace("/", "_").replace("=", "")
+        }
+        if (method == "plain") {
+            return codeChallenge
+        }
+        throw Exception("不支持的 options.method，可选值为 S256、plain")
+    }
+
+    /**
+     * 判断当前用户是否有某个角色
+     */
+    fun hasRole(roleCode: String,  namespace: String? = null): GraphQLCall<GetUserRolesResponse, Boolean> {
+        if (user == null) {
+            throw Exception("login first")
+        }
+        val param = GetUserRolesParam(user!!.id)
+        return createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<GetUserRolesResponse>>() {}) {
+            val u = it.result
+            var have = false
+            if (u.roles != null) {
+                val roleListPage = u.roles
+                for (role in roleListPage?.list!!) {
+                    if (role.code == roleCode) {
+                        have = true
+                    }
+                }
+            }
+            have
+        }
+    }
+
+    /**
+     * 判断用户是否存在
+     */
+    fun isUserExists(username: String? = null,
+                     email: String? = null,
+                     phone: String? = null,
+                     externalId: String? = null): GraphQLCall<IsUserExistsResponse, Boolean> {
+        val param = IsUserExistsParam(email, phone, username,externalId)
+        return createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<IsUserExistsResponse>>() {}) {
+            it.result
+        }
+    }
+
+    /**
+     * 获取用户所有部门
+     */
+    fun listDepartments(): GraphQLCall<GetUserDepartmentsResponse, PaginatedDepartments?> {
+        if (user == null) {
+            throw Exception("login first")
+        }
+        val param = GetUserDepartmentsParam(user!!.id)
+        return createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<GetUserDepartmentsResponse>>() {}) {
+            it.result.departments
+        }
+    }
+
+    /**
+     * 通过首次登录的 Token 重置密码
+     */
+    fun resetPasswordByFirstLoginToken(token: String, password: String)
+    : GraphQLCall<ResetPasswordByFirstLoginTokenResponse, CommonMessage?> {
+        val param = ResetPasswordByFirstLoginTokenParam(token, password)
+        return createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<ResetPasswordByFirstLoginTokenResponse>>() {}) {
+            it.resetPasswordByFirstLoginToken
+        }
+    }
+
+    /**
+     * 通过密码强制更新临时 Token 修改密码
+     */
+    fun resetPasswordByForceResetToken(token: String, oldPassword: String, newPassword: String):
+        GraphQLCall<ResetPasswordByForceResetTokenResponse, CommonMessage> {
+        val param = ResetPasswordByForceResetTokenParam(token, oldPassword, newPassword)
+        return createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<ResetPasswordByForceResetTokenResponse>>() {}) {
+            it.resetPasswordByFirstLoginToken
+        }
+    }
+
+    /**
+     * sso 检测登录态
+     */
+    fun trackSession(): HttpCall<RestfulResponse<User>, User> {
+        val url = "${this.host}/cas/session"
+        return createHttpGetCall(
+            url,
+            object : TypeToken<RestfulResponse<User>>() {}
+        ) { it.data }
+    }
+
+    /**
+     * 检验 CAS 1.0 Ticket 合法性
+     */
+    fun validateTicketV1(ticket: String, service: String): ValidateTicketV1Response {
+        var url = "${this.host}/cas-idp/${this.appId}/validate"
+        val map =  HashMap<String, String>()
+        map["ticket"] = ticket
+        map["service"] = service
+        url = Utils().getQueryUrl(url, map)
+
+        val response = okHttpClient.newCall(
+            Request.Builder()
+                .url(url)
+                .addHeader("Authorization", "Bearer " + this.token)
+                .addHeader("x-authing-userpool-id", "" + userPoolId)
+                .addHeader("x-authing-request-from", sdkType)
+                .addHeader("x-authing-sdk-version", sdkVersion)
+                .addHeader("x-authing-app-id", "" + this.appId)
+                .get()
+                .build()
+        ).execute()
+        if (response.isSuccessful) {
+            val body = response.body?.string()
+            val valid = body?.split("\n")?.contains("yes")
+            if (valid == true) {
+                return ValidateTicketV1Response(valid)
+            } else {
+                return ValidateTicketV1Response(valid, "ticket 不合法")
+            }
+        }
+        throw Exception(response.message)
+    }
+
+    /**
+     * 通过远端服务验证票据合法性
+     */
+    fun validateTicketV2(ticket: String, service: String, format: String): String? {
+        if (format != "XML" && format != "JSON") {
+            throw Exception("format 参数可选值为 XML、JSON，请检查输入");
+        }
+        var url = "${this.host}/cas-idp/${this.appId}/serviceValidate"
+        val map =  HashMap<String, String>()
+        map["ticket"] = ticket
+        map["service"] = service
+        map["format"] = format
+        url = Utils().getQueryUrl(url, map)
+        val response = okHttpClient.newCall(
+            Request.Builder()
+                .url(url)
+                .addHeader("Authorization", "Bearer " + this.token)
+                .addHeader("x-authing-userpool-id", "" + userPoolId)
+                .addHeader("x-authing-request-from", sdkType)
+                .addHeader("x-authing-sdk-version", sdkVersion)
+                .addHeader("x-authing-app-id", "" + this.appId)
+                .get()
+                .build()
+        ).execute()
+        if (response.isSuccessful) {
+            val body = response.body?.string()
+            return body
+        }
+        throw Exception(response.message)
+    }
+
+
+    /**
+     * 检测密码是否合法
+     */
+    fun isPasswordValid(password: String): HttpCall<CommonMessage, CommonMessage>  {
+        val url = "${this.host}/api/v2/users/password/check?password=" + encrypt(password)
+        return createHttpGetCall(
+            url,
+            object : TypeToken<CommonMessage>() {}) {
+            it
+        }
     }
 }

@@ -19,16 +19,15 @@ class MfaAuthenticationClient(private val client: AuthenticationClient) {
                 "totp",
                 source = TotpSource.SELF
             )
-    ): HttpCall<RestfulResponse<IMfaAuthenticator>, IMfaAuthenticator> {
-        val url = "${client.host}/api/v2/mfa/authenticator"
+    ): HttpCall<RestfulResponse<List<IMfaAuthenticator>>, List<IMfaAuthenticator>> {
 
+        val url = "${client.host}/api/v2/mfa/authenticator?type=${options?.type}&source=${options?.source}"
         if (options?.mfaToken != null) client.token = options.mfaToken
-
-        return client.createHttpPostCall(
+        return client.createHttpGetCall(
             url,
-            Gson().toJson(options),
-            object : TypeToken<RestfulResponse<IMfaAuthenticator>>() {}
-        ) { it.data }
+            object : TypeToken<RestfulResponse<List<IMfaAuthenticator>>>() {}
+        ){it.data}
+
     }
 
     /**
@@ -94,6 +93,9 @@ class MfaAuthenticationClient(private val client: AuthenticationClient) {
         ) { it.data }
     }
 
+    /**
+     * 检测手机号或邮箱是否已被绑定
+     */
     fun phoneOrEmailBindable(
         options: PhoneOrEmailBindableParams
     ): HttpCall<RestfulResponse<Boolean>, Boolean> {
@@ -108,6 +110,9 @@ class MfaAuthenticationClient(private val client: AuthenticationClient) {
         ) { it.code == 200 }
     }
 
+    /**
+     * 检验二次验证 MFA 恢复代码
+     */
     fun verifyTotpRecoveryCode(
         options: VerifyTotpRecoveryCodeParams
     ): HttpCall<RestfulResponse<User>, User> {
@@ -122,6 +127,9 @@ class MfaAuthenticationClient(private val client: AuthenticationClient) {
         ) { it.data }
     }
 
+    /**
+     * 通过图片 URL 绑定人脸
+     */
     fun associateFaceByUrl(
         options: AssociateFaceByUrlParams
     ): HttpCall<RestfulResponse<User>, User> {
@@ -141,7 +149,9 @@ class MfaAuthenticationClient(private val client: AuthenticationClient) {
         ) { it.data }
     }
 
-
+    /**
+     * 人脸二次认证
+     */
     fun verifyFaceMfa(
         photo: String,
         mfaToken: String
@@ -178,6 +188,9 @@ class MfaAuthenticationClient(private val client: AuthenticationClient) {
         ) { it.data }
     }
 
+    /**
+     * 检验二次验证 MFA 邮箱验证码
+     */
     fun verifyAppEmailMfa(
         options: VerifyAppEmailMfaParams
     ): HttpCall<RestfulResponse<User>, User> {
@@ -190,5 +203,18 @@ class MfaAuthenticationClient(private val client: AuthenticationClient) {
             Gson().toJson(options),
             object : TypeToken<RestfulResponse<User>>() {}
         ) { it.data }
+    }
+
+    /**
+     * @name deleteMfaAuthenticator
+     * @name_zh 解绑 MFA
+     * @description 解绑 MFA
+     */
+    fun deleteMfaAuthenticator(): HttpCall<CommonMessage, CommonMessage>{
+        val url = "${this.client.host}/api/v2/mfa/totp/associate"
+        return client.createHttpDeleteCall(
+            url,
+            object : TypeToken<CommonMessage>() {}
+        ) { it }
     }
 }

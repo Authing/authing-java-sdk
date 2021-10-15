@@ -2,8 +2,9 @@ package cn.authing.core
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import okio.internal.commonAsUtf8ToByteArray
 import java.net.URLDecoder
-import java.util.*
+import java.security.MessageDigest
 import kotlin.collections.HashMap
 import kotlin.random.Random
 
@@ -88,5 +89,10 @@ class Utils {
         return map
     }
 
+    fun sha256(str: String): ByteArray {
+        val messageDigest = MessageDigest.getInstance("SHA-256");
+        messageDigest.update(str.commonAsUtf8ToByteArray())
+        return messageDigest.digest();
+    }
 
 }
