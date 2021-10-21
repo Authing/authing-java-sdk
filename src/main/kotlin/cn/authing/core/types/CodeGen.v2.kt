@@ -726,7 +726,10 @@ data class AuthorizedResource(
     var type: ResourceType? = null,
     /** @param [actions] actions */
     @SerializedName("actions")
-    var actions: List<String>? = null
+    var actions: List<String>? = null,
+    /** @param [apiIdentifier] apiIdentifier */
+    @SerializedName("apiIdentifier")
+    var apiIdentifier: String
 )
 
 
@@ -10412,6 +10415,7 @@ query listUserAuthorizedResources(${'$'}id: String!, ${'$'}namespace: String, ${
         code
         type
         actions
+        apiIdentifier
       }
     }
   }
