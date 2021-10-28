@@ -208,3 +208,18 @@ constructor(
     var permissionStrategy: IDefaultAppAccessPolicy? = null
 
 )
+
+data class RevokeResourceParams
+@JvmOverloads
+constructor(
+    var namespace: String? = null,
+    var resource: String? = null,
+    var opts: List<RevokeResourceOpt>? = null
+)
+
+data class RevokeResourceOpt
+@JvmOverloads
+constructor(
+    var targetType: PolicyAssignmentTargetType? = null,
+    var targetIdentifier: String? = null,
+)
