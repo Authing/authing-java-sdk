@@ -433,6 +433,18 @@ class AclManagementClient(private val client: ManagementClient) {
     }
 
     /**
+     *  撤回资源
+     */
+    fun revokeResource(params: RevokeResourceParams): HttpCall<CommonMessage, CommonMessage> {
+        val url = "${client.host}/api/v2/acl/revoke-resource"
+        return client.createHttpPostCall(
+            url,
+            Gson().toJson(params),
+            object : TypeToken<CommonMessage>() {}
+        ) { it }
+    }
+
+    /**
      * 获取具备某些资源操作权限的主体
      */
     fun getAuthorizedTargets(
