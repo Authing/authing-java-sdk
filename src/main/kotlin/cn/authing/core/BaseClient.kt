@@ -6,13 +6,17 @@ import cn.authing.core.graphql.GraphQLResponse
 import cn.authing.core.http.HttpCall
 import cn.authing.core.types.AuthMethodEnum
 import cn.authing.core.types.ProtocolEnum
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.TypeAdapterFactory
+import com.google.gson.internal.bind.ObjectTypeAdapter
 import com.google.gson.reflect.TypeToken
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
+import java.lang.reflect.Field
 import java.security.KeyFactory
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
@@ -84,7 +88,7 @@ abstract class BaseClient {
     protected val mediaTypeJson: MediaType? = "application/json".toMediaTypeOrNull()
     protected val mediaTypeUrlencoded: MediaType? = "application/x-www-form-urlencoded".toMediaTypeOrNull()
     protected val sdkType: String = "SDK"
-    protected val sdkVersion: String = "java:4.3.40"
+    protected val sdkVersion: String = "java:4.3.44"
 
     // graphql 端点
     private val endpoint: String
@@ -93,7 +97,32 @@ abstract class BaseClient {
         }
 
     protected var okHttpClient: OkHttpClient = OkHttpClient()
-    protected val json = GsonBuilder().create()
+    //protected val json = GsonBuilder().create()
+
+    protected  val json : Gson = getGson()
+
+    open fun getGson(): Gson {
+        val gson: Gson = GsonBuilder().create()
+        try {
+            val factories: Field = Gson::class.java.getDeclaredField("factories")
+            factories.setAccessible(true)
+            val o: Any = factories.get(gson)
+            val declaredClasses = Collections::class.java.declaredClasses
+            for (c in declaredClasses) {
+                if ("java.util.Collections\$UnmodifiableList" == c.name) {
+                    val listField: Field = c.getDeclaredField("list")
+                    listField.setAccessible(true)
+                    val list: MutableList<TypeAdapterFactory> = listField.get(o) as MutableList<TypeAdapterFactory>
+                    val i = list.indexOf(ObjectTypeAdapter.FACTORY)
+                    list[i] = CustomTypeAdapter.FACTORY
+                    break
+                }
+            }
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
+        return gson
+    }
 
     private val unsafeOkHttpClient: OkHttpClient
         // Install the all-trusting trust manager
