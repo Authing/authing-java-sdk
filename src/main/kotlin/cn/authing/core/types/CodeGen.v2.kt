@@ -13263,6 +13263,7 @@ query whitelist(${'$'}type: WhitelistType!) {
           code
           type
           actions
+          apiIdentifier
         }
       }
     }
