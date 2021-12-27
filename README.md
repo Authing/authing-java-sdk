@@ -1,5 +1,8 @@
 # Authing - Java / Kotlin
 
+<div align=center><img src="https://files.authing.co/authing-console/authing-logo-new-20210924.svg"></div>
+<br/>
+
 Authing Java SDK 由两部分组成：`ManagementClient` 和 `AuthenticationClient`。`ManagementClient` 中进行的所有操作均以管理员的身份进行，包含管理用户、管理角色、管理权限策略、管理用户池配置等模块。`AuthenticationClient` 中的所有操作以当前终端用户的身份进行，包含登录、注册、修改用户资料、退出登录等方法。
 
 你应该将初始化过后的 `ManagementClient` 实例设置为一个全局变量（只初始化一次），而 `AuthenticationClient` 应该每次请求初始化一个。
@@ -264,6 +267,13 @@ public class AuthenticationClientTest {
 
 [管理应用](https://docs.authing.cn/v2/reference/sdk-for-java/management/ApplicationManagementClient.html)
 
+## 参与贡献
+- Fork it
+- Create your feature branch (git checkout -b my-new-feature)
+- Commit your changes (git commit -am 'Add some feature')
+- Push to the branch (git push origin my-new-feature)
+- Create new Pull Request
+
 ## 获取帮助
 
-Join us on Gitter: [#authing-chat](https://gitter.im/authing-chat/community)
+Join us on Gitter: [#authing-chat](https://forum.authing.cn/)
