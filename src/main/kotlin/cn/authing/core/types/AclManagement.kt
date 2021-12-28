@@ -221,5 +221,5 @@ data class RevokeResourceOpt
 @JvmOverloads
 constructor(
     var targetType: PolicyAssignmentTargetType? = null,
-    var targetIdentifier: String? = null,
+    var targetIdentifier: String? = null
 )

@@ -110,3 +110,20 @@ constructor(
     @Expose
     var list: List<String>
 )
+
+data class IdentityLinkParam
+constructor(
+    var userIdInIdp:String,
+    var isSocial:Boolean,
+    var type:String,
+    var userId:String,
+    var identifier:String
+)
+
+data class UnIdentityLinkParam
+constructor(
+    var isSocial:Boolean,
+    var type:String,
+    var userId:String,
+    var identifier:String
+)

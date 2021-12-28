@@ -1,5 +1,6 @@
 package cn.authing.core.types
 
+import com.google.gson.annotations.SerializedName
 import org.intellij.lang.annotations.Language
 
 /**
@@ -408,6 +409,583 @@ constructor(
     var redirectUris: List<String>,
     var logo: String? = null
 
+)
+
+data class CreateTenantParams
+@JvmOverloads
+constructor(
+    var name:String,
+    var appIds:String,
+    var logo:String,
+    var description:String
+)
+
+data class UpdateTenantParams
+@JvmOverloads
+constructor(
+    var name:String,
+    var appIds:String,
+    var logo:String,
+    var description:String
+)
+
+data class CreateTenantResponse(
+    @SerializedName("apps")
+    var apps: List<AppTenant>,
+    @SerializedName("createdAt")
+    var createdAt: String,
+    @SerializedName("css")
+    var css: Any,
+    @SerializedName("description")
+    var description: Any,
+    @SerializedName("extendsFields")
+    var extendsFields: Any,
+    @SerializedName("id")
+    var id: String,
+    @SerializedName("logo")
+    var logo: String,
+    @SerializedName("name")
+    var name: String,
+    @SerializedName("ssoPageCustomizationSettings")
+    var ssoPageCustomizationSettings: Any,
+    @SerializedName("updatedAt")
+    var updatedAt: String,
+    @SerializedName("userPoolId")
+    var userPoolId: String
+)
+
+data class AppTenant(
+    @SerializedName("adConnections")
+    var adConnections: List<Any>,
+    @SerializedName("agreementEnabled")
+    var agreementEnabled: Boolean,
+    @SerializedName("appType")
+    var appType: String,
+    @SerializedName("casConfig")
+    var casConfig: CasConfig,
+    @SerializedName("casExpireBaseBrowser")
+    var casExpireBaseBrowser: Boolean,
+    @SerializedName("casProviderEnabled")
+    var casProviderEnabled: Boolean,
+    @SerializedName("createdAt")
+    var createdAt: String,
+    @SerializedName("css")
+    var css: String,
+    @SerializedName("defaultLoginTab")
+    var defaultLoginTab: String,
+    @SerializedName("defaultRegisterTab")
+    var defaultRegisterTab: String,
+    @SerializedName("description")
+    var description: Any,
+    @SerializedName("disabledAzureAdConnections")
+    var disabledAzureAdConnections: List<Any>,
+    @SerializedName("disabledCasConnections")
+    var disabledCasConnections: List<Any>,
+    @SerializedName("disabledOauth2Connections")
+    var disabledOauth2Connections: List<Any>,
+    @SerializedName("disabledOidcConnections")
+    var disabledOidcConnections: List<Any>,
+    @SerializedName("disabledSamlConnections")
+    var disabledSamlConnections: List<Any>,
+    @SerializedName("disabledSocialConnections")
+    var disabledSocialConnections: Any,
+    @SerializedName("enableDeviceMutualExclusion")
+    var enableDeviceMutualExclusion: Boolean,
+    @SerializedName("enableSubAccount")
+    var enableSubAccount: Boolean,
+    @SerializedName("ext")
+    var ext: Any,
+    @SerializedName("extendsFields")
+    var extendsFields: List<Any>,
+    @SerializedName("extendsFieldsEnabled")
+    var extendsFieldsEnabled: Boolean,
+    @SerializedName("id")
+    var id: String,
+    @SerializedName("identifier")
+    var identifier: String,
+    @SerializedName("initLoginUrl")
+    var initLoginUrl: Any,
+    @SerializedName("isDefault")
+    var isDefault: Boolean,
+    @SerializedName("isDeleted")
+    var isDeleted: Boolean,
+    @SerializedName("isDemo")
+    var isDemo: Boolean,
+    @SerializedName("isIntegrate")
+    var isIntegrate: Boolean,
+    @SerializedName("isOfficial")
+    var isOfficial: Boolean,
+    @SerializedName("jwks")
+    var jwks: Jwks,
+    @SerializedName("ldapConnections")
+    var ldapConnections: Any,
+    @SerializedName("loginRequireEmailVerified")
+    var loginRequireEmailVerified: Boolean,
+    @SerializedName("loginTabs")
+    var loginTabs: List<String>,
+    @SerializedName("logo")
+    var logo: String,
+    @SerializedName("logoutRedirectUris")
+    var logoutRedirectUris: List<Any>,
+    @SerializedName("name")
+    var name: String,
+    @SerializedName("oauthConfig")
+    var oauthConfig: OauthConfig,
+    @SerializedName("oauthProviderEnabled")
+    var oauthProviderEnabled: Boolean,
+    @SerializedName("oidcConfig")
+    var oidcConfig: OidcConfig,
+    @SerializedName("oidcJWEConfig")
+    var oidcJWEConfig: OidcJWEConfig,
+    @SerializedName("oidcProviderEnabled")
+    var oidcProviderEnabled: Boolean,
+    @SerializedName("passwordTabConfig")
+    var passwordTabConfig: PasswordTabConfig,
+    @SerializedName("permissionStrategy")
+    var permissionStrategy: PermissionStrategy,
+    @SerializedName("protocol")
+    var protocol: String,
+    @SerializedName("qrcodeScanning")
+    var qrcodeScanning: QrcodeScanning,
+    @SerializedName("redirectUris")
+    var redirectUris: List<String>,
+    @SerializedName("registerDisabled")
+    var registerDisabled: Boolean,
+    @SerializedName("registerTabs")
+    var registerTabs: List<String>,
+    @SerializedName("samlConfig")
+    var samlConfig: SamlConfig,
+    @SerializedName("samlProviderEnabled")
+    var samlProviderEnabled: Boolean,
+    @SerializedName("secret")
+    var secret: String,
+    @SerializedName("showAuthorizationPage")
+    var showAuthorizationPage: Boolean,
+    @SerializedName("skipMfa")
+    var skipMfa: Boolean,
+    @SerializedName("ssoEnabled")
+    var ssoEnabled: Boolean,
+    @SerializedName("ssoPageCustomizationSettings")
+    var ssoPageCustomizationSettings: SsoPageCustomizationSettings,
+    @SerializedName("template")
+    var template: Any,
+    @SerializedName("updatedAt")
+    var updatedAt: String,
+    @SerializedName("userPoolId")
+    var userPoolId: String
+)
+
+data class CasConfig(
+    @SerializedName("allowedServices")
+    var allowedServices: List<String>,
+    @SerializedName("allowedTargetServices")
+    var allowedTargetServices: List<String>,
+    @SerializedName("casUserIdentifier")
+    var casUserIdentifier: String,
+    @SerializedName("customAttributes")
+    var customAttributes: CustomAttributes,
+    @SerializedName("stLifetime")
+    var stLifetime: String
+)
+
+data class Jwks(
+    @SerializedName("keys")
+    var keys: List<Key>
+)
+
+data class OauthConfig(
+    @SerializedName("client_secret")
+    var client_secret: String,
+    @SerializedName("grants")
+    var grants: List<String>,
+    @SerializedName("id")
+    var id: String,
+    @SerializedName("introspection_endpoint_auth_method")
+    var introspection_endpoint_auth_method: String,
+    @SerializedName("redirect_uris")
+    var redirect_uris: List<String>,
+    @SerializedName("revocation_endpoint_auth_method")
+    var revocation_endpoint_auth_method: String
+)
+
+data class OidcConfig(
+    @SerializedName("access_token_expire")
+    var access_token_expire: String,
+    @SerializedName("authorization_code_expire")
+    var authorization_code_expire: String,
+    @SerializedName("cas_expire")
+    var cas_expire: String,
+    @SerializedName("client_id")
+    var client_id: String,
+    @SerializedName("client_secret")
+    var client_secret: String,
+    @SerializedName("grant_types")
+    var grant_types: List<String>,
+    @SerializedName("id_token_expire")
+    var id_token_expire: String,
+    @SerializedName("id_token_signed_response_alg")
+    var id_token_signed_response_alg: String,
+    @SerializedName("introspection_endpoint_auth_method")
+    var introspection_endpoint_auth_method: String,
+    @SerializedName("post_logout_redirect_uris")
+    var post_logout_redirect_uris: List<Any>,
+    @SerializedName("redirect_uris")
+    var redirect_uris: List<String>,
+    @SerializedName("refresh_token_expire")
+    var refresh_token_expire: String,
+    @SerializedName("response_types")
+    var response_types: List<String>,
+    @SerializedName("revocation_endpoint_auth_method")
+    var revocation_endpoint_auth_method: String,
+    @SerializedName("skip_consent")
+    var skip_consent: Boolean,
+    @SerializedName("skip_implicit_flow_rules")
+    var skip_implicit_flow_rules: Boolean,
+    @SerializedName("token_endpoint_auth_method")
+    var token_endpoint_auth_method: String
+)
+
+class OidcJWEConfig
+
+data class PasswordTabConfig(
+    @SerializedName("enabledLoginMethods")
+    var enabledLoginMethods: List<String>
+)
+
+data class PermissionStrategy(
+    @SerializedName("allowPolicyId")
+    var allowPolicyId: String,
+    @SerializedName("defaultStrategy")
+    var defaultStrategy: String,
+    @SerializedName("denyPolicyId")
+    var denyPolicyId: String,
+    @SerializedName("enabled")
+    var enabled: Boolean
+)
+
+data class QrcodeScanning(
+    @SerializedName("interval")
+    var interval: String,
+    @SerializedName("redirect")
+    var redirect: Boolean
+)
+
+data class SamlConfig(
+    @SerializedName("acs")
+    var acs: String,
+    @SerializedName("authnContextClassRef")
+    var authnContextClassRef: String,
+    @SerializedName("digestAlgorithm")
+    var digestAlgorithm: String,
+    @SerializedName("lifetimeInSeconds")
+    var lifetimeInSeconds: String,
+    @SerializedName("nameIdentifierFormat")
+    var nameIdentifierFormat: String,
+    @SerializedName("samlResponseSigningCert")
+    var samlResponseSigningCert: String,
+    @SerializedName("samlResponseSigningCertFingerprint")
+    var samlResponseSigningCertFingerprint: String,
+    @SerializedName("samlResponseSigningKey")
+    var samlResponseSigningKey: String,
+    @SerializedName("signatureAlgorithm")
+    var signatureAlgorithm: String
+)
+
+data class SsoPageCustomizationSettings(
+    @SerializedName("hideIdp")
+    var hideIdp: Boolean,
+    @SerializedName("hideSocialLogin")
+    var hideSocialLogin: Boolean
+)
+
+class CustomAttributes
+
+data class Key(
+    @SerializedName("alg")
+    var alg: String,
+    @SerializedName("d")
+    var d: String,
+    @SerializedName("dp")
+    var dp: String,
+    @SerializedName("dq")
+    var dq: String,
+    @SerializedName("e")
+    var e: String,
+    @SerializedName("kid")
+    var kid: String,
+    @SerializedName("kty")
+    var kty: String,
+    @SerializedName("n")
+    var n: String,
+    @SerializedName("p")
+    var p: String,
+    @SerializedName("q")
+    var q: String,
+    @SerializedName("qi")
+    var qi: String,
+    @SerializedName("use")
+    var use: String
+)
+
+
+data class TenantDetail(
+    var appIds: List<String>,
+    var createdAt: String,
+    var description: Any,
+    var id: String,
+    var logo: Any,
+    var name: String,
+    var updatedAt: String,
+    var userPoolId: String
+)
+
+//data class PaginatedTenants(
+//    /** @param [totalCount] totalCount */
+//    @SerializedName("listTotal")
+//    var listTotal: Int,
+//    /** @param [list] list */
+//    @SerializedName("list")
+//    var list: List<TenantDetail>
+//)
+
+data class PaginatedTenants(
+    var list: List<listMember>,
+    var listTotal: Int
+)
+
+data class listMember(
+    var id: String,
+    var tenantId: String,
+    var user: UserMem
+)
+
+data class UserMem(
+    var address: Any,
+    var arn: String,
+    var birthdate: Any,
+    var blocked: Boolean,
+    var city: Any,
+    var company: Any,
+    var country: Any,
+    var email: Any,
+    var emailVerified: Boolean,
+    var familyName: Any,
+    var formatted: Any,
+    var gender: String,
+    var givenName: Any,
+    var id: String,
+    var lastIp: String,
+    var loginsCount: Int,
+    var middleName: Any,
+    var name: Any,
+    var nickname: String,
+    var openid: String,
+    var phone: Any,
+    var phoneVerified: Boolean,
+    var photo: String,
+    var postalCode: Any,
+    var preferredUsername: Any,
+    var profile: Any,
+    var province: Any,
+    var region: Any,
+    var streetAddress: Any,
+    var unionid: String,
+    var userPoolId: String,
+    var username: String,
+    var website: Any,
+    var zoneinfo: Any
+)
+
+data class TenantConfig(
+    var css: String,
+    var ssoPageCustomizationSettings: SsoPageCustomizationSetting
+)
+
+data class ConfigSsoPageCustomizationSetting(
+    var css: String,
+    var ssoPageCustomizationSettings:SsoPageCustomizationSetting
+)
+
+data class UserTenantIdList(
+    var userIds:List<String>
+)
+
+data class SsoPageCustomizationSetting(
+    var autoRegisterThenLogin: Boolean,
+    var hideForgetPassword: Boolean,
+    var hideIdp: Boolean,
+    var hideSocialLogin: Boolean
+)
+
+
+data class CreateTenantMemberResponse(
+    var createdAt: String,
+    var css: Any,
+    var defaultLoginTab: String,
+    var defaultRegisterTab: String,
+    var description: Any,
+    var extendsFields: Any,
+    var id: String,
+    var loginTabs: Any,
+    var logo: Any,
+    var name: String,
+    var passwordTabConfig: PasswordTabConfigMember,
+    var registerTabs: Any,
+    var ssoPageCustomizationSettings: Any,
+    var updatedAt: String,
+    var userPoolId: String,
+    var users: List<UserTenant>
+)
+
+data class PasswordTabConfigMember(
+    var enabledLoginMethods: List<String>
+)
+
+data class UserTenant(
+    var address: Any,
+    var arn: String,
+    var birthdate: Any,
+    var blocked: Boolean,
+    var city: Any,
+    var company: Any,
+    var country: Any,
+    var email: Any,
+    var emailVerified: Boolean,
+    var familyName: Any,
+    var formatted: Any,
+    var gender: String,
+    var givenName: Any,
+    var id: String,
+    var lastIp: Any,
+    var loginsCount: Int,
+    var middleName: Any,
+    var name: Any,
+    var nickname: Any,
+    var openid: Any,
+    var phone: Any,
+    var phoneVerified: Boolean,
+    var photo: String,
+    var postalCode: Any,
+    var preferredUsername: Any,
+    var profile: Any,
+    var province: Any,
+    var region: Any,
+    var streetAddress: Any,
+    var unionid: Any,
+    var userPoolId: String,
+    var username: String,
+    var website: Any,
+    var zoneinfo: Any
+)
+
+data class TenantUserListResponse(
+    var list: List<TenantUser>,
+    var listTotal: Int
+)
+
+
+
+data class TenantUser(
+    var address: Any,
+    var arn: String,
+    var birthdate: Any,
+    var blocked: Boolean,
+    var city: Any,
+    var company: Any,
+    var country: Any,
+    var email: String,
+    var emailVerified: Boolean,
+    var familyName: Any,
+    var formatted: Any,
+    var gender: String,
+    var givenName: Any,
+    var id: String,
+    var lastIp: String,
+    var loginsCount: Int,
+    var middleName: Any,
+    var name: Any,
+    var nickname: Any,
+    var openid: Any,
+    var phone: Any,
+    var phoneVerified: Boolean,
+    var photo: String,
+    var postalCode: Any,
+    var preferredUsername: Any,
+    var profile: Any,
+    var province: Any,
+    var region: Any,
+    var streetAddress: Any,
+    var unionid: Any,
+    var userPoolId: String,
+    var username: String,
+    var website: Any,
+    var zoneinfo: Any
+)
+
+data class CreateIdpParam(
+    var tenantId:String,
+    var name: String,
+    var type: String,
+    var connections: List<Connection>
+)
+
+data class UpdateIdpParam(
+    var name: String
+)
+
+data class Connection(
+    var displayName: String,
+    var fields: Fields,
+    var identifier: String,
+    var type: String,
+    var userMatchFields:List<String>
+)
+
+data class Fields(
+    var clientID: String,
+    var clientSecret:String
+)
+
+data class CreateIdpResponse(
+    var connections: List<Connection>,
+    var id: String,
+    var name: String,
+    var type: String
+)
+
+
+data class CreatIdpConnParam(
+    var extIdpId:String,
+    var type: String,
+    var identifier: String,
+    var displayName:String,
+    var fields: Fields,
+    var tenantId:String,
+    var userMatchFields:List<String>
+)
+
+data class UpdateIdpConnParm(
+    var displayName: String,
+    var fields: Fields,
+    var userMatchFields:List<String>,
+    var tenantId:String
+)
+
+data class CreateIdpConnResponse(
+    var id:String,
+    var type: String,
+    var identifier: String,
+    var displayName:String,
+    var fields: Fields
+)
+
+data class CheckExtIdpConnectionIdentifierUnique(
+    var identifier:String
+)
+
+data class ConnState(
+    var tenantId:String,
+    var enabled:Boolean
 )
 
 data class ListResourcesParams

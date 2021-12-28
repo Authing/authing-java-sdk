@@ -591,6 +591,33 @@ class UsersManagementClient(private val client: ManagementClient) {
     }
 
     /**
+     * 用户池管理员手动将任意一个身份绑定到一个用户上
+     */
+    fun identityLink(options:IdentityLinkParam):HttpCall<CommonMessage, CommonMessage> {
+        return client.createHttpPostCall(
+            "${client.host}/api/v2/users/identity/link",
+            GsonBuilder().create().toJson(options),
+            object : TypeToken<CommonMessage>() {}
+        ) {
+            it
+        }
+    }
+
+    /**
+     *用户池管理员手动给用户解绑身份信息，例如解绑用户 A 的微信身份
+     */
+    fun unIdentityLink(options:UnIdentityLinkParam):HttpCall<CommonMessage, CommonMessage> {
+        return client.createHttpPostCall(
+            "${client.host}/api/v2/users/identity/unlink",
+            GsonBuilder().create().toJson(options),
+            object : TypeToken<CommonMessage>() {}
+        ) {
+            it
+        }
+    }
+
+
+    /**
      * 用户退出登录
      */
     fun logout(options: UserLogoutParams): HttpCall<RestfulResponse<Boolean>, Boolean> {
