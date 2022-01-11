@@ -201,6 +201,19 @@ public class OrgManagementClientTest {
 
         Node res = managementClient.org().listAuthorizedResourcesByNodeId(param).execute();
     }
+
+
+    public static void main(String[] args) throws Exception {
+        ManagementClient managementClient = new ManagementClient("61090ca2ae21b81053abbd07","db3e0a32cd5629fe12c9d29911abb9b7");
+        managementClient.setHost("http://localhost:3000");
+        PaginatedOrgs orgs = managementClient.org().list(new OrgsParam(1, 10)).execute();
+        System.out.println(new Gson().toJson(orgs));
+        System.out.println(orgs.getList().get(0).getRootNode().getLeaderUserId());
+//        UsersParam userParam = new UsersParam(1,10);
+//        userParam.setWithCustomData(true);
+//        PaginatedUsers users = managementClient.users().list(userParam).execute();
+//        System.out.println(new Gson().toJson(users));
+    }
 }
 
 

@@ -21,11 +21,10 @@ public class AclManagementClientTest {
 
     @Before
     public void before() throws IOException, GraphQLException {
-        String userPoolId = "5f45cad3ece50b62de2a02cd";
-        String userPoolSecret = "624cb39b07ffd29b946112ea82f5b50e";
-
+        String userPoolId = "60e043f8cd91b87d712b6365";
+        String userPoolSecret = "158c7679333bc196b524d78d745813e5";
         ManagementClient managementClient = new ManagementClient(userPoolId, userPoolSecret);
-        managementClient.setHost("https://core.authing.cn");
+        managementClient.setHost("https://core.pre.authing.cn");
 
         this.managementClient = managementClient;
         this.aclManagementClient = managementClient.acl();

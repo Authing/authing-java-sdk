@@ -5,6 +5,7 @@ import cn.authing.core.mgmt.GroupsManagementClient;
 import cn.authing.core.mgmt.ManagementClient;
 import cn.authing.core.mgmt.UsersManagementClient;
 import cn.authing.core.types.*;
+import com.google.gson.Gson;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -39,16 +40,15 @@ public class UsersManagementClientTest {
 
     @Before
     public void before() throws IOException, GraphQLException {
-        String userPoolId = "60adc2fef7ae7440c9265f07";
-        String userPoolSecret = "19cd7e941c1af56c5b3fafef72359a3b";
+        String userPoolId = "60e043f8cd91b87d712b6365";
+        String userPoolSecret = "158c7679333bc196b524d78d745813e5";
         managementClient = new ManagementClient(userPoolId, userPoolSecret);
         managementClient.setHost("https://core.authing.cn");
         this.usersManagementClient = managementClient.users();
         this.groupsManagementClient = managementClient.group();
 
         managementClient.requestToken().execute();
-
-        // 1. create user
+/*
         email = TestUtils.createRandomEmail();
         username = TestUtils.createRandomString();
         externalId = TestUtils.createRandomString();
@@ -65,16 +65,21 @@ public class UsersManagementClientTest {
                         .withExternalId(externalId)
                 ).execute();
 
-        // 2. create group
         groupCode = TestUtils.createRandomString();
         groupName = TestUtils.createRandomString();
-        group = this.groupsManagementClient.create(new CreateGroupParam(groupCode, groupName)).execute();
+        group = this.groupsManagementClient.create(new CreateGroupParam(groupCode, groupName)).execute();*/
     }
 
     @After
     public void after() throws IOException, GraphQLException {
         if (user == null) return;
         this.usersManagementClient.delete(user.getId()).execute();
+    }
+
+    @Test
+    public void detail1() throws IOException, GraphQLException {
+        User result = this.usersManagementClient.detail("611a149db64310ca4764ab15").execute();
+        System.out.println(new Gson().toJson(result));
     }
 
     @Test
@@ -309,13 +314,13 @@ public class UsersManagementClientTest {
 
     @Test
     public void listUdv() throws IOException, GraphQLException {
-        List<UserDefinedData> udv = this.usersManagementClient.listUdv("5f9255b3dcb8f43e1a421fa4").execute();
+        List<UserDefinedData> udv = this.usersManagementClient.listUdv("611a149db64310ca4764ab15").execute();
         Assert.assertEquals(0, udv.size());
     }
 
     @Test
     public void listOrgs() throws IOException, GraphQLException {
-        List<List<Org>> orgs = this.usersManagementClient.listOrgs("5f8d2827c41264570d13200f").execute();
+        List<List<Org>> orgs = this.usersManagementClient.listOrgs("611a149db64310ca4764ab15").execute();
 
         Assert.assertEquals(0, orgs.size());
     }
@@ -323,16 +328,16 @@ public class UsersManagementClientTest {
     @Test
     public void listAuthorizedResources() throws IOException, GraphQLException, ExecutionException, InterruptedException {
         String namespace = "default";
-        PaginatedAuthorizedResources result = this.usersManagementClient.listAuthorizedResources("5f9d0cef60d09ff5a4c87c06", namespace).execute();
-        Assert.assertNotNull(result.getList());
-
-        ListUserAuthorizedResourcesParam param = new ListUserAuthorizedResourcesParam("5f9d0cef60d09ff5a4c87c06")
+        PaginatedAuthorizedResources result = this.usersManagementClient.listAuthorizedResources("611a149db64310ca4764ab15", namespace).execute();
+        //Assert.assertNotNull(result.getList());
+        System.out.println(new Gson().toJson(result));
+        ListUserAuthorizedResourcesParam param = new ListUserAuthorizedResourcesParam("611a149db64310ca4764ab15")
                 .withNamespace("default")
                 .withResourceType("DATA");
 
         PaginatedAuthorizedResources res = managementClient.users().listAuthorizedResources(param).execute();
-
-        Assert.assertNotNull(res);
+        System.out.println(new Gson().toJson(res));
+        //Assert.assertNotNull(res);
 
     }
 
