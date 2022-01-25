@@ -32,8 +32,17 @@ class UsersManagementClient(private val client: ManagementClient) {
      * 获取用户列表
      */
     fun list(param: UsersParam): GraphQLCall<UsersResponse, PaginatedUsers> {
+        if (null == param.withCustomData || false == param.withCustomData) {
+            return client.createGraphQLCall(
+                param.createRequest(),
+                object : TypeToken<GraphQLResponse<UsersResponse>>() {}) {
+                it.result
+            }
+        }
+
+        var param1  = UsersWithCustomDataParam(param.page,param.limit,param.sortBy);
         return client.createGraphQLCall(
-            param.createRequest(),
+            param1.createRequest(),
             object : TypeToken<GraphQLResponse<UsersResponse>>() {}) {
             it.result
         }
