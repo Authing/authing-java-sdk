@@ -275,4 +275,138 @@ class TenantManagementClient(private val client: ManagementClient) {
             it
         }
     }
+
+    /**
+     * 设置租户管理员
+     */
+    fun setTanentAdmin(tenantId: String, options:UserTenantIdList): HttpCall<CommonMessage, CommonMessage> {
+        return client.createHttpPutCall(
+            "${client.host}/api/v2/tenant/${tenantId}/admin",
+            GsonBuilder().create().toJson(options),
+            object : TypeToken<CommonMessage>() {}
+        ) {
+            it
+        }
+    }
+
+    /**
+     * 取消租户管理员
+     */
+    fun deleteTanentAdmin(tenantId:String, userId:String): HttpCall<CommonMessage, CommonMessage> {
+        return client.createHttpDeleteCall(
+            "${client.host}/api/v2/tenant/${tenantId}/admin/${userId}",
+            object : TypeToken<CommonMessage>() {}) {
+            it
+        }
+    }
+
+    /**
+     * 用户池管理员给租户管理员授权资源
+     */
+    fun userPoolAdminAddTanentAdminAuthorizeResources(options:UserPoolAdminToTanentAdminAuthorizeResourcesParam): HttpCall<CommonMessage, CommonMessage> {
+        return client.createHttpPostCall(
+            "${client.host}/api/v2/acl/tenant/authorize-resources-for-tenant",
+            GsonBuilder().create().toJson(options),
+            object : TypeToken<CommonMessage>() {}
+        ) {
+            it
+        }
+    }
+
+    /**
+     * 用户池管理员给租户成员撤销资源
+     */
+    fun revokeResources(options:UserPoolAdminToTanentAdminAuthorizeResourcesParam): HttpCall<CommonMessage, CommonMessage> {
+        return client.createHttpPostCall(
+            "${client.host}/api/v2/acl/tenant/revoke-resources-for-tenant",
+            GsonBuilder().create().toJson(options),
+            object : TypeToken<CommonMessage>() {}
+        ) {
+            it
+        }
+    }
+
+    /**
+     * 用户池管理员获取租户管理员被授权的业务资源
+     */
+    fun userPoolAdminGetTenantAdminResourceList(
+        tenantId: String,
+        userId:String,
+        resourceType:String): HttpCall<RestfulResponse<UserPoolAdminGetTenantAdminResourceList>, UserPoolAdminGetTenantAdminResourceList> {
+        return client.createHttpGetCall(
+            "${client.host}/api/v2/acl/tenant/tenant-authorized-resources?tenant_id=${tenantId}&user_id=${userId}&resource_type=${resourceType}",
+            object : TypeToken<RestfulResponse<UserPoolAdminGetTenantAdminResourceList>>() {}) {
+            it.data
+        }
+    }
+
+    /**
+     * 租户管理员给租户成员授权资源
+     */
+    fun tanentAdminAddTanentMemberAuthorizeResources(options:TanentAdminAddTanentMemberAuthorizeResourcesParam): HttpCall<CommonMessage, CommonMessage> {
+        return client.createHttpPostCall(
+            "${client.host}/api/v2/acl/tenant/authorize-resources",
+            GsonBuilder().create().toJson(options),
+            object : TypeToken<CommonMessage>() {}
+        ) {
+            it
+        }
+    }
+
+    /**
+     * 租户管理员给租户成员取消授权资源
+     */
+    fun tenantAdminRevokeResources(options:TanentAdminAddTanentMemberAuthorizeResourcesParam): HttpCall<CommonMessage, CommonMessage> {
+        return client.createHttpPostCall(
+            "${client.host}/api/v2/acl/tenant/revoke-resources",
+            GsonBuilder().create().toJson(options),
+            object : TypeToken<CommonMessage>() {}
+        ) {
+            it
+        }
+    }
+
+    /**
+     * 租户管理员获取租户成员被授权的资源列表
+     */
+    fun tenantAdminGetTenantMemberResourceList(
+        userId:String,
+        resourceType:String): HttpCall<RestfulResponse<UserPoolAdminGetTenantAdminResourceList>, UserPoolAdminGetTenantAdminResourceList> {
+        return client.createHttpGetCall(
+            "${client.host}/api/v2/acl/tenant/authorized-resources?user_id=${userId}&resource_type=${resourceType}",
+            object : TypeToken<RestfulResponse<UserPoolAdminGetTenantAdminResourceList>>() {}) {
+            it.data
+        }
+    }
+
+    /**
+     * 租户成员自己获取被授权的资源列表
+     */
+    fun tenantMemberGetResourceList(
+        tenantId: String,
+        resourceType:String): HttpCall<RestfulResponse<UserPoolAdminGetTenantAdminResourceList>, UserPoolAdminGetTenantAdminResourceList> {
+        return client.createHttpGetCall(
+            "${client.host}/api/v2/users/me/tenant/authorized-resources?tenant_id=${tenantId}&resource_type=${resourceType}",
+            object : TypeToken<RestfulResponse<UserPoolAdminGetTenantAdminResourceList>>() {}) {
+            it.data
+        }
+    }
+
+    /**
+     * 用户池管理员获取租户成员被授权的资源
+     */
+    fun userPoolAdminGetTenantMemberResourceList(
+        tenantId: String,
+        userId:String,
+        resourceType:String): HttpCall<RestfulResponse<UserPoolAdminGetTenantAdminResourceList>, UserPoolAdminGetTenantAdminResourceList> {
+        return client.createHttpGetCall(
+            "${client.host}/api/v2/users/${userId}/tenant/authorized-resources?tenant_id=${tenantId}&user_id=${userId}&resource_type=${resourceType}",
+            object : TypeToken<RestfulResponse<UserPoolAdminGetTenantAdminResourceList>>() {}) {
+            it.data
+        }
+    }
+
+    /**
+     * 授权业务资源
+     */
 }

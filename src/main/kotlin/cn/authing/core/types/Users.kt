@@ -127,3 +127,8 @@ constructor(
     var userId:String,
     var identifier:String
 )
+
+data class UnlinkByUserParam(
+    var type:String,
+    var identifier:String
+)
