@@ -810,6 +810,41 @@ data class UserTenantIdList(
     var userIds: List<String>
 )
 
+data class UpdateTenantMemberParam(
+    var isEnabled: Boolean
+)
+
+data class AuthorizeResourcesParam(
+    var namespace:String,
+    var opts:List<AuthorizeResourcesParamItem>
+)
+
+data class GetAuthorizeResourcesParam(
+    var namespace:String,
+    var targetType:String? = null,
+    var targetIdentifier:String? = null,
+    var resourceType:String?=null
+)
+
+data class BatchGetAuthorizeResourcesParam(
+    var namespace:String,
+    var targets:List<BatchGetAuthorizeResourcesParamItem>,
+    var resourceType:String?=null
+)
+
+data class BatchGetAuthorizeResourcesParamItem(
+    var targetType: TargetTypeEnum,
+    var targetIdentifier: String
+)
+
+
+data class AuthorizeResourcesParamItem(
+    var targetType:TargetTypeEnum,
+    var targetIdentifiers:List<String>,
+    var resources:List<ResourceTenant>
+)
+
+
 data class SsoPageCustomizationSetting(
     var autoRegisterThenLogin: Boolean,
     var hideForgetPassword: Boolean,
@@ -1140,6 +1175,20 @@ constructor(
 )
 
 data class UserPoolAdminGetTenantAdminResourceList
+constructor(
+    @SerializedName("totalCount")
+    var totalCount: Int,
+    @SerializedName("list")
+    var list: List<UserPoolReturn>
+)
+
+data class BatchGetAuthorizeResourcesList
+constructor(
+    @SerializedName("list")
+    var list: List<BatchGetAuthorizeResourcesItem>
+)
+
+data class BatchGetAuthorizeResourcesItem
 constructor(
     @SerializedName("totalCount")
     var totalCount: Int,
