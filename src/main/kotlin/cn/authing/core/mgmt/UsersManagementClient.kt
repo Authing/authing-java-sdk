@@ -625,6 +625,19 @@ class UsersManagementClient(private val client: ManagementClient) {
         }
     }
 
+    /**
+     *
+    解除用户某个身份源下的所有身份（以用户身份调用）
+     */
+    fun unlinkByUser(options:UnlinkByUserParam):HttpCall<CommonMessage, CommonMessage> {
+        return client.createHttpPostCall(
+            "${client.host}/api/v2/users/identity/unlinkByUser",
+            GsonBuilder().create().toJson(options),
+            object : TypeToken<CommonMessage>() {}
+        ) {
+            it
+        }
+    }
 
     /**
      * 用户退出登录

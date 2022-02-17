@@ -48,6 +48,8 @@ abstract class BaseClient {
             "GKl64GDcIq3au+aqJQIDAQAB"
 
     var userPoolId: String? = null
+
+    var tenantId:String? = ""
     /**
      * 每次发出请求时会附加在请求头的 token
      *
@@ -245,6 +247,7 @@ abstract class BaseClient {
                     .addHeader("x-authing-request-from", sdkType)
                     .addHeader("x-authing-sdk-version", sdkVersion)
                     .addHeader("x-authing-app-id", "" + this.appId)
+                    .addHeader("x-authing-app-tenant-id", "" + this.tenantId)
                     .get()
                     .build()
             ), adapter, resolver
@@ -272,6 +275,7 @@ abstract class BaseClient {
                     .addHeader("x-authing-request-from", sdkType)
                     .addHeader("x-authing-sdk-version", sdkVersion)
                     .addHeader("x-authing-app-id", "" + this.appId)
+                    .addHeader("x-authing-app-tenant-id", "" + this.tenantId)
                     .post(body.toRequestBody(mediaTypeJson))
                     .build()
             ), adapter, resolver

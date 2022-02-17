@@ -414,19 +414,19 @@ constructor(
 data class CreateTenantParams
 @JvmOverloads
 constructor(
-    var name:String,
-    var appIds:String,
-    var logo:String,
-    var description:String
+    var name: String,
+    var appIds: String,
+    var logo: String,
+    var description: String
 )
 
 data class UpdateTenantParams
 @JvmOverloads
 constructor(
-    var name:String,
-    var appIds:String,
-    var logo:String,
-    var description:String
+    var name: String,
+    var appIds: String,
+    var logo: String,
+    var description: String
 )
 
 data class CreateTenantResponse(
@@ -803,12 +803,47 @@ data class TenantConfig(
 
 data class ConfigSsoPageCustomizationSetting(
     var css: String,
-    var ssoPageCustomizationSettings:SsoPageCustomizationSetting
+    var ssoPageCustomizationSettings: SsoPageCustomizationSetting
 )
 
 data class UserTenantIdList(
-    var userIds:List<String>
+    var userIds: List<String>
 )
+
+data class UpdateTenantMemberParam(
+    var isEnabled: Boolean
+)
+
+data class AuthorizeResourcesParam(
+    var namespace:String,
+    var opts:List<AuthorizeResourcesParamItem>
+)
+
+data class GetAuthorizeResourcesParam(
+    var namespace:String,
+    var targetType:String? = null,
+    var targetIdentifier:String? = null,
+    var resourceType:String?=null
+)
+
+data class BatchGetAuthorizeResourcesParam(
+    var namespace:String,
+    var targets:List<BatchGetAuthorizeResourcesParamItem>,
+    var resourceType:String?=null
+)
+
+data class BatchGetAuthorizeResourcesParamItem(
+    var targetType: TargetTypeEnum,
+    var targetIdentifier: String
+)
+
+
+data class AuthorizeResourcesParamItem(
+    var targetType:TargetTypeEnum,
+    var targetIdentifiers:List<String>,
+    var resources:List<ResourceTenant>
+)
+
 
 data class SsoPageCustomizationSetting(
     var autoRegisterThenLogin: Boolean,
@@ -883,6 +918,27 @@ data class TenantUserListResponse(
     var listTotal: Int
 )
 
+data class UserPoolAdminToTanentAdminAuthorizeResourcesParam(
+    var tenantId: String,
+    var userIds: List<String>,
+    var resources: List<ResourceTenant>
+)
+
+data class Targents(
+    var targetType: TargetTypeEnum,
+    var targetIdentifiers: List<String>
+)
+
+data class ResourceTenant(
+    var code: String,
+    var actions: List<String>,
+    var resourceType: ResourceType
+)
+
+data class TanentAdminAddTanentMemberAuthorizeResourcesParam(
+    var userIds: List<String>,
+    var resources: List<ResourceTenant>
+)
 
 
 data class TenantUser(
@@ -923,7 +979,7 @@ data class TenantUser(
 )
 
 data class CreateIdpParam(
-    var tenantId:String,
+    var tenantId: String,
     var name: String,
     var type: String,
     var connections: List<Connection>
@@ -938,12 +994,12 @@ data class Connection(
     var fields: Fields,
     var identifier: String,
     var type: String,
-    var userMatchFields:List<String>
+    var userMatchFields: List<String>
 )
 
 data class Fields(
     var clientID: String,
-    var clientSecret:String
+    var clientSecret: String
 )
 
 data class CreateIdpResponse(
@@ -955,37 +1011,37 @@ data class CreateIdpResponse(
 
 
 data class CreatIdpConnParam(
-    var extIdpId:String,
+    var extIdpId: String,
     var type: String,
     var identifier: String,
-    var displayName:String,
+    var displayName: String,
     var fields: Fields,
-    var tenantId:String,
-    var userMatchFields:List<String>
+    var tenantId: String,
+    var userMatchFields: List<String>
 )
 
 data class UpdateIdpConnParm(
     var displayName: String,
     var fields: Fields,
-    var userMatchFields:List<String>,
-    var tenantId:String
+    var userMatchFields: List<String>,
+    var tenantId: String
 )
 
 data class CreateIdpConnResponse(
-    var id:String,
+    var id: String,
     var type: String,
     var identifier: String,
-    var displayName:String,
+    var displayName: String,
     var fields: Fields
 )
 
 data class CheckExtIdpConnectionIdentifierUnique(
-    var identifier:String
+    var identifier: String
 )
 
 data class ConnState(
-    var tenantId:String,
-    var enabled:Boolean
+    var tenantId: String,
+    var enabled: Boolean
 )
 
 data class ListResourcesParams
@@ -1032,7 +1088,7 @@ constructor(
 data class PrincipalInput
 constructor(
     var type: Char? = 'P',
-     /** 姓名 */
+    /** 姓名 */
     var name: String,
     /** 身份证 */
     var idCard: String,
@@ -1055,7 +1111,7 @@ constructor(
 data class UserActionParam
 constructor(
     var page: Number,
-    var limit: Number?=10,
+    var limit: Number? = 10,
     var clientIp: String,
     var operationName: String,
     var operatoArn: String
@@ -1065,10 +1121,10 @@ data class UserAction
 constructor(
     var operator_arn: String,
     var timestamp: String,
-    var user_agent:String,
-    var geoip:GeoIP,
+    var user_agent: String,
+    var geoip: GeoIP,
     var message: String,
-    var ua:UA,
+    var ua: UA,
     val userpool_id: String,
     var host: String,
     var version: String,
@@ -1078,8 +1134,8 @@ constructor(
     var extra_data: String,
     var request_id: String,
     var path: String,
-    var user:LogUser,
-    var app:App,
+    var user: LogUser,
+    var app: App,
     var operation_desc: String
 )
 
@@ -1088,7 +1144,7 @@ constructor(
     var qrcodeScanning: Any,
     var id: String,
     var name: String,
-    var description:Any,
+    var description: Any,
     var identifier: String,
     var logo: String,
     var loginTabs: List<String>,
@@ -1104,7 +1160,41 @@ constructor(
 
 data class UserActions
 constructor(
-   var totalCount: Number,
-   var list: List<UserAction>
+    @SerializedName("totalCount")
+    var totalCount: Int,
+    @SerializedName("list")
+    var list: List<UserAction>
 )
+
+data class UserPoolReturn
+constructor(
+    var code: String,
+    var type: String,
+    var actions: List<String>,
+    var apiIdentifier: String
+)
+
+data class UserPoolAdminGetTenantAdminResourceList
+constructor(
+    @SerializedName("totalCount")
+    var totalCount: Int,
+    @SerializedName("list")
+    var list: List<UserPoolReturn>
+)
+
+data class BatchGetAuthorizeResourcesList
+constructor(
+    @SerializedName("list")
+    var list: List<BatchGetAuthorizeResourcesItem>
+)
+
+data class BatchGetAuthorizeResourcesItem
+constructor(
+    @SerializedName("totalCount")
+    var totalCount: Int,
+    @SerializedName("list")
+    var list: List<UserPoolReturn>
+)
+
+
 
