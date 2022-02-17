@@ -801,6 +801,9 @@ data class Node(
     /** @param [depth] 距离父节点的深度（如果是查询整棵树，返回的 **depth** 为距离根节点的深度，如果是查询某个节点的子节点，返回的 **depth** 指的是距离该节点的深度。） */
     @SerializedName("depth")
     var depth: Int? = null,
+    /** @param [leaderUserId] 部门管理者 ID */
+    @SerializedName("leaderUserId")
+    var leaderUserId: String? = null,
     /** @param [path] path */
     @SerializedName("path")
     var path: List<String>,
@@ -12863,8 +12866,10 @@ query userpools(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum) {
     @SerializedName("limit")
     var limit: Int? = null,
     @SerializedName("sortBy")
-    var sortBy: SortByEnum? = null)  {
-
+    var sortBy: SortByEnum? = null,
+    @SerializedName("withCustomData")
+    var withCustomData: Boolean? = null)
+    {
     fun withPage(page: Int?): UsersParam {
       this.page = page
       return this

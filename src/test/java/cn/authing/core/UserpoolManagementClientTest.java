@@ -35,7 +35,7 @@ public class UserpoolManagementClientTest {
 
     @Test
     public void detail() throws ExecutionException, InterruptedException {
-        CompletableFuture<UserPool> future = new CompletableFuture<>();
+        final CompletableFuture<UserPool> future = new CompletableFuture<>();
         this.userpoolManagementClient.detail().enqueue(new Callback<UserPool>() {
             @Override
             public void onSuccess(UserPool result) {

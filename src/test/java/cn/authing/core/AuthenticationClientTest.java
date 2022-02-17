@@ -5,6 +5,7 @@ import cn.authing.core.graphql.GraphQLException;
 import cn.authing.core.graphql.GraphQLResponse;
 import cn.authing.core.http.Callback;
 import cn.authing.core.types.*;
+import com.google.gson.Gson;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;
 import org.junit.Before;
@@ -32,17 +33,17 @@ public class AuthenticationClientTest {
         return returnValue;
     }
 
-    private final String APP_ID = "605084fe415a744f79029f09";
+    private final String APP_ID = "6123532b7e39d8e579bd045b";
 
     // 替换上自己手机号呦～
     private final String PHONE = "15566416161";
 
     @Before
     public void before() {
-        this.authenticationClient = new AuthenticationClient("5f45cad3ece50b62de2a02cd");
+        this.authenticationClient = new AuthenticationClient("60e043f8cd91b87d712b6365");
         this.authenticationClient.setAppId(APP_ID);
-        this.authenticationClient.setSecret("624cb39b07ffd29b946112ea82f5b50e");
-        this.authenticationClient.setHost("https://core.authing.cn");
+        this.authenticationClient.setSecret("b268f1820b292e2141aca09a489fcf53");
+        this.authenticationClient.setHost("https://hfggf.authing.cn");
     }
 
     private User register(String username, String password) throws IOException, GraphQLException {
@@ -353,20 +354,7 @@ public class AuthenticationClientTest {
         Assert.assertNotNull(result != null);
     }
 
-    @Test
-    public void getAccessTokenByCode() throws IOException {
-        AuthenticationClient testAC = new AuthenticationClient("5f9d0cef2e10f4e465153a7b");
-        testAC.setAppId("5f9d0cef2e10f4e465153a7b");
-        testAC.setHost("https://1604127979898-demo.authing.cn");
-        testAC.setSecret("2b8332093c4b219d0d91f278a46731e4");
-        testAC.setRedirectUri("https://baidu.com");
 
-//        testAC.setTokenEndPointAuthMethod(AuthMethodEnum.CLIENT_SECRET_BASIC);
-        testAC.setTokenEndPointAuthMethod(AuthMethodEnum.NONE);
-
-        Object result = testAC.getAccessTokenByCode("aNhjg8hc__G8vd7LbO5ZV_hWIzP1BN6KVYpcei1XiOn").execute();
-        Assert.assertNotNull(result != null);
-    }
 
     @Test
     public void getAccessTokenByClientCredentials() throws IOException, GraphQLException, ExecutionException, InterruptedException {
@@ -458,6 +446,37 @@ public class AuthenticationClientTest {
         Assert.assertEquals(oauthQuery.get("client_id"), APP_ID);
 
 
+    }
+
+    @Test
+    public void buildAuthorizeUrlTest() throws MalformedURLException {
+
+        // OIDC
+        authenticationClient.setProtocol(ProtocolEnum.OIDC);
+
+        IOidcParams iOidcParams = new IOidcParams();
+
+        iOidcParams.setRedirectUri("https://baidu.com");
+        iOidcParams.setNonce("nonce test");
+
+        String oidcString = authenticationClient.buildAuthorizeUrl(iOidcParams);
+        System.out.println(oidcString);
+
+
+
+    }
+
+    @Test
+    public void getAccessTokenByCode() throws IOException {
+        AuthenticationClient testAC = new AuthenticationClient("60e043f8cd91b87d712b6365");
+        testAC.setAppId("6123532b7e39d8e579bd045b");
+        testAC.setHost("https://hfggf.authing.cn");
+        testAC.setSecret("b268f1820b292e2141aca09a489fcf53");
+        testAC.setRedirectUri("https://baidu.com");
+        testAC.setTokenEndPointAuthMethod(AuthMethodEnum.CLIENT_SECRET_POST);
+        //testAC.setTokenEndPointAuthMethod(AuthMethodEnum.NONE);
+        Object result = testAC.getAccessTokenByCode("2e-cMNwE9HfXfoEz3Uy4UGrBWKA74T6ljp9hkYbKi5n").execute();
+        System.out.println(new Gson().toJson(result));
     }
 
 }

@@ -72,6 +72,23 @@ class AuthenticationClient : BaseClient {
      * 通过微信登陆
      */
     @JvmOverloads
+    fun loginByWechatWithConnId(
+        connId: String,
+        code: String
+    ): HttpCall<RestfulResponse<User>, User> {
+        var url = "$host/api/v2/ecConn/wechatMobile/authByCode"
+        val json = "{ \"connId\": \"$connId\", \"code\": \"$code\" }"
+        return createHttpPostCall(url, json, object : TypeToken<RestfulResponse<User>>() {}) {
+            user = it.data
+            token = it.data.token ?: token
+            it.data
+        }
+    }
+
+    /**
+     * 通过微信登录，获取用户信息
+     */
+    @JvmOverloads
     fun loginByWechat(
         code: String,
         country: String? = null,
