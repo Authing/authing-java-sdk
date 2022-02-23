@@ -329,4 +329,18 @@ class OrgManagementClient(private val client: ManagementClient) {
             it.code == 200
         }
     }
+
+    /**
+     * @description 通过租户 ID 获取对应的组织机构
+     * @param tenantId 租户 ID
+     */
+    fun getOrgByTenantId(
+        tenantId: String
+        ): HttpCall<RestfulResponse<List<TenantOrgNode>>, List<TenantOrgNode>> {
+        return client.createHttpGetCall(
+            "${client.host}/api/v2/orgs/by-tenant?tenant_id=${tenantId}",
+            object : TypeToken<RestfulResponse<List<TenantOrgNode>>>() {}) {
+            it.data
+        }
+    }
 }

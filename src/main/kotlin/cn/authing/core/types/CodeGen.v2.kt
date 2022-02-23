@@ -5143,7 +5143,10 @@ mutation createGroup(${'$'}code: String!, ${'$'}name: String!, ${'$'}description
     @SerializedName("code")
     var code: String? = null,
     @SerializedName("description")
-    var description: String? = null)  {
+    var description: String? = null,
+    @SerializedName("tenantId")
+    var tenantId: String? = null
+    )  {
 
     fun withCode(code: String?): CreateOrgParam {
       this.code = code
@@ -5153,6 +5156,11 @@ mutation createGroup(${'$'}code: String!, ${'$'}name: String!, ${'$'}description
     fun withDescription(description: String?): CreateOrgParam {
       this.description = description
       return this
+    }
+
+    fun withTenantId(tenantId: String?): CreateOrgParam {
+        this.tenantId = tenantId
+        return this
     }
 
       fun build(): CreateOrgParam {
@@ -5167,8 +5175,8 @@ mutation createGroup(${'$'}code: String!, ${'$'}name: String!, ${'$'}description
       }
 
       private val createOrgDocument: String = """
-mutation createOrg(${'$'}name: String!, ${'$'}code: String, ${'$'}description: String) {
-  createOrg(name: ${'$'}name, code: ${'$'}code, description: ${'$'}description) {
+  mutation createOrg(${'$'}name: String!, ${'$'}code: String, ${'$'}description: String, ${'$'}tenantId: String) {
+  createOrg(name: ${'$'}name, code: ${'$'}code, description: ${'$'}description, tenantId: ${'$'}tenantId) {
     id
     rootNode {
       id
@@ -9925,11 +9933,19 @@ query groups(${'$'}userId: String, ${'$'}page: Int, ${'$'}limit: Int, ${'$'}sort
     @SerializedName("userId")
     var userId: String,
     @SerializedName("namespace")
-    var namespace: String? = null)  {
+    var namespace: String? = null,
+    @SerializedName("tenantId")
+    var tenantId: String? = null
+    )  {
 
     fun withNamespace(namespace: String?): IsActionAllowedParam {
       this.namespace = namespace
       return this
+    }
+
+    fun withTenantId(tenantId: String?): IsActionAllowedParam {
+        this.tenantId = tenantId
+        return this
     }
 
       fun build(): IsActionAllowedParam {
@@ -9944,8 +9960,8 @@ query groups(${'$'}userId: String, ${'$'}page: Int, ${'$'}limit: Int, ${'$'}sort
       }
 
       private val isActionAllowedDocument: String = """
-query isActionAllowed(${'$'}resource: String!, ${'$'}action: String!, ${'$'}userId: String!, ${'$'}namespace: String) {
-  isActionAllowed(resource: ${'$'}resource, action: ${'$'}action, userId: ${'$'}userId, namespace: ${'$'}namespace)
+query isActionAllowed(${'$'}resource: String!, ${'$'}action: String!, ${'$'}userId: String!, ${'$'}namespace: String, ${'$'}tenantId: String) {
+  isActionAllowed(resource: ${'$'}resource, action: ${'$'}action, userId: ${'$'}userId, namespace: ${'$'}namespace, tenantId: ${'$'}tenantId)
 }
 """
     }

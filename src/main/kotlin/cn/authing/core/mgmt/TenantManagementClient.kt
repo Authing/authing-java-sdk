@@ -489,4 +489,25 @@ class TenantManagementClient(private val client: ManagementClient) {
             it
         }
     }
+
+    fun isAllowed(options:IsAllowedParam
+    ): HttpCall<RestfulResponse<Allowed>, RestfulResponse<Allowed>> {
+        return client.createHttpPostCall(
+            "${client.host}/api/v2/acl/is-allowed",
+            GsonBuilder().create().toJson(options),
+            object : TypeToken<RestfulResponse<Allowed>>() {}
+        ) {
+            it
+        }
+    }
+
+    fun batchInsertResource(options:BatchResourceParam): HttpCall<CommonMessage, CommonMessage> {
+        return client.createHttpPostCall(
+            "${client.host}/api/v2/resources/bulk",
+            GsonBuilder().create().toJson(options),
+            object : TypeToken<CommonMessage>() {}
+        ) {
+            it
+        }
+    }
 }

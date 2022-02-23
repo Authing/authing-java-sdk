@@ -832,6 +832,36 @@ data class BatchGetAuthorizeResourcesParam(
     var resourceType:String?=null
 )
 
+data class Allowed(
+    var allowed:Boolean
+)
+
+data class IsAllowedParam(
+    var userId: String,
+    var resource:String,
+    var action:String,
+    var namespace:String?=null,
+    var tenantId:String
+)
+
+data class BatchResourceParam(
+    var bulk:List<BatchInsertParam>
+)
+
+data class BatchInsertParam(
+    var code: String,
+    var type: ResourceType,
+    var description :String?=null,
+    var actions:List<ActionParam>,
+    var apiIdentifier: String?=null,
+    var namespace: String?=null
+)
+
+data class ActionParam(
+    var name: String,
+    var description: String
+)
+
 data class BatchGetAuthorizeResourcesParamItem(
     var targetType: TargetTypeEnum,
     var targetIdentifier: String

@@ -80,3 +80,23 @@ constructor(
     var providerType: String,
     var adConnectorId: String? = null
 )
+
+data class TenantOrgNode(
+    var __groupid: Any,
+    var __id: Any,
+    var __parentid: Any,
+    var children: List<Any>,
+    var code: String,
+    var createdAt: String,
+    var description: String,
+    var descriptionI18n: String,
+    var id: String,
+    var leaderUserId: Any,
+    var members: List<Any>,
+    var name: String,
+    var nameI18n: Any,
+    var order: Any,
+    var orgId: String,
+    var updatedAt: String,
+    var userPoolId: String
+)

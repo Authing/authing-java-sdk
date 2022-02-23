@@ -29,6 +29,7 @@ import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 import javax.security.cert.CertificateException
+import kotlin.math.tan
 
 
 /**
@@ -90,7 +91,7 @@ abstract class BaseClient {
     protected val mediaTypeJson: MediaType? = "application/json".toMediaTypeOrNull()
     protected val mediaTypeUrlencoded: MediaType? = "application/x-www-form-urlencoded".toMediaTypeOrNull()
     protected val sdkType: String = "SDK"
-    protected val sdkVersion: String = "java:4.3.48"
+    protected val sdkVersion: String = "java:4.3.53"
 
     // graphql 端点
     private val endpoint: String

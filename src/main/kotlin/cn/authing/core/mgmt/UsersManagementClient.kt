@@ -86,9 +86,9 @@ class UsersManagementClient(private val client: ManagementClient) {
     /**
      * 获取用户详情
      */
-    fun detail(userId: String): HttpCall<RestfulResponse<User>, User>  {
+    fun detail(userId: String, withCustomData: Boolean): HttpCall<RestfulResponse<User>, User>  {
         return client.createHttpGetCall(
-            "${client.host}/api/v2/users/$userId",
+            "${client.host}/api/v2/users/$userId?with_custom_data=${withCustomData}",
             object : TypeToken<RestfulResponse<User>> () {}
         ) { it.data }
     }
