@@ -117,7 +117,8 @@ constructor(
     var isSocial:Boolean,
     var type:String,
     var userId:String,
-    var identifier:String
+    var identifier:String,
+    var extIdpId:String
 )
 
 data class UnIdentityLinkParam
@@ -125,7 +126,8 @@ constructor(
     var isSocial:Boolean,
     var type:String,
     var userId:String,
-    var identifier:String
+    var identifier:String,
+    var extIdpId:String
 )
 
 data class UnlinkByUserParam(
