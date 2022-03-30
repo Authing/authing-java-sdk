@@ -1,7 +1,6 @@
 package cn.authing.core.types
 
 import com.google.gson.annotations.SerializedName
-import org.intellij.lang.annotations.Language
 
 /**
  * 应用信息
@@ -815,46 +814,46 @@ data class UpdateTenantMemberParam(
 )
 
 data class AuthorizeResourcesParam(
-    var namespace:String,
-    var opts:List<AuthorizeResourcesParamItem>
+    var namespace: String,
+    var opts: List<AuthorizeResourcesParamItem>
 )
 
 data class GetAuthorizeResourcesParam(
-    var namespace:String,
-    var targetType:String? = null,
-    var targetIdentifier:String? = null,
-    var resourceType:String?=null
+    var namespace: String,
+    var targetType: String? = null,
+    var targetIdentifier: String? = null,
+    var resourceType: String? = null
 )
 
 data class BatchGetAuthorizeResourcesParam(
-    var namespace:String,
-    var targets:List<BatchGetAuthorizeResourcesParamItem>,
-    var resourceType:String?=null
+    var namespace: String,
+    var targets: List<BatchGetAuthorizeResourcesParamItem>,
+    var resourceType: String? = null
 )
 
 data class Allowed(
-    var allowed:Boolean
+    var allowed: Boolean
 )
 
 data class IsAllowedParam(
     var userId: String,
-    var resource:String,
-    var action:String,
-    var namespace:String?=null,
-    var tenantId:String
+    var resource: String,
+    var action: String,
+    var namespace: String? = null,
+    var tenantId: String
 )
 
 data class BatchResourceParam(
-    var bulk:List<BatchInsertParam>
+    var bulk: List<BatchInsertParam>
 )
 
 data class BatchInsertParam(
     var code: String,
     var type: ResourceType,
-    var description :String?=null,
-    var actions:List<ActionParam>,
-    var apiIdentifier: String?=null,
-    var namespace: String?=null
+    var description: String? = null,
+    var actions: List<ActionParam>,
+    var apiIdentifier: String? = null,
+    var namespace: String? = null
 )
 
 data class ActionParam(
@@ -869,9 +868,9 @@ data class BatchGetAuthorizeResourcesParamItem(
 
 
 data class AuthorizeResourcesParamItem(
-    var targetType:TargetTypeEnum,
-    var targetIdentifiers:List<String>,
-    var resources:List<ResourceTenant>
+    var targetType: TargetTypeEnum,
+    var targetIdentifiers: List<String>,
+    var resources: List<ResourceTenant>
 )
 
 
@@ -1225,6 +1224,32 @@ constructor(
     @SerializedName("list")
     var list: List<UserPoolReturn>
 )
+
+enum class MethodEnum {
+    GET,
+    POST,
+    PUT,
+    DELETE;
+}
+
+data class HttpRequestParam(
+    /**
+     * 需要带前缀 "/" ,且支持restful,直接拼接url即可
+     */
+    var url: String,
+
+    /**
+     * 请求方式，目前支持的方式参考 MethodEnum
+     */
+    var method: MethodEnum,
+
+    /**
+     * 请求参数 key-value
+     */
+    var params: Map<String, Any>
+)
+
+
 
 
 

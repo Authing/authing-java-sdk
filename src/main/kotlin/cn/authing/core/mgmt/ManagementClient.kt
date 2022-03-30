@@ -1,6 +1,7 @@
 package cn.authing.core.mgmt
 
 import cn.authing.core.BaseClient
+import cn.authing.core.common.CommonMethodClient
 import cn.authing.core.graphql.GraphQLCall
 import cn.authing.core.graphql.GraphQLRequest
 import cn.authing.core.graphql.GraphQLResponse
@@ -85,7 +86,7 @@ class ManagementClient(userPoolId: String, secret: String) : BaseClient() {
 
         return super.createHttpGetCall(
             url,
-            object : TypeToken<AccessTokenRes> () {}
+            object : TypeToken<AccessTokenRes>() {}
         ) {
             token = it.accessToken!!
             accessTokenExpiresAt = JWT.decode(token).claims["exp"]?.asLong()?.times(1000)
@@ -193,7 +194,14 @@ class ManagementClient(userPoolId: String, secret: String) : BaseClient() {
         return MFAManagementClient(this)
     }
 
-    fun tanantManagement(): TenantManagementClient{
+    fun tanantManagement(): TenantManagementClient {
         return TenantManagementClient(this)
+    }
+
+    /**
+     * 通用模块
+     */
+    fun commonMethod(): CommonMethodClient {
+        return CommonMethodClient(this)
     }
 }
