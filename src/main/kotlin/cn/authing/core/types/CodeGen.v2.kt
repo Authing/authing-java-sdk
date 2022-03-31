@@ -770,7 +770,7 @@ data class UserDepartment(
 
 data class NameI18n(
         @SerializedName("en")
-        var en: Int? = null
+        var en: String? = null
 );
 
 
