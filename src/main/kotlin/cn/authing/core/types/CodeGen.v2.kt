@@ -768,6 +768,11 @@ data class UserDepartment(
     var joinedAt: String? = null
 )
 
+data class NameI18n(
+        @SerializedName("en")
+        var en: Int? = null
+);
+
 
 
 data class Node(
@@ -782,7 +787,7 @@ data class Node(
     var name: String,
     /** @param [nameI18n] 多语言名称，**key** 为标准 **i18n** 语言编码，**value** 为对应语言的名称。 */
     @SerializedName("nameI18n")
-    var nameI18n: String? = null,
+    var nameI18n: NameI18n? = null,
     /** @param [description] 描述信息 */
     @SerializedName("description")
     var description: String? = null,
