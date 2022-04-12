@@ -556,7 +556,7 @@ class UsersManagementClient(private val client: ManagementClient) {
     @JvmOverloads
     fun listUserActions(
         options: ListUserActionsParams? = ListUserActionsParams()
-    ): HttpCall<RestfulResponse<Pagination<Any>>, Pagination<Any>> {
+    ): HttpCall<RestfulResponse<UserActions>, UserActions> {
         var url = "${client.host}/api/v2/analysis/user-action?page=${options?.page}&limit=${options?.limit}"
 
         url += if (options?.clientIp != null) "&clientip=${options.clientIp}" else ""
@@ -565,7 +565,7 @@ class UsersManagementClient(private val client: ManagementClient) {
 
         return client.createHttpGetCall(
             url,
-            object : TypeToken<RestfulResponse<Pagination<Any>>>() {}
+            object : TypeToken<RestfulResponse<UserActions>>() {}
         ) { it.data }
     }
 

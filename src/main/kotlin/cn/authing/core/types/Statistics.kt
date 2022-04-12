@@ -23,9 +23,14 @@ data class GeoIP(
     var region_name: String?,
     var country_code3: String?,
     var continent_code: String?,
-    var location: Any?,
+    var location: GeoIpLocation?,
     var latitude: Double?,
     var ip: String?
+)
+
+data class GeoIpLocation(
+    var lon: String?,
+    var lat: String?,
 )
 
 data class LogUser(
@@ -124,7 +129,7 @@ data class PaginatedAuditLogs(
     var totalCount: Int,
     /** @param [list] list */
     @SerializedName("list")
-    var list: List<AuditLog>
+    var list: List<AuditLogResponse>
 )
 
 /**
@@ -148,18 +153,38 @@ data class UserActionLogResponse(
  * 审计日志返回结构
  */
 data class AuditLogResponse(
-    var userpoolId: String?,
     var operatorType: String?,
-    var operatorId: String?,
-    var operatorName: String?,
-    var operationName: String?,
-    var cityName: String?,
-    var regionName: String?,
     var clientIp: String?,
+    var resourceName: String?,
+    var requestId: String?,
+    var targetValue: String?,
+    var ua: UA?,
+    var filedate: String?,
+    var operationMode: String?,
+    var path: String?,
+    var roleCode: String?,
+    var logId: String?,
+    var userPoolId: String?,
+    var eventType: String?,
+    var originValue: String?,
+    var host: String?,
     var resourceType: String?,
-    var resourceDesc: String?,
-    var resource_arn: String?,
-    var timestamp: String?
+    var timestamp: String?,
+    var resourceDetails: String?,
+    var userId: String?,
+    var targetId: String?,
+    var message: String?,
+    var roleId: String?,
+    var operationParam: String?,
+    var geoip: GeoIP?,
+    var eventDetails: String?,
+    var appId: String?,
+    var roleName: String?,
+    var userName: String?,
+    var userAgent: String?,
+    var eventResultCode: String?,
+    var photoUrl: String?,
+    var userPoolName: String?,
 )
 
 data class PaginatedUserActionLog(
