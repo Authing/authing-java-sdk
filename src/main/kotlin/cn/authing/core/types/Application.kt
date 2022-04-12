@@ -1139,33 +1139,52 @@ constructor(
 
 data class UserActionParam
 constructor(
-    var page: Number,
+    var page: Number?,
     var limit: Number? = 10,
-    var clientIp: String,
-    var operationName: String,
-    var operatoArn: String
+    var clientIp: String?,
+    var operationName: String?,
+    var operatoArn: String?
 )
 
 data class UserAction
 constructor(
-    var operator_arn: String,
-    var timestamp: String,
-    var user_agent: String,
-    var geoip: GeoIP,
-    var message: String,
-    var ua: UA,
-    val userpool_id: String,
-    var host: String,
-    var version: String,
-    var app_id: String,
-    var operation_name: String,
-    var clientip: String,
-    var extra_data: String,
-    var request_id: String,
-    var path: String,
-    var user: LogUser,
-    var app: App,
-    var operation_desc: String
+    var resourceName: String?,
+    var timestamp: String?,
+    var requestId: String?,
+    var userPoolId: String?,
+    var appId: String?,
+    var clientIp: String?,
+    var userAgent: String?,
+    var eventResultCode: String?,
+    var eventType: String?,
+    var operationMode: String?,
+    var userId: String?,
+    var geoip: GeoIP?,
+    var ua: UA?,
+    var targetValue: String?,
+    var targetId: String?,
+    var eventDetails: String?,
+    var resourceDetails: String?,
+    var resourceType: String?,
+    var roleName: String?,
+    var roleCode: String?,
+    var roleId: String?,
+    var eventResultMsg: String?,
+    var operationParam: String?,
+    var logId: String?,
+    var appName: String?,
+
+    var appLogo: String?,
+    var operationType: String?,
+    var photoUrl: String?,
+    var userName: String?,
+    var userPoolName: String?,
+    var loginCounts: String?,
+
+    var path: String?,
+    var filedate: String?,
+    var host: String?,
+    var originValue: String?,
 )
 
 data class App
