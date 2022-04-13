@@ -1,7 +1,6 @@
 package cn.authing.core.types
 
 import com.google.gson.annotations.SerializedName
-import org.intellij.lang.annotations.Language
 
 /**
  * 应用信息
@@ -815,46 +814,46 @@ data class UpdateTenantMemberParam(
 )
 
 data class AuthorizeResourcesParam(
-    var namespace:String,
-    var opts:List<AuthorizeResourcesParamItem>
+    var namespace: String,
+    var opts: List<AuthorizeResourcesParamItem>
 )
 
 data class GetAuthorizeResourcesParam(
-    var namespace:String,
-    var targetType:String? = null,
-    var targetIdentifier:String? = null,
-    var resourceType:String?=null
+    var namespace: String,
+    var targetType: String? = null,
+    var targetIdentifier: String? = null,
+    var resourceType: String? = null
 )
 
 data class BatchGetAuthorizeResourcesParam(
-    var namespace:String,
-    var targets:List<BatchGetAuthorizeResourcesParamItem>,
-    var resourceType:String?=null
+    var namespace: String,
+    var targets: List<BatchGetAuthorizeResourcesParamItem>,
+    var resourceType: String? = null
 )
 
 data class Allowed(
-    var allowed:Boolean
+    var allowed: Boolean
 )
 
 data class IsAllowedParam(
     var userId: String,
-    var resource:String,
-    var action:String,
-    var namespace:String?=null,
-    var tenantId:String
+    var resource: String,
+    var action: String,
+    var namespace: String? = null,
+    var tenantId: String
 )
 
 data class BatchResourceParam(
-    var bulk:List<BatchInsertParam>
+    var bulk: List<BatchInsertParam>
 )
 
 data class BatchInsertParam(
     var code: String,
     var type: ResourceType,
-    var description :String?=null,
-    var actions:List<ActionParam>,
-    var apiIdentifier: String?=null,
-    var namespace: String?=null
+    var description: String? = null,
+    var actions: List<ActionParam>,
+    var apiIdentifier: String? = null,
+    var namespace: String? = null
 )
 
 data class ActionParam(
@@ -869,9 +868,9 @@ data class BatchGetAuthorizeResourcesParamItem(
 
 
 data class AuthorizeResourcesParamItem(
-    var targetType:TargetTypeEnum,
-    var targetIdentifiers:List<String>,
-    var resources:List<ResourceTenant>
+    var targetType: TargetTypeEnum,
+    var targetIdentifiers: List<String>,
+    var resources: List<ResourceTenant>
 )
 
 
@@ -1140,33 +1139,52 @@ constructor(
 
 data class UserActionParam
 constructor(
-    var page: Number,
+    var page: Number?,
     var limit: Number? = 10,
-    var clientIp: String,
-    var operationName: String,
-    var operatoArn: String
+    var clientIp: String?,
+    var operationName: String?,
+    var operatoArn: String?
 )
 
 data class UserAction
 constructor(
-    var operator_arn: String,
-    var timestamp: String,
-    var user_agent: String,
-    var geoip: GeoIP,
-    var message: String,
-    var ua: UA,
-    val userpool_id: String,
-    var host: String,
-    var version: String,
-    var app_id: String,
-    var operation_name: String,
-    var clientip: String,
-    var extra_data: String,
-    var request_id: String,
-    var path: String,
-    var user: LogUser,
-    var app: App,
-    var operation_desc: String
+    var resourceName: String?,
+    var timestamp: String?,
+    var requestId: String?,
+    var userPoolId: String?,
+    var appId: String?,
+    var clientIp: String?,
+    var userAgent: String?,
+    var eventResultCode: String?,
+    var eventType: String?,
+    var operationMode: String?,
+    var userId: String?,
+    var geoip: GeoIP?,
+    var ua: UA?,
+    var targetValue: String?,
+    var targetId: String?,
+    var eventDetails: String?,
+    var resourceDetails: String?,
+    var resourceType: String?,
+    var roleName: String?,
+    var roleCode: String?,
+    var roleId: String?,
+    var eventResultMsg: String?,
+    var operationParam: String?,
+    var logId: String?,
+    var appName: String?,
+
+    var appLogo: String?,
+    var operationType: String?,
+    var photoUrl: String?,
+    var userName: String?,
+    var userPoolName: String?,
+    var loginCounts: String?,
+
+    var path: String?,
+    var filedate: String?,
+    var host: String?,
+    var originValue: String?,
 )
 
 data class App
@@ -1225,6 +1243,32 @@ constructor(
     @SerializedName("list")
     var list: List<UserPoolReturn>
 )
+
+enum class MethodEnum {
+    GET,
+    POST,
+    PUT,
+    DELETE;
+}
+
+data class HttpRequestParam(
+    /**
+     * 需要带前缀 "/" ,且支持restful,直接拼接url即可
+     */
+    var url: String,
+
+    /**
+     * 请求方式，目前支持的方式参考 MethodEnum
+     */
+    var method: MethodEnum,
+
+    /**
+     * 请求参数 key-value
+     */
+    var params: Map<String, Any>
+)
+
+
 
 
 

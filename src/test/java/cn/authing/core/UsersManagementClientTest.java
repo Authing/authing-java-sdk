@@ -429,12 +429,7 @@ public class UsersManagementClientTest {
         Assert.assertTrue(totalCount == 0);
     }
 
-    @Test
-    public void listUserActions() throws IOException {
-        Pagination<Object> res = managementClient.users().listUserActions().execute();
 
-        Assert.assertNotNull(res);
-    }
 
     @Test
     public void checkLoginStatus() throws IOException {
