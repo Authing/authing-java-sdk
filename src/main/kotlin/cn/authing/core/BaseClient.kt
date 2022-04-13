@@ -116,7 +116,8 @@ abstract class BaseClient {
                     val listField: Field = c.getDeclaredField("list")
                     listField.setAccessible(true)
                     val list: MutableList<TypeAdapterFactory> = listField.get(o) as MutableList<TypeAdapterFactory>
-                    val i = list.indexOf(ObjectTypeAdapter.FACTORY)
+                    val i = GsonUtils.getIndex(list)
+//                    val i = list.indexOf(ObjectTypeAdapter.FACTORY)
                     list[i] = CustomTypeAdapter.FACTORY
                     break
                 }
