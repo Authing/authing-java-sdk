@@ -30,7 +30,7 @@ data class GeoIP(
 
 data class GeoIpLocation(
     var lon: String?,
-    var lat: String?,
+    var lat: String?
 )
 
 data class LogUser(
@@ -99,11 +99,20 @@ data class AuditLog(
  * 管理日志统计信息分页查询参数
  */
 data class LogsPageParam(
-    var clientIp: String?,
-    var operationNames: List<String>?,
-    var userIds: List<String>?,
-    var page: Int?,
-    var limit: Int?
+    var page: Int,
+    var limit: Int,
+    var request_id: String?,
+    var clientip: String?,
+    var operationType:String?,
+    var resourceName:String?,
+    var exclude_non_app_records:String?,
+    var start:Number?,
+    var end:Number?,
+    var userName:String?,
+    var userId:String?,
+    var eventType:String?,
+    var appId:String?,
+    var eventResultCode:String?
 )
 
 data class AuditLogPageParam(
@@ -184,7 +193,7 @@ data class AuditLogResponse(
     var userAgent: String?,
     var eventResultCode: String?,
     var photoUrl: String?,
-    var userPoolName: String?,
+    var userPoolName: String?
 )
 
 data class PaginatedUserActionLog(
