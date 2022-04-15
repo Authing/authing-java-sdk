@@ -680,4 +680,18 @@ class UsersManagementClient(private val client: ManagementClient) {
         }
     }
 
+
+    /**
+     * 获取用户所在租户
+     */
+    fun getUserTenants(userId: String): HttpCall<RestfulResponse<UserTenantResponse>, UserTenantResponse> {
+
+        val url = "${client.host}/api/v2/users/${userId}/tenants"
+        return client.createHttpGetCall(
+            url,
+            object : TypeToken<RestfulResponse<UserTenantResponse>> () {}
+        ) {
+            it.data
+        }
+    }
 }

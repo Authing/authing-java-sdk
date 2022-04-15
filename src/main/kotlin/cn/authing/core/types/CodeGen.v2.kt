@@ -13373,3 +13373,72 @@ query whitelist(${'$'}type: WhitelistType!) {
         var valid: Boolean? = false,
         var message: String? = null
     )
+
+
+    data class Tenant (
+
+        @SerializedName("resetPasswordByFirstLoginToken")
+        var apps: List<App>?,
+        var userPoolId: String?,
+        var name: String?,
+        var logo: String?,
+        var description: String?,
+        var ssoPageCustomizationSettings: ISsoPageCustomizationSettings?,
+        var defaultLoginTab: String?,
+        var defaultRegisterTab: String?,
+        var passwordTabConfig: ApplicationPasswordTabConfig?,
+        var verifyCodeTabConfig: ApplicationVerifyCodeTabConfig?,
+        var loginTabs: List<String>?,
+        var registerTabs: List<String>?,
+        var extendsFields: List<ExtendsField>?,
+        var autoJoin: Boolean?,
+        var rejectHint: String?
+    )
+
+    data class ApplicationPasswordTabConfig(
+        var enabledLoginMethods: List<String>?
+    )
+
+    data class ApplicationVerifyCodeTabConfig(
+        var enabledLoginMethods: List<String>?
+    )
+
+
+    data class UserTenantResponse(
+        var id: String?,
+        var arn: String?,
+        var userPoolId: String?,
+        var photo: String?,
+        var email: String?,
+        var emailVerified: Boolean?,
+        var phone: String?,
+        var phoneVerified: Boolean?,
+        var unionid: String?,
+        var openid: String?,
+        var username: String?,
+        var nickname: String?,
+        var country: String?,
+        var province: String?,
+        var company: String?,
+        var loginsCount: String?,
+        var lastIp: String?,
+        var name: String?,
+        var givenName: String?,
+        var familyName: String?,
+        var middleName: String?,
+        var profile: String?,
+        var preferredUsername: String?,
+        var website: String?,
+        var gender: String?,
+        var birthdate: String?,
+        var zoneinfo: String?,
+        var address: String?,
+        var formatted: String?,
+        var streetAddress: String?,
+        var region: String?,
+        var postalCode: String?,
+        var city: String?,
+        var blocked: Boolean?,
+        var apps: List<Application>?,
+        var tenants: List<Tenant>?
+    )
