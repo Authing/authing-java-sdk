@@ -1,8 +1,8 @@
 package dto;
 
-import dto.AccessTokenDto;
+import dto.ResourceDto;
 
-public class GetManagementTokenRespDto {
+public class ResourceListRespDto {
     /**
      * 业务状态码，可以通过此状态码判断操作是否成功，200 表示成功。
      */
@@ -16,9 +16,9 @@ public class GetManagementTokenRespDto {
      */
     private Int errorCode
     /**
-     * 数据
+     * 资源详情列表
      */
-    private AccessTokenDto data
+    private Array<ResourceDto> data
 
     public Int getCode() {
         return code;
@@ -41,10 +41,10 @@ public class GetManagementTokenRespDto {
         this.errorCode = errorCode;
     }
 
-    public AccessTokenDto getData() {
+    public Array<ResourceDto> getData() {
         return data;
     }
-    public void setData(AccessTokenDto data) {
+    public void setData(Array<ResourceDto> data) {
         this.data = data;
     }
 

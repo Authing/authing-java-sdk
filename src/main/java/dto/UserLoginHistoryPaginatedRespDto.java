@@ -1,8 +1,8 @@
 package dto;
 
-import dto.AccessTokenDto;
+import dto.UserLoginHistoryPagingDto;
 
-public class GetManagementTokenRespDto {
+public class UserLoginHistoryPaginatedRespDto {
     /**
      * 业务状态码，可以通过此状态码判断操作是否成功，200 表示成功。
      */
@@ -18,7 +18,7 @@ public class GetManagementTokenRespDto {
     /**
      * 数据
      */
-    private AccessTokenDto data
+    private UserLoginHistoryPagingDto data
 
     public Int getCode() {
         return code;
@@ -41,10 +41,10 @@ public class GetManagementTokenRespDto {
         this.errorCode = errorCode;
     }
 
-    public AccessTokenDto getData() {
+    public UserLoginHistoryPagingDto getData() {
         return data;
     }
-    public void setData(AccessTokenDto data) {
+    public void setData(UserLoginHistoryPagingDto data) {
         this.data = data;
     }
 

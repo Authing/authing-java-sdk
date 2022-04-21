@@ -1,8 +1,8 @@
 package dto;
 
-import dto.AccessTokenDto;
+import dto.IsSuccessDto;
 
-public class GetManagementTokenRespDto {
+public class IsSuccessRespDto {
     /**
      * 业务状态码，可以通过此状态码判断操作是否成功，200 表示成功。
      */
@@ -16,9 +16,9 @@ public class GetManagementTokenRespDto {
      */
     private Int errorCode
     /**
-     * 数据
+     * 操作是否成功
      */
-    private AccessTokenDto data
+    private IsSuccessDto data
 
     public Int getCode() {
         return code;
@@ -41,10 +41,10 @@ public class GetManagementTokenRespDto {
         this.errorCode = errorCode;
     }
 
-    public AccessTokenDto getData() {
+    public IsSuccessDto getData() {
         return data;
     }
-    public void setData(AccessTokenDto data) {
+    public void setData(IsSuccessDto data) {
         this.data = data;
     }
 
