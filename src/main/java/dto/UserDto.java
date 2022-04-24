@@ -80,7 +80,7 @@ public class UserDto {
     /**
      * 自定义数据，传入的对象中的 key 必须先在用户池定义相关自定义字段
      */
-    private any customData;
+    private Object customData;
 
     public String getUserId() {
         return userId;
@@ -208,10 +208,10 @@ public class UserDto {
         this.identities = identities;
     }
 
-    public any getCustomData() {
+    public Object getCustomData() {
         return customData;
     }
-    public void setCustomData(any customData) {
+    public void setCustomData(Object customData) {
         this.customData = customData;
     }
 
@@ -259,4 +259,4 @@ public class UserDto {
     }
 
 
-};
+}

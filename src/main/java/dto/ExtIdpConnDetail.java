@@ -39,7 +39,7 @@ public class ExtIdpConnDetail {
     /**
      * 自定义参数
      */
-    private any fields;
+    private Object fields;
 
     public String getId() {
         return id;
@@ -97,10 +97,10 @@ public class ExtIdpConnDetail {
         this.challengeBindingMethods = challengeBindingMethods;
     }
 
-    public any getFields() {
+    public Object getFields() {
         return fields;
     }
-    public void setFields(any fields) {
+    public void setFields(Object fields) {
         this.fields = fields;
     }
 
@@ -181,4 +181,4 @@ public class ExtIdpConnDetail {
     }
 
 
-};
+}

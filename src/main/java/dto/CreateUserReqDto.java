@@ -61,7 +61,7 @@ public class CreateUserReqDto {
     /**
      * 自定义数据，传入的对象中的 key 必须先在用户池定义相关自定义字段
      */
-    private any customData;
+    private Object customData;
     /**
      * 密码。必须通过加密方式进行加密。
      */
@@ -170,10 +170,10 @@ public class CreateUserReqDto {
         this.departmentIds = departmentIds;
     }
 
-    public any getCustomData() {
+    public Object getCustomData() {
         return customData;
     }
-    public void setCustomData(any customData) {
+    public void setCustomData(Object customData) {
         this.customData = customData;
     }
 
@@ -249,4 +249,4 @@ public class CreateUserReqDto {
     }
 
 
-};
+}

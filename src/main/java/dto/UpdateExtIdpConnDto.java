@@ -19,7 +19,7 @@ public class UpdateExtIdpConnDto {
     /**
      * 身份源连接自定义参数
      */
-    private any fields;
+    private Object fields;
     /**
      * 身份源连接显示名称
      */
@@ -54,10 +54,10 @@ public class UpdateExtIdpConnDto {
         this.logo = logo;
     }
 
-    public any getFields() {
+    public Object getFields() {
         return fields;
     }
-    public void setFields(any fields) {
+    public void setFields(Object fields) {
         this.fields = fields;
     }
 
@@ -84,4 +84,4 @@ public class UpdateExtIdpConnDto {
 
 
 
-};
+}

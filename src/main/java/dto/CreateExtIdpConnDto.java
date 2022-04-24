@@ -7,7 +7,7 @@ public class CreateExtIdpConnDto {
     /**
      * 连接的自定义配置信息
      */
-    private any fields;
+    private Object fields;
     /**
      * 身份源图标
      */
@@ -29,10 +29,10 @@ public class CreateExtIdpConnDto {
      */
     private String displayName;
 
-    public any getFields() {
+    public Object getFields() {
         return fields;
     }
-    public void setFields(any fields) {
+    public void setFields(Object fields) {
         this.fields = fields;
     }
 
@@ -128,4 +128,4 @@ public class CreateExtIdpConnDto {
     }
 
 
-};
+}
