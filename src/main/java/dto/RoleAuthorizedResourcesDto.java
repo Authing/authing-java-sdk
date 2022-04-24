@@ -15,7 +15,7 @@ public class RoleAuthorizedResourcesDto {
     /**
      * 资源类型
      */
-    private RoleAuthorizedResourcesDto.resourceType resourceType;
+    private ResourceType resourceType;
 
     public String getCode() {
         return code;
@@ -31,10 +31,10 @@ public class RoleAuthorizedResourcesDto {
         this.namespace = namespace;
     }
 
-    public RoleAuthorizedResourcesDto.resourceType getResourceType() {
+    public ResourceType getResourceType() {
         return resourceType;
     }
-    public void setResourceType(RoleAuthorizedResourcesDto.resourceType resourceType) {
+    public void setResourceType(ResourceType resourceType) {
         this.resourceType = resourceType;
     }
 
@@ -43,14 +43,15 @@ public class RoleAuthorizedResourcesDto {
      * 资源类型
      */
     public static enum ResourceType {
-        DATA('DATA'),
-        API('API'),
-        MENU('MENU'),
-        BUTTON('BUTTON'),
+        DATA("DATA"),
+        API("API"),
+        MENU("MENU"),
+        BUTTON("BUTTON"),
         ;
 
         private String value;
-        resourceType(String value) {
+
+        ResourceType(String value) {
             this.value = value;
         }
 

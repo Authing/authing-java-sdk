@@ -12,7 +12,7 @@ public class UserDto {
     /**
      * 账户当前状态
      */
-    private UserDto.status status;
+    private Status status;
     /**
      * 邮箱
      */
@@ -56,7 +56,7 @@ public class UserDto {
     /**
      * 性别
      */
-    private UserDto.gender gender;
+    private Gender gender;
     /**
      * 邮箱是否验证
      */
@@ -89,10 +89,10 @@ public class UserDto {
         this.userId = userId;
     }
 
-    public UserDto.status getStatus() {
+    public Status getStatus() {
         return status;
     }
-    public void setStatus(UserDto.status status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
@@ -166,10 +166,10 @@ public class UserDto {
         this.lastIp = lastIp;
     }
 
-    public UserDto.gender getGender() {
+    public Gender getGender() {
         return gender;
     }
-    public void setGender(UserDto.gender gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
@@ -220,15 +220,16 @@ public class UserDto {
      * 账户当前状态
      */
     public static enum Status {
-        DELETED('Deleted'),
-        SUSPENDED('Suspended'),
-        RESIGNED('Resigned'),
-        ACTIVATED('Activated'),
-        ARCHIVED('Archived'),
+        DELETED("Deleted"),
+        SUSPENDED("Suspended"),
+        RESIGNED("Resigned"),
+        ACTIVATED("Activated"),
+        ARCHIVED("Archived"),
         ;
 
         private String value;
-        status(String value) {
+
+        Status(String value) {
             this.value = value;
         }
 
@@ -241,13 +242,14 @@ public class UserDto {
      * 性别
      */
     public static enum Gender {
-        M('M'),
-        W('W'),
-        U('U'),
+        M("M"),
+        W("W"),
+        U("U"),
         ;
 
         private String value;
-        gender(String value) {
+
+        Gender(String value) {
             this.value = value;
         }
 

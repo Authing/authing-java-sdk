@@ -11,7 +11,7 @@ public class AuthorizedResourceDto {
     /**
      * 资源类型
      */
-    private AuthorizedResourceDto.resourceType resourceType;
+    private ResourceType resourceType;
     /**
      * 被授权的资源的操作列表
      */
@@ -28,10 +28,10 @@ public class AuthorizedResourceDto {
         this.resourceCode = resourceCode;
     }
 
-    public AuthorizedResourceDto.resourceType getResourceType() {
+    public ResourceType getResourceType() {
         return resourceType;
     }
-    public void setResourceType(AuthorizedResourceDto.resourceType resourceType) {
+    public void setResourceType(ResourceType resourceType) {
         this.resourceType = resourceType;
     }
 
@@ -54,14 +54,15 @@ public class AuthorizedResourceDto {
      * 资源类型
      */
     public static enum ResourceType {
-        DATA('DATA'),
-        API('API'),
-        MENU('MENU'),
-        BUTTON('BUTTON'),
+        DATA("DATA"),
+        API("API"),
+        MENU("MENU"),
+        BUTTON("BUTTON"),
         ;
 
         private String value;
-        resourceType(String value) {
+
+        ResourceType(String value) {
             this.value = value;
         }
 

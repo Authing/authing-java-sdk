@@ -12,7 +12,7 @@ public class UpdateResourceDto {
     /**
      * 资源类型，如数据、API、按钮、菜单
      */
-    private UpdateResourceDto.type type;
+    private Type type;
     /**
      * 资源唯一标志符
      */
@@ -37,10 +37,10 @@ public class UpdateResourceDto {
         this.actions = actions;
     }
 
-    public UpdateResourceDto.type getType() {
+    public Type getType() {
         return type;
     }
-    public void setType(UpdateResourceDto.type type) {
+    public void setType(Type type) {
         this.type = type;
     }
 
@@ -77,14 +77,15 @@ public class UpdateResourceDto {
      * 资源类型，如数据、API、按钮、菜单
      */
     public static enum Type {
-        DATA('DATA'),
-        API('API'),
-        MENU('MENU'),
-        BUTTON('BUTTON'),
+        DATA("DATA"),
+        API("API"),
+        MENU("MENU"),
+        BUTTON("BUTTON"),
         ;
 
         private String value;
-        type(String value) {
+
+        Type(String value) {
             this.value = value;
         }
 

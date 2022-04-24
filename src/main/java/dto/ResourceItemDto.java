@@ -15,7 +15,7 @@ public class ResourceItemDto {
     /**
      * 资源类型，如数据、API、按钮、菜单
      */
-    private ResourceItemDto.resourceType resourceType;
+    private ResourceType resourceType;
 
     public String getCode() {
         return code;
@@ -31,10 +31,10 @@ public class ResourceItemDto {
         this.actions = actions;
     }
 
-    public ResourceItemDto.resourceType getResourceType() {
+    public ResourceType getResourceType() {
         return resourceType;
     }
-    public void setResourceType(ResourceItemDto.resourceType resourceType) {
+    public void setResourceType(ResourceType resourceType) {
         this.resourceType = resourceType;
     }
 
@@ -43,14 +43,15 @@ public class ResourceItemDto {
      * 资源类型，如数据、API、按钮、菜单
      */
     public static enum ResourceType {
-        DATA('DATA'),
-        API('API'),
-        MENU('MENU'),
-        BUTTON('BUTTON'),
+        DATA("DATA"),
+        API("API"),
+        MENU("MENU"),
+        BUTTON("BUTTON"),
         ;
 
         private String value;
-        resourceType(String value) {
+
+        ResourceType(String value) {
             this.value = value;
         }
 

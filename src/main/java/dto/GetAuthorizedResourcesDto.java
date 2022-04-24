@@ -11,7 +11,7 @@ public class GetAuthorizedResourcesDto {
     /**
      * 目标对象类型
      */
-    private GetAuthorizedResourcesDto.targetType targetType;
+    private TargetType targetType;
     /**
      * 所属权限分组的 code
      */
@@ -19,7 +19,7 @@ public class GetAuthorizedResourcesDto {
     /**
      * 资源类型，如数据、API、按钮、菜单
      */
-    private GetAuthorizedResourcesDto.resourceType resourceType;
+    private ResourceType resourceType;
 
     public String getTargetIdentifier() {
         return targetIdentifier;
@@ -28,10 +28,10 @@ public class GetAuthorizedResourcesDto {
         this.targetIdentifier = targetIdentifier;
     }
 
-    public GetAuthorizedResourcesDto.targetType getTargetType() {
+    public TargetType getTargetType() {
         return targetType;
     }
-    public void setTargetType(GetAuthorizedResourcesDto.targetType targetType) {
+    public void setTargetType(TargetType targetType) {
         this.targetType = targetType;
     }
 
@@ -42,10 +42,10 @@ public class GetAuthorizedResourcesDto {
         this.namespace = namespace;
     }
 
-    public GetAuthorizedResourcesDto.resourceType getResourceType() {
+    public ResourceType getResourceType() {
         return resourceType;
     }
-    public void setResourceType(GetAuthorizedResourcesDto.resourceType resourceType) {
+    public void setResourceType(ResourceType resourceType) {
         this.resourceType = resourceType;
     }
 
@@ -54,14 +54,15 @@ public class GetAuthorizedResourcesDto {
      * 目标对象类型
      */
     public static enum TargetType {
-        USER('USER'),
-        ROLE('ROLE'),
-        GROUP('GROUP'),
-        DEPARTMENT('DEPARTMENT'),
+        USER("USER"),
+        ROLE("ROLE"),
+        GROUP("GROUP"),
+        DEPARTMENT("DEPARTMENT"),
         ;
 
         private String value;
-        targetType(String value) {
+
+        TargetType(String value) {
             this.value = value;
         }
 
@@ -74,14 +75,15 @@ public class GetAuthorizedResourcesDto {
      * 资源类型，如数据、API、按钮、菜单
      */
     public static enum ResourceType {
-        DATA('DATA'),
-        API('API'),
-        MENU('MENU'),
-        BUTTON('BUTTON'),
+        DATA("DATA"),
+        API("API"),
+        MENU("MENU"),
+        BUTTON("BUTTON"),
         ;
 
         private String value;
-        resourceType(String value) {
+
+        ResourceType(String value) {
             this.value = value;
         }
 

@@ -8,7 +8,7 @@ public class AuthorizeResourceItem {
     /**
      * 目标对象类型
      */
-    private AuthorizeResourceItem.targetType targetType;
+    private TargetType targetType;
     /**
      * 目标对象唯一标志符
      */
@@ -18,10 +18,10 @@ public class AuthorizeResourceItem {
      */
     private List<ResourceItemDto> resources;
 
-    public AuthorizeResourceItem.targetType getTargetType() {
+    public TargetType getTargetType() {
         return targetType;
     }
-    public void setTargetType(AuthorizeResourceItem.targetType targetType) {
+    public void setTargetType(TargetType targetType) {
         this.targetType = targetType;
     }
 
@@ -44,14 +44,15 @@ public class AuthorizeResourceItem {
      * 目标对象类型
      */
     public static enum TargetType {
-        USER('USER'),
-        ROLE('ROLE'),
-        GROUP('GROUP'),
-        DEPARTMENT('DEPARTMENT'),
+        USER("USER"),
+        ROLE("ROLE"),
+        GROUP("GROUP"),
+        DEPARTMENT("DEPARTMENT"),
         ;
 
         private String value;
-        targetType(String value) {
+
+        TargetType(String value) {
             this.value = value;
         }
 

@@ -31,7 +31,7 @@ public class UpdateExtIdpConnDto {
     /**
      * 绑定方式
      */
-    private List<'email-password' | 'username-password' | 'phone-password' | 'phone-code' | 'email-code'> challengeBindingMethods;
+    private List<> challengeBindingMethods;
 
     public Boolean getLoginOnly() {
         return loginOnly;
@@ -75,10 +75,10 @@ public class UpdateExtIdpConnDto {
         this.id = id;
     }
 
-    public List<'email-password' | 'username-password' | 'phone-password' | 'phone-code' | 'email-code'> getChallengeBindingMethods() {
+    public List<> getChallengeBindingMethods() {
         return challengeBindingMethods;
     }
-    public void setChallengeBindingMethods(List<'email-password' | 'username-password' | 'phone-password' | 'phone-code' | 'email-code'> challengeBindingMethods) {
+    public void setChallengeBindingMethods(List<> challengeBindingMethods) {
         this.challengeBindingMethods = challengeBindingMethods;
     }
 

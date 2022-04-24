@@ -12,7 +12,7 @@ public class ListResourcesDto {
     /**
      * 资源类型
      */
-    private ListResourcesDto.type type;
+    private Type type;
     /**
      * 可选参数
      */
@@ -25,10 +25,10 @@ public class ListResourcesDto {
         this.namespace = namespace;
     }
 
-    public ListResourcesDto.type getType() {
+    public Type getType() {
         return type;
     }
-    public void setType(ListResourcesDto.type type) {
+    public void setType(Type type) {
         this.type = type;
     }
 
@@ -44,14 +44,15 @@ public class ListResourcesDto {
      * 资源类型
      */
     public static enum Type {
-        DATA('DATA'),
-        API('API'),
-        MENU('MENU'),
-        BUTTON('BUTTON'),
+        DATA("DATA"),
+        API("API"),
+        MENU("MENU"),
+        BUTTON("BUTTON"),
         ;
 
         private String value;
-        type(String value) {
+
+        Type(String value) {
             this.value = value;
         }
 

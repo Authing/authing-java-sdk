@@ -8,11 +8,11 @@ public class SetCustomFieldDto {
     /**
      * 主体类型，目前支持用户和角色
      */
-    private SetCustomFieldDto.targetType targetType;
+    private TargetType targetType;
     /**
      * 数据类型
      */
-    private SetCustomFieldDto.dataType dataType;
+    private DataType dataType;
     /**
      * 字段 key，不能和用户内置字段的 key 冲突
      */
@@ -34,17 +34,17 @@ public class SetCustomFieldDto {
      */
     private List<CustomFieldSelectOption> options;
 
-    public SetCustomFieldDto.targetType getTargetType() {
+    public TargetType getTargetType() {
         return targetType;
     }
-    public void setTargetType(SetCustomFieldDto.targetType targetType) {
+    public void setTargetType(TargetType targetType) {
         this.targetType = targetType;
     }
 
-    public SetCustomFieldDto.dataType getDataType() {
+    public DataType getDataType() {
         return dataType;
     }
-    public void setDataType(SetCustomFieldDto.dataType dataType) {
+    public void setDataType(DataType dataType) {
         this.dataType = dataType;
     }
 
@@ -88,12 +88,13 @@ public class SetCustomFieldDto {
      * 主体类型，目前支持用户和角色
      */
     public static enum TargetType {
-        USER('USER'),
-        ROLE('ROLE'),
+        USER("USER"),
+        ROLE("ROLE"),
         ;
 
         private String value;
-        targetType(String value) {
+
+        TargetType(String value) {
             this.value = value;
         }
 
@@ -106,15 +107,16 @@ public class SetCustomFieldDto {
      * 数据类型
      */
     public static enum DataType {
-        STRING('STRING'),
-        NUMBER('NUMBER'),
-        DATETIME('DATETIME'),
-        BOOLEAN('BOOLEAN'),
-        SELECT('SELECT'),
+        STRING("STRING"),
+        NUMBER("NUMBER"),
+        DATETIME("DATETIME"),
+        BOOLEAN("BOOLEAN"),
+        SELECT("SELECT"),
         ;
 
         private String value;
-        dataType(String value) {
+
+        DataType(String value) {
             this.value = value;
         }
 

@@ -7,12 +7,12 @@ public class GetUserDefinedFieldsDto {
     /**
      * 主体类型，目前支持用户和角色
      */
-    private GetUserDefinedFieldsDto.targetType targetType;
+    private TargetType targetType;
 
-    public GetUserDefinedFieldsDto.targetType getTargetType() {
+    public TargetType getTargetType() {
         return targetType;
     }
-    public void setTargetType(GetUserDefinedFieldsDto.targetType targetType) {
+    public void setTargetType(TargetType targetType) {
         this.targetType = targetType;
     }
 
@@ -21,12 +21,13 @@ public class GetUserDefinedFieldsDto {
      * 主体类型，目前支持用户和角色
      */
     public static enum TargetType {
-        USER('USER'),
-        ROLE('ROLE'),
+        USER("USER"),
+        ROLE("ROLE"),
         ;
 
         private String value;
-        targetType(String value) {
+
+        TargetType(String value) {
             this.value = value;
         }
 

@@ -16,7 +16,7 @@ public class CreateResourceBatchItemDto {
     /**
      * 资源类型，如数据、API、按钮、菜单
      */
-    private CreateResourceBatchItemDto.type type;
+    private Type type;
     /**
      * 资源定义的操作类型
      */
@@ -40,10 +40,10 @@ public class CreateResourceBatchItemDto {
         this.description = description;
     }
 
-    public CreateResourceBatchItemDto.type getType() {
+    public Type getType() {
         return type;
     }
-    public void setType(CreateResourceBatchItemDto.type type) {
+    public void setType(Type type) {
         this.type = type;
     }
 
@@ -66,14 +66,15 @@ public class CreateResourceBatchItemDto {
      * 资源类型，如数据、API、按钮、菜单
      */
     public static enum Type {
-        DATA('DATA'),
-        API('API'),
-        MENU('MENU'),
-        BUTTON('BUTTON'),
+        DATA("DATA"),
+        API("API"),
+        MENU("MENU"),
+        BUTTON("BUTTON"),
         ;
 
         private String value;
-        type(String value) {
+
+        Type(String value) {
             this.value = value;
         }
 

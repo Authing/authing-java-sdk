@@ -8,7 +8,7 @@ public class CreateUserInfoDto {
     /**
      * 账户当前状态
      */
-    private CreateUserInfoDto.status status;
+    private Status status;
     /**
      * 邮箱
      */
@@ -40,7 +40,7 @@ public class CreateUserInfoDto {
     /**
      * 性别
      */
-    private CreateUserInfoDto.gender gender;
+    private Gender gender;
     /**
      * 邮箱是否验证
      */
@@ -74,10 +74,10 @@ public class CreateUserInfoDto {
      */
     private List<CreateIdentityDto> identities;
 
-    public CreateUserInfoDto.status getStatus() {
+    public Status getStatus() {
         return status;
     }
-    public void setStatus(CreateUserInfoDto.status status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
@@ -130,10 +130,10 @@ public class CreateUserInfoDto {
         this.photo = photo;
     }
 
-    public CreateUserInfoDto.gender getGender() {
+    public Gender getGender() {
         return gender;
     }
-    public void setGender(CreateUserInfoDto.gender gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
@@ -198,15 +198,16 @@ public class CreateUserInfoDto {
      * 账户当前状态
      */
     public static enum Status {
-        DELETED('Deleted'),
-        SUSPENDED('Suspended'),
-        RESIGNED('Resigned'),
-        ACTIVATED('Activated'),
-        ARCHIVED('Archived'),
+        DELETED("Deleted"),
+        SUSPENDED("Suspended"),
+        RESIGNED("Resigned"),
+        ACTIVATED("Activated"),
+        ARCHIVED("Archived"),
         ;
 
         private String value;
-        status(String value) {
+
+        Status(String value) {
             this.value = value;
         }
 
@@ -219,13 +220,14 @@ public class CreateUserInfoDto {
      * 性别
      */
     public static enum Gender {
-        M('M'),
-        W('W'),
-        U('U'),
+        M("M"),
+        W("W"),
+        U("U"),
         ;
 
         private String value;
-        gender(String value) {
+
+        Gender(String value) {
             this.value = value;
         }
 

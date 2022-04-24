@@ -8,7 +8,7 @@ public class CustomFieldDto {
     /**
      * 主体类型，目前支持用户和角色
      */
-    private CustomFieldDto.targetType targetType;
+    private TargetType targetType;
     /**
      * 创建时间
      */
@@ -16,7 +16,7 @@ public class CustomFieldDto {
     /**
      * 数据类型
      */
-    private CustomFieldDto.dataType dataType;
+    private DataType dataType;
     /**
      * 字段 key，不能和用户内置字段的 key 冲突
      */
@@ -38,10 +38,10 @@ public class CustomFieldDto {
      */
     private List<CustomFieldSelectOption> options;
 
-    public CustomFieldDto.targetType getTargetType() {
+    public TargetType getTargetType() {
         return targetType;
     }
-    public void setTargetType(CustomFieldDto.targetType targetType) {
+    public void setTargetType(TargetType targetType) {
         this.targetType = targetType;
     }
 
@@ -52,10 +52,10 @@ public class CustomFieldDto {
         this.createdAt = createdAt;
     }
 
-    public CustomFieldDto.dataType getDataType() {
+    public DataType getDataType() {
         return dataType;
     }
-    public void setDataType(CustomFieldDto.dataType dataType) {
+    public void setDataType(DataType dataType) {
         this.dataType = dataType;
     }
 
@@ -99,12 +99,13 @@ public class CustomFieldDto {
      * 主体类型，目前支持用户和角色
      */
     public static enum TargetType {
-        USER('USER'),
-        ROLE('ROLE'),
+        USER("USER"),
+        ROLE("ROLE"),
         ;
 
         private String value;
-        targetType(String value) {
+
+        TargetType(String value) {
             this.value = value;
         }
 
@@ -117,15 +118,16 @@ public class CustomFieldDto {
      * 数据类型
      */
     public static enum DataType {
-        STRING('STRING'),
-        NUMBER('NUMBER'),
-        DATETIME('DATETIME'),
-        BOOLEAN('BOOLEAN'),
-        SELECT('SELECT'),
+        STRING("STRING"),
+        NUMBER("NUMBER"),
+        DATETIME("DATETIME"),
+        BOOLEAN("BOOLEAN"),
+        SELECT("SELECT"),
         ;
 
         private String value;
-        dataType(String value) {
+
+        DataType(String value) {
             this.value = value;
         }
 

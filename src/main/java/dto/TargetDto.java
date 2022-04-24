@@ -7,16 +7,16 @@ public class TargetDto {
     /**
      * 目标类型，接受用户，部门
      */
-    private TargetDto.targetType targetType;
+    private TargetType targetType;
     /**
      * 目标的 ID
      */
     private String targetIdentifier;
 
-    public TargetDto.targetType getTargetType() {
+    public TargetType getTargetType() {
         return targetType;
     }
-    public void setTargetType(TargetDto.targetType targetType) {
+    public void setTargetType(TargetType targetType) {
         this.targetType = targetType;
     }
 
@@ -32,14 +32,15 @@ public class TargetDto {
      * 目标类型，接受用户，部门
      */
     public static enum TargetType {
-        USER('USER'),
-        ROLE('ROLE'),
-        GROUP('GROUP'),
-        DEPARTMENT('DEPARTMENT'),
+        USER("USER"),
+        ROLE("ROLE"),
+        GROUP("GROUP"),
+        DEPARTMENT("DEPARTMENT"),
         ;
 
         private String value;
-        targetType(String value) {
+
+        TargetType(String value) {
             this.value = value;
         }
 

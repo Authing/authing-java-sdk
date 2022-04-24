@@ -16,7 +16,7 @@ public class ResourceDto {
     /**
      * 资源类型，如数据、API、按钮、菜单
      */
-    private ResourceDto.type type;
+    private Type type;
     /**
      * 资源定义的操作类型
      */
@@ -44,10 +44,10 @@ public class ResourceDto {
         this.description = description;
     }
 
-    public ResourceDto.type getType() {
+    public Type getType() {
         return type;
     }
-    public void setType(ResourceDto.type type) {
+    public void setType(Type type) {
         this.type = type;
     }
 
@@ -77,14 +77,15 @@ public class ResourceDto {
      * 资源类型，如数据、API、按钮、菜单
      */
     public static enum Type {
-        DATA('DATA'),
-        API('API'),
-        MENU('MENU'),
-        BUTTON('BUTTON'),
+        DATA("DATA"),
+        API("API"),
+        MENU("MENU"),
+        BUTTON("BUTTON"),
         ;
 
         private String value;
-        type(String value) {
+
+        Type(String value) {
             this.value = value;
         }
 

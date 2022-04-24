@@ -23,7 +23,7 @@ public class AppDto {
     /**
      * App 默认的登录策略
      */
-    private AppDto.appDefaultLoginStrategy appDefaultLoginStrategy;
+    private AppDefaultLoginStrategy appDefaultLoginStrategy;
 
     public String getAppId() {
         return appId;
@@ -53,10 +53,10 @@ public class AppDto {
         this.appLoginUrl = appLoginUrl;
     }
 
-    public AppDto.appDefaultLoginStrategy getAppDefaultLoginStrategy() {
+    public AppDefaultLoginStrategy getAppDefaultLoginStrategy() {
         return appDefaultLoginStrategy;
     }
-    public void setAppDefaultLoginStrategy(AppDto.appDefaultLoginStrategy appDefaultLoginStrategy) {
+    public void setAppDefaultLoginStrategy(AppDefaultLoginStrategy appDefaultLoginStrategy) {
         this.appDefaultLoginStrategy = appDefaultLoginStrategy;
     }
 
@@ -65,12 +65,13 @@ public class AppDto {
      * App 默认的登录策略
      */
     public static enum AppDefaultLoginStrategy {
-        ALLOW_ALL('ALLOW_ALL'),
-        DENY_ALL('DENY_ALL'),
+        ALLOW_ALL("ALLOW_ALL"),
+        DENY_ALL("DENY_ALL"),
         ;
 
         private String value;
-        appDefaultLoginStrategy(String value) {
+
+        AppDefaultLoginStrategy(String value) {
             this.value = value;
         }
 

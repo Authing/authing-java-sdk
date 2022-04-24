@@ -15,7 +15,7 @@ public class UpdateUserReqDto {
     /**
      * 性别
      */
-    private UpdateUserReqDto.gender gender;
+    private Gender gender;
     /**
      * 用户 ID
      */
@@ -75,10 +75,10 @@ public class UpdateUserReqDto {
         this.emailVerified = emailVerified;
     }
 
-    public UpdateUserReqDto.gender getGender() {
+    public Gender getGender() {
         return gender;
     }
-    public void setGender(UpdateUserReqDto.gender gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
@@ -164,13 +164,14 @@ public class UpdateUserReqDto {
      * 性别
      */
     public static enum Gender {
-        M('M'),
-        W('W'),
-        U('U'),
+        M("M"),
+        W("W"),
+        U("U"),
         ;
 
         private String value;
-        gender(String value) {
+
+        Gender(String value) {
             this.value = value;
         }
 
