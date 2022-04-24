@@ -7,12 +7,12 @@ public class DeleteUsersBatchDto {
     /**
      * 用户 ID 列表
      */
-    private List<string> userIds;
+    private List<String> userIds;
 
-    public List<string> getUserIds() {
+    public List<String> getUserIds() {
         return userIds;
     }
-    public void setUserIds(List<string> userIds) {
+    public void setUserIds(List<String> userIds) {
         this.userIds = userIds;
     }
 

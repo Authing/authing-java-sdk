@@ -11,7 +11,7 @@ public class ResourceItemDto {
     /**
      * 资源定义的操作类型
      */
-    private List<string> actions;
+    private List<String> actions;
     /**
      * 资源类型，如数据、API、按钮、菜单
      */
@@ -24,10 +24,10 @@ public class ResourceItemDto {
         this.code = code;
     }
 
-    public List<string> getActions() {
+    public List<String> getActions() {
         return actions;
     }
-    public void setActions(List<string> actions) {
+    public void setActions(List<String> actions) {
         this.actions = actions;
     }
 

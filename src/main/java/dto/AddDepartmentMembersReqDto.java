@@ -15,7 +15,7 @@ public class AddDepartmentMembersReqDto {
     /**
      * 用户 ID 列表
      */
-    private List<string> userIds;
+    private List<String> userIds;
 
     public String getDepartmentId() {
         return departmentId;
@@ -31,10 +31,10 @@ public class AddDepartmentMembersReqDto {
         this.organizationCode = organizationCode;
     }
 
-    public List<string> getUserIds() {
+    public List<String> getUserIds() {
         return userIds;
     }
-    public void setUserIds(List<string> userIds) {
+    public void setUserIds(List<String> userIds) {
         this.userIds = userIds;
     }
 

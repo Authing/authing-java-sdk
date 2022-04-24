@@ -12,7 +12,7 @@ public class AuthorizeResourceItem {
     /**
      * 目标对象唯一标志符
      */
-    private List<string> targetIdentifiers;
+    private List<String> targetIdentifiers;
     /**
      * 授权的资源列表
      */
@@ -25,10 +25,10 @@ public class AuthorizeResourceItem {
         this.targetType = targetType;
     }
 
-    public List<string> getTargetIdentifiers() {
+    public List<String> getTargetIdentifiers() {
         return targetIdentifiers;
     }
-    public void setTargetIdentifiers(List<string> targetIdentifiers) {
+    public void setTargetIdentifiers(List<String> targetIdentifiers) {
         this.targetIdentifiers = targetIdentifiers;
     }
 

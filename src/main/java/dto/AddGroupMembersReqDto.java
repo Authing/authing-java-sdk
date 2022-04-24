@@ -7,16 +7,16 @@ public class AddGroupMembersReqDto {
     /**
      * 用户 ID 数组
      */
-    private List<string> userIds;
+    private List<String> userIds;
     /**
      * 分组 code
      */
     private String code;
 
-    public List<string> getUserIds() {
+    public List<String> getUserIds() {
         return userIds;
     }
-    public void setUserIds(List<string> userIds) {
+    public void setUserIds(List<String> userIds) {
         this.userIds = userIds;
     }
 

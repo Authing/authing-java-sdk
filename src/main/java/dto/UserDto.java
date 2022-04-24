@@ -72,7 +72,7 @@ public class UserDto {
     /**
      * 用户所属部门 ID 列表
      */
-    private List<string> departmentIds;
+    private List<String> departmentIds;
     /**
      * 外部身份源
      */
@@ -194,10 +194,10 @@ public class UserDto {
         this.externalId = externalId;
     }
 
-    public List<string> getDepartmentIds() {
+    public List<String> getDepartmentIds() {
         return departmentIds;
     }
-    public void setDepartmentIds(List<string> departmentIds) {
+    public void setDepartmentIds(List<String> departmentIds) {
         this.departmentIds = departmentIds;
     }
 

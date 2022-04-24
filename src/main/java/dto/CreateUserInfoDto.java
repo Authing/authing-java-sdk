@@ -56,7 +56,7 @@ public class CreateUserInfoDto {
     /**
      * 用户所属部门 ID 列表
      */
-    private List<string> departmentIds;
+    private List<String> departmentIds;
     /**
      * 自定义数据，传入的对象中的 key 必须先在用户池定义相关自定义字段
      */
@@ -68,7 +68,7 @@ public class CreateUserInfoDto {
     /**
      * 租户 ID
      */
-    private List<string> tenantIds;
+    private List<String> tenantIds;
     /**
      * 第三方身份源（建议调用绑定接口进行绑定）
      */
@@ -158,10 +158,10 @@ public class CreateUserInfoDto {
         this.externalId = externalId;
     }
 
-    public List<string> getDepartmentIds() {
+    public List<String> getDepartmentIds() {
         return departmentIds;
     }
-    public void setDepartmentIds(List<string> departmentIds) {
+    public void setDepartmentIds(List<String> departmentIds) {
         this.departmentIds = departmentIds;
     }
 
@@ -179,10 +179,10 @@ public class CreateUserInfoDto {
         this.password = password;
     }
 
-    public List<string> getTenantIds() {
+    public List<String> getTenantIds() {
         return tenantIds;
     }
-    public void setTenantIds(List<string> tenantIds) {
+    public void setTenantIds(List<String> tenantIds) {
         this.tenantIds = tenantIds;
     }
 

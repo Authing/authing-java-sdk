@@ -7,16 +7,16 @@ public class DeleteResourcesBatchDto {
     /**
      * 资源 code 列表
      */
-    private List<string> codeList;
+    private List<String> codeList;
     /**
      * 所属权限分组的 code
      */
     private String namespace;
 
-    public List<string> getCodeList() {
+    public List<String> getCodeList() {
         return codeList;
     }
-    public void setCodeList(List<string> codeList) {
+    public void setCodeList(List<String> codeList) {
         this.codeList = codeList;
     }
 

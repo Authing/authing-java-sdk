@@ -7,12 +7,12 @@ public class CreateRolesBatch {
     /**
      * 角色列表
      */
-    private List<string> list;
+    private List<String> list;
 
-    public List<string> getList() {
+    public List<String> getList() {
         return list;
     }
-    public void setList(List<string> list) {
+    public void setList(List<String> list) {
         this.list = list;
     }
 

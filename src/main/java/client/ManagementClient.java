@@ -183,13 +183,13 @@ public class ManagementClient extends BaseClient {
         return deserialize(response, IdentityListRespDto.class);
     }
 
-    public any getUserCustomData(GetUserCustomDataDto reqDto) {
+    public Object getUserCustomData(GetUserCustomDataDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-user-custom-data");
         config.setBody(reqDto);
         config.setMethod("POST");
         String response = request(config);
-        return deserialize(response, any.class);
+        return deserialize(response, Object.class);
     }
 
     public SetUserCustomDataRespDto setUserCustomData(SetUserCustomDataDto reqDto) {
@@ -687,13 +687,13 @@ public class ManagementClient extends BaseClient {
         return deserialize(response, UserListRespDto.class);
     }
 
-    public any listDepartmentMemberIds(ListChildrenDepartmentsReqDto reqDto) {
+    public Object listDepartmentMemberIds(ListChildrenDepartmentsReqDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/list-department-member-ids");
         config.setBody(reqDto);
         config.setMethod("POST");
         String response = request(config);
-        return deserialize(response, any.class);
+        return deserialize(response, Object.class);
     }
 
     public IsSuccessRespDto addDepartmentMembers(AddDepartmentMembersReqDto reqDto) {

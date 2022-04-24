@@ -15,7 +15,7 @@ public class AuthorizedResourceDto {
     /**
      * 被授权的资源的操作列表
      */
-    private List<string> actions;
+    private List<String> actions;
     /**
      * 资源对应的 API Identifier
      */
@@ -35,10 +35,10 @@ public class AuthorizedResourceDto {
         this.resourceType = resourceType;
     }
 
-    public List<string> getActions() {
+    public List<String> getActions() {
         return actions;
     }
-    public void setActions(List<string> actions) {
+    public void setActions(List<String> actions) {
         this.actions = actions;
     }
 

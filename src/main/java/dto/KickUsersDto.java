@@ -7,16 +7,16 @@ public class KickUsersDto {
     /**
      * APP ID 集合
      */
-    private List<string> appIds;
+    private List<String> appIds;
     /**
      * 用户 ID
      */
     private String userId;
 
-    public List<string> getAppIds() {
+    public List<String> getAppIds() {
         return appIds;
     }
-    public void setAppIds(List<string> appIds) {
+    public void setAppIds(List<String> appIds) {
         this.appIds = appIds;
     }
 

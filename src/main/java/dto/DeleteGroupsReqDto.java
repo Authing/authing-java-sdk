@@ -7,12 +7,12 @@ public class DeleteGroupsReqDto {
     /**
      * 分组 code 列表
      */
-    private List<string> codeList;
+    private List<String> codeList;
 
-    public List<string> getCodeList() {
+    public List<String> getCodeList() {
         return codeList;
     }
-    public void setCodeList(List<string> codeList) {
+    public void setCodeList(List<String> codeList) {
         this.codeList = codeList;
     }
 
