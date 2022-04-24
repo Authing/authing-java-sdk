@@ -1,16 +1,18 @@
 package dto;
 
+import java.util.List;
+
 import dto.GetUserAuthorizedResourcesOptionsDto;
 
 public class GetUserAuthorizedResourcesDto {
     /**
      * 用户 ID
      */
-    private String userId
+    private String userId;
     /**
      * 可选参数
      */
-    private GetUserAuthorizedResourcesOptionsDto options
+    private GetUserAuthorizedResourcesOptionsDto options;
 
     public String getUserId() {
         return userId;
@@ -25,5 +27,7 @@ public class GetUserAuthorizedResourcesDto {
     public void setOptions(GetUserAuthorizedResourcesOptionsDto options) {
         this.options = options;
     }
+
+
 
 };

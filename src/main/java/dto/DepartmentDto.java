@@ -1,35 +1,37 @@
 package dto;
 
+import java.util.List;
+
 
 public class DepartmentDto {
     /**
      * 部门 ID
      */
-    private String departmentId
+    private String departmentId;
     /**
      * 父部门 id
      */
-    private String parentDepartmentId
+    private String parentDepartmentId;
     /**
      * 部门名称
      */
-    private String name
+    private String name;
     /**
      * 部门描述
      */
-    private String description
+    private String description;
     /**
      * 部门识别码
      */
-    private String code
+    private String code;
     /**
      * 部门负责人 ID
      */
-    private String leaderUserId
+    private String leaderUserId;
     /**
      * 部门人数
      */
-    private Int membersCount
+    private Integer membersCount;
 
     public String getDepartmentId() {
         return departmentId;
@@ -73,11 +75,13 @@ public class DepartmentDto {
         this.leaderUserId = leaderUserId;
     }
 
-    public Int getMembersCount() {
+    public Integer getMembersCount() {
         return membersCount;
     }
-    public void setMembersCount(Int membersCount) {
+    public void setMembersCount(Integer membersCount) {
         this.membersCount = membersCount;
     }
+
+
 
 };

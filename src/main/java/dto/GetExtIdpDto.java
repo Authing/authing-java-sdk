@@ -1,15 +1,17 @@
 package dto;
 
+import java.util.List;
+
 
 public class GetExtIdpDto {
     /**
      * 身份源 id
      */
-    private String id
+    private String id;
     /**
      * 租户 ID
      */
-    private String tenantId
+    private String tenantId;
 
     public String getId() {
         return id;
@@ -24,5 +26,7 @@ public class GetExtIdpDto {
     public void setTenantId(String tenantId) {
         this.tenantId = tenantId;
     }
+
+
 
 };

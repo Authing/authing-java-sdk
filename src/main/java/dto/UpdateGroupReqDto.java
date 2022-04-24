@@ -1,23 +1,25 @@
 package dto;
 
+import java.util.List;
+
 
 public class UpdateGroupReqDto {
     /**
      * 分组新的 code
      */
-    private String newCode
+    private String newCode;
     /**
      * 分组描述
      */
-    private String description
+    private String description;
     /**
      * 分组名称
      */
-    private String name
+    private String name;
     /**
      * 分组 code
      */
-    private String code
+    private String code;
 
     public String getNewCode() {
         return newCode;
@@ -46,5 +48,7 @@ public class UpdateGroupReqDto {
     public void setCode(String code) {
         this.code = code;
     }
+
+
 
 };

@@ -1,20 +1,22 @@
 package dto;
 
+import java.util.List;
+
 import dto.ListRoleDepartmentOptionsDto;
 
 public class ListRoleDepartmentDto {
     /**
      * 部门唯一标识符
      */
-    private String code
+    private String code;
     /**
      * 权限分组的 code
      */
-    private String namespace
+    private String namespace;
     /**
      * 可选参数
      */
-    private ListRoleDepartmentOptionsDto options
+    private ListRoleDepartmentOptionsDto options;
 
     public String getCode() {
         return code;
@@ -36,5 +38,7 @@ public class ListRoleDepartmentDto {
     public void setOptions(ListRoleDepartmentOptionsDto options) {
         this.options = options;
     }
+
+
 
 };

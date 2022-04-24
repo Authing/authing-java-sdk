@@ -1,31 +1,33 @@
 package dto;
 
+import java.util.List;
+
 
 public class UpdateDepartmentReqDto {
     /**
      * 组织 code
      */
-    private String organizationCode
+    private String organizationCode;
     /**
      * 部门名称
      */
-    private String name
+    private String name;
     /**
      * 父部门 id
      */
-    private String parentDepartmentId
+    private String parentDepartmentId;
     /**
      * 部门 ID
      */
-    private String departmentId
+    private String departmentId;
     /**
      * 部门识别码
      */
-    private String code
+    private String code;
     /**
      * 部门负责人 ID
      */
-    private String leaderUserId
+    private String leaderUserId;
 
     public String getOrganizationCode() {
         return organizationCode;
@@ -68,5 +70,7 @@ public class UpdateDepartmentReqDto {
     public void setLeaderUserId(String leaderUserId) {
         this.leaderUserId = leaderUserId;
     }
+
+
 
 };

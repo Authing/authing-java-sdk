@@ -1,16 +1,18 @@
 package dto;
 
+import java.util.List;
+
 import dto.ListRoleOptionsDto;
 
 public class ListRoleDto {
     /**
      * 角色 namespace
      */
-    private String namespace
+    private String namespace;
     /**
      * 可选参数
      */
-    private ListRoleOptionsDto options
+    private ListRoleOptionsDto options;
 
     public String getNamespace() {
         return namespace;
@@ -25,5 +27,7 @@ public class ListRoleDto {
     public void setOptions(ListRoleOptionsDto options) {
         this.options = options;
     }
+
+
 
 };

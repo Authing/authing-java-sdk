@@ -1,35 +1,37 @@
 package dto;
 
+import java.util.List;
+
 
 public class UserLoginHistoryDto {
     /**
      * App ID
      */
-    private String appId
+    private String appId;
     /**
      * App 名称
      */
-    private String appName
+    private String appName;
     /**
      * App Logo
      */
-    private String appLogo
+    private String appLogo;
     /**
      * App 登录地址
      */
-    private String appLoginUrl
+    private String appLoginUrl;
     /**
      * 客户端 IP
      */
-    private String clientIp
+    private String clientIp;
     /**
      * 登录时使用的 user agent
      */
-    private String userAgent
+    private String userAgent;
     /**
      * 登录时间
      */
-    private String time
+    private String time;
 
     public String getAppId() {
         return appId;
@@ -79,5 +81,7 @@ public class UserLoginHistoryDto {
     public void setTime(String time) {
         this.time = time;
     }
+
+
 
 };

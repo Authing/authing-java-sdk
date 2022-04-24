@@ -1,29 +1,33 @@
 package dto;
 
+import java.util.List;
+
 import dto.OrganizationDto;
 
 public class OrganizationPagingDto {
     /**
      * 记录总数
      */
-    private Int totalCount
+    private Integer totalCount;
     /**
      * 数据
      */
-    private Array<OrganizationDto> list
+    private List<OrganizationDto> list;
 
-    public Int getTotalCount() {
+    public Integer getTotalCount() {
         return totalCount;
     }
-    public void setTotalCount(Int totalCount) {
+    public void setTotalCount(Integer totalCount) {
         this.totalCount = totalCount;
     }
 
-    public Array<OrganizationDto> getList() {
+    public List<OrganizationDto> getList() {
         return list;
     }
-    public void setList(Array<OrganizationDto> list) {
+    public void setList(List<OrganizationDto> list) {
         this.list = list;
     }
+
+
 
 };

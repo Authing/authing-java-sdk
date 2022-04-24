@@ -1,40 +1,42 @@
 package dto;
 
+import java.util.List;
+
 import dto.CustomFieldSelectOption;
 
 public class CustomFieldDto {
     /**
      * 主体类型，目前支持用户和角色
      */
-    private CustomFieldDto.targetType targetType
+    private CustomFieldDto.targetType targetType;
     /**
      * 创建时间
      */
-    private String createdAt
+    private String createdAt;
     /**
      * 数据类型
      */
-    private CustomFieldDto.dataType dataType
+    private CustomFieldDto.dataType dataType;
     /**
      * 字段 key，不能和用户内置字段的 key 冲突
      */
-    private String key
+    private String key;
     /**
      * 前端表单展示名称
      */
-    private String label
+    private String label;
     /**
      * 详细描述信息
      */
-    private String description
+    private String description;
     /**
      * 是否加密存储
      */
-    private Boolean encrypted
+    private Boolean encrypted;
     /**
      * 枚举值类型选择项
      */
-    private Array<CustomFieldSelectOption> options
+    private List<CustomFieldSelectOption> options;
 
     public CustomFieldDto.targetType getTargetType() {
         return targetType;
@@ -85,11 +87,52 @@ public class CustomFieldDto {
         this.encrypted = encrypted;
     }
 
-    public Array<CustomFieldSelectOption> getOptions() {
+    public List<CustomFieldSelectOption> getOptions() {
         return options;
     }
-    public void setOptions(Array<CustomFieldSelectOption> options) {
+    public void setOptions(List<CustomFieldSelectOption> options) {
         this.options = options;
     }
+
+
+    /**
+     * 主体类型，目前支持用户和角色
+     */
+    public static enum TargetType {
+        USER('USER'),
+        ROLE('ROLE'),
+        ;
+
+        private String value;
+        targetType(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    /**
+     * 数据类型
+     */
+    public static enum DataType {
+        STRING('STRING'),
+        NUMBER('NUMBER'),
+        DATETIME('DATETIME'),
+        BOOLEAN('BOOLEAN'),
+        SELECT('SELECT'),
+        ;
+
+        private String value;
+        dataType(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
 
 };

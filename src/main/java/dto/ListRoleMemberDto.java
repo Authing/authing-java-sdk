@@ -1,20 +1,22 @@
 package dto;
 
+import java.util.List;
+
 import dto.ListRoleMemberOptionsDto;
 
 public class ListRoleMemberDto {
     /**
      * 角色唯一标识符
      */
-    private String code
+    private String code;
     /**
      * 权限分组的 code
      */
-    private String namespace
+    private String namespace;
     /**
      * 可选参数
      */
-    private ListRoleMemberOptionsDto options
+    private ListRoleMemberOptionsDto options;
 
     public String getCode() {
         return code;
@@ -36,5 +38,7 @@ public class ListRoleMemberDto {
     public void setOptions(ListRoleMemberOptionsDto options) {
         this.options = options;
     }
+
+
 
 };

@@ -1,19 +1,21 @@
 package dto;
 
+import java.util.List;
+
 
 public class SetUserDepartmentDto {
     /**
      * 部门 id
      */
-    private String departmentId
+    private String departmentId;
     /**
      * 是否是部门 leader
      */
-    private Boolean isLeader
+    private Boolean isLeader;
     /**
      * 是否是主部门
      */
-    private Boolean isMainDepartment
+    private Boolean isMainDepartment;
 
     public String getDepartmentId() {
         return departmentId;
@@ -35,5 +37,7 @@ public class SetUserDepartmentDto {
     public void setIsMainDepartment(Boolean isMainDepartment) {
         this.isMainDepartment = isMainDepartment;
     }
+
+
 
 };

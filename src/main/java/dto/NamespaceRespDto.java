@@ -1,12 +1,14 @@
 package dto;
 
+import java.util.List;
+
 import dto.NamespaceDto;
 
 public class NamespaceRespDto {
     /**
      * 权限分组详情
      */
-    private NamespaceDto data
+    private NamespaceDto data;
 
     public NamespaceDto getData() {
         return data;
@@ -14,5 +16,7 @@ public class NamespaceRespDto {
     public void setData(NamespaceDto data) {
         this.data = data;
     }
+
+
 
 };

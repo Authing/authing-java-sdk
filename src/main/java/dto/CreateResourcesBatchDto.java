@@ -1,21 +1,23 @@
 package dto;
 
+import java.util.List;
+
 import dto.CreateResourceBatchItemDto;
 
 public class CreateResourcesBatchDto {
     /**
      * 资源列表
      */
-    private Array<CreateResourceBatchItemDto> list
+    private List<CreateResourceBatchItemDto> list;
     /**
      * 所属权限分组的 code
      */
-    private String namespace
+    private String namespace;
 
-    public Array<CreateResourceBatchItemDto> getList() {
+    public List<CreateResourceBatchItemDto> getList() {
         return list;
     }
-    public void setList(Array<CreateResourceBatchItemDto> list) {
+    public void setList(List<CreateResourceBatchItemDto> list) {
         this.list = list;
     }
 
@@ -25,5 +27,7 @@ public class CreateResourcesBatchDto {
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
+
+
 
 };

@@ -1,15 +1,17 @@
 package dto;
 
+import java.util.List;
+
 
 public class GetRoleDto {
     /**
      * 角色唯一标识符
      */
-    private String code
+    private String code;
     /**
      * 所属权限分组的 code
      */
-    private String namespace
+    private String namespace;
 
     public String getCode() {
         return code;
@@ -24,5 +26,7 @@ public class GetRoleDto {
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
+
+
 
 };

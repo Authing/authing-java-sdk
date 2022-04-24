@@ -1,23 +1,25 @@
 package dto;
 
+import java.util.List;
+
 
 public class UserLoggedInAppsDto {
     /**
      * App ID
      */
-    private String appId
+    private String appId;
     /**
      * App 名称
      */
-    private String appName
+    private String appName;
     /**
      * App Logo
      */
-    private String appLogo
+    private String appLogo;
     /**
      * App 登录地址
      */
-    private String appLoginUrl
+    private String appLoginUrl;
 
     public String getAppId() {
         return appId;
@@ -46,5 +48,7 @@ public class UserLoggedInAppsDto {
     public void setAppLoginUrl(String appLoginUrl) {
         this.appLoginUrl = appLoginUrl;
     }
+
+
 
 };

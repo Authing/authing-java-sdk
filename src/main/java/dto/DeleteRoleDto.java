@@ -1,20 +1,22 @@
 package dto;
 
+import java.util.List;
+
 
 public class DeleteRoleDto {
     /**
      * 角色 code 集合
      */
-    private Array<string> codeList
+    private List<string> codeList;
     /**
      * 权限分组的 code
      */
-    private String namespace
+    private String namespace;
 
-    public Array<string> getCodeList() {
+    public List<string> getCodeList() {
         return codeList;
     }
-    public void setCodeList(Array<string> codeList) {
+    public void setCodeList(List<string> codeList) {
         this.codeList = codeList;
     }
 
@@ -24,5 +26,7 @@ public class DeleteRoleDto {
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
+
+
 
 };

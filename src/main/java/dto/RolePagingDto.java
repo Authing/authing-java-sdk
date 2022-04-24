@@ -1,29 +1,33 @@
 package dto;
 
+import java.util.List;
+
 import dto.RoleDto;
 
 public class RolePagingDto {
     /**
      * 记录总数
      */
-    private Int totalCount
+    private Integer totalCount;
     /**
      * 数据
      */
-    private Array<RoleDto> list
+    private List<RoleDto> list;
 
-    public Int getTotalCount() {
+    public Integer getTotalCount() {
         return totalCount;
     }
-    public void setTotalCount(Int totalCount) {
+    public void setTotalCount(Integer totalCount) {
         this.totalCount = totalCount;
     }
 
-    public Array<RoleDto> getList() {
+    public List<RoleDto> getList() {
         return list;
     }
-    public void setList(Array<RoleDto> list) {
+    public void setList(List<RoleDto> list) {
         this.list = list;
     }
+
+
 
 };

@@ -1,20 +1,22 @@
 package dto;
 
+import java.util.List;
+
 import dto.ListDepartmentMembersOptionsDto;
 
 public class ListDepartmentMembersReqDto {
     /**
      * 部门 id，根部门传 `root`
      */
-    private String departmentId
+    private String departmentId;
     /**
      * 组织 code
      */
-    private String organizationCode
+    private String organizationCode;
     /**
      * 可选参数
      */
-    private ListDepartmentMembersOptionsDto options
+    private ListDepartmentMembersOptionsDto options;
 
     public String getDepartmentId() {
         return departmentId;
@@ -36,5 +38,7 @@ public class ListDepartmentMembersReqDto {
     public void setOptions(ListDepartmentMembersOptionsDto options) {
         this.options = options;
     }
+
+
 
 };

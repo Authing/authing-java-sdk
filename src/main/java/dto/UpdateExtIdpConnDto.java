@@ -1,35 +1,37 @@
 package dto;
 
+import java.util.List;
+
 
 public class UpdateExtIdpConnDto {
     /**
      * 是否只支持登录
      */
-    private Boolean loginOnly
+    private Boolean loginOnly;
     /**
      * 关联模式
      */
-    private String associationMode
+    private String associationMode;
     /**
      * 图标
      */
-    private String logo
+    private String logo;
     /**
      * 身份源连接自定义参数
      */
-    private any fields
+    private any fields;
     /**
      * 身份源连接显示名称
      */
-    private String displayName
+    private String displayName;
     /**
      * 连接 ID
      */
-    private String id
+    private String id;
     /**
      * 绑定方式
      */
-    private Array<'email-password' | 'username-password' | 'phone-password' | 'phone-code' | 'email-code'> challengeBindingMethods
+    private List<'email-password' | 'username-password' | 'phone-password' | 'phone-code' | 'email-code'> challengeBindingMethods;
 
     public Boolean getLoginOnly() {
         return loginOnly;
@@ -73,11 +75,13 @@ public class UpdateExtIdpConnDto {
         this.id = id;
     }
 
-    public Array<'email-password' | 'username-password' | 'phone-password' | 'phone-code' | 'email-code'> getChallengeBindingMethods() {
+    public List<'email-password' | 'username-password' | 'phone-password' | 'phone-code' | 'email-code'> getChallengeBindingMethods() {
         return challengeBindingMethods;
     }
-    public void setChallengeBindingMethods(Array<'email-password' | 'username-password' | 'phone-password' | 'phone-code' | 'email-code'> challengeBindingMethods) {
+    public void setChallengeBindingMethods(List<'email-password' | 'username-password' | 'phone-password' | 'phone-code' | 'email-code'> challengeBindingMethods) {
         this.challengeBindingMethods = challengeBindingMethods;
     }
+
+
 
 };

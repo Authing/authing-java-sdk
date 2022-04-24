@@ -1,19 +1,21 @@
 package dto;
 
+import java.util.List;
+
 
 public class GroupDto {
     /**
      * 分组 code
      */
-    private String code
+    private String code;
     /**
      * 分组名称
      */
-    private String name
+    private String name;
     /**
      * 分组描述
      */
-    private String description
+    private String description;
 
     public String getCode() {
         return code;
@@ -35,5 +37,7 @@ public class GroupDto {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
 
 };

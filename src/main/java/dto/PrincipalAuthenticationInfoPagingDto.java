@@ -1,29 +1,33 @@
 package dto;
 
+import java.util.List;
+
 import dto.PrincipalAuthenticationInfoDto;
 
 public class PrincipalAuthenticationInfoPagingDto {
     /**
      * 记录总数
      */
-    private Int totalCount
+    private Integer totalCount;
     /**
      * 数据
      */
-    private Array<PrincipalAuthenticationInfoDto> list
+    private List<PrincipalAuthenticationInfoDto> list;
 
-    public Int getTotalCount() {
+    public Integer getTotalCount() {
         return totalCount;
     }
-    public void setTotalCount(Int totalCount) {
+    public void setTotalCount(Integer totalCount) {
         this.totalCount = totalCount;
     }
 
-    public Array<PrincipalAuthenticationInfoDto> getList() {
+    public List<PrincipalAuthenticationInfoDto> getList() {
         return list;
     }
-    public void setList(Array<PrincipalAuthenticationInfoDto> list) {
+    public void setList(List<PrincipalAuthenticationInfoDto> list) {
         this.list = list;
     }
+
+
 
 };

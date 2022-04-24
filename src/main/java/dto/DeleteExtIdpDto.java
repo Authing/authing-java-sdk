@@ -1,11 +1,13 @@
 package dto;
 
+import java.util.List;
+
 
 public class DeleteExtIdpDto {
     /**
      * 连接 ID
      */
-    private String id
+    private String id;
 
     public String getId() {
         return id;
@@ -13,5 +15,7 @@ public class DeleteExtIdpDto {
     public void setId(String id) {
         this.id = id;
     }
+
+
 
 };

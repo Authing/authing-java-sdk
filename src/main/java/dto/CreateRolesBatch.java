@@ -1,17 +1,21 @@
 package dto;
 
+import java.util.List;
+
 
 public class CreateRolesBatch {
     /**
      * 角色列表
      */
-    private Array<string> list
+    private List<string> list;
 
-    public Array<string> getList() {
+    public List<string> getList() {
         return list;
     }
-    public void setList(Array<string> list) {
+    public void setList(List<string> list) {
         this.list = list;
     }
+
+
 
 };

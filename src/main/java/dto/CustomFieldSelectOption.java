@@ -1,15 +1,17 @@
 package dto;
 
+import java.util.List;
+
 
 public class CustomFieldSelectOption {
     /**
      * 枚举值 value
      */
-    private String value
+    private String value;
     /**
      * 枚举值 label
      */
-    private String label
+    private String label;
 
     public String getValue() {
         return value;
@@ -24,5 +26,7 @@ public class CustomFieldSelectOption {
     public void setLabel(String label) {
         this.label = label;
     }
+
+
 
 };

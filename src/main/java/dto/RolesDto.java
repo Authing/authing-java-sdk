@@ -1,19 +1,21 @@
 package dto;
 
+import java.util.List;
+
 
 public class RolesDto {
     /**
      * 用户描述
      */
-    private String description
+    private String description;
     /**
      * 用户识别码，权限组下唯一
      */
-    private String code
+    private String code;
     /**
      * 权限分组
      */
-    private String namespace
+    private String namespace;
 
     public String getDescription() {
         return description;
@@ -35,5 +37,7 @@ public class RolesDto {
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
+
+
 
 };

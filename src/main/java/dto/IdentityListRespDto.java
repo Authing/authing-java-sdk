@@ -1,29 +1,31 @@
 package dto;
 
+import java.util.List;
+
 import dto.IdentityDto;
 
 public class IdentityListRespDto {
     /**
      * 业务状态码，可以通过此状态码判断操作是否成功，200 表示成功。
      */
-    private Int code
+    private Integer code;
     /**
      * 描述信息
      */
-    private String message
+    private String message;
     /**
      * 细分错误码，可通过此错误码得到具体的错误类型。
      */
-    private Int errorCode
+    private Integer errorCode;
     /**
      * 数据
      */
-    private Array<IdentityDto> data
+    private List<IdentityDto> data;
 
-    public Int getCode() {
+    public Integer getCode() {
         return code;
     }
-    public void setCode(Int code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 
@@ -34,18 +36,20 @@ public class IdentityListRespDto {
         this.message = message;
     }
 
-    public Int getErrorCode() {
+    public Integer getErrorCode() {
         return errorCode;
     }
-    public void setErrorCode(Int errorCode) {
+    public void setErrorCode(Integer errorCode) {
         this.errorCode = errorCode;
     }
 
-    public Array<IdentityDto> getData() {
+    public List<IdentityDto> getData() {
         return data;
     }
-    public void setData(Array<IdentityDto> data) {
+    public void setData(List<IdentityDto> data) {
         this.data = data;
     }
+
+
 
 };

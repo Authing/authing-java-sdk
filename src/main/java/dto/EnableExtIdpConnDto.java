@@ -1,23 +1,25 @@
 package dto;
 
+import java.util.List;
+
 
 public class EnableExtIdpConnDto {
     /**
      * 租户 ID
      */
-    private String tenantId
+    private String tenantId;
     /**
      * 应用 ID
      */
-    private String appId
+    private String appId;
     /**
      * 是否开启身份源连接
      */
-    private Boolean enabled
+    private Boolean enabled;
     /**
      * 连接 ID
      */
-    private String id
+    private String id;
 
     public String getTenantId() {
         return tenantId;
@@ -46,5 +48,7 @@ public class EnableExtIdpConnDto {
     public void setId(String id) {
         this.id = id;
     }
+
+
 
 };

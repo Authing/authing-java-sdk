@@ -1,39 +1,41 @@
 package dto;
 
+import java.util.List;
+
 
 public class ListRoleMemberOptionsDto {
     /**
      * 当前页数，从 1 开始
      */
-    private Int page
+    private Integer page;
     /**
      * 每页数目，最大不能超过 100，默认为 10
      */
-    private Int limit
+    private Integer limit;
     /**
      * 是否获取自定义数据
      */
-    private Boolean withCustomData
+    private Boolean withCustomData;
     /**
      * 是否获取 identities
      */
-    private Boolean withIdentities
+    private Boolean withIdentities;
     /**
      * 是否获取部门 ID 列表
      */
-    private Boolean withDepartmentIds
+    private Boolean withDepartmentIds;
 
-    public Int getPage() {
+    public Integer getPage() {
         return page;
     }
-    public void setPage(Int page) {
+    public void setPage(Integer page) {
         this.page = page;
     }
 
-    public Int getLimit() {
+    public Integer getLimit() {
         return limit;
     }
-    public void setLimit(Int limit) {
+    public void setLimit(Integer limit) {
         this.limit = limit;
     }
 
@@ -57,5 +59,7 @@ public class ListRoleMemberOptionsDto {
     public void setWithDepartmentIds(Boolean withDepartmentIds) {
         this.withDepartmentIds = withDepartmentIds;
     }
+
+
 
 };

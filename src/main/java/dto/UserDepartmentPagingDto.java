@@ -1,29 +1,33 @@
 package dto;
 
+import java.util.List;
+
 import dto.UserDepartmentRespDto;
 
 public class UserDepartmentPagingDto {
     /**
      * 记录总数
      */
-    private Int totalCount
+    private Integer totalCount;
     /**
      * 数据
      */
-    private Array<UserDepartmentRespDto> list
+    private List<UserDepartmentRespDto> list;
 
-    public Int getTotalCount() {
+    public Integer getTotalCount() {
         return totalCount;
     }
-    public void setTotalCount(Int totalCount) {
+    public void setTotalCount(Integer totalCount) {
         this.totalCount = totalCount;
     }
 
-    public Array<UserDepartmentRespDto> getList() {
+    public List<UserDepartmentRespDto> getList() {
         return list;
     }
-    public void setList(Array<UserDepartmentRespDto> list) {
+    public void setList(List<UserDepartmentRespDto> list) {
         this.list = list;
     }
+
+
 
 };

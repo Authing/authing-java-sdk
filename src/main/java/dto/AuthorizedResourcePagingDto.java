@@ -1,29 +1,33 @@
 package dto;
 
+import java.util.List;
+
 import dto.AuthorizedResourceDto;
 
 public class AuthorizedResourcePagingDto {
     /**
      * 记录总数
      */
-    private Int totalCount
+    private Integer totalCount;
     /**
      * 数据
      */
-    private Array<AuthorizedResourceDto> list
+    private List<AuthorizedResourceDto> list;
 
-    public Int getTotalCount() {
+    public Integer getTotalCount() {
         return totalCount;
     }
-    public void setTotalCount(Int totalCount) {
+    public void setTotalCount(Integer totalCount) {
         this.totalCount = totalCount;
     }
 
-    public Array<AuthorizedResourceDto> getList() {
+    public List<AuthorizedResourceDto> getList() {
         return list;
     }
-    public void setList(Array<AuthorizedResourceDto> list) {
+    public void setList(List<AuthorizedResourceDto> list) {
         this.list = list;
     }
+
+
 
 };

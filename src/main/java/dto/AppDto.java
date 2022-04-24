@@ -1,27 +1,29 @@
 package dto;
 
+import java.util.List;
+
 
 public class AppDto {
     /**
      * App ID
      */
-    private String appId
+    private String appId;
     /**
      * App 名称
      */
-    private String appName
+    private String appName;
     /**
      * App Logo
      */
-    private String appLogo
+    private String appLogo;
     /**
      * App 登录地址
      */
-    private String appLoginUrl
+    private String appLoginUrl;
     /**
      * App 默认的登录策略
      */
-    private AppDto.appDefaultLoginStrategy appDefaultLoginStrategy
+    private AppDto.appDefaultLoginStrategy appDefaultLoginStrategy;
 
     public String getAppId() {
         return appId;
@@ -57,5 +59,25 @@ public class AppDto {
     public void setAppDefaultLoginStrategy(AppDto.appDefaultLoginStrategy appDefaultLoginStrategy) {
         this.appDefaultLoginStrategy = appDefaultLoginStrategy;
     }
+
+
+    /**
+     * App 默认的登录策略
+     */
+    public static enum AppDefaultLoginStrategy {
+        ALLOW_ALL('ALLOW_ALL'),
+        DENY_ALL('DENY_ALL'),
+        ;
+
+        private String value;
+        appDefaultLoginStrategy(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
 
 };

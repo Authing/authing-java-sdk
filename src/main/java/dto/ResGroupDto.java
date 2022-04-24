@@ -1,27 +1,29 @@
 package dto;
 
+import java.util.List;
+
 
 public class ResGroupDto {
     /**
      * 分组 code
      */
-    private String code
+    private String code;
     /**
      * 分组名称
      */
-    private String name
+    private String name;
     /**
      * 分组描述
      */
-    private String description
+    private String description;
     /**
      * 创建时间
      */
-    private String createdAt
+    private String createdAt;
     /**
      * 更新时间
      */
-    private String updatedAt
+    private String updatedAt;
 
     public String getCode() {
         return code;
@@ -57,5 +59,7 @@ public class ResGroupDto {
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+
 
 };

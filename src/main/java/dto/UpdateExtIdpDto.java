@@ -1,15 +1,17 @@
 package dto;
 
+import java.util.List;
+
 
 public class UpdateExtIdpDto {
     /**
      * 连接 ID
      */
-    private String id
+    private String id;
     /**
      * 名称
      */
-    private String name
+    private String name;
 
     public String getId() {
         return id;
@@ -24,5 +26,7 @@ public class UpdateExtIdpDto {
     public void setName(String name) {
         this.name = name;
     }
+
+
 
 };

@@ -1,20 +1,22 @@
 package dto;
 
+import java.util.List;
+
 
 public class KickUsersDto {
     /**
      * APP ID 集合
      */
-    private Array<string> appIds
+    private List<string> appIds;
     /**
      * 用户 ID
      */
-    private String userId
+    private String userId;
 
-    public Array<string> getAppIds() {
+    public List<string> getAppIds() {
         return appIds;
     }
-    public void setAppIds(Array<string> appIds) {
+    public void setAppIds(List<string> appIds) {
         this.appIds = appIds;
     }
 
@@ -24,5 +26,7 @@ public class KickUsersDto {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
+
 
 };

@@ -1,21 +1,23 @@
 package dto;
 
+import java.util.List;
+
 import dto.SetUserDepartmentDto;
 
 public class SetUserDepartmentsDto {
     /**
      * 部门信息
      */
-    private Array<SetUserDepartmentDto> departments
+    private List<SetUserDepartmentDto> departments;
     /**
      * 用户 ID
      */
-    private String userId
+    private String userId;
 
-    public Array<SetUserDepartmentDto> getDepartments() {
+    public List<SetUserDepartmentDto> getDepartments() {
         return departments;
     }
-    public void setDepartments(Array<SetUserDepartmentDto> departments) {
+    public void setDepartments(List<SetUserDepartmentDto> departments) {
         this.departments = departments;
     }
 
@@ -25,5 +27,7 @@ public class SetUserDepartmentsDto {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
+
 
 };

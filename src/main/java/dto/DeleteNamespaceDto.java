@@ -1,11 +1,13 @@
 package dto;
 
+import java.util.List;
+
 
 public class DeleteNamespaceDto {
     /**
      * 权限分组唯一标志符
      */
-    private String code
+    private String code;
 
     public String getCode() {
         return code;
@@ -13,5 +15,7 @@ public class DeleteNamespaceDto {
     public void setCode(String code) {
         this.code = code;
     }
+
+
 
 };

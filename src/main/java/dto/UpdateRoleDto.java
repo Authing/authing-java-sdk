@@ -1,23 +1,25 @@
 package dto;
 
+import java.util.List;
+
 
 public class UpdateRoleDto {
     /**
      * 新的角色 code
      */
-    private String newCode
+    private String newCode;
     /**
      * 角色 code
      */
-    private String code
+    private String code;
     /**
      * 权限分组
      */
-    private String namespace
+    private String namespace;
     /**
      * 角色描述
      */
-    private String description
+    private String description;
 
     public String getNewCode() {
         return newCode;
@@ -46,5 +48,7 @@ public class UpdateRoleDto {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
 
 };

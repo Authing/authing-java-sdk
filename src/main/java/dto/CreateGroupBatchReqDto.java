@@ -1,18 +1,22 @@
 package dto;
 
+import java.util.List;
+
 import dto.CreateGroupReqDto;
 
 public class CreateGroupBatchReqDto {
     /**
      * 批量分组
      */
-    private Array<CreateGroupReqDto> list
+    private List<CreateGroupReqDto> list;
 
-    public Array<CreateGroupReqDto> getList() {
+    public List<CreateGroupReqDto> getList() {
         return list;
     }
-    public void setList(Array<CreateGroupReqDto> list) {
+    public void setList(List<CreateGroupReqDto> list) {
         this.list = list;
     }
+
+
 
 };

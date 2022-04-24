@@ -1,11 +1,13 @@
 package dto;
 
+import java.util.List;
+
 
 public class TenantIdDto {
     /**
      * 租户 ID
      */
-    private String tenantId
+    private String tenantId;
 
     public String getTenantId() {
         return tenantId;
@@ -13,5 +15,7 @@ public class TenantIdDto {
     public void setTenantId(String tenantId) {
         this.tenantId = tenantId;
     }
+
+
 
 };

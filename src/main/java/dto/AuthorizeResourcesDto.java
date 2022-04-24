@@ -1,21 +1,23 @@
 package dto;
 
+import java.util.List;
+
 import dto.AuthorizeResourceItem;
 
 public class AuthorizeResourcesDto {
     /**
      * 授权列表
      */
-    private Array<AuthorizeResourceItem> list
+    private List<AuthorizeResourceItem> list;
     /**
      * 所属权限分组的 code
      */
-    private String namespace
+    private String namespace;
 
-    public Array<AuthorizeResourceItem> getList() {
+    public List<AuthorizeResourceItem> getList() {
         return list;
     }
-    public void setList(Array<AuthorizeResourceItem> list) {
+    public void setList(List<AuthorizeResourceItem> list) {
         this.list = list;
     }
 
@@ -25,5 +27,7 @@ public class AuthorizeResourcesDto {
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
+
+
 
 };

@@ -1,20 +1,22 @@
 package dto;
 
+import java.util.List;
+
 import dto.ResourceItemDto;
 
 public class AuthorizeResourceItem {
     /**
      * 目标对象类型
      */
-    private AuthorizeResourceItem.targetType targetType
+    private AuthorizeResourceItem.targetType targetType;
     /**
      * 目标对象唯一标志符
      */
-    private Array<string> targetIdentifiers
+    private List<string> targetIdentifiers;
     /**
      * 授权的资源列表
      */
-    private Array<ResourceItemDto> resources
+    private List<ResourceItemDto> resources;
 
     public AuthorizeResourceItem.targetType getTargetType() {
         return targetType;
@@ -23,18 +25,40 @@ public class AuthorizeResourceItem {
         this.targetType = targetType;
     }
 
-    public Array<string> getTargetIdentifiers() {
+    public List<string> getTargetIdentifiers() {
         return targetIdentifiers;
     }
-    public void setTargetIdentifiers(Array<string> targetIdentifiers) {
+    public void setTargetIdentifiers(List<string> targetIdentifiers) {
         this.targetIdentifiers = targetIdentifiers;
     }
 
-    public Array<ResourceItemDto> getResources() {
+    public List<ResourceItemDto> getResources() {
         return resources;
     }
-    public void setResources(Array<ResourceItemDto> resources) {
+    public void setResources(List<ResourceItemDto> resources) {
         this.resources = resources;
     }
+
+
+    /**
+     * 目标对象类型
+     */
+    public static enum TargetType {
+        USER('USER'),
+        ROLE('ROLE'),
+        GROUP('GROUP'),
+        DEPARTMENT('DEPARTMENT'),
+        ;
+
+        private String value;
+        targetType(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
 
 };

@@ -1,32 +1,34 @@
 package dto;
 
+import java.util.List;
+
 import dto.GetUserLoginHistoryOptionsDto;
 
 public class GetUserLoginHistoryDto {
     /**
      * 用户 ID
      */
-    private String userId
+    private String userId;
     /**
      * 应用 ID
      */
-    private String appId
+    private String appId;
     /**
      * 客户端 IP
      */
-    private String clientIp
+    private String clientIp;
     /**
      * 开始时间戳（毫秒）
      */
-    private Int start
+    private Integer start;
     /**
      * 结束时间戳（毫秒）
      */
-    private Int end
+    private Integer end;
     /**
      * 可选参数
      */
-    private GetUserLoginHistoryOptionsDto options
+    private GetUserLoginHistoryOptionsDto options;
 
     public String getUserId() {
         return userId;
@@ -49,17 +51,17 @@ public class GetUserLoginHistoryDto {
         this.clientIp = clientIp;
     }
 
-    public Int getStart() {
+    public Integer getStart() {
         return start;
     }
-    public void setStart(Int start) {
+    public void setStart(Integer start) {
         this.start = start;
     }
 
-    public Int getEnd() {
+    public Integer getEnd() {
         return end;
     }
-    public void setEnd(Int end) {
+    public void setEnd(Integer end) {
         this.end = end;
     }
 
@@ -69,5 +71,7 @@ public class GetUserLoginHistoryDto {
     public void setOptions(GetUserLoginHistoryOptionsDto options) {
         this.options = options;
     }
+
+
 
 };

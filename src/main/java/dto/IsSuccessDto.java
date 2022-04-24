@@ -1,11 +1,13 @@
 package dto;
 
+import java.util.List;
+
 
 public class IsSuccessDto {
     /**
      * 操作是否成功
      */
-    private Boolean success
+    private Boolean success;
 
     public Boolean getSuccess() {
         return success;
@@ -13,5 +15,7 @@ public class IsSuccessDto {
     public void setSuccess(Boolean success) {
         this.success = success;
     }
+
+
 
 };

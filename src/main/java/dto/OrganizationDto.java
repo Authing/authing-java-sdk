@@ -1,23 +1,25 @@
 package dto;
 
+import java.util.List;
+
 
 public class OrganizationDto {
     /**
      * 组织 code
      */
-    private String organizationCode
+    private String organizationCode;
     /**
      * 组织名称
      */
-    private String organizationName
+    private String organizationName;
     /**
      * 部门负责人 ID
      */
-    private String leaderUserId
+    private String leaderUserId;
     /**
      * 部门人数
      */
-    private Int membersCount
+    private Integer membersCount;
 
     public String getOrganizationCode() {
         return organizationCode;
@@ -40,11 +42,13 @@ public class OrganizationDto {
         this.leaderUserId = leaderUserId;
     }
 
-    public Int getMembersCount() {
+    public Integer getMembersCount() {
         return membersCount;
     }
-    public void setMembersCount(Int membersCount) {
+    public void setMembersCount(Integer membersCount) {
         this.membersCount = membersCount;
     }
+
+
 
 };

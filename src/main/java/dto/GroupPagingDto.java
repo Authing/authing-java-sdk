@@ -1,29 +1,33 @@
 package dto;
 
+import java.util.List;
+
 import dto.ResGroupDto;
 
 public class GroupPagingDto {
     /**
      * 记录总数
      */
-    private Int totalCount
+    private Integer totalCount;
     /**
      * 数据
      */
-    private Array<ResGroupDto> list
+    private List<ResGroupDto> list;
 
-    public Int getTotalCount() {
+    public Integer getTotalCount() {
         return totalCount;
     }
-    public void setTotalCount(Int totalCount) {
+    public void setTotalCount(Integer totalCount) {
         this.totalCount = totalCount;
     }
 
-    public Array<ResGroupDto> getList() {
+    public List<ResGroupDto> getList() {
         return list;
     }
-    public void setList(Array<ResGroupDto> list) {
+    public void setList(List<ResGroupDto> list) {
         this.list = list;
     }
+
+
 
 };

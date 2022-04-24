@@ -1,19 +1,21 @@
 package dto;
 
+import java.util.List;
+
 
 public class NamespaceDto {
     /**
      * 权限分组唯一标志符
      */
-    private String code
+    private String code;
     /**
      * 权限分组名称
      */
-    private String name
+    private String name;
     /**
      * 权限分组描述信息
      */
-    private String description
+    private String description;
 
     public String getCode() {
         return code;
@@ -35,5 +37,7 @@ public class NamespaceDto {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
 
 };

@@ -1,23 +1,25 @@
 package dto;
 
+import java.util.List;
+
 
 public class UpdateNamespaceDto {
     /**
      * 权限分组新的唯一标志符
      */
-    private String newCode
+    private String newCode;
     /**
      * 权限分组唯一标志符
      */
-    private String code
+    private String code;
     /**
      * 权限分组描述信息
      */
-    private String description
+    private String description;
     /**
      * 权限分组名称
      */
-    private String name
+    private String name;
 
     public String getNewCode() {
         return newCode;
@@ -46,5 +48,7 @@ public class UpdateNamespaceDto {
     public void setName(String name) {
         this.name = name;
     }
+
+
 
 };

@@ -1,29 +1,33 @@
 package dto;
 
+import java.util.List;
+
 import dto.UserLoginHistoryDto;
 
 public class UserLoginHistoryPagingDto {
     /**
      * 记录总数
      */
-    private Int totalCount
+    private Integer totalCount;
     /**
      * 数据
      */
-    private Array<UserLoginHistoryDto> list
+    private List<UserLoginHistoryDto> list;
 
-    public Int getTotalCount() {
+    public Integer getTotalCount() {
         return totalCount;
     }
-    public void setTotalCount(Int totalCount) {
+    public void setTotalCount(Integer totalCount) {
         this.totalCount = totalCount;
     }
 
-    public Array<UserLoginHistoryDto> getList() {
+    public List<UserLoginHistoryDto> getList() {
         return list;
     }
-    public void setList(Array<UserLoginHistoryDto> list) {
+    public void setList(List<UserLoginHistoryDto> list) {
         this.list = list;
     }
+
+
 
 };

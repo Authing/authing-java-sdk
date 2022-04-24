@@ -1,5 +1,7 @@
 package dto;
 
+import java.util.List;
+
 import dto.CreateUserInfoDto;
 import dto.CreateUserOptionsDto;
 
@@ -7,16 +9,16 @@ public class CreateUserBatchReqDto {
     /**
      * 批量用户
      */
-    private Array<CreateUserInfoDto> list
+    private List<CreateUserInfoDto> list;
     /**
      * 附加选项
      */
-    private CreateUserOptionsDto options
+    private CreateUserOptionsDto options;
 
-    public Array<CreateUserInfoDto> getList() {
+    public List<CreateUserInfoDto> getList() {
         return list;
     }
-    public void setList(Array<CreateUserInfoDto> list) {
+    public void setList(List<CreateUserInfoDto> list) {
         this.list = list;
     }
 
@@ -26,5 +28,7 @@ public class CreateUserBatchReqDto {
     public void setOptions(CreateUserOptionsDto options) {
         this.options = options;
     }
+
+
 
 };

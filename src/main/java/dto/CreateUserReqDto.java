@@ -1,5 +1,7 @@
 package dto;
 
+import java.util.List;
+
 import dto.CreateIdentityDto;
 import dto.CreateUserOptionsDto;
 
@@ -7,75 +9,75 @@ public class CreateUserReqDto {
     /**
      * 账户当前状态
      */
-    private CreateUserReqDto.status status
+    private CreateUserReqDto.status status;
     /**
      * 邮箱
      */
-    private String email
+    private String email;
     /**
      * 手机号
      */
-    private String phone
+    private String phone;
     /**
      * 手机区号
      */
-    private String phoneCountryCode
+    private String phoneCountryCode;
     /**
      * 用户名，用户池内唯一
      */
-    private String username
+    private String username;
     /**
      * 用户真实名称，不具备唯一性
      */
-    private String name
+    private String name;
     /**
      * 昵称
      */
-    private String nickname
+    private String nickname;
     /**
      * 头像链接
      */
-    private String photo
+    private String photo;
     /**
      * 性别
      */
-    private CreateUserReqDto.gender gender
+    private CreateUserReqDto.gender gender;
     /**
      * 邮箱是否验证
      */
-    private Boolean emailVerified
+    private Boolean emailVerified;
     /**
      * 手机号是否验证
      */
-    private Boolean phoneVerified
+    private Boolean phoneVerified;
     /**
      * 第三方外部 ID
      */
-    private String externalId
+    private String externalId;
     /**
      * 用户所属部门 ID 列表
      */
-    private Array<string> departmentIds
+    private List<string> departmentIds;
     /**
      * 自定义数据，传入的对象中的 key 必须先在用户池定义相关自定义字段
      */
-    private any customData
+    private any customData;
     /**
      * 密码。必须通过加密方式进行加密。
      */
-    private String password
+    private String password;
     /**
      * 租户 ID
      */
-    private Array<string> tenantIds
+    private List<string> tenantIds;
     /**
      * 第三方身份源（建议调用绑定接口进行绑定）
      */
-    private Array<CreateIdentityDto> identities
+    private List<CreateIdentityDto> identities;
     /**
      * 附加选项
      */
-    private CreateUserOptionsDto options
+    private CreateUserOptionsDto options;
 
     public CreateUserReqDto.status getStatus() {
         return status;
@@ -161,10 +163,10 @@ public class CreateUserReqDto {
         this.externalId = externalId;
     }
 
-    public Array<string> getDepartmentIds() {
+    public List<string> getDepartmentIds() {
         return departmentIds;
     }
-    public void setDepartmentIds(Array<string> departmentIds) {
+    public void setDepartmentIds(List<string> departmentIds) {
         this.departmentIds = departmentIds;
     }
 
@@ -182,17 +184,17 @@ public class CreateUserReqDto {
         this.password = password;
     }
 
-    public Array<string> getTenantIds() {
+    public List<string> getTenantIds() {
         return tenantIds;
     }
-    public void setTenantIds(Array<string> tenantIds) {
+    public void setTenantIds(List<string> tenantIds) {
         this.tenantIds = tenantIds;
     }
 
-    public Array<CreateIdentityDto> getIdentities() {
+    public List<CreateIdentityDto> getIdentities() {
         return identities;
     }
-    public void setIdentities(Array<CreateIdentityDto> identities) {
+    public void setIdentities(List<CreateIdentityDto> identities) {
         this.identities = identities;
     }
 
@@ -202,5 +204,47 @@ public class CreateUserReqDto {
     public void setOptions(CreateUserOptionsDto options) {
         this.options = options;
     }
+
+
+    /**
+     * 账户当前状态
+     */
+    public static enum Status {
+        DELETED('Deleted'),
+        SUSPENDED('Suspended'),
+        RESIGNED('Resigned'),
+        ACTIVATED('Activated'),
+        ARCHIVED('Archived'),
+        ;
+
+        private String value;
+        status(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    /**
+     * 性别
+     */
+    public static enum Gender {
+        M('M'),
+        W('W'),
+        U('U'),
+        ;
+
+        private String value;
+        gender(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
 
 };

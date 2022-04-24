@@ -1,15 +1,17 @@
 package dto;
 
+import java.util.List;
+
 
 public class GetUserRolesDto {
     /**
      * 用户 ID
      */
-    private String userId
+    private String userId;
     /**
      * 所属权限分组的 code
      */
-    private String namespace
+    private String namespace;
 
     public String getUserId() {
         return userId;
@@ -24,5 +26,7 @@ public class GetUserRolesDto {
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
+
+
 
 };

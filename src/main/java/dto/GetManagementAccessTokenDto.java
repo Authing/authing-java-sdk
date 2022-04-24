@@ -1,15 +1,17 @@
 package dto;
 
+import java.util.List;
+
 
 public class GetManagementAccessTokenDto {
     /**
      * 用户池密钥
      */
-    private String secret
+    private String secret;
     /**
      * 用户池 ID
      */
-    private String userPoolId
+    private String userPoolId;
 
     public String getSecret() {
         return secret;
@@ -24,5 +26,7 @@ public class GetManagementAccessTokenDto {
     public void setUserPoolId(String userPoolId) {
         this.userPoolId = userPoolId;
     }
+
+
 
 };

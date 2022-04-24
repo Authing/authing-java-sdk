@@ -1,63 +1,65 @@
 package dto;
 
+import java.util.List;
+
 
 public class UpdateUserReqDto {
     /**
      * 手机号是否验证
      */
-    private Boolean phoneVerified
+    private Boolean phoneVerified;
     /**
      * 邮箱是否验证
      */
-    private Boolean emailVerified
+    private Boolean emailVerified;
     /**
      * 性别
      */
-    private UpdateUserReqDto.gender gender
+    private UpdateUserReqDto.gender gender;
     /**
      * 用户 ID
      */
-    private String userId
+    private String userId;
     /**
      * 手机区号
      */
-    private String phoneCountryCode
+    private String phoneCountryCode;
     /**
      * 用户真实名称，不具备唯一性
      */
-    private String name
+    private String name;
     /**
      * 昵称
      */
-    private String nickname
+    private String nickname;
     /**
      * 头像链接
      */
-    private String photo
+    private String photo;
     /**
      * 第三方外部 ID
      */
-    private String externalId
+    private String externalId;
     /**
      * 自定义数据，传入的对象中的 key 必须先在用户池定义相关自定义字段
      */
-    private any customData
+    private any customData;
     /**
      * 用户名，用户池内唯一
      */
-    private String username
+    private String username;
     /**
      * 邮箱
      */
-    private String email
+    private String email;
     /**
      * 手机号
      */
-    private String phone
+    private String phone;
     /**
      * 密码。必须通过加密方式进行加密。
      */
-    private String password
+    private String password;
 
     public Boolean getPhoneVerified() {
         return phoneVerified;
@@ -156,5 +158,26 @@ public class UpdateUserReqDto {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
+    /**
+     * 性别
+     */
+    public static enum Gender {
+        M('M'),
+        W('W'),
+        U('U'),
+        ;
+
+        private String value;
+        gender(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
 
 };

@@ -1,11 +1,13 @@
 package dto;
 
+import java.util.List;
+
 
 public class GetUserLoggedInAppsReqDto {
     /**
      * 用户 ID
      */
-    private String userId
+    private String userId;
 
     public String getUserId() {
         return userId;
@@ -13,5 +15,7 @@ public class GetUserLoggedInAppsReqDto {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
+
 
 };

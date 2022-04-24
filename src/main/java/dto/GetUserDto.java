@@ -1,16 +1,18 @@
 package dto;
 
+import java.util.List;
+
 import dto.GetUserOptionsDto;
 
 public class GetUserDto {
     /**
      * 用户 ID
      */
-    private String userId
+    private String userId;
     /**
      * 可选参数
      */
-    private GetUserOptionsDto options
+    private GetUserOptionsDto options;
 
     public String getUserId() {
         return userId;
@@ -25,5 +27,7 @@ public class GetUserDto {
     public void setOptions(GetUserOptionsDto options) {
         this.options = options;
     }
+
+
 
 };

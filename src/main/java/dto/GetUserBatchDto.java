@@ -1,21 +1,23 @@
 package dto;
 
+import java.util.List;
+
 import dto.GetUserOptionsDto;
 
 public class GetUserBatchDto {
     /**
      * 用户 ID 数组
      */
-    private Array<string> userIds
+    private List<string> userIds;
     /**
      * 可选参数
      */
-    private GetUserOptionsDto options
+    private GetUserOptionsDto options;
 
-    public Array<string> getUserIds() {
+    public List<string> getUserIds() {
         return userIds;
     }
-    public void setUserIds(Array<string> userIds) {
+    public void setUserIds(List<string> userIds) {
         this.userIds = userIds;
     }
 
@@ -25,5 +27,7 @@ public class GetUserBatchDto {
     public void setOptions(GetUserOptionsDto options) {
         this.options = options;
     }
+
+
 
 };

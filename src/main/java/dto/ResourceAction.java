@@ -1,15 +1,17 @@
 package dto;
 
+import java.util.List;
+
 
 public class ResourceAction {
     /**
      * 资源操作名称
      */
-    private String name
+    private String name;
     /**
      * 资源操作描述
      */
-    private String description
+    private String description;
 
     public String getName() {
         return name;
@@ -24,5 +26,7 @@ public class ResourceAction {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
 
 };

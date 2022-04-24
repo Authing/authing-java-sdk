@@ -1,84 +1,86 @@
 package dto;
 
+import java.util.List;
+
 import dto.IdentityDto;
 
 public class UserDto {
     /**
      * 用户 ID
      */
-    private String userId
+    private String userId;
     /**
      * 账户当前状态
      */
-    private UserDto.status status
+    private UserDto.status status;
     /**
      * 邮箱
      */
-    private String email
+    private String email;
     /**
      * 手机号
      */
-    private String phone
+    private String phone;
     /**
      * 手机区号
      */
-    private String phoneCountryCode
+    private String phoneCountryCode;
     /**
      * 用户名，用户池内唯一
      */
-    private String username
+    private String username;
     /**
      * 用户真实名称，不具备唯一性
      */
-    private String name
+    private String name;
     /**
      * 昵称
      */
-    private String nickname
+    private String nickname;
     /**
      * 头像链接
      */
-    private String photo
+    private String photo;
     /**
      * 历史总登录次数
      */
-    private Int loginsCount
+    private Integer loginsCount;
     /**
      * 上次登录时间
      */
-    private String lastLogin
+    private String lastLogin;
     /**
      * 上次登录 IP
      */
-    private String lastIp
+    private String lastIp;
     /**
      * 性别
      */
-    private UserDto.gender gender
+    private UserDto.gender gender;
     /**
      * 邮箱是否验证
      */
-    private Boolean emailVerified
+    private Boolean emailVerified;
     /**
      * 手机号是否验证
      */
-    private Boolean phoneVerified
+    private Boolean phoneVerified;
     /**
      * 第三方外部 ID
      */
-    private String externalId
+    private String externalId;
     /**
      * 用户所属部门 ID 列表
      */
-    private Array<string> departmentIds
+    private List<string> departmentIds;
     /**
      * 外部身份源
      */
-    private Array<IdentityDto> identities
+    private List<IdentityDto> identities;
     /**
      * 自定义数据，传入的对象中的 key 必须先在用户池定义相关自定义字段
      */
-    private any customData
+    private any customData;
 
     public String getUserId() {
         return userId;
@@ -143,10 +145,10 @@ public class UserDto {
         this.photo = photo;
     }
 
-    public Int getLoginsCount() {
+    public Integer getLoginsCount() {
         return loginsCount;
     }
-    public void setLoginsCount(Int loginsCount) {
+    public void setLoginsCount(Integer loginsCount) {
         this.loginsCount = loginsCount;
     }
 
@@ -192,17 +194,17 @@ public class UserDto {
         this.externalId = externalId;
     }
 
-    public Array<string> getDepartmentIds() {
+    public List<string> getDepartmentIds() {
         return departmentIds;
     }
-    public void setDepartmentIds(Array<string> departmentIds) {
+    public void setDepartmentIds(List<string> departmentIds) {
         this.departmentIds = departmentIds;
     }
 
-    public Array<IdentityDto> getIdentities() {
+    public List<IdentityDto> getIdentities() {
         return identities;
     }
-    public void setIdentities(Array<IdentityDto> identities) {
+    public void setIdentities(List<IdentityDto> identities) {
         this.identities = identities;
     }
 
@@ -212,5 +214,47 @@ public class UserDto {
     public void setCustomData(any customData) {
         this.customData = customData;
     }
+
+
+    /**
+     * 账户当前状态
+     */
+    public static enum Status {
+        DELETED('Deleted'),
+        SUSPENDED('Suspended'),
+        RESIGNED('Resigned'),
+        ACTIVATED('Activated'),
+        ARCHIVED('Archived'),
+        ;
+
+        private String value;
+        status(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    /**
+     * 性别
+     */
+    public static enum Gender {
+        M('M'),
+        W('W'),
+        U('U'),
+        ;
+
+        private String value;
+        gender(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
 
 };

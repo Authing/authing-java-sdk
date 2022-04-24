@@ -1,20 +1,22 @@
 package dto;
 
+import java.util.List;
+
 
 public class DeleteResourcesBatchDto {
     /**
      * 资源 code 列表
      */
-    private Array<string> codeList
+    private List<string> codeList;
     /**
      * 所属权限分组的 code
      */
-    private String namespace
+    private String namespace;
 
-    public Array<string> getCodeList() {
+    public List<string> getCodeList() {
         return codeList;
     }
-    public void setCodeList(Array<string> codeList) {
+    public void setCodeList(List<string> codeList) {
         this.codeList = codeList;
     }
 
@@ -24,5 +26,7 @@ public class DeleteResourcesBatchDto {
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
+
+
 
 };

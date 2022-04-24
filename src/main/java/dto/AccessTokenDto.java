@@ -1,19 +1,21 @@
 package dto;
 
+import java.util.List;
+
 
 public class AccessTokenDto {
     /**
      * Access Token 内容
      */
-    private String access_token
+    private String access_token;
     /**
      * token 签发时间
      */
-    private Int iat
+    private Integer iat;
     /**
      * token 到期时间
      */
-    private Int exp
+    private Integer exp;
 
     public String getAccess_token() {
         return access_token;
@@ -22,18 +24,20 @@ public class AccessTokenDto {
         this.access_token = access_token;
     }
 
-    public Int getIat() {
+    public Integer getIat() {
         return iat;
     }
-    public void setIat(Int iat) {
+    public void setIat(Integer iat) {
         this.iat = iat;
     }
 
-    public Int getExp() {
+    public Integer getExp() {
         return exp;
     }
-    public void setExp(Int exp) {
+    public void setExp(Integer exp) {
         this.exp = exp;
     }
+
+
 
 };

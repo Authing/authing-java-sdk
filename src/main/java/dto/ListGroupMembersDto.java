@@ -1,16 +1,18 @@
 package dto;
 
+import java.util.List;
+
 import dto.ListUsersOptionsDto;
 
 public class ListGroupMembersDto {
     /**
      * 分组 code
      */
-    private String code
+    private String code;
     /**
      * 可选参数
      */
-    private ListUsersOptionsDto options
+    private ListUsersOptionsDto options;
 
     public String getCode() {
         return code;
@@ -25,5 +27,7 @@ public class ListGroupMembersDto {
     public void setOptions(ListUsersOptionsDto options) {
         this.options = options;
     }
+
+
 
 };

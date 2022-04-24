@@ -1,27 +1,29 @@
 package dto;
 
+import java.util.List;
+
 
 public class ExtIdpDto {
     /**
      * 身份源 id
      */
-    private String id
+    private String id;
     /**
      * 身份源名称
      */
-    private String name
+    private String name;
     /**
      * 租户场景下自动加入
      */
-    private Boolean autoJoin
+    private Boolean autoJoin;
     /**
      * 租户 ID
      */
-    private String tenantId
+    private String tenantId;
     /**
      * 身份源类型
      */
-    private String type
+    private String type;
 
     public String getId() {
         return id;
@@ -57,5 +59,7 @@ public class ExtIdpDto {
     public void setType(String type) {
         this.type = type;
     }
+
+
 
 };

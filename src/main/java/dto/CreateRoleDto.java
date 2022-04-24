@@ -1,19 +1,21 @@
 package dto;
 
+import java.util.List;
+
 
 public class CreateRoleDto {
     /**
      * 角色 code
      */
-    private String code
+    private String code;
     /**
      * 角色 namespace
      */
-    private String namespace
+    private String namespace;
     /**
      * 角色描述
      */
-    private String description
+    private String description;
 
     public String getCode() {
         return code;
@@ -35,5 +37,7 @@ public class CreateRoleDto {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
 
 };

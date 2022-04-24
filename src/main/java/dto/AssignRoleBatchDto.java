@@ -1,5 +1,7 @@
 package dto;
 
+import java.util.List;
+
 import dto.RoleCodeDto;
 import dto.TargetDto;
 
@@ -7,24 +9,26 @@ public class AssignRoleBatchDto {
     /**
      * 部门信息
      */
-    private Array<TargetDto> targets
+    private List<TargetDto> targets;
     /**
      * 角色信息
      */
-    private Array<RoleCodeDto> roles
+    private List<RoleCodeDto> roles;
 
-    public Array<TargetDto> getTargets() {
+    public List<TargetDto> getTargets() {
         return targets;
     }
-    public void setTargets(Array<TargetDto> targets) {
+    public void setTargets(List<TargetDto> targets) {
         this.targets = targets;
     }
 
-    public Array<RoleCodeDto> getRoles() {
+    public List<RoleCodeDto> getRoles() {
         return roles;
     }
-    public void setRoles(Array<RoleCodeDto> roles) {
+    public void setRoles(List<RoleCodeDto> roles) {
         this.roles = roles;
     }
+
+
 
 };

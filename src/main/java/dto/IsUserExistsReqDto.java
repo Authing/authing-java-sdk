@@ -1,23 +1,25 @@
 package dto;
 
+import java.util.List;
+
 
 public class IsUserExistsReqDto {
     /**
      * 用户名，用户池内唯一
      */
-    private String username
+    private String username;
     /**
      * 邮箱
      */
-    private String email
+    private String email;
     /**
      * 手机号
      */
-    private String phone
+    private String phone;
     /**
      * 第三方外部 ID
      */
-    private String externalId
+    private String externalId;
 
     public String getUsername() {
         return username;
@@ -46,5 +48,7 @@ public class IsUserExistsReqDto {
     public void setExternalId(String externalId) {
         this.externalId = externalId;
     }
+
+
 
 };

@@ -1,15 +1,17 @@
 package dto;
 
+import java.util.List;
+
 
 public class GetDepartmentReqDto {
     /**
      * 部门 id，根部门传 `root`
      */
-    private String departmentId
+    private String departmentId;
     /**
      * 组织 code
      */
-    private String organizationCode
+    private String organizationCode;
 
     public String getDepartmentId() {
         return departmentId;
@@ -24,5 +26,7 @@ public class GetDepartmentReqDto {
     public void setOrganizationCode(String organizationCode) {
         this.organizationCode = organizationCode;
     }
+
+
 
 };

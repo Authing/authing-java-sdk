@@ -1,23 +1,25 @@
 package dto;
 
+import java.util.List;
+
 
 public class CreateIdentityDto {
     /**
      * 外部身份源的 ID
      */
-    private String extIdpId
+    private String extIdpId;
     /**
      * 外部身份源类型，如 lark, wechat
      */
-    private String provider
+    private String provider;
     /**
      * Identity 类型，如 unionid, openid, primary
      */
-    private String type
+    private String type;
     /**
      * 在外部身份源的 id
      */
-    private String userIdInIdp
+    private String userIdInIdp;
 
     public String getExtIdpId() {
         return extIdpId;
@@ -46,5 +48,7 @@ public class CreateIdentityDto {
     public void setUserIdInIdp(String userIdInIdp) {
         this.userIdInIdp = userIdInIdp;
     }
+
+
 
 };

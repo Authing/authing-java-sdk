@@ -1,19 +1,21 @@
 package dto;
 
+import java.util.List;
+
 
 public class UpdateOrganizationReqDto {
     /**
      * 组织 code
      */
-    private String organizationCode
+    private String organizationCode;
     /**
      * 新组织 code
      */
-    private String organizationNewCode
+    private String organizationNewCode;
     /**
      * 组织名称
      */
-    private String organizationName
+    private String organizationName;
 
     public String getOrganizationCode() {
         return organizationCode;
@@ -35,5 +37,7 @@ public class UpdateOrganizationReqDto {
     public void setOrganizationName(String organizationName) {
         this.organizationName = organizationName;
     }
+
+
 
 };

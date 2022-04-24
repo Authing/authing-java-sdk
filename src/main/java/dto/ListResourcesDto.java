@@ -1,20 +1,22 @@
 package dto;
 
+import java.util.List;
+
 import dto.ListResourcesOptionsDto;
 
 public class ListResourcesDto {
     /**
      * 所属权限分组的 code
      */
-    private String namespace
+    private String namespace;
     /**
      * 资源类型
      */
-    private ListResourcesDto.type type
+    private ListResourcesDto.type type;
     /**
      * 可选参数
      */
-    private ListResourcesOptionsDto options
+    private ListResourcesOptionsDto options;
 
     public String getNamespace() {
         return namespace;
@@ -36,5 +38,27 @@ public class ListResourcesDto {
     public void setOptions(ListResourcesOptionsDto options) {
         this.options = options;
     }
+
+
+    /**
+     * 资源类型
+     */
+    public static enum Type {
+        DATA('DATA'),
+        API('API'),
+        MENU('MENU'),
+        BUTTON('BUTTON'),
+        ;
+
+        private String value;
+        type(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
 
 };

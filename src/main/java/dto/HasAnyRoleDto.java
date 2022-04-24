@@ -1,11 +1,13 @@
 package dto;
 
+import java.util.List;
+
 
 public class HasAnyRoleDto {
     /**
      * 是否拥有其中某一个角色
      */
-    private Boolean hasAnyRole
+    private Boolean hasAnyRole;
 
     public Boolean getHasAnyRole() {
         return hasAnyRole;
@@ -13,5 +15,7 @@ public class HasAnyRoleDto {
     public void setHasAnyRole(Boolean hasAnyRole) {
         this.hasAnyRole = hasAnyRole;
     }
+
+
 
 };

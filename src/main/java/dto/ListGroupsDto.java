@@ -1,12 +1,14 @@
 package dto;
 
+import java.util.List;
+
 import dto.ListOptionsDto;
 
 public class ListGroupsDto {
     /**
      * 可选参数
      */
-    private ListOptionsDto options
+    private ListOptionsDto options;
 
     public ListOptionsDto getOptions() {
         return options;
@@ -14,5 +16,7 @@ public class ListGroupsDto {
     public void setOptions(ListOptionsDto options) {
         this.options = options;
     }
+
+
 
 };

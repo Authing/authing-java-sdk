@@ -1,15 +1,17 @@
 package dto;
 
+import java.util.List;
+
 
 public class DeleteDepartmentReqDto {
     /**
      * 组织 code
      */
-    private String organizationCode
+    private String organizationCode;
     /**
      * 部门 ID
      */
-    private String departmentId
+    private String departmentId;
 
     public String getOrganizationCode() {
         return organizationCode;
@@ -24,5 +26,7 @@ public class DeleteDepartmentReqDto {
     public void setDepartmentId(String departmentId) {
         this.departmentId = departmentId;
     }
+
+
 
 };

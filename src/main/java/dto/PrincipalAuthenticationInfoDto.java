@@ -1,27 +1,29 @@
 package dto;
 
+import java.util.List;
+
 
 public class PrincipalAuthenticationInfoDto {
     /**
      * 是否进行认证
      */
-    private Boolean authenticated
+    private Boolean authenticated;
     /**
      * 用户 ID
      */
-    private String principalType
+    private String principalType;
     /**
      * 认证主体证件号码
      */
-    private String principalCode
+    private String principalCode;
     /**
      * 认证主体名称
      */
-    private String principalName
+    private String principalName;
     /**
      * 认证时间，标准时间字符串
      */
-    private String authenticatedAt
+    private String authenticatedAt;
 
     public Boolean getAuthenticated() {
         return authenticated;
@@ -57,5 +59,7 @@ public class PrincipalAuthenticationInfoDto {
     public void setAuthenticatedAt(String authenticatedAt) {
         this.authenticatedAt = authenticatedAt;
     }
+
+
 
 };

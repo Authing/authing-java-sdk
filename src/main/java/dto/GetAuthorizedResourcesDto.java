@@ -1,23 +1,25 @@
 package dto;
 
+import java.util.List;
+
 
 public class GetAuthorizedResourcesDto {
     /**
      * 目标对象唯一标志符
      */
-    private String targetIdentifier
+    private String targetIdentifier;
     /**
      * 目标对象类型
      */
-    private GetAuthorizedResourcesDto.targetType targetType
+    private GetAuthorizedResourcesDto.targetType targetType;
     /**
      * 所属权限分组的 code
      */
-    private String namespace
+    private String namespace;
     /**
      * 资源类型，如数据、API、按钮、菜单
      */
-    private GetAuthorizedResourcesDto.resourceType resourceType
+    private GetAuthorizedResourcesDto.resourceType resourceType;
 
     public String getTargetIdentifier() {
         return targetIdentifier;
@@ -46,5 +48,47 @@ public class GetAuthorizedResourcesDto {
     public void setResourceType(GetAuthorizedResourcesDto.resourceType resourceType) {
         this.resourceType = resourceType;
     }
+
+
+    /**
+     * 目标对象类型
+     */
+    public static enum TargetType {
+        USER('USER'),
+        ROLE('ROLE'),
+        GROUP('GROUP'),
+        DEPARTMENT('DEPARTMENT'),
+        ;
+
+        private String value;
+        targetType(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    /**
+     * 资源类型，如数据、API、按钮、菜单
+     */
+    public static enum ResourceType {
+        DATA('DATA'),
+        API('API'),
+        MENU('MENU'),
+        BUTTON('BUTTON'),
+        ;
+
+        private String value;
+        resourceType(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
 
 };
