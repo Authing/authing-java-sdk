@@ -661,7 +661,7 @@ class AuthenticationClient : BaseClient {
     /**
      * 设置自定义字段值
      */
-    fun setUdfValue(data: Map<String, String>): GraphQLCall<SetUdvBatchResponse, List<UserDefinedData>> {
+    fun setUdfValue(data: Map<String, Any>): GraphQLCall<SetUdvBatchResponse, List<UserDefinedData>> {
         if (user == null) {
             throw Exception("login first")
         }
