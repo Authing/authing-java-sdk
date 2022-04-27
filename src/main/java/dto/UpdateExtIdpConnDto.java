@@ -31,7 +31,7 @@ public class UpdateExtIdpConnDto {
     /**
      * 绑定方式
      */
-    private List<> challengeBindingMethods;
+    //private List<> challengeBindingMethods;
 
     public Boolean getLoginOnly() {
         return loginOnly;
@@ -75,12 +75,12 @@ public class UpdateExtIdpConnDto {
         this.id = id;
     }
 
-    public List<> getChallengeBindingMethods() {
-        return challengeBindingMethods;
-    }
-    public void setChallengeBindingMethods(List<> challengeBindingMethods) {
-        this.challengeBindingMethods = challengeBindingMethods;
-    }
+//    public List<> getChallengeBindingMethods() {
+//        return challengeBindingMethods;
+//    }
+//    public void setChallengeBindingMethods(List<> challengeBindingMethods) {
+//        this.challengeBindingMethods = challengeBindingMethods;
+//    }
 
 
 

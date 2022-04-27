@@ -35,7 +35,7 @@ public class ExtIdpConnDetail {
     /**
      * 绑定方式
      */
-    private List<> challengeBindingMethods;
+    //private List<> challengeBindingMethods;
     /**
      * 自定义参数
      */
@@ -90,12 +90,12 @@ public class ExtIdpConnDetail {
         this.associationMode = associationMode;
     }
 
-    public List<> getChallengeBindingMethods() {
-        return challengeBindingMethods;
-    }
-    public void setChallengeBindingMethods(List<> challengeBindingMethods) {
-        this.challengeBindingMethods = challengeBindingMethods;
-    }
+//    public List<> getChallengeBindingMethods() {
+//        return challengeBindingMethods;
+//    }
+//    public void setChallengeBindingMethods(List<> challengeBindingMethods) {
+//        this.challengeBindingMethods = challengeBindingMethods;
+//    }
 
     public Object getFields() {
         return fields;
