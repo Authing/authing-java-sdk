@@ -1,5 +1,6 @@
 package client;
 
+import cn.hutool.core.util.StrUtil;
 import dto.GetManagementAccessTokenDto;
 import dto.GetManagementTokenRespDto;
 import dto.AppListRespDto;
@@ -134,8 +135,16 @@ import model.ManagementClientOptions;
 
 
 public class ManagementClient extends BaseClient {
+    
     public ManagementClient(ManagementClientOptions options) {
-        this.options = options;
+        super(options);
+        // 必要参数校验
+        if (StrUtil.isBlank(options.getAccessKeyId())) {
+            throw new IllegalArgumentException("accessKeyId is required");
+        }
+        if (StrUtil.isBlank(options.getAccessKeySecret())) {
+            throw new IllegalArgumentException("accessKeySecret is required");
+        }
     }
 
     public GetManagementTokenRespDto getManagementToken(GetManagementAccessTokenDto reqDto) {
