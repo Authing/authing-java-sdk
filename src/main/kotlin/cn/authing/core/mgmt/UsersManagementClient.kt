@@ -473,7 +473,7 @@ class UsersManagementClient(private val client: ManagementClient) {
      */
     fun setUdfValue(
         userId: String,
-        data: Map<String, String>
+        data: Map<String, Any>
     ): HttpCall<RestfulResponse<List<UserDefinedData>>, List<UserDefinedData>> {
         val params = RestSetUdfValueParams(UdfTargetType.USER, userId, data)
 
