@@ -9,11 +9,19 @@ import java.util.Collections;
 
 public class ${template.className}Test {
 
+    private static final String ACCESS_KEY_ID = "";
+    private static final String ACCESS_KEY_SECRET = "";
+    private static final String HOST = "https://core.authing.cn";
+
 <#list template.methods as method>
+
+
+
     @Test
     public void ${method.methodName?uncap_first}Test () {
-        ManagementClientOptions clientOptions = new ManagementClientOptions("accessKeyId", "accessKeySecret");
+        ManagementClientOptions clientOptions = new ManagementClientOptions(ACCESS_KEY_ID, ACCESS_KEY_SECRET);
         ManagementClient client = new ManagementClient(clientOptions);
+        clientOptions.setHost(HOST);
 
         <#list method.reqParameters as reqParameter>
         ${reqParameter.className} ${reqParameter.name} = new ${reqParameter.className}();
@@ -23,6 +31,7 @@ public class ${template.className}Test {
         </#list>
 
         ${method.respClass} response = client.${method.methodName}(<#list method.reqParameters as reqParameter>${reqParameter.name}<#if reqParameter_has_next>, </#if></#list>);
+        System.out.println(JsonUtils.serialize(response));
     }
 
 

@@ -20,7 +20,11 @@ public class HttpUtils {
                 .body(body)
                 .headerMap(headers, true)
                 .execute();
-        return httpResponse.body();
+        if (httpResponse.isOk()) {
+            return httpResponse.body();
+        } else {
+            throw new RuntimeException(httpResponse.body());
+        }
     }
     
     

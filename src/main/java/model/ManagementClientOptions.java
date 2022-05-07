@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.Header;
 import cn.hutool.http.Method;
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.sun.nio.sctp.IllegalReceiveException;
 import enums.LanguageEnum;
@@ -206,18 +207,8 @@ public class ManagementClientOptions extends AuthingClientOptions {
             this.accessTokenExpiredAt = System.currentTimeMillis() / 1000 + loginResponse.getData().getExpires_in();
             // 解析 token
             DecodedJWT decode = JWT.decode(this.accessToken);
-            String payload = decode.getPayload();
-            // todo 解析 payload
-            Map<?, ?> deserialize = JsonUtils.deserialize(payload, Map.class);
-            if (Objects.isNull(deserialize)) {
-                throw new IllegalReceiveException("payload is null");
-            }
-            Object scopedUserpoolId = deserialize.get("scoped_userpool_id");
-            if (Objects.isNull(scopedUserpoolId)) {
-                throw new IllegalReceiveException("scoped_userpool_id is null");
-            }
             // 存储 token 中的 用户池 ID
-            this.userPoolId = scopedUserpoolId.toString();
+            this.userPoolId = decode.getClaim("scoped_userpool_id").asString();
         }
         
         public static class LoginResponse {
