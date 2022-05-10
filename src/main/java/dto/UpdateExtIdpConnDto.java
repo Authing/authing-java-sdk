@@ -66,6 +66,4 @@ public class UpdateExtIdpConnDto {
         this.loginOnly = loginOnly;
     }
 
-
-
 }

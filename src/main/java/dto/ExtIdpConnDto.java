@@ -1,45 +1,35 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
 
-public class ExtIdpConnDetail {
+public class ExtIdpConnDto {
     /**
      * 身份源连接 id
      */
+    @JsonProperty("getId")
     private String id;
     /**
      * 身份源连接类型
      */
+    @JsonProperty("getType")
     private Type type;
     /**
      * 身份源图标
      */
+    @JsonProperty("getLogo")
     private String logo;
     /**
-     * 连接标识
+     * 身份源连接标识
      */
+    @JsonProperty("getIdentifier")
     private String identifier;
     /**
-     * 连接在登录页的显示名称
+     * 身份源连接在登录页的显示名称
      */
+    @JsonProperty("getDisplayName")
     private String displayName;
-    /**
-     * 只支持登录
-     */
-    private Boolean loginOnly;
-    /**
-     * 关联模式
-     */
-    private AssociationMode associationMode;
-    /**
-     * 绑定方式
-     */
-    //private List<> challengeBindingMethods;
-    /**
-     * 自定义参数
-     */
-    private Object fields;
 
     public String getId() {
         return id;
@@ -74,34 +64,6 @@ public class ExtIdpConnDetail {
     }
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
-    }
-
-    public Boolean getLoginOnly() {
-        return loginOnly;
-    }
-    public void setLoginOnly(Boolean loginOnly) {
-        this.loginOnly = loginOnly;
-    }
-
-    public AssociationMode getAssociationMode() {
-        return associationMode;
-    }
-    public void setAssociationMode(AssociationMode associationMode) {
-        this.associationMode = associationMode;
-    }
-
-//    public List<> getChallengeBindingMethods() {
-//        return challengeBindingMethods;
-//    }
-//    public void setChallengeBindingMethods(List<> challengeBindingMethods) {
-//        this.challengeBindingMethods = challengeBindingMethods;
-//    }
-
-    public Object getFields() {
-        return fields;
-    }
-    public void setFields(Object fields) {
-        this.fields = fields;
     }
 
 
@@ -152,26 +114,6 @@ public class ExtIdpConnDetail {
         private String value;
 
         Type(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
-    }
-
-    /**
-     * 关联模式
-     */
-    public static enum AssociationMode {
-        NONE("none"),
-        FIELD("field"),
-        CHALLENGE("challenge"),
-        ;
-
-        private String value;
-
-        AssociationMode(String value) {
             this.value = value;
         }
 

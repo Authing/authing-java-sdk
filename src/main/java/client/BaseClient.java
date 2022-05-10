@@ -6,12 +6,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import model.AuthingRequestConfig;
 import model.ManagementClientOptions;
+import okhttp3.*;
+import util.HttpClientUtils;
+
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author luojielin
  */
 public class BaseClient {
 
+    private static final OkHttpClient okHttpClient = new OkHttpClient.Builder()
+            .connectTimeout(50L, TimeUnit.SECONDS)
+            .readTimeout(60L, TimeUnit.SECONDS)
+            .build();
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     protected ManagementClientOptions options = new ManagementClientOptions();
@@ -36,7 +45,39 @@ public class BaseClient {
         }
     }
 
-    public static String request (AuthingRequestConfig config) {
-        return "";
+    public static String serialize(Object value) {
+        try {
+            String result = objectMapper.writeValueAsString(value);
+            return result;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public String request (AuthingRequestConfig config) {
+        Request request;
+
+        switch (config.getMethod()) {
+            case "GET":
+                request = new Request.Builder().get().url(config.getUrl()).build();
+                break;
+            case "POST":
+                RequestBody requestBody = RequestBody.create(BaseClient.serialize(config.getBody()), MediaType.get("application/json;charset=UTF-8"));
+                request = new Request.Builder().post(requestBody).url(options.getHost() + config.getUrl()).build();
+            default:
+                return null;
+        }
+        Call call = okHttpClient.newCall(request);
+        Response response = null;
+        try {
+            response = okHttpClient.newCall(request).execute();
+            if (!response.isSuccessful()) {
+                throw new IOException("Unexpected code " + response);
+            }
+            return String.valueOf(response.body());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
