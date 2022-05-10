@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -7,27 +8,38 @@ public class CreateExtIdpConnDto {
     /**
      * 连接的自定义配置信息
      */
+    @JsonProperty("getFields")
     private Object fields;
     /**
-     * 身份源图标
+     * 连接在登录页的显示名称
      */
-    private String logo;
+    @JsonProperty("getDisplayName")
+    private String displayName;
     /**
      * 身份源连接标识
      */
+    @JsonProperty("getIdentifier")
     private String identifier;
     /**
      * 身份源连接类型
      */
+    @JsonProperty("getType")
     private Type type;
     /**
      * 身份源连接 id
      */
+    @JsonProperty("getExtIdpId")
     private String extIdpId;
     /**
-     * 连接在登录页的显示名称
+     * 是否只支持登录
      */
-    private String displayName;
+    @JsonProperty("getLoginOnly")
+    private Boolean loginOnly;
+    /**
+     * 身份源图标
+     */
+    @JsonProperty("getLogo")
+    private String logo;
 
     public Object getFields() {
         return fields;
@@ -36,11 +48,11 @@ public class CreateExtIdpConnDto {
         this.fields = fields;
     }
 
-    public String getLogo() {
-        return logo;
+    public String getDisplayName() {
+        return displayName;
     }
-    public void setLogo(String logo) {
-        this.logo = logo;
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
     public String getIdentifier() {
@@ -64,11 +76,18 @@ public class CreateExtIdpConnDto {
         this.extIdpId = extIdpId;
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public Boolean getLoginOnly() {
+        return loginOnly;
     }
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
+    public void setLoginOnly(Boolean loginOnly) {
+        this.loginOnly = loginOnly;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+    public void setLogo(String logo) {
+        this.logo = logo;
     }
 
 

@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -6,22 +7,25 @@ import dto.TargetDto;
 
 public class RevokeRoleDto {
     /**
-     * 部门信息
+     * 移除角色的目标
      */
-    private List<TargetDto> targets;
+    @JsonProperty("getTargets")
+    private List<TargetDto> nase targets;
     /**
-     * 分组 code，识别码
+     * 权限分组内角色的唯一标识符
      */
+    @JsonProperty("getCode")
     private String code;
     /**
-     * 权限分组
+     * 所属权限分组的 code
      */
+    @JsonProperty("getNamespace")
     private String namespace;
 
-    public List<TargetDto> getTargets() {
+    public List<TargetDto> nase getTargets() {
         return targets;
     }
-    public void setTargets(List<TargetDto> targets) {
+    public void setTargets(List<TargetDto> nase targets) {
         this.targets = targets;
     }
 

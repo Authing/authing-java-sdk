@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -8,12 +9,13 @@ public class NamespaceListRespDto {
     /**
      * 权限分组列表
      */
-    private List<NamespaceDto> data;
+    @JsonProperty("getData")
+    private List<NamespaceDto> nase data;
 
-    public List<NamespaceDto> getData() {
+    public List<NamespaceDto> nase getData() {
         return data;
     }
-    public void setData(List<NamespaceDto> data) {
+    public void setData(List<NamespaceDto> nase data) {
         this.data = data;
     }
 

@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -7,18 +8,22 @@ public class AuthorizedResourceDto {
     /**
      * 资源标识符
      */
+    @JsonProperty("getResourceCode")
     private String resourceCode;
     /**
      * 资源类型
      */
+    @JsonProperty("getResourceType")
     private ResourceType resourceType;
     /**
      * 被授权的资源的操作列表
      */
+    @JsonProperty("getActions")
     private List<String> actions;
     /**
      * 资源对应的 API Identifier
      */
+    @JsonProperty("getApiIdentifier")
     private String apiIdentifier;
 
     public String getResourceCode() {

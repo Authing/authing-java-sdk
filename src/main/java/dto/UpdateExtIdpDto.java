@@ -1,16 +1,19 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
 
 public class UpdateExtIdpDto {
     /**
-     * 连接 ID
+     * 身份源 ID
      */
+    @JsonProperty("getId")
     private String id;
     /**
      * 名称
      */
+    @JsonProperty("getName")
     private String name;
 
     public String getId() {

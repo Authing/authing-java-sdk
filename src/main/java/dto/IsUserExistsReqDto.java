@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -7,18 +8,22 @@ public class IsUserExistsReqDto {
     /**
      * 用户名，用户池内唯一
      */
+    @JsonProperty("getUsername")
     private String username;
     /**
      * 邮箱
      */
+    @JsonProperty("getEmail")
     private String email;
     /**
      * 手机号
      */
+    @JsonProperty("getPhone")
     private String phone;
     /**
      * 第三方外部 ID
      */
+    @JsonProperty("getExternalId")
     private String externalId;
 
     public String getUsername() {

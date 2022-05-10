@@ -1,20 +1,24 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
 
 public class RoleDto {
     /**
-     * 角色 code
+     * 权限分组内角色的唯一标识符
      */
+    @JsonProperty("getCode")
     private String code;
     /**
      * 角色描述
      */
+    @JsonProperty("getDescription")
     private String description;
     /**
-     * namespace
+     * 所属权限分组的 code
      */
+    @JsonProperty("getNamespace")
     private String namespace;
 
     public String getCode() {

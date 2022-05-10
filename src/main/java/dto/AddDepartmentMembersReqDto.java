@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -7,14 +8,17 @@ public class AddDepartmentMembersReqDto {
     /**
      * 部门 ID
      */
+    @JsonProperty("getDepartmentId")
     private String departmentId;
     /**
      * 组织 code
      */
+    @JsonProperty("getOrganizationCode")
     private String organizationCode;
     /**
      * 用户 ID 列表
      */
+    @JsonProperty("getUserIds")
     private List<String> userIds;
 
     public String getDepartmentId() {

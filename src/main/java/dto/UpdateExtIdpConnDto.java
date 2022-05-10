@@ -1,58 +1,35 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
 
 public class UpdateExtIdpConnDto {
     /**
-     * 是否只支持登录
+     * 身份源连接自定义参数（增量修改）
      */
-    private Boolean loginOnly;
-    /**
-     * 关联模式
-     */
-    private String associationMode;
-    /**
-     * 图标
-     */
-    private String logo;
-    /**
-     * 身份源连接自定义参数
-     */
+    @JsonProperty("getFields")
     private Object fields;
     /**
      * 身份源连接显示名称
      */
+    @JsonProperty("getDisplayName")
     private String displayName;
     /**
-     * 连接 ID
+     * 身份源连接 ID
      */
+    @JsonProperty("getId")
     private String id;
     /**
-     * 绑定方式
+     * 身份源连接的图标
      */
-    private List<> challengeBindingMethods;
-
-    public Boolean getLoginOnly() {
-        return loginOnly;
-    }
-    public void setLoginOnly(Boolean loginOnly) {
-        this.loginOnly = loginOnly;
-    }
-
-    public String getAssociationMode() {
-        return associationMode;
-    }
-    public void setAssociationMode(String associationMode) {
-        this.associationMode = associationMode;
-    }
-
-    public String getLogo() {
-        return logo;
-    }
-    public void setLogo(String logo) {
-        this.logo = logo;
-    }
+    @JsonProperty("getLogo")
+    private String logo;
+    /**
+     * 是否只支持登录
+     */
+    @JsonProperty("getLoginOnly")
+    private Boolean loginOnly;
 
     public Object getFields() {
         return fields;
@@ -75,11 +52,18 @@ public class UpdateExtIdpConnDto {
         this.id = id;
     }
 
-    public List<> getChallengeBindingMethods() {
-        return challengeBindingMethods;
+    public String getLogo() {
+        return logo;
     }
-    public void setChallengeBindingMethods(List<> challengeBindingMethods) {
-        this.challengeBindingMethods = challengeBindingMethods;
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    public Boolean getLoginOnly() {
+        return loginOnly;
+    }
+    public void setLoginOnly(Boolean loginOnly) {
+        this.loginOnly = loginOnly;
     }
 
 

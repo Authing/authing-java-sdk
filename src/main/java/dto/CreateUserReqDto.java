@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -9,74 +10,97 @@ public class CreateUserReqDto {
     /**
      * 账户当前状态
      */
+    @JsonProperty("getStatus")
     private Status status;
     /**
      * 邮箱
      */
+    @JsonProperty("getEmail")
     private String email;
+    /**
+     * 加密类型
+     */
+    @JsonProperty("getPasswordEncryptType")
+    private PasswordEncryptType passwordEncryptType;
     /**
      * 手机号
      */
+    @JsonProperty("getPhone")
     private String phone;
     /**
      * 手机区号
      */
+    @JsonProperty("getPhoneCountryCode")
     private String phoneCountryCode;
     /**
      * 用户名，用户池内唯一
      */
+    @JsonProperty("getUsername")
     private String username;
     /**
      * 用户真实名称，不具备唯一性
      */
+    @JsonProperty("getName")
     private String name;
     /**
      * 昵称
      */
+    @JsonProperty("getNickname")
     private String nickname;
     /**
      * 头像链接
      */
+    @JsonProperty("getPhoto")
     private String photo;
     /**
      * 性别
      */
+    @JsonProperty("getGender")
     private Gender gender;
     /**
      * 邮箱是否验证
      */
+    @JsonProperty("getEmailVerified")
     private Boolean emailVerified;
     /**
      * 手机号是否验证
      */
+    @JsonProperty("getPhoneVerified")
     private Boolean phoneVerified;
     /**
      * 第三方外部 ID
      */
+    @JsonProperty("getExternalId")
     private String externalId;
     /**
      * 用户所属部门 ID 列表
      */
+    @JsonProperty("getDepartmentIds")
     private List<String> departmentIds;
     /**
      * 自定义数据，传入的对象中的 key 必须先在用户池定义相关自定义字段
      */
+    @JsonProperty("getCustomData")
     private Object customData;
     /**
-     * 密码。必须通过加密方式进行加密。
+     * 密码。可选加密方式进行加密，默认为未加密
      */
+    @JsonProperty("getPassword")
     private String password;
     /**
      * 租户 ID
      */
+    @JsonProperty("getTenantIds")
     private List<String> tenantIds;
     /**
      * 第三方身份源（建议调用绑定接口进行绑定）
      */
-    private List<CreateIdentityDto> identities;
+    @JsonProperty("getIdentities")
+    private List<CreateIdentityDto> nase identities;
     /**
      * 附加选项
      */
+    @JsonProperty("getOptions")
     private CreateUserOptionsDto options;
 
     public Status getStatus() {
@@ -91,6 +115,13 @@ public class CreateUserReqDto {
     }
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public PasswordEncryptType getPasswordEncryptType() {
+        return passwordEncryptType;
+    }
+    public void setPasswordEncryptType(PasswordEncryptType passwordEncryptType) {
+        this.passwordEncryptType = passwordEncryptType;
     }
 
     public String getPhone() {
@@ -191,10 +222,10 @@ public class CreateUserReqDto {
         this.tenantIds = tenantIds;
     }
 
-    public List<CreateIdentityDto> getIdentities() {
+    public List<CreateIdentityDto> nase getIdentities() {
         return identities;
     }
-    public void setIdentities(List<CreateIdentityDto> identities) {
+    public void setIdentities(List<CreateIdentityDto> nase identities) {
         this.identities = identities;
     }
 
@@ -220,6 +251,26 @@ public class CreateUserReqDto {
         private String value;
 
         Status(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    /**
+     * 加密类型
+     */
+    public static enum PasswordEncryptType {
+        SM2("sm2"),
+        RSA("rsa"),
+        NONE("none"),
+        ;
+
+        private String value;
+
+        PasswordEncryptType(String value) {
             this.value = value;
         }
 

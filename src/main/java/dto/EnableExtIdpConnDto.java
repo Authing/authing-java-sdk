@@ -1,32 +1,30 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
 
 public class EnableExtIdpConnDto {
     /**
-     * 租户 ID
-     */
-    private String tenantId;
-    /**
      * 应用 ID
      */
+    @JsonProperty("getAppId")
     private String appId;
     /**
      * 是否开启身份源连接
      */
+    @JsonProperty("getEnabled")
     private Boolean enabled;
     /**
-     * 连接 ID
+     * 身份源连接 ID
      */
+    @JsonProperty("getId")
     private String id;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
+    /**
+     * 租户 ID
+     */
+    @JsonProperty("getTenantId")
+    private String tenantId;
 
     public String getAppId() {
         return appId;
@@ -47,6 +45,13 @@ public class EnableExtIdpConnDto {
     }
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
     }
 
 

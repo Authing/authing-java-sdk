@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -7,31 +8,43 @@ public class DepartmentDto {
     /**
      * 部门 ID
      */
+    @JsonProperty("getDepartmentId")
     private String departmentId;
     /**
      * 父部门 id
      */
+    @JsonProperty("getParentDepartmentId")
     private String parentDepartmentId;
     /**
      * 部门名称
      */
+    @JsonProperty("getName")
     private String name;
     /**
      * 部门描述
      */
+    @JsonProperty("getDescription")
     private String description;
     /**
      * 部门识别码
      */
+    @JsonProperty("getCode")
     private String code;
     /**
      * 部门负责人 ID
      */
+    @JsonProperty("getLeaderUserId")
     private String leaderUserId;
     /**
      * 部门人数
      */
+    @JsonProperty("getMembersCount")
     private Integer membersCount;
+    /**
+     * 是否包含子部门
+     */
+    @JsonProperty("getHasChildren")
+    private Boolean hasChildren;
 
     public String getDepartmentId() {
         return departmentId;
@@ -80,6 +93,13 @@ public class DepartmentDto {
     }
     public void setMembersCount(Integer membersCount) {
         this.membersCount = membersCount;
+    }
+
+    public Boolean getHasChildren() {
+        return hasChildren;
+    }
+    public void setHasChildren(Boolean hasChildren) {
+        this.hasChildren = hasChildren;
     }
 
 

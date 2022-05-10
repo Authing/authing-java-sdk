@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -7,10 +8,12 @@ public class DeleteResourcesBatchDto {
     /**
      * 资源 code 列表
      */
+    @JsonProperty("getCodeList")
     private List<String> codeList;
     /**
      * 所属权限分组的 code
      */
+    @JsonProperty("getNamespace")
     private String namespace;
 
     public List<String> getCodeList() {

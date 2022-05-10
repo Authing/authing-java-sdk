@@ -1,12 +1,14 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
 
 public class DeleteExtIdpDto {
     /**
-     * 连接 ID
+     * 身份源 ID
      */
+    @JsonProperty("getId")
     private String id;
 
     public String getId() {

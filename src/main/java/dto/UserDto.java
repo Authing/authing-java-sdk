@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -8,78 +9,97 @@ public class UserDto {
     /**
      * 用户 ID
      */
+    @JsonProperty("getUserId")
     private String userId;
     /**
      * 账户当前状态
      */
+    @JsonProperty("getStatus")
     private Status status;
     /**
      * 邮箱
      */
+    @JsonProperty("getEmail")
     private String email;
     /**
      * 手机号
      */
+    @JsonProperty("getPhone")
     private String phone;
     /**
      * 手机区号
      */
+    @JsonProperty("getPhoneCountryCode")
     private String phoneCountryCode;
     /**
      * 用户名，用户池内唯一
      */
+    @JsonProperty("getUsername")
     private String username;
     /**
      * 用户真实名称，不具备唯一性
      */
+    @JsonProperty("getName")
     private String name;
     /**
      * 昵称
      */
+    @JsonProperty("getNickname")
     private String nickname;
     /**
      * 头像链接
      */
+    @JsonProperty("getPhoto")
     private String photo;
     /**
      * 历史总登录次数
      */
+    @JsonProperty("getLoginsCount")
     private Integer loginsCount;
     /**
      * 上次登录时间
      */
+    @JsonProperty("getLastLogin")
     private String lastLogin;
     /**
      * 上次登录 IP
      */
+    @JsonProperty("getLastIp")
     private String lastIp;
     /**
      * 性别
      */
+    @JsonProperty("getGender")
     private Gender gender;
     /**
      * 邮箱是否验证
      */
+    @JsonProperty("getEmailVerified")
     private Boolean emailVerified;
     /**
      * 手机号是否验证
      */
+    @JsonProperty("getPhoneVerified")
     private Boolean phoneVerified;
     /**
      * 第三方外部 ID
      */
+    @JsonProperty("getExternalId")
     private String externalId;
     /**
      * 用户所属部门 ID 列表
      */
+    @JsonProperty("getDepartmentIds")
     private List<String> departmentIds;
     /**
      * 外部身份源
      */
-    private List<IdentityDto> identities;
+    @JsonProperty("getIdentities")
+    private List<IdentityDto> nase identities;
     /**
      * 自定义数据，传入的对象中的 key 必须先在用户池定义相关自定义字段
      */
+    @JsonProperty("getCustomData")
     private Object customData;
 
     public String getUserId() {
@@ -201,10 +221,10 @@ public class UserDto {
         this.departmentIds = departmentIds;
     }
 
-    public List<IdentityDto> getIdentities() {
+    public List<IdentityDto> nase getIdentities() {
         return identities;
     }
-    public void setIdentities(List<IdentityDto> identities) {
+    public void setIdentities(List<IdentityDto> nase identities) {
         this.identities = identities;
     }
 

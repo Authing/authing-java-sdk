@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -8,31 +9,38 @@ public class SetCustomFieldDto {
     /**
      * 主体类型，目前支持用户和角色
      */
+    @JsonProperty("getTargetType")
     private TargetType targetType;
     /**
      * 数据类型
      */
+    @JsonProperty("getDataType")
     private DataType dataType;
     /**
      * 字段 key，不能和用户内置字段的 key 冲突
      */
+    @JsonProperty("getKey")
     private String key;
     /**
      * 前端表单展示名称
      */
+    @JsonProperty("getLabel")
     private String label;
     /**
      * 详细描述信息
      */
+    @JsonProperty("getDescription")
     private String description;
     /**
      * 是否加密存储
      */
+    @JsonProperty("getEncrypted")
     private Boolean encrypted;
     /**
      * 枚举值类型选择项
      */
-    private List<CustomFieldSelectOption> options;
+    @JsonProperty("getOptions")
+    private List<CustomFieldSelectOption> nase options;
 
     public TargetType getTargetType() {
         return targetType;
@@ -76,10 +84,10 @@ public class SetCustomFieldDto {
         this.encrypted = encrypted;
     }
 
-    public List<CustomFieldSelectOption> getOptions() {
+    public List<CustomFieldSelectOption> nase getOptions() {
         return options;
     }
-    public void setOptions(List<CustomFieldSelectOption> options) {
+    public void setOptions(List<CustomFieldSelectOption> nase options) {
         this.options = options;
     }
 

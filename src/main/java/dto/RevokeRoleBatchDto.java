@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -7,25 +8,27 @@ import dto.TargetDto;
 
 public class RevokeRoleBatchDto {
     /**
-     * 目标信息
+     * 移除角色的目标列表
      */
-    private List<TargetDto> targets;
+    @JsonProperty("getTargets")
+    private List<TargetDto> nase targets;
     /**
-     * 角色信息
+     * 角色信息列表
      */
-    private List<RoleCodeDto> roles;
+    @JsonProperty("getRoles")
+    private List<RoleCodeDto> nase roles;
 
-    public List<TargetDto> getTargets() {
+    public List<TargetDto> nase getTargets() {
         return targets;
     }
-    public void setTargets(List<TargetDto> targets) {
+    public void setTargets(List<TargetDto> nase targets) {
         this.targets = targets;
     }
 
-    public List<RoleCodeDto> getRoles() {
+    public List<RoleCodeDto> nase getRoles() {
         return roles;
     }
-    public void setRoles(List<RoleCodeDto> roles) {
+    public void setRoles(List<RoleCodeDto> nase roles) {
         this.roles = roles;
     }
 

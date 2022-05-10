@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -7,22 +8,22 @@ public class ExtIdpDto {
     /**
      * 身份源 id
      */
+    @JsonProperty("getId")
     private String id;
     /**
      * 身份源名称
      */
+    @JsonProperty("getName")
     private String name;
-    /**
-     * 租户场景下自动加入
-     */
-    private Boolean autoJoin;
     /**
      * 租户 ID
      */
+    @JsonProperty("getTenantId")
     private String tenantId;
     /**
      * 身份源类型
      */
+    @JsonProperty("getType")
     private String type;
 
     public String getId() {
@@ -37,13 +38,6 @@ public class ExtIdpDto {
     }
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Boolean getAutoJoin() {
-        return autoJoin;
-    }
-    public void setAutoJoin(Boolean autoJoin) {
-        this.autoJoin = autoJoin;
     }
 
     public String getTenantId() {

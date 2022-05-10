@@ -7,35 +7,18 @@ import dto.AuthorizedResourcePaginatedRespDto;
 import dto.CreateUserBatchReqDto;
 import dto.CreateUserReqDto;
 import dto.DeleteUsersBatchDto;
-import dto.GetUserAccessibleAppsReqDto;
-import dto.GetUserAuthorizedResourcesDto;
-import dto.GetUserBatchDto;
-import dto.GetUserCustomDataDto;
-import dto.GetUserDepartmentsDto;
-import dto.GetUserDto;
-import dto.GetUserGroupsDto;
-import dto.GetUserIdentitiesDto;
-import dto.GetUserLoggedInAppsReqDto;
-import dto.GetUserLoginHistoryDto;
-import dto.GetUserMfaInfoDto;
-import dto.GetUserPrincipalAuthenticationInfoDto;
-import dto.GetUserRolesDto;
 import dto.GroupPaginatedRespDto;
-import dto.HasAnyRoleDto;
+import dto.HasAnyRoleReqDto;
 import dto.HasAnyRoleRespDto;
 import dto.IdentityListRespDto;
 import dto.IsSuccessRespDto;
 import dto.IsUserExistsReqDto;
 import dto.IsUserExistsRespDto;
 import dto.KickUsersDto;
-import dto.ListArchivedUsersDto;
 import dto.ListArchivedUsersSingleRespDto;
-import dto.ListUsersDto;
 import dto.PrincipalAuthenticationInfoPaginatedRespDto;
 import dto.ResetUserPrincipalAuthenticationInfoDto;
 import dto.RolePaginatedRespDto;
-import dto.SetUserCustomDataDto;
-import dto.SetUserCustomDataRespDto;
 import dto.SetUserDepartmentsDto;
 import dto.UpdateUserReqDto;
 import dto.UserDepartmentPaginatedRespDto;
@@ -50,12 +33,8 @@ import dto.AuthorizedResourceListRespDto;
 import dto.CreateGroupBatchReqDto;
 import dto.CreateGroupReqDto;
 import dto.DeleteGroupsReqDto;
-import dto.GetGroupAuthorizedResourcesDto;
-import dto.GetGroupDto;
 import dto.GroupListRespDto;
 import dto.GroupSingleRespDto;
-import dto.ListGroupMembersDto;
-import dto.ListGroupsDto;
 import dto.RemoveGroupMembersReqDto;
 import dto.UpdateGroupReqDto;
 import dto.AssignRoleBatchDto;
@@ -63,13 +42,10 @@ import dto.AssignRoleDto;
 import dto.CreateRoleDto;
 import dto.CreateRolesBatch;
 import dto.DeleteRoleDto;
-import dto.GetRoleDto;
-import dto.ListRoleDepartmentDto;
-import dto.ListRoleDto;
-import dto.ListRoleMemberDto;
 import dto.RevokeRoleBatchDto;
 import dto.RevokeRoleDto;
-import dto.RoleAuthorizedResourcesDto;
+import dto.RoleAuthorizedResourcesRespDto;
+import dto.RoleDepartmentRespDto;
 import dto.RoleSingleRespDto;
 import dto.UpdateRoleDto;
 import dto.AddDepartmentMembersReqDto;
@@ -80,11 +56,6 @@ import dto.DeleteOrganizationReqDto;
 import dto.DepartmentListRespDto;
 import dto.DepartmentPaginatedRespDto;
 import dto.DepartmentSingleRespDto;
-import dto.GetDepartmentReqDto;
-import dto.GetParentDepartmentReqDto;
-import dto.ListChildrenDepartmentsReqDto;
-import dto.ListDepartmentMembersReqDto;
-import dto.ListOrganizationsReqDto;
 import dto.OrganizationPaginatedRespDto;
 import dto.OrganizationSingleRespDto;
 import dto.SearchDepartmentsReqDto;
@@ -95,14 +66,13 @@ import dto.CreateExtIdpDto;
 import dto.DeleteExtIdpConnDto;
 import dto.DeleteExtIdpDto;
 import dto.EnableExtIdpConnDto;
-import dto.ExtIdpConnDetail;
-import dto.ExtIdpDto;
-import dto.GetExtIdpDto;
-import dto.TenantIdDto;
+import dto.ExtIdpConnDetailSingleRespDto;
+import dto.ExtIdpDetailSingleRespDto;
+import dto.ExtIdpListRespDto;
+import dto.ExtIdpSingleRespDto;
 import dto.UpdateExtIdpConnDto;
 import dto.UpdateExtIdpDto;
 import dto.CustomFieldListRespDto;
-import dto.GetUserDefinedFieldsDto;
 import dto.SetCustomFieldsReqDto;
 import dto.AuthorizeResourcesDto;
 import dto.CreateNamespaceDto;
@@ -113,12 +83,6 @@ import dto.DeleteNamespaceDto;
 import dto.DeleteNamespacesBatchDto;
 import dto.DeleteResourceDto;
 import dto.DeleteResourcesBatchDto;
-import dto.GetAuthorizedResourcesDto;
-import dto.GetNamespaceDto;
-import dto.GetNamespacesBatchDto;
-import dto.GetResourceDto;
-import dto.GetResourcesBatchDto;
-import dto.ListResourcesDto;
 import dto.NamespaceDto;
 import dto.NamespaceListRespDto;
 import dto.NamespaceRespDto;
@@ -147,74 +111,56 @@ public class ManagementClient extends BaseClient {
         return deserialize(response, GetManagementTokenRespDto.class);
     }
 
-    public UserSingleRespDto getUser(GetUserDto reqDto) {
+    public UserSingleRespDto getUser([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-user");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, UserSingleRespDto.class);
     }
 
-    public UserListRespDto getUserBatch(GetUserBatchDto reqDto) {
+    public UserListRespDto getUserBatch([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-user-batch");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, UserListRespDto.class);
     }
 
-    public UserPaginatedRespDto listUsers(ListUsersDto reqDto) {
+    public UserPaginatedRespDto listUsers([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/list-users");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, UserPaginatedRespDto.class);
     }
 
-    public IdentityListRespDto getUserIdentities(GetUserIdentitiesDto reqDto) {
+    public IdentityListRespDto getUserIdentities([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-user-identities");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, IdentityListRespDto.class);
     }
 
-    public Object getUserCustomData(GetUserCustomDataDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-user-custom-data");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, Object.class);
-    }
-
-    public SetUserCustomDataRespDto setUserCustomData(SetUserCustomDataDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/set-user-custom-data");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, SetUserCustomDataRespDto.class);
-    }
-
-    public RolePaginatedRespDto getUserRoles(GetUserRolesDto reqDto) {
+    public RolePaginatedRespDto getUserRoles([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-user-roles");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, RolePaginatedRespDto.class);
     }
 
-    public PrincipalAuthenticationInfoPaginatedRespDto getPrincipalAuthenticationInfo(GetUserPrincipalAuthenticationInfoDto reqDto) {
+    public PrincipalAuthenticationInfoPaginatedRespDto getPrincipalAuthenticationInfo([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-user-principal-authentication-info");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, PrincipalAuthenticationInfoPaginatedRespDto.class);
     }
@@ -228,11 +174,11 @@ public class ManagementClient extends BaseClient {
         return deserialize(response, IsSuccessRespDto.class);
     }
 
-    public UserDepartmentPaginatedRespDto getUserDepartments(GetUserDepartmentsDto reqDto) {
+    public UserDepartmentPaginatedRespDto getUserDepartments([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-user-departments");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, UserDepartmentPaginatedRespDto.class);
     }
@@ -246,11 +192,11 @@ public class ManagementClient extends BaseClient {
         return deserialize(response, IsSuccessRespDto.class);
     }
 
-    public GroupPaginatedRespDto getUserGroups(GetUserGroupsDto reqDto) {
+    public GroupPaginatedRespDto getUserGroups([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-user-groups");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, GroupPaginatedRespDto.class);
     }
@@ -264,20 +210,20 @@ public class ManagementClient extends BaseClient {
         return deserialize(response, IsSuccessRespDto.class);
     }
 
-    public UserMfaSingleRespDto getUserMfaInfo(GetUserMfaInfoDto reqDto) {
+    public UserMfaSingleRespDto getUserMfaInfo([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-user-mfa-info");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, UserMfaSingleRespDto.class);
     }
 
-    public ListArchivedUsersSingleRespDto listArchivedUsers(ListArchivedUsersDto reqDto) {
+    public ListArchivedUsersSingleRespDto listArchivedUsers([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/list-archived-users");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, ListArchivedUsersSingleRespDto.class);
     }
@@ -327,25 +273,25 @@ public class ManagementClient extends BaseClient {
         return deserialize(response, UserSingleRespDto.class);
     }
 
-    public AppListRespDto getUserAccessibleApps(GetUserAccessibleAppsReqDto reqDto) {
+    public AppListRespDto getUserAccessibleApps([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-user-accessible-apps");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, AppListRespDto.class);
     }
 
-    public AppListRespDto getUserAuthorizedApps(GetUserAccessibleAppsReqDto reqDto) {
+    public AppListRespDto getUserAuthorizedApps([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-user-authorized-apps");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, AppListRespDto.class);
     }
 
-    public HasAnyRoleRespDto hasAnyRole(HasAnyRoleDto reqDto) {
+    public HasAnyRoleRespDto hasAnyRole(HasAnyRoleReqDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/has-any-role");
         config.setBody(reqDto);
@@ -354,47 +300,47 @@ public class ManagementClient extends BaseClient {
         return deserialize(response, HasAnyRoleRespDto.class);
     }
 
-    public UserLoginHistoryPaginatedRespDto getUserLoginHistory(GetUserLoginHistoryDto reqDto) {
+    public UserLoginHistoryPaginatedRespDto getUserLoginHistory([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-user-login-history");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, UserLoginHistoryPaginatedRespDto.class);
     }
 
-    public UserLoggedInAppsListRespDto getUserLoggedInApps(GetUserLoggedInAppsReqDto reqDto) {
+    public UserLoggedInAppsListRespDto getUserLoggedInApps([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-user-loggedin-apps");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, UserLoggedInAppsListRespDto.class);
     }
 
-    public AuthorizedResourcePaginatedRespDto getUserAuthorizedResources(GetUserAuthorizedResourcesDto reqDto) {
+    public AuthorizedResourcePaginatedRespDto getUserAuthorizedResources([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-user-authorized-resources");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, AuthorizedResourcePaginatedRespDto.class);
     }
 
-    public GroupSingleRespDto getGroup(GetGroupDto reqDto) {
+    public GroupSingleRespDto getGroup([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-group");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, GroupSingleRespDto.class);
     }
 
-    public GroupPaginatedRespDto getGroupList(ListGroupsDto reqDto) {
+    public GroupPaginatedRespDto getGroupList([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/list-groups");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, GroupPaginatedRespDto.class);
     }
@@ -453,29 +399,29 @@ public class ManagementClient extends BaseClient {
         return deserialize(response, IsSuccessRespDto.class);
     }
 
-    public UserListRespDto listGroupMembers(ListGroupMembersDto reqDto) {
+    public UserListRespDto listGroupMembers([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/list-group-members");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, UserListRespDto.class);
     }
 
-    public AuthorizedResourceListRespDto getGroupAuthorizedResources(GetGroupAuthorizedResourcesDto reqDto) {
+    public AuthorizedResourceListRespDto getGroupAuthorizedResources([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-group-authorized-resources");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, AuthorizedResourceListRespDto.class);
     }
 
-    public RoleSingleRespDto getRole(GetRoleDto reqDto) {
+    public RoleSingleRespDto getRole([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-role");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, RoleSingleRespDto.class);
     }
@@ -516,31 +462,31 @@ public class ManagementClient extends BaseClient {
         return deserialize(response, IsSuccessRespDto.class);
     }
 
-    public IsSuccessRespDto getRoleAuthorizedResources(RoleAuthorizedResourcesDto reqDto) {
+    public RoleAuthorizedResourcesRespDto getRoleAuthorizedResources([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-role-authorized-resources");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
-        return deserialize(response, IsSuccessRespDto.class);
+        return deserialize(response, RoleAuthorizedResourcesRespDto.class);
     }
 
-    public UserListRespDto listRoleMembers(ListRoleMemberDto reqDto) {
+    public UserListRespDto listRoleMembers([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/list-role-members");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, UserListRespDto.class);
     }
 
-    public UserListRespDto listDepartments(ListRoleDepartmentDto reqDto) {
+    public RoleDepartmentRespDto listRoleDepartments([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/list-role-departments");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
-        return deserialize(response, UserListRespDto.class);
+        return deserialize(response, RoleDepartmentRespDto.class);
     }
 
     public RoleSingleRespDto createRole(CreateRoleDto reqDto) {
@@ -552,16 +498,16 @@ public class ManagementClient extends BaseClient {
         return deserialize(response, RoleSingleRespDto.class);
     }
 
-    public RolePaginatedRespDto listRoles(ListRoleDto reqDto) {
+    public RolePaginatedRespDto listRoles([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/list-roles");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, RolePaginatedRespDto.class);
     }
 
-    public IsSuccessRespDto deleteRoles(DeleteRoleDto reqDto) {
+    public IsSuccessRespDto deleteRolesBatch(DeleteRoleDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/delete-roles-batch");
         config.setBody(reqDto);
@@ -588,11 +534,11 @@ public class ManagementClient extends BaseClient {
         return deserialize(response, IsSuccessRespDto.class);
     }
 
-    public OrganizationPaginatedRespDto listOrganizations(ListOrganizationsReqDto reqDto) {
+    public OrganizationPaginatedRespDto listOrganizations([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/list-organizations");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, OrganizationPaginatedRespDto.class);
     }
@@ -624,11 +570,11 @@ public class ManagementClient extends BaseClient {
         return deserialize(response, IsSuccessRespDto.class);
     }
 
-    public DepartmentSingleRespDto getDepartment(GetDepartmentReqDto reqDto) {
+    public DepartmentSingleRespDto getDepartment([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-department");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, DepartmentSingleRespDto.class);
     }
@@ -669,29 +615,29 @@ public class ManagementClient extends BaseClient {
         return deserialize(response, DepartmentListRespDto.class);
     }
 
-    public DepartmentPaginatedRespDto listChildrenDepartments(ListChildrenDepartmentsReqDto reqDto) {
+    public DepartmentPaginatedRespDto listChildrenDepartments([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/list-children-departments");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, DepartmentPaginatedRespDto.class);
     }
 
-    public UserListRespDto listDepartmentMembers(ListDepartmentMembersReqDto reqDto) {
+    public UserListRespDto listDepartmentMembers([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/list-department-members");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, UserListRespDto.class);
     }
 
-    public Object listDepartmentMemberIds(ListChildrenDepartmentsReqDto reqDto) {
+    public Object listDepartmentMemberIds([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/list-department-member-ids");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, Object.class);
     }
@@ -714,76 +660,76 @@ public class ManagementClient extends BaseClient {
         return deserialize(response, IsSuccessRespDto.class);
     }
 
-    public DepartmentSingleRespDto getParentDepartment(GetParentDepartmentReqDto reqDto) {
+    public DepartmentSingleRespDto getParentDepartment([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-parent-department");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, DepartmentSingleRespDto.class);
     }
 
-    public ExtIdpDto listExtIdp(TenantIdDto reqDto) {
+    public ExtIdpListRespDto listExtIdp([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/list-ext-idp");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
-        return deserialize(response, ExtIdpDto.class);
+        return deserialize(response, ExtIdpListRespDto.class);
     }
 
-    public ExtIdpDto getExtIdp(GetExtIdpDto reqDto) {
+    public ExtIdpDetailSingleRespDto getExtIdp([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-ext-idp");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
-        return deserialize(response, ExtIdpDto.class);
+        return deserialize(response, ExtIdpDetailSingleRespDto.class);
     }
 
-    public ExtIdpDto createExtIdp(CreateExtIdpDto reqDto) {
+    public ExtIdpSingleRespDto createExtIdp(CreateExtIdpDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/create-ext-idp");
         config.setBody(reqDto);
         config.setMethod("POST");
         String response = request(config);
-        return deserialize(response, ExtIdpDto.class);
+        return deserialize(response, ExtIdpSingleRespDto.class);
     }
 
-    public ExtIdpDto updateExtIdp(UpdateExtIdpDto reqDto) {
+    public ExtIdpSingleRespDto updateExtIdp(UpdateExtIdpDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/update-ext-idp");
         config.setBody(reqDto);
         config.setMethod("POST");
         String response = request(config);
-        return deserialize(response, ExtIdpDto.class);
+        return deserialize(response, ExtIdpSingleRespDto.class);
     }
 
-    public ExtIdpDto deleteExtIdp(DeleteExtIdpDto reqDto) {
+    public IsSuccessRespDto deleteExtIdp(DeleteExtIdpDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/delete-ext-idp");
         config.setBody(reqDto);
         config.setMethod("POST");
         String response = request(config);
-        return deserialize(response, ExtIdpDto.class);
+        return deserialize(response, IsSuccessRespDto.class);
     }
 
-    public ExtIdpConnDetail createExtIdpConn(CreateExtIdpConnDto reqDto) {
+    public ExtIdpConnDetailSingleRespDto createExtIdpConn(CreateExtIdpConnDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/create-ext-idp-conn");
         config.setBody(reqDto);
         config.setMethod("POST");
         String response = request(config);
-        return deserialize(response, ExtIdpConnDetail.class);
+        return deserialize(response, ExtIdpConnDetailSingleRespDto.class);
     }
 
-    public ExtIdpConnDetail updateExtIdpConn(UpdateExtIdpConnDto reqDto) {
+    public ExtIdpConnDetailSingleRespDto updateExtIdpConn(UpdateExtIdpConnDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/update-ext-idp-conn");
         config.setBody(reqDto);
         config.setMethod("POST");
         String response = request(config);
-        return deserialize(response, ExtIdpConnDetail.class);
+        return deserialize(response, ExtIdpConnDetailSingleRespDto.class);
     }
 
     public IsSuccessRespDto deleteExtIdpConn(DeleteExtIdpConnDto reqDto) {
@@ -804,11 +750,11 @@ public class ManagementClient extends BaseClient {
         return deserialize(response, IsSuccessRespDto.class);
     }
 
-    public CustomFieldListRespDto getCustomFields(GetUserDefinedFieldsDto reqDto) {
+    public CustomFieldListRespDto getCustomFields([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-custom-fields");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, CustomFieldListRespDto.class);
     }
@@ -840,29 +786,29 @@ public class ManagementClient extends BaseClient {
         return deserialize(response, IsSuccessRespDto.class);
     }
 
-    public ResourceRespDto getResource(GetResourceDto reqDto) {
+    public ResourceRespDto getResource([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-resource");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, ResourceRespDto.class);
     }
 
-    public ResourceListRespDto getResourcesBatch(GetResourcesBatchDto reqDto) {
+    public ResourceListRespDto getResourcesBatch([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-resources-batch");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, ResourceListRespDto.class);
     }
 
-    public ResourcePaginatedRespDto listResources(ListResourcesDto reqDto) {
+    public ResourcePaginatedRespDto listResources([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/list-resources");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, ResourcePaginatedRespDto.class);
     }
@@ -912,20 +858,20 @@ public class ManagementClient extends BaseClient {
         return deserialize(response, IsSuccessRespDto.class);
     }
 
-    public NamespaceRespDto getNamespace(GetNamespaceDto reqDto) {
+    public NamespaceRespDto getNamespace([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-namespace");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, NamespaceRespDto.class);
     }
 
-    public NamespaceListRespDto getNamespacesBatch(GetNamespacesBatchDto reqDto) {
+    public NamespaceListRespDto getNamespacesBatch([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-namespaces-batch");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, NamespaceListRespDto.class);
     }
@@ -939,7 +885,7 @@ public class ManagementClient extends BaseClient {
         return deserialize(response, NamespaceDto.class);
     }
 
-    public IsSuccessRespDto deketeNamespace(DeleteNamespaceDto reqDto) {
+    public IsSuccessRespDto deleteNamespace(DeleteNamespaceDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/delete-namespace");
         config.setBody(reqDto);
@@ -966,11 +912,11 @@ public class ManagementClient extends BaseClient {
         return deserialize(response, IsSuccessRespDto.class);
     }
 
-    public IsSuccessRespDto getTargetAuthorizedResources(GetAuthorizedResourcesDto reqDto) {
+    public IsSuccessRespDto getTargetAuthorizedResources([object Object] reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-authorized-resources");
         config.setBody(reqDto);
-        config.setMethod("POST");
+        config.setMethod("GET");
         String response = request(config);
         return deserialize(response, IsSuccessRespDto.class);
     }

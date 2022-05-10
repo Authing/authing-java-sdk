@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -8,11 +9,13 @@ public class PrincipalAuthenticationInfoPagingDto {
     /**
      * 记录总数
      */
+    @JsonProperty("getTotalCount")
     private Integer totalCount;
     /**
-     * 数据
+     * 响应数据
      */
-    private List<PrincipalAuthenticationInfoDto> list;
+    @JsonProperty("getList")
+    private List<PrincipalAuthenticationInfoDto> nase list;
 
     public Integer getTotalCount() {
         return totalCount;
@@ -21,10 +24,10 @@ public class PrincipalAuthenticationInfoPagingDto {
         this.totalCount = totalCount;
     }
 
-    public List<PrincipalAuthenticationInfoDto> getList() {
+    public List<PrincipalAuthenticationInfoDto> nase getList() {
         return list;
     }
-    public void setList(List<PrincipalAuthenticationInfoDto> list) {
+    public void setList(List<PrincipalAuthenticationInfoDto> nase list) {
         this.list = list;
     }
 

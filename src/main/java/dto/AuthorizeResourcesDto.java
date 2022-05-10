@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -8,16 +9,18 @@ public class AuthorizeResourcesDto {
     /**
      * 授权列表
      */
-    private List<AuthorizeResourceItem> list;
+    @JsonProperty("getList")
+    private List<AuthorizeResourceItem> nase list;
     /**
      * 所属权限分组的 code
      */
+    @JsonProperty("getNamespace")
     private String namespace;
 
-    public List<AuthorizeResourceItem> getList() {
+    public List<AuthorizeResourceItem> nase getList() {
         return list;
     }
-    public void setList(List<AuthorizeResourceItem> list) {
+    public void setList(List<AuthorizeResourceItem> nase list) {
         this.list = list;
     }
 

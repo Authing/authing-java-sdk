@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -6,25 +7,27 @@ import dto.DepartmentDto;
 
 public class DepartmentPagingDto {
     /**
-     * 记录总数
+     * 总数
      */
-    private Integer totalCount;
+    @JsonProperty("getTotalCount")
+    private Boolean totalCount;
     /**
-     * 数据
+     * 响应数据
      */
-    private List<DepartmentDto> list;
+    @JsonProperty("getList")
+    private List<DepartmentDto> nase list;
 
-    public Integer getTotalCount() {
+    public Boolean getTotalCount() {
         return totalCount;
     }
-    public void setTotalCount(Integer totalCount) {
+    public void setTotalCount(Boolean totalCount) {
         this.totalCount = totalCount;
     }
 
-    public List<DepartmentDto> getList() {
+    public List<DepartmentDto> nase getList() {
         return list;
     }
-    public void setList(List<DepartmentDto> list) {
+    public void setList(List<DepartmentDto> nase list) {
         this.list = list;
     }
 

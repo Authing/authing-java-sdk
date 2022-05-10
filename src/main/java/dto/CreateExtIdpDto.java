@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -7,14 +8,17 @@ public class CreateExtIdpDto {
     /**
      * 身份源连接类型
      */
+    @JsonProperty("getType")
     private Type type;
     /**
-     * 名称
+     * 身份源名称
      */
+    @JsonProperty("getName")
     private String name;
     /**
      * 租户 ID
      */
+    @JsonProperty("getTenantId")
     private String tenantId;
 
     public Type getType() {

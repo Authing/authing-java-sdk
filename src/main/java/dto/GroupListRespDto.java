@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -8,19 +9,23 @@ public class GroupListRespDto {
     /**
      * 业务状态码，可以通过此状态码判断操作是否成功，200 表示成功。
      */
+    @JsonProperty("getCode")
     private Integer code;
     /**
      * 描述信息
      */
+    @JsonProperty("getMessage")
     private String message;
     /**
      * 细分错误码，可通过此错误码得到具体的错误类型。
      */
+    @JsonProperty("getErrorCode")
     private Integer errorCode;
     /**
-     * 数据
+     * 响应数据
      */
-    private List<GroupDto> data;
+    @JsonProperty("getData")
+    private List<GroupDto> nase data;
 
     public Integer getCode() {
         return code;
@@ -43,10 +48,10 @@ public class GroupListRespDto {
         this.errorCode = errorCode;
     }
 
-    public List<GroupDto> getData() {
+    public List<GroupDto> nase getData() {
         return data;
     }
-    public void setData(List<GroupDto> data) {
+    public void setData(List<GroupDto> nase data) {
         this.data = data;
     }
 

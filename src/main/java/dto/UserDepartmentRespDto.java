@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -7,26 +8,32 @@ public class UserDepartmentRespDto {
     /**
      * 部门 ID
      */
+    @JsonProperty("getDepartmentId")
     private String departmentId;
     /**
      * 部门名称
      */
+    @JsonProperty("getName")
     private String name;
     /**
      * 部门描述
      */
+    @JsonProperty("getDescription")
     private String description;
     /**
      * 是否是部门 Leader
      */
+    @JsonProperty("getIsLeader")
     private Boolean isLeader;
     /**
      * 部门识别码
      */
+    @JsonProperty("getCode")
     private String code;
     /**
      * 是否是主部门
      */
+    @JsonProperty("getIsMainDepartment")
     private Boolean isMainDepartment;
 
     public String getDepartmentId() {

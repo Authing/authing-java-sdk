@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -7,22 +8,27 @@ public class PrincipalAuthenticationInfoDto {
     /**
      * 是否进行认证
      */
+    @JsonProperty("getAuthenticated")
     private Boolean authenticated;
     /**
      * 用户 ID
      */
+    @JsonProperty("getPrincipalType")
     private String principalType;
     /**
      * 认证主体证件号码
      */
+    @JsonProperty("getPrincipalCode")
     private String principalCode;
     /**
      * 认证主体名称
      */
+    @JsonProperty("getPrincipalName")
     private String principalName;
     /**
      * 认证时间，标准时间字符串
      */
+    @JsonProperty("getAuthenticatedAt")
     private String authenticatedAt;
 
     public Boolean getAuthenticated() {

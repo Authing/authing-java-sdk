@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -7,22 +8,27 @@ public class AppDto {
     /**
      * App ID
      */
+    @JsonProperty("getAppId")
     private String appId;
     /**
      * App 名称
      */
+    @JsonProperty("getAppName")
     private String appName;
     /**
      * App Logo
      */
+    @JsonProperty("getAppLogo")
     private String appLogo;
     /**
      * App 登录地址
      */
+    @JsonProperty("getAppLoginUrl")
     private String appLoginUrl;
     /**
      * App 默认的登录策略
      */
+    @JsonProperty("getAppDefaultLoginStrategy")
     private AppDefaultLoginStrategy appDefaultLoginStrategy;
 
     public String getAppId() {

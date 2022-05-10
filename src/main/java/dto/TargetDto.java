@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -7,10 +8,12 @@ public class TargetDto {
     /**
      * 目标类型，接受用户，部门
      */
+    @JsonProperty("getTargetType")
     private TargetType targetType;
     /**
      * 目标的 ID
      */
+    @JsonProperty("getTargetIdentifier")
     private String targetIdentifier;
 
     public TargetType getTargetType() {

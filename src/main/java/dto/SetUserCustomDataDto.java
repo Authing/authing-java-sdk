@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -7,6 +8,7 @@ public class SetUserCustomDataDto {
     /**
      * 操作是否成功
      */
+    @JsonProperty("getSuccess")
     private Boolean success;
 
     public Boolean getSuccess() {

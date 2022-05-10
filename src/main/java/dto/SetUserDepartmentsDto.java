@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -8,16 +9,18 @@ public class SetUserDepartmentsDto {
     /**
      * 部门信息
      */
-    private List<SetUserDepartmentDto> departments;
+    @JsonProperty("getDepartments")
+    private List<SetUserDepartmentDto> nase departments;
     /**
      * 用户 ID
      */
+    @JsonProperty("getUserId")
     private String userId;
 
-    public List<SetUserDepartmentDto> getDepartments() {
+    public List<SetUserDepartmentDto> nase getDepartments() {
         return departments;
     }
-    public void setDepartments(List<SetUserDepartmentDto> departments) {
+    public void setDepartments(List<SetUserDepartmentDto> nase departments) {
         this.departments = departments;
     }
 

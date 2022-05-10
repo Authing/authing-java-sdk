@@ -1,30 +1,33 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
 
 public class GetManagementAccessTokenDto {
     /**
-     * 用户池密钥
+     * AccessKey Secret: 如果是以用户池全局 AK/SK 初始化，为用户池密钥；如果是以协作管理员的 AK/SK 初始化，为协作管理员的 SK。
      */
-    private String secret;
+    @JsonProperty("getAccessKeySecret")
+    private String accessKeySecret;
     /**
-     * 用户池 ID
+     * AccessKey ID: 如果是以用户池全局 AK/SK 初始化，为用户池 ID；如果是以协作管理员的 AK/SK 初始化，为协作管理员的 AccessKey ID。
      */
-    private String userPoolId;
+    @JsonProperty("getAccessKeyId")
+    private String accessKeyId;
 
-    public String getSecret() {
-        return secret;
+    public String getAccessKeySecret() {
+        return accessKeySecret;
     }
-    public void setSecret(String secret) {
-        this.secret = secret;
+    public void setAccessKeySecret(String accessKeySecret) {
+        this.accessKeySecret = accessKeySecret;
     }
 
-    public String getUserPoolId() {
-        return userPoolId;
+    public String getAccessKeyId() {
+        return accessKeyId;
     }
-    public void setUserPoolId(String userPoolId) {
-        this.userPoolId = userPoolId;
+    public void setAccessKeyId(String accessKeyId) {
+        this.accessKeyId = accessKeyId;
     }
 
 

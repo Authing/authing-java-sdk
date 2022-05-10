@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -7,30 +8,37 @@ public class UserLoginHistoryDto {
     /**
      * App ID
      */
+    @JsonProperty("getAppId")
     private String appId;
     /**
      * App 名称
      */
+    @JsonProperty("getAppName")
     private String appName;
     /**
      * App Logo
      */
+    @JsonProperty("getAppLogo")
     private String appLogo;
     /**
      * App 登录地址
      */
+    @JsonProperty("getAppLoginUrl")
     private String appLoginUrl;
     /**
      * 客户端 IP
      */
+    @JsonProperty("getClientIp")
     private String clientIp;
     /**
      * 登录时使用的 user agent
      */
+    @JsonProperty("getUserAgent")
     private String userAgent;
     /**
      * 登录时间
      */
+    @JsonProperty("getTime")
     private String time;
 
     public String getAppId() {

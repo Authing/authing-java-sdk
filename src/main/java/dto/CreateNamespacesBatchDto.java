@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -8,12 +9,13 @@ public class CreateNamespacesBatchDto {
     /**
      * 权限分组列表
      */
-    private List<CreateNamespacesBatchItemDto> list;
+    @JsonProperty("getList")
+    private List<CreateNamespacesBatchItemDto> nase list;
 
-    public List<CreateNamespacesBatchItemDto> getList() {
+    public List<CreateNamespacesBatchItemDto> nase getList() {
         return list;
     }
-    public void setList(List<CreateNamespacesBatchItemDto> list) {
+    public void setList(List<CreateNamespacesBatchItemDto> nase list) {
         this.list = list;
     }
 

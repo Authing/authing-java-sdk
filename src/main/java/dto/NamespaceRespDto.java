@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -8,6 +9,7 @@ public class NamespaceRespDto {
     /**
      * 权限分组详情
      */
+    @JsonProperty("getData")
     private NamespaceDto data;
 
     public NamespaceDto getData() {

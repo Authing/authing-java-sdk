@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -8,15 +9,18 @@ public class AuthorizeResourceItem {
     /**
      * 目标对象类型
      */
+    @JsonProperty("getTargetType")
     private TargetType targetType;
     /**
      * 目标对象唯一标志符
      */
+    @JsonProperty("getTargetIdentifiers")
     private List<String> targetIdentifiers;
     /**
      * 授权的资源列表
      */
-    private List<ResourceItemDto> resources;
+    @JsonProperty("getResources")
+    private List<ResourceItemDto> nase resources;
 
     public TargetType getTargetType() {
         return targetType;
@@ -32,10 +36,10 @@ public class AuthorizeResourceItem {
         this.targetIdentifiers = targetIdentifiers;
     }
 
-    public List<ResourceItemDto> getResources() {
+    public List<ResourceItemDto> nase getResources() {
         return resources;
     }
-    public void setResources(List<ResourceItemDto> resources) {
+    public void setResources(List<ResourceItemDto> nase resources) {
         this.resources = resources;
     }
 

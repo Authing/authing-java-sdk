@@ -1,18 +1,21 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+import dto.Role;
 
 public class CreateRolesBatch {
     /**
      * 角色列表
      */
-    private List<String> list;
+    @JsonProperty("getList")
+    private Role list;
 
-    public List<String> getList() {
+    public Role getList() {
         return list;
     }
-    public void setList(List<String> list) {
+    public void setList(Role list) {
         this.list = list;
     }
 

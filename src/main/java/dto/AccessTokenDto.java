@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -7,15 +8,13 @@ public class AccessTokenDto {
     /**
      * Access Token 内容
      */
+    @JsonProperty("getAccess_token")
     private String access_token;
     /**
-     * token 签发时间
+     * token 有效时间
      */
-    private Integer iat;
-    /**
-     * token 到期时间
-     */
-    private Integer exp;
+    @JsonProperty("getExpires_in")
+    private Integer expires_in;
 
     public String getAccess_token() {
         return access_token;
@@ -24,18 +23,11 @@ public class AccessTokenDto {
         this.access_token = access_token;
     }
 
-    public Integer getIat() {
-        return iat;
+    public Integer getExpires_in() {
+        return expires_in;
     }
-    public void setIat(Integer iat) {
-        this.iat = iat;
-    }
-
-    public Integer getExp() {
-        return exp;
-    }
-    public void setExp(Integer exp) {
-        this.exp = exp;
+    public void setExpires_in(Integer expires_in) {
+        this.expires_in = expires_in;
     }
 
 

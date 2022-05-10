@@ -1,4 +1,5 @@
 package dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -9,16 +10,18 @@ public class CreateUserBatchReqDto {
     /**
      * 批量用户
      */
-    private List<CreateUserInfoDto> list;
+    @JsonProperty("getList")
+    private List<CreateUserInfoDto> nase list;
     /**
      * 附加选项
      */
+    @JsonProperty("getOptions")
     private CreateUserOptionsDto options;
 
-    public List<CreateUserInfoDto> getList() {
+    public List<CreateUserInfoDto> nase getList() {
         return list;
     }
-    public void setList(List<CreateUserInfoDto> list) {
+    public void setList(List<CreateUserInfoDto> nase list) {
         this.list = list;
     }
 
