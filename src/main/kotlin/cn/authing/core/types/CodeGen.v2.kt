@@ -604,6 +604,9 @@ data class User(
     /** @param [externalId] 用户外部 ID */
     @SerializedName("externalId")
     var externalId: String? = null,
+
+    @SerializedName("secondaryUserIds")
+    var secondaryUserIds: String? = null,
     /** @param [customData] 用户自定义数据 */
     @SerializedName("customData")
     var customData: List<UserCustomData>? = null
@@ -12317,6 +12320,13 @@ query udv(${'$'}targetType: UDFTargetType!, ${'$'}targetId: String!) {
         );
       }
 
+        fun createGjsRequest(): GraphQLRequest {
+            return GraphQLRequest(
+                    gjsUserDocument,
+                    this
+            );
+        }
+
       private val userDocument: String = """
 query user(${'$'}id: String) {
   user(id: ${'$'}id) {
@@ -12382,6 +12392,74 @@ query user(${'$'}id: String) {
   }
 }
 """
+
+        private val gjsUserDocument: String = """
+query user(${'$'}id: String) {
+  user(id: ${'$'}id) {
+    id
+    arn
+    userPoolId
+    status
+    username
+    email
+    emailVerified
+    phone
+    phoneVerified
+    identities {
+      openid
+      userIdInIdp
+      userId
+      connectionId
+      isSocial
+      provider
+      userPoolId
+    }
+    unionid
+    openid
+    nickname
+    registerSource
+    photo
+    password
+    oauth
+    token
+    tokenExpiredAt
+    loginsCount
+    lastLogin
+    lastIP
+    signedUp
+    blocked
+    isDeleted
+    device
+    browser
+    company
+    name
+    givenName
+    familyName
+    middleName
+    profile
+    preferredUsername
+    website
+    gender
+    birthdate
+    zoneinfo
+    locale
+    address
+    formatted
+    streetAddress
+    locality
+    region
+    postalCode
+    city
+    province
+    country
+    createdAt
+    updatedAt
+    externalId
+    secondaryUserIds
+  }
+}
+"""
+
     }
 
 
