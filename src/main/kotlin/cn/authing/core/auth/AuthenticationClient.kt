@@ -520,7 +520,7 @@ class AuthenticationClient : BaseClient {
         if (appId == null) {
             throw Exception("appId cannot be null")
         }
-        val url = "$host/api/v2/logout?app_id=$appId"
+        val url = "$host/logout?appId=$appId&userId=${user?.id}"
         return createHttpGetCall(
             url,
             object : TypeToken<RestfulResponse<Unit>>() {}
