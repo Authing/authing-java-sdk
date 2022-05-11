@@ -652,7 +652,16 @@ data class Identity(
     var refreshToken: String? = null,
     /** @param [accessToken] accessToken */
     @SerializedName("accessToken")
-    var accessToken: String? = null
+    var accessToken: String? = null,
+    @SerializedName("extIdpId")
+    var extIdpId: String? = null,
+    @SerializedName("type")
+    var type: String? = null,
+    @SerializedName("userInfoInIdp")
+    var userInfoInIdp: User? = null,
+    @SerializedName("syncIdentityProviderId")
+    var syncIdentityProviderId: Number? = null
+
 )
 
 

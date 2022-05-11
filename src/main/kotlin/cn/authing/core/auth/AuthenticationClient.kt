@@ -517,6 +517,21 @@ class AuthenticationClient : BaseClient {
     }
 
 
+    fun logout2(): HttpCall<RestfulResponse<Unit>, Unit> {
+        if (appId == null) {
+            throw Exception("appId cannot be null")
+        }
+        val url = "$host/logout?app_id=$appId&userId=${user?.id}"
+        return createHttpGetCall(
+            url,
+            object : TypeToken<RestfulResponse<Unit>>() {}
+        ) {
+            user = null
+            token = null
+        }
+    }
+
+
     /**
      * 获取当前用户的自定义数据列表
      */
