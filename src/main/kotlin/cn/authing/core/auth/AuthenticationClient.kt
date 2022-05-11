@@ -50,6 +50,20 @@ class AuthenticationClient : BaseClient {
     }
 
     /**
+     * 获取当前登录的用户信息
+     */
+    fun getGjsCurrentUser(): GraphQLCall<UserResponse, User> {
+        val param = UserParam()
+        return createGraphQLCall(
+                param.createGjsRequest(),
+                object : TypeToken<GraphQLResponse<UserResponse>>() {}) {
+            user = it.result
+            token = it.result.token ?: token
+            return@createGraphQLCall it.result
+        }
+    }
+
+    /**
      * 设置当前用户
      */
     fun setCurrentUser(user: User) {
