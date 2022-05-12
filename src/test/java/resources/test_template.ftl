@@ -1,10 +1,10 @@
-import client.ManagementClient;
-import dto.*;
+import cn.authing.sdk.java.client.ManagementClient;
+import cn.authing.sdk.java.dto.*;
 import model.ManagementClientOptions;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.cn.authing.sdk.java.util.ArrayList;
+import java.cn.authing.sdk.java.util.Collections;
 
 
 public class ${template.className}Test {
@@ -20,7 +20,7 @@ public class ${template.className}Test {
     @Test
     public void ${method.methodName?uncap_first}Test () {
         ManagementClientOptions clientOptions = new ManagementClientOptions(ACCESS_KEY_ID, ACCESS_KEY_SECRET);
-        ManagementClient client = new ManagementClient(clientOptions);
+        ManagementClient cn.authing.sdk.java.client = new ManagementClient(clientOptions);
         clientOptions.setHost(HOST);
 
         <#list method.reqParameters as reqParameter>
@@ -30,7 +30,7 @@ public class ${template.className}Test {
             </#list>
         </#list>
 
-        ${method.respClass} response = client.${method.methodName}(<#list method.reqParameters as reqParameter>${reqParameter.name}<#if reqParameter_has_next>, </#if></#list>);
+        ${method.respClass} response = cn.authing.sdk.java.client.${method.methodName}(<#list method.reqParameters as reqParameter>${reqParameter.name}<#if reqParameter_has_next>, </#if></#list>);
         System.out.println(JsonUtils.serialize(response));
     }
 

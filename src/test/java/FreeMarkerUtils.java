@@ -1,10 +1,6 @@
-import client.ManagementClient;
-import dto.GetManagementAccessTokenDto;
-import dto.GetManagementTokenRespDto;
+import cn.authing.sdk.java.client.ManagementClient;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import model.ManagementClientOptions;
-import util.JsonUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -63,16 +59,6 @@ public final class FreeMarkerUtils {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-    
-    public static void main(String[] args) throws Exception{
-        ManagementClientOptions options = new ManagementClientOptions("60e043f8cd91b87d712b6365","158c7679333bc196b524d78d745813e5");
-        ManagementClient client = new ManagementClient(options);
-        GetManagementAccessTokenDto reqDto = new GetManagementAccessTokenDto();
-        reqDto.setSecret("158c7679333bc196b524d78d745813e5");
-        reqDto.setUserPoolId("60e043f8cd91b87d712b6365");
-        GetManagementTokenRespDto managementToken = client.getManagementToken(reqDto);
-        System.out.println(JsonUtils.serialize(managementToken));
     }
     
 }

@@ -72,6 +72,7 @@ public class TestTemplate {
         
         String methodName;
         List<Parameter> reqParameters;
+        String reqClass;
         String respClass;
     
         public String getMethodName() {
@@ -88,6 +89,14 @@ public class TestTemplate {
     
         public void setReqParameters(List<Parameter> reqParameters) {
             this.reqParameters = reqParameters;
+        }
+    
+        public String getReqClass() {
+            return reqClass;
+        }
+    
+        public void setReqClass(String reqClass) {
+            this.reqClass = reqClass;
         }
     
         public String getRespClass() {

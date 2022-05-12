@@ -1,8 +1,4 @@
-import client.ManagementClient;
-import dto.GetManagementAccessTokenDto;
-import dto.GetManagementTokenRespDto;
-import model.ManagementClientOptions;
-import org.junit.jupiter.api.Test;
+import cn.authing.sdk.java.client.ManagementClient;
 
 import java.io.File;
 import java.io.FileReader;
@@ -27,11 +23,11 @@ import java.util.UUID;
 public class TestGenerator {
     
     public static void main(String[] args) throws Throwable{
-        File file = new File("D:\\Work\\Java_\\Workspace\\Authing\\authing-java-sdk-v5\\target\\classes\\dto");
+        File file = new File("D:\\Work\\Java_\\Workspace\\Authing\\authing-java-sdk-v5\\target\\classes\\cn.authing.sdk.java.dto");
         Map<String, Class<?>> classMap = new HashMap<>();
         for (File f : Objects.requireNonNull(file.listFiles())) {
             String s = f.getName().split("\\.")[0];
-            Class<?> aClass = Class.forName("dto." + s);
+            Class<?> aClass = Class.forName("cn.authing.sdk.java.dto." + s);
             classMap.put(aClass.getCanonicalName(), aClass);
         }
         
@@ -144,6 +140,6 @@ public class TestGenerator {
         if (classMap.containsKey(f.getCanonicalName())) {
             return "new " + f.getCanonicalName() + "()";
         }
-        return null;
+        return "null";
     }
 }
