@@ -606,7 +606,7 @@ data class User(
     var externalId: String? = null,
 
     @SerializedName("secondaryUserIds")
-    var secondaryUserIds: String? = null,
+    var secondaryUserIds: List<String>? = null,
     /** @param [customData] 用户自定义数据 */
     @SerializedName("customData")
     var customData: List<UserCustomData>? = null
