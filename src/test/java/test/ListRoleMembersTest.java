@@ -18,15 +18,15 @@ public class ListRoleMembersTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListRoleMembersDto request = new ListRoleMembersDto();
-        request.setCode("code_4000");
+        request.setCode("code_2922");
         request.setPage(0);
         request.setLimit(0);
         request.setWithCustomData(Boolean.TRUE);
         request.setWithIdentities(Boolean.TRUE);
         request.setWithDepartmentIds(Boolean.TRUE);
-        request.setNamespace("namespace_5197");
+        request.setNamespace("namespace_4289");
 
-        UserListRespDto response = client.listRoleMembers(request);
+        UserPaginatedRespDto response = client.listRoleMembers(request);
         System.out.println(JsonUtils.serialize(response));
     }
 

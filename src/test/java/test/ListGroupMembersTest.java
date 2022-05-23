@@ -18,14 +18,14 @@ public class ListGroupMembersTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListGroupMembersDto request = new ListGroupMembersDto();
-        request.setCode("code_6420");
+        request.setCode("code_93");
         request.setPage(0);
         request.setLimit(0);
         request.setWithCustomData(Boolean.TRUE);
         request.setWithIdentities(Boolean.TRUE);
         request.setWithDepartmentIds(Boolean.TRUE);
 
-        UserListRespDto response = client.listGroupMembers(request);
+        UserPaginatedRespDto response = client.listGroupMembers(request);
         System.out.println(JsonUtils.serialize(response));
     }
 

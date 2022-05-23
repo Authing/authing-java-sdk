@@ -19,8 +19,8 @@ public class CreateExtIdpTest {
 
         CreateExtIdpDto request = new CreateExtIdpDto();
         request.setType(cn.authing.sdk.java.dto.CreateExtIdpDto.Type.OIDC);
-        request.setName("name_6224");
-        request.setTenantId("tenantId_3374");
+        request.setName("name_6250");
+        request.setTenantId("tenantId_7488");
 
         ExtIdpSingleRespDto response = client.createExtIdp(request);
         System.out.println(JsonUtils.serialize(response));

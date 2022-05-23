@@ -1,13 +1,14 @@
 import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.GetUserGroupsDto;
-import cn.authing.sdk.java.dto.GroupPaginatedRespDto;
+import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
 import cn.authing.sdk.java.util.JsonUtils;
+
+import java.util.Collections;
 
 
 
 public class GetUserGroupsTest {
-    
+
     private static final String ACCESS_KEY_ID = "YOUR_ACCESS_KEY_ID";
     private static final String ACCESS_KEY_SECRET = "YOUR_ACCESS_KEY_SECRET";
 
@@ -17,7 +18,7 @@ public class GetUserGroupsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserGroupsDto request = new GetUserGroupsDto();
-        request.setUserId("userId_3402");
+        request.setUserId("userId_6002");
 
         GroupPaginatedRespDto response = client.getUserGroups(request);
         System.out.println(JsonUtils.serialize(response));

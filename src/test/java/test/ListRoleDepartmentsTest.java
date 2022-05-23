@@ -18,12 +18,12 @@ public class ListRoleDepartmentsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListRoleDepartmentsDto request = new ListRoleDepartmentsDto();
-        request.setCode("code_622");
-        request.setNamespace("namespace_7789");
+        request.setCode("code_5632");
+        request.setNamespace("namespace_218");
         request.setPage(0);
         request.setLimit(0);
 
-        RoleDepartmentRespDto response = client.listRoleDepartments(request);
+        RoleDepartmentListPaginatedRespDto response = client.listRoleDepartments(request);
         System.out.println(JsonUtils.serialize(response));
     }
 

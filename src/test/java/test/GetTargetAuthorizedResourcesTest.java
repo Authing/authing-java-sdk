@@ -18,10 +18,10 @@ public class GetTargetAuthorizedResourcesTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetAuthorizedResourcesDto request = new GetAuthorizedResourcesDto();
-        request.setTargetType("targetType_261");
-        request.setTargetIdentifier("targetIdentifier_2785");
-        request.setNamespace("namespace_9776");
-        request.setResourceType("resourceType_3229");
+        request.setTargetType("targetType_7076");
+        request.setTargetIdentifier("targetIdentifier_9575");
+        request.setNamespace("namespace_5292");
+        request.setResourceType("resourceType_4343");
 
         IsSuccessRespDto response = client.getTargetAuthorizedResources(request);
         System.out.println(JsonUtils.serialize(response));

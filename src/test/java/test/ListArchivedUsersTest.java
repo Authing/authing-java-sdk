@@ -8,9 +8,9 @@ import java.util.Collections;
 
 
 public class ListArchivedUsersTest {
-    
-    private static final String ACCESS_KEY_ID = "6278b61be7200593662ebf8d";
-    private static final String ACCESS_KEY_SECRET = "645e1c0519ea3c550ba1249d65e2babf";
+
+    private static final String ACCESS_KEY_ID = "YOUR_ACCESS_KEY_ID";
+    private static final String ACCESS_KEY_SECRET = "YOUR_ACCESS_KEY_SECRET";
 
 
     public static void main(String[] args) throws Throwable {
@@ -18,8 +18,8 @@ public class ListArchivedUsersTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListArchivedUsersDto request = new ListArchivedUsersDto();
-        request.setPage(1);
-        request.setLimit(10);
+        request.setPage(0);
+        request.setLimit(0);
 
         ListArchivedUsersSingleRespDto response = client.listArchivedUsers(request);
         System.out.println(JsonUtils.serialize(response));

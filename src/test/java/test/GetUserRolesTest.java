@@ -3,6 +3,7 @@ import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
 import cn.authing.sdk.java.util.JsonUtils;
 
+import java.util.Collections;
 
 
 
@@ -17,8 +18,8 @@ public class GetUserRolesTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserRolesDto request = new GetUserRolesDto();
-        request.setUserId("userId_7795");
-        request.setNamespace("namespace_284");
+        request.setUserId("userId_4186");
+        request.setNamespace("namespace_2776");
 
         RolePaginatedRespDto response = client.getUserRoles(request);
         System.out.println(JsonUtils.serialize(response));

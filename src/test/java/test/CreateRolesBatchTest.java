@@ -18,7 +18,7 @@ public class CreateRolesBatchTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         CreateRolesBatch request = new CreateRolesBatch();
-        request.setList(new cn.authing.sdk.java.dto.Role());
+        request.setList(Collections.singletonList(new cn.authing.sdk.java.dto.RoleListItem()));
 
         IsSuccessRespDto response = client.createRolesBatch(request);
         System.out.println(JsonUtils.serialize(response));

@@ -18,8 +18,9 @@ public class ListDepartmentMembersTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListDepartmentMembersDto request = new ListDepartmentMembersDto();
-        request.setOrganizationCode("organizationCode_8580");
-        request.setDepartmentId("departmentId_7285");
+        request.setOrganizationCode("organizationCode_1697");
+        request.setDepartmentId("departmentId_5387");
+        request.setDepartmentIdType("departmentIdType_741");
         request.setPage(0);
         request.setLimit(0);
         request.setWithCustomData(Boolean.TRUE);

@@ -8,7 +8,7 @@ import java.util.Collections;
 
 
 public class SetUserDepartmentTest {
-    
+
     private static final String ACCESS_KEY_ID = "YOUR_ACCESS_KEY_ID";
     private static final String ACCESS_KEY_SECRET = "YOUR_ACCESS_KEY_SECRET";
 
@@ -18,13 +18,8 @@ public class SetUserDepartmentTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         SetUserDepartmentsDto request = new SetUserDepartmentsDto();
-        SetUserDepartmentDto setUserDepartmentDto = new SetUserDepartmentDto();
-        setUserDepartmentDto.setDepartmentId("departmentId_1234");
-        setUserDepartmentDto.setIsLeader(false);
-        setUserDepartmentDto.setIsMainDepartment(false);
-        
-        request.setDepartments(Collections.singletonList(setUserDepartmentDto));
-        request.setUserId("userId_1234");
+        request.setDepartments(Collections.singletonList(new cn.authing.sdk.java.dto.SetUserDepartmentDto()));
+        request.setUserId("userId_4599");
 
         IsSuccessRespDto response = client.setUserDepartment(request);
         System.out.println(JsonUtils.serialize(response));

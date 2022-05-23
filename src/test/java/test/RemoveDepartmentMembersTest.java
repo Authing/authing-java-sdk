@@ -17,10 +17,11 @@ public class RemoveDepartmentMembersTest {
         ManagementClientOptions clientOptions = new ManagementClientOptions(ACCESS_KEY_ID, ACCESS_KEY_SECRET);
         ManagementClient client = new ManagementClient(clientOptions);
 
-        AddDepartmentMembersReqDto request = new AddDepartmentMembersReqDto();
-        request.setDepartmentId("departmentId_1799");
-        request.setOrganizationCode("organizationCode_4346");
-        request.setUserIds(Collections.singletonList("String_2218"));
+        RemoveDepartmentMembersReqDto request = new RemoveDepartmentMembersReqDto();
+        request.setUserIds(Collections.singletonList("String_8579"));
+        request.setOrganizationCode("organizationCode_1033");
+        request.setDepartmentId("departmentId_4928");
+        request.setDepartmentIdType(cn.authing.sdk.java.dto.RemoveDepartmentMembersReqDto.DepartmentIdType.DEPARTMENT_ID);
 
         IsSuccessRespDto response = client.removeDepartmentMembers(request);
         System.out.println(JsonUtils.serialize(response));

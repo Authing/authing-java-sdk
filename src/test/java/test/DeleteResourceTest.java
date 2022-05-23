@@ -18,8 +18,8 @@ public class DeleteResourceTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         DeleteResourceDto request = new DeleteResourceDto();
-        request.setCode("code_1769");
-        request.setNamespace("namespace_5230");
+        request.setCode("code_9517");
+        request.setNamespace("namespace_6618");
 
         IsSuccessRespDto response = client.deleteResource(request);
         System.out.println(JsonUtils.serialize(response));

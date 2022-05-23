@@ -18,8 +18,8 @@ public class KickUsersTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         KickUsersDto request = new KickUsersDto();
-        request.setAppIds(Collections.singletonList("String_7110"));
-        request.setUserId("userId_2575");
+        request.setAppIds(Collections.singletonList("String_8214"));
+        request.setUserId("userId_4717");
 
         IsUserExistsRespDto response = client.kickUsers(request);
         System.out.println(JsonUtils.serialize(response));

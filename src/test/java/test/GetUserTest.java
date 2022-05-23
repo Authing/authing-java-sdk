@@ -8,9 +8,9 @@ import java.util.Collections;
 
 
 public class GetUserTest {
-    
-    private static final String ACCESS_KEY_ID = "6278b61be7200593662ebf8d";
-    private static final String ACCESS_KEY_SECRET = "645e1c0519ea3c550ba1249d65e2babf";
+
+    private static final String ACCESS_KEY_ID = "YOUR_ACCESS_KEY_ID";
+    private static final String ACCESS_KEY_SECRET = "YOUR_ACCESS_KEY_SECRET";
 
 
     public static void main(String[] args) throws Throwable {
@@ -18,14 +18,14 @@ public class GetUserTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserDto request = new GetUserDto();
-        request.setUserId("6278b61c88cb22e9faff7643");
+        request.setUserId("userId_832");
         request.setWithCustomData(Boolean.TRUE);
         request.setWithIdentities(Boolean.TRUE);
         request.setWithDepartmentIds(Boolean.TRUE);
-//        request.setPhone("phone_8797");
-//        request.setEmail("email_9023");
-//        request.setUsername("username_962");
-//        request.setExternalId("externalId_4310");
+        request.setPhone("phone_7860");
+        request.setEmail("email_8964");
+        request.setUsername("username_2631");
+        request.setExternalId("externalId_9057");
 
         UserSingleRespDto response = client.getUser(request);
         System.out.println(JsonUtils.serialize(response));

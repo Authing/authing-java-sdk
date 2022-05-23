@@ -18,9 +18,9 @@ public class CreateGroupTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         CreateGroupReqDto request = new CreateGroupReqDto();
-        request.setDescription("description_9536");
-        request.setName("name_4100");
-        request.setCode("code_7080");
+        request.setDescription("description_637");
+        request.setName("name_5936");
+        request.setCode("code_1591");
 
         GroupSingleRespDto response = client.createGroup(request);
         System.out.println(JsonUtils.serialize(response));

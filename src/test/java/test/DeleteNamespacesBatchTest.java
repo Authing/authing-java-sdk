@@ -7,7 +7,7 @@ import java.util.Collections;
 
 
 
-public class DeketeNamespacesBatchTest {
+public class DeleteNamespacesBatchTest {
 
     private static final String ACCESS_KEY_ID = "YOUR_ACCESS_KEY_ID";
     private static final String ACCESS_KEY_SECRET = "YOUR_ACCESS_KEY_SECRET";
@@ -18,9 +18,9 @@ public class DeketeNamespacesBatchTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         DeleteNamespacesBatchDto request = new DeleteNamespacesBatchDto();
-        request.setCodeList(Collections.singletonList("String_9331"));
+        request.setCodeList(Collections.singletonList("String_1652"));
 
-        IsSuccessRespDto response = client.deketeNamespacesBatch(request);
+        IsSuccessRespDto response = client.deleteNamespacesBatch(request);
         System.out.println(JsonUtils.serialize(response));
     }
 
