@@ -21,6 +21,11 @@ public class CreateDepartmentReqDto {
     @JsonProperty("parentDepartmentId")
     private String parentDepartmentId;
     /**
+     * 自定义部门 ID，用于存储自定义的 ID
+     */
+    @JsonProperty("openDepartmentId")
+    private String openDepartmentId;
+    /**
      * 部门识别码
      */
     @JsonProperty("code")
@@ -30,6 +35,11 @@ public class CreateDepartmentReqDto {
      */
     @JsonProperty("leaderUserId")
     private String leaderUserId;
+    /**
+     * 此次调用中使用的父部门 ID 的类型
+     */
+    @JsonProperty("departmentIdType")
+    private DepartmentIdType departmentIdType;
 
     public String getOrganizationCode() {
         return organizationCode;
@@ -52,6 +62,13 @@ public class CreateDepartmentReqDto {
         this.parentDepartmentId = parentDepartmentId;
     }
 
+    public String getOpenDepartmentId() {
+        return openDepartmentId;
+    }
+    public void setOpenDepartmentId(String openDepartmentId) {
+        this.openDepartmentId = openDepartmentId;
+    }
+
     public String getCode() {
         return code;
     }
@@ -66,6 +83,36 @@ public class CreateDepartmentReqDto {
         this.leaderUserId = leaderUserId;
     }
 
+    public DepartmentIdType getDepartmentIdType() {
+        return departmentIdType;
+    }
+    public void setDepartmentIdType(DepartmentIdType departmentIdType) {
+        this.departmentIdType = departmentIdType;
+    }
+
+
+    /**
+    * 此次调用中使用的父部门 ID 的类型
+    */
+    public static enum DepartmentIdType {
+
+        @JsonProperty("department_id")
+        DEPARTMENT_ID("department_id"),
+
+        @JsonProperty("open_department_id")
+        OPEN_DEPARTMENT_ID("open_department_id"),
+        ;
+
+        private String value;
+
+        DepartmentIdType(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
 
 
 }

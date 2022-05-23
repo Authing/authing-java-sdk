@@ -21,6 +21,11 @@ public class OrganizationDto {
     @JsonProperty("departmentId")
     private String departmentId;
     /**
+     * 根节点自定义 ID
+     */
+    @JsonProperty("openDepartmentId")
+    private String openDepartmentId;
+    /**
      * 是否包含子节点
      */
     @JsonProperty("hasChildren")
@@ -55,6 +60,13 @@ public class OrganizationDto {
     }
     public void setDepartmentId(String departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public String getOpenDepartmentId() {
+        return openDepartmentId;
+    }
+    public void setOpenDepartmentId(String openDepartmentId) {
+        this.openDepartmentId = openDepartmentId;
     }
 
     public Boolean getHasChildren() {

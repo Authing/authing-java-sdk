@@ -11,6 +11,11 @@ public class UpdateOrganizationReqDto {
     @JsonProperty("organizationCode")
     private String organizationCode;
     /**
+     * 根节点自定义 ID
+     */
+    @JsonProperty("openDepartmentId")
+    private String openDepartmentId;
+    /**
      * 新组织 code
      */
     @JsonProperty("organizationNewCode")
@@ -26,6 +31,13 @@ public class UpdateOrganizationReqDto {
     }
     public void setOrganizationCode(String organizationCode) {
         this.organizationCode = organizationCode;
+    }
+
+    public String getOpenDepartmentId() {
+        return openDepartmentId;
+    }
+    public void setOpenDepartmentId(String openDepartmentId) {
+        this.openDepartmentId = openDepartmentId;
     }
 
     public String getOrganizationNewCode() {

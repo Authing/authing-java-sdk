@@ -387,7 +387,7 @@ public class ManagementClient extends BaseClient {
     }
     
     
-    public UserListRespDto listGroupMembers(ListGroupMembersDto reqDto) {
+    public UserPaginatedRespDto listGroupMembers(ListGroupMembersDto reqDto) {
         
         
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -395,7 +395,7 @@ public class ManagementClient extends BaseClient {
         config.setBody(reqDto);
         config.setMethod("GET");
         String response = request(config);
-        return deserialize(response, UserListRespDto.class);
+        return deserialize(response, UserPaginatedRespDto.class);
     }
     
     
@@ -463,7 +463,7 @@ public class ManagementClient extends BaseClient {
     }
     
     
-    public RoleAuthorizedResourcesRespDto getRoleAuthorizedResources(GetRoleAuthorizedResourcesDto reqDto) {
+    public RoleAuthorizedResourcePaginatedRespDto getRoleAuthorizedResources(GetRoleAuthorizedResourcesDto reqDto) {
         
         
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -471,11 +471,11 @@ public class ManagementClient extends BaseClient {
         config.setBody(reqDto);
         config.setMethod("GET");
         String response = request(config);
-        return deserialize(response, RoleAuthorizedResourcesRespDto.class);
+        return deserialize(response, RoleAuthorizedResourcePaginatedRespDto.class);
     }
     
     
-    public UserListRespDto listRoleMembers(ListRoleMembersDto reqDto) {
+    public UserPaginatedRespDto listRoleMembers(ListRoleMembersDto reqDto) {
         
         
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -483,11 +483,11 @@ public class ManagementClient extends BaseClient {
         config.setBody(reqDto);
         config.setMethod("GET");
         String response = request(config);
-        return deserialize(response, UserListRespDto.class);
+        return deserialize(response, UserPaginatedRespDto.class);
     }
     
     
-    public RoleDepartmentRespDto listRoleDepartments(ListRoleDepartmentsDto reqDto) {
+    public RoleDepartmentListPaginatedRespDto listRoleDepartments(ListRoleDepartmentsDto reqDto) {
         
         
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -495,7 +495,7 @@ public class ManagementClient extends BaseClient {
         config.setBody(reqDto);
         config.setMethod("GET");
         String response = request(config);
-        return deserialize(response, RoleDepartmentRespDto.class);
+        return deserialize(response, RoleDepartmentListPaginatedRespDto.class);
     }
     
     
@@ -669,7 +669,7 @@ public class ManagementClient extends BaseClient {
     }
     
     
-    public Object listDepartmentMemberIds(ListDepartmentMemberIdsDto reqDto) {
+    public UserIdListRespDto listDepartmentMemberIds(ListDepartmentMemberIdsDto reqDto) {
         
         
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -677,7 +677,7 @@ public class ManagementClient extends BaseClient {
         config.setBody(reqDto);
         config.setMethod("GET");
         String response = request(config);
-        return deserialize(response, Object.class);
+        return deserialize(response, UserIdListRespDto.class);
     }
     
     
@@ -691,7 +691,7 @@ public class ManagementClient extends BaseClient {
     }
     
     
-    public IsSuccessRespDto removeDepartmentMembers(AddDepartmentMembersReqDto reqDto) {
+    public IsSuccessRespDto removeDepartmentMembers(RemoveDepartmentMembersReqDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/remove-department-members");
         config.setBody(reqDto);
@@ -713,7 +713,7 @@ public class ManagementClient extends BaseClient {
     }
     
     
-    public ExtIdpListRespDto listExtIdp(ListExtIdpDto reqDto) {
+    public ExtIdpListPaginatedRespDto listExtIdp(ListExtIdpDto reqDto) {
         
         
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -721,7 +721,7 @@ public class ManagementClient extends BaseClient {
         config.setBody(reqDto);
         config.setMethod("GET");
         String response = request(config);
-        return deserialize(response, ExtIdpListRespDto.class);
+        return deserialize(response, ExtIdpListPaginatedRespDto.class);
     }
     
     
@@ -959,13 +959,13 @@ public class ManagementClient extends BaseClient {
     }
     
     
-    public NamespaceDto updateNamespace(UpdateNamespaceDto reqDto) {
+    public UpdateNamespaceRespDto updateNamespace(UpdateNamespaceDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/update-namespace");
         config.setBody(reqDto);
         config.setMethod("POST");
         String response = request(config);
-        return deserialize(response, NamespaceDto.class);
+        return deserialize(response, UpdateNamespaceRespDto.class);
     }
     
     
@@ -979,7 +979,7 @@ public class ManagementClient extends BaseClient {
     }
     
     
-    public IsSuccessRespDto deketeNamespacesBatch(DeleteNamespacesBatchDto reqDto) {
+    public IsSuccessRespDto deleteNamespacesBatch(DeleteNamespacesBatchDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/delete-namespaces-batch");
         config.setBody(reqDto);

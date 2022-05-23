@@ -51,6 +51,41 @@ public class UpdateUserReqDto {
     @JsonProperty("phoneVerified")
     private Boolean phoneVerified;
     /**
+     * 出生日期
+     */
+    @JsonProperty("birthday")
+    private String birthday;
+    /**
+     * 所在国家
+     */
+    @JsonProperty("country")
+    private String country;
+    /**
+     * 所在省份
+     */
+    @JsonProperty("province")
+    private String province;
+    /**
+     * 所在城市
+     */
+    @JsonProperty("city")
+    private String city;
+    /**
+     * 所处地址
+     */
+    @JsonProperty("address")
+    private String address;
+    /**
+     * 所处街道地址
+     */
+    @JsonProperty("streetAddress")
+    private String streetAddress;
+    /**
+     * 邮政编码号
+     */
+    @JsonProperty("postalCode")
+    private String postalCode;
+    /**
      * 性别
      */
     @JsonProperty("gender")
@@ -147,6 +182,55 @@ public class UpdateUserReqDto {
     }
     public void setPhoneVerified(Boolean phoneVerified) {
         this.phoneVerified = phoneVerified;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getStreetAddress() {
+        return streetAddress;
+    }
+    public void setStreetAddress(String streetAddress) {
+        this.streetAddress = streetAddress;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 
     public Gender getGender() {

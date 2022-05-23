@@ -16,6 +16,11 @@ public class ListDepartmentMembersDto {
     @JsonProperty("department_id")
     private String departmentId;
     /**
+     * 此次调用中使用的部门 ID 的类型
+     */
+    @JsonProperty("department_id_type")
+    private String departmentIdType;
+    /**
      * 当前页数，从 1 开始
      */
     @JsonProperty("page")
@@ -53,6 +58,13 @@ public class ListDepartmentMembersDto {
     }
     public void setDepartmentId(String departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public String getDepartmentIdType() {
+        return departmentIdType;
+    }
+    public void setDepartmentIdType(String departmentIdType) {
+        this.departmentIdType = departmentIdType;
     }
 
     public Integer getPage() {

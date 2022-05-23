@@ -6,15 +6,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DepartmentDto {
     /**
-     * 部门 ID
+     * 部门系统 ID（为 Authing 系统自动生成，不可修改）
      */
     @JsonProperty("departmentId")
     private String departmentId;
+    /**
+     * 自定义部门 ID，用于存储自定义的 ID
+     */
+    @JsonProperty("openDepartmentId")
+    private String openDepartmentId;
     /**
      * 父部门 id
      */
     @JsonProperty("parentDepartmentId")
     private String parentDepartmentId;
+    /**
+     * 父部门自定义的 ID
+     */
+    @JsonProperty("parentOpenDepartmentId")
+    private String parentOpenDepartmentId;
     /**
      * 部门名称
      */
@@ -53,11 +63,25 @@ public class DepartmentDto {
         this.departmentId = departmentId;
     }
 
+    public String getOpenDepartmentId() {
+        return openDepartmentId;
+    }
+    public void setOpenDepartmentId(String openDepartmentId) {
+        this.openDepartmentId = openDepartmentId;
+    }
+
     public String getParentDepartmentId() {
         return parentDepartmentId;
     }
     public void setParentDepartmentId(String parentDepartmentId) {
         this.parentDepartmentId = parentDepartmentId;
+    }
+
+    public String getParentOpenDepartmentId() {
+        return parentOpenDepartmentId;
+    }
+    public void setParentOpenDepartmentId(String parentOpenDepartmentId) {
+        this.parentOpenDepartmentId = parentOpenDepartmentId;
     }
 
     public String getName() {

@@ -6,11 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class UpdateDepartmentReqDto {
     /**
-     * 部门名称
-     */
-    @JsonProperty("name")
-    private String name;
-    /**
      * 组织 code
      */
     @JsonProperty("organizationCode")
@@ -21,7 +16,7 @@ public class UpdateDepartmentReqDto {
     @JsonProperty("parentDepartmentId")
     private String parentDepartmentId;
     /**
-     * 部门 ID
+     * 部门系统 ID（为 Authing 系统自动生成，不可修改）
      */
     @JsonProperty("departmentId")
     private String departmentId;
@@ -35,13 +30,16 @@ public class UpdateDepartmentReqDto {
      */
     @JsonProperty("leaderUserId")
     private String leaderUserId;
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
+    /**
+     * 部门名称
+     */
+    @JsonProperty("name")
+    private String name;
+    /**
+     * 此次调用中使用的部门 ID 的类型
+     */
+    @JsonProperty("departmentIdType")
+    private DepartmentIdType departmentIdType;
 
     public String getOrganizationCode() {
         return organizationCode;
@@ -78,6 +76,43 @@ public class UpdateDepartmentReqDto {
         this.leaderUserId = leaderUserId;
     }
 
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public DepartmentIdType getDepartmentIdType() {
+        return departmentIdType;
+    }
+    public void setDepartmentIdType(DepartmentIdType departmentIdType) {
+        this.departmentIdType = departmentIdType;
+    }
+
+
+    /**
+    * 此次调用中使用的部门 ID 的类型
+    */
+    public static enum DepartmentIdType {
+
+        @JsonProperty("department_id")
+        DEPARTMENT_ID("department_id"),
+
+        @JsonProperty("open_department_id")
+        OPEN_DEPARTMENT_ID("open_department_id"),
+        ;
+
+        private String value;
+
+        DepartmentIdType(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
 
 
 }

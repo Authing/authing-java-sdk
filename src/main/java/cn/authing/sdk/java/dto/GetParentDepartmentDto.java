@@ -15,6 +15,11 @@ public class GetParentDepartmentDto {
      */
     @JsonProperty("department_id")
     private String departmentId;
+    /**
+     * 此次调用中使用的部门 ID 的类型
+     */
+    @JsonProperty("department_id_type")
+    private String departmentIdType;
 
     public String getOrganizationCode() {
         return organizationCode;
@@ -28,6 +33,13 @@ public class GetParentDepartmentDto {
     }
     public void setDepartmentId(String departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public String getDepartmentIdType() {
+        return departmentIdType;
+    }
+    public void setDepartmentIdType(String departmentIdType) {
+        this.departmentIdType = departmentIdType;
     }
 
 

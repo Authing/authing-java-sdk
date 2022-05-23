@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ListChildrenDepartmentsDto {
     /**
-     * 部门 ID
+     * 需要获取的部门 ID
      */
     @JsonProperty("department_id")
     private String departmentId;
@@ -15,6 +15,11 @@ public class ListChildrenDepartmentsDto {
      */
     @JsonProperty("organization_code")
     private String organizationCode;
+    /**
+     * 此次调用中使用的部门 ID 的类型
+     */
+    @JsonProperty("department_id_type")
+    private String departmentIdType;
 
     public String getDepartmentId() {
         return departmentId;
@@ -28,6 +33,13 @@ public class ListChildrenDepartmentsDto {
     }
     public void setOrganizationCode(String organizationCode) {
         this.organizationCode = organizationCode;
+    }
+
+    public String getDepartmentIdType() {
+        return departmentIdType;
+    }
+    public void setDepartmentIdType(String departmentIdType) {
+        this.departmentIdType = departmentIdType;
     }
 
 
