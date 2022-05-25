@@ -167,6 +167,18 @@ enum class ResourceType(val label: String) {
   }
 }
 
+enum class ExtIdpListTypeEnum (val label: String){
+    SOCIAL("social"),
+    ENTERPRISE("enterprise");
+
+    companion object {
+        @JvmStatic
+        fun valueOfLabel(label: String): PolicyAssignmentTargetType? {
+            return PolicyAssignmentTargetType.values().find { it.label == label }
+        }
+    }
+}
+
 enum class PolicyAssignmentTargetType(val label: String) {
       USER("USER"),
       ROLE("ROLE"),

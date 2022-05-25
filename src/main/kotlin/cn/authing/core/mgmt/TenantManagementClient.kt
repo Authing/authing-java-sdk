@@ -128,7 +128,7 @@ class TenantManagementClient(private val client: ManagementClient) {
     fun updateTenantMember(
         tenantId: String,
         userId: String,
-        options:UpdateTenantMemberParam
+        options: UpdateTenantMemberParam
     ): HttpCall<RestfulResponse<CreateIdpResponse>, CreateIdpResponse> {
         return client.createHttpPutCall(
             "${client.host}/api/v2/tenant/${tenantId}/${userId}",
@@ -216,10 +216,23 @@ class TenantManagementClient(private val client: ManagementClient) {
         }
     }
 
+
+    fun listExtIdp(
+        tenantId: String?,
+        type: ExtIdpListTypeEnum,
+        appId: String?
+    ): HttpCall<RestfulResponse<List<CreateIdpResponse>>, List<CreateIdpResponse>> {
+        return client.createHttpGetCall(
+            "${client.host}/api/v2/extIdp?tenantId=${tenantId}&type=${type}&appId=${appId}",
+            object : TypeToken<RestfulResponse<List<CreateIdpResponse>>>() {}) {
+            it.data
+        }
+    }
+
     /**
      *创建身份源连接
      */
-    fun createExtIdpConnection(options:CreatIdpConnParam): HttpCall<RestfulResponse<CreateIdpConnResponse>, CreateIdpConnResponse> {
+    fun createExtIdpConnection(options: CreatIdpConnParam): HttpCall<RestfulResponse<CreateIdpConnResponse>, CreateIdpConnResponse> {
         return client.createHttpPostCall(
             "${client.host}/api/v2/extIdpConn",
             GsonBuilder().create().toJson(options),
@@ -232,8 +245,10 @@ class TenantManagementClient(private val client: ManagementClient) {
     /**
      * 更新身份源连接
      */
-    fun updateExtIdpConnection(extIdpConnectionId:String,
-    options:UpdateIdpConnParm): HttpCall<CommonMessage, CommonMessage> {
+    fun updateExtIdpConnection(
+        extIdpConnectionId: String,
+        options: UpdateIdpConnParm
+    ): HttpCall<CommonMessage, CommonMessage> {
         return client.createHttpPutCall(
             "${client.host}/api/v2/extIdpConn/${extIdpConnectionId}",
             GsonBuilder().create().toJson(options),
@@ -246,7 +261,7 @@ class TenantManagementClient(private val client: ManagementClient) {
     /**
      * 删除身份源连接
      */
-    fun deleteExtIdpConnection(extIdpConnectionId:String): HttpCall<CommonMessage, CommonMessage> {
+    fun deleteExtIdpConnection(extIdpConnectionId: String): HttpCall<CommonMessage, CommonMessage> {
         return client.createHttpDeleteCall(
             "${client.host}/api/v2/extIdpConn/${extIdpConnectionId}",
             object : TypeToken<CommonMessage>() {}) {
@@ -257,20 +272,23 @@ class TenantManagementClient(private val client: ManagementClient) {
     /**
      *检查连接唯一标识是否冲突
      */
-   fun checkExtIdpConnectionIdentifierUnique(options:CheckExtIdpConnectionIdentifierUnique): HttpCall<CommonMessage, CommonMessage> {
-       return client.createHttpPostCall(
-           "${client.host}/api/v2/check/extIdpConn/identifier",
-           GsonBuilder().create().toJson(options),
-           object : TypeToken<CommonMessage>() {}
-       ) {
-           it
-       }
-   }
+    fun checkExtIdpConnectionIdentifierUnique(options: CheckExtIdpConnectionIdentifierUnique): HttpCall<CommonMessage, CommonMessage> {
+        return client.createHttpPostCall(
+            "${client.host}/api/v2/check/extIdpConn/identifier",
+            GsonBuilder().create().toJson(options),
+            object : TypeToken<CommonMessage>() {}
+        ) {
+            it
+        }
+    }
 
     /**
      *   开关身份源连接
      */
-    fun changeExtIdpConnectionState(extIdpConnectionId: String, options:ConnState):HttpCall<CommonMessage, CommonMessage> {
+    fun changeExtIdpConnectionState(
+        extIdpConnectionId: String,
+        options: ConnState
+    ): HttpCall<CommonMessage, CommonMessage> {
         return client.createHttpPutCall(
             "${client.host}/api/v2/extIdpConn/${extIdpConnectionId}/state",
             GsonBuilder().create().toJson(options),
@@ -283,7 +301,10 @@ class TenantManagementClient(private val client: ManagementClient) {
     /**
      *   批量开关身份源连接
      */
-    fun batchChangeExtIdpConnectionState(extIdpConnectionId: String, options:ConnState):HttpCall<CommonMessage, CommonMessage> {
+    fun batchChangeExtIdpConnectionState(
+        extIdpConnectionId: String,
+        options: ConnState
+    ): HttpCall<CommonMessage, CommonMessage> {
         return client.createHttpPutCall(
             "${client.host}/api/v2/extIdp/${extIdpConnectionId}/connState",
             GsonBuilder().create().toJson(options),
@@ -296,7 +317,7 @@ class TenantManagementClient(private val client: ManagementClient) {
     /**
      * 设置租户管理员
      */
-    fun setTanentAdmin(tenantId: String, options:UserTenantIdList): HttpCall<CommonMessage, CommonMessage> {
+    fun setTanentAdmin(tenantId: String, options: UserTenantIdList): HttpCall<CommonMessage, CommonMessage> {
         return client.createHttpPutCall(
             "${client.host}/api/v2/tenant/${tenantId}/admin",
             GsonBuilder().create().toJson(options),
@@ -309,7 +330,7 @@ class TenantManagementClient(private val client: ManagementClient) {
     /**
      * 取消租户管理员
      */
-    fun deleteTanentAdmin(tenantId:String, userId:String): HttpCall<CommonMessage, CommonMessage> {
+    fun deleteTanentAdmin(tenantId: String, userId: String): HttpCall<CommonMessage, CommonMessage> {
         return client.createHttpDeleteCall(
             "${client.host}/api/v2/tenant/${tenantId}/admin/${userId}",
             object : TypeToken<CommonMessage>() {}) {
@@ -426,7 +447,7 @@ class TenantManagementClient(private val client: ManagementClient) {
     /**
      * 授权业务资源
      */
-    fun authorizeResources(options:AuthorizeResourcesParam): HttpCall<CommonMessage, CommonMessage> {
+    fun authorizeResources(options: AuthorizeResourcesParam): HttpCall<CommonMessage, CommonMessage> {
         return client.createHttpPostCall(
             "${client.host}/api/v2/acl/authorize-resources",
             GsonBuilder().create().toJson(options),
@@ -439,7 +460,7 @@ class TenantManagementClient(private val client: ManagementClient) {
     /**
      * 撤销业务资源
      */
-    fun revokeAuthorizeResources(options:AuthorizeResourcesParam): HttpCall<CommonMessage, CommonMessage> {
+    fun revokeAuthorizeResources(options: AuthorizeResourcesParam): HttpCall<CommonMessage, CommonMessage> {
         return client.createHttpPostCall(
             "${client.host}/api/v2/acl/revoke-resources",
             GsonBuilder().create().toJson(options),
@@ -452,7 +473,7 @@ class TenantManagementClient(private val client: ManagementClient) {
     /**
      * 获取被授权的资源
      */
-    fun getAuthorizeResources(options:GetAuthorizeResourcesParam): HttpCall<RestfulResponse<UserPoolAdminGetTenantAdminResourceList>, RestfulResponse<UserPoolAdminGetTenantAdminResourceList>> {
+    fun getAuthorizeResources(options: GetAuthorizeResourcesParam): HttpCall<RestfulResponse<UserPoolAdminGetTenantAdminResourceList>, RestfulResponse<UserPoolAdminGetTenantAdminResourceList>> {
         return client.createHttpPostCall(
             "${client.host}/api/v2/acl/list-authorized-resources",
             GsonBuilder().create().toJson(options),
@@ -467,8 +488,9 @@ class TenantManagementClient(private val client: ManagementClient) {
      */
     fun getMeAuthorizeResources(
         namespace: String,
-        tenant_id:String,
-        resource_type:String): HttpCall<RestfulResponse<UserPoolAdminGetTenantAdminResourceList>, UserPoolAdminGetTenantAdminResourceList> {
+        tenant_id: String,
+        resource_type: String
+    ): HttpCall<RestfulResponse<UserPoolAdminGetTenantAdminResourceList>, UserPoolAdminGetTenantAdminResourceList> {
         return client.createHttpGetCall(
             "${client.host}/api/v2/acl/users/me/authorized-resources?namespace=${namespace}&tenant_id=${tenant_id}&resource_type=${resource_type}",
             object : TypeToken<RestfulResponse<UserPoolAdminGetTenantAdminResourceList>>() {}) {
@@ -480,7 +502,7 @@ class TenantManagementClient(private val client: ManagementClient) {
      * 批量获取被授权的资源
      */
 
-    fun getAuthorizeResourcesBatch(options:BatchGetAuthorizeResourcesParam): HttpCall<RestfulResponse<BatchGetAuthorizeResourcesList>, RestfulResponse<BatchGetAuthorizeResourcesList>> {
+    fun getAuthorizeResourcesBatch(options: BatchGetAuthorizeResourcesParam): HttpCall<RestfulResponse<BatchGetAuthorizeResourcesList>, RestfulResponse<BatchGetAuthorizeResourcesList>> {
         return client.createHttpPostCall(
             "${client.host}/api/v2/acl/list-authorized-resources-batch",
             GsonBuilder().create().toJson(options),
@@ -493,7 +515,8 @@ class TenantManagementClient(private val client: ManagementClient) {
     /**
      * 判断用户是否能操作某个资源
      */
-    fun isAllowed(options:IsAllowedParam
+    fun isAllowed(
+        options: IsAllowedParam
     ): HttpCall<RestfulResponse<Allowed>, RestfulResponse<Allowed>> {
         return client.createHttpPostCall(
             "${client.host}/api/v2/acl/is-allowed",
@@ -507,7 +530,7 @@ class TenantManagementClient(private val client: ManagementClient) {
     /**
      * 批量新增资源
      */
-    fun batchInsertResource(options:BatchResourceParam): HttpCall<CommonMessage, CommonMessage> {
+    fun batchInsertResource(options: BatchResourceParam): HttpCall<CommonMessage, CommonMessage> {
         return client.createHttpPostCall(
             "${client.host}/api/v2/resources/bulk",
             GsonBuilder().create().toJson(options),
