@@ -68,8 +68,8 @@ public class AppDto {
 
 
     /**
-    * App 默认的登录策略
-    */
+     * App 默认的登录策略
+     */
     public static enum AppDefaultLoginStrategy {
 
         @JsonProperty("ALLOW_ALL")

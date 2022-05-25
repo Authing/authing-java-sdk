@@ -18,9 +18,9 @@ public class GetUserLoginHistoryTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserLoginHistoryDto request = new GetUserLoginHistoryDto();
-        request.setUserId("userId_2749");
-        request.setAppId("appId_8473");
-        request.setClientIp("clientIp_2893");
+        request.setUserId("userId_6560");
+        request.setAppId("appId_6534");
+        request.setClientIp("clientIp_276");
         request.setStart(0);
         request.setEnd(0);
         request.setPage(0);

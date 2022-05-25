@@ -18,7 +18,7 @@ public class DeleteNamespacesBatchTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         DeleteNamespacesBatchDto request = new DeleteNamespacesBatchDto();
-        request.setCodeList(Collections.singletonList("String_1652"));
+        request.setCodeList(Collections.singletonList("String_2140"));
 
         IsSuccessRespDto response = client.deleteNamespacesBatch(request);
         System.out.println(JsonUtils.serialize(response));

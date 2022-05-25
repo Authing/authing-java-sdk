@@ -53,8 +53,8 @@ public class UpdateUserReqDto {
     /**
      * 出生日期
      */
-    @JsonProperty("birthday")
-    private String birthday;
+    @JsonProperty("birthdate")
+    private String birthdate;
     /**
      * 所在国家
      */
@@ -184,11 +184,11 @@ public class UpdateUserReqDto {
         this.phoneVerified = phoneVerified;
     }
 
-    public String getBirthday() {
-        return birthday;
+    public String getBirthdate() {
+        return birthdate;
     }
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
     }
 
     public String getCountry() {
@@ -284,8 +284,8 @@ public class UpdateUserReqDto {
 
 
     /**
-    * 账户当前状态
-    */
+     * 账户当前状态
+     */
     public static enum Status {
 
         @JsonProperty("Deleted")
@@ -316,8 +316,8 @@ public class UpdateUserReqDto {
     }
 
     /**
-    * 性别
-    */
+     * 性别
+     */
     public static enum Gender {
 
         @JsonProperty("M")
@@ -342,8 +342,8 @@ public class UpdateUserReqDto {
     }
 
     /**
-    * 加密类型
-    */
+     * 加密类型
+     */
     public static enum PasswordEncryptType {
 
         @JsonProperty("sm2")

@@ -81,8 +81,8 @@ public class UpdateResourceDto {
 
 
     /**
-    * 资源类型，如数据、API、按钮、菜单
-    */
+     * 资源类型，如数据、API、按钮、菜单
+     */
     public static enum Type {
 
         @JsonProperty("DATA")

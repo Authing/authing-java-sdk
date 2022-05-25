@@ -18,9 +18,10 @@ public class AddDepartmentMembersTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         AddDepartmentMembersReqDto request = new AddDepartmentMembersReqDto();
-        request.setDepartmentId("departmentId_9612");
-        request.setOrganizationCode("organizationCode_5264");
-        request.setUserIds(Collections.singletonList("String_8146"));
+        request.setUserIds(Collections.singletonList("String_6635"));
+        request.setOrganizationCode("organizationCode_2894");
+        request.setDepartmentId("departmentId_2066");
+        request.setDepartmentIdType(cn.authing.sdk.java.dto.AddDepartmentMembersReqDto.DepartmentIdType.DEPARTMENT_ID);
 
         IsSuccessRespDto response = client.addDepartmentMembers(request);
         System.out.println(JsonUtils.serialize(response));

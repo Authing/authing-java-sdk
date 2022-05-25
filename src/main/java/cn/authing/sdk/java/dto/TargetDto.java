@@ -32,8 +32,8 @@ public class TargetDto {
 
 
     /**
-    * 目标类型，接受用户，部门
-    */
+     * 目标类型，接受用户，部门
+     */
     public static enum TargetType {
 
         @JsonProperty("USER")

@@ -15,6 +15,11 @@ public class CreateUserOptionsDto {
      */
     @JsonProperty("resetPasswordOnFirstLogin")
     private Boolean resetPasswordOnFirstLogin;
+    /**
+     * 此次调用中使用的父部门 ID 的类型
+     */
+    @JsonProperty("departmentIdType")
+    private DepartmentIdType departmentIdType;
 
     public Boolean getKeepPassword() {
         return keepPassword;
@@ -30,6 +35,36 @@ public class CreateUserOptionsDto {
         this.resetPasswordOnFirstLogin = resetPasswordOnFirstLogin;
     }
 
+    public DepartmentIdType getDepartmentIdType() {
+        return departmentIdType;
+    }
+    public void setDepartmentIdType(DepartmentIdType departmentIdType) {
+        this.departmentIdType = departmentIdType;
+    }
+
+
+    /**
+     * 此次调用中使用的父部门 ID 的类型
+     */
+    public static enum DepartmentIdType {
+
+        @JsonProperty("department_id")
+        DEPARTMENT_ID("department_id"),
+
+        @JsonProperty("open_department_id")
+        OPEN_DEPARTMENT_ID("open_department_id"),
+        ;
+
+        private String value;
+
+        DepartmentIdType(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
 
 
 }

@@ -18,7 +18,7 @@ public class GetUserAccessibleAppsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserAccessibleAppsDto request = new GetUserAccessibleAppsDto();
-        request.setUserId("userId_347");
+        request.setUserId("userId_7358");
 
         AppListRespDto response = client.getUserAccessibleApps(request);
         System.out.println(JsonUtils.serialize(response));

@@ -3,14 +3,14 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import cn.authing.sdk.java.dto.ListArchivedUsersRespDto;
+import cn.authing.sdk.java.dto.ArchivedUsersListPagingDto;
 
 public class ListArchivedUsersSingleRespDto {
     /**
      * 业务状态码，可以通过此状态码判断操作是否成功，200 表示成功。
      */
-    @JsonProperty("code")
-    private Integer code;
+    @JsonProperty("statusCode")
+    private Integer statusCode;
     /**
      * 描述信息
      */
@@ -19,19 +19,19 @@ public class ListArchivedUsersSingleRespDto {
     /**
      * 细分错误码，可通过此错误码得到具体的错误类型。
      */
-    @JsonProperty("errorCode")
-    private Integer errorCode;
+    @JsonProperty("apiCode")
+    private Integer apiCode;
     /**
-     * 响应数据
+     * 数据
      */
     @JsonProperty("data")
-    private ListArchivedUsersRespDto data;
+    private ArchivedUsersListPagingDto data;
 
-    public Integer getCode() {
-        return code;
+    public Integer getStatusCode() {
+        return statusCode;
     }
-    public void setCode(Integer code) {
-        this.code = code;
+    public void setStatusCode(Integer statusCode) {
+        this.statusCode = statusCode;
     }
 
     public String getMessage() {
@@ -41,17 +41,17 @@ public class ListArchivedUsersSingleRespDto {
         this.message = message;
     }
 
-    public Integer getErrorCode() {
-        return errorCode;
+    public Integer getApiCode() {
+        return apiCode;
     }
-    public void setErrorCode(Integer errorCode) {
-        this.errorCode = errorCode;
+    public void setApiCode(Integer apiCode) {
+        this.apiCode = apiCode;
     }
 
-    public ListArchivedUsersRespDto getData() {
+    public ArchivedUsersListPagingDto getData() {
         return data;
     }
-    public void setData(ListArchivedUsersRespDto data) {
+    public void setData(ArchivedUsersListPagingDto data) {
         this.data = data;
     }
 

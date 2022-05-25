@@ -7,7 +7,7 @@ import cn.authing.sdk.java.dto.SetCustomFieldDto;
 
 public class SetCustomFieldsReqDto {
     /**
-     * 扩展字段列表
+     * 自定义字段列表
      */
     @JsonProperty("list")
     private List<SetCustomFieldDto> list;

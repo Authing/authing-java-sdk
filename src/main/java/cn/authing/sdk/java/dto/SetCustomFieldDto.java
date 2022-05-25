@@ -7,7 +7,7 @@ import cn.authing.sdk.java.dto.CustomFieldSelectOption;
 
 public class SetCustomFieldDto {
     /**
-     * 主体类型，目前支持用户和角色
+     * 主体类型，目前支持用户、角色、分组和部门
      */
     @JsonProperty("targetType")
     private TargetType targetType;
@@ -17,7 +17,7 @@ public class SetCustomFieldDto {
     @JsonProperty("dataType")
     private DataType dataType;
     /**
-     * 字段 key，不能和用户内置字段的 key 冲突
+     * 字段 key，不能和内置字段的 key 冲突
      */
     @JsonProperty("key")
     private String key;
@@ -93,8 +93,8 @@ public class SetCustomFieldDto {
 
 
     /**
-    * 主体类型，目前支持用户和角色
-    */
+     * 主体类型，目前支持用户、角色、分组和部门
+     */
     public static enum TargetType {
 
         @JsonProperty("USER")
@@ -102,6 +102,12 @@ public class SetCustomFieldDto {
 
         @JsonProperty("ROLE")
         ROLE("ROLE"),
+
+        @JsonProperty("GROUP")
+        GROUP("GROUP"),
+
+        @JsonProperty("DEPARTMENT")
+        DEPARTMENT("DEPARTMENT"),
         ;
 
         private String value;
@@ -116,8 +122,8 @@ public class SetCustomFieldDto {
     }
 
     /**
-    * 数据类型
-    */
+     * 数据类型
+     */
     public static enum DataType {
 
         @JsonProperty("STRING")

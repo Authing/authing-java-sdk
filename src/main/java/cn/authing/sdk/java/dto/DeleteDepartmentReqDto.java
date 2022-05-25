@@ -44,8 +44,8 @@ public class DeleteDepartmentReqDto {
 
 
     /**
-    * 此次调用中使用的部门 ID 的类型
-    */
+     * 此次调用中使用的部门 ID 的类型
+     */
     public static enum DepartmentIdType {
 
         @JsonProperty("department_id")

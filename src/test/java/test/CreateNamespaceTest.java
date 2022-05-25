@@ -18,9 +18,9 @@ public class CreateNamespaceTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         CreateNamespaceDto request = new CreateNamespaceDto();
-        request.setCode("code_3381");
-        request.setName("name_8432");
-        request.setDescription("description_5254");
+        request.setCode("code_9757");
+        request.setName("name_9653");
+        request.setDescription("description_1832");
 
         ResourceDto response = client.createNamespace(request);
         System.out.println(JsonUtils.serialize(response));

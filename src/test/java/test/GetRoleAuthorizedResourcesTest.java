@@ -18,9 +18,9 @@ public class GetRoleAuthorizedResourcesTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetRoleAuthorizedResourcesDto request = new GetRoleAuthorizedResourcesDto();
-        request.setCode("code_1451");
-        request.setNamespace("namespace_5275");
-        request.setResourceType("resourceType_6920");
+        request.setCode("code_2829");
+        request.setNamespace("namespace_7613");
+        request.setResourceType("resourceType_4759");
 
         RoleAuthorizedResourcePaginatedRespDto response = client.getRoleAuthorizedResources(request);
         System.out.println(JsonUtils.serialize(response));

@@ -56,8 +56,8 @@ public class RoleAuthorizedResourcesRespDto {
 
 
     /**
-    * 资源类型
-    */
+     * 资源类型
+     */
     public static enum ResourceType {
 
         @JsonProperty("DATA")

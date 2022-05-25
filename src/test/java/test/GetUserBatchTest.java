@@ -18,7 +18,7 @@ public class GetUserBatchTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserBatchDto request = new GetUserBatchDto();
-        request.setUserIds("userIds_2220");
+        request.setUserIds("userIds_9017");
         request.setWithCustomData(Boolean.TRUE);
         request.setWithIdentities(Boolean.TRUE);
         request.setWithDepartmentIds(Boolean.TRUE);

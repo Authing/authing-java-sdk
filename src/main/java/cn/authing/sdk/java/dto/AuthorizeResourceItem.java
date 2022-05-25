@@ -45,8 +45,8 @@ public class AuthorizeResourceItem {
 
 
     /**
-    * 目标对象类型
-    */
+     * 目标对象类型
+     */
     public static enum TargetType {
 
         @JsonProperty("USER")

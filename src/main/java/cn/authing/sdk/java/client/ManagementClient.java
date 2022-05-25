@@ -183,13 +183,13 @@ public class ManagementClient extends BaseClient {
     }
     
     
-    public IsUserExistsRespDto kickUsers(KickUsersDto reqDto) {
+    public IsSuccessRespDto kickUsers(KickUsersDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/kick-users");
         config.setBody(reqDto);
         config.setMethod("POST");
         String response = request(config);
-        return deserialize(response, IsUserExistsRespDto.class);
+        return deserialize(response, IsSuccessRespDto.class);
     }
     
     
@@ -826,6 +826,28 @@ public class ManagementClient extends BaseClient {
         config.setMethod("POST");
         String response = request(config);
         return deserialize(response, CustomFieldListRespDto.class);
+    }
+    
+    
+    public IsSuccessRespDto setCustomData(SetCustomDataReqDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/set-custom-data");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, IsSuccessRespDto.class);
+    }
+    
+    
+    public GetCustomDataRespDto getCustomData(GetCustomDataDto reqDto) {
+        
+        
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-custom-data");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, GetCustomDataRespDto.class);
     }
     
     

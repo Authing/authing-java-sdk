@@ -92,8 +92,8 @@ public class CreateExtIdpConnDto {
 
 
     /**
-    * 身份源连接类型
-    */
+     * 身份源连接类型
+     */
     public static enum Type {
 
         @JsonProperty("oidc")

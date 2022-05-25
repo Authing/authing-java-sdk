@@ -19,7 +19,7 @@ public class HasAnyRoleTest {
 
         HasAnyRoleReqDto request = new HasAnyRoleReqDto();
         request.setRoles(Collections.singletonList(new cn.authing.sdk.java.dto.HasRoleRolesDto()));
-        request.setUserId("userId_3781");
+        request.setUserId("userId_1219");
 
         HasAnyRoleRespDto response = client.hasAnyRole(request);
         System.out.println(JsonUtils.serialize(response));

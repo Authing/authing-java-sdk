@@ -9,24 +9,24 @@ public class UserMfaRespDto {
      * 是否绑定了 TOTP，可选值 enabled, disabled
      */
     @JsonProperty("totpStatus")
-    private Boolean totpStatus;
+    private String totpStatus;
     /**
      * 是否绑定了人脸 MFA，可选值 enabled, disabled
      */
     @JsonProperty("faceMfaStatus")
-    private Boolean faceMfaStatus;
+    private String faceMfaStatus;
 
-    public Boolean getTotpStatus() {
+    public String getTotpStatus() {
         return totpStatus;
     }
-    public void setTotpStatus(Boolean totpStatus) {
+    public void setTotpStatus(String totpStatus) {
         this.totpStatus = totpStatus;
     }
 
-    public Boolean getFaceMfaStatus() {
+    public String getFaceMfaStatus() {
         return faceMfaStatus;
     }
-    public void setFaceMfaStatus(Boolean faceMfaStatus) {
+    public void setFaceMfaStatus(String faceMfaStatus) {
         this.faceMfaStatus = faceMfaStatus;
     }
 

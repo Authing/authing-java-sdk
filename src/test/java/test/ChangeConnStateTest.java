@@ -18,10 +18,10 @@ public class ChangeConnStateTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         EnableExtIdpConnDto request = new EnableExtIdpConnDto();
-        request.setAppId("appId_388");
+        request.setAppId("appId_4996");
         request.setEnabled(Boolean.TRUE);
-        request.setId("id_7728");
-        request.setTenantId("tenantId_8366");
+        request.setId("id_5090");
+        request.setTenantId("tenantId_1066");
 
         IsSuccessRespDto response = client.changeConnState(request);
         System.out.println(JsonUtils.serialize(response));
