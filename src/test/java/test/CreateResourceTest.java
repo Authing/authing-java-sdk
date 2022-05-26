@@ -19,11 +19,11 @@ public class CreateResourceTest {
 
         CreateResourceDto request = new CreateResourceDto();
         request.setType(cn.authing.sdk.java.dto.CreateResourceDto.Type.DATA);
-        request.setCode("code_5688");
-        request.setDescription("description_9241");
+        request.setCode("code_1417");
+        request.setDescription("description_6739");
         request.setActions(Collections.singletonList(new cn.authing.sdk.java.dto.ResourceAction()));
-        request.setApiIdentifier("apiIdentifier_27");
-        request.setNamespace("namespace_4009");
+        request.setApiIdentifier("apiIdentifier_4796");
+        request.setNamespace("namespace_7884");
 
         ResourceRespDto response = client.createResource(request);
         System.out.println(JsonUtils.serialize(response));

@@ -18,7 +18,7 @@ public class GetCustomFieldsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetCustomFieldsDto request = new GetCustomFieldsDto();
-        request.setTargetType("targetType_9518");
+        request.setTargetType("targetType_6582");
 
         CustomFieldListRespDto response = client.getCustomFields(request);
         System.out.println(JsonUtils.serialize(response));

@@ -18,12 +18,12 @@ public class UpdateDepartmentTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         UpdateDepartmentReqDto request = new UpdateDepartmentReqDto();
-        request.setOrganizationCode("organizationCode_3276");
-        request.setParentDepartmentId("parentDepartmentId_7543");
-        request.setDepartmentId("departmentId_6139");
-        request.setCode("code_4813");
-        request.setLeaderUserId("leaderUserId_3107");
-        request.setName("name_8361");
+        request.setOrganizationCode("organizationCode_8716");
+        request.setParentDepartmentId("parentDepartmentId_3400");
+        request.setDepartmentId("departmentId_226");
+        request.setCode("code_5490");
+        request.setLeaderUserId("leaderUserId_9524");
+        request.setName("name_4705");
         request.setDepartmentIdType(cn.authing.sdk.java.dto.UpdateDepartmentReqDto.DepartmentIdType.DEPARTMENT_ID);
 
         DepartmentSingleRespDto response = client.updateDepartment(request);

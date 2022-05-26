@@ -19,9 +19,9 @@ public class SetCustomDataTest {
 
         SetCustomDataReqDto request = new SetCustomDataReqDto();
         request.setList(Collections.singletonList(new cn.authing.sdk.java.dto.SetCustomDataDto()));
-        request.setTargetIdentifier("targetIdentifier_4602");
+        request.setTargetIdentifier("targetIdentifier_4163");
         request.setTargetType(cn.authing.sdk.java.dto.SetCustomDataReqDto.TargetType.USER);
-        request.setNamespace("namespace_8786");
+        request.setNamespace("namespace_5718");
 
         IsSuccessRespDto response = client.setCustomData(request);
         System.out.println(JsonUtils.serialize(response));

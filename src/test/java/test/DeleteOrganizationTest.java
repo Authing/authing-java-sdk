@@ -18,7 +18,7 @@ public class DeleteOrganizationTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         DeleteOrganizationReqDto request = new DeleteOrganizationReqDto();
-        request.setOrganizationCode("organizationCode_2370");
+        request.setOrganizationCode("organizationCode_984");
 
         IsSuccessRespDto response = client.deleteOrganization(request);
         System.out.println(JsonUtils.serialize(response));

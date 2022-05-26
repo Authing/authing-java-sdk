@@ -18,8 +18,8 @@ public class AddGroupMembersTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         AddGroupMembersReqDto request = new AddGroupMembersReqDto();
-        request.setUserIds(Collections.singletonList("String_6133"));
-        request.setCode("code_6597");
+        request.setUserIds(Collections.singletonList("String_5839"));
+        request.setCode("code_3560");
 
         IsSuccessRespDto response = client.addGroupMembers(request);
         System.out.println(JsonUtils.serialize(response));

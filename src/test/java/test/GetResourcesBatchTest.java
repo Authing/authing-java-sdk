@@ -18,8 +18,8 @@ public class GetResourcesBatchTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetResourcesBatchDto request = new GetResourcesBatchDto();
-        request.setCodeList("codeList_1345");
-        request.setNamespace("namespace_7171");
+        request.setCodeList("codeList_1928");
+        request.setNamespace("namespace_1923");
 
         ResourceListRespDto response = client.getResourcesBatch(request);
         System.out.println(JsonUtils.serialize(response));

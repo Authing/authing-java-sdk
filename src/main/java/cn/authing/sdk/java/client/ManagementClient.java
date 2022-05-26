@@ -1,13 +1,9 @@
 package cn.authing.sdk.java.client;
 
-import cn.hutool.core.util.StrUtil;
 import cn.authing.sdk.java.dto.*;
-
 import cn.authing.sdk.java.model.AuthingRequestConfig;
 import cn.authing.sdk.java.model.ManagementClientOptions;
-import java.util.HashMap;
-import java.util.Collections;
-import java.util.Map;
+import cn.hutool.core.util.StrUtil;
 
 
 public class ManagementClient extends BaseClient {

@@ -18,7 +18,7 @@ public class DeleteGroupsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         DeleteGroupsReqDto request = new DeleteGroupsReqDto();
-        request.setCodeList(Collections.singletonList("String_5658"));
+        request.setCodeList(Collections.singletonList("String_7029"));
 
         IsSuccessRespDto response = client.deleteGroups(request);
         System.out.println(JsonUtils.serialize(response));

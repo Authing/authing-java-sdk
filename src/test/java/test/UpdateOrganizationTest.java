@@ -18,10 +18,10 @@ public class UpdateOrganizationTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         UpdateOrganizationReqDto request = new UpdateOrganizationReqDto();
-        request.setOrganizationCode("organizationCode_6202");
-        request.setOpenDepartmentId("openDepartmentId_7825");
-        request.setOrganizationNewCode("organizationNewCode_3967");
-        request.setOrganizationName("organizationName_994");
+        request.setOrganizationCode("organizationCode_9662");
+        request.setOpenDepartmentId("openDepartmentId_3851");
+        request.setOrganizationNewCode("organizationNewCode_5127");
+        request.setOrganizationName("organizationName_3794");
 
         OrganizationSingleRespDto response = client.updateOrganization(request);
         System.out.println(JsonUtils.serialize(response));

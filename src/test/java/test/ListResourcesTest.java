@@ -18,8 +18,8 @@ public class ListResourcesTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListResourcesDto request = new ListResourcesDto();
-        request.setNamespace("namespace_7825");
-        request.setType("type_6191");
+        request.setNamespace("namespace_2086");
+        request.setType("type_4181");
         request.setPage(0);
         request.setLimit(0);
 
