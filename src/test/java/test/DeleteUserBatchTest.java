@@ -18,7 +18,7 @@ public class DeleteUserBatchTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         DeleteUsersBatchDto request = new DeleteUsersBatchDto();
-        request.setUserIds(Collections.singletonList("String_2189"));
+        request.setUserIds(Collections.singletonList("String_1198"));
 
         IsSuccessRespDto response = client.deleteUserBatch(request);
         System.out.println(JsonUtils.serialize(response));

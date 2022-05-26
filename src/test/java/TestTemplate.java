@@ -72,8 +72,17 @@ public class TestTemplate {
         
         String methodName;
         List<Parameter> reqParameters;
+        Parameter firstParameter;
         String reqClass;
         String respClass;
+    
+        public Parameter getFirstParameter() {
+            return firstParameter;
+        }
+    
+        public void setFirstParameter(Parameter firstParameter) {
+            this.firstParameter = firstParameter;
+        }
     
         public String getMethodName() {
             return methodName;

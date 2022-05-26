@@ -18,10 +18,10 @@ public class UpdateRoleTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         UpdateRoleDto request = new UpdateRoleDto();
-        request.setNewCode("newCode_2846");
-        request.setCode("code_4584");
-        request.setNamespace("namespace_4784");
-        request.setDescription("description_2195");
+        request.setNewCode("newCode_8583");
+        request.setCode("code_3702");
+        request.setNamespace("namespace_3982");
+        request.setDescription("description_8483");
 
         IsSuccessRespDto response = client.updateRole(request);
         System.out.println(JsonUtils.serialize(response));

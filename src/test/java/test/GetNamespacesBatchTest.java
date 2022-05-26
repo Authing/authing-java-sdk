@@ -18,7 +18,7 @@ public class GetNamespacesBatchTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetNamespacesBatchDto request = new GetNamespacesBatchDto();
-        request.setCodeList("codeList_1492");
+        request.setCodeList("codeList_7633");
 
         NamespaceListRespDto response = client.getNamespacesBatch(request);
         System.out.println(JsonUtils.serialize(response));

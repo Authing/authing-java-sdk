@@ -18,8 +18,8 @@ public class DeleteDepartmentTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         DeleteDepartmentReqDto request = new DeleteDepartmentReqDto();
-        request.setOrganizationCode("organizationCode_7568");
-        request.setDepartmentId("departmentId_3238");
+        request.setOrganizationCode("organizationCode_5929");
+        request.setDepartmentId("departmentId_8663");
         request.setDepartmentIdType(cn.authing.sdk.java.dto.DeleteDepartmentReqDto.DepartmentIdType.DEPARTMENT_ID);
 
         IsSuccessRespDto response = client.deleteDepartment(request);

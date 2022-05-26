@@ -18,10 +18,10 @@ public class UpdateGroupTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         UpdateGroupReqDto request = new UpdateGroupReqDto();
-        request.setDescription("description_2963");
-        request.setName("name_1202");
-        request.setCode("code_5558");
-        request.setNewCode("newCode_6184");
+        request.setDescription("description_8473");
+        request.setName("name_6864");
+        request.setCode("code_928");
+        request.setNewCode("newCode_8308");
 
         GroupSingleRespDto response = client.updateGroup(request);
         System.out.println(JsonUtils.serialize(response));
