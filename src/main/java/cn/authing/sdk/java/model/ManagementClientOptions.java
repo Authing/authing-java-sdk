@@ -198,7 +198,7 @@ public class ManagementClientOptions extends AuthingClientOptions {
             if (loginResponse == null) {
                 throw new IllegalReceiveException("response is null");
             }
-            if (loginResponse.code != 200) {
+            if (loginResponse.statusCode != 200) {
                 throw new RuntimeException(loginResponse.getMessage());
             }
             // 重新存储 accessToken，过期时间
@@ -212,18 +212,18 @@ public class ManagementClientOptions extends AuthingClientOptions {
         
         public static class LoginResponse {
             
-            private Integer code;
+            private Integer statusCode;
             private String message;
             private Data data;
-            
-            public Integer getCode() {
-                return code;
+
+            public Integer getStatusCode() {
+                return statusCode;
             }
-            
-            public void setCode(Integer code) {
-                this.code = code;
+
+            public void setStatusCode(Integer statusCode) {
+                this.statusCode = statusCode;
             }
-            
+
             public String getMessage() {
                 return message;
             }
