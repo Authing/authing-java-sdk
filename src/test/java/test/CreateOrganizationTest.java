@@ -18,9 +18,9 @@ public class CreateOrganizationTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         CreateOrganizationReqDto request = new CreateOrganizationReqDto();
-        request.setOrganizationName("organizationName_3287");
-        request.setOrganizationCode("organizationCode_306");
-        request.setOpenDepartmentId("openDepartmentId_2821");
+        request.setOrganizationName("organizationName_1816");
+        request.setOrganizationCode("organizationCode_6127");
+        request.setOpenDepartmentId("openDepartmentId_5455");
 
         OrganizationSingleRespDto response = client.createOrganization(request);
         System.out.println(JsonUtils.serialize(response));

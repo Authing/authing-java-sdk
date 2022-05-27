@@ -18,9 +18,9 @@ public class GetGroupAuthorizedResourcesTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetGroupAuthorizedResourcesDto request = new GetGroupAuthorizedResourcesDto();
-        request.setCode("code_3648");
-        request.setNamespace("namespace_6429");
-        request.setResourceType("resourceType_7838");
+        request.setCode("code_8512");
+        request.setNamespace("namespace_9541");
+        request.setResourceType("resourceType_1609");
 
         AuthorizedResourceListRespDto response = client.getGroupAuthorizedResources(request);
         System.out.println(JsonUtils.serialize(response));

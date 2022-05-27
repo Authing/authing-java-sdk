@@ -3,7 +3,7 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import cn.authing.sdk.java.dto.ExtIdpConnDto;
+import cn.authing.sdk.java.dto.ExtIdpConnDetail;
 
 public class ExtIdpConnDetailSingleRespDto {
     /**
@@ -25,7 +25,7 @@ public class ExtIdpConnDetailSingleRespDto {
      * 响应数据
      */
     @JsonProperty("data")
-    private ExtIdpConnDto data;
+    private ExtIdpConnDetail data;
 
     public Integer getStatusCode() {
         return statusCode;
@@ -48,10 +48,10 @@ public class ExtIdpConnDetailSingleRespDto {
         this.apiCode = apiCode;
     }
 
-    public ExtIdpConnDto getData() {
+    public ExtIdpConnDetail getData() {
         return data;
     }
-    public void setData(ExtIdpConnDto data) {
+    public void setData(ExtIdpConnDetail data) {
         this.data = data;
     }
 

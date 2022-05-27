@@ -18,8 +18,8 @@ public class KickUsersTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         KickUsersDto request = new KickUsersDto();
-        request.setAppIds(Collections.singletonList("String_9930"));
-        request.setUserId("userId_3688");
+        request.setAppIds(Collections.singletonList("String_2919"));
+        request.setUserId("userId_8047");
 
         IsSuccessRespDto response = client.kickUsers(request);
         System.out.println(JsonUtils.serialize(response));

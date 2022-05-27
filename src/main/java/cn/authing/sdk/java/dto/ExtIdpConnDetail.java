@@ -4,7 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-public class ExtIdpConnDto {
+public class ExtIdpConnDetail {
     /**
      * 身份源连接 id
      */
@@ -30,6 +30,26 @@ public class ExtIdpConnDto {
      */
     @JsonProperty("displayName")
     private String displayName;
+    /**
+     * 是否只支持登录
+     */
+    @JsonProperty("loginOnly")
+    private Boolean loginOnly;
+    /**
+     * 账号关联模式
+     */
+    @JsonProperty("associationMode")
+    private AssociationMode associationMode;
+    /**
+     * 账号绑定方式
+     */
+    @JsonProperty("challengeBindingMethods")
+    private List<String> challengeBindingMethods;
+    /**
+     * 自定义参数
+     */
+    @JsonProperty("fields")
+    private Object fields;
 
     public String getId() {
         return id;
@@ -64,6 +84,34 @@ public class ExtIdpConnDto {
     }
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    public Boolean getLoginOnly() {
+        return loginOnly;
+    }
+    public void setLoginOnly(Boolean loginOnly) {
+        this.loginOnly = loginOnly;
+    }
+
+    public AssociationMode getAssociationMode() {
+        return associationMode;
+    }
+    public void setAssociationMode(AssociationMode associationMode) {
+        this.associationMode = associationMode;
+    }
+
+    public List<String> getChallengeBindingMethods() {
+        return challengeBindingMethods;
+    }
+    public void setChallengeBindingMethods(List<String> challengeBindingMethods) {
+        this.challengeBindingMethods = challengeBindingMethods;
+    }
+
+    public Object getFields() {
+        return fields;
+    }
+    public void setFields(Object fields) {
+        this.fields = fields;
     }
 
 
@@ -193,6 +241,32 @@ public class ExtIdpConnDto {
         private String value;
 
         Type(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    /**
+     * 账号关联模式
+     */
+    public static enum AssociationMode {
+
+        @JsonProperty("none")
+        NONE("none"),
+
+        @JsonProperty("field")
+        FIELD("field"),
+
+        @JsonProperty("challenge")
+        CHALLENGE("challenge"),
+        ;
+
+        private String value;
+
+        AssociationMode(String value) {
             this.value = value;
         }
 

@@ -1,9 +1,13 @@
 package cn.authing.sdk.java.client;
 
+import cn.hutool.core.util.StrUtil;
 import cn.authing.sdk.java.dto.*;
+
 import cn.authing.sdk.java.model.AuthingRequestConfig;
 import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.hutool.core.util.StrUtil;
+import java.util.HashMap;
+import java.util.Collections;
+import java.util.Map;
 
 
 public class ManagementClient extends BaseClient {
@@ -933,13 +937,13 @@ public class ManagementClient extends BaseClient {
     }
     
     
-    public ResourceDto createNamespace(CreateNamespaceDto reqDto) {
+    public NamespaceRespDto createNamespace(CreateNamespaceDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/create-namespace");
         config.setBody(reqDto);
         config.setMethod("POST");
         String response = request(config);
-        return deserialize(response, ResourceDto.class);
+        return deserialize(response, NamespaceRespDto.class);
     }
     
     

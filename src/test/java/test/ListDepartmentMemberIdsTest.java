@@ -18,9 +18,9 @@ public class ListDepartmentMemberIdsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListDepartmentMemberIdsDto request = new ListDepartmentMemberIdsDto();
-        request.setOrganizationCode("organizationCode_3482");
-        request.setDepartmentId("departmentId_5966");
-        request.setDepartmentIdType("departmentIdType_6737");
+        request.setOrganizationCode("organizationCode_7363");
+        request.setDepartmentId("departmentId_2822");
+        request.setDepartmentIdType("departmentIdType_2260");
 
         UserIdListRespDto response = client.listDepartmentMemberIds(request);
         System.out.println(JsonUtils.serialize(response));

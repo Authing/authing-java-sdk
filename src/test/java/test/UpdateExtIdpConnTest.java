@@ -19,9 +19,9 @@ public class UpdateExtIdpConnTest {
 
         UpdateExtIdpConnDto request = new UpdateExtIdpConnDto();
         request.setFields(Collections.emptyList());
-        request.setDisplayName("displayName_907");
-        request.setId("id_1625");
-        request.setLogo("logo_6859");
+        request.setDisplayName("displayName_4462");
+        request.setId("id_3895");
+        request.setLogo("logo_3610");
         request.setLoginOnly(Boolean.TRUE);
 
         ExtIdpConnDetailSingleRespDto response = client.updateExtIdpConn(request);

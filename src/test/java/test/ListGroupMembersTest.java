@@ -18,7 +18,7 @@ public class ListGroupMembersTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListGroupMembersDto request = new ListGroupMembersDto();
-        request.setCode("code_1077");
+        request.setCode("code_7133");
         request.setPage(0);
         request.setLimit(0);
         request.setWithCustomData(Boolean.TRUE);
