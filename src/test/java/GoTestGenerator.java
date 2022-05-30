@@ -76,7 +76,7 @@ public class GoTestGenerator {
     
     private static String generateValue(java.lang.reflect.Parameter p) {
         if (p.getType().isAssignableFrom(List.class)) {
-            return "new ArrayList<>()";
+            return "nil";
         }
         if (p.getType().isAssignableFrom(String.class)) {
             return "\"" + UUID.randomUUID().toString() + "\"";
