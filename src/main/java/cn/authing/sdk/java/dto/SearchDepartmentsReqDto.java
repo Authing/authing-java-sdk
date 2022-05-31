@@ -8,19 +8,19 @@ public class SearchDepartmentsReqDto {
     /**
      * 搜索关键词
      */
-    @JsonProperty("search")
-    private String search;
+    @JsonProperty("keywords")
+    private String keywords;
     /**
      * 组织 code
      */
     @JsonProperty("organizationCode")
     private String organizationCode;
 
-    public String getSearch() {
-        return search;
+    public String getKeywords() {
+        return keywords;
     }
-    public void setSearch(String search) {
-        this.search = search;
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
     }
 
     public String getOrganizationCode() {

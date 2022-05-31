@@ -13,7 +13,7 @@ public class GetExtIdpDto {
     /**
      * 租户 ID
      */
-    @JsonProperty("tenant_id")
+    @JsonProperty("tenantId")
     private String tenantId;
 
     public String getId() {

@@ -12,6 +12,11 @@ public class UserDto {
     @JsonProperty("userId")
     private String userId;
     /**
+     * 账号创建时间
+     */
+    @JsonProperty("createdAt")
+    private String createdAt;
+    /**
      * 账户当前状态
      */
     @JsonProperty("status")
@@ -142,6 +147,13 @@ public class UserDto {
     }
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
     public Status getStatus() {

@@ -11,20 +11,25 @@ public class CreateDepartmentReqDto {
     @JsonProperty("organizationCode")
     private String organizationCode;
     /**
-     * 部门名称
-     */
-    @JsonProperty("name")
-    private String name;
-    /**
      * 父部门 id
      */
     @JsonProperty("parentDepartmentId")
     private String parentDepartmentId;
     /**
+     * 部门名称
+     */
+    @JsonProperty("name")
+    private String name;
+    /**
      * 自定义部门 ID，用于存储自定义的 ID
      */
     @JsonProperty("openDepartmentId")
     private String openDepartmentId;
+    /**
+     * 部门描述
+     */
+    @JsonProperty("description")
+    private String description;
     /**
      * 部门识别码
      */
@@ -48,13 +53,6 @@ public class CreateDepartmentReqDto {
         this.organizationCode = organizationCode;
     }
 
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getParentDepartmentId() {
         return parentDepartmentId;
     }
@@ -62,11 +60,25 @@ public class CreateDepartmentReqDto {
         this.parentDepartmentId = parentDepartmentId;
     }
 
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getOpenDepartmentId() {
         return openDepartmentId;
     }
     public void setOpenDepartmentId(String openDepartmentId) {
         this.openDepartmentId = openDepartmentId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getCode() {

@@ -8,7 +8,7 @@ public class GetResourcesBatchDto {
     /**
      * 资源 code 列表,批量可以使用逗号分隔
      */
-    @JsonProperty("code_list")
+    @JsonProperty("codeList")
     private String codeList;
     /**
      * 所属权限分组的 code

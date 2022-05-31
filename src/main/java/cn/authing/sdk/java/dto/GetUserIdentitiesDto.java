@@ -8,7 +8,7 @@ public class GetUserIdentitiesDto {
     /**
      * 用户 ID
      */
-    @JsonProperty("user_id")
+    @JsonProperty("userId")
     private String userId;
 
     public String getUserId() {

@@ -3,7 +3,7 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import cn.authing.sdk.java.dto.UsersListPagingDto;
+import cn.authing.sdk.java.dto.UserDto;
 
 public class UserListRespDto {
     /**
@@ -22,10 +22,10 @@ public class UserListRespDto {
     @JsonProperty("apiCode")
     private Integer apiCode;
     /**
-     * 数据
+     * 用户列表
      */
     @JsonProperty("data")
-    private UsersListPagingDto data;
+    private List<UserDto> data;
 
     public Integer getStatusCode() {
         return statusCode;
@@ -48,10 +48,10 @@ public class UserListRespDto {
         this.apiCode = apiCode;
     }
 
-    public UsersListPagingDto getData() {
+    public List<UserDto> getData() {
         return data;
     }
-    public void setData(UsersListPagingDto data) {
+    public void setData(List<UserDto> data) {
         this.data = data;
     }
 

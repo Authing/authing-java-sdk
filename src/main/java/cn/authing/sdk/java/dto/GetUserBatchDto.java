@@ -8,22 +8,22 @@ public class GetUserBatchDto {
     /**
      * 用户 ID 数组
      */
-    @JsonProperty("user_ids")
+    @JsonProperty("userIds")
     private String userIds;
     /**
      * 是否获取自定义数据
      */
-    @JsonProperty("with_custom_data")
+    @JsonProperty("withCustomData")
     private Boolean withCustomData;
     /**
      * 是否获取 identities
      */
-    @JsonProperty("with_identities")
+    @JsonProperty("withIdentities")
     private Boolean withIdentities;
     /**
      * 是否获取部门 ID 列表
      */
-    @JsonProperty("with_department_ids")
+    @JsonProperty("withDepartmentIds")
     private Boolean withDepartmentIds;
 
     public String getUserIds() {

@@ -8,7 +8,7 @@ public class GetUserRolesDto {
     /**
      * 用户 ID
      */
-    @JsonProperty("user_id")
+    @JsonProperty("userId")
     private String userId;
     /**
      * 所属权限分组的 code

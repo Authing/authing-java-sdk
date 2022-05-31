@@ -8,12 +8,12 @@ public class GetAuthorizedResourcesDto {
     /**
      * 目标对象类型
      */
-    @JsonProperty("target_type")
+    @JsonProperty("targetType")
     private String targetType;
     /**
      * 目标对象唯一标志符
      */
-    @JsonProperty("target_identifier")
+    @JsonProperty("targetIdentifier")
     private String targetIdentifier;
     /**
      * 所属权限分组的 code
@@ -23,7 +23,7 @@ public class GetAuthorizedResourcesDto {
     /**
      * 资源类型，如数据、API、按钮、菜单
      */
-    @JsonProperty("resource_type")
+    @JsonProperty("resourceType")
     private String resourceType;
 
     public String getTargetType() {

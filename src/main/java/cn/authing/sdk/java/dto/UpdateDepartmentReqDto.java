@@ -11,15 +11,15 @@ public class UpdateDepartmentReqDto {
     @JsonProperty("organizationCode")
     private String organizationCode;
     /**
-     * 父部门 id
-     */
-    @JsonProperty("parentDepartmentId")
-    private String parentDepartmentId;
-    /**
      * 部门系统 ID（为 Authing 系统自动生成，不可修改）
      */
     @JsonProperty("departmentId")
     private String departmentId;
+    /**
+     * 部门描述
+     */
+    @JsonProperty("description")
+    private String description;
     /**
      * 部门识别码
      */
@@ -40,6 +40,11 @@ public class UpdateDepartmentReqDto {
      */
     @JsonProperty("departmentIdType")
     private DepartmentIdType departmentIdType;
+    /**
+     * 父部门 id
+     */
+    @JsonProperty("parentDepartmentId")
+    private String parentDepartmentId;
 
     public String getOrganizationCode() {
         return organizationCode;
@@ -48,18 +53,18 @@ public class UpdateDepartmentReqDto {
         this.organizationCode = organizationCode;
     }
 
-    public String getParentDepartmentId() {
-        return parentDepartmentId;
-    }
-    public void setParentDepartmentId(String parentDepartmentId) {
-        this.parentDepartmentId = parentDepartmentId;
-    }
-
     public String getDepartmentId() {
         return departmentId;
     }
     public void setDepartmentId(String departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getCode() {
@@ -88,6 +93,13 @@ public class UpdateDepartmentReqDto {
     }
     public void setDepartmentIdType(DepartmentIdType departmentIdType) {
         this.departmentIdType = departmentIdType;
+    }
+
+    public String getParentDepartmentId() {
+        return parentDepartmentId;
+    }
+    public void setParentDepartmentId(String parentDepartmentId) {
+        this.parentDepartmentId = parentDepartmentId;
     }
 
 

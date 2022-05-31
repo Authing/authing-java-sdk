@@ -8,7 +8,7 @@ public class GetCustomFieldsDto {
     /**
      * 主体类型，目前支持用户、角色、分组和部门
      */
-    @JsonProperty("target_type")
+    @JsonProperty("targetType")
     private String targetType;
 
     public String getTargetType() {

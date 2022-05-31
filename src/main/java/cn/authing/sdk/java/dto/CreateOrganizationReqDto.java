@@ -16,6 +16,11 @@ public class CreateOrganizationReqDto {
     @JsonProperty("organizationCode")
     private String organizationCode;
     /**
+     * 组织描述信息
+     */
+    @JsonProperty("description")
+    private String description;
+    /**
      * 根节点自定义 ID
      */
     @JsonProperty("openDepartmentId")
@@ -33,6 +38,13 @@ public class CreateOrganizationReqDto {
     }
     public void setOrganizationCode(String organizationCode) {
         this.organizationCode = organizationCode;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getOpenDepartmentId() {

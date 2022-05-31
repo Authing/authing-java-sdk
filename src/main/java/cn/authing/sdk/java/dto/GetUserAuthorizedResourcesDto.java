@@ -8,7 +8,7 @@ public class GetUserAuthorizedResourcesDto {
     /**
      * 用户 ID
      */
-    @JsonProperty("user_id")
+    @JsonProperty("userId")
     private String userId;
     /**
      * 所属权限分组的 code
@@ -18,7 +18,7 @@ public class GetUserAuthorizedResourcesDto {
     /**
      * 资源类型
      */
-    @JsonProperty("resource_type")
+    @JsonProperty("resourceType")
     private String resourceType;
 
     public String getUserId() {

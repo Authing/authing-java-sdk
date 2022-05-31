@@ -8,22 +8,22 @@ public class GetUserDto {
     /**
      * 用户 ID
      */
-    @JsonProperty("user_id")
+    @JsonProperty("userId")
     private String userId;
     /**
      * 是否获取自定义数据
      */
-    @JsonProperty("with_custom_data")
+    @JsonProperty("withCustomData")
     private Boolean withCustomData;
     /**
      * 是否获取 identities
      */
-    @JsonProperty("with_identities")
+    @JsonProperty("withIdentities")
     private Boolean withIdentities;
     /**
      * 是否获取部门 ID 列表
      */
-    @JsonProperty("with_department_ids")
+    @JsonProperty("withDepartmentIds")
     private Boolean withDepartmentIds;
     /**
      * 手机号

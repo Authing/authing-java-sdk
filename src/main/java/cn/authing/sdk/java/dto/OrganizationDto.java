@@ -16,6 +16,11 @@ public class OrganizationDto {
     @JsonProperty("organizationName")
     private String organizationName;
     /**
+     * 组织描述信息
+     */
+    @JsonProperty("description")
+    private String description;
+    /**
      * 根节点 ID
      */
     @JsonProperty("departmentId")
@@ -53,6 +58,13 @@ public class OrganizationDto {
     }
     public void setOrganizationName(String organizationName) {
         this.organizationName = organizationName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getDepartmentId() {

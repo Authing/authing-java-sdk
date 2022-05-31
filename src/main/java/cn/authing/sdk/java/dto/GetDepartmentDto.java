@@ -8,17 +8,17 @@ public class GetDepartmentDto {
     /**
      * 组织 code
      */
-    @JsonProperty("organization_code")
+    @JsonProperty("organizationCode")
     private String organizationCode;
     /**
      * 部门 id，根部门传 `root`
      */
-    @JsonProperty("department_id")
+    @JsonProperty("departmentId")
     private String departmentId;
     /**
      * 此次调用中使用的部门 ID 的类型
      */
-    @JsonProperty("department_id_type")
+    @JsonProperty("departmentIdType")
     private String departmentIdType;
 
     public String getOrganizationCode() {

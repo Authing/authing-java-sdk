@@ -16,16 +16,6 @@ public class DepartmentDto {
     @JsonProperty("openDepartmentId")
     private String openDepartmentId;
     /**
-     * 父部门 id
-     */
-    @JsonProperty("parentDepartmentId")
-    private String parentDepartmentId;
-    /**
-     * 父部门自定义的 ID
-     */
-    @JsonProperty("parentOpenDepartmentId")
-    private String parentOpenDepartmentId;
-    /**
      * 部门名称
      */
     @JsonProperty("name")
@@ -35,6 +25,11 @@ public class DepartmentDto {
      */
     @JsonProperty("description")
     private String description;
+    /**
+     * 父部门 id
+     */
+    @JsonProperty("parentDepartmentId")
+    private String parentDepartmentId;
     /**
      * 部门识别码
      */
@@ -70,20 +65,6 @@ public class DepartmentDto {
         this.openDepartmentId = openDepartmentId;
     }
 
-    public String getParentDepartmentId() {
-        return parentDepartmentId;
-    }
-    public void setParentDepartmentId(String parentDepartmentId) {
-        this.parentDepartmentId = parentDepartmentId;
-    }
-
-    public String getParentOpenDepartmentId() {
-        return parentOpenDepartmentId;
-    }
-    public void setParentOpenDepartmentId(String parentOpenDepartmentId) {
-        this.parentOpenDepartmentId = parentOpenDepartmentId;
-    }
-
     public String getName() {
         return name;
     }
@@ -96,6 +77,13 @@ public class DepartmentDto {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getParentDepartmentId() {
+        return parentDepartmentId;
+    }
+    public void setParentDepartmentId(String parentDepartmentId) {
+        this.parentDepartmentId = parentDepartmentId;
     }
 
     public String getCode() {

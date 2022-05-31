@@ -8,17 +8,17 @@ public class GetUserLoginHistoryDto {
     /**
      * 用户 ID
      */
-    @JsonProperty("user_id")
+    @JsonProperty("userId")
     private String userId;
     /**
      * 应用 ID
      */
-    @JsonProperty("app_id")
+    @JsonProperty("appId")
     private String appId;
     /**
      * 客户端 IP
      */
-    @JsonProperty("client_ip")
+    @JsonProperty("clientIp")
     private String clientIp;
     /**
      * 开始时间戳（毫秒）

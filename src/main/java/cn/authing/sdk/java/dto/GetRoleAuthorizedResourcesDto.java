@@ -18,7 +18,7 @@ public class GetRoleAuthorizedResourcesDto {
     /**
      * 资源类型
      */
-    @JsonProperty("resource_type")
+    @JsonProperty("resourceType")
     private String resourceType;
 
     public String getCode() {

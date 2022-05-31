@@ -93,7 +93,7 @@ public class ManagementClient extends BaseClient {
     }
     
     
-    public PrincipalAuthenticationInfoPaginatedRespDto getPrincipalAuthenticationInfo(GetUserPrincipalAuthenticationInfoDto reqDto) {
+    public PrincipalAuthenticationInfoPaginatedRespDto getUserPrincipalAuthenticationInfo(GetUserPrincipalAuthenticationInfoDto reqDto) {
         
         
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -105,7 +105,7 @@ public class ManagementClient extends BaseClient {
     }
     
     
-    public IsSuccessRespDto resetPrincipalAuthenticationInfo(ResetUserPrincipalAuthenticationInfoDto reqDto) {
+    public IsSuccessRespDto resetUserPrincipalAuthenticationInfo(ResetUserPrincipalAuthenticationInfoDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/reset-user-principal-authentication-info");
         config.setBody(reqDto);
@@ -149,7 +149,7 @@ public class ManagementClient extends BaseClient {
     }
     
     
-    public IsSuccessRespDto deleteUserBatch(DeleteUsersBatchDto reqDto) {
+    public IsSuccessRespDto deleteUsersBatch(DeleteUsersBatchDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/delete-users-batch");
         config.setBody(reqDto);
@@ -315,7 +315,7 @@ public class ManagementClient extends BaseClient {
     }
     
     
-    public GroupPaginatedRespDto getGroupList(ListGroupsDto reqDto) {
+    public GroupPaginatedRespDto listGroups(ListGroupsDto reqDto) {
         
         
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -337,7 +337,7 @@ public class ManagementClient extends BaseClient {
     }
     
     
-    public GroupListRespDto createGroupBatch(CreateGroupBatchReqDto reqDto) {
+    public GroupListRespDto createGroupsBatch(CreateGroupBatchReqDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/create-groups-batch");
         config.setBody(reqDto);
@@ -357,7 +357,7 @@ public class ManagementClient extends BaseClient {
     }
     
     
-    public IsSuccessRespDto deleteGroups(DeleteGroupsReqDto reqDto) {
+    public IsSuccessRespDto deleteGroupsBatch(DeleteGroupsReqDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/delete-groups-batch");
         config.setBody(reqDto);
@@ -433,29 +433,9 @@ public class ManagementClient extends BaseClient {
     }
     
     
-    public IsSuccessRespDto assignRoleBatch(AssignRoleBatchDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/assign-role-batch");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, IsSuccessRespDto.class);
-    }
-    
-    
     public IsSuccessRespDto revokeRole(RevokeRoleDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/revoke-role");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, IsSuccessRespDto.class);
-    }
-    
-    
-    public IsSuccessRespDto revokeRoleBatch(RevokeRoleBatchDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/revoke-role-batch");
         config.setBody(reqDto);
         config.setMethod("POST");
         String response = request(config);
