@@ -9983,8 +9983,8 @@ query groups(${'$'}userId: String, ${'$'}page: Int, ${'$'}limit: Int, ${'$'}sort
       }
 
       private val isActionAllowedDocument: String = """
-query isActionAllowed(${'$'}resource: String!, ${'$'}action: String!, ${'$'}userId: String!, ${'$'}namespace: String, ${'$'}tenantId: String) {
-  isActionAllowed(resource: ${'$'}resource, action: ${'$'}action, userId: ${'$'}userId, namespace: ${'$'}namespace, tenantId: ${'$'}tenantId)
+query isActionAllowed(${'$'}resource: String!, ${'$'}action: String!, ${'$'}userId: String!, ${'$'}namespace: String) {
+  isActionAllowed(resource: ${'$'}resource, action: ${'$'}action, userId: ${'$'}userId, namespace: ${'$'}namespace)
 }
 """
     }
