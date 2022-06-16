@@ -1,5 +1,7 @@
 package cn.authing.sdk.java.model;
 
+import java.util.Map;
+
 /**
  * AuthingClientOptions
  *
@@ -17,7 +19,7 @@ public abstract class AuthingClientOptions {
      * @param body   请求内容
      * @return 响应
      */
-    public String doRequest(String url, String method, Object body) {
+    public String doRequest(String url, String method, Map<String, String> headers, Object body) {
         return null;
     }
 }

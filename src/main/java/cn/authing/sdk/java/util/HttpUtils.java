@@ -42,6 +42,18 @@ public class HttpUtils {
                         .headerMap(headers, true)
                         .execute();
                 break;
+
+            case "UrlencodedPOST":
+                String urlencodedBodyString = buildQueryParams(JsonUtils.deserialize(JsonUtils.serialize(body), Map.class));
+                log.info("请求 url：{}, body: {}", url, urlencodedBodyString);
+                httpResponse = HttpUtil
+                        .createRequest(Method.valueOf("POST"), url)
+                        .setReadTimeout(timeout)
+                        .body(urlencodedBodyString)
+                        .setConnectionTimeout(timeout)
+                        .headerMap(headers, true)
+                        .execute();
+                break;
             default:
                 throw new IllegalArgumentException();
         }
@@ -54,17 +66,23 @@ public class HttpUtils {
         }
     }
     
-    private static String buildUrlWithQueryParams(String url, Map<String, Object> params) {
+    public static String buildUrlWithQueryParams(String url, Map<String, Object> params) {
         StringBuilder sb = new StringBuilder(url);
+        sb.append(buildQueryParams(params));
+        return sb.toString();
+    }
+
+    public static String buildQueryParams(Map<String, Object> params) {
+        StringBuilder sb = new StringBuilder();
         if (params != null) {
             Set<Map.Entry<String, Object>> entries = params.entrySet();
-            sb.append("?");
             for (Map.Entry<String, Object> entry : entries) {
                 if (entry.getValue() != null) {
                     sb.append(entry.getKey()).append("=").append(entry.getValue().toString()).append("&");
                 }
             }
         }
+
         return sb.toString();
     }
     

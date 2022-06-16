@@ -75,8 +75,7 @@ public class ManagementClientOptions extends AuthingClientOptions {
     }
     
     @Override
-    public String doRequest(String url, String method, Object body) {
-        Map<String, String> headers = new HashMap<>();
+    public String doRequest(String url, String method, Map<String, String> headers, Object body) {
         headers.put(Header.CONTENT_TYPE.getValue(), "application/json;charset=UTF-8");
         headers.put("x-authing-app-tenant-id", getTenantId());
         headers.put("x-authing-request-from", getRequestFrom());
