@@ -37,11 +37,7 @@ public class ManagementClientOptions extends AuthingClientOptions {
      */
     private int timeout = 10000;
     
-    /**
-     * 请求来源
-     */
-    private String requestFrom = "sdk";
-    
+
     /**
      * 语言
      */
@@ -78,7 +74,7 @@ public class ManagementClientOptions extends AuthingClientOptions {
     public String doRequest(String url, String method, Map<String, String> headers, Object body) {
         headers.put(Header.CONTENT_TYPE.getValue(), "application/json;charset=UTF-8");
         headers.put("x-authing-app-tenant-id", getTenantId());
-        headers.put("x-authing-request-from", getRequestFrom());
+        headers.put("x-authing-request-from", AuthingClientOptions.REQUEST_FROM);
         headers.put("x-authing-sdk-version", AuthingClientOptions.SDK_VERSION);
         headers.put("x-authing-lang", getLang().getValue());
         if (!Objects.equals("/api/v3/get-management-token", url) && StrUtil.isNotBlank(this.tokenProvider.getAccessToken())) {
@@ -122,14 +118,6 @@ public class ManagementClientOptions extends AuthingClientOptions {
     
     public void setTimeout(int timeout) {
         this.timeout = timeout;
-    }
-    
-    public String getRequestFrom() {
-        return requestFrom;
-    }
-    
-    public void setRequestFrom(String requestFrom) {
-        this.requestFrom = requestFrom;
     }
     
     public LanguageEnum getLang() {
