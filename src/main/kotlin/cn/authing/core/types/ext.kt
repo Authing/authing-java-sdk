@@ -9,6 +9,7 @@ import java.util.*
 
 
 data class SecurityLevel(
+
     // 是否绑定了邮箱
     var email: Boolean?,
     // 是否设置了密码
@@ -18,7 +19,9 @@ data class SecurityLevel(
     // 账户的总体安全等级评分
     var score: String?,
     // 密码安全等级，null 表示密码还未做过安全等级检测检测
-    var passwordSecurityLevel: PasswordSecurityLevel?
+    var passwordSecurityLevel: Int?,
+    //mfa
+    var mfa:Boolean?
 )
 
 

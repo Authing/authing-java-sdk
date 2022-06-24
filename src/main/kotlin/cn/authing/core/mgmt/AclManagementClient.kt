@@ -43,11 +43,37 @@ class AclManagementClient(private val client: ManagementClient) {
         }
     }
 
+    fun allow(
+        resource: String,
+        action: String,
+        userId: String,
+        namespaceCode: String
+    ): GraphQLCall<AllowResponse, CommonMessage> {
+        val param = AllowParam(resource, action).withUserId(userId).withNamespace(namespaceCode);
+
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<AllowResponse>>() {}) {
+            it.result
+        }
+    }
+
     /**
      * 判断某个用户是否对某个资源有某个操作权限
      */
     fun isAllowed(userId: String, resource: String, action: String): GraphQLCall<IsActionAllowedResponse, Boolean> {
         val param = IsActionAllowedParam(resource, action, userId)
+
+        return client.createGraphQLCall(
+            param.createRequest(),
+            object : TypeToken<GraphQLResponse<IsActionAllowedResponse>>() {}) {
+            it.result
+        }
+    }
+
+
+    fun isAllowed(userId: String, resource: String, action: String,namespaceCode: String): GraphQLCall<IsActionAllowedResponse, Boolean> {
+        val param = IsActionAllowedParam(resource, action, userId,namespaceCode)
 
         return client.createGraphQLCall(
             param.createRequest(),

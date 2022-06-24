@@ -167,6 +167,18 @@ enum class ResourceType(val label: String) {
   }
 }
 
+enum class ExtIdpListTypeEnum (val label: String){
+    SOCIAL("social"),
+    ENTERPRISE("enterprise");
+
+    companion object {
+        @JvmStatic
+        fun valueOfLabel(label: String): PolicyAssignmentTargetType? {
+            return PolicyAssignmentTargetType.values().find { it.label == label }
+        }
+    }
+}
+
 enum class PolicyAssignmentTargetType(val label: String) {
       USER("USER"),
       ROLE("ROLE"),
@@ -610,6 +622,7 @@ data class User(
     /** @param [customData] 用户自定义数据 */
     @SerializedName("customData")
     var customData: List<UserCustomData>? = null
+//    var customData : Map<String,Any> ?= null
 )
 
 enum class UserStatus(val label: String) {
@@ -9971,8 +9984,8 @@ query groups(${'$'}userId: String, ${'$'}page: Int, ${'$'}limit: Int, ${'$'}sort
       }
 
       private val isActionAllowedDocument: String = """
-query isActionAllowed(${'$'}resource: String!, ${'$'}action: String!, ${'$'}userId: String!, ${'$'}namespace: String, ${'$'}tenantId: String) {
-  isActionAllowed(resource: ${'$'}resource, action: ${'$'}action, userId: ${'$'}userId, namespace: ${'$'}namespace, tenantId: ${'$'}tenantId)
+query isActionAllowed(${'$'}resource: String!, ${'$'}action: String!, ${'$'}userId: String!, ${'$'}namespace: String) {
+  isActionAllowed(resource: ${'$'}resource, action: ${'$'}action, userId: ${'$'}userId, namespace: ${'$'}namespace)
 }
 """
     }
