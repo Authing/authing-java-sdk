@@ -18,13 +18,14 @@ public class CreateDepartmentTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         CreateDepartmentReqDto request = new CreateDepartmentReqDto();
-        request.setOrganizationCode("organizationCode_3813");
-        request.setParentDepartmentId("parentDepartmentId_3687");
-        request.setName("name_9440");
-        request.setOpenDepartmentId("openDepartmentId_7937");
-        request.setDescription("description_8625");
-        request.setCode("code_2677");
-        request.setLeaderUserId("leaderUserId_3394");
+        request.setOrganizationCode("organizationCode_432");
+        request.setParentDepartmentId("parentDepartmentId_459");
+        request.setName("name_5851");
+        request.setOpenDepartmentId("openDepartmentId_8097");
+        request.setDescription("description_904");
+        request.setCode("code_6851");
+        request.setIsVirtualNode(Boolean.TRUE);
+        request.setI18n(new cn.authing.sdk.java.dto.I18nDto());
         request.setDepartmentIdType(cn.authing.sdk.java.dto.CreateDepartmentReqDto.DepartmentIdType.DEPARTMENT_ID);
 
         DepartmentSingleRespDto response = client.createDepartment(request);

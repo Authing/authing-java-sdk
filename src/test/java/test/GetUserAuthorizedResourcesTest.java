@@ -18,9 +18,9 @@ public class GetUserAuthorizedResourcesTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserAuthorizedResourcesDto request = new GetUserAuthorizedResourcesDto();
-        request.setUserId("userId_8255");
-        request.setNamespace("namespace_5162");
-        request.setResourceType("resourceType_6182");
+        request.setUserId("userId_9438");
+        request.setNamespace("namespace_447");
+        request.setResourceType("resourceType_2484");
 
         AuthorizedResourcePaginatedRespDto response = client.getUserAuthorizedResources(request);
         System.out.println(JsonUtils.serialize(response));

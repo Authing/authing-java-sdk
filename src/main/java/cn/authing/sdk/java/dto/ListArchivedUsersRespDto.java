@@ -10,12 +10,24 @@ public class ListArchivedUsersRespDto {
      */
     @JsonProperty("userId")
     private String userId;
+    /**
+     * 归档时间
+     */
+    @JsonProperty("archivedAt")
+    private String archivedAt;
 
     public String getUserId() {
         return userId;
     }
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getArchivedAt() {
+        return archivedAt;
+    }
+    public void setArchivedAt(String archivedAt) {
+        this.archivedAt = archivedAt;
     }
 
 

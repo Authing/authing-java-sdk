@@ -87,6 +87,11 @@ public class UserDto {
     @JsonProperty("phoneVerified")
     private Boolean phoneVerified;
     /**
+     * 用户上次密码修改时间
+     */
+    @JsonProperty("passwordLastSetAt")
+    private String passwordLastSetAt;
+    /**
      * 出生日期
      */
     @JsonProperty("birthdate")
@@ -137,7 +142,7 @@ public class UserDto {
     @JsonProperty("identities")
     private List<IdentityDto> identities;
     /**
-     * 自定义数据，传入的对象中的 key 必须先在用户池定义相关自定义字段
+     * 用户的扩展字段数据
      */
     @JsonProperty("customData")
     private Object customData;
@@ -254,6 +259,13 @@ public class UserDto {
         this.phoneVerified = phoneVerified;
     }
 
+    public String getPasswordLastSetAt() {
+        return passwordLastSetAt;
+    }
+    public void setPasswordLastSetAt(String passwordLastSetAt) {
+        this.passwordLastSetAt = passwordLastSetAt;
+    }
+
     public String getBirthdate() {
         return birthdate;
     }
@@ -336,9 +348,6 @@ public class UserDto {
      * 账户当前状态
      */
     public static enum Status {
-
-        @JsonProperty("Deleted")
-        DELETED("Deleted"),
 
         @JsonProperty("Suspended")
         SUSPENDED("Suspended"),

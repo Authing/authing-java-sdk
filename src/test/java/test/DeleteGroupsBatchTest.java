@@ -18,7 +18,7 @@ public class DeleteGroupsBatchTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         DeleteGroupsReqDto request = new DeleteGroupsReqDto();
-        request.setCodeList(Collections.singletonList("String_300"));
+        request.setCodeList(Collections.singletonList("String_3983"));
 
         IsSuccessRespDto response = client.deleteGroupsBatch(request);
         System.out.println(JsonUtils.serialize(response));

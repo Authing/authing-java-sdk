@@ -15,6 +15,11 @@ public class ListArchivedUsersDto {
      */
     @JsonProperty("limit")
     private Integer limit;
+    /**
+     * 开始时间，为精确到秒的 UNIX 时间戳，默认不指定。
+     */
+    @JsonProperty("startAt")
+    private Integer startAt;
 
     public Integer getPage() {
         return page;
@@ -28,6 +33,13 @@ public class ListArchivedUsersDto {
     }
     public void setLimit(Integer limit) {
         this.limit = limit;
+    }
+
+    public Integer getStartAt() {
+        return startAt;
+    }
+    public void setStartAt(Integer startAt) {
+        this.startAt = startAt;
     }
 
 

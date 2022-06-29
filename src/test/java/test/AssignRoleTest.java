@@ -19,8 +19,8 @@ public class AssignRoleTest {
 
         AssignRoleDto request = new AssignRoleDto();
         request.setTargets(Collections.singletonList(new cn.authing.sdk.java.dto.TargetDto()));
-        request.setCode("code_1607");
-        request.setNamespace("namespace_6933");
+        request.setCode("code_7094");
+        request.setNamespace("namespace_827");
 
         IsSuccessRespDto response = client.assignRole(request);
         System.out.println(JsonUtils.serialize(response));

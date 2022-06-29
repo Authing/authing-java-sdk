@@ -3,6 +3,7 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import cn.authing.sdk.java.dto.I18nDto;
 
 public class UpdateDepartmentReqDto {
     /**
@@ -16,6 +17,11 @@ public class UpdateDepartmentReqDto {
     @JsonProperty("departmentId")
     private String departmentId;
     /**
+     * 部门负责人 ID
+     */
+    @JsonProperty("leaderUserIds")
+    private List<String> leaderUserIds;
+    /**
      * 部门描述
      */
     @JsonProperty("description")
@@ -26,10 +32,10 @@ public class UpdateDepartmentReqDto {
     @JsonProperty("code")
     private String code;
     /**
-     * 部门负责人 ID
+     * 多语言设置
      */
-    @JsonProperty("leaderUserId")
-    private String leaderUserId;
+    @JsonProperty("i18n")
+    private I18nDto i18n;
     /**
      * 部门名称
      */
@@ -60,6 +66,13 @@ public class UpdateDepartmentReqDto {
         this.departmentId = departmentId;
     }
 
+    public List<String> getLeaderUserIds() {
+        return leaderUserIds;
+    }
+    public void setLeaderUserIds(List<String> leaderUserIds) {
+        this.leaderUserIds = leaderUserIds;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -74,11 +87,11 @@ public class UpdateDepartmentReqDto {
         this.code = code;
     }
 
-    public String getLeaderUserId() {
-        return leaderUserId;
+    public I18nDto getI18n() {
+        return i18n;
     }
-    public void setLeaderUserId(String leaderUserId) {
-        this.leaderUserId = leaderUserId;
+    public void setI18n(I18nDto i18n) {
+        this.i18n = i18n;
     }
 
     public String getName() {

@@ -18,8 +18,8 @@ public class GetExtIdpTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetExtIdpDto request = new GetExtIdpDto();
-        request.setId("id_1565");
-        request.setTenantId("tenantId_6628");
+        request.setId("id_1308");
+        request.setTenantId("tenantId_3188");
 
         ExtIdpDetailSingleRespDto response = client.getExtIdp(request);
         System.out.println(JsonUtils.serialize(response));

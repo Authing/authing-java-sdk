@@ -3,6 +3,7 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import cn.authing.sdk.java.dto.I18nDto;
 
 public class DepartmentDto {
     /**
@@ -36,20 +37,15 @@ public class DepartmentDto {
     @JsonProperty("code")
     private String code;
     /**
-     * 部门负责人 ID
+     * 是否是虚拟部门
      */
-    @JsonProperty("leaderUserId")
-    private String leaderUserId;
+    @JsonProperty("isVirtualNode")
+    private Boolean isVirtualNode;
     /**
-     * 部门人数
+     * 多语言设置
      */
-    @JsonProperty("membersCount")
-    private Integer membersCount;
-    /**
-     * 是否包含子部门
-     */
-    @JsonProperty("hasChildren")
-    private Boolean hasChildren;
+    @JsonProperty("i18n")
+    private I18nDto i18n;
 
     public String getDepartmentId() {
         return departmentId;
@@ -93,25 +89,18 @@ public class DepartmentDto {
         this.code = code;
     }
 
-    public String getLeaderUserId() {
-        return leaderUserId;
+    public Boolean getIsVirtualNode() {
+        return isVirtualNode;
     }
-    public void setLeaderUserId(String leaderUserId) {
-        this.leaderUserId = leaderUserId;
-    }
-
-    public Integer getMembersCount() {
-        return membersCount;
-    }
-    public void setMembersCount(Integer membersCount) {
-        this.membersCount = membersCount;
+    public void setIsVirtualNode(Boolean isVirtualNode) {
+        this.isVirtualNode = isVirtualNode;
     }
 
-    public Boolean getHasChildren() {
-        return hasChildren;
+    public I18nDto getI18n() {
+        return i18n;
     }
-    public void setHasChildren(Boolean hasChildren) {
-        this.hasChildren = hasChildren;
+    public void setI18n(I18nDto i18n) {
+        this.i18n = i18n;
     }
 
 

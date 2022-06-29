@@ -3,6 +3,7 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import cn.authing.sdk.java.dto.I18nDto;
 
 public class CreateDepartmentReqDto {
     /**
@@ -36,10 +37,15 @@ public class CreateDepartmentReqDto {
     @JsonProperty("code")
     private String code;
     /**
-     * 部门负责人 ID
+     * 是否是虚拟部门
      */
-    @JsonProperty("leaderUserId")
-    private String leaderUserId;
+    @JsonProperty("isVirtualNode")
+    private Boolean isVirtualNode;
+    /**
+     * 多语言设置
+     */
+    @JsonProperty("i18n")
+    private I18nDto i18n;
     /**
      * 此次调用中使用的父部门 ID 的类型
      */
@@ -88,11 +94,18 @@ public class CreateDepartmentReqDto {
         this.code = code;
     }
 
-    public String getLeaderUserId() {
-        return leaderUserId;
+    public Boolean getIsVirtualNode() {
+        return isVirtualNode;
     }
-    public void setLeaderUserId(String leaderUserId) {
-        this.leaderUserId = leaderUserId;
+    public void setIsVirtualNode(Boolean isVirtualNode) {
+        this.isVirtualNode = isVirtualNode;
+    }
+
+    public I18nDto getI18n() {
+        return i18n;
+    }
+    public void setI18n(I18nDto i18n) {
+        this.i18n = i18n;
     }
 
     public DepartmentIdType getDepartmentIdType() {

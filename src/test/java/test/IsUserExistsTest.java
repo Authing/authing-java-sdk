@@ -18,10 +18,10 @@ public class IsUserExistsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         IsUserExistsReqDto request = new IsUserExistsReqDto();
-        request.setUsername("username_4993");
-        request.setEmail("email_8680");
-        request.setPhone("phone_8214");
-        request.setExternalId("externalId_5907");
+        request.setUsername("username_3664");
+        request.setEmail("email_8550");
+        request.setPhone("phone_1757");
+        request.setExternalId("externalId_6237");
 
         IsUserExistsRespDto response = client.isUserExists(request);
         System.out.println(JsonUtils.serialize(response));

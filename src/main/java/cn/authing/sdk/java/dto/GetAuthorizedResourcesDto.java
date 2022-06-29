@@ -21,10 +21,20 @@ public class GetAuthorizedResourcesDto {
     @JsonProperty("namespace")
     private String namespace;
     /**
-     * 资源类型，如数据、API、按钮、菜单
+     * 限定资源类型，如数据、API、按钮、菜单
      */
     @JsonProperty("resourceType")
     private String resourceType;
+    /**
+     * 限定查询的资源列表，如果指定，只会返回所指定的资源列表。
+     */
+    @JsonProperty("resourceList")
+    private String resourceList;
+    /**
+     * 是否获取被拒绝的资源
+     */
+    @JsonProperty("withDenied")
+    private Boolean withDenied;
 
     public String getTargetType() {
         return targetType;
@@ -52,6 +62,20 @@ public class GetAuthorizedResourcesDto {
     }
     public void setResourceType(String resourceType) {
         this.resourceType = resourceType;
+    }
+
+    public String getResourceList() {
+        return resourceList;
+    }
+    public void setResourceList(String resourceList) {
+        this.resourceList = resourceList;
+    }
+
+    public Boolean getWithDenied() {
+        return withDenied;
+    }
+    public void setWithDenied(Boolean withDenied) {
+        this.withDenied = withDenied;
     }
 
 

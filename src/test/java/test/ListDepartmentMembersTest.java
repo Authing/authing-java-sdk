@@ -18,17 +18,19 @@ public class ListDepartmentMembersTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListDepartmentMembersDto request = new ListDepartmentMembersDto();
-        request.setOrganizationCode("organizationCode_9612");
-        request.setDepartmentId("departmentId_9865");
-        request.setDepartmentIdType("departmentIdType_7765");
+        request.setOrganizationCode("organizationCode_2364");
+        request.setDepartmentId("departmentId_7569");
+        request.setDepartmentIdType("departmentIdType_9980");
         request.setIncludeChildrenDepartments(Boolean.TRUE);
         request.setPage(0);
         request.setLimit(0);
         request.setWithCustomData(Boolean.TRUE);
         request.setWithIdentities(Boolean.TRUE);
         request.setWithDepartmentIds(Boolean.TRUE);
+        request.setSortBy("sortBy_7129");
+        request.setOrderBy("orderBy_2249");
 
-        UserListRespDto response = client.listDepartmentMembers(request);
+        UserPaginatedRespDto response = client.listDepartmentMembers(request);
         System.out.println(JsonUtils.serialize(response));
     }
 

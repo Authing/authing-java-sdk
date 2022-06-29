@@ -18,8 +18,8 @@ public class GetRoleTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetRoleDto request = new GetRoleDto();
-        request.setCode("code_3380");
-        request.setNamespace("namespace_6118");
+        request.setCode("code_9297");
+        request.setNamespace("namespace_6209");
 
         RoleSingleRespDto response = client.getRole(request);
         System.out.println(JsonUtils.serialize(response));

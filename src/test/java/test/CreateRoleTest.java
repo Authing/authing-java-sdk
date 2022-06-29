@@ -18,9 +18,9 @@ public class CreateRoleTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         CreateRoleDto request = new CreateRoleDto();
-        request.setCode("code_5572");
-        request.setNamespace("namespace_8481");
-        request.setDescription("description_3851");
+        request.setCode("code_47");
+        request.setNamespace("namespace_744");
+        request.setDescription("description_8338");
 
         RoleSingleRespDto response = client.createRole(request);
         System.out.println(JsonUtils.serialize(response));

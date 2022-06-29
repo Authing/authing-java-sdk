@@ -18,9 +18,10 @@ public class ListChildrenDepartmentsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListChildrenDepartmentsDto request = new ListChildrenDepartmentsDto();
-        request.setDepartmentId("departmentId_813");
-        request.setOrganizationCode("organizationCode_4612");
-        request.setDepartmentIdType("departmentIdType_3687");
+        request.setDepartmentId("departmentId_1828");
+        request.setOrganizationCode("organizationCode_5734");
+        request.setDepartmentIdType("departmentIdType_3923");
+        request.setExcludeVirtualNode(Boolean.TRUE);
 
         DepartmentPaginatedRespDto response = client.listChildrenDepartments(request);
         System.out.println(JsonUtils.serialize(response));

@@ -18,14 +18,14 @@ public class GetUserTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserDto request = new GetUserDto();
-        request.setUserId("userId_4440");
+        request.setUserId("userId_2604");
         request.setWithCustomData(Boolean.TRUE);
         request.setWithIdentities(Boolean.TRUE);
         request.setWithDepartmentIds(Boolean.TRUE);
-        request.setPhone("phone_6175");
-        request.setEmail("email_9825");
-        request.setUsername("username_3127");
-        request.setExternalId("externalId_8543");
+        request.setPhone("phone_1424");
+        request.setEmail("email_2541");
+        request.setUsername("username_7789");
+        request.setExternalId("externalId_5614");
 
         UserSingleRespDto response = client.getUser(request);
         System.out.println(JsonUtils.serialize(response));

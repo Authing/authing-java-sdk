@@ -18,7 +18,7 @@ public class GetNamespaceTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetNamespaceDto request = new GetNamespaceDto();
-        request.setCode("code_4647");
+        request.setCode("code_2452");
 
         NamespaceRespDto response = client.getNamespace(request);
         System.out.println(JsonUtils.serialize(response));

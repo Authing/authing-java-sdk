@@ -50,7 +50,7 @@ public class ManagementClientOptions extends AuthingClientOptions {
     /**
      * Authing 服务器地址
      */
-    private String host = "https://core.dev.authing-inc.co";
+    private String host = "https://core.authing.cn";
     
     /**
      * 请求头 key，适用于去 Authing 品牌化场景

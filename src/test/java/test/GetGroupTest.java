@@ -18,7 +18,7 @@ public class GetGroupTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetGroupDto request = new GetGroupDto();
-        request.setCode("code_7583");
+        request.setCode("code_1677");
 
         GroupSingleRespDto response = client.getGroup(request);
         System.out.println(JsonUtils.serialize(response));

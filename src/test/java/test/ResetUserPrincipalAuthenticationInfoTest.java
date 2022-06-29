@@ -18,7 +18,7 @@ public class ResetUserPrincipalAuthenticationInfoTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ResetUserPrincipalAuthenticationInfoDto request = new ResetUserPrincipalAuthenticationInfoDto();
-        request.setUserId("userId_1790");
+        request.setUserId("userId_3723");
 
         IsSuccessRespDto response = client.resetUserPrincipalAuthenticationInfo(request);
         System.out.println(JsonUtils.serialize(response));

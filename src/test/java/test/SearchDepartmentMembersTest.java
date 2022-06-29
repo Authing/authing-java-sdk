@@ -7,7 +7,7 @@ import java.util.Collections;
 
 
 
-public class GetTargetAuthorizedResourcesTest {
+public class SearchDepartmentMembersTest {
 
     private static final String ACCESS_KEY_ID = "YOUR_ACCESS_KEY_ID";
     private static final String ACCESS_KEY_SECRET = "YOUR_ACCESS_KEY_SECRET";
@@ -17,13 +17,18 @@ public class GetTargetAuthorizedResourcesTest {
         ManagementClientOptions clientOptions = new ManagementClientOptions(ACCESS_KEY_ID, ACCESS_KEY_SECRET);
         ManagementClient client = new ManagementClient(clientOptions);
 
-        GetAuthorizedResourcesDto request = new GetAuthorizedResourcesDto();
-        request.setTargetType("targetType_3468");
-        request.setTargetIdentifier("targetIdentifier_1814");
-        request.setNamespace("namespace_2510");
-        request.setResourceType("resourceType_6029");
+        SearchDepartmentMembersDto request = new SearchDepartmentMembersDto();
+        request.setKeywords("keywords_9037");
+        request.setOrganizationCode("organizationCode_232");
+        request.setDepartmentId("departmentId_9785");
+        request.setPage(0);
+        request.setLimit(0);
+        request.setDepartmentIdType("departmentIdType_7067");
+        request.setIncludeChildrenDepartments(Boolean.TRUE);
+        request.setWithCustomData(Boolean.TRUE);
+        request.setWithIdentities(Boolean.TRUE);
 
-        IsSuccessRespDto response = client.getTargetAuthorizedResources(request);
+        UserPaginatedRespDto response = client.searchDepartmentMembers(request);
         System.out.println(JsonUtils.serialize(response));
     }
 

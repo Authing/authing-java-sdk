@@ -18,7 +18,12 @@ public class GetUserDepartmentsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserDepartmentsDto request = new GetUserDepartmentsDto();
-        request.setUserId("userId_4231");
+        request.setUserId("userId_3999");
+        request.setPage(0);
+        request.setLimit(0);
+        request.setWithCustomData(Boolean.TRUE);
+        request.setSortBy("sortBy_1391");
+        request.setOrderBy("orderBy_9977");
 
         UserDepartmentPaginatedRespDto response = client.getUserDepartments(request);
         System.out.println(JsonUtils.serialize(response));

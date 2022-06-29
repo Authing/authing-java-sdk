@@ -3,6 +3,7 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import cn.authing.sdk.java.dto.OrganizationNameI18nDto;
 
 public class OrganizationDto {
     /**
@@ -38,13 +39,23 @@ public class OrganizationDto {
     /**
      * 部门负责人 ID
      */
-    @JsonProperty("leaderUserId")
-    private String leaderUserId;
+    @JsonProperty("leaderUserIds")
+    private List<String> leaderUserIds;
     /**
      * 部门人数
      */
     @JsonProperty("membersCount")
     private Integer membersCount;
+    /**
+     * 是否是虚拟部门
+     */
+    @JsonProperty("isVirtualNode")
+    private Boolean isVirtualNode;
+    /**
+     * 多语言设置
+     */
+    @JsonProperty("i18n")
+    private OrganizationNameI18nDto i18n;
 
     public String getOrganizationCode() {
         return organizationCode;
@@ -88,11 +99,11 @@ public class OrganizationDto {
         this.hasChildren = hasChildren;
     }
 
-    public String getLeaderUserId() {
-        return leaderUserId;
+    public List<String> getLeaderUserIds() {
+        return leaderUserIds;
     }
-    public void setLeaderUserId(String leaderUserId) {
-        this.leaderUserId = leaderUserId;
+    public void setLeaderUserIds(List<String> leaderUserIds) {
+        this.leaderUserIds = leaderUserIds;
     }
 
     public Integer getMembersCount() {
@@ -100,6 +111,20 @@ public class OrganizationDto {
     }
     public void setMembersCount(Integer membersCount) {
         this.membersCount = membersCount;
+    }
+
+    public Boolean getIsVirtualNode() {
+        return isVirtualNode;
+    }
+    public void setIsVirtualNode(Boolean isVirtualNode) {
+        this.isVirtualNode = isVirtualNode;
+    }
+
+    public OrganizationNameI18nDto getI18n() {
+        return i18n;
+    }
+    public void setI18n(OrganizationNameI18nDto i18n) {
+        this.i18n = i18n;
     }
 
 

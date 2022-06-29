@@ -18,7 +18,7 @@ public class GetUserLoggedInAppsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserLoggedinAppsDto request = new GetUserLoggedinAppsDto();
-        request.setUserId("userId_9742");
+        request.setUserId("userId_1829");
 
         UserLoggedInAppsListRespDto response = client.getUserLoggedInApps(request);
         System.out.println(JsonUtils.serialize(response));

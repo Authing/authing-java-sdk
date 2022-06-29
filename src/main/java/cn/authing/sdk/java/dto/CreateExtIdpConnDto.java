@@ -212,6 +212,9 @@ public class CreateExtIdpConnDto {
 
         @JsonProperty("instagram")
         INSTAGRAM("instagram"),
+
+        @JsonProperty("welink")
+        WELINK("welink"),
         ;
 
         private String value;

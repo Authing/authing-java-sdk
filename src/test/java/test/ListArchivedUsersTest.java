@@ -20,6 +20,7 @@ public class ListArchivedUsersTest {
         ListArchivedUsersDto request = new ListArchivedUsersDto();
         request.setPage(0);
         request.setLimit(0);
+        request.setStartAt(0);
 
         ListArchivedUsersSingleRespDto response = client.listArchivedUsers(request);
         System.out.println(JsonUtils.serialize(response));

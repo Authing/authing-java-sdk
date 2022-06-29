@@ -288,9 +288,6 @@ public class UpdateUserReqDto {
      */
     public static enum Status {
 
-        @JsonProperty("Deleted")
-        DELETED("Deleted"),
-
         @JsonProperty("Suspended")
         SUSPENDED("Suspended"),
 

@@ -20,6 +20,11 @@ public class ListChildrenDepartmentsDto {
      */
     @JsonProperty("departmentIdType")
     private String departmentIdType;
+    /**
+     * 是否要排除虚拟组织
+     */
+    @JsonProperty("excludeVirtualNode")
+    private Boolean excludeVirtualNode;
 
     public String getDepartmentId() {
         return departmentId;
@@ -40,6 +45,13 @@ public class ListChildrenDepartmentsDto {
     }
     public void setDepartmentIdType(String departmentIdType) {
         this.departmentIdType = departmentIdType;
+    }
+
+    public Boolean getExcludeVirtualNode() {
+        return excludeVirtualNode;
+    }
+    public void setExcludeVirtualNode(Boolean excludeVirtualNode) {
+        this.excludeVirtualNode = excludeVirtualNode;
     }
 
 
