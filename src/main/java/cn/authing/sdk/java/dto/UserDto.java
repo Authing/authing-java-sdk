@@ -132,6 +132,11 @@ public class UserDto {
     @JsonProperty("externalId")
     private String externalId;
     /**
+     * 下次登录要求重置密码
+     */
+    @JsonProperty("resetPasswordOnNextLogin")
+    private Boolean resetPasswordOnNextLogin;
+    /**
      * 用户所属部门 ID 列表
      */
     @JsonProperty("departmentIds")
@@ -320,6 +325,13 @@ public class UserDto {
     }
     public void setExternalId(String externalId) {
         this.externalId = externalId;
+    }
+
+    public Boolean getResetPasswordOnNextLogin() {
+        return resetPasswordOnNextLogin;
+    }
+    public void setResetPasswordOnNextLogin(Boolean resetPasswordOnNextLogin) {
+        this.resetPasswordOnNextLogin = resetPasswordOnNextLogin;
     }
 
     public List<String> getDepartmentIds() {

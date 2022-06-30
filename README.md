@@ -19,7 +19,7 @@ implementation "cn.authing:authing-java-sdk:<{final_version}>"
 ```xml
 <dependency>
     <groupId>cn.authing</groupId>
-    <artifactId>java-core</artifactId>
+    <artifactId>authing-java-sdk</artifactId>
     <version>{final_version}</version>
 </dependency>
 ```

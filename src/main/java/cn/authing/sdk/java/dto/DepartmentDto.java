@@ -7,10 +7,20 @@ import cn.authing.sdk.java.dto.I18nDto;
 
 public class DepartmentDto {
     /**
+     * 组织 Code（organizationCode）
+     */
+    @JsonProperty("organizationCode")
+    private String organizationCode;
+    /**
      * 部门系统 ID（为 Authing 系统自动生成，不可修改）
      */
     @JsonProperty("departmentId")
     private String departmentId;
+    /**
+     * 部门创建时间
+     */
+    @JsonProperty("createdAt")
+    private String createdAt;
     /**
      * 自定义部门 ID，用于存储自定义的 ID
      */
@@ -21,6 +31,11 @@ public class DepartmentDto {
      */
     @JsonProperty("name")
     private String name;
+    /**
+     * 部门负责人 ID
+     */
+    @JsonProperty("leaderUserIds")
+    private List<String> leaderUserIds;
     /**
      * 部门描述
      */
@@ -37,6 +52,16 @@ public class DepartmentDto {
     @JsonProperty("code")
     private String code;
     /**
+     * 部门人数（仅包含直属成员）
+     */
+    @JsonProperty("membersCount")
+    private Integer membersCount;
+    /**
+     * 是否包含子部门
+     */
+    @JsonProperty("hasChildren")
+    private Boolean hasChildren;
+    /**
      * 是否是虚拟部门
      */
     @JsonProperty("isVirtualNode")
@@ -46,12 +71,31 @@ public class DepartmentDto {
      */
     @JsonProperty("i18n")
     private I18nDto i18n;
+    /**
+     * 部门的扩展字段数据
+     */
+    @JsonProperty("customData")
+    private Object customData;
+
+    public String getOrganizationCode() {
+        return organizationCode;
+    }
+    public void setOrganizationCode(String organizationCode) {
+        this.organizationCode = organizationCode;
+    }
 
     public String getDepartmentId() {
         return departmentId;
     }
     public void setDepartmentId(String departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getOpenDepartmentId() {
@@ -66,6 +110,13 @@ public class DepartmentDto {
     }
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<String> getLeaderUserIds() {
+        return leaderUserIds;
+    }
+    public void setLeaderUserIds(List<String> leaderUserIds) {
+        this.leaderUserIds = leaderUserIds;
     }
 
     public String getDescription() {
@@ -89,6 +140,20 @@ public class DepartmentDto {
         this.code = code;
     }
 
+    public Integer getMembersCount() {
+        return membersCount;
+    }
+    public void setMembersCount(Integer membersCount) {
+        this.membersCount = membersCount;
+    }
+
+    public Boolean getHasChildren() {
+        return hasChildren;
+    }
+    public void setHasChildren(Boolean hasChildren) {
+        this.hasChildren = hasChildren;
+    }
+
     public Boolean getIsVirtualNode() {
         return isVirtualNode;
     }
@@ -101,6 +166,13 @@ public class DepartmentDto {
     }
     public void setI18n(I18nDto i18n) {
         this.i18n = i18n;
+    }
+
+    public Object getCustomData() {
+        return customData;
+    }
+    public void setCustomData(Object customData) {
+        this.customData = customData;
     }
 
 

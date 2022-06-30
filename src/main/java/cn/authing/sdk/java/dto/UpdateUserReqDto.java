@@ -3,6 +3,7 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import cn.authing.sdk.java.dto.UpdateUserOptionsDto;
 
 public class UpdateUserReqDto {
     /**
@@ -120,6 +121,11 @@ public class UpdateUserReqDto {
      */
     @JsonProperty("customData")
     private Object customData;
+    /**
+     * 附加选项
+     */
+    @JsonProperty("options")
+    private UpdateUserOptionsDto options;
 
     public String getUserId() {
         return userId;
@@ -280,6 +286,13 @@ public class UpdateUserReqDto {
     }
     public void setCustomData(Object customData) {
         this.customData = customData;
+    }
+
+    public UpdateUserOptionsDto getOptions() {
+        return options;
+    }
+    public void setOptions(UpdateUserOptionsDto options) {
+        this.options = options;
     }
 
 
