@@ -19,7 +19,7 @@ public class SetUserDepartmentTest {
 
         SetUserDepartmentsDto request = new SetUserDepartmentsDto();
         request.setDepartments(Collections.singletonList(new cn.authing.sdk.java.dto.SetUserDepartmentDto()));
-        request.setUserId("userId_7420");
+        request.setUserId("userId_6011");
 
         IsSuccessRespDto response = client.setUserDepartment(request);
         System.out.println(JsonUtils.serialize(response));

@@ -19,7 +19,7 @@ public class AuthorizeResourcesTest {
 
         AuthorizeResourcesDto request = new AuthorizeResourcesDto();
         request.setList(Collections.singletonList(new cn.authing.sdk.java.dto.AuthorizeResourceItem()));
-        request.setNamespace("namespace_7757");
+        request.setNamespace("namespace_2644");
 
         IsSuccessRespDto response = client.authorizeResources(request);
         System.out.println(JsonUtils.serialize(response));

@@ -18,11 +18,11 @@ public class UpdateResourceTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         UpdateResourceDto request = new UpdateResourceDto();
-        request.setCode("code_2846");
-        request.setDescription("description_4731");
+        request.setCode("code_9166");
+        request.setDescription("description_756");
         request.setActions(Collections.singletonList(new cn.authing.sdk.java.dto.ResourceAction()));
-        request.setApiIdentifier("apiIdentifier_3453");
-        request.setNamespace("namespace_4321");
+        request.setApiIdentifier("apiIdentifier_4293");
+        request.setNamespace("namespace_4679");
         request.setType(cn.authing.sdk.java.dto.UpdateResourceDto.Type.DATA);
 
         ResourceRespDto response = client.updateResource(request);

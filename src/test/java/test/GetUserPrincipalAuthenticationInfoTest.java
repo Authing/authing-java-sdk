@@ -18,7 +18,7 @@ public class GetUserPrincipalAuthenticationInfoTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserPrincipalAuthenticationInfoDto request = new GetUserPrincipalAuthenticationInfoDto();
-        request.setUserId("userId_9027");
+        request.setUserId("userId_917");
 
         PrincipalAuthenticationInfoPaginatedRespDto response = client.getUserPrincipalAuthenticationInfo(request);
         System.out.println(JsonUtils.serialize(response));

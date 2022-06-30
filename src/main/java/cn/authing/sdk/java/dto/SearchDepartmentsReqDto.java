@@ -15,6 +15,11 @@ public class SearchDepartmentsReqDto {
      */
     @JsonProperty("organizationCode")
     private String organizationCode;
+    /**
+     * 是否获取自定义数据
+     */
+    @JsonProperty("withCustomData")
+    private Boolean withCustomData;
 
     public String getKeywords() {
         return keywords;
@@ -28,6 +33,13 @@ public class SearchDepartmentsReqDto {
     }
     public void setOrganizationCode(String organizationCode) {
         this.organizationCode = organizationCode;
+    }
+
+    public Boolean getWithCustomData() {
+        return withCustomData;
+    }
+    public void setWithCustomData(Boolean withCustomData) {
+        this.withCustomData = withCustomData;
     }
 
 

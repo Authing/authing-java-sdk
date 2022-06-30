@@ -7,15 +7,15 @@ import cn.authing.sdk.java.dto.I18nDto;
 
 public class UpdateDepartmentReqDto {
     /**
-     * 组织 code
-     */
-    @JsonProperty("organizationCode")
-    private String organizationCode;
-    /**
      * 部门系统 ID（为 Authing 系统自动生成，不可修改）
      */
     @JsonProperty("departmentId")
     private String departmentId;
+    /**
+     * 组织 Code（organizationCode）
+     */
+    @JsonProperty("organizationCode")
+    private String organizationCode;
     /**
      * 部门负责人 ID
      */
@@ -51,19 +51,24 @@ public class UpdateDepartmentReqDto {
      */
     @JsonProperty("parentDepartmentId")
     private String parentDepartmentId;
-
-    public String getOrganizationCode() {
-        return organizationCode;
-    }
-    public void setOrganizationCode(String organizationCode) {
-        this.organizationCode = organizationCode;
-    }
+    /**
+     * 自定义数据，传入的对象中的 key 必须先在用户池定义相关自定义字段
+     */
+    @JsonProperty("customData")
+    private Object customData;
 
     public String getDepartmentId() {
         return departmentId;
     }
     public void setDepartmentId(String departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public String getOrganizationCode() {
+        return organizationCode;
+    }
+    public void setOrganizationCode(String organizationCode) {
+        this.organizationCode = organizationCode;
     }
 
     public List<String> getLeaderUserIds() {
@@ -113,6 +118,13 @@ public class UpdateDepartmentReqDto {
     }
     public void setParentDepartmentId(String parentDepartmentId) {
         this.parentDepartmentId = parentDepartmentId;
+    }
+
+    public Object getCustomData() {
+        return customData;
+    }
+    public void setCustomData(Object customData) {
+        this.customData = customData;
     }
 
 

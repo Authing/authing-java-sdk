@@ -7,11 +7,6 @@ import cn.authing.sdk.java.dto.I18nDto;
 
 public class CreateDepartmentReqDto {
     /**
-     * 组织 code
-     */
-    @JsonProperty("organizationCode")
-    private String organizationCode;
-    /**
      * 父部门 id
      */
     @JsonProperty("parentDepartmentId")
@@ -21,6 +16,11 @@ public class CreateDepartmentReqDto {
      */
     @JsonProperty("name")
     private String name;
+    /**
+     * 组织 Code（organizationCode）
+     */
+    @JsonProperty("organizationCode")
+    private String organizationCode;
     /**
      * 自定义部门 ID，用于存储自定义的 ID
      */
@@ -47,17 +47,15 @@ public class CreateDepartmentReqDto {
     @JsonProperty("i18n")
     private I18nDto i18n;
     /**
+     * 部门的扩展字段数据
+     */
+    @JsonProperty("customData")
+    private Object customData;
+    /**
      * 此次调用中使用的父部门 ID 的类型
      */
     @JsonProperty("departmentIdType")
     private DepartmentIdType departmentIdType;
-
-    public String getOrganizationCode() {
-        return organizationCode;
-    }
-    public void setOrganizationCode(String organizationCode) {
-        this.organizationCode = organizationCode;
-    }
 
     public String getParentDepartmentId() {
         return parentDepartmentId;
@@ -71,6 +69,13 @@ public class CreateDepartmentReqDto {
     }
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getOrganizationCode() {
+        return organizationCode;
+    }
+    public void setOrganizationCode(String organizationCode) {
+        this.organizationCode = organizationCode;
     }
 
     public String getOpenDepartmentId() {
@@ -106,6 +111,13 @@ public class CreateDepartmentReqDto {
     }
     public void setI18n(I18nDto i18n) {
         this.i18n = i18n;
+    }
+
+    public Object getCustomData() {
+        return customData;
+    }
+    public void setCustomData(Object customData) {
+        this.customData = customData;
     }
 
     public DepartmentIdType getDepartmentIdType() {

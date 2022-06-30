@@ -6,11 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class GetUserDto {
     /**
-     * 用户 ID
-     */
-    @JsonProperty("userId")
-    private String userId;
-    /**
      * 是否获取自定义数据
      */
     @JsonProperty("withCustomData")
@@ -25,6 +20,11 @@ public class GetUserDto {
      */
     @JsonProperty("withDepartmentIds")
     private Boolean withDepartmentIds;
+    /**
+     * 用户 ID
+     */
+    @JsonProperty("userId")
+    private String userId;
     /**
      * 手机号
      */
@@ -46,13 +46,6 @@ public class GetUserDto {
     @JsonProperty("externalId")
     private String externalId;
 
-    public String getUserId() {
-        return userId;
-    }
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
     public Boolean getWithCustomData() {
         return withCustomData;
     }
@@ -72,6 +65,13 @@ public class GetUserDto {
     }
     public void setWithDepartmentIds(Boolean withDepartmentIds) {
         this.withDepartmentIds = withDepartmentIds;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getPhone() {

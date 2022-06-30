@@ -6,11 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SearchDepartmentMembersDto {
     /**
-     * 搜索关键词
-     */
-    @JsonProperty("keywords")
-    private String keywords;
-    /**
      * 组织 code
      */
     @JsonProperty("organizationCode")
@@ -20,6 +15,11 @@ public class SearchDepartmentMembersDto {
      */
     @JsonProperty("departmentId")
     private String departmentId;
+    /**
+     * 搜索关键词
+     */
+    @JsonProperty("keywords")
+    private String keywords;
     /**
      * 当前页数，从 1 开始
      */
@@ -50,13 +50,11 @@ public class SearchDepartmentMembersDto {
      */
     @JsonProperty("withIdentities")
     private Boolean withIdentities;
-
-    public String getKeywords() {
-        return keywords;
-    }
-    public void setKeywords(String keywords) {
-        this.keywords = keywords;
-    }
+    /**
+     * 是否获取部门 ID 列表
+     */
+    @JsonProperty("withDepartmentIds")
+    private Boolean withDepartmentIds;
 
     public String getOrganizationCode() {
         return organizationCode;
@@ -70,6 +68,13 @@ public class SearchDepartmentMembersDto {
     }
     public void setDepartmentId(String departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public String getKeywords() {
+        return keywords;
+    }
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
     }
 
     public Integer getPage() {
@@ -112,6 +117,13 @@ public class SearchDepartmentMembersDto {
     }
     public void setWithIdentities(Boolean withIdentities) {
         this.withIdentities = withIdentities;
+    }
+
+    public Boolean getWithDepartmentIds() {
+        return withDepartmentIds;
+    }
+    public void setWithDepartmentIds(Boolean withDepartmentIds) {
+        this.withDepartmentIds = withDepartmentIds;
     }
 
 

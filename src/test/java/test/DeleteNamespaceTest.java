@@ -18,7 +18,7 @@ public class DeleteNamespaceTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         DeleteNamespaceDto request = new DeleteNamespaceDto();
-        request.setCode("code_5319");
+        request.setCode("code_4618");
 
         IsSuccessRespDto response = client.deleteNamespace(request);
         System.out.println(JsonUtils.serialize(response));

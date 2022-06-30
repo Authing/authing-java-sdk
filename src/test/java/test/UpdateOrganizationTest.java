@@ -18,13 +18,13 @@ public class UpdateOrganizationTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         UpdateOrganizationReqDto request = new UpdateOrganizationReqDto();
-        request.setOrganizationCode("organizationCode_119");
-        request.setDescription("description_1743");
-        request.setOpenDepartmentId("openDepartmentId_1955");
-        request.setLeaderUserIds(Collections.singletonList("String_4558"));
+        request.setOrganizationCode("organizationCode_8789");
+        request.setDescription("description_7296");
+        request.setOpenDepartmentId("openDepartmentId_9002");
+        request.setLeaderUserIds(Collections.singletonList("String_5569"));
         request.setI18n(new cn.authing.sdk.java.dto.OrganizationNameI18nDto());
-        request.setOrganizationNewCode("organizationNewCode_9742");
-        request.setOrganizationName("organizationName_1382");
+        request.setOrganizationNewCode("organizationNewCode_5622");
+        request.setOrganizationName("organizationName_2249");
 
         OrganizationSingleRespDto response = client.updateOrganization(request);
         System.out.println(JsonUtils.serialize(response));

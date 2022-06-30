@@ -18,7 +18,7 @@ public class GetUserAuthorizedAppsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserAuthorizedAppsDto request = new GetUserAuthorizedAppsDto();
-        request.setUserId("userId_4927");
+        request.setUserId("userId_9040");
 
         AppListRespDto response = client.getUserAuthorizedApps(request);
         System.out.println(JsonUtils.serialize(response));

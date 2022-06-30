@@ -18,7 +18,7 @@ public class GetUserGroupsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserGroupsDto request = new GetUserGroupsDto();
-        request.setUserId("userId_2611");
+        request.setUserId("userId_7795");
 
         GroupPaginatedRespDto response = client.getUserGroups(request);
         System.out.println(JsonUtils.serialize(response));

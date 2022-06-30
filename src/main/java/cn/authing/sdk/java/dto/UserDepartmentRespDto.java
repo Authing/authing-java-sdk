@@ -7,6 +7,11 @@ import cn.authing.sdk.java.dto.I18nDto;
 
 public class UserDepartmentRespDto {
     /**
+     * 组织 Code（organizationCode）
+     */
+    @JsonProperty("organizationCode")
+    private String organizationCode;
+    /**
      * 部门 ID
      */
     @JsonProperty("departmentId")
@@ -66,6 +71,13 @@ public class UserDepartmentRespDto {
      */
     @JsonProperty("customData")
     private Object customData;
+
+    public String getOrganizationCode() {
+        return organizationCode;
+    }
+    public void setOrganizationCode(String organizationCode) {
+        this.organizationCode = organizationCode;
+    }
 
     public String getDepartmentId() {
         return departmentId;

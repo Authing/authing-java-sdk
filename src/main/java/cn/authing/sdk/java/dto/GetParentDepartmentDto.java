@@ -20,6 +20,11 @@ public class GetParentDepartmentDto {
      */
     @JsonProperty("departmentIdType")
     private String departmentIdType;
+    /**
+     * 是否获取自定义数据
+     */
+    @JsonProperty("withCustomData")
+    private Boolean withCustomData;
 
     public String getOrganizationCode() {
         return organizationCode;
@@ -40,6 +45,13 @@ public class GetParentDepartmentDto {
     }
     public void setDepartmentIdType(String departmentIdType) {
         this.departmentIdType = departmentIdType;
+    }
+
+    public Boolean getWithCustomData() {
+        return withCustomData;
+    }
+    public void setWithCustomData(Boolean withCustomData) {
+        this.withCustomData = withCustomData;
     }
 
 

@@ -18,7 +18,7 @@ public class GetUserLoggedInIdentitiesTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserLoggedInIdentitiesDto request = new GetUserLoggedInIdentitiesDto();
-        request.setUserId("userId_2279");
+        request.setUserId("userId_137");
 
         UserLoggedInIdentitiesRespDto response = client.getUserLoggedInIdentities(request);
         System.out.println(JsonUtils.serialize(response));

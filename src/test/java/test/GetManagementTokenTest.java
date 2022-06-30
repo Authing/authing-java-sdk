@@ -18,8 +18,8 @@ public class GetManagementTokenTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetManagementAccessTokenDto request = new GetManagementAccessTokenDto();
-        request.setAccessKeySecret("accessKeySecret_2807");
-        request.setAccessKeyId("accessKeyId_3341");
+        request.setAccessKeySecret("accessKeySecret_7518");
+        request.setAccessKeyId("accessKeyId_5489");
 
         GetManagementTokenRespDto response = client.getManagementToken(request);
         System.out.println(JsonUtils.serialize(response));
