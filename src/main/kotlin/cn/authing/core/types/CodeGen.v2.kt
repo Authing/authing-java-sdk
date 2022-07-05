@@ -621,8 +621,11 @@ data class User(
     var secondaryUserIds: List<String>? = null,
     /** @param [customData] 用户自定义数据 */
     @SerializedName("customData")
-    var customData: List<UserCustomData>? = null
+    var customData: List<UserCustomData>? = null,
 //    var customData : Map<String,Any> ?= null
+
+    @SerializedName("lastLoginApp")
+    var lastLoginApp: String? = null
 )
 
 enum class UserStatus(val label: String) {
