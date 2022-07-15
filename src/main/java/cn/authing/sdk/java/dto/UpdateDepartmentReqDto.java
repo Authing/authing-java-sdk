@@ -47,7 +47,7 @@ public class UpdateDepartmentReqDto {
     @JsonProperty("departmentIdType")
     private DepartmentIdType departmentIdType;
     /**
-     * 父部门 id
+     * 父部门 ID
      */
     @JsonProperty("parentDepartmentId")
     private String parentDepartmentId;

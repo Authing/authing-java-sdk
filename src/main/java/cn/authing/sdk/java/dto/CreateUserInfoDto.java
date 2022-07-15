@@ -17,7 +17,7 @@ public class CreateUserInfoDto {
     @JsonProperty("email")
     private String email;
     /**
-     * 加密类型
+     * 密码加密类型，支持 sm2 和 rsa
      */
     @JsonProperty("passwordEncryptType")
     private PasswordEncryptType passwordEncryptType;
@@ -117,10 +117,15 @@ public class CreateUserInfoDto {
     @JsonProperty("customData")
     private Object customData;
     /**
-     * 密码。可选加密方式进行加密，默认为未加密
+     * 密码。可选加密方式进行加密，通过 passwordEncryptType 参数进行加密方法选择，默认为未加密
      */
     @JsonProperty("password")
     private String password;
+    /**
+     * 是否首次登录时重新设置密码
+     */
+    @JsonProperty("resetPasswordOnFisrtLogin")
+    private Boolean resetPasswordOnFisrtLogin;
     /**
      * 租户 ID
      */
@@ -293,6 +298,13 @@ public class CreateUserInfoDto {
         this.password = password;
     }
 
+    public Boolean getResetPasswordOnFisrtLogin() {
+        return resetPasswordOnFisrtLogin;
+    }
+    public void setResetPasswordOnFisrtLogin(Boolean resetPasswordOnFisrtLogin) {
+        this.resetPasswordOnFisrtLogin = resetPasswordOnFisrtLogin;
+    }
+
     public List<String> getTenantIds() {
         return tenantIds;
     }
@@ -338,7 +350,7 @@ public class CreateUserInfoDto {
     }
 
     /**
-     * 加密类型
+     * 密码加密类型，支持 sm2 和 rsa
      */
     public static enum PasswordEncryptType {
 

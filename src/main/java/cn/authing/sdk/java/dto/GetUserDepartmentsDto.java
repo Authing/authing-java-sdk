@@ -11,6 +11,11 @@ public class GetUserDepartmentsDto {
     @JsonProperty("userId")
     private String userId;
     /**
+     * 用户 ID 类型，可以指定为用户 ID、手机号、邮箱、用户名和 externalId。
+     */
+    @JsonProperty("userIdType")
+    private String userIdType;
+    /**
      * 当前页数，从 1 开始
      */
     @JsonProperty("page")
@@ -26,12 +31,12 @@ public class GetUserDepartmentsDto {
     @JsonProperty("withCustomData")
     private Boolean withCustomData;
     /**
-     * 排序依据
+     * 排序依据，如 部门创建时间、加入部门时间、部门名称、部门标志符
      */
     @JsonProperty("sortBy")
     private String sortBy;
     /**
-     * 增序还是倒序
+     * 增序或降序
      */
     @JsonProperty("orderBy")
     private String orderBy;
@@ -41,6 +46,13 @@ public class GetUserDepartmentsDto {
     }
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getUserIdType() {
+        return userIdType;
+    }
+    public void setUserIdType(String userIdType) {
+        this.userIdType = userIdType;
     }
 
     public Integer getPage() {

@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class GetExtIdpDto {
     /**
-     * 身份源 id
+     * 身份源 ID
      */
     @JsonProperty("id")
     private String id;

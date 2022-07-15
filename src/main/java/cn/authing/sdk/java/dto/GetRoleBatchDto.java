@@ -4,9 +4,9 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-public class GetResourcesBatchDto {
+public class GetRoleBatchDto {
     /**
-     * 资源 code 列表，批量可以使用逗号分隔
+     * 权限分组内角色的唯一标识符,批量可以使用逗号分隔
      */
     @JsonProperty("codeList")
     private String codeList;

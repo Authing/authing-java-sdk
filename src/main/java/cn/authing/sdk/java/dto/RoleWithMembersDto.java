@@ -4,28 +4,40 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-public class GetRoleAuthorizedResourcesDto {
+public class RoleWithMembersDto {
     /**
      * 权限分组内角色的唯一标识符
      */
     @JsonProperty("code")
     private String code;
     /**
+     * 角色描述
+     */
+    @JsonProperty("description")
+    private String description;
+    /**
      * 所属权限分组的 code
      */
     @JsonProperty("namespace")
     private String namespace;
     /**
-     * 资源类型，如 数据、API、按钮、菜单
+     * 角色成员数量
      */
-    @JsonProperty("resourceType")
-    private String resourceType;
+    @JsonProperty("membersCount")
+    private String membersCount;
 
     public String getCode() {
         return code;
     }
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getNamespace() {
@@ -35,11 +47,11 @@ public class GetRoleAuthorizedResourcesDto {
         this.namespace = namespace;
     }
 
-    public String getResourceType() {
-        return resourceType;
+    public String getMembersCount() {
+        return membersCount;
     }
-    public void setResourceType(String resourceType) {
-        this.resourceType = resourceType;
+    public void setMembersCount(String membersCount) {
+        this.membersCount = membersCount;
     }
 
 

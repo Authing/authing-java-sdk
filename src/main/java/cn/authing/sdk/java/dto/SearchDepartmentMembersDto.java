@@ -11,12 +11,12 @@ public class SearchDepartmentMembersDto {
     @JsonProperty("organizationCode")
     private String organizationCode;
     /**
-     * 部门 id，根部门传 `root`
+     * 部门 ID，根部门传 `root`
      */
     @JsonProperty("departmentId")
     private String departmentId;
     /**
-     * 搜索关键词
+     * 搜索关键词，如成员名称
      */
     @JsonProperty("keywords")
     private String keywords;

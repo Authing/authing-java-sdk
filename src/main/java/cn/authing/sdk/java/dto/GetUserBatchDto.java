@@ -11,6 +11,11 @@ public class GetUserBatchDto {
     @JsonProperty("userIds")
     private String userIds;
     /**
+     * 用户 ID 类型，可以指定为用户 ID、手机号、邮箱、用户名和 externalId。
+     */
+    @JsonProperty("userIdType")
+    private String userIdType;
+    /**
      * 是否获取自定义数据
      */
     @JsonProperty("withCustomData")
@@ -31,6 +36,13 @@ public class GetUserBatchDto {
     }
     public void setUserIds(String userIds) {
         this.userIds = userIds;
+    }
+
+    public String getUserIdType() {
+        return userIdType;
+    }
+    public void setUserIdType(String userIdType) {
+        this.userIdType = userIdType;
     }
 
     public Boolean getWithCustomData() {

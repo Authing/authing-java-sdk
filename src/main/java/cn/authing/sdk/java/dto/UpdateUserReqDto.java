@@ -97,7 +97,7 @@ public class UpdateUserReqDto {
     @JsonProperty("username")
     private String username;
     /**
-     * 加密类型
+     * 密码加密类型，支持 sm2 和 rsa
      */
     @JsonProperty("passwordEncryptType")
     private PasswordEncryptType passwordEncryptType;
@@ -112,7 +112,7 @@ public class UpdateUserReqDto {
     @JsonProperty("phone")
     private String phone;
     /**
-     * 密码。可选加密方式进行加密，默认为未加密
+     * 密码。可选加密方式进行加密，通过 passwordEncryptType 参数进行加密方法选择，默认为未加密
      */
     @JsonProperty("password")
     private String password;
@@ -122,7 +122,7 @@ public class UpdateUserReqDto {
     @JsonProperty("customData")
     private Object customData;
     /**
-     * 附加选项
+     * 可选参数
      */
     @JsonProperty("options")
     private UpdateUserOptionsDto options;
@@ -352,7 +352,7 @@ public class UpdateUserReqDto {
     }
 
     /**
-     * 加密类型
+     * 密码加密类型，支持 sm2 和 rsa
      */
     public static enum PasswordEncryptType {
 

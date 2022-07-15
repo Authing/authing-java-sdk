@@ -17,6 +17,11 @@ public class UserDto {
     @JsonProperty("createdAt")
     private String createdAt;
     /**
+     * 账号更新时间
+     */
+    @JsonProperty("updatedAt")
+    private String updatedAt;
+    /**
      * 账户当前状态
      */
     @JsonProperty("status")
@@ -151,6 +156,11 @@ public class UserDto {
      */
     @JsonProperty("customData")
     private Object customData;
+    /**
+     * 用户状态上次修改时间
+     */
+    @JsonProperty("statusChangedAt")
+    private String statusChangedAt;
 
     public String getUserId() {
         return userId;
@@ -164,6 +174,13 @@ public class UserDto {
     }
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public Status getStatus() {
@@ -353,6 +370,13 @@ public class UserDto {
     }
     public void setCustomData(Object customData) {
         this.customData = customData;
+    }
+
+    public String getStatusChangedAt() {
+        return statusChangedAt;
+    }
+    public void setStatusChangedAt(String statusChangedAt) {
+        this.statusChangedAt = statusChangedAt;
     }
 
 

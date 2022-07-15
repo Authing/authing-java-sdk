@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SearchDepartmentsReqDto {
     /**
-     * 搜索关键词
+     * 搜索关键词，如组织名称等
      */
     @JsonProperty("keywords")
     private String keywords;

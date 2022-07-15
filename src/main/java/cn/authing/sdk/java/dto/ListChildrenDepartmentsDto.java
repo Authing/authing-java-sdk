@@ -26,6 +26,11 @@ public class ListChildrenDepartmentsDto {
     @JsonProperty("excludeVirtualNode")
     private Boolean excludeVirtualNode;
     /**
+     * 是否只包含虚拟组织
+     */
+    @JsonProperty("onlyVirtualNode")
+    private Boolean onlyVirtualNode;
+    /**
      * 是否获取自定义数据
      */
     @JsonProperty("withCustomData")
@@ -57,6 +62,13 @@ public class ListChildrenDepartmentsDto {
     }
     public void setExcludeVirtualNode(Boolean excludeVirtualNode) {
         this.excludeVirtualNode = excludeVirtualNode;
+    }
+
+    public Boolean getOnlyVirtualNode() {
+        return onlyVirtualNode;
+    }
+    public void setOnlyVirtualNode(Boolean onlyVirtualNode) {
+        this.onlyVirtualNode = onlyVirtualNode;
     }
 
     public Boolean getWithCustomData() {

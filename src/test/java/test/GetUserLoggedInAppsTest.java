@@ -20,7 +20,7 @@ public class GetUserLoggedInAppsTest {
         GetUserLoggedinAppsDto request = new GetUserLoggedinAppsDto();
         request.setUserId("userId_4926");
 
-        UserLoggedInAppsListRespDto response = client.getUserLoggedInApps(request);
+        UserLoggedInAppsListRespDto response = client.getUserLoggedinApps(request);
         System.out.println(JsonUtils.serialize(response));
     }
 

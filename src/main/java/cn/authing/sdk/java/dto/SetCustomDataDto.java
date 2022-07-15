@@ -11,7 +11,7 @@ public class SetCustomDataDto {
     @JsonProperty("key")
     private String key;
     /**
-     * 自定义数据，可以为任意类型，但是必须和创建时定义的自定义字段类型匹配，否则将设置失败。
+     * 自定义数据，可以为任意类型，但是必须和创建时定义的自定义字段类型匹配，否则将设置失败
      */
     @JsonProperty("value")
     private String value;

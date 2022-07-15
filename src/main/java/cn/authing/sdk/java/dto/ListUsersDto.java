@@ -16,17 +16,17 @@ public class ListUsersDto {
     @JsonProperty("limit")
     private Integer limit;
     /**
-     * 账户当前状态
+     * 账户当前状态，如 已停用、已离职、正常状态、已归档
      */
     @JsonProperty("status")
     private String status;
     /**
-     * 用户创建、修改开始时间，为精确到秒的 UNIX 时间戳；支持获取从某一段时间之后的增量数据。
+     * 用户创建、修改开始时间，为精确到秒的 UNIX 时间戳；支持获取从某一段时间之后的增量数据
      */
     @JsonProperty("updatedAtStart")
     private Integer updatedAtStart;
     /**
-     * 用户创建、修改终止时间，为精确到秒的 UNIX 时间戳；支持获取某一段时间内的增量数据。默认为当前时间。
+     * 用户创建、修改终止时间，为精确到秒的 UNIX 时间戳；支持获取某一段时间内的增量数据。默认为当前时间
      */
     @JsonProperty("updatedAtEnd")
     private Integer updatedAtEnd;

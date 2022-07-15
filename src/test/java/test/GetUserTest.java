@@ -22,10 +22,6 @@ public class GetUserTest {
         request.setWithIdentities(Boolean.TRUE);
         request.setWithDepartmentIds(Boolean.TRUE);
         request.setUserId("userId_2957");
-        request.setPhone("phone_2941");
-        request.setEmail("email_9567");
-        request.setUsername("username_9239");
-        request.setExternalId("externalId_5487");
 
         UserSingleRespDto response = client.getUser(request);
         System.out.println(JsonUtils.serialize(response));

@@ -5,16 +5,19 @@ import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
 import cn.authing.sdk.java.util.JsonUtils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class DepartmentTest {
 
-    private static final String ACCESS_KEY_ID = "62ba89c8623562103089ae41";
-    private static final String ACCESS_KEY_SECRET = "3a0ca97c6b79c1971aae08c21e3fbc1c";
+    private static final String ACCESS_KEY_ID = "62c263705aaf47062168e33a";
+    private static final String ACCESS_KEY_SECRET = "5f0956eadef85c538c805b1adc158aa7";
 
 
     public static void main(String[] args) throws Throwable {
         ManagementClientOptions clientOptions = new ManagementClientOptions(ACCESS_KEY_ID, ACCESS_KEY_SECRET);
-        clientOptions.setHost("http://8.142.39.176:3000");
+        clientOptions.setHost("http://nbfckhnfadidenal-demo.mingyard.com");
         ManagementClient client = new ManagementClient(clientOptions);
 
         /*IsUserInDepartmentDto request = new IsUserInDepartmentDto();
@@ -57,26 +60,24 @@ public class DepartmentTest {
         RolePaginatedRespDto response = client.getUserRoles(request);
         System.out.println(JsonUtils.serialize(response));*/
 
-        /*MakeRequestReqDto request = new MakeRequestReqDto();
+        MakeRequestReqDto request = new MakeRequestReqDto();
         request.setMethod("GET");
         request.setUrl("/api/exclusive/get-organizations-by-role");
         Map<String, Object> data = new HashMap<>();
-        data.put("userId", "62bd29897986f5b06339d8bd");
-        data.put("roleCode", "maintainer");
+        data.put("userId", "62c2ad301b39e6634daac968");
+        data.put("roleCodes", new String[]{"bbbbb","maintainer2"});
         request.setData(data);
         Object response = client.makeRequest(request);
-        System.out.println(JsonUtils.serialize(response));*/
+        System.out.println(JsonUtils.serialize(response));
 
 
-        GetDepartmentDto request = new GetDepartmentDto();
+        /*GetDepartmentDto request = new GetDepartmentDto();
         request.setOrganizationCode("0");
         request.setDepartmentId("62ba8a2b0a272115ad0b8852");
-//        request.setDepartmentCode("departmentCode_7757");
-//        request.setDepartmentIdType("departmentIdType_7194");
         request.setWithCustomData(Boolean.TRUE);
 
         DepartmentSingleRespDto response = client.getDepartment(request);
-        System.out.println(JsonUtils.serialize(response));
+        System.out.println(JsonUtils.serialize(response));*/
     }
 
 }

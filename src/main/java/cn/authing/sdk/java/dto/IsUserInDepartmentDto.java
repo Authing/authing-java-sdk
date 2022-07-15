@@ -16,7 +16,7 @@ public class IsUserInDepartmentDto {
     @JsonProperty("organizationCode")
     private String organizationCode;
     /**
-     * 部门 id，根部门传 `root`。departmentId 和 departmentCode 必传其一。
+     * 部门 ID，根部门传 `root`。departmentId 和 departmentCode 必传其一。
      */
     @JsonProperty("departmentId")
     private String departmentId;

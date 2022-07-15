@@ -16,7 +16,7 @@ public class ListArchivedUsersDto {
     @JsonProperty("limit")
     private Integer limit;
     /**
-     * 开始时间，为精确到秒的 UNIX 时间戳，默认不指定。
+     * 开始时间，为精确到秒的 UNIX 时间戳，默认不指定
      */
     @JsonProperty("startAt")
     private Integer startAt;

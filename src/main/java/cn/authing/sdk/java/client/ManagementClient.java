@@ -262,7 +262,7 @@ public class ManagementClient extends BaseClient {
     }
 
 
-    public UserLoggedInAppsListRespDto getUserLoggedInApps(GetUserLoggedinAppsDto reqDto) {
+    public UserLoggedInAppsListRespDto getUserLoggedinApps(GetUserLoggedinAppsDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-user-loggedin-apps");
         config.setBody(reqDto);
@@ -272,7 +272,7 @@ public class ManagementClient extends BaseClient {
     }
 
 
-    public UserLoggedInIdentitiesRespDto getUserLoggedInIdentities(GetUserLoggedInIdentitiesDto reqDto) {
+    public UserLoggedInIdentitiesRespDto getUserLoggedinIdentities(GetUserLoggedInIdentitiesDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-user-logged-in-identities");
         config.setBody(reqDto);

@@ -6,6 +6,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class GetUserDto {
     /**
+     * 用户 ID
+     */
+    @JsonProperty("userId")
+    private String userId;
+    /**
+     * 用户 ID 类型，可以指定为用户 ID、手机号、邮箱、用户名和 externalId。
+     */
+    @JsonProperty("userIdType")
+    private String userIdType;
+    /**
      * 是否获取自定义数据
      */
     @JsonProperty("withCustomData")
@@ -20,31 +30,20 @@ public class GetUserDto {
      */
     @JsonProperty("withDepartmentIds")
     private Boolean withDepartmentIds;
-    /**
-     * 用户 ID
-     */
-    @JsonProperty("userId")
-    private String userId;
-    /**
-     * 手机号
-     */
-    @JsonProperty("phone")
-    private String phone;
-    /**
-     * 邮箱
-     */
-    @JsonProperty("email")
-    private String email;
-    /**
-     * 用户名
-     */
-    @JsonProperty("username")
-    private String username;
-    /**
-     * 原系统 ID
-     */
-    @JsonProperty("externalId")
-    private String externalId;
+
+    public String getUserId() {
+        return userId;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getUserIdType() {
+        return userIdType;
+    }
+    public void setUserIdType(String userIdType) {
+        this.userIdType = userIdType;
+    }
 
     public Boolean getWithCustomData() {
         return withCustomData;
@@ -65,41 +64,6 @@ public class GetUserDto {
     }
     public void setWithDepartmentIds(Boolean withDepartmentIds) {
         this.withDepartmentIds = withDepartmentIds;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getExternalId() {
-        return externalId;
-    }
-    public void setExternalId(String externalId) {
-        this.externalId = externalId;
     }
 
 

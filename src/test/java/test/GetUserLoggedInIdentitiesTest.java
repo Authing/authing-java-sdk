@@ -20,7 +20,7 @@ public class GetUserLoggedInIdentitiesTest {
         GetUserLoggedInIdentitiesDto request = new GetUserLoggedInIdentitiesDto();
         request.setUserId("userId_137");
 
-        UserLoggedInIdentitiesRespDto response = client.getUserLoggedInIdentities(request);
+        UserLoggedInIdentitiesRespDto response = client.getUserLoggedinIdentities(request);
         System.out.println(JsonUtils.serialize(response));
     }
 

@@ -11,7 +11,7 @@ public class ListDepartmentMemberIdsDto {
     @JsonProperty("organizationCode")
     private String organizationCode;
     /**
-     * 部门 id，根部门传 `root`
+     * 部门 ID，根部门传 `root`
      */
     @JsonProperty("departmentId")
     private String departmentId;

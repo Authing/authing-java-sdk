@@ -11,7 +11,7 @@ public class GetParentDepartmentDto {
     @JsonProperty("organizationCode")
     private String organizationCode;
     /**
-     * 部门 id
+     * 部门 ID
      */
     @JsonProperty("departmentId")
     private String departmentId;

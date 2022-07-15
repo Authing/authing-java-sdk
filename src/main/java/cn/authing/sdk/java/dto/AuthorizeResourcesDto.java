@@ -7,7 +7,7 @@ import cn.authing.sdk.java.dto.AuthorizeResourceItem;
 
 public class AuthorizeResourcesDto {
     /**
-     * 授权列表
+     * 授权资源列表
      */
     @JsonProperty("list")
     private List<AuthorizeResourceItem> list;
