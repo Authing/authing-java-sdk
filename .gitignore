@@ -1,6 +1,4 @@
-.gradle
 build/
-!gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
 
@@ -17,7 +15,6 @@ build/
 /captures
 .externalNativeBuild
 .idea/
-gradle/wrapper/gradle-wrapper.jar
 
 HELP.md
 target/
@@ -50,3 +47,5 @@ build/
 
 ### VS Code ###
 .vscode/
+
+/gradle
