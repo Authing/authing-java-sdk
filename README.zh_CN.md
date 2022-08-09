@@ -9,7 +9,7 @@
     <a href="https://opensource.org/licenses/MIT" target="_blank"><img src="https://img.shields.io/badge/License-MIT-success" alt="License"></a>
 </div>
 
-**English** | [简体中文](./README.zh_CN.md)
+**简体中文** | [English](./README.md)
 
 ## 简介
 你可以使用 Authing Java SDK 快速为新开发的或已有的后端应用集成认证能力
