@@ -1,8 +1,10 @@
 # authing-java-sdk
 
-[Authing](https://authing.cn) 身份云 `Java` 语言客户端，包含 [Authing Open API](https://api.authing.cn/openapi/) 所有 Management API 的请求方法。
+[Authing](https://authing.cn) 身份云 `Java` 语言客户端，包含 [Authing Open API](https://api.authing.cn/openapi/) 所有 Management API 的请求方法以及通过 OIDC 协议实现的认证侧的认证相关方法。
 
-此模块一般用于后端服务器环境，以管理员（Administrator）的身份进行请求，用于管理 Authing 用户、角色、分组、组织机构等资源；一般来说，你在 Authing 控制台中能做的所有操作，都能用此模块完成。
+Management 模块以管理员（Administrator）的身份进行请求，用于管理 Authing 用户、角色、分组、组织机构等资源；一般来说，你在 Authing 控制台中能做的所有操作，都能用此模块完成。
+
+AuthenticationClient 模块提供认证相关的调用方法，支持包括获取认证地址、获取登录态（用户信息，令牌）、检查令牌、登出等认证相关方法。
 
 如果你需要以终端用户（End User）的身份进行登录、注册、登出等操作，请使用 [Guard](https://www.authing.cn/learn/guard) .
 
@@ -45,6 +47,30 @@ ManagementClient managementClient = new ManagementClient(clientOptions);
 - `timeout`: 超时时间，单位为 ms，默认为 10000 ms;
 - `host`: Authing 服务器地址，默认为 `https://api.authing.cn`。如果你使用的是 Authing 公有云版本，请忽略此参数。如果你使用的是私有化部署的版本，此参数必填，格式如下: https://authing-api.my-authing-service.com（最后不带斜杠 /）。
 - `lang`: 接口 Message 返回语言格式（可选），可选值为 zh-CN 和 en-US，默认为 zh-CN。
+
+初始化 `AuthenticationClient` 需要使用 `appId` 、 `appSecret` 、 `host` 、 `redirectUri` 参数:
+
+```java
+import cn.authing.sdk.java.client.AuthenticationClient;
+import cn.authing.sdk.java.model.AuthenticationClientOptions;
+
+AuthenticationClientOptions clientOptions = new AuthenticationClientOptions("APP_ID", "APP_SECRET", "HOST", "REDIRECT_URI");
+AuthenticationClient authenticationClient = new AuthenticationClient(clientOptions);
+
+```
+
+完整的参数和释义如下：
+
+- `appId`: Authing 应用 ID ;
+- `appSecret`: Authing 应用 Secret;
+- `host`: 应用对应的用户池域名，例如 pool.authing.cn;
+- `redirectUri`: 认证完成后的重定向目标 URL, 会进行校验，需要和控制台的设置保持一致。
+- `logoutRedirectUri`: 登出完成后的重定向目标 URL。
+- `scope`: 应用侧向 Authing 请求的权限，以空格分隔，默认为 'openid profile'，成功获取的权限会出现在 Access Token 的 scope 字段中。
+- `serverJWKS`: 服务端的 JWKS 公钥，用于验证 Token 签名，默认会通过网络请求从服务端的 JWKS 端点自动获取。
+- `cookieKey`: 存储认证上下文的 Cookie 名称。
+
+认证侧相关的使用和方法说明，你可以在 [Authing Nodejs SDK](https://docs.authing.cn/v2/reference-new/sdk/v5/node/authentication.html) 中查看。
 
 ## 快速开始
 

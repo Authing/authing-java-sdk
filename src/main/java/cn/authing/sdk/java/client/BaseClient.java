@@ -16,7 +16,7 @@ public class BaseClient {
     }
     
     public static <T> T deserialize(String content, Class<T> valueType) {
-        return JsonUtils.deserialize(content, valueType);
+         return JsonUtils.deserialize(content, valueType);
     }
     
     public static String serialize(Object value) {
@@ -24,7 +24,7 @@ public class BaseClient {
     }
     
     public String request(AuthingRequestConfig config) {
-        return options.doRequest(config.getUrl(), config.getMethod(), config.getBody());
+        return options.doRequest(config.getUrl(), config.getMethod(), config.getHeaders(), config.getBody());
     }
     
     
