@@ -3,49 +3,65 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import cn.authing.sdk.java.dto.I18nDto;
 
 public class CreateDepartmentReqDto {
-    /**
-     * 组织 code
-     */
-    @JsonProperty("organizationCode")
-    private String organizationCode;
-    /**
-     * 部门名称
-     */
-    @JsonProperty("name")
-    private String name;
     /**
      * 父部门 id
      */
     @JsonProperty("parentDepartmentId")
     private String parentDepartmentId;
     /**
+     * 部门名称
+     */
+    @JsonProperty("name")
+    private String name;
+    /**
+     * 组织 Code（organizationCode）
+     */
+    @JsonProperty("organizationCode")
+    private String organizationCode;
+    /**
      * 自定义部门 ID，用于存储自定义的 ID
      */
     @JsonProperty("openDepartmentId")
     private String openDepartmentId;
+    /**
+     * 部门描述
+     */
+    @JsonProperty("description")
+    private String description;
     /**
      * 部门识别码
      */
     @JsonProperty("code")
     private String code;
     /**
-     * 部门负责人 ID
+     * 是否是虚拟部门
      */
-    @JsonProperty("leaderUserId")
-    private String leaderUserId;
+    @JsonProperty("isVirtualNode")
+    private Boolean isVirtualNode;
+    /**
+     * 多语言设置
+     */
+    @JsonProperty("i18n")
+    private I18nDto i18n;
+    /**
+     * 部门的扩展字段数据
+     */
+    @JsonProperty("customData")
+    private Object customData;
     /**
      * 此次调用中使用的父部门 ID 的类型
      */
     @JsonProperty("departmentIdType")
     private DepartmentIdType departmentIdType;
 
-    public String getOrganizationCode() {
-        return organizationCode;
+    public String getParentDepartmentId() {
+        return parentDepartmentId;
     }
-    public void setOrganizationCode(String organizationCode) {
-        this.organizationCode = organizationCode;
+    public void setParentDepartmentId(String parentDepartmentId) {
+        this.parentDepartmentId = parentDepartmentId;
     }
 
     public String getName() {
@@ -55,11 +71,11 @@ public class CreateDepartmentReqDto {
         this.name = name;
     }
 
-    public String getParentDepartmentId() {
-        return parentDepartmentId;
+    public String getOrganizationCode() {
+        return organizationCode;
     }
-    public void setParentDepartmentId(String parentDepartmentId) {
-        this.parentDepartmentId = parentDepartmentId;
+    public void setOrganizationCode(String organizationCode) {
+        this.organizationCode = organizationCode;
     }
 
     public String getOpenDepartmentId() {
@@ -69,6 +85,13 @@ public class CreateDepartmentReqDto {
         this.openDepartmentId = openDepartmentId;
     }
 
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getCode() {
         return code;
     }
@@ -76,11 +99,25 @@ public class CreateDepartmentReqDto {
         this.code = code;
     }
 
-    public String getLeaderUserId() {
-        return leaderUserId;
+    public Boolean getIsVirtualNode() {
+        return isVirtualNode;
     }
-    public void setLeaderUserId(String leaderUserId) {
-        this.leaderUserId = leaderUserId;
+    public void setIsVirtualNode(Boolean isVirtualNode) {
+        this.isVirtualNode = isVirtualNode;
+    }
+
+    public I18nDto getI18n() {
+        return i18n;
+    }
+    public void setI18n(I18nDto i18n) {
+        this.i18n = i18n;
+    }
+
+    public Object getCustomData() {
+        return customData;
+    }
+    public void setCustomData(Object customData) {
+        this.customData = customData;
     }
 
     public DepartmentIdType getDepartmentIdType() {

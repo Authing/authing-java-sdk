@@ -16,9 +16,9 @@ public class GetRoleAuthorizedResourcesDto {
     @JsonProperty("namespace")
     private String namespace;
     /**
-     * 资源类型
+     * 资源类型，如 数据、API、按钮、菜单
      */
-    @JsonProperty("resource_type")
+    @JsonProperty("resourceType")
     private String resourceType;
 
     public String getCode() {

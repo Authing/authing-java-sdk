@@ -3,6 +3,7 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import cn.authing.sdk.java.dto.SendCreateAccountNotificationDto;
 
 public class CreateUserOptionsDto {
     /**
@@ -10,6 +11,11 @@ public class CreateUserOptionsDto {
      */
     @JsonProperty("keepPassword")
     private Boolean keepPassword;
+    /**
+     * 是否自动生成密码
+     */
+    @JsonProperty("autoGeneratePassword")
+    private Boolean autoGeneratePassword;
     /**
      * 是否强制要求用户在第一次的时候重置密码
      */
@@ -20,12 +26,24 @@ public class CreateUserOptionsDto {
      */
     @JsonProperty("departmentIdType")
     private DepartmentIdType departmentIdType;
+    /**
+     * 重置密码发送邮件和手机号选项
+     */
+    @JsonProperty("sendNotification")
+    private SendCreateAccountNotificationDto sendNotification;
 
     public Boolean getKeepPassword() {
         return keepPassword;
     }
     public void setKeepPassword(Boolean keepPassword) {
         this.keepPassword = keepPassword;
+    }
+
+    public Boolean getAutoGeneratePassword() {
+        return autoGeneratePassword;
+    }
+    public void setAutoGeneratePassword(Boolean autoGeneratePassword) {
+        this.autoGeneratePassword = autoGeneratePassword;
     }
 
     public Boolean getResetPasswordOnFirstLogin() {
@@ -40,6 +58,13 @@ public class CreateUserOptionsDto {
     }
     public void setDepartmentIdType(DepartmentIdType departmentIdType) {
         this.departmentIdType = departmentIdType;
+    }
+
+    public SendCreateAccountNotificationDto getSendNotification() {
+        return sendNotification;
+    }
+    public void setSendNotification(SendCreateAccountNotificationDto sendNotification) {
+        this.sendNotification = sendNotification;
     }
 
 

@@ -3,34 +3,64 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import cn.authing.sdk.java.dto.PolicyCondition;
 
 public class AuthorizedResourceDto {
     /**
-     * 资源标识符
+     * 资源描述符
      */
     @JsonProperty("resourceCode")
     private String resourceCode;
+    /**
+     * 资源描述信息
+     */
+    @JsonProperty("description")
+    private String description;
+    /**
+     * 策略 Condition
+     */
+    @JsonProperty("condition")
+    private List<PolicyCondition> condition;
     /**
      * 资源类型
      */
     @JsonProperty("resourceType")
     private ResourceType resourceType;
     /**
-     * 被授权的资源的操作列表
+     * API URL
+     */
+    @JsonProperty("apiIdentifier")
+    private String apiIdentifier;
+    /**
+     * 授权的操作列表
      */
     @JsonProperty("actions")
     private List<String> actions;
     /**
-     * 资源对应的 API Identifier
+     * 允许还是拒绝
      */
-    @JsonProperty("apiIdentifier")
-    private String apiIdentifier;
+    @JsonProperty("effect")
+    private Effect effect;
 
     public String getResourceCode() {
         return resourceCode;
     }
     public void setResourceCode(String resourceCode) {
         this.resourceCode = resourceCode;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<PolicyCondition> getCondition() {
+        return condition;
+    }
+    public void setCondition(List<PolicyCondition> condition) {
+        this.condition = condition;
     }
 
     public ResourceType getResourceType() {
@@ -40,6 +70,13 @@ public class AuthorizedResourceDto {
         this.resourceType = resourceType;
     }
 
+    public String getApiIdentifier() {
+        return apiIdentifier;
+    }
+    public void setApiIdentifier(String apiIdentifier) {
+        this.apiIdentifier = apiIdentifier;
+    }
+
     public List<String> getActions() {
         return actions;
     }
@@ -47,11 +84,11 @@ public class AuthorizedResourceDto {
         this.actions = actions;
     }
 
-    public String getApiIdentifier() {
-        return apiIdentifier;
+    public Effect getEffect() {
+        return effect;
     }
-    public void setApiIdentifier(String apiIdentifier) {
-        this.apiIdentifier = apiIdentifier;
+    public void setEffect(Effect effect) {
+        this.effect = effect;
     }
 
 
@@ -76,6 +113,29 @@ public class AuthorizedResourceDto {
         private String value;
 
         ResourceType(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    /**
+     * 允许还是拒绝
+     */
+    public static enum Effect {
+
+        @JsonProperty("ALLOW")
+        ALLOW("ALLOW"),
+
+        @JsonProperty("DENY")
+        DENY("DENY"),
+        ;
+
+        private String value;
+
+        Effect(String value) {
             this.value = value;
         }
 

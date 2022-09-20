@@ -8,17 +8,22 @@ public class GetUserLoginHistoryDto {
     /**
      * 用户 ID
      */
-    @JsonProperty("user_id")
+    @JsonProperty("userId")
     private String userId;
+    /**
+     * 用户 ID 类型，可以指定为用户 ID、手机号、邮箱、用户名和 externalId。
+     */
+    @JsonProperty("userIdType")
+    private String userIdType;
     /**
      * 应用 ID
      */
-    @JsonProperty("app_id")
+    @JsonProperty("appId")
     private String appId;
     /**
      * 客户端 IP
      */
-    @JsonProperty("client_ip")
+    @JsonProperty("clientIp")
     private String clientIp;
     /**
      * 开始时间戳（毫秒）
@@ -46,6 +51,13 @@ public class GetUserLoginHistoryDto {
     }
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getUserIdType() {
+        return userIdType;
+    }
+    public void setUserIdType(String userIdType) {
+        this.userIdType = userIdType;
     }
 
     public String getAppId() {

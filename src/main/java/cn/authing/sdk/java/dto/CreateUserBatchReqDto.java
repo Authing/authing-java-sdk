@@ -8,12 +8,12 @@ import cn.authing.sdk.java.dto.CreateUserOptionsDto;
 
 public class CreateUserBatchReqDto {
     /**
-     * 批量用户
+     * 用户列表
      */
     @JsonProperty("list")
     private List<CreateUserInfoDto> list;
     /**
-     * 附加选项
+     * 可选参数
      */
     @JsonProperty("options")
     private CreateUserOptionsDto options;

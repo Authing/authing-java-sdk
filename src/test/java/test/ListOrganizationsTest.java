@@ -20,6 +20,7 @@ public class ListOrganizationsTest {
         ListOrganizationsDto request = new ListOrganizationsDto();
         request.setPage(0);
         request.setLimit(0);
+        request.setFetchAll(Boolean.TRUE);
 
         OrganizationPaginatedRespDto response = client.listOrganizations(request);
         System.out.println(JsonUtils.serialize(response));

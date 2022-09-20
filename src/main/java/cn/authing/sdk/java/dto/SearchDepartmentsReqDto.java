@@ -6,21 +6,26 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SearchDepartmentsReqDto {
     /**
-     * 搜索关键词
+     * 搜索关键词，如组织名称等
      */
-    @JsonProperty("search")
-    private String search;
+    @JsonProperty("keywords")
+    private String keywords;
     /**
      * 组织 code
      */
     @JsonProperty("organizationCode")
     private String organizationCode;
+    /**
+     * 是否获取自定义数据
+     */
+    @JsonProperty("withCustomData")
+    private Boolean withCustomData;
 
-    public String getSearch() {
-        return search;
+    public String getKeywords() {
+        return keywords;
     }
-    public void setSearch(String search) {
-        this.search = search;
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
     }
 
     public String getOrganizationCode() {
@@ -28,6 +33,13 @@ public class SearchDepartmentsReqDto {
     }
     public void setOrganizationCode(String organizationCode) {
         this.organizationCode = organizationCode;
+    }
+
+    public Boolean getWithCustomData() {
+        return withCustomData;
+    }
+    public void setWithCustomData(Boolean withCustomData) {
+        this.withCustomData = withCustomData;
     }
 
 

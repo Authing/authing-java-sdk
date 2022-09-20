@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.SetUserDepartmentDto;
+import cn.authing.sdk.java.dto.SetUserDepartmentsOptionsDto;
 
 public class SetUserDepartmentsDto {
     /**
@@ -16,6 +17,11 @@ public class SetUserDepartmentsDto {
      */
     @JsonProperty("userId")
     private String userId;
+    /**
+     * 可选参数
+     */
+    @JsonProperty("options")
+    private SetUserDepartmentsOptionsDto options;
 
     public List<SetUserDepartmentDto> getDepartments() {
         return departments;
@@ -29,6 +35,13 @@ public class SetUserDepartmentsDto {
     }
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public SetUserDepartmentsOptionsDto getOptions() {
+        return options;
+    }
+    public void setOptions(SetUserDepartmentsOptionsDto options) {
+        this.options = options;
     }
 
 

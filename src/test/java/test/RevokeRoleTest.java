@@ -19,8 +19,8 @@ public class RevokeRoleTest {
 
         RevokeRoleDto request = new RevokeRoleDto();
         request.setTargets(Collections.singletonList(new cn.authing.sdk.java.dto.TargetDto()));
-        request.setCode("code_9591");
-        request.setNamespace("namespace_5964");
+        request.setCode("code_9127");
+        request.setNamespace("namespace_1624");
 
         IsSuccessRespDto response = client.revokeRole(request);
         System.out.println(JsonUtils.serialize(response));

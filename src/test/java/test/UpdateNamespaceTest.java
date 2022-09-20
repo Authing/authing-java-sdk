@@ -18,10 +18,10 @@ public class UpdateNamespaceTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         UpdateNamespaceDto request = new UpdateNamespaceDto();
-        request.setCode("code_6629");
-        request.setDescription("description_3903");
-        request.setName("name_5882");
-        request.setNewCode("newCode_2831");
+        request.setCode("code_949");
+        request.setDescription("description_4545");
+        request.setName("name_7018");
+        request.setNewCode("newCode_8156");
 
         UpdateNamespaceRespDto response = client.updateNamespace(request);
         System.out.println(JsonUtils.serialize(response));

@@ -3,6 +3,7 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import cn.authing.sdk.java.dto.OrganizationNameI18nDto;
 
 public class CreateOrganizationReqDto {
     /**
@@ -16,10 +17,20 @@ public class CreateOrganizationReqDto {
     @JsonProperty("organizationCode")
     private String organizationCode;
     /**
+     * 组织描述信息
+     */
+    @JsonProperty("description")
+    private String description;
+    /**
      * 根节点自定义 ID
      */
     @JsonProperty("openDepartmentId")
     private String openDepartmentId;
+    /**
+     * 多语言设置
+     */
+    @JsonProperty("i18n")
+    private OrganizationNameI18nDto i18n;
 
     public String getOrganizationName() {
         return organizationName;
@@ -35,11 +46,25 @@ public class CreateOrganizationReqDto {
         this.organizationCode = organizationCode;
     }
 
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getOpenDepartmentId() {
         return openDepartmentId;
     }
     public void setOpenDepartmentId(String openDepartmentId) {
         this.openDepartmentId = openDepartmentId;
+    }
+
+    public OrganizationNameI18nDto getI18n() {
+        return i18n;
+    }
+    public void setI18n(OrganizationNameI18nDto i18n) {
+        this.i18n = i18n;
     }
 
 

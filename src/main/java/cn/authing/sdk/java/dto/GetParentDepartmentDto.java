@@ -8,18 +8,23 @@ public class GetParentDepartmentDto {
     /**
      * 组织 code
      */
-    @JsonProperty("organization_code")
+    @JsonProperty("organizationCode")
     private String organizationCode;
     /**
-     * 部门 id
+     * 部门 ID
      */
-    @JsonProperty("department_id")
+    @JsonProperty("departmentId")
     private String departmentId;
     /**
      * 此次调用中使用的部门 ID 的类型
      */
-    @JsonProperty("department_id_type")
+    @JsonProperty("departmentIdType")
     private String departmentIdType;
+    /**
+     * 是否获取自定义数据
+     */
+    @JsonProperty("withCustomData")
+    private Boolean withCustomData;
 
     public String getOrganizationCode() {
         return organizationCode;
@@ -40,6 +45,13 @@ public class GetParentDepartmentDto {
     }
     public void setDepartmentIdType(String departmentIdType) {
         this.departmentIdType = departmentIdType;
+    }
+
+    public Boolean getWithCustomData() {
+        return withCustomData;
+    }
+    public void setWithCustomData(Boolean withCustomData) {
+        this.withCustomData = withCustomData;
     }
 
 

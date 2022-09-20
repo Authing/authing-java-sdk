@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DeleteRoleDto {
     /**
-     * 角色 code 集合
+     * 角色 code 列表
      */
     @JsonProperty("codeList")
     private List<String> codeList;

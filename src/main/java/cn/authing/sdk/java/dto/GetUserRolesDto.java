@@ -8,8 +8,13 @@ public class GetUserRolesDto {
     /**
      * 用户 ID
      */
-    @JsonProperty("user_id")
+    @JsonProperty("userId")
     private String userId;
+    /**
+     * 用户 ID 类型，可以指定为用户 ID、手机号、邮箱、用户名和 externalId。
+     */
+    @JsonProperty("userIdType")
+    private String userIdType;
     /**
      * 所属权限分组的 code
      */
@@ -21,6 +26,13 @@ public class GetUserRolesDto {
     }
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getUserIdType() {
+        return userIdType;
+    }
+    public void setUserIdType(String userIdType) {
+        this.userIdType = userIdType;
     }
 
     public String getNamespace() {

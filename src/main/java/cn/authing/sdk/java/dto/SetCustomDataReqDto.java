@@ -17,12 +17,12 @@ public class SetCustomDataReqDto {
     @JsonProperty("targetIdentifier")
     private String targetIdentifier;
     /**
-     * 主体类型，目前支持用户、角色、分组和部门
+     * 主体类型，目前支持用户、角色、分组、部门
      */
     @JsonProperty("targetType")
     private TargetType targetType;
     /**
-     * 所属权限分组的 code，当 target_type 为角色的时候需要填写，否则可以忽略。
+     * 所属权限分组的 code，当 target_type 为角色的时候需要填写，否则可以忽略
      */
     @JsonProperty("namespace")
     private String namespace;
@@ -57,7 +57,7 @@ public class SetCustomDataReqDto {
 
 
     /**
-     * 主体类型，目前支持用户、角色、分组和部门
+     * 主体类型，目前支持用户、角色、分组、部门
      */
     public static enum TargetType {
 

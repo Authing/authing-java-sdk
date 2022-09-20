@@ -18,8 +18,8 @@ public class UpdateExtIdpTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         UpdateExtIdpDto request = new UpdateExtIdpDto();
-        request.setId("id_5479");
-        request.setName("name_8736");
+        request.setId("id_1846");
+        request.setName("name_6688");
 
         ExtIdpSingleRespDto response = client.updateExtIdp(request);
         System.out.println(JsonUtils.serialize(response));

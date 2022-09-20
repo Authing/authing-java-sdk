@@ -1,3 +1,5 @@
+package test;
+
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -21,7 +23,7 @@ public class CreateUserBatchTest {
         request.setList(Collections.singletonList(new cn.authing.sdk.java.dto.CreateUserInfoDto()));
         request.setOptions(new cn.authing.sdk.java.dto.CreateUserOptionsDto());
 
-        UserListRespDto response = client.createUserBatch(request);
+        UserListRespDto response = client.createUsersBatch(request);
         System.out.println(JsonUtils.serialize(response));
     }
 

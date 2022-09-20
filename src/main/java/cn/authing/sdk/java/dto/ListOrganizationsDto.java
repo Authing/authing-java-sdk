@@ -15,6 +15,11 @@ public class ListOrganizationsDto {
      */
     @JsonProperty("limit")
     private Integer limit;
+    /**
+     * 拉取所有
+     */
+    @JsonProperty("fetchAll")
+    private Boolean fetchAll;
 
     public Integer getPage() {
         return page;
@@ -28,6 +33,13 @@ public class ListOrganizationsDto {
     }
     public void setLimit(Integer limit) {
         this.limit = limit;
+    }
+
+    public Boolean getFetchAll() {
+        return fetchAll;
+    }
+    public void setFetchAll(Boolean fetchAll) {
+        this.fetchAll = fetchAll;
     }
 
 

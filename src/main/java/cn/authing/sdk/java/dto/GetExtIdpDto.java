@@ -6,14 +6,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class GetExtIdpDto {
     /**
-     * 身份源 id
+     * 身份源 ID
      */
     @JsonProperty("id")
     private String id;
     /**
      * 租户 ID
      */
-    @JsonProperty("tenant_id")
+    @JsonProperty("tenantId")
     private String tenantId;
 
     public String getId() {

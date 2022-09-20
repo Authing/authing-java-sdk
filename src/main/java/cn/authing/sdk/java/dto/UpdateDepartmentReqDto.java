@@ -3,33 +3,39 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import cn.authing.sdk.java.dto.I18nDto;
 
 public class UpdateDepartmentReqDto {
-    /**
-     * 组织 code
-     */
-    @JsonProperty("organizationCode")
-    private String organizationCode;
-    /**
-     * 父部门 id
-     */
-    @JsonProperty("parentDepartmentId")
-    private String parentDepartmentId;
     /**
      * 部门系统 ID（为 Authing 系统自动生成，不可修改）
      */
     @JsonProperty("departmentId")
     private String departmentId;
     /**
+     * 组织 Code（organizationCode）
+     */
+    @JsonProperty("organizationCode")
+    private String organizationCode;
+    /**
+     * 部门负责人 ID
+     */
+    @JsonProperty("leaderUserIds")
+    private List<String> leaderUserIds;
+    /**
+     * 部门描述
+     */
+    @JsonProperty("description")
+    private String description;
+    /**
      * 部门识别码
      */
     @JsonProperty("code")
     private String code;
     /**
-     * 部门负责人 ID
+     * 多语言设置
      */
-    @JsonProperty("leaderUserId")
-    private String leaderUserId;
+    @JsonProperty("i18n")
+    private I18nDto i18n;
     /**
      * 部门名称
      */
@@ -40,6 +46,23 @@ public class UpdateDepartmentReqDto {
      */
     @JsonProperty("departmentIdType")
     private DepartmentIdType departmentIdType;
+    /**
+     * 父部门 ID
+     */
+    @JsonProperty("parentDepartmentId")
+    private String parentDepartmentId;
+    /**
+     * 自定义数据，传入的对象中的 key 必须先在用户池定义相关自定义字段
+     */
+    @JsonProperty("customData")
+    private Object customData;
+
+    public String getDepartmentId() {
+        return departmentId;
+    }
+    public void setDepartmentId(String departmentId) {
+        this.departmentId = departmentId;
+    }
 
     public String getOrganizationCode() {
         return organizationCode;
@@ -48,18 +71,18 @@ public class UpdateDepartmentReqDto {
         this.organizationCode = organizationCode;
     }
 
-    public String getParentDepartmentId() {
-        return parentDepartmentId;
+    public List<String> getLeaderUserIds() {
+        return leaderUserIds;
     }
-    public void setParentDepartmentId(String parentDepartmentId) {
-        this.parentDepartmentId = parentDepartmentId;
+    public void setLeaderUserIds(List<String> leaderUserIds) {
+        this.leaderUserIds = leaderUserIds;
     }
 
-    public String getDepartmentId() {
-        return departmentId;
+    public String getDescription() {
+        return description;
     }
-    public void setDepartmentId(String departmentId) {
-        this.departmentId = departmentId;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getCode() {
@@ -69,11 +92,11 @@ public class UpdateDepartmentReqDto {
         this.code = code;
     }
 
-    public String getLeaderUserId() {
-        return leaderUserId;
+    public I18nDto getI18n() {
+        return i18n;
     }
-    public void setLeaderUserId(String leaderUserId) {
-        this.leaderUserId = leaderUserId;
+    public void setI18n(I18nDto i18n) {
+        this.i18n = i18n;
     }
 
     public String getName() {
@@ -88,6 +111,20 @@ public class UpdateDepartmentReqDto {
     }
     public void setDepartmentIdType(DepartmentIdType departmentIdType) {
         this.departmentIdType = departmentIdType;
+    }
+
+    public String getParentDepartmentId() {
+        return parentDepartmentId;
+    }
+    public void setParentDepartmentId(String parentDepartmentId) {
+        this.parentDepartmentId = parentDepartmentId;
+    }
+
+    public Object getCustomData() {
+        return customData;
+    }
+    public void setCustomData(Object customData) {
+        this.customData = customData;
     }
 
 

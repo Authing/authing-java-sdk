@@ -3,10 +3,11 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import cn.authing.sdk.java.dto.KickUsersOptionsDto;
 
 public class KickUsersDto {
     /**
-     * APP ID 集合
+     * APP ID 列表
      */
     @JsonProperty("appIds")
     private List<String> appIds;
@@ -15,6 +16,11 @@ public class KickUsersDto {
      */
     @JsonProperty("userId")
     private String userId;
+    /**
+     * 可选参数
+     */
+    @JsonProperty("options")
+    private KickUsersOptionsDto options;
 
     public List<String> getAppIds() {
         return appIds;
@@ -28,6 +34,13 @@ public class KickUsersDto {
     }
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public KickUsersOptionsDto getOptions() {
+        return options;
+    }
+    public void setOptions(KickUsersOptionsDto options) {
+        this.options = options;
     }
 
 

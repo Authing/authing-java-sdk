@@ -8,18 +8,23 @@ public class ListDepartmentMembersDto {
     /**
      * 组织 code
      */
-    @JsonProperty("organization_code")
+    @JsonProperty("organizationCode")
     private String organizationCode;
     /**
-     * 部门 id，根部门传 `root`
+     * 部门 ID，根部门传 `root`
      */
-    @JsonProperty("department_id")
+    @JsonProperty("departmentId")
     private String departmentId;
     /**
      * 此次调用中使用的部门 ID 的类型
      */
-    @JsonProperty("department_id_type")
+    @JsonProperty("departmentIdType")
     private String departmentIdType;
+    /**
+     * 是否包含子部门的成员
+     */
+    @JsonProperty("includeChildrenDepartments")
+    private Boolean includeChildrenDepartments;
     /**
      * 当前页数，从 1 开始
      */
@@ -33,18 +38,28 @@ public class ListDepartmentMembersDto {
     /**
      * 是否获取自定义数据
      */
-    @JsonProperty("with_custom_data")
+    @JsonProperty("withCustomData")
     private Boolean withCustomData;
     /**
      * 是否获取 identities
      */
-    @JsonProperty("with_identities")
+    @JsonProperty("withIdentities")
     private Boolean withIdentities;
     /**
      * 是否获取部门 ID 列表
      */
-    @JsonProperty("with_department_ids")
+    @JsonProperty("withDepartmentIds")
     private Boolean withDepartmentIds;
+    /**
+     * 排序依据
+     */
+    @JsonProperty("sortBy")
+    private String sortBy;
+    /**
+     * 增序还是倒序
+     */
+    @JsonProperty("orderBy")
+    private String orderBy;
 
     public String getOrganizationCode() {
         return organizationCode;
@@ -65,6 +80,13 @@ public class ListDepartmentMembersDto {
     }
     public void setDepartmentIdType(String departmentIdType) {
         this.departmentIdType = departmentIdType;
+    }
+
+    public Boolean getIncludeChildrenDepartments() {
+        return includeChildrenDepartments;
+    }
+    public void setIncludeChildrenDepartments(Boolean includeChildrenDepartments) {
+        this.includeChildrenDepartments = includeChildrenDepartments;
     }
 
     public Integer getPage() {
@@ -100,6 +122,20 @@ public class ListDepartmentMembersDto {
     }
     public void setWithDepartmentIds(Boolean withDepartmentIds) {
         this.withDepartmentIds = withDepartmentIds;
+    }
+
+    public String getSortBy() {
+        return sortBy;
+    }
+    public void setSortBy(String sortBy) {
+        this.sortBy = sortBy;
+    }
+
+    public String getOrderBy() {
+        return orderBy;
+    }
+    public void setOrderBy(String orderBy) {
+        this.orderBy = orderBy;
     }
 
 

@@ -3,13 +3,24 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import cn.authing.sdk.java.dto.I18nDto;
 
 public class UserDepartmentRespDto {
+    /**
+     * 组织 Code（organizationCode）
+     */
+    @JsonProperty("organizationCode")
+    private String organizationCode;
     /**
      * 部门 ID
      */
     @JsonProperty("departmentId")
     private String departmentId;
+    /**
+     * 部门创建时间
+     */
+    @JsonProperty("createdAt")
+    private String createdAt;
     /**
      * 部门名称
      */
@@ -20,6 +31,11 @@ public class UserDepartmentRespDto {
      */
     @JsonProperty("description")
     private String description;
+    /**
+     * 自定义部门 ID，用于存储自定义的 ID
+     */
+    @JsonProperty("openDepartmentId")
+    private String openDepartmentId;
     /**
      * 是否是部门 Leader
      */
@@ -35,12 +51,46 @@ public class UserDepartmentRespDto {
      */
     @JsonProperty("isMainDepartment")
     private Boolean isMainDepartment;
+    /**
+     * 加入部门时间
+     */
+    @JsonProperty("joinedAt")
+    private String joinedAt;
+    /**
+     * 是否是虚拟部门
+     */
+    @JsonProperty("isVirtualNode")
+    private Boolean isVirtualNode;
+    /**
+     * 多语言设置
+     */
+    @JsonProperty("i18n")
+    private I18nDto i18n;
+    /**
+     * 部门的扩展字段数据
+     */
+    @JsonProperty("customData")
+    private Object customData;
+
+    public String getOrganizationCode() {
+        return organizationCode;
+    }
+    public void setOrganizationCode(String organizationCode) {
+        this.organizationCode = organizationCode;
+    }
 
     public String getDepartmentId() {
         return departmentId;
     }
     public void setDepartmentId(String departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getName() {
@@ -55,6 +105,13 @@ public class UserDepartmentRespDto {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getOpenDepartmentId() {
+        return openDepartmentId;
+    }
+    public void setOpenDepartmentId(String openDepartmentId) {
+        this.openDepartmentId = openDepartmentId;
     }
 
     public Boolean getIsLeader() {
@@ -76,6 +133,34 @@ public class UserDepartmentRespDto {
     }
     public void setIsMainDepartment(Boolean isMainDepartment) {
         this.isMainDepartment = isMainDepartment;
+    }
+
+    public String getJoinedAt() {
+        return joinedAt;
+    }
+    public void setJoinedAt(String joinedAt) {
+        this.joinedAt = joinedAt;
+    }
+
+    public Boolean getIsVirtualNode() {
+        return isVirtualNode;
+    }
+    public void setIsVirtualNode(Boolean isVirtualNode) {
+        this.isVirtualNode = isVirtualNode;
+    }
+
+    public I18nDto getI18n() {
+        return i18n;
+    }
+    public void setI18n(I18nDto i18n) {
+        this.i18n = i18n;
+    }
+
+    public Object getCustomData() {
+        return customData;
+    }
+    public void setCustomData(Object customData) {
+        this.customData = customData;
     }
 
 

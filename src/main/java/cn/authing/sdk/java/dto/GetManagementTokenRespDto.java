@@ -3,7 +3,7 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import cn.authing.sdk.java.dto.AccessTokenDto;
+import cn.authing.sdk.java.dto.AccessTokenResDto;
 
 public class GetManagementTokenRespDto {
     /**
@@ -25,7 +25,7 @@ public class GetManagementTokenRespDto {
      * 响应数据
      */
     @JsonProperty("data")
-    private AccessTokenDto data;
+    private AccessTokenResDto data;
 
     public Integer getStatusCode() {
         return statusCode;
@@ -48,10 +48,10 @@ public class GetManagementTokenRespDto {
         this.apiCode = apiCode;
     }
 
-    public AccessTokenDto getData() {
+    public AccessTokenResDto getData() {
         return data;
     }
-    public void setData(AccessTokenDto data) {
+    public void setData(AccessTokenResDto data) {
         this.data = data;
     }
 

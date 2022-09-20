@@ -6,27 +6,35 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ListChildrenDepartmentsDto {
     /**
-     * 需要获取的部门 ID
-     */
-    @JsonProperty("department_id")
-    private String departmentId;
-    /**
      * 组织 code
      */
-    @JsonProperty("organization_code")
+    @JsonProperty("organizationCode")
     private String organizationCode;
+    /**
+     * 需要获取的部门 ID
+     */
+    @JsonProperty("departmentId")
+    private String departmentId;
     /**
      * 此次调用中使用的部门 ID 的类型
      */
-    @JsonProperty("department_id_type")
+    @JsonProperty("departmentIdType")
     private String departmentIdType;
-
-    public String getDepartmentId() {
-        return departmentId;
-    }
-    public void setDepartmentId(String departmentId) {
-        this.departmentId = departmentId;
-    }
+    /**
+     * 是否要排除虚拟组织
+     */
+    @JsonProperty("excludeVirtualNode")
+    private Boolean excludeVirtualNode;
+    /**
+     * 是否只包含虚拟组织
+     */
+    @JsonProperty("onlyVirtualNode")
+    private Boolean onlyVirtualNode;
+    /**
+     * 是否获取自定义数据
+     */
+    @JsonProperty("withCustomData")
+    private Boolean withCustomData;
 
     public String getOrganizationCode() {
         return organizationCode;
@@ -35,11 +43,39 @@ public class ListChildrenDepartmentsDto {
         this.organizationCode = organizationCode;
     }
 
+    public String getDepartmentId() {
+        return departmentId;
+    }
+    public void setDepartmentId(String departmentId) {
+        this.departmentId = departmentId;
+    }
+
     public String getDepartmentIdType() {
         return departmentIdType;
     }
     public void setDepartmentIdType(String departmentIdType) {
         this.departmentIdType = departmentIdType;
+    }
+
+    public Boolean getExcludeVirtualNode() {
+        return excludeVirtualNode;
+    }
+    public void setExcludeVirtualNode(Boolean excludeVirtualNode) {
+        this.excludeVirtualNode = excludeVirtualNode;
+    }
+
+    public Boolean getOnlyVirtualNode() {
+        return onlyVirtualNode;
+    }
+    public void setOnlyVirtualNode(Boolean onlyVirtualNode) {
+        this.onlyVirtualNode = onlyVirtualNode;
+    }
+
+    public Boolean getWithCustomData() {
+        return withCustomData;
+    }
+    public void setWithCustomData(Boolean withCustomData) {
+        this.withCustomData = withCustomData;
     }
 
 

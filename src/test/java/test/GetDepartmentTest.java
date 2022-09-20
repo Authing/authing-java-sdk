@@ -18,9 +18,11 @@ public class GetDepartmentTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetDepartmentDto request = new GetDepartmentDto();
-        request.setOrganizationCode("organizationCode_4465");
-        request.setDepartmentId("departmentId_8220");
-        request.setDepartmentIdType("departmentIdType_4191");
+        request.setOrganizationCode("0");
+        request.setDepartmentId("root");
+//        request.setDepartmentCode("departmentCode_7757");
+//        request.setDepartmentIdType("departmentIdType_7194");
+        request.setWithCustomData(Boolean.TRUE);
 
         DepartmentSingleRespDto response = client.getDepartment(request);
         System.out.println(JsonUtils.serialize(response));

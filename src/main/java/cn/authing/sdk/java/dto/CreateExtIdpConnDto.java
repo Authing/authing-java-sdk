@@ -26,7 +26,7 @@ public class CreateExtIdpConnDto {
     @JsonProperty("type")
     private Type type;
     /**
-     * 身份源连接 id
+     * 身份源连接 ID
      */
     @JsonProperty("extIdpId")
     private String extIdpId;
@@ -212,6 +212,9 @@ public class CreateExtIdpConnDto {
 
         @JsonProperty("instagram")
         INSTAGRAM("instagram"),
+
+        @JsonProperty("welink")
+        WELINK("welink"),
         ;
 
         private String value;

@@ -25,6 +25,11 @@ public class CreateIdentityDto {
      */
     @JsonProperty("userIdInIdp")
     private String userIdInIdp;
+    /**
+     * 身份来自的身份源连接 ID 列表
+     */
+    @JsonProperty("originConnIds")
+    private List<String> originConnIds;
 
     public String getExtIdpId() {
         return extIdpId;
@@ -52,6 +57,13 @@ public class CreateIdentityDto {
     }
     public void setUserIdInIdp(String userIdInIdp) {
         this.userIdInIdp = userIdInIdp;
+    }
+
+    public List<String> getOriginConnIds() {
+        return originConnIds;
+    }
+    public void setOriginConnIds(List<String> originConnIds) {
+        this.originConnIds = originConnIds;
     }
 
 

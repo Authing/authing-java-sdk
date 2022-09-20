@@ -3,6 +3,7 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import cn.authing.sdk.java.dto.UpdateUserOptionsDto;
 
 public class UpdateUserReqDto {
     /**
@@ -96,7 +97,7 @@ public class UpdateUserReqDto {
     @JsonProperty("username")
     private String username;
     /**
-     * 加密类型
+     * 密码加密类型，支持 sm2 和 rsa
      */
     @JsonProperty("passwordEncryptType")
     private PasswordEncryptType passwordEncryptType;
@@ -111,7 +112,7 @@ public class UpdateUserReqDto {
     @JsonProperty("phone")
     private String phone;
     /**
-     * 密码。可选加密方式进行加密，默认为未加密
+     * 密码。可选加密方式进行加密，通过 passwordEncryptType 参数进行加密方法选择，默认为未加密
      */
     @JsonProperty("password")
     private String password;
@@ -120,6 +121,11 @@ public class UpdateUserReqDto {
      */
     @JsonProperty("customData")
     private Object customData;
+    /**
+     * 可选参数
+     */
+    @JsonProperty("options")
+    private UpdateUserOptionsDto options;
 
     public String getUserId() {
         return userId;
@@ -282,14 +288,18 @@ public class UpdateUserReqDto {
         this.customData = customData;
     }
 
+    public UpdateUserOptionsDto getOptions() {
+        return options;
+    }
+    public void setOptions(UpdateUserOptionsDto options) {
+        this.options = options;
+    }
+
 
     /**
      * 账户当前状态
      */
     public static enum Status {
-
-        @JsonProperty("Deleted")
-        DELETED("Deleted"),
 
         @JsonProperty("Suspended")
         SUSPENDED("Suspended"),
@@ -342,7 +352,7 @@ public class UpdateUserReqDto {
     }
 
     /**
-     * 加密类型
+     * 密码加密类型，支持 sm2 和 rsa
      */
     public static enum PasswordEncryptType {
 

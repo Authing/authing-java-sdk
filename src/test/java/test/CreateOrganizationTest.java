@@ -18,9 +18,11 @@ public class CreateOrganizationTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         CreateOrganizationReqDto request = new CreateOrganizationReqDto();
-        request.setOrganizationName("organizationName_3287");
-        request.setOrganizationCode("organizationCode_306");
-        request.setOpenDepartmentId("openDepartmentId_2821");
+        request.setOrganizationName("organizationName_7260");
+        request.setOrganizationCode("organizationCode_3101");
+        request.setDescription("description_8169");
+        request.setOpenDepartmentId("openDepartmentId_1910");
+        request.setI18n(new cn.authing.sdk.java.dto.OrganizationNameI18nDto());
 
         OrganizationSingleRespDto response = client.createOrganization(request);
         System.out.println(JsonUtils.serialize(response));

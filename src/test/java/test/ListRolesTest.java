@@ -18,7 +18,7 @@ public class ListRolesTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListRolesDto request = new ListRolesDto();
-        request.setNamespace("namespace_3715");
+        request.setNamespace("namespace_5927");
         request.setPage(0);
         request.setLimit(0);
 

@@ -18,8 +18,8 @@ public class DeleteRolesBatchTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         DeleteRoleDto request = new DeleteRoleDto();
-        request.setCodeList(Collections.singletonList("String_9190"));
-        request.setNamespace("namespace_2446");
+        request.setCodeList(Collections.singletonList("String_3481"));
+        request.setNamespace("namespace_2715");
 
         IsSuccessRespDto response = client.deleteRolesBatch(request);
         System.out.println(JsonUtils.serialize(response));
