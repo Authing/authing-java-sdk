@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.CreateIdentityDto;
+import cn.authing.sdk.java.dto.CreateUserOtpDto;
 
 public class CreateUserInfoDto {
     /**
@@ -12,7 +13,7 @@ public class CreateUserInfoDto {
     @JsonProperty("status")
     private Status status;
     /**
-     * 邮箱
+     * 邮箱，不区分大小写
      */
     @JsonProperty("email")
     private String email;
@@ -22,12 +23,12 @@ public class CreateUserInfoDto {
     @JsonProperty("passwordEncryptType")
     private PasswordEncryptType passwordEncryptType;
     /**
-     * 手机号
+     * 手机号，不带区号。如果是国外手机号，请在 phoneCountryCode 参数中指定区号。
      */
     @JsonProperty("phone")
     private String phone;
     /**
-     * 手机区号
+     * 手机区号，中国大陆手机号可不填。Authing 短信服务暂不内置支持国际手机号，你需要在 Authing 控制台配置对应的国际短信服务。完整的手机区号列表可参阅 https://en.wikipedia.org/wiki/List_of_country_calling_codes。
      */
     @JsonProperty("phoneCountryCode")
     private String phoneCountryCode;
@@ -36,6 +37,11 @@ public class CreateUserInfoDto {
      */
     @JsonProperty("username")
     private String username;
+    /**
+     * 第三方外部 ID
+     */
+    @JsonProperty("externalId")
+    private String externalId;
     /**
      * 用户真实名称，不具备唯一性
      */
@@ -102,10 +108,70 @@ public class CreateUserInfoDto {
     @JsonProperty("postalCode")
     private String postalCode;
     /**
-     * 第三方外部 ID
+     * 所在公司
      */
-    @JsonProperty("externalId")
-    private String externalId;
+    @JsonProperty("company")
+    private String company;
+    /**
+     * 最近一次登录时使用的浏览器 UA
+     */
+    @JsonProperty("browser")
+    private String browser;
+    /**
+     * 最近一次登录时使用的设备
+     */
+    @JsonProperty("device")
+    private String device;
+    /**
+     * 名
+     */
+    @JsonProperty("givenName")
+    private String givenName;
+    /**
+     * 姓
+     */
+    @JsonProperty("familyName")
+    private String familyName;
+    /**
+     * 中间名
+     */
+    @JsonProperty("middleName")
+    private String middleName;
+    /**
+     * Preferred Username
+     */
+    @JsonProperty("profile")
+    private String profile;
+    /**
+     * Preferred Username
+     */
+    @JsonProperty("preferredUsername")
+    private String preferredUsername;
+    /**
+     * 用户个人网页
+     */
+    @JsonProperty("website")
+    private String website;
+    /**
+     * 用户时区信息
+     */
+    @JsonProperty("zoneinfo")
+    private String zoneinfo;
+    /**
+     * Locale
+     */
+    @JsonProperty("locale")
+    private String locale;
+    /**
+     * 标准的完整地址
+     */
+    @JsonProperty("formatted")
+    private String formatted;
+    /**
+     * 用户所在区域
+     */
+    @JsonProperty("region")
+    private String region;
     /**
      * 用户所属部门 ID 列表
      */
@@ -122,15 +188,20 @@ public class CreateUserInfoDto {
     @JsonProperty("password")
     private String password;
     /**
-     * 是否首次登录时重新设置密码
+     * 加密用户密码的盐
      */
-    @JsonProperty("resetPasswordOnFisrtLogin")
-    private Boolean resetPasswordOnFisrtLogin;
+    @JsonProperty("salt")
+    private String salt;
     /**
      * 租户 ID
      */
     @JsonProperty("tenantIds")
     private List<String> tenantIds;
+    /**
+     * 用户的 OTP 验证器
+     */
+    @JsonProperty("otp")
+    private CreateUserOtpDto otp;
     /**
      * 第三方身份源（建议调用绑定接口进行绑定）
      */
@@ -177,6 +248,13 @@ public class CreateUserInfoDto {
     }
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getExternalId() {
+        return externalId;
+    }
+    public void setExternalId(String externalId) {
+        this.externalId = externalId;
     }
 
     public String getName() {
@@ -270,11 +348,95 @@ public class CreateUserInfoDto {
         this.postalCode = postalCode;
     }
 
-    public String getExternalId() {
-        return externalId;
+    public String getCompany() {
+        return company;
     }
-    public void setExternalId(String externalId) {
-        this.externalId = externalId;
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getBrowser() {
+        return browser;
+    }
+    public void setBrowser(String browser) {
+        this.browser = browser;
+    }
+
+    public String getDevice() {
+        return device;
+    }
+    public void setDevice(String device) {
+        this.device = device;
+    }
+
+    public String getGivenName() {
+        return givenName;
+    }
+    public void setGivenName(String givenName) {
+        this.givenName = givenName;
+    }
+
+    public String getFamilyName() {
+        return familyName;
+    }
+    public void setFamilyName(String familyName) {
+        this.familyName = familyName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
+
+    public String getPreferredUsername() {
+        return preferredUsername;
+    }
+    public void setPreferredUsername(String preferredUsername) {
+        this.preferredUsername = preferredUsername;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public String getZoneinfo() {
+        return zoneinfo;
+    }
+    public void setZoneinfo(String zoneinfo) {
+        this.zoneinfo = zoneinfo;
+    }
+
+    public String getLocale() {
+        return locale;
+    }
+    public void setLocale(String locale) {
+        this.locale = locale;
+    }
+
+    public String getFormatted() {
+        return formatted;
+    }
+    public void setFormatted(String formatted) {
+        this.formatted = formatted;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+    public void setRegion(String region) {
+        this.region = region;
     }
 
     public List<String> getDepartmentIds() {
@@ -298,11 +460,11 @@ public class CreateUserInfoDto {
         this.password = password;
     }
 
-    public Boolean getResetPasswordOnFisrtLogin() {
-        return resetPasswordOnFisrtLogin;
+    public String getSalt() {
+        return salt;
     }
-    public void setResetPasswordOnFisrtLogin(Boolean resetPasswordOnFisrtLogin) {
-        this.resetPasswordOnFisrtLogin = resetPasswordOnFisrtLogin;
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
     public List<String> getTenantIds() {
@@ -310,6 +472,13 @@ public class CreateUserInfoDto {
     }
     public void setTenantIds(List<String> tenantIds) {
         this.tenantIds = tenantIds;
+    }
+
+    public CreateUserOtpDto getOtp() {
+        return otp;
+    }
+    public void setOtp(CreateUserOtpDto otp) {
+        this.otp = otp;
     }
 
     public List<CreateIdentityDto> getIdentities() {
@@ -336,6 +505,9 @@ public class CreateUserInfoDto {
 
         @JsonProperty("Archived")
         ARCHIVED("Archived"),
+
+        @JsonProperty("Deactivated")
+        DEACTIVATED("Deactivated"),
         ;
 
         private String value;
@@ -383,8 +555,8 @@ public class CreateUserInfoDto {
         @JsonProperty("M")
         M("M"),
 
-        @JsonProperty("W")
-        W("W"),
+        @JsonProperty("F")
+        F("F"),
 
         @JsonProperty("U")
         U("U"),

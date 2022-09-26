@@ -11,12 +11,12 @@ public class IsUserExistsReqDto {
     @JsonProperty("username")
     private String username;
     /**
-     * 邮箱
+     * 邮箱，不区分大小写
      */
     @JsonProperty("email")
     private String email;
     /**
-     * 手机号
+     * 手机号，不带区号。如果是国外手机号，请在 phoneCountryCode 参数中指定区号。
      */
     @JsonProperty("phone")
     private String phone;

@@ -6,6 +6,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ListRolesDto {
     /**
+     * 搜索角色 code
+     */
+    @JsonProperty("keywords")
+    private String keywords;
+    /**
      * 所属权限分组的 code
      */
     @JsonProperty("namespace")
@@ -20,6 +25,13 @@ public class ListRolesDto {
      */
     @JsonProperty("limit")
     private Integer limit;
+
+    public String getKeywords() {
+        return keywords;
+    }
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
+    }
 
     public String getNamespace() {
         return namespace;

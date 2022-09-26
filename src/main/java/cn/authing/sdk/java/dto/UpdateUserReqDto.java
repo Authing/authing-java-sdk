@@ -7,12 +7,12 @@ import cn.authing.sdk.java.dto.UpdateUserOptionsDto;
 
 public class UpdateUserReqDto {
     /**
-     * 用户 ID
+     * 用户唯一标志，可以是用户 ID、用户名、邮箱、手机号、外部 ID、在外部身份源的 ID。
      */
     @JsonProperty("userId")
     private String userId;
     /**
-     * 手机区号
+     * 手机区号，中国大陆手机号可不填。Authing 短信服务暂不内置支持国际手机号，你需要在 Authing 控制台配置对应的国际短信服务。完整的手机区号列表可参阅 https://en.wikipedia.org/wiki/List_of_country_calling_codes。
      */
     @JsonProperty("phoneCountryCode")
     private String phoneCountryCode;
@@ -102,12 +102,12 @@ public class UpdateUserReqDto {
     @JsonProperty("passwordEncryptType")
     private PasswordEncryptType passwordEncryptType;
     /**
-     * 邮箱
+     * 邮箱，不区分大小写
      */
     @JsonProperty("email")
     private String email;
     /**
-     * 手机号
+     * 手机号，不带区号。如果是国外手机号，请在 phoneCountryCode 参数中指定区号。
      */
     @JsonProperty("phone")
     private String phone;
@@ -116,6 +116,71 @@ public class UpdateUserReqDto {
      */
     @JsonProperty("password")
     private String password;
+    /**
+     * 所在公司
+     */
+    @JsonProperty("company")
+    private String company;
+    /**
+     * 最近一次登录时使用的浏览器 UA
+     */
+    @JsonProperty("browser")
+    private String browser;
+    /**
+     * 最近一次登录时使用的设备
+     */
+    @JsonProperty("device")
+    private String device;
+    /**
+     * 名
+     */
+    @JsonProperty("givenName")
+    private String givenName;
+    /**
+     * 姓
+     */
+    @JsonProperty("familyName")
+    private String familyName;
+    /**
+     * 中间名
+     */
+    @JsonProperty("middleName")
+    private String middleName;
+    /**
+     * Preferred Username
+     */
+    @JsonProperty("profile")
+    private String profile;
+    /**
+     * Preferred Username
+     */
+    @JsonProperty("preferredUsername")
+    private String preferredUsername;
+    /**
+     * 用户个人网页
+     */
+    @JsonProperty("website")
+    private String website;
+    /**
+     * 用户时区信息
+     */
+    @JsonProperty("zoneinfo")
+    private String zoneinfo;
+    /**
+     * Locale
+     */
+    @JsonProperty("locale")
+    private String locale;
+    /**
+     * 标准的完整地址
+     */
+    @JsonProperty("formatted")
+    private String formatted;
+    /**
+     * 用户所在区域
+     */
+    @JsonProperty("region")
+    private String region;
     /**
      * 自定义数据，传入的对象中的 key 必须先在用户池定义相关自定义字段
      */
@@ -281,6 +346,97 @@ public class UpdateUserReqDto {
         this.password = password;
     }
 
+    public String getCompany() {
+        return company;
+    }
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getBrowser() {
+        return browser;
+    }
+    public void setBrowser(String browser) {
+        this.browser = browser;
+    }
+
+    public String getDevice() {
+        return device;
+    }
+    public void setDevice(String device) {
+        this.device = device;
+    }
+
+    public String getGivenName() {
+        return givenName;
+    }
+    public void setGivenName(String givenName) {
+        this.givenName = givenName;
+    }
+
+    public String getFamilyName() {
+        return familyName;
+    }
+    public void setFamilyName(String familyName) {
+        this.familyName = familyName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
+
+    public String getPreferredUsername() {
+        return preferredUsername;
+    }
+    public void setPreferredUsername(String preferredUsername) {
+        this.preferredUsername = preferredUsername;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public String getZoneinfo() {
+        return zoneinfo;
+    }
+    public void setZoneinfo(String zoneinfo) {
+        this.zoneinfo = zoneinfo;
+    }
+
+    public String getLocale() {
+        return locale;
+    }
+    public void setLocale(String locale) {
+        this.locale = locale;
+    }
+
+    public String getFormatted() {
+        return formatted;
+    }
+    public void setFormatted(String formatted) {
+        this.formatted = formatted;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
     public Object getCustomData() {
         return customData;
     }
@@ -312,6 +468,9 @@ public class UpdateUserReqDto {
 
         @JsonProperty("Archived")
         ARCHIVED("Archived"),
+
+        @JsonProperty("Deactivated")
+        DEACTIVATED("Deactivated"),
         ;
 
         private String value;
@@ -333,8 +492,8 @@ public class UpdateUserReqDto {
         @JsonProperty("M")
         M("M"),
 
-        @JsonProperty("W")
-        W("W"),
+        @JsonProperty("F")
+        F("F"),
 
         @JsonProperty("U")
         U("U"),

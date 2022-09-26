@@ -16,7 +16,12 @@ public class ExtIdpConnDetail {
     @JsonProperty("type")
     private Type type;
     /**
-     * 身份源图标
+     * 身份源 ID
+     */
+    @JsonProperty("extIdpId")
+    private String extIdpId;
+    /**
+     * 身份源连接图标
      */
     @JsonProperty("logo")
     private String logo;
@@ -45,11 +50,6 @@ public class ExtIdpConnDetail {
      */
     @JsonProperty("challengeBindingMethods")
     private List<String> challengeBindingMethods;
-    /**
-     * 自定义参数
-     */
-    @JsonProperty("fields")
-    private Object fields;
 
     public String getId() {
         return id;
@@ -63,6 +63,13 @@ public class ExtIdpConnDetail {
     }
     public void setType(Type type) {
         this.type = type;
+    }
+
+    public String getExtIdpId() {
+        return extIdpId;
+    }
+    public void setExtIdpId(String extIdpId) {
+        this.extIdpId = extIdpId;
     }
 
     public String getLogo() {
@@ -107,13 +114,6 @@ public class ExtIdpConnDetail {
         this.challengeBindingMethods = challengeBindingMethods;
     }
 
-    public Object getFields() {
-        return fields;
-    }
-    public void setFields(Object fields) {
-        this.fields = fields;
-    }
-
 
     /**
      * 身份源连接类型
@@ -149,6 +149,9 @@ public class ExtIdpConnDetail {
 
         @JsonProperty("twitter")
         TWITTER("twitter"),
+
+        @JsonProperty("google:mobile")
+        GOOGLE_MOBILE("google:mobile"),
 
         @JsonProperty("google")
         GOOGLE("google"),
@@ -191,6 +194,9 @@ public class ExtIdpConnDetail {
 
         @JsonProperty("wechatwork:mobile")
         WECHATWORK_MOBILE("wechatwork:mobile"),
+
+        @JsonProperty("wechatwork:agency:mobile")
+        WECHATWORK_AGENCY_MOBILE("wechatwork:agency:mobile"),
 
         @JsonProperty("dingtalk")
         DINGTALK("dingtalk"),
@@ -239,6 +245,9 @@ public class ExtIdpConnDetail {
 
         @JsonProperty("welink")
         WELINK("welink"),
+
+        @JsonProperty("ad-kerberos")
+        AD_KERBEROS("ad-kerberos"),
         ;
 
         private String value;

@@ -22,6 +22,16 @@ public class OrganizationDto {
     @JsonProperty("description")
     private String description;
     /**
+     * 创建时间
+     */
+    @JsonProperty("createdAt")
+    private String createdAt;
+    /**
+     * 修改时间
+     */
+    @JsonProperty("updatedAt")
+    private String updatedAt;
+    /**
      * 根节点 ID
      */
     @JsonProperty("departmentId")
@@ -56,6 +66,11 @@ public class OrganizationDto {
      */
     @JsonProperty("i18n")
     private OrganizationNameI18nDto i18n;
+    /**
+     * 部门的扩展字段数据
+     */
+    @JsonProperty("customData")
+    private Object customData;
 
     public String getOrganizationCode() {
         return organizationCode;
@@ -76,6 +91,20 @@ public class OrganizationDto {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public String getDepartmentId() {
@@ -125,6 +154,13 @@ public class OrganizationDto {
     }
     public void setI18n(OrganizationNameI18nDto i18n) {
         this.i18n = i18n;
+    }
+
+    public Object getCustomData() {
+        return customData;
+    }
+    public void setCustomData(Object customData) {
+        this.customData = customData;
     }
 
 

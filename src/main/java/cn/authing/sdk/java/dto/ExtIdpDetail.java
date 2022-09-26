@@ -16,6 +16,11 @@ public class ExtIdpDetail {
     @JsonProperty("name")
     private String name;
     /**
+     * 身份源的 Logo
+     */
+    @JsonProperty("logo")
+    private String logo;
+    /**
      * 租户 ID
      */
     @JsonProperty("tenantId")
@@ -48,6 +53,13 @@ public class ExtIdpDetail {
     }
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+    public void setLogo(String logo) {
+        this.logo = logo;
     }
 
     public String getTenantId() {

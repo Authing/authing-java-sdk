@@ -71,6 +71,9 @@ public class RoleAuthorizedResourcesRespDto {
 
         @JsonProperty("BUTTON")
         BUTTON("BUTTON"),
+
+        @JsonProperty("UI")
+        UI("UI"),
         ;
 
         private String value;

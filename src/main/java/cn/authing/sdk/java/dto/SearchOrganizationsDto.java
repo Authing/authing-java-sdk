@@ -20,6 +20,11 @@ public class SearchOrganizationsDto {
      */
     @JsonProperty("limit")
     private Integer limit;
+    /**
+     * 是否获取自定义数据
+     */
+    @JsonProperty("withCustomData")
+    private Boolean withCustomData;
 
     public String getKeywords() {
         return keywords;
@@ -40,6 +45,13 @@ public class SearchOrganizationsDto {
     }
     public void setLimit(Integer limit) {
         this.limit = limit;
+    }
+
+    public Boolean getWithCustomData() {
+        return withCustomData;
+    }
+    public void setWithCustomData(Boolean withCustomData) {
+        this.withCustomData = withCustomData;
     }
 
 
