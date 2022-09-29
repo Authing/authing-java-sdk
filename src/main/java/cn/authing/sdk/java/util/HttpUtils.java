@@ -75,12 +75,14 @@ public class HttpUtils {
     public static String buildQueryParams(Map<String, Object> params) {
         StringBuilder sb = new StringBuilder();
         if (params != null) {
+            sb.append("?");
             Set<Map.Entry<String, Object>> entries = params.entrySet();
             for (Map.Entry<String, Object> entry : entries) {
                 if (entry.getValue() != null) {
                     sb.append(entry.getKey()).append("=").append(entry.getValue().toString()).append("&");
                 }
             }
+            sb.deleteCharAt(sb.length()-1);
         }
 
         return sb.toString();
