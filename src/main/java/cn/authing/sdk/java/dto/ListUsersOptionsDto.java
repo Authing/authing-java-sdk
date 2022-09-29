@@ -39,7 +39,7 @@ public class ListUsersOptionsDto {
      *
      */
     @JsonProperty("fuzzySearchOn")
-    private List<> fuzzySearchOn;
+    private List<String> fuzzySearchOn;
     /**
      * 是否获取自定义数据
      */
@@ -70,10 +70,10 @@ public class ListUsersOptionsDto {
         this.sort = sort;
     }
 
-    public List<> getFuzzySearchOn() {
+    public List<String> getFuzzySearchOn() {
         return fuzzySearchOn;
     }
-    public void setFuzzySearchOn(List<> fuzzySearchOn) {
+    public void setFuzzySearchOn(List<String> fuzzySearchOn) {
         this.fuzzySearchOn = fuzzySearchOn;
     }
 

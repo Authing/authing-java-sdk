@@ -14,7 +14,7 @@ public class CreateWebhookDto {
      * 用户真实名称，不具备唯一性。 示例值: 张三
      */
     @JsonProperty("events")
-    private List<> events;
+    private List<String> events;
     /**
      * Webhook 回调地址
      */
@@ -43,10 +43,10 @@ public class CreateWebhookDto {
         this.contentType = contentType;
     }
 
-    public List<> getEvents() {
+    public List<String> getEvents() {
         return events;
     }
-    public void setEvents(List<> events) {
+    public void setEvents(List<String> events) {
         this.events = events;
     }
 

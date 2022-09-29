@@ -10,49 +10,49 @@ public class LangObject {
      * 多语言的中文内容
      */
     @JsonProperty("'zh-CN'")
-    private LangUnit 'zh-CN';
+    private LangUnit zhCN;
     /**
      * 多语言的英文内容
      */
     @JsonProperty("'en-US'")
-    private LangUnit 'en-US';
+    private LangUnit enUS;
     /**
      * 多语言的繁体中文内容
      */
     @JsonProperty("'zh-TW'")
-    private LangUnit 'zh-TW';
+    private LangUnit zhTW;
     /**
      * 多语言的日语内容
      */
     @JsonProperty("'ja-JP'")
-    private LangUnit 'ja-JP';
+    private LangUnit jaJP;
 
-    public LangUnit get'Zh-CN'() {
-        return 'zh-CN';
+    public LangUnit getZhCN() {
+        return zhCN;
     }
-    public void set'Zh-CN'(LangUnit 'zh-CN') {
-        this.'zh-CN' = 'zh-CN';
-    }
-
-    public LangUnit get'En-US'() {
-        return 'en-US';
-    }
-    public void set'En-US'(LangUnit 'en-US') {
-        this.'en-US' = 'en-US';
+    public void setZhCN(LangUnit zhCN) {
+        this.zhCN = zhCN;
     }
 
-    public LangUnit get'Zh-TW'() {
-        return 'zh-TW';
+    public LangUnit getEnUS() {
+        return enUS;
     }
-    public void set'Zh-TW'(LangUnit 'zh-TW') {
-        this.'zh-TW' = 'zh-TW';
+    public void setEnUS(LangUnit enUS) {
+        this.enUS = enUS;
     }
 
-    public LangUnit get'Ja-JP'() {
-        return 'ja-JP';
+    public LangUnit getZhTW() {
+        return zhTW;
     }
-    public void set'Ja-JP'(LangUnit 'ja-JP') {
-        this.'ja-JP' = 'ja-JP';
+    public void setZhTW(LangUnit zhTW) {
+        this.zhTW = zhTW;
+    }
+
+    public LangUnit getJaJP() {
+        return jaJP;
+    }
+    public void setJaJP(LangUnit jaJP) {
+        this.jaJP = jaJP;
     }
 
 

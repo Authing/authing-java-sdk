@@ -16,7 +16,7 @@ public class ApplicationLoginConfigDto {
      * 开启的基础登录方式
      */
     @JsonProperty("enabledBasicLoginMethods")
-    private List<> enabledBasicLoginMethods;
+    private List<String> enabledBasicLoginMethods;
     /**
      * 应用默认登录方式（不包含社会化登录和企业身份源登录）
      */
@@ -40,10 +40,10 @@ public class ApplicationLoginConfigDto {
         this.mergeLoginAndRegisterPage = mergeLoginAndRegisterPage;
     }
 
-    public List<> getEnabledBasicLoginMethods() {
+    public List<String> getEnabledBasicLoginMethods() {
         return enabledBasicLoginMethods;
     }
-    public void setEnabledBasicLoginMethods(List<> enabledBasicLoginMethods) {
+    public void setEnabledBasicLoginMethods(List<String> enabledBasicLoginMethods) {
         this.enabledBasicLoginMethods = enabledBasicLoginMethods;
     }
 

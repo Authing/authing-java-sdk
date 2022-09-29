@@ -9,7 +9,7 @@ public class ApplicationRegisterConfigInputDto {
      * 开启的注册方式
      */
     @JsonProperty("enabledBasicRegisterMethods")
-    private List<> enabledBasicRegisterMethods;
+    private List<String> enabledBasicRegisterMethods;
     /**
      * 默认的注册类型
      * - `PASSWORD`: 密码类型，支持邮箱 + 密码进行登录
@@ -19,10 +19,10 @@ public class ApplicationRegisterConfigInputDto {
     @JsonProperty("defaultRegisterMethod")
     private DefaultRegisterMethod defaultRegisterMethod;
 
-    public List<> getEnabledBasicRegisterMethods() {
+    public List<String> getEnabledBasicRegisterMethods() {
         return enabledBasicRegisterMethods;
     }
-    public void setEnabledBasicRegisterMethods(List<> enabledBasicRegisterMethods) {
+    public void setEnabledBasicRegisterMethods(List<String> enabledBasicRegisterMethods) {
         this.enabledBasicRegisterMethods = enabledBasicRegisterMethods;
     }
 

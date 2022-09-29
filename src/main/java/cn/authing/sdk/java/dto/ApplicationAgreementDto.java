@@ -12,7 +12,7 @@ public class ApplicationAgreementDto {
      *
      */
     @JsonProperty("displayAt")
-    private List<> displayAt;
+    private List<String> displayAt;
     /**
      * 是否要求必须勾选
      */
@@ -34,10 +34,10 @@ public class ApplicationAgreementDto {
     @JsonProperty("content")
     private String content;
 
-    public List<> getDisplayAt() {
+    public List<String> getDisplayAt() {
         return displayAt;
     }
-    public void setDisplayAt(List<> displayAt) {
+    public void setDisplayAt(List<String> displayAt) {
         this.displayAt = displayAt;
     }
 

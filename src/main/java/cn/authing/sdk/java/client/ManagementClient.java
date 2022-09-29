@@ -1052,6 +1052,116 @@ public class ManagementClient extends BaseClient {
     }
 
 
+    public SyncTaskSingleRespDto getSyncTask(GetSyncTaskDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-sync-task");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, SyncTaskSingleRespDto.class);
+    }
+
+
+    public SyncTaskPaginatedRespDto listSyncTasks(ListSyncTasksDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/list-sync-tasks");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, SyncTaskPaginatedRespDto.class);
+    }
+
+
+    public SyncTaskPaginatedRespDto createSyncTask(CreateSyncTaskDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/create-sync-task");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, SyncTaskPaginatedRespDto.class);
+    }
+
+
+    public SyncTaskPaginatedRespDto updateSyncTask(UpdateSyncTaskDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/update-sync-task");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, SyncTaskPaginatedRespDto.class);
+    }
+
+
+    public TriggerSyncTaskRespDto triggerSyncTask(TriggerSyncTaskDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/trigger-sync-task");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, TriggerSyncTaskRespDto.class);
+    }
+
+
+    public SyncJobSingleRespDto getSyncJob(GetSyncJobDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-sync-job");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, SyncJobSingleRespDto.class);
+    }
+
+
+    public SyncJobPaginatedRespDto listSyncJobs(ListSyncJobsDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/list-sync-jobs");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, SyncJobPaginatedRespDto.class);
+    }
+
+
+    public TriggerSyncTaskRespDto listSyncJobLogs(ListSyncJobLogsDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/list-sync-job-logs");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, TriggerSyncTaskRespDto.class);
+    }
+
+
+    public SyncRiskOperationPaginatedRespDto listSyncRiskOperations(ListSyncRiskOperationsDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/list-sync-risk-operations");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, SyncRiskOperationPaginatedRespDto.class);
+    }
+
+
+    public TriggerSyncRiskOperationsRespDto triggerSyncRiskOperations(TriggerSyncRiskOperationDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/trigger-sync-risk-operations");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, TriggerSyncRiskOperationsRespDto.class);
+    }
+
+
+    public CancelSyncRiskOperationsRespDto cancelSyncRiskOperation(CancelSyncRiskOperationDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/cancel-sync-risk-operation");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, CancelSyncRiskOperationsRespDto.class);
+    }
+
+
     public UserActionLogRespDto getUserActionLogs(GetUserActionLogsDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-user-action-logs");
@@ -1259,6 +1369,46 @@ public class ManagementClient extends BaseClient {
         config.setMethod("POST");
         String response = request(config);
         return deserialize(response, CheckDomainAvailableSecretRespDto.class);
+    }
+
+
+    public SecuritySettingsRespDto getSecuritySettings() {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/update-security-settings");
+        config.setBody(new Object());
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, SecuritySettingsRespDto.class);
+    }
+
+
+    public SecuritySettingsRespDto updateSecuritySettings(UpdateSecuritySettingsDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/update-security-settings");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, SecuritySettingsRespDto.class);
+    }
+
+
+    public MFASettingsRespDto getGlobalMfaSettings() {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-global-mfa-settings");
+        config.setBody(new Object());
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, MFASettingsRespDto.class);
+    }
+
+
+    public MFASettingsRespDto updateGlobalMfaSettings(MFASettingsDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/update-global-mfa-settings");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, MFASettingsRespDto.class);
     }
 
 
