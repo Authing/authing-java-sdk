@@ -16,17 +16,12 @@ public class ListUsersTest {
 
     public static void main(String[] args) throws Throwable {
         ManagementClientOptions clientOptions = new ManagementClientOptions(ACCESS_KEY_ID, ACCESS_KEY_SECRET);
+        clientOptions.setHost("http://127.0.0.1:3000");
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListUsersDto request = new ListUsersDto();
-        request.setPage(0);
-        request.setLimit(0);
-        request.setStatus("status_2757");
-        request.setUpdatedAtStart(0);
-        request.setUpdatedAtEnd(0);
-        request.setWithCustomData(Boolean.TRUE);
-        request.setWithIdentities(Boolean.TRUE);
-        request.setWithDepartmentIds(Boolean.TRUE);
+        request.setPage(1);
+        request.setLimit(1);
 
         UserPaginatedRespDto response = client.listUsers(request);
         System.out.println(JsonUtils.serialize(response));
