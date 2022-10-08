@@ -106,7 +106,6 @@ public class ManagementClientOptions extends AuthingClientOptions {
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(stringToSign);
         headers.put("Authorization", composer.getAuthorization(accessKeyId, accessKeySecret, stringToSign));
         if (CollectionUtil.isNotEmpty(getHeaders())) {
             headers.putAll(getHeaders());
