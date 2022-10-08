@@ -18,10 +18,10 @@ public class IsActionAllowedTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         IsActionAllowedDto request = new IsActionAllowedDto();
-        request.setAction("action_9546");
-        request.setResource("resource_1336");
-        request.setUserId("userId_4585");
-        request.setNamespace("namespace_2194");
+        request.setAction("action_4284");
+        request.setResource("resource_2982");
+        request.setUserId("userId_9958");
+        request.setNamespace("namespace_3657");
 
         IsActionAllowedRespDtp response = client.isActionAllowed(request);
         System.out.println(JsonUtils.serialize(response));

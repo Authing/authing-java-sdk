@@ -18,11 +18,11 @@ public class GetAuthorizedResourcesTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetAuthorizedResourcesDto request = new GetAuthorizedResourcesDto();
-        request.setTargetType("targetType_6650");
-        request.setTargetIdentifier("targetIdentifier_7267");
-        request.setNamespace("namespace_5094");
-        request.setResourceType("resourceType_4365");
-        request.setResourceList("resourceList_7645");
+        request.setTargetType("targetType_6865");
+        request.setTargetIdentifier("targetIdentifier_9440");
+        request.setNamespace("namespace_5816");
+        request.setResourceType("resourceType_781");
+        request.setResourceList("resourceList_8619");
         request.setWithDenied(Boolean.TRUE);
 
         AuthorizedResourcePaginatedRespDto response = client.getAuthorizedResources(request);

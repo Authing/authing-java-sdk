@@ -18,6 +18,7 @@ public class ListGroupsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListGroupsDto request = new ListGroupsDto();
+        request.setKeywords("keywords_5507");
         request.setPage(0);
         request.setLimit(0);
 

@@ -7,7 +7,7 @@ import java.util.Collections;
 
 
 
-public class GetUserLoggedInIdentitiesTest {
+public class GetUserLoggedinIdentitiesTest {
 
     private static final String ACCESS_KEY_ID = "YOUR_ACCESS_KEY_ID";
     private static final String ACCESS_KEY_SECRET = "YOUR_ACCESS_KEY_SECRET";
@@ -18,7 +18,8 @@ public class GetUserLoggedInIdentitiesTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserLoggedInIdentitiesDto request = new GetUserLoggedInIdentitiesDto();
-        request.setUserId("userId_137");
+        request.setUserId("userId_2439");
+        request.setUserIdType("userIdType_2540");
 
         UserLoggedInIdentitiesRespDto response = client.getUserLoggedinIdentities(request);
         System.out.println(JsonUtils.serialize(response));

@@ -18,8 +18,8 @@ public class RemoveGroupMembersTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         RemoveGroupMembersReqDto request = new RemoveGroupMembersReqDto();
-        request.setUserIds(Collections.singletonList("String_284"));
-        request.setCode("code_1653");
+        request.setUserIds(Collections.singletonList("String_4708"));
+        request.setCode("code_8785");
 
         IsSuccessRespDto response = client.removeGroupMembers(request);
         System.out.println(JsonUtils.serialize(response));

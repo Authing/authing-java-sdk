@@ -21,6 +21,7 @@ public class ListOrganizationsTest {
         request.setPage(0);
         request.setLimit(0);
         request.setFetchAll(Boolean.TRUE);
+        request.setWithCustomData(Boolean.TRUE);
 
         OrganizationPaginatedRespDto response = client.listOrganizations(request);
         System.out.println(JsonUtils.serialize(response));

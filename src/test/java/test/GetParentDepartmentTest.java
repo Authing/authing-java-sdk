@@ -18,9 +18,9 @@ public class GetParentDepartmentTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetParentDepartmentDto request = new GetParentDepartmentDto();
-        request.setOrganizationCode("organizationCode_3212");
-        request.setDepartmentId("departmentId_2660");
-        request.setDepartmentIdType("departmentIdType_8216");
+        request.setOrganizationCode("organizationCode_7620");
+        request.setDepartmentId("departmentId_7478");
+        request.setDepartmentIdType("departmentIdType_7696");
         request.setWithCustomData(Boolean.TRUE);
 
         DepartmentSingleRespDto response = client.getParentDepartment(request);

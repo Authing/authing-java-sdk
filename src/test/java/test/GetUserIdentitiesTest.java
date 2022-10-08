@@ -18,7 +18,8 @@ public class GetUserIdentitiesTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserIdentitiesDto request = new GetUserIdentitiesDto();
-        request.setUserId("userId_274");
+        request.setUserId("userId_5183");
+        request.setUserIdType("userIdType_2964");
 
         IdentityListRespDto response = client.getUserIdentities(request);
         System.out.println(JsonUtils.serialize(response));

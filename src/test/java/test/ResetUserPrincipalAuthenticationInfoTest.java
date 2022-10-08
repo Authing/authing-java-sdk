@@ -18,7 +18,8 @@ public class ResetUserPrincipalAuthenticationInfoTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ResetUserPrincipalAuthenticationInfoDto request = new ResetUserPrincipalAuthenticationInfoDto();
-        request.setUserId("userId_8260");
+        request.setUserId("userId_6788");
+        request.setOptions(new cn.authing.sdk.java.dto.ResetUserPrincipalAuthenticationInfoOptionsDto());
 
         IsSuccessRespDto response = client.resetUserPrincipalAuthenticationInfo(request);
         System.out.println(JsonUtils.serialize(response));

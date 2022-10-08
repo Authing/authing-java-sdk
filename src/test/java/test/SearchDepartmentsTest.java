@@ -18,8 +18,8 @@ public class SearchDepartmentsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         SearchDepartmentsReqDto request = new SearchDepartmentsReqDto();
-        request.setKeywords("keywords_7954");
-        request.setOrganizationCode("organizationCode_3308");
+        request.setKeywords("keywords_6692");
+        request.setOrganizationCode("organizationCode_986");
         request.setWithCustomData(Boolean.TRUE);
 
         DepartmentListRespDto response = client.searchDepartments(request);

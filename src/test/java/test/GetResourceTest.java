@@ -18,8 +18,8 @@ public class GetResourceTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetResourceDto request = new GetResourceDto();
-        request.setCode("code_4131");
-        request.setNamespace("namespace_9530");
+        request.setCode("code_4219");
+        request.setNamespace("namespace_418");
 
         ResourceRespDto response = client.getResource(request);
         System.out.println(JsonUtils.serialize(response));

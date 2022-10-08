@@ -18,9 +18,9 @@ public class GetCustomDataTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetCustomDataDto request = new GetCustomDataDto();
-        request.setTargetType("targetType_485");
-        request.setTargetIdentifier("targetIdentifier_8093");
-        request.setNamespace("namespace_4026");
+        request.setTargetType("targetType_7792");
+        request.setTargetIdentifier("targetIdentifier_5260");
+        request.setNamespace("namespace_2626");
 
         GetCustomDataRespDto response = client.getCustomData(request);
         System.out.println(JsonUtils.serialize(response));

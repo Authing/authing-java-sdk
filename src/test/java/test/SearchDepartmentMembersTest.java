@@ -18,12 +18,12 @@ public class SearchDepartmentMembersTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         SearchDepartmentMembersDto request = new SearchDepartmentMembersDto();
-        request.setOrganizationCode("organizationCode_4686");
-        request.setDepartmentId("departmentId_4723");
-        request.setKeywords("keywords_8568");
+        request.setOrganizationCode("organizationCode_8223");
+        request.setDepartmentId("departmentId_3422");
+        request.setKeywords("keywords_8217");
         request.setPage(0);
         request.setLimit(0);
-        request.setDepartmentIdType("departmentIdType_3078");
+        request.setDepartmentIdType("departmentIdType_5463");
         request.setIncludeChildrenDepartments(Boolean.TRUE);
         request.setWithCustomData(Boolean.TRUE);
         request.setWithIdentities(Boolean.TRUE);

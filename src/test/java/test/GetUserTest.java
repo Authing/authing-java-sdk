@@ -18,10 +18,11 @@ public class GetUserTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserDto request = new GetUserDto();
+        request.setUserId("userId_2078");
+        request.setUserIdType("userIdType_5198");
         request.setWithCustomData(Boolean.TRUE);
         request.setWithIdentities(Boolean.TRUE);
         request.setWithDepartmentIds(Boolean.TRUE);
-        request.setUserId("userId_2957");
 
         UserSingleRespDto response = client.getUser(request);
         System.out.println(JsonUtils.serialize(response));

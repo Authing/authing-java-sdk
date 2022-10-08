@@ -18,8 +18,9 @@ public class KickUsersTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         KickUsersDto request = new KickUsersDto();
-        request.setAppIds(Collections.singletonList("String_2487"));
-        request.setUserId("userId_3546");
+        request.setAppIds(Collections.singletonList("String_6999"));
+        request.setUserId("userId_8700");
+        request.setOptions(new cn.authing.sdk.java.dto.KickUsersOptionsDto());
 
         IsSuccessRespDto response = client.kickUsers(request);
         System.out.println(JsonUtils.serialize(response));

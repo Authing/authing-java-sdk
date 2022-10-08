@@ -19,12 +19,12 @@ public class CreateExtIdpConnTest {
 
         CreateExtIdpConnDto request = new CreateExtIdpConnDto();
         request.setFields(Collections.emptyList());
-        request.setDisplayName("displayName_7320");
-        request.setIdentifier("identifier_6546");
+        request.setDisplayName("displayName_8537");
+        request.setIdentifier("identifier_7073");
         request.setType(cn.authing.sdk.java.dto.CreateExtIdpConnDto.Type.OIDC);
-        request.setExtIdpId("extIdpId_5672");
+        request.setExtIdpId("extIdpId_8117");
         request.setLoginOnly(Boolean.TRUE);
-        request.setLogo("logo_7569");
+        request.setLogo("logo_2310");
 
         ExtIdpConnDetailSingleRespDto response = client.createExtIdpConn(request);
         System.out.println(JsonUtils.serialize(response));

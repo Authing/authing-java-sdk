@@ -1,5 +1,3 @@
-package test;
-
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -9,7 +7,7 @@ import java.util.Collections;
 
 
 
-public class SetUserDepartmentTest {
+public class ListSyncJobLogsTest {
 
     private static final String ACCESS_KEY_ID = "YOUR_ACCESS_KEY_ID";
     private static final String ACCESS_KEY_SECRET = "YOUR_ACCESS_KEY_SECRET";
@@ -19,11 +17,15 @@ public class SetUserDepartmentTest {
         ManagementClientOptions clientOptions = new ManagementClientOptions(ACCESS_KEY_ID, ACCESS_KEY_SECRET);
         ManagementClient client = new ManagementClient(clientOptions);
 
-        SetUserDepartmentsDto request = new SetUserDepartmentsDto();
-        request.setDepartments(Collections.singletonList(new cn.authing.sdk.java.dto.SetUserDepartmentDto()));
-        request.setUserId("userId_6011");
+        ListSyncJobLogsDto request = new ListSyncJobLogsDto();
+        request.setSyncJobId(0);
+        request.setPage(0);
+        request.setLimit(0);
+        request.setSuccess(Boolean.TRUE);
+        request.setAction("action_8785");
+        request.setObjectType("objectType_235");
 
-        IsSuccessRespDto response = client.setUserDepartments(request);
+        TriggerSyncTaskRespDto response = client.listSyncJobLogs(request);
         System.out.println(JsonUtils.serialize(response));
     }
 

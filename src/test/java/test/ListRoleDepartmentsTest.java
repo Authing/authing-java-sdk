@@ -18,8 +18,8 @@ public class ListRoleDepartmentsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListRoleDepartmentsDto request = new ListRoleDepartmentsDto();
-        request.setCode("code_592");
-        request.setNamespace("namespace_9782");
+        request.setCode("code_5452");
+        request.setNamespace("namespace_573");
         request.setPage(0);
         request.setLimit(0);
 

@@ -18,7 +18,8 @@ public class ListExtIdpTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListExtIdpDto request = new ListExtIdpDto();
-        request.setTenantId("tenantId_1835");
+        request.setTenantId("tenantId_7826");
+        request.setAppId("appId_5819");
 
         ExtIdpListPaginatedRespDto response = client.listExtIdp(request);
         System.out.println(JsonUtils.serialize(response));

@@ -19,7 +19,7 @@ public class CreateResourcesBatchTest {
 
         CreateResourcesBatchDto request = new CreateResourcesBatchDto();
         request.setList(Collections.singletonList(new cn.authing.sdk.java.dto.CreateResourceBatchItemDto()));
-        request.setNamespace("namespace_8028");
+        request.setNamespace("namespace_101");
 
         IsSuccessRespDto response = client.createResourcesBatch(request);
         System.out.println(JsonUtils.serialize(response));

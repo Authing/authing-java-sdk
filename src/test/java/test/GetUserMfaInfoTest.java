@@ -18,7 +18,8 @@ public class GetUserMfaInfoTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserMfaInfoDto request = new GetUserMfaInfoDto();
-        request.setUserId("userId_7016");
+        request.setUserId("userId_7046");
+        request.setUserIdType("userIdType_9731");
 
         UserMfaSingleRespDto response = client.getUserMfaInfo(request);
         System.out.println(JsonUtils.serialize(response));

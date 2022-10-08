@@ -18,8 +18,8 @@ public class DeleteResourcesBatchTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         DeleteResourcesBatchDto request = new DeleteResourcesBatchDto();
-        request.setCodeList(Collections.singletonList("String_9138"));
-        request.setNamespace("namespace_6705");
+        request.setCodeList(Collections.singletonList("String_2578"));
+        request.setNamespace("namespace_8408");
 
         IsSuccessRespDto response = client.deleteResourcesBatch(request);
         System.out.println(JsonUtils.serialize(response));

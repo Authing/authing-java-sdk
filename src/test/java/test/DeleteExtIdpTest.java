@@ -18,7 +18,7 @@ public class DeleteExtIdpTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         DeleteExtIdpDto request = new DeleteExtIdpDto();
-        request.setId("id_6813");
+        request.setId("id_2415");
 
         IsSuccessRespDto response = client.deleteExtIdp(request);
         System.out.println(JsonUtils.serialize(response));

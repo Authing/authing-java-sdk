@@ -18,8 +18,9 @@ public class GetUserRolesTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserRolesDto request = new GetUserRolesDto();
-        request.setUserId("userId_852");
-        request.setNamespace("namespace_4702");
+        request.setUserId("userId_9851");
+        request.setUserIdType("userIdType_131");
+        request.setNamespace("namespace_1466");
 
         RolePaginatedRespDto response = client.getUserRoles(request);
         System.out.println(JsonUtils.serialize(response));
