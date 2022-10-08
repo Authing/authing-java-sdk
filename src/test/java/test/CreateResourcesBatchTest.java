@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -20,7 +20,7 @@ public class CreateResourcesBatchTest {
 
         CreateResourcesBatchDto request = new CreateResourcesBatchDto();
         request.setList(Collections.singletonList(new cn.authing.sdk.java.dto.CreateResourceBatchItemDto()));
-        request.setNamespace("namespace_6928");
+        request.setNamespace("namespace_1238");
 
         IsSuccessRespDto response = client.createResourcesBatch(request);
         System.out.println(JsonUtils.serialize(response));

@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,9 +19,9 @@ public class CreateGroupTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         CreateGroupReqDto request = new CreateGroupReqDto();
-        request.setDescription("description_4328");
-        request.setName("name_6575");
-        request.setCode("code_6345");
+        request.setDescription("description_4846");
+        request.setName("name_1374");
+        request.setCode("code_8488");
 
         GroupSingleRespDto response = client.createGroup(request);
         System.out.println(JsonUtils.serialize(response));

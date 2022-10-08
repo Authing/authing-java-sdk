@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,7 +19,7 @@ public class UpdateSecuritySettingsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         UpdateSecuritySettingsDto request = new UpdateSecuritySettingsDto();
-        request.setAllowedOrigins(Collections.singletonList("String_3549"));
+        request.setAllowedOrigins(Collections.singletonList("String_794"));
         request.setAuthingTokenExpiresIn(0);
         request.setVerifyCodeLength(0);
         request.setVerifyCodeMaxAttempts(0);

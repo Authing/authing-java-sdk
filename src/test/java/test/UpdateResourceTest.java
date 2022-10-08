@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,11 +19,11 @@ public class UpdateResourceTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         UpdateResourceDto request = new UpdateResourceDto();
-        request.setCode("code_4551");
-        request.setDescription("description_8994");
+        request.setCode("code_1786");
+        request.setDescription("description_4279");
         request.setActions(Collections.singletonList(new cn.authing.sdk.java.dto.ResourceAction()));
-        request.setApiIdentifier("apiIdentifier_4506");
-        request.setNamespace("namespace_1102");
+        request.setApiIdentifier("apiIdentifier_3713");
+        request.setNamespace("namespace_1971");
         request.setType(cn.authing.sdk.java.dto.UpdateResourceDto.Type.DATA);
 
         ResourceRespDto response = client.updateResource(request);

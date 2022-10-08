@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,9 +19,9 @@ public class GetGroupAuthorizedResourcesTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetGroupAuthorizedResourcesDto request = new GetGroupAuthorizedResourcesDto();
-        request.setCode("code_6303");
-        request.setNamespace("namespace_2239");
-        request.setResourceType("resourceType_2607");
+        request.setCode("code_1353");
+        request.setNamespace("namespace_3977");
+        request.setResourceType("resourceType_5299");
 
         AuthorizedResourceListRespDto response = client.getGroupAuthorizedResources(request);
         System.out.println(JsonUtils.serialize(response));

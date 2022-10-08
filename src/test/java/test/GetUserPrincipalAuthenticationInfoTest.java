@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,8 +19,8 @@ public class GetUserPrincipalAuthenticationInfoTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserPrincipalAuthenticationInfoDto request = new GetUserPrincipalAuthenticationInfoDto();
-        request.setUserId("userId_8839");
-        request.setUserIdType("userIdType_5790");
+        request.setUserId("userId_6366");
+        request.setUserIdType("userIdType_9785");
 
         PrincipalAuthenticationInfoPaginatedRespDto response = client.getUserPrincipalAuthenticationInfo(request);
         System.out.println(JsonUtils.serialize(response));

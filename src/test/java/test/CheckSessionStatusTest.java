@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,8 +19,8 @@ public class CheckSessionStatusTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         CheckSessionStatusDto request = new CheckSessionStatusDto();
-        request.setAppId("appId_7630");
-        request.setUserId("userId_9669");
+        request.setAppId("appId_7966");
+        request.setUserId("userId_2294");
 
         CheckSessionStatusRespDto response = client.checkSessionStatus(request);
         System.out.println(JsonUtils.serialize(response));

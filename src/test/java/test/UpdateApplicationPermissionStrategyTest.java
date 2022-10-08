@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -20,7 +20,7 @@ public class UpdateApplicationPermissionStrategyTest {
 
         UpdateApplicationPermissionStrategyDataDto request = new UpdateApplicationPermissionStrategyDataDto();
         request.setPermissionStrategy(cn.authing.sdk.java.dto.UpdateApplicationPermissionStrategyDataDto.PermissionStrategy.ALLOW_ALL);
-        request.setAppId("appId_7711");
+        request.setAppId("appId_6342");
 
         IsSuccessRespDto response = client.updateApplicationPermissionStrategy(request);
         System.out.println(JsonUtils.serialize(response));

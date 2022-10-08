@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,7 +19,7 @@ public class GetCustomFieldsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetCustomFieldsDto request = new GetCustomFieldsDto();
-        request.setTargetType("targetType_1319");
+        request.setTargetType("targetType_3453");
 
         CustomFieldListRespDto response = client.getCustomFields(request);
         System.out.println(JsonUtils.serialize(response));

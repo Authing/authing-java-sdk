@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,8 +19,8 @@ public class GetUserLoggedinIdentitiesTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserLoggedInIdentitiesDto request = new GetUserLoggedInIdentitiesDto();
-        request.setUserId("userId_7251");
-        request.setUserIdType("userIdType_4616");
+        request.setUserId("userId_8873");
+        request.setUserIdType("userIdType_6023");
 
         UserLoggedInIdentitiesRespDto response = client.getUserLoggedinIdentities(request);
         System.out.println(JsonUtils.serialize(response));

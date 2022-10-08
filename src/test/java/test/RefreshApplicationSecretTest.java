@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,7 +19,7 @@ public class RefreshApplicationSecretTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         RefreshApplicationSecretDto request = new RefreshApplicationSecretDto();
-        request.setAppId("appId_8035");
+        request.setAppId("appId_7258");
 
         RefreshApplicationSecretRespDto response = client.refreshApplicationSecret(request);
         System.out.println(JsonUtils.serialize(response));

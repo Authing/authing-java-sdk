@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,7 +19,7 @@ public class DeleteApplicationTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         DeleteApplicationDto request = new DeleteApplicationDto();
-        request.setAppId("appId_3660");
+        request.setAppId("appId_8300");
 
         IsSuccessRespDto response = client.deleteApplication(request);
         System.out.println(JsonUtils.serialize(response));

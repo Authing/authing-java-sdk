@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -21,7 +21,7 @@ public class ListUsersTest {
         ListUsersDto request = new ListUsersDto();
         request.setPage(0);
         request.setLimit(0);
-        request.setStatus("status_5399");
+        request.setStatus("status_2757");
         request.setUpdatedAtStart(0);
         request.setUpdatedAtEnd(0);
         request.setWithCustomData(Boolean.TRUE);

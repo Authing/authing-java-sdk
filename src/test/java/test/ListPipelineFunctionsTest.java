@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,7 +19,7 @@ public class ListPipelineFunctionsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListPipelineFunctionDto request = new ListPipelineFunctionDto();
-        request.setScene("scene_6541");
+        request.setScene("scene_3698");
 
         PipelineFunctionPaginatedRespDto response = client.listPipelineFunctions(request);
         System.out.println(JsonUtils.serialize(response));

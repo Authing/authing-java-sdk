@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,14 +19,14 @@ public class UpdateEmailTemplateTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         UpdateEmailTemplateDto request = new UpdateEmailTemplateDto();
-        request.setContent("content_5347");
-        request.setSender("sender_9106");
-        request.setSubject("subject_2104");
-        request.setName("name_9119");
+        request.setContent("content_928");
+        request.setSender("sender_6404");
+        request.setSubject("subject_4389");
+        request.setName("name_7581");
         request.setCustomizeEnabled(Boolean.TRUE);
         request.setType(cn.authing.sdk.java.dto.UpdateEmailTemplateDto.Type.WELCOME_EMAIL);
         request.setExpiresIn(0);
-        request.setRedirectTo("redirectTo_833");
+        request.setRedirectTo("redirectTo_1073");
         request.setTplEngine(cn.authing.sdk.java.dto.UpdateEmailTemplateDto.TplEngine.HANDLEBAR);
 
         EmailTemplateSingleItemRespDto response = client.updateEmailTemplate(request);

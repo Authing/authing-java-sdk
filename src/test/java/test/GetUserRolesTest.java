@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,9 +19,9 @@ public class GetUserRolesTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserRolesDto request = new GetUserRolesDto();
-        request.setUserId("userId_5790");
-        request.setUserIdType("userIdType_5865");
-        request.setNamespace("namespace_2396");
+        request.setUserId("userId_1705");
+        request.setUserIdType("userIdType_533");
+        request.setNamespace("namespace_2248");
 
         RolePaginatedRespDto response = client.getUserRoles(request);
         System.out.println(JsonUtils.serialize(response));

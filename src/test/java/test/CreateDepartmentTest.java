@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,12 +19,12 @@ public class CreateDepartmentTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         CreateDepartmentReqDto request = new CreateDepartmentReqDto();
-        request.setParentDepartmentId("parentDepartmentId_4658");
-        request.setName("name_7624");
-        request.setOrganizationCode("organizationCode_7168");
-        request.setOpenDepartmentId("openDepartmentId_6932");
-        request.setDescription("description_8055");
-        request.setCode("code_7489");
+        request.setParentDepartmentId("parentDepartmentId_7976");
+        request.setName("name_5698");
+        request.setOrganizationCode("organizationCode_7975");
+        request.setOpenDepartmentId("openDepartmentId_4180");
+        request.setDescription("description_6911");
+        request.setCode("code_1102");
         request.setIsVirtualNode(Boolean.TRUE);
         request.setI18n(new cn.authing.sdk.java.dto.DepartmentI18nDto());
         request.setCustomData(Collections.emptyList());

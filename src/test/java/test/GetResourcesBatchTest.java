@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,8 +19,8 @@ public class GetResourcesBatchTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetResourcesBatchDto request = new GetResourcesBatchDto();
-        request.setCodeList("codeList_7529");
-        request.setNamespace("namespace_5035");
+        request.setCodeList("codeList_9606");
+        request.setNamespace("namespace_1401");
 
         ResourceListRespDto response = client.getResourcesBatch(request);
         System.out.println(JsonUtils.serialize(response));

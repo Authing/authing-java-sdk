@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,8 +19,8 @@ public class ListResourcesTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListResourcesDto request = new ListResourcesDto();
-        request.setNamespace("namespace_3133");
-        request.setType("type_5549");
+        request.setNamespace("namespace_6241");
+        request.setType("type_3722");
         request.setPage(0);
         request.setLimit(0);
 

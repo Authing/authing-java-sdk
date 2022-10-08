@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -20,8 +20,8 @@ public class ChangeAssociationStateTest {
 
         AssociationExtIdpDto request = new AssociationExtIdpDto();
         request.setAssociation(Boolean.TRUE);
-        request.setId("id_6838");
-        request.setTenantId("tenantId_9050");
+        request.setId("id_112");
+        request.setTenantId("tenantId_791");
 
         IsSuccessRespDto response = client.changeAssociationState(request);
         System.out.println(JsonUtils.serialize(response));

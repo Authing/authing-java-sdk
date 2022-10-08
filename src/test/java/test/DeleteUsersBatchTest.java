@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,7 +19,7 @@ public class DeleteUsersBatchTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         DeleteUsersBatchDto request = new DeleteUsersBatchDto();
-        request.setUserIds(Collections.singletonList("String_1111"));
+        request.setUserIds(Collections.singletonList("String_3682"));
         request.setOptions(new cn.authing.sdk.java.dto.DeleteUsersBatchOptionsDto());
 
         IsSuccessRespDto response = client.deleteUsersBatch(request);

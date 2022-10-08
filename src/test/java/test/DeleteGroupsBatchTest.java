@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,7 +19,7 @@ public class DeleteGroupsBatchTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         DeleteGroupsReqDto request = new DeleteGroupsReqDto();
-        request.setCodeList(Collections.singletonList("String_1886"));
+        request.setCodeList(Collections.singletonList("String_2276"));
 
         IsSuccessRespDto response = client.deleteGroupsBatch(request);
         System.out.println(JsonUtils.serialize(response));

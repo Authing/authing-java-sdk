@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,8 +19,8 @@ public class AddGroupMembersTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         AddGroupMembersReqDto request = new AddGroupMembersReqDto();
-        request.setUserIds(Collections.singletonList("String_1143"));
-        request.setCode("code_9435");
+        request.setUserIds(Collections.singletonList("String_286"));
+        request.setCode("code_6702");
 
         IsSuccessRespDto response = client.addGroupMembers(request);
         System.out.println(JsonUtils.serialize(response));

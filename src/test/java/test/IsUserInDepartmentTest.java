@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,10 +19,10 @@ public class IsUserInDepartmentTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         IsUserInDepartmentDto request = new IsUserInDepartmentDto();
-        request.setUserId("userId_8749");
-        request.setOrganizationCode("organizationCode_4558");
-        request.setDepartmentId("departmentId_3141");
-        request.setDepartmentIdType("departmentIdType_5869");
+        request.setUserId("userId_6391");
+        request.setOrganizationCode("organizationCode_3911");
+        request.setDepartmentId("departmentId_9017");
+        request.setDepartmentIdType("departmentIdType_1637");
         request.setIncludeChildrenDepartments(Boolean.TRUE);
 
         IsUserInDepartmentRespDto response = client.isUserInDepartment(request);

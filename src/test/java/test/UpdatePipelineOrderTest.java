@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,7 +19,7 @@ public class UpdatePipelineOrderTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         UpdatePipelineOrderDto request = new UpdatePipelineOrderDto();
-        request.setOrder(Collections.singletonList("String_9438"));
+        request.setOrder(Collections.singletonList("String_3013"));
         request.setScene(cn.authing.sdk.java.dto.UpdatePipelineOrderDto.Scene.PRE_REGISTER);
 
         CommonResponseDto response = client.updatePipelineOrder(request);

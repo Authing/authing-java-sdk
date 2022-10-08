@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,11 +19,11 @@ public class GetAdminAuditLogsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetAdminAuditLogsDto request = new GetAdminAuditLogsDto();
-        request.setRequestId("requestId_9609");
-        request.setClientIp("clientIp_2402");
-        request.setOperationType("operationType_4690");
-        request.setResourceType("resourceType_9360");
-        request.setUserId("userId_1848");
+        request.setRequestId("requestId_8072");
+        request.setClientIp("clientIp_1920");
+        request.setOperationType("operationType_4285");
+        request.setResourceType("resourceType_5848");
+        request.setUserId("userId_4692");
         request.setSuccess(Boolean.TRUE);
         request.setStart(0);
         request.setEnd(0);

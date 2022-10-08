@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,7 +19,7 @@ public class DeleteNamespacesBatchTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         DeleteNamespacesBatchDto request = new DeleteNamespacesBatchDto();
-        request.setCodeList(Collections.singletonList("String_1343"));
+        request.setCodeList(Collections.singletonList("String_4628"));
 
         IsSuccessRespDto response = client.deleteNamespacesBatch(request);
         System.out.println(JsonUtils.serialize(response));

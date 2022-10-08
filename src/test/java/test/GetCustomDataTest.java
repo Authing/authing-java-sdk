@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,9 +19,9 @@ public class GetCustomDataTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetCustomDataDto request = new GetCustomDataDto();
-        request.setTargetType("targetType_2157");
-        request.setTargetIdentifier("targetIdentifier_4946");
-        request.setNamespace("namespace_2823");
+        request.setTargetType("targetType_5378");
+        request.setTargetIdentifier("targetIdentifier_8383");
+        request.setNamespace("namespace_5625");
 
         GetCustomDataRespDto response = client.getCustomData(request);
         System.out.println(JsonUtils.serialize(response));

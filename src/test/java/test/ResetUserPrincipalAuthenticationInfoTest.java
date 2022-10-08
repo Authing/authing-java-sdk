@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,7 +19,7 @@ public class ResetUserPrincipalAuthenticationInfoTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ResetUserPrincipalAuthenticationInfoDto request = new ResetUserPrincipalAuthenticationInfoDto();
-        request.setUserId("userId_3385");
+        request.setUserId("userId_6098");
         request.setOptions(new cn.authing.sdk.java.dto.ResetUserPrincipalAuthenticationInfoOptionsDto());
 
         IsSuccessRespDto response = client.resetUserPrincipalAuthenticationInfo(request);

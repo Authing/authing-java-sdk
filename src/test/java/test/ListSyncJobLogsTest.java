@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -23,8 +23,8 @@ public class ListSyncJobLogsTest {
         request.setPage(0);
         request.setLimit(0);
         request.setSuccess(Boolean.TRUE);
-        request.setAction("action_2917");
-        request.setObjectType("objectType_6911");
+        request.setAction("action_2773");
+        request.setObjectType("objectType_9256");
 
         TriggerSyncTaskRespDto response = client.listSyncJobLogs(request);
         System.out.println(JsonUtils.serialize(response));

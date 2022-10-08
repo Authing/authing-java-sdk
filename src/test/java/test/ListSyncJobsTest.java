@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -22,7 +22,7 @@ public class ListSyncJobsTest {
         request.setSyncTaskId(0);
         request.setPage(0);
         request.setLimit(0);
-        request.setSyncTrigger("syncTrigger_8668");
+        request.setSyncTrigger("syncTrigger_2349");
 
         SyncJobPaginatedRespDto response = client.listSyncJobs(request);
         System.out.println(JsonUtils.serialize(response));

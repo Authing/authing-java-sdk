@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,8 +19,8 @@ public class MakeRequestTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         MakeRequestReqDto request = new MakeRequestReqDto();
-        request.setMethod("method_3682");
-        request.setUrl("url_4480");
+        request.setMethod("method_443");
+        request.setUrl("url_2267");
         request.setData(Collections.emptyList());
 
         Object response = client.makeRequest(request);

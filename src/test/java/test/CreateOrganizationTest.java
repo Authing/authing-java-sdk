@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,10 +19,10 @@ public class CreateOrganizationTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         CreateOrganizationReqDto request = new CreateOrganizationReqDto();
-        request.setOrganizationName("organizationName_3906");
-        request.setOrganizationCode("organizationCode_6615");
-        request.setDescription("description_9806");
-        request.setOpenDepartmentId("openDepartmentId_4922");
+        request.setOrganizationName("organizationName_23");
+        request.setOrganizationCode("organizationCode_1843");
+        request.setDescription("description_3786");
+        request.setOpenDepartmentId("openDepartmentId_181");
         request.setI18n(new cn.authing.sdk.java.dto.OrganizationNameI18nDto());
 
         OrganizationSingleRespDto response = client.createOrganization(request);

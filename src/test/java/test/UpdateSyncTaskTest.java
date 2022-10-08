@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -20,12 +20,12 @@ public class UpdateSyncTaskTest {
 
         UpdateSyncTaskDto request = new UpdateSyncTaskDto();
         request.setSyncTaskId(0);
-        request.setSyncTaskName("syncTaskName_8134");
+        request.setSyncTaskName("syncTaskName_2702");
         request.setSyncTaskType(cn.authing.sdk.java.dto.UpdateSyncTaskDto.SyncTaskType.LARK);
         request.setClientConfig(new cn.authing.sdk.java.dto.SyncTaskClientConfig());
         request.setSyncTaskFlow(cn.authing.sdk.java.dto.UpdateSyncTaskDto.SyncTaskFlow.UPSTREAM);
         request.setSyncTaskTrigger(cn.authing.sdk.java.dto.UpdateSyncTaskDto.SyncTaskTrigger.MANUALLY);
-        request.setOrganizationCode("organizationCode_4181");
+        request.setOrganizationCode("organizationCode_5757");
         request.setProvisioningScope(new cn.authing.sdk.java.dto.SyncTaskProvisioningScope());
         request.setFieldMapping(Collections.singletonList(new cn.authing.sdk.java.dto.SyncTaskFieldMapping()));
         request.setTimedScheduler(new cn.authing.sdk.java.dto.SyncTaskTimedScheduler());

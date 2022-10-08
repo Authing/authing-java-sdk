@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,9 +19,9 @@ public class GetExtIdpTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetExtIdpDto request = new GetExtIdpDto();
-        request.setId("id_6000");
-        request.setTenantId("tenantId_8478");
-        request.setAppId("appId_5170");
+        request.setId("id_3779");
+        request.setTenantId("tenantId_8581");
+        request.setAppId("appId_719");
         request.setType(Collections.emptyList());
 
         ExtIdpDetailSingleRespDto response = client.getExtIdp(request);

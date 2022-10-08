@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -22,8 +22,8 @@ public class ListSyncRiskOperationsTest {
         request.setSyncTaskId(0);
         request.setPage(0);
         request.setLimit(0);
-        request.setStatus("status_1152");
-        request.setObjectType("objectType_8581");
+        request.setStatus("status_4462");
+        request.setObjectType("objectType_903");
 
         SyncRiskOperationPaginatedRespDto response = client.listSyncRiskOperations(request);
         System.out.println(JsonUtils.serialize(response));

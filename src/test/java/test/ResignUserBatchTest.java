@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,7 +19,7 @@ public class ResignUserBatchTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ResignUserBatchReqDto request = new ResignUserBatchReqDto();
-        request.setUserIds(Collections.singletonList("String_1715"));
+        request.setUserIds(Collections.singletonList("String_4384"));
         request.setUserIdType(cn.authing.sdk.java.dto.ResignUserBatchReqDto.UserIdType.USER_ID);
 
         ResignUserRespDto response = client.resignUserBatch(request);

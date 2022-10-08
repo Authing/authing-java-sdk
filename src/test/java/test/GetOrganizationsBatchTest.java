@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,7 +19,7 @@ public class GetOrganizationsBatchTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetOrganizationBatchDto request = new GetOrganizationBatchDto();
-        request.setOrganizationCodeList("organizationCodeList_651");
+        request.setOrganizationCodeList("organizationCodeList_4916");
         request.setWithCustomData(Boolean.TRUE);
 
         OrganizationListRespDto response = client.getOrganizationsBatch(request);

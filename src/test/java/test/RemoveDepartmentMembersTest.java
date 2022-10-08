@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,9 +19,9 @@ public class RemoveDepartmentMembersTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         RemoveDepartmentMembersReqDto request = new RemoveDepartmentMembersReqDto();
-        request.setUserIds(Collections.singletonList("String_9281"));
-        request.setOrganizationCode("organizationCode_6948");
-        request.setDepartmentId("departmentId_4212");
+        request.setUserIds(Collections.singletonList("String_5577"));
+        request.setOrganizationCode("organizationCode_2563");
+        request.setDepartmentId("departmentId_8052");
         request.setDepartmentIdType(cn.authing.sdk.java.dto.RemoveDepartmentMembersReqDto.DepartmentIdType.DEPARTMENT_ID);
 
         IsSuccessRespDto response = client.removeDepartmentMembers(request);

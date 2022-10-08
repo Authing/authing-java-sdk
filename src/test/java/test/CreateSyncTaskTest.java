@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -23,9 +23,9 @@ public class CreateSyncTaskTest {
         request.setSyncTaskTrigger(cn.authing.sdk.java.dto.CreateSyncTaskDto.SyncTaskTrigger.MANUALLY);
         request.setSyncTaskFlow(cn.authing.sdk.java.dto.CreateSyncTaskDto.SyncTaskFlow.UPSTREAM);
         request.setSyncTaskType(cn.authing.sdk.java.dto.CreateSyncTaskDto.SyncTaskType.LARK);
-        request.setSyncTaskName("syncTaskName_4281");
+        request.setSyncTaskName("syncTaskName_2581");
         request.setClientConfig(new cn.authing.sdk.java.dto.SyncTaskClientConfig());
-        request.setOrganizationCode("organizationCode_3543");
+        request.setOrganizationCode("organizationCode_1580");
         request.setProvisioningScope(new cn.authing.sdk.java.dto.SyncTaskProvisioningScope());
         request.setTimedScheduler(new cn.authing.sdk.java.dto.SyncTaskTimedScheduler());
 

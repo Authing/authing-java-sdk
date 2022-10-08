@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,7 +19,7 @@ public class ListGroupsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListGroupsDto request = new ListGroupsDto();
-        request.setKeywords("keywords_3758");
+        request.setKeywords("keywords_3307");
         request.setPage(0);
         request.setLimit(0);
 

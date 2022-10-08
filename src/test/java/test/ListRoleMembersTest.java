@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,13 +19,13 @@ public class ListRoleMembersTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListRoleMembersDto request = new ListRoleMembersDto();
-        request.setCode("code_4514");
+        request.setCode("code_7590");
         request.setPage(0);
         request.setLimit(0);
         request.setWithCustomData(Boolean.TRUE);
         request.setWithIdentities(Boolean.TRUE);
         request.setWithDepartmentIds(Boolean.TRUE);
-        request.setNamespace("namespace_2109");
+        request.setNamespace("namespace_2509");
 
         UserPaginatedRespDto response = client.listRoleMembers(request);
         System.out.println(JsonUtils.serialize(response));

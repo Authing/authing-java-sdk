@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,8 +19,8 @@ public class GetUserBatchTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserBatchDto request = new GetUserBatchDto();
-        request.setUserIds("userIds_9270");
-        request.setUserIdType("userIdType_420");
+        request.setUserIds("userIds_4956");
+        request.setUserIdType("userIdType_4185");
         request.setWithCustomData(Boolean.TRUE);
         request.setWithIdentities(Boolean.TRUE);
         request.setWithDepartmentIds(Boolean.TRUE);

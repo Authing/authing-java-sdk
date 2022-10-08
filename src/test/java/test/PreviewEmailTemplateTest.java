@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,10 +19,10 @@ public class PreviewEmailTemplateTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         PreviewEmailTemplateDto request = new PreviewEmailTemplateDto();
-        request.setSender("sender_9053");
+        request.setSender("sender_7253");
         request.setType(cn.authing.sdk.java.dto.PreviewEmailTemplateDto.Type.WELCOME_EMAIL);
-        request.setContent("content_2368");
-        request.setSubject("subject_3367");
+        request.setContent("content_7736");
+        request.setSubject("subject_467");
         request.setExpiresIn(0);
         request.setTplEngine(cn.authing.sdk.java.dto.PreviewEmailTemplateDto.TplEngine.HANDLEBAR);
 

@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,7 +19,7 @@ public class GetPipelineLogsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetPipelineLogsDto request = new GetPipelineLogsDto();
-        request.setFuncId("funcId_9428");
+        request.setFuncId("funcId_7831");
         request.setPage(0);
         request.setLimit(0);
 

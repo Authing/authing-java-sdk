@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,13 +19,13 @@ public class GetUserDepartmentsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserDepartmentsDto request = new GetUserDepartmentsDto();
-        request.setUserId("userId_6234");
-        request.setUserIdType("userIdType_1977");
+        request.setUserId("userId_9260");
+        request.setUserIdType("userIdType_360");
         request.setPage(0);
         request.setLimit(0);
         request.setWithCustomData(Boolean.TRUE);
-        request.setSortBy("sortBy_902");
-        request.setOrderBy("orderBy_9504");
+        request.setSortBy("sortBy_4475");
+        request.setOrderBy("orderBy_9142");
 
         UserDepartmentPaginatedRespDto response = client.getUserDepartments(request);
         System.out.println(JsonUtils.serialize(response));

@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,7 +19,7 @@ public class GetWebhookTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetWebhookDto request = new GetWebhookDto();
-        request.setWebhookId("webhookId_8403");
+        request.setWebhookId("webhookId_3211");
 
         GetWebhookRespDto response = client.getWebhook(request);
         System.out.println(JsonUtils.serialize(response));

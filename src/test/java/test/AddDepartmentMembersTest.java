@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,9 +19,9 @@ public class AddDepartmentMembersTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         AddDepartmentMembersReqDto request = new AddDepartmentMembersReqDto();
-        request.setUserIds(Collections.singletonList("String_5257"));
-        request.setOrganizationCode("organizationCode_8383");
-        request.setDepartmentId("departmentId_1505");
+        request.setUserIds(Collections.singletonList("String_86"));
+        request.setOrganizationCode("organizationCode_9150");
+        request.setDepartmentId("departmentId_5686");
         request.setDepartmentIdType(cn.authing.sdk.java.dto.AddDepartmentMembersReqDto.DepartmentIdType.DEPARTMENT_ID);
 
         IsSuccessRespDto response = client.addDepartmentMembers(request);

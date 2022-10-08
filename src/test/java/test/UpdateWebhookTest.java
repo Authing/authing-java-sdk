@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,13 +19,13 @@ public class UpdateWebhookTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         UpdateWebhookDto request = new UpdateWebhookDto();
-        request.setWebhookId("webhookId_5326");
-        request.setName("name_1818");
-        request.setUrl("url_4547");
-        request.setEvents(Collections.singletonList("String_9069"));
+        request.setWebhookId("webhookId_423");
+        request.setName("name_8613");
+        request.setUrl("url_2221");
+        request.setEvents(Collections.singletonList("String_9545"));
         request.setContentType(cn.authing.sdk.java.dto.UpdateWebhookDto.ContentType.APPLICATION_JSON);
         request.setEnabled(Boolean.TRUE);
-        request.setSecret("secret_3598");
+        request.setSecret("secret_6655");
 
         UpdateWebhooksRespDto response = client.updateWebhook(request);
         System.out.println(JsonUtils.serialize(response));

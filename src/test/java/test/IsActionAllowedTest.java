@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,10 +19,10 @@ public class IsActionAllowedTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         IsActionAllowedDto request = new IsActionAllowedDto();
-        request.setAction("action_6873");
-        request.setResource("resource_4750");
-        request.setUserId("userId_3108");
-        request.setNamespace("namespace_209");
+        request.setAction("action_3929");
+        request.setResource("resource_4216");
+        request.setUserId("userId_8066");
+        request.setNamespace("namespace_2545");
 
         IsActionAllowedRespDtp response = client.isActionAllowed(request);
         System.out.println(JsonUtils.serialize(response));

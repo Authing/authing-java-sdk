@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,7 +19,7 @@ public class ListGroupMembersTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListGroupMembersDto request = new ListGroupMembersDto();
-        request.setCode("code_5554");
+        request.setCode("code_8562");
         request.setPage(0);
         request.setLimit(0);
         request.setWithCustomData(Boolean.TRUE);

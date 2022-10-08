@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,8 +19,8 @@ public class RemoveGroupMembersTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         RemoveGroupMembersReqDto request = new RemoveGroupMembersReqDto();
-        request.setUserIds(Collections.singletonList("String_6170"));
-        request.setCode("code_2930");
+        request.setUserIds(Collections.singletonList("String_2856"));
+        request.setCode("code_3418");
 
         IsSuccessRespDto response = client.removeGroupMembers(request);
         System.out.println(JsonUtils.serialize(response));

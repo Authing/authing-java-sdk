@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,7 +19,7 @@ public class DeletePipelineFunctionTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         DeletePipelineFunctionDto request = new DeletePipelineFunctionDto();
-        request.setFuncId("funcId_1726");
+        request.setFuncId("funcId_2479");
 
         CommonResponseDto response = client.deletePipelineFunction(request);
         System.out.println(JsonUtils.serialize(response));

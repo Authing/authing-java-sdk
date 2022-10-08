@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,7 +19,7 @@ public class DeleteNamespaceTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         DeleteNamespaceDto request = new DeleteNamespaceDto();
-        request.setCode("code_6442");
+        request.setCode("code_404");
 
         IsSuccessRespDto response = client.deleteNamespace(request);
         System.out.println(JsonUtils.serialize(response));

@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,8 +19,8 @@ public class GetUserAuthorizedAppsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserAuthorizedAppsDto request = new GetUserAuthorizedAppsDto();
-        request.setUserId("userId_1214");
-        request.setUserIdType("userIdType_9052");
+        request.setUserId("userId_2144");
+        request.setUserIdType("userIdType_1765");
 
         AppListRespDto response = client.getUserAuthorizedApps(request);
         System.out.println(JsonUtils.serialize(response));

@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,7 +19,7 @@ public class ResignUserTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ResignUserReqDto request = new ResignUserReqDto();
-        request.setUserId("userId_8087");
+        request.setUserId("userId_9092");
         request.setUserIdType(cn.authing.sdk.java.dto.ResignUserReqDto.UserIdType.USER_ID);
 
         ResignUserRespDto response = client.resignUser(request);

@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,7 +19,7 @@ public class TriggerWebhookTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         TriggerWebhookDto request = new TriggerWebhookDto();
-        request.setWebhookId("webhookId_7913");
+        request.setWebhookId("webhookId_5967");
         request.setRequestHeaders(Collections.emptyList());
         request.setRequestBody(Collections.emptyList());
 

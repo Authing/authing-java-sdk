@@ -1,4 +1,4 @@
-package test
+package test;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,10 +19,10 @@ public class UpdateRoleTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         UpdateRoleDto request = new UpdateRoleDto();
-        request.setNewCode("newCode_8676");
-        request.setCode("code_1174");
-        request.setNamespace("namespace_8563");
-        request.setDescription("description_1841");
+        request.setNewCode("newCode_3964");
+        request.setCode("code_4997");
+        request.setNamespace("namespace_5749");
+        request.setDescription("description_1990");
 
         IsSuccessRespDto response = client.updateRole(request);
         System.out.println(JsonUtils.serialize(response));
