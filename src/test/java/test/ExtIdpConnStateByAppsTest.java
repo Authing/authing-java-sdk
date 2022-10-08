@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,9 +19,9 @@ public class ExtIdpConnStateByAppsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ExtIdpConnAppsDto request = new ExtIdpConnAppsDto();
-        request.setId("id_1957");
-        request.setTenantId("tenantId_3076");
-        request.setAppId("appId_9641");
+        request.setId("id_3792");
+        request.setTenantId("tenantId_7923");
+        request.setAppId("appId_1966");
         request.setType(Collections.emptyList());
 
         ExtIdpListPaginatedRespDto response = client.extIdpConnStateByApps(request);

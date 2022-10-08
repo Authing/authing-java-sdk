@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,13 +19,13 @@ public class UpdateOrganizationTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         UpdateOrganizationReqDto request = new UpdateOrganizationReqDto();
-        request.setOrganizationCode("organizationCode_6923");
-        request.setDescription("description_9460");
-        request.setOpenDepartmentId("openDepartmentId_5091");
-        request.setLeaderUserIds(Collections.singletonList("String_9945"));
+        request.setOrganizationCode("organizationCode_7453");
+        request.setDescription("description_346");
+        request.setOpenDepartmentId("openDepartmentId_3455");
+        request.setLeaderUserIds(Collections.singletonList("String_6700"));
         request.setI18n(new cn.authing.sdk.java.dto.OrganizationNameI18nDto());
-        request.setOrganizationNewCode("organizationNewCode_5627");
-        request.setOrganizationName("organizationName_9848");
+        request.setOrganizationNewCode("organizationNewCode_4978");
+        request.setOrganizationName("organizationName_2956");
 
         OrganizationSingleRespDto response = client.updateOrganization(request);
         System.out.println(JsonUtils.serialize(response));

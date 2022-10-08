@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,7 +19,7 @@ public class ListApplicationActiveUsersTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListApplicationActiveUsersDto request = new ListApplicationActiveUsersDto();
-        request.setAppId("appId_7815");
+        request.setAppId("appId_5706");
         request.setOptions(new cn.authing.sdk.java.dto.ListApplicationActiveUsersOptionsDto());
 
         UserPaginatedRespDto response = client.listApplicationActiveUsers(request);

@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,10 +19,10 @@ public class UpdateGroupTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         UpdateGroupReqDto request = new UpdateGroupReqDto();
-        request.setDescription("description_9865");
-        request.setName("name_1406");
-        request.setCode("code_5177");
-        request.setNewCode("newCode_7403");
+        request.setDescription("description_5289");
+        request.setName("name_8355");
+        request.setCode("code_1422");
+        request.setNewCode("newCode_4925");
 
         GroupSingleRespDto response = client.updateGroup(request);
         System.out.println(JsonUtils.serialize(response));

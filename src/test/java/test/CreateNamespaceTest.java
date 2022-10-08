@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,9 +19,9 @@ public class CreateNamespaceTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         CreateNamespaceDto request = new CreateNamespaceDto();
-        request.setCode("code_256");
-        request.setName("name_3362");
-        request.setDescription("description_8825");
+        request.setCode("code_5556");
+        request.setName("name_1872");
+        request.setDescription("description_9313");
 
         NamespaceRespDto response = client.createNamespace(request);
         System.out.println(JsonUtils.serialize(response));

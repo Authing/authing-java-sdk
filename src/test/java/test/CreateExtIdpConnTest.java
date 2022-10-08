@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,12 +20,12 @@ public class CreateExtIdpConnTest {
 
         CreateExtIdpConnDto request = new CreateExtIdpConnDto();
         request.setFields(Collections.emptyList());
-        request.setDisplayName("displayName_8537");
-        request.setIdentifier("identifier_7073");
+        request.setDisplayName("displayName_7780");
+        request.setIdentifier("identifier_6839");
         request.setType(cn.authing.sdk.java.dto.CreateExtIdpConnDto.Type.OIDC);
-        request.setExtIdpId("extIdpId_8117");
+        request.setExtIdpId("extIdpId_8438");
         request.setLoginOnly(Boolean.TRUE);
-        request.setLogo("logo_2310");
+        request.setLogo("logo_8231");
 
         ExtIdpConnDetailSingleRespDto response = client.createExtIdpConn(request);
         System.out.println(JsonUtils.serialize(response));

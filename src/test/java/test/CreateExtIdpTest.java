@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,8 +20,8 @@ public class CreateExtIdpTest {
 
         CreateExtIdpDto request = new CreateExtIdpDto();
         request.setType(cn.authing.sdk.java.dto.CreateExtIdpDto.Type.OIDC);
-        request.setName("name_4654");
-        request.setTenantId("tenantId_8698");
+        request.setName("name_4946");
+        request.setTenantId("tenantId_8188");
 
         ExtIdpSingleRespDto response = client.createExtIdp(request);
         System.out.println(JsonUtils.serialize(response));

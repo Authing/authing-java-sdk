@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,8 +19,8 @@ public class DeleteRolesBatchTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         DeleteRoleDto request = new DeleteRoleDto();
-        request.setCodeList(Collections.singletonList("String_9615"));
-        request.setNamespace("namespace_4668");
+        request.setCodeList(Collections.singletonList("String_9372"));
+        request.setNamespace("namespace_5314");
 
         IsSuccessRespDto response = client.deleteRolesBatch(request);
         System.out.println(JsonUtils.serialize(response));

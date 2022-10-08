@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,7 +19,7 @@ public class GetNamespaceTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetNamespaceDto request = new GetNamespaceDto();
-        request.setCode("code_4978");
+        request.setCode("code_6232");
 
         NamespaceRespDto response = client.getNamespace(request);
         System.out.println(JsonUtils.serialize(response));

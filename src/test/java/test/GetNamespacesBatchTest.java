@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,7 +19,7 @@ public class GetNamespacesBatchTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetNamespacesBatchDto request = new GetNamespacesBatchDto();
-        request.setCodeList("codeList_1927");
+        request.setCodeList("codeList_3894");
 
         NamespaceListRespDto response = client.getNamespacesBatch(request);
         System.out.println(JsonUtils.serialize(response));

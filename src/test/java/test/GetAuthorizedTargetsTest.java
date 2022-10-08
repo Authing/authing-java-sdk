@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,8 +19,8 @@ public class GetAuthorizedTargetsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetAuthorizedTargetsDto request = new GetAuthorizedTargetsDto();
-        request.setResource("resource_8308");
-        request.setNamespace("namespace_6937");
+        request.setResource("resource_766");
+        request.setNamespace("namespace_8633");
         request.setResourceType(cn.authing.sdk.java.dto.GetAuthorizedTargetsDto.ResourceType.DATA);
         request.setTargetType(cn.authing.sdk.java.dto.GetAuthorizedTargetsDto.TargetType.USER);
         request.setActions(new cn.authing.sdk.java.dto.GetAuthorizedResourceActionDto());

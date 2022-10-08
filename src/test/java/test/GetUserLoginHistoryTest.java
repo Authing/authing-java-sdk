@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,10 +19,10 @@ public class GetUserLoginHistoryTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserLoginHistoryDto request = new GetUserLoginHistoryDto();
-        request.setUserId("userId_3143");
-        request.setUserIdType("userIdType_7931");
-        request.setAppId("appId_7326");
-        request.setClientIp("clientIp_156");
+        request.setUserId("userId_662");
+        request.setUserIdType("userIdType_4734");
+        request.setAppId("appId_2880");
+        request.setClientIp("clientIp_6486");
         request.setStart(0);
         request.setEnd(0);
         request.setPage(0);

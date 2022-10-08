@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,7 +19,7 @@ public class GetPipelineFunctionTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetPipelineFunctionDto request = new GetPipelineFunctionDto();
-        request.setFuncId("funcId_846");
+        request.setFuncId("funcId_3968");
 
         PipelineFunctionSingleRespDto response = client.getPipelineFunction(request);
         System.out.println(JsonUtils.serialize(response));

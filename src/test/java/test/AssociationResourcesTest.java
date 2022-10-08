@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,10 +19,10 @@ public class AssociationResourcesTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         AssociationResourceDto request = new AssociationResourceDto();
-        request.setAppId("appId_7934");
+        request.setAppId("appId_1729");
         request.setAssociation(Boolean.TRUE);
-        request.setCode("code_7715");
-        request.setTenantId("tenantId_8376");
+        request.setCode("code_8593");
+        request.setTenantId("tenantId_1925");
 
         IsSuccessRespDto response = client.associationResources(request);
         System.out.println(JsonUtils.serialize(response));

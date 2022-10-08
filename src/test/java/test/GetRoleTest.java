@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,8 +19,8 @@ public class GetRoleTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetRoleDto request = new GetRoleDto();
-        request.setCode("code_3332");
-        request.setNamespace("namespace_6880");
+        request.setCode("code_7869");
+        request.setNamespace("namespace_3813");
 
         RoleSingleRespDto response = client.getRole(request);
         System.out.println(JsonUtils.serialize(response));

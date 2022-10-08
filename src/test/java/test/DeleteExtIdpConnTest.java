@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,7 +19,7 @@ public class DeleteExtIdpConnTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         DeleteExtIdpConnDto request = new DeleteExtIdpConnDto();
-        request.setId("id_9622");
+        request.setId("id_3481");
 
         IsSuccessRespDto response = client.deleteExtIdpConn(request);
         System.out.println(JsonUtils.serialize(response));

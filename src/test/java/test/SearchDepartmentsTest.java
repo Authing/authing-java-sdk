@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,8 +19,8 @@ public class SearchDepartmentsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         SearchDepartmentsReqDto request = new SearchDepartmentsReqDto();
-        request.setKeywords("keywords_6692");
-        request.setOrganizationCode("organizationCode_986");
+        request.setKeywords("keywords_9955");
+        request.setOrganizationCode("organizationCode_2734");
         request.setWithCustomData(Boolean.TRUE);
 
         DepartmentListRespDto response = client.searchDepartments(request);

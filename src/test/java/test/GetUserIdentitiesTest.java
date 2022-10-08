@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,8 +19,8 @@ public class GetUserIdentitiesTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserIdentitiesDto request = new GetUserIdentitiesDto();
-        request.setUserId("userId_5183");
-        request.setUserIdType("userIdType_2964");
+        request.setUserId("userId_1695");
+        request.setUserIdType("userIdType_7221");
 
         IdentityListRespDto response = client.getUserIdentities(request);
         System.out.println(JsonUtils.serialize(response));

@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,7 +19,7 @@ public class UpdateGlobalMfaSettingsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         MFASettingsDto request = new MFASettingsDto();
-        request.setEnabledFactors(Collections.singletonList("String_5260"));
+        request.setEnabledFactors(Collections.singletonList("String_9716"));
 
         MFASettingsRespDto response = client.updateGlobalMfaSettings(request);
         System.out.println(JsonUtils.serialize(response));

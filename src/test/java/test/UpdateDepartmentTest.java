@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,15 +19,15 @@ public class UpdateDepartmentTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         UpdateDepartmentReqDto request = new UpdateDepartmentReqDto();
-        request.setDepartmentId("departmentId_790");
-        request.setOrganizationCode("organizationCode_2312");
-        request.setLeaderUserIds(Collections.singletonList("String_878"));
-        request.setDescription("description_4018");
-        request.setCode("code_6191");
+        request.setDepartmentId("departmentId_3074");
+        request.setOrganizationCode("organizationCode_8902");
+        request.setLeaderUserIds(Collections.singletonList("String_2363"));
+        request.setDescription("description_7488");
+        request.setCode("code_4554");
         request.setI18n(new cn.authing.sdk.java.dto.DepartmentI18nDto());
-        request.setName("name_9497");
+        request.setName("name_6578");
         request.setDepartmentIdType(cn.authing.sdk.java.dto.UpdateDepartmentReqDto.DepartmentIdType.DEPARTMENT_ID);
-        request.setParentDepartmentId("parentDepartmentId_2635");
+        request.setParentDepartmentId("parentDepartmentId_8474");
         request.setCustomData(Collections.emptyList());
 
         DepartmentSingleRespDto response = client.updateDepartment(request);

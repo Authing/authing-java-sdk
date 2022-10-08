@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,7 +19,7 @@ public class GetOrganizationTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetOrganizationDto request = new GetOrganizationDto();
-        request.setOrganizationCode("organizationCode_7989");
+        request.setOrganizationCode("organizationCode_5113");
         request.setWithCustomData(Boolean.TRUE);
 
         OrganizationSingleRespDto response = client.getOrganization(request);

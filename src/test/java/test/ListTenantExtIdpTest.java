@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,11 +19,11 @@ public class ListTenantExtIdpTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListTenantExtIdpDto request = new ListTenantExtIdpDto();
-        request.setTenantId("tenantId_8");
-        request.setAppId("appId_9845");
+        request.setTenantId("tenantId_3242");
+        request.setAppId("appId_5269");
         request.setType(Collections.emptyList());
-        request.setPage("page_299");
-        request.setLimit("limit_4634");
+        request.setPage("page_124");
+        request.setLimit("limit_2407");
 
         ExtIdpListPaginatedRespDto response = client.listTenantExtIdp(request);
         System.out.println(JsonUtils.serialize(response));

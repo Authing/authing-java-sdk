@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,11 +19,11 @@ public class GetUserActionLogsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserActionLogsDto request = new GetUserActionLogsDto();
-        request.setRequestId("requestId_5983");
-        request.setClientIp("clientIp_6231");
-        request.setEventType("eventType_1023");
-        request.setUserId("userId_4");
-        request.setAppId("appId_7621");
+        request.setRequestId("requestId_8346");
+        request.setClientIp("clientIp_8943");
+        request.setEventType("eventType_4708");
+        request.setUserId("userId_5980");
+        request.setAppId("appId_7956");
         request.setStart(0);
         request.setEnd(0);
         request.setSuccess(Boolean.TRUE);

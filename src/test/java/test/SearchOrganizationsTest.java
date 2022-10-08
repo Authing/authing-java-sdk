@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,7 +19,7 @@ public class SearchOrganizationsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         SearchOrganizationsDto request = new SearchOrganizationsDto();
-        request.setKeywords("keywords_616");
+        request.setKeywords("keywords_2613");
         request.setPage(0);
         request.setLimit(0);
         request.setWithCustomData(Boolean.TRUE);

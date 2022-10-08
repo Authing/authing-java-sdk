@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,9 +19,9 @@ public class GetParentDepartmentTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetParentDepartmentDto request = new GetParentDepartmentDto();
-        request.setOrganizationCode("organizationCode_7620");
-        request.setDepartmentId("departmentId_7478");
-        request.setDepartmentIdType("departmentIdType_7696");
+        request.setOrganizationCode("organizationCode_1860");
+        request.setDepartmentId("departmentId_8081");
+        request.setDepartmentIdType("departmentIdType_8775");
         request.setWithCustomData(Boolean.TRUE);
 
         DepartmentSingleRespDto response = client.getParentDepartment(request);

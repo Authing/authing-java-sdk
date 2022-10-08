@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,7 +19,7 @@ public class GetGroupTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetGroupDto request = new GetGroupDto();
-        request.setCode("code_4193");
+        request.setCode("code_8447");
 
         GroupSingleRespDto response = client.getGroup(request);
         System.out.println(JsonUtils.serialize(response));

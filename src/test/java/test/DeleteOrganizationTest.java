@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,7 +19,7 @@ public class DeleteOrganizationTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         DeleteOrganizationReqDto request = new DeleteOrganizationReqDto();
-        request.setOrganizationCode("organizationCode_5895");
+        request.setOrganizationCode("organizationCode_4800");
 
         IsSuccessRespDto response = client.deleteOrganization(request);
         System.out.println(JsonUtils.serialize(response));

@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,8 +20,8 @@ public class RevokeRoleTest {
 
         RevokeRoleDto request = new RevokeRoleDto();
         request.setTargets(Collections.singletonList(new cn.authing.sdk.java.dto.TargetDto()));
-        request.setCode("code_7274");
-        request.setNamespace("namespace_4242");
+        request.setCode("code_40");
+        request.setNamespace("namespace_2660");
 
         IsSuccessRespDto response = client.revokeRole(request);
         System.out.println(JsonUtils.serialize(response));

@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,9 +19,9 @@ public class ListDepartmentMemberIdsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListDepartmentMemberIdsDto request = new ListDepartmentMemberIdsDto();
-        request.setOrganizationCode("organizationCode_3481");
-        request.setDepartmentId("departmentId_9007");
-        request.setDepartmentIdType("departmentIdType_7980");
+        request.setOrganizationCode("organizationCode_5529");
+        request.setDepartmentId("departmentId_3528");
+        request.setDepartmentIdType("departmentIdType_5725");
 
         UserIdListRespDto response = client.listDepartmentMemberIds(request);
         System.out.println(JsonUtils.serialize(response));

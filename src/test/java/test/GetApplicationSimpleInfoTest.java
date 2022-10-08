@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,7 +19,7 @@ public class GetApplicationSimpleInfoTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetApplicationSimpleInfoDto request = new GetApplicationSimpleInfoDto();
-        request.setAppId("appId_1952");
+        request.setAppId("appId_2553");
 
         ApplicationSimpleInfoSingleRespDto response = client.getApplicationSimpleInfo(request);
         System.out.println(JsonUtils.serialize(response));

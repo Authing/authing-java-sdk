@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,11 +19,11 @@ public class ChangeConnStateTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         EnableExtIdpConnDto request = new EnableExtIdpConnDto();
-        request.setAppIds("appIds_4736");
-        request.setAppId("appId_6505");
+        request.setAppIds("appIds_6199");
+        request.setAppId("appId_1429");
         request.setEnabled(Boolean.TRUE);
-        request.setId("id_5707");
-        request.setTenantId("tenantId_8119");
+        request.setId("id_6695");
+        request.setTenantId("tenantId_9734");
 
         IsSuccessRespDto response = client.changeConnState(request);
         System.out.println(JsonUtils.serialize(response));

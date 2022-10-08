@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,17 +19,17 @@ public class CreateApplicationTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         CreateApplicationDto request = new CreateApplicationDto();
-        request.setAppName("appName_6651");
-        request.setTemplate("template_7631");
-        request.setTemplateData("templateData_5738");
-        request.setAppIdentifier("appIdentifier_9793");
-        request.setAppLogo("appLogo_4919");
-        request.setAppDescription("appDescription_9452");
+        request.setAppName("appName_5771");
+        request.setTemplate("template_6779");
+        request.setTemplateData("templateData_7588");
+        request.setAppIdentifier("appIdentifier_1408");
+        request.setAppLogo("appLogo_4734");
+        request.setAppDescription("appDescription_9304");
         request.setAppType(cn.authing.sdk.java.dto.CreateApplicationDto.AppType.WEB);
         request.setDefaultProtocol(cn.authing.sdk.java.dto.CreateApplicationDto.DefaultProtocol.OIDC);
-        request.setRedirectUris(Collections.singletonList("String_5828"));
-        request.setLogoutRedirectUris(Collections.singletonList("String_618"));
-        request.setInitLoginUri("initLoginUri_8206");
+        request.setRedirectUris(Collections.singletonList("String_6601"));
+        request.setLogoutRedirectUris(Collections.singletonList("String_9799"));
+        request.setInitLoginUri("initLoginUri_9722");
         request.setSsoEnabled(Boolean.TRUE);
         request.setOidcConfig(new cn.authing.sdk.java.dto.OIDCConfig());
         request.setSamlProviderEnabled(Boolean.TRUE);

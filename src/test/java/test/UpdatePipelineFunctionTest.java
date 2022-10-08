@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,10 +19,10 @@ public class UpdatePipelineFunctionTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         UpdatePipelineFunctionDto request = new UpdatePipelineFunctionDto();
-        request.setFuncId("funcId_9278");
-        request.setFuncName("funcName_8129");
-        request.setFuncDescription("funcDescription_7258");
-        request.setSourceCode("sourceCode_6881");
+        request.setFuncId("funcId_3878");
+        request.setFuncName("funcName_7544");
+        request.setFuncDescription("funcDescription_6181");
+        request.setSourceCode("sourceCode_5600");
         request.setIsAsynchronous(Boolean.TRUE);
         request.setTimeout(0);
         request.setTerminateOnTimeout(Boolean.TRUE);

@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,7 +19,7 @@ public class DeleteWebhookTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         DeleteWebhookDto request = new DeleteWebhookDto();
-        request.setWebhookIds(Collections.singletonList("String_9803"));
+        request.setWebhookIds(Collections.singletonList("String_2596"));
 
         DeleteWebhookRespDto response = client.deleteWebhook(request);
         System.out.println(JsonUtils.serialize(response));

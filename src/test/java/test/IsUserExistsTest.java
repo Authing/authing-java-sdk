@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,10 +19,10 @@ public class IsUserExistsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         IsUserExistsReqDto request = new IsUserExistsReqDto();
-        request.setUsername("username_8476");
-        request.setEmail("email_5783");
-        request.setPhone("phone_3953");
-        request.setExternalId("externalId_6395");
+        request.setUsername("username_4291");
+        request.setEmail("email_5842");
+        request.setPhone("phone_1650");
+        request.setExternalId("externalId_9382");
 
         IsUserExistsRespDto response = client.isUserExists(request);
         System.out.println(JsonUtils.serialize(response));

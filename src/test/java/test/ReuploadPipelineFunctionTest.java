@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,7 +19,7 @@ public class ReuploadPipelineFunctionTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ReUploadPipelineFunctionDto request = new ReUploadPipelineFunctionDto();
-        request.setFuncId("funcId_8716");
+        request.setFuncId("funcId_3587");
 
         PipelineFunctionSingleRespDto response = client.reuploadPipelineFunction(request);
         System.out.println(JsonUtils.serialize(response));

@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,10 +19,10 @@ public class GetDepartmentTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetDepartmentDto request = new GetDepartmentDto();
-        request.setOrganizationCode("organizationCode_2546");
-        request.setDepartmentId("departmentId_9033");
-        request.setDepartmentCode("departmentCode_8783");
-        request.setDepartmentIdType("departmentIdType_894");
+        request.setOrganizationCode("organizationCode_3230");
+        request.setDepartmentId("departmentId_3183");
+        request.setDepartmentCode("departmentCode_3604");
+        request.setDepartmentIdType("departmentIdType_3869");
         request.setWithCustomData(Boolean.TRUE);
 
         DepartmentSingleRespDto response = client.getDepartment(request);

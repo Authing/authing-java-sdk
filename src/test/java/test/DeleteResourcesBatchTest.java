@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,8 +19,8 @@ public class DeleteResourcesBatchTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         DeleteResourcesBatchDto request = new DeleteResourcesBatchDto();
-        request.setCodeList(Collections.singletonList("String_2578"));
-        request.setNamespace("namespace_8408");
+        request.setCodeList(Collections.singletonList("String_6245"));
+        request.setNamespace("namespace_2558");
 
         IsSuccessRespDto response = client.deleteResourcesBatch(request);
         System.out.println(JsonUtils.serialize(response));

@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,7 +20,7 @@ public class SetUserDepartmentsTest {
 
         SetUserDepartmentsDto request = new SetUserDepartmentsDto();
         request.setDepartments(Collections.singletonList(new cn.authing.sdk.java.dto.SetUserDepartmentDto()));
-        request.setUserId("userId_9026");
+        request.setUserId("userId_1924");
         request.setOptions(new cn.authing.sdk.java.dto.SetUserDepartmentsOptionsDto());
 
         IsSuccessRespDto response = client.setUserDepartments(request);

@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,7 +19,7 @@ public class GetApplicationSecretTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetApplicationSecretDto request = new GetApplicationSecretDto();
-        request.setAppId("appId_2881");
+        request.setAppId("appId_6646");
 
         GetApplicationSecretRespDto response = client.getApplicationSecret(request);
         System.out.println(JsonUtils.serialize(response));

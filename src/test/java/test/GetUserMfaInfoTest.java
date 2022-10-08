@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,8 +19,8 @@ public class GetUserMfaInfoTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserMfaInfoDto request = new GetUserMfaInfoDto();
-        request.setUserId("userId_7046");
-        request.setUserIdType("userIdType_9731");
+        request.setUserId("userId_651");
+        request.setUserIdType("userIdType_8644");
 
         UserMfaSingleRespDto response = client.getUserMfaInfo(request);
         System.out.println(JsonUtils.serialize(response));

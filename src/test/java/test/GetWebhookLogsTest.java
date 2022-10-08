@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,7 +19,7 @@ public class GetWebhookLogsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListWebhookLogs request = new ListWebhookLogs();
-        request.setWebhookId("webhookId_9990");
+        request.setWebhookId("webhookId_7230");
         request.setPage(0);
         request.setLimit(0);
 

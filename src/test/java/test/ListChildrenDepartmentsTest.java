@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,9 +19,9 @@ public class ListChildrenDepartmentsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListChildrenDepartmentsDto request = new ListChildrenDepartmentsDto();
-        request.setOrganizationCode("organizationCode_4051");
-        request.setDepartmentId("departmentId_6000");
-        request.setDepartmentIdType("departmentIdType_1340");
+        request.setOrganizationCode("organizationCode_450");
+        request.setDepartmentId("departmentId_8755");
+        request.setDepartmentIdType("departmentIdType_6652");
         request.setExcludeVirtualNode(Boolean.TRUE);
         request.setOnlyVirtualNode(Boolean.TRUE);
         request.setWithCustomData(Boolean.TRUE);

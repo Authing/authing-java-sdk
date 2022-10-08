@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,8 +19,8 @@ public class ListRolesTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListRolesDto request = new ListRolesDto();
-        request.setKeywords("keywords_2237");
-        request.setNamespace("namespace_617");
+        request.setKeywords("keywords_3741");
+        request.setNamespace("namespace_1013");
         request.setPage(0);
         request.setLimit(0);
 

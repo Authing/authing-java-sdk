@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,11 +19,11 @@ public class GetAuthorizedResourcesTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetAuthorizedResourcesDto request = new GetAuthorizedResourcesDto();
-        request.setTargetType("targetType_6865");
-        request.setTargetIdentifier("targetIdentifier_9440");
-        request.setNamespace("namespace_5816");
-        request.setResourceType("resourceType_781");
-        request.setResourceList("resourceList_8619");
+        request.setTargetType("targetType_3535");
+        request.setTargetIdentifier("targetIdentifier_2046");
+        request.setNamespace("namespace_2977");
+        request.setResourceType("resourceType_8971");
+        request.setResourceList("resourceList_4668");
         request.setWithDenied(Boolean.TRUE);
 
         AuthorizedResourcePaginatedRespDto response = client.getAuthorizedResources(request);

@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,7 +19,7 @@ public class CheckDomainAvailableTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         CheckDomainAvailable request = new CheckDomainAvailable();
-        request.setDomain("domain_8432");
+        request.setDomain("domain_1905");
 
         CheckDomainAvailableSecretRespDto response = client.checkDomainAvailable(request);
         System.out.println(JsonUtils.serialize(response));

@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,7 +20,7 @@ public class AuthorizeApplicationAccessTest {
 
         AddApplicationPermissionRecord request = new AddApplicationPermissionRecord();
         request.setList(Collections.singletonList(new cn.authing.sdk.java.dto.ApplicationPermissionRecordItem()));
-        request.setAppId("appId_7101");
+        request.setAppId("appId_8926");
 
         IsSuccessRespDto response = client.authorizeApplicationAccess(request);
         System.out.println(JsonUtils.serialize(response));

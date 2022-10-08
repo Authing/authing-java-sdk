@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,7 +20,7 @@ public class RevokeApplicationAccessTest {
 
         DeleteApplicationPermissionRecord request = new DeleteApplicationPermissionRecord();
         request.setList(Collections.singletonList(new cn.authing.sdk.java.dto.DeleteApplicationPermissionRecordItem()));
-        request.setAppId("appId_5086");
+        request.setAppId("appId_5767");
 
         IsSuccessRespDto response = client.revokeApplicationAccess(request);
         System.out.println(JsonUtils.serialize(response));

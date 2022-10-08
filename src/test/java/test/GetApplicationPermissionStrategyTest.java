@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,7 +19,7 @@ public class GetApplicationPermissionStrategyTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetApplicationPermissionStrategyDto request = new GetApplicationPermissionStrategyDto();
-        request.setAppId("appId_6412");
+        request.setAppId("appId_7986");
 
         GetApplicationPermissionStrategyRespDto response = client.getApplicationPermissionStrategy(request);
         System.out.println(JsonUtils.serialize(response));

@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -19,7 +20,7 @@ public class HasAnyRoleTest {
 
         HasAnyRoleReqDto request = new HasAnyRoleReqDto();
         request.setRoles(Collections.singletonList(new cn.authing.sdk.java.dto.HasRoleRolesDto()));
-        request.setUserId("userId_5636");
+        request.setUserId("userId_4468");
         request.setOptions(new cn.authing.sdk.java.dto.HasAnyRoleOptionsDto());
 
         HasAnyRoleRespDto response = client.hasAnyRole(request);

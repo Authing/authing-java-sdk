@@ -1,3 +1,4 @@
+package test
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -18,8 +19,8 @@ public class KickUsersTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         KickUsersDto request = new KickUsersDto();
-        request.setAppIds(Collections.singletonList("String_6999"));
-        request.setUserId("userId_8700");
+        request.setAppIds(Collections.singletonList("String_9748"));
+        request.setUserId("userId_1025");
         request.setOptions(new cn.authing.sdk.java.dto.KickUsersOptionsDto());
 
         IsSuccessRespDto response = client.kickUsers(request);
