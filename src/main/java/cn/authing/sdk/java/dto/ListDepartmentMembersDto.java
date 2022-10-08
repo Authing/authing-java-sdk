@@ -16,6 +16,16 @@ public class ListDepartmentMembersDto {
     @JsonProperty("departmentId")
     private String departmentId;
     /**
+     * 排序依据
+     */
+    @JsonProperty("sortBy")
+    private String sortBy;
+    /**
+     * 增序还是倒序
+     */
+    @JsonProperty("orderBy")
+    private String orderBy;
+    /**
      * 此次调用中使用的部门 ID 的类型
      */
     @JsonProperty("departmentIdType")
@@ -50,16 +60,6 @@ public class ListDepartmentMembersDto {
      */
     @JsonProperty("withDepartmentIds")
     private Boolean withDepartmentIds;
-    /**
-     * 排序依据
-     */
-    @JsonProperty("sortBy")
-    private String sortBy;
-    /**
-     * 增序还是倒序
-     */
-    @JsonProperty("orderBy")
-    private String orderBy;
 
     public String getOrganizationCode() {
         return organizationCode;
@@ -73,6 +73,20 @@ public class ListDepartmentMembersDto {
     }
     public void setDepartmentId(String departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public String getSortBy() {
+        return sortBy;
+    }
+    public void setSortBy(String sortBy) {
+        this.sortBy = sortBy;
+    }
+
+    public String getOrderBy() {
+        return orderBy;
+    }
+    public void setOrderBy(String orderBy) {
+        this.orderBy = orderBy;
     }
 
     public String getDepartmentIdType() {
@@ -122,20 +136,6 @@ public class ListDepartmentMembersDto {
     }
     public void setWithDepartmentIds(Boolean withDepartmentIds) {
         this.withDepartmentIds = withDepartmentIds;
-    }
-
-    public String getSortBy() {
-        return sortBy;
-    }
-    public void setSortBy(String sortBy) {
-        this.sortBy = sortBy;
-    }
-
-    public String getOrderBy() {
-        return orderBy;
-    }
-    public void setOrderBy(String orderBy) {
-        this.orderBy = orderBy;
     }
 
 
