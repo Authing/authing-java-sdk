@@ -19,7 +19,7 @@ public class UpdateGlobalMfaSettingsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         MFASettingsDto request = new MFASettingsDto();
-        request.setEnabledFactors(Collections.singletonList("String_3104"));
+        request.setEnabledFactors(Collections.singletonList("SMS"));
 
         MFASettingsRespDto response = client.updateGlobalMfaSettings(request);
         System.out.println(JsonUtils.serialize(response));

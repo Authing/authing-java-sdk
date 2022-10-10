@@ -1,9 +1,10 @@
 package cn.authing.sdk.java.dto;
 
-import java.util.List;
+import com.alibaba.fastjson.annotation.JSONType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+@JSONType(orders = {"page", "limit"})
 public class ListWebhooksDto {
     /**
      * 当前页数，从 1 开始

@@ -4,8 +4,6 @@ import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
 import cn.authing.sdk.java.util.JsonUtils;
 
-import java.util.Collections;
-
 
 
 public class GetWebhookLogsTest {
@@ -20,8 +18,8 @@ public class GetWebhookLogsTest {
 
         ListWebhookLogs request = new ListWebhookLogs();
         request.setWebhookId("webhookId_9120");
-        request.setPage(0);
-        request.setLimit(0);
+        request.setPage(1);
+        request.setLimit(10);
 
         ListWebhookLogsRespDto response = client.getWebhookLogs(request);
         System.out.println(JsonUtils.serialize(response));

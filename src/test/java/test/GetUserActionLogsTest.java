@@ -4,8 +4,6 @@ import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
 import cn.authing.sdk.java.util.JsonUtils;
 
-import java.util.Collections;
-
 
 
 public class GetUserActionLogsTest {
@@ -27,7 +25,11 @@ public class GetUserActionLogsTest {
         request.setStart(0);
         request.setEnd(0);
         request.setSuccess(Boolean.TRUE);
-        request.setPagination(new cn.authing.sdk.java.dto.ListWebhooksDto());
+
+        ListWebhooksDto listWebhooksDto = new ListWebhooksDto();
+        listWebhooksDto.setPage(1);
+        listWebhooksDto.setLimit(10);
+        request.setPagination(listWebhooksDto);
 
         UserActionLogRespDto response = client.getUserActionLogs(request);
         System.out.println(JsonUtils.serialize(response));

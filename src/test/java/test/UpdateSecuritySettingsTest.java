@@ -19,21 +19,64 @@ public class UpdateSecuritySettingsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         UpdateSecuritySettingsDto request = new UpdateSecuritySettingsDto();
-        request.setAllowedOrigins(Collections.singletonList("String_794"));
-        request.setAuthingTokenExpiresIn(0);
-        request.setVerifyCodeLength(0);
-        request.setVerifyCodeMaxAttempts(0);
-        request.setChangeEmailStrategy(new cn.authing.sdk.java.dto.ChangeEmailStrategyDto());
-        request.setChangePhoneStrategy(new cn.authing.sdk.java.dto.ChangePhoneStrategyDto());
-        request.setCookieSettings(new cn.authing.sdk.java.dto.CookieSettingsDto());
-        request.setRegisterDisabled(Boolean.TRUE);
-        request.setRegisterAnomalyDetection(new cn.authing.sdk.java.dto.RegisterAnomalyDetectionConfigDto());
-        request.setCompletePasswordAfterPassCodeLogin(Boolean.TRUE);
-        request.setLoginAnomalyDetection(new cn.authing.sdk.java.dto.LoginAnomalyDetectionConfigDto());
-        request.setLoginRequireEmailVerified(Boolean.TRUE);
-        request.setSelfUnlockAccount(new cn.authing.sdk.java.dto.SelfUnlockAccountConfigDto());
-        request.setEnableLoginAccountSwitch(Boolean.TRUE);
-        request.setQrcodeLoginStrategy(new cn.authing.sdk.java.dto.QrcodeLoginStrategyDto());
+
+        request.setAllowedOrigins(Collections.singletonList("https://example.com"));
+        request.setAuthingTokenExpiresIn(129600);
+        request.setVerifyCodeLength(6);
+        request.setVerifyCodeMaxAttempts(1);
+
+        ChangeEmailStrategyDto changeEmailStrategyDto = new ChangeEmailStrategyDto();
+        changeEmailStrategyDto.setVerifyOldEmail(Boolean.TRUE);
+        request.setChangeEmailStrategy(changeEmailStrategyDto);
+
+        ChangePhoneStrategyDto changePhoneStrategyDto = new ChangePhoneStrategyDto();
+        changePhoneStrategyDto.setVerifyOldPhone(Boolean.TRUE);
+        request.setChangePhoneStrategy(changePhoneStrategyDto);
+
+        CookieSettingsDto cookieSettingsDto = new CookieSettingsDto();
+        cookieSettingsDto.setCookieExpiresIn(1209600);
+        cookieSettingsDto.setCookieExpiresOnBrowserSession(Boolean.FALSE);
+        request.setCookieSettings(cookieSettingsDto);
+
+        request.setRegisterDisabled(Boolean.FALSE);
+
+        RegisterAnomalyDetectionConfigDto registerAnomalyDetectionConfigDto = new RegisterAnomalyDetectionConfigDto();
+        registerAnomalyDetectionConfigDto.setEnabled(Boolean.FALSE);
+        registerAnomalyDetectionConfigDto.setLimit(50);
+        registerAnomalyDetectionConfigDto.setTimeInterval(300);
+        request.setRegisterAnomalyDetection(registerAnomalyDetectionConfigDto);
+
+        request.setCompletePasswordAfterPassCodeLogin(Boolean.FALSE);
+
+        LoginAnomalyDetectionConfigDto loginAnomalyDetectionConfigDto = new LoginAnomalyDetectionConfigDto();
+        loginAnomalyDetectionConfigDto.setLoginFailStrategy(LoginAnomalyDetectionConfigDto.LoginFailStrategy.CAPTCHA.getValue());
+        LoginFailCheckConfigDto loginFailCheckConfigDto = new LoginFailCheckConfigDto();
+        loginFailCheckConfigDto.setEnabled(Boolean.FALSE);
+        loginFailCheckConfigDto.setLimit(50);
+        loginFailCheckConfigDto.setTimeInterval(300);
+        loginAnomalyDetectionConfigDto.setLoginFailCheck(loginFailCheckConfigDto);
+        LoginPassowrdFailCheckConfigDto loginPassowrdFailCheckConfigDto = new LoginPassowrdFailCheckConfigDto();
+        loginPassowrdFailCheckConfigDto.setEnabled(Boolean.FALSE);
+        loginPassowrdFailCheckConfigDto.setLimit(50);
+        loginPassowrdFailCheckConfigDto.setTimeInterval(300);
+        loginAnomalyDetectionConfigDto.setLoginPasswordFailCheck(loginPassowrdFailCheckConfigDto);
+        request.setLoginAnomalyDetection(loginAnomalyDetectionConfigDto);
+
+        request.setLoginRequireEmailVerified(Boolean.FALSE);
+
+        SelfUnlockAccountConfigDto selfUnlockAccountConfigDto = new SelfUnlockAccountConfigDto();
+        selfUnlockAccountConfigDto.setEnabled(Boolean.FALSE);
+        selfUnlockAccountConfigDto.setStrategy(SelfUnlockAccountConfigDto.Strategy.CAPTCHA.getValue());
+        request.setSelfUnlockAccount(selfUnlockAccountConfigDto);
+
+        request.setEnableLoginAccountSwitch(Boolean.FALSE);
+
+        QrcodeLoginStrategyDto qrcodeLoginStrategyDto = new QrcodeLoginStrategyDto();
+        qrcodeLoginStrategyDto.setQrcodeExpiresIn(120);
+        qrcodeLoginStrategyDto.setTicketExpiresIn(300);
+        qrcodeLoginStrategyDto.setReturnFullUserInfo(Boolean.FALSE);
+        qrcodeLoginStrategyDto.setAllowExchangeUserInfoFromBrowser(Boolean.TRUE);
+        request.setQrcodeLoginStrategy(qrcodeLoginStrategyDto);
 
         SecuritySettingsRespDto response = client.updateSecuritySettings(request);
         System.out.println(JsonUtils.serialize(response));

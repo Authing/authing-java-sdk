@@ -4,8 +4,6 @@ import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
 import cn.authing.sdk.java.util.JsonUtils;
 
-import java.util.Collections;
-
 
 
 public class GetAdminAuditLogsTest {
@@ -27,7 +25,11 @@ public class GetAdminAuditLogsTest {
         request.setSuccess(Boolean.TRUE);
         request.setStart(0);
         request.setEnd(0);
-        request.setPagination(new cn.authing.sdk.java.dto.ListWebhooksDto());
+
+        ListWebhooksDto listWebhooksDto = new ListWebhooksDto();
+        listWebhooksDto.setPage(1);
+        listWebhooksDto.setLimit(10);
+        request.setPagination(listWebhooksDto);
 
         AdminAuditLogRespDto response = client.getAdminAuditLogs(request);
         System.out.println(JsonUtils.serialize(response));

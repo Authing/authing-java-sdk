@@ -4,11 +4,9 @@ import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
 import cn.authing.sdk.java.util.JsonUtils;
 
-import java.util.Collections;
 
 
-
-public class GetUserLoggedinIdentitiesTest {
+public class GetUserLoggedInIdentitiesTest {
 
     private static final String ACCESS_KEY_ID = "YOUR_ACCESS_KEY_ID";
     private static final String ACCESS_KEY_SECRET = "YOUR_ACCESS_KEY_SECRET";

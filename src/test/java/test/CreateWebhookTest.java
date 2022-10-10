@@ -19,7 +19,7 @@ public class CreateWebhookTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         CreateWebhookDto request = new CreateWebhookDto();
-        request.setContentType(cn.authing.sdk.java.dto.CreateWebhookDto.ContentType.APPLICATION_JSON);
+        request.setContentType(cn.authing.sdk.java.dto.CreateWebhookDto.ContentType.APPLICATION_JSON.getValue());
         request.setEvents(Collections.singletonList("String_8086"));
         request.setUrl("url_8991");
         request.setName("name_6559");

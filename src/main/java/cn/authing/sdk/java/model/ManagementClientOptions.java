@@ -56,6 +56,11 @@ public class ManagementClientOptions extends AuthingClientOptions {
      */
     private Map<String, String> headers = new HashMap<>();
 
+    /**
+     * x-authing-signature-nonce 随机字符串的长度
+     */
+    private static final int RANDOM_STRING_LENGTH = 16;
+
     public ManagementClientOptions() {
     }
 
@@ -93,24 +98,27 @@ public class ManagementClientOptions extends AuthingClientOptions {
         headers.put("x-authing-request-from", AuthingClientOptions.REQUEST_FROM);
         headers.put("x-authing-sdk-client", SignatureEnum.X_AUTHING_SDK_CLIENT.getValue());
         headers.put("x-authing-signature-method", SignatureEnum.X_AUTHING_SIGNATURE_METHOD.getValue());
-        headers.put("x-authing-signature-nonce", getRandomString(16));
+        headers.put("x-authing-signature-nonce", getRandomString(RANDOM_STRING_LENGTH));
         headers.put("x-authing-signature-version", SignatureEnum.X_AUTHING_SIGNATURE_VERSION.getValue());
         String tenantId = getTenantId();
         if (tenantId != null && !tenantId.trim().isEmpty()) {
             headers.put("x-authing-tenant-id", tenantId);
         }
         headers.put("date", String.valueOf(new Date().getTime()));
+        //生成签名
         String stringToSign = null;
         try {
             stringToSign = composer.composeStringToSign(method, url, headers, objectToMap(body));
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
+        System.out.println(stringToSign);
+        //生成 Authorization
         headers.put("Authorization", composer.getAuthorization(accessKeyId, accessKeySecret, stringToSign));
         if (CollectionUtil.isNotEmpty(getHeaders())) {
             headers.putAll(getHeaders());
         }
-
+        //发送请求
         return HttpUtils.request(getHost() + url, method, body, headers, getTimeout());
     }
 
@@ -121,7 +129,8 @@ public class ManagementClientOptions extends AuthingClientOptions {
             field.setAccessible(true);
             Object obj = field.get(object);
             if (obj != null) {
-                if (!(obj instanceof String || obj instanceof Integer || obj instanceof Enum || obj instanceof Double || obj instanceof Float)) {
+                if (!(obj instanceof String || obj instanceof Integer || obj instanceof Enum || obj instanceof Double ||
+                        obj instanceof Float || obj instanceof Boolean)) {
                     map.put(field.getName(), JSONObject.toJSONString(obj));
                 } else {
                     map.put(field.getName(), obj.toString());

@@ -4,8 +4,6 @@ import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
 import cn.authing.sdk.java.util.JsonUtils;
 
-import java.util.Collections;
-
 
 
 public class ListWebhooksTest {
@@ -19,8 +17,8 @@ public class ListWebhooksTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListWebhooksDto request = new ListWebhooksDto();
-        request.setPage(0);
-        request.setLimit(0);
+        request.setPage(1);
+        request.setLimit(10);
 
         GetWebhooksRespDto response = client.listWebhooks(request);
         System.out.println(JsonUtils.serialize(response));

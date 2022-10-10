@@ -23,7 +23,7 @@ public class UpdateWebhookTest {
         request.setName("name_8613");
         request.setUrl("url_2221");
         request.setEvents(Collections.singletonList("String_9545"));
-        request.setContentType(cn.authing.sdk.java.dto.UpdateWebhookDto.ContentType.APPLICATION_JSON);
+        request.setContentType(cn.authing.sdk.java.dto.UpdateWebhookDto.ContentType.APPLICATION_JSON.getValue());
         request.setEnabled(Boolean.TRUE);
         request.setSecret("secret_6655");
 
