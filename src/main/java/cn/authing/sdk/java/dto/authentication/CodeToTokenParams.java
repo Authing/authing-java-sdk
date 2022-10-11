@@ -73,6 +73,8 @@ public class CodeToTokenParams {
         this.grantType = grantType;
     }
 
+    public CodeToTokenParams() {}
+
     public CodeToTokenParams(String code, String clientId, String clientSecret, String redirectUri, String grantType) {
         this.code = code;
         this.clientId = clientId;
