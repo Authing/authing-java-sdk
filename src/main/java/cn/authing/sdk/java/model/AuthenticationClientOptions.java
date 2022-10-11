@@ -1,5 +1,7 @@
 package cn.authing.sdk.java.model;
 
+import cn.authing.sdk.java.enums.AuthMethodEnum;
+import cn.authing.sdk.java.enums.ProtocolEnum;
 import cn.authing.sdk.java.util.HttpUtils;
 import com.nimbusds.jose.jwk.JWKSet;
 
@@ -49,6 +51,16 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
      * 超时时间
      */
     private int timeout = 10000;
+
+    /**
+     * 获取 token 端点认证方式
+     */
+    private AuthMethodEnum tokenEndPointAuthMethod = AuthMethodEnum.CLIENT_SECRET_POST;
+
+    /**
+     * 获取 token 端点认证方式
+     */
+    private ProtocolEnum protocol = ProtocolEnum.OIDC;
 
     public AuthenticationClientOptions(String appId, String appSecret, String domain, String redirectUri) {
         this.appId = appId;
@@ -133,6 +145,22 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
 
     public void setCookieKey(String cookieKey) {
         this.cookieKey = cookieKey;
+    }
+
+    public AuthMethodEnum getTokenEndPointAuthMethod() {
+        return tokenEndPointAuthMethod;
+    }
+
+    public void setTokenEndPointAuthMethod(AuthMethodEnum tokenEndPointAuthMethod) {
+        this.tokenEndPointAuthMethod = tokenEndPointAuthMethod;
+    }
+
+    public ProtocolEnum getProtocol() {
+        return protocol;
+    }
+
+    public void setProtocol(ProtocolEnum protocol) {
+        this.protocol = protocol;
     }
 }
 
