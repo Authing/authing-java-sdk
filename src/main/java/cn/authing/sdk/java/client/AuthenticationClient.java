@@ -2,6 +2,8 @@ package cn.authing.sdk.java.client;
 
 import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.dto.authentication.*;
+import cn.authing.sdk.java.enums.AuthMethodEnum;
+import cn.authing.sdk.java.enums.ProtocolEnum;
 import cn.authing.sdk.java.model.AuthenticationClientOptions;
 import cn.authing.sdk.java.model.AuthingRequestConfig;
 import cn.authing.sdk.java.util.CommonUtils;
@@ -11,7 +13,9 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.Header;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import com.nimbusds.jose.JWSAlgorithm;
@@ -79,6 +83,53 @@ public class AuthenticationClient extends BaseClient {
         String url = HttpUtils.buildUrlWithQueryParams(options.getHost() + "/oidc/auth",
                 JsonUtils.deserialize(JsonUtils.serialize(params), Map.class));
         return new AuthUrlResult(url, buildOptionParam.getState(), params.getNonce());
+    }
+
+    public OIDCTokenResponse getAccessTokenByCode(String code) throws Exception {
+        if ((StrUtil.isBlank(this.options.getAppId()) || StrUtil.isBlank(this.options.getAppSecret()))
+                && this.options.getTokenEndPointAuthMethod() != AuthMethodEnum.NONE){
+            throw new Exception("请在初始化 AuthenticationClient 时传入 appId 和 secret 参数");
+        }
+
+        String url = "";
+        if(this.options.getProtocol() == ProtocolEnum.OAUTH){
+            url += "/oauth/token";
+        }else{
+            url += "/oidc/token";
+        }
+
+        CodeToTokenParams tokenParam = new CodeToTokenParams();
+        tokenParam.setRedirectUri(this.options.getRedirectUri());
+        tokenParam.setCode(code);
+        tokenParam.setGrantType("authorization_code");
+
+        AuthingRequestConfig config = new AuthingRequestConfig();
+
+        config.setUrl(url);
+        config.setMethod("UrlencodedPOST");
+
+        HashMap<String, String> headerMap = new HashMap<>();
+        headerMap.put(Header.CONTENT_TYPE.getValue(), "application/x-www-form-urlencoded");
+
+        if(this.options.getTokenEndPointAuthMethod() == AuthMethodEnum.CLIENT_SECRET_POST){
+            tokenParam.setClientId(this.options.getAppId());
+            tokenParam.setClientSecret(this.options.getAppSecret());
+        }else if(this.options.getTokenEndPointAuthMethod() == AuthMethodEnum.CLIENT_SECRET_BASIC){
+            String basic64Str = "Basic " + Base64.getEncoder().encodeToString((this.options.getAppId()+":"+this.options.getAppSecret()).getBytes());
+            headerMap.put("Authorization",basic64Str);
+        }else{
+            // AuthMethodEnum.NONE
+            tokenParam.setClientId(this.options.getAppId());
+        }
+
+        config.setHeaders(headerMap);
+        config.setBody(tokenParam);
+
+        String response = request(config);
+
+        OIDCTokenResponse deserializeOIDCResponse = deserialize(response, OIDCTokenResponse.class);
+
+        return deserializeOIDCResponse;
     }
 
     public LoginState getLoginStateByAuthCode(String code, String redirectUri) throws Exception {
@@ -192,6 +243,15 @@ public class AuthenticationClient extends BaseClient {
 
         return deserialize(response, UserInfo.class);
 
+    }
+
+    public String buildLogoutUrlWithHost(ILogoutParams param) {
+        String host = this.options.getHost();
+
+        String path = HttpUtils.buildUrlWithQueryParams("/oidc/session/end",
+                JsonUtils.deserialize(JsonUtils.serialize(param), Map.class));
+
+        return host+path;
     }
 
     public String buildLogoutUrl(LogoutUrlParams param) {
@@ -1091,4 +1151,8 @@ public class AuthenticationClient extends BaseClient {
 
     // ==== AUTO GENERATED AUTHENTICATION METHODS END ====
 
+
+    public AuthenticationClientOptions getOptions() {
+        return options;
+    }
 }
