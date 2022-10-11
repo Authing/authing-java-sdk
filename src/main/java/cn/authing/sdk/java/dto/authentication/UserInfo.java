@@ -171,4 +171,22 @@ public class UserInfo {
     public void setLocale(String locale) {
         this.locale = locale;
     }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "sub='" + sub + '\'' +
+                ", name='" + name + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", givenName='" + givenName + '\'' +
+                ", familyName='" + familyName + '\'' +
+                ", birthdate='" + birthdate + '\'' +
+                ", gender='" + gender + '\'' +
+                ", picture='" + picture + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
+                ", zoneinfo='" + zoneinfo + '\'' +
+                ", preferredUsername='" + preferredUsername + '\'' +
+                ", locale='" + locale + '\'' +
+                '}';
+    }
 }
