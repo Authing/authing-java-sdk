@@ -3,6 +3,7 @@ package cn.authing.sdk.java.model;
 import cn.authing.sdk.java.util.HttpUtils;
 import com.nimbusds.jose.jwk.JWKSet;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -58,6 +59,9 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
 
     @Override
     public String doRequest(String url, String method, Map<String, String> headers, Object body) {
+        if (headers == null) {
+            headers = new HashMap<>();
+        }
         headers.put("x-authing-request-from", AuthingClientOptions.REQUEST_FROM);
         headers.put("x-authing-sdk-version", AuthingClientOptions.SDK_VERSION);
         return HttpUtils.request(getHost() + url, method, body, headers, getTimeout());
