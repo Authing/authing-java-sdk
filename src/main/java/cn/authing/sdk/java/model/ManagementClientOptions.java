@@ -1,13 +1,13 @@
 package cn.authing.sdk.java.model;
 
 import cn.authing.sdk.java.enums.SignatureEnum;
+import cn.authing.sdk.java.util.CommonUtils;
 import cn.authing.sdk.java.util.signature.ISignatureComposer;
 import cn.authing.sdk.java.util.signature.Impl.SignatureComposer;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.Header;
 import cn.hutool.http.Method;
-import com.alibaba.fastjson.JSONObject;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.sun.nio.sctp.IllegalReceiveException;
@@ -98,7 +98,7 @@ public class ManagementClientOptions extends AuthingClientOptions {
         headers.put("x-authing-request-from", AuthingClientOptions.REQUEST_FROM);
         headers.put("x-authing-sdk-client", SignatureEnum.X_AUTHING_SDK_CLIENT.getValue());
         headers.put("x-authing-signature-method", SignatureEnum.X_AUTHING_SIGNATURE_METHOD.getValue());
-        headers.put("x-authing-signature-nonce", getRandomString(RANDOM_STRING_LENGTH));
+        headers.put("x-authing-signature-nonce", CommonUtils.createRandomString(RANDOM_STRING_LENGTH));
         headers.put("x-authing-signature-version", SignatureEnum.X_AUTHING_SIGNATURE_VERSION.getValue());
         String tenantId = getTenantId();
         if (tenantId != null && !tenantId.trim().isEmpty()) {
@@ -130,24 +130,13 @@ public class ManagementClientOptions extends AuthingClientOptions {
             if (obj != null) {
                 if (!(obj instanceof String || obj instanceof Integer || obj instanceof Enum || obj instanceof Double ||
                         obj instanceof Float || obj instanceof Boolean)) {
-                    map.put(field.getName(), JSONObject.toJSONString(obj));
+                    map.put(field.getName(), JsonUtils.serialize(obj));
                 } else {
                     map.put(field.getName(), obj.toString());
                 }
             }
         }
         return map;
-    }
-
-    private String getRandomString(int length) {
-        String str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        Random random = new Random();
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < length; i++) {
-            int number = random.nextInt(62);
-            sb.append(str.charAt(number));
-        }
-        return sb.toString();
     }
 
     public String getAccessKeyId() {

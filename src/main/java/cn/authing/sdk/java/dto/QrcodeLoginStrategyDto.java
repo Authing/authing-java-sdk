@@ -1,11 +1,9 @@
 package cn.authing.sdk.java.dto;
 
 
-import com.alibaba.fastjson.annotation.JSONType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-@JSONType(orders = {"qrcodeExpiresIn", "ticketExpiresIn", "allowExchangeUserInfoFromBrowser", "returnFullUserInfo"})
 public class QrcodeLoginStrategyDto {
     /**
      * 二维码有效时间（秒）

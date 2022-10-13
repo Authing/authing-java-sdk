@@ -1,11 +1,8 @@
 package cn.authing.sdk.java.dto;
 
 
-import com.alibaba.fastjson.annotation.JSONType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-@JSONType(orders={"loginFailStrategy","loginFailCheck","loginPasswordFailCheck"})
 public class LoginAnomalyDetectionConfigDto {
     /**
      * 登录安全策略。当用户触发登录失败频率检测时，采用什么策略。目前支持验证码和锁定账号两种策略。当选择账号锁定策略的时候，只可以开启「登录密码错误限制」。
