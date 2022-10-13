@@ -19,7 +19,7 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
     private String appSecret;
 
     /** 应用对应的用户池域名，例如 pool.authing.cn */
-    private String host;
+    private String host = "https://core.authing.cn";
 
     /** 认证完成后的重定向目标 URL */
     private String redirectUri;
@@ -55,17 +55,21 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
     /**
      * 获取 token 端点认证方式
      */
-    private AuthMethodEnum tokenEndPointAuthMethod = AuthMethodEnum.CLIENT_SECRET_POST;
+    private String tokenEndPointAuthMethod = AuthMethodEnum.CLIENT_SECRET_POST.getValue();
 
     /**
      * 获取 token 端点认证方式
      */
-    private ProtocolEnum protocol = ProtocolEnum.OIDC;
+    private String protocol = ProtocolEnum.OIDC.getValue();
 
-    public AuthenticationClientOptions(String appId, String appSecret, String domain, String redirectUri) {
+    /**
+     * 检查 token 端点认证方式
+     */
+    private String introspectionEndPointAuthMethod = AuthMethodEnum.CLIENT_SECRET_POST.getValue();
+
+    public AuthenticationClientOptions(String appId, String appSecret, String redirectUri) {
         this.appId = appId;
         this.appSecret = appSecret;
-        this.host = domain;
         this.redirectUri = redirectUri;
     }
 
@@ -147,20 +151,28 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
         this.cookieKey = cookieKey;
     }
 
-    public AuthMethodEnum getTokenEndPointAuthMethod() {
+    public String getTokenEndPointAuthMethod() {
         return tokenEndPointAuthMethod;
     }
 
-    public void setTokenEndPointAuthMethod(AuthMethodEnum tokenEndPointAuthMethod) {
+    public void setTokenEndPointAuthMethod(String tokenEndPointAuthMethod) {
         this.tokenEndPointAuthMethod = tokenEndPointAuthMethod;
     }
 
-    public ProtocolEnum getProtocol() {
+    public String getProtocol() {
         return protocol;
     }
 
-    public void setProtocol(ProtocolEnum protocol) {
+    public void setProtocol(String protocol) {
         this.protocol = protocol;
+    }
+
+    public String getIntrospectionEndPointAuthMethod() {
+        return introspectionEndPointAuthMethod;
+    }
+
+    public void setIntrospectionEndPointAuthMethod(String introspectionEndPointAuthMethod) {
+        this.introspectionEndPointAuthMethod = introspectionEndPointAuthMethod;
     }
 }
 

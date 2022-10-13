@@ -6,25 +6,20 @@ import cn.authing.sdk.java.enums.AuthMethodEnum;
 import cn.authing.sdk.java.enums.ProtocolEnum;
 import cn.authing.sdk.java.model.AuthenticationClientOptions;
 import cn.authing.sdk.java.model.AuthingRequestConfig;
+import cn.authing.sdk.java.model.ClientCredentialInput;
 import cn.authing.sdk.java.util.CommonUtils;
 import cn.authing.sdk.java.util.HttpUtils;
 import cn.authing.sdk.java.util.JsonUtils;
+import cn.hutool.core.codec.Base64Encoder;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.Header;
 import java.io.IOException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
+import java.security.InvalidParameterException;
 import java.text.ParseException;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
-import com.nimbusds.jose.JWSAlgorithm;
-import com.nimbusds.jose.JWSObject;
-import com.nimbusds.jose.JWSVerifier;
-import com.nimbusds.jose.crypto.MACVerifier;
-import com.nimbusds.jose.crypto.RSASSAVerifier;
-import com.nimbusds.jose.jwk.JWKSet;
-import com.nimbusds.jose.jwk.RSAKey;
+import java.util.Optional;
 
 /**
  * @author ZKB
@@ -34,7 +29,7 @@ public class AuthenticationClient extends BaseClient {
 
     private final AuthenticationClientOptions options;
     private final String appId;
-    private final JWKSet jwks;
+//    private final JWKSet jwks;
 
     public AuthenticationClient(AuthenticationClientOptions options) throws IOException, ParseException {
         super(options);
@@ -46,11 +41,11 @@ public class AuthenticationClient extends BaseClient {
             throw new IllegalArgumentException("scope 中必须包含 openid");
         }
 
-        if (options.getServerJWKS() != null && options.getServerJWKS().getKeys().size() > 0) {
-            this.jwks = options.getServerJWKS();
-        } else {
-            this.jwks = JWKSet.load(new URL(this.options.getHost() + "/oidc/.well-known/jwks.json"));
-        }
+//        if (options.getServerJWKS() != null && options.getServerJWKS().getKeys().size() > 0) {
+//            this.jwks = options.getServerJWKS();
+//        } else {
+//            this.jwks = JWKSet.load(new URL(this.options.getHost() + "/oidc/.well-known/jwks.json"));
+//        }
     }
 
     public AuthUrlResult buildAuthUrl(BuildAuthUrlParams buildOptionParam) {
@@ -87,14 +82,14 @@ public class AuthenticationClient extends BaseClient {
 
     public OIDCTokenResponse getAccessTokenByCode(String code) throws Exception {
         if ((StrUtil.isBlank(this.options.getAppId()) || StrUtil.isBlank(this.options.getAppSecret()))
-                && this.options.getTokenEndPointAuthMethod() != AuthMethodEnum.NONE){
+                && AuthMethodEnum.NONE.getValue().equals(this.options.getTokenEndPointAuthMethod())) {
             throw new Exception("请在初始化 AuthenticationClient 时传入 appId 和 secret 参数");
         }
 
         String url = "";
-        if(this.options.getProtocol() == ProtocolEnum.OAUTH){
+        if (ProtocolEnum.OAUTH.getValue().equals(this.options.getProtocol())) {
             url += "/oauth/token";
-        }else{
+        } else {
             url += "/oidc/token";
         }
 
@@ -111,13 +106,13 @@ public class AuthenticationClient extends BaseClient {
         HashMap<String, String> headerMap = new HashMap<>();
         headerMap.put(Header.CONTENT_TYPE.getValue(), "application/x-www-form-urlencoded");
 
-        if(this.options.getTokenEndPointAuthMethod() == AuthMethodEnum.CLIENT_SECRET_POST){
+        if (AuthMethodEnum.CLIENT_SECRET_POST.getValue().equals(this.options.getTokenEndPointAuthMethod())) {
             tokenParam.setClientId(this.options.getAppId());
             tokenParam.setClientSecret(this.options.getAppSecret());
-        }else if(this.options.getTokenEndPointAuthMethod() == AuthMethodEnum.CLIENT_SECRET_BASIC){
-            String basic64Str = "Basic " + Base64.getEncoder().encodeToString((this.options.getAppId()+":"+this.options.getAppSecret()).getBytes());
-            headerMap.put("Authorization",basic64Str);
-        }else{
+        } else if (AuthMethodEnum.CLIENT_SECRET_BASIC.getValue().equals(this.options.getTokenEndPointAuthMethod())) {
+            String basic64Str = "Basic " + Base64.getEncoder().encodeToString((this.options.getAppId() + ":" + this.options.getAppSecret()).getBytes());
+            headerMap.put(Header.AUTHORIZATION.getValue(), basic64Str);
+        } else {
             // AuthMethodEnum.NONE
             tokenParam.setClientId(this.options.getAppId());
         }
@@ -132,99 +127,99 @@ public class AuthenticationClient extends BaseClient {
         return deserializeOIDCResponse;
     }
 
-    public LoginState getLoginStateByAuthCode(String code, String redirectUri) throws Exception {
-        CodeToTokenParams tokenParam = new CodeToTokenParams(code, this.options.getAppId(), this.options.getAppSecret(),
-                redirectUri, "authorization_code");
+//    public LoginState getLoginStateByAuthCode(String code, String redirectUri) throws Exception {
+//        CodeToTokenParams tokenParam = new CodeToTokenParams(code, this.options.getAppId(), this.options.getAppSecret(),
+//                redirectUri, "authorization_code");
+//
+//        AuthingRequestConfig config = new AuthingRequestConfig();
+//
+//        config.setUrl("/oidc/token");
+//
+//        HashMap<String, String> headerMap = new HashMap<>();
+//
+//        headerMap.put(Header.CONTENT_TYPE.getValue(), "application/x-www-form-urlencoded");
+//
+//        config.setHeaders(headerMap);
+//
+//        config.setMethod("UrlencodedPOST");
+//
+//        config.setBody(tokenParam);
+//
+//        String response = request(config);
+//
+//        OIDCTokenResponse deserializeOIDCResponse = deserialize(response, OIDCTokenResponse.class);
+//
+//        return new LoginState(deserializeOIDCResponse.getAccessToken(),
+//                deserializeOIDCResponse.getIdToken(),
+//                deserializeOIDCResponse.getRefreshToken(),
+//                deserializeOIDCResponse.getExpiresIn(),
+//                this.parseIDToken(deserializeOIDCResponse.getIdToken()),
+//                this.parseAccessToken(deserializeOIDCResponse.getAccessToken()));
+//    }
+//
+//    public LoginState refreshLoginState(String token) throws Exception {
+//        RefreshTokenParams tokenParam = new RefreshTokenParams(this.options.getAppId(), this.options.getAppSecret(),
+//                token);
+//        AuthingRequestConfig config = new AuthingRequestConfig();
+//
+//        config.setUrl("/oidc/token");
+//
+//        HashMap<String, String> headerMap = new HashMap<>();
+//
+//        headerMap.put(Header.CONTENT_TYPE.getValue(), "application/x-www-form-urlencoded");
+//
+//        config.setHeaders(headerMap);
+//
+//        config.setBody(tokenParam);
+//
+//        config.setMethod("UrlencodedPOST");
+//
+//        String response = request(config);
+//
+//        OIDCTokenResponse deserializeOIDCResponse = deserialize(response, OIDCTokenResponse.class);
+//
+//        return new LoginState(deserializeOIDCResponse.getAccessToken(),
+//                deserializeOIDCResponse.getIdToken(),
+//                deserializeOIDCResponse.getRefreshToken(),
+//                deserializeOIDCResponse.getExpiresIn(),
+//                this.parseIDToken(deserializeOIDCResponse.getIdToken()),
+//                this.parseAccessToken(deserializeOIDCResponse.getAccessToken()));
+//
+//    }
 
-        AuthingRequestConfig config = new AuthingRequestConfig();
-
-        config.setUrl("/oidc/token");
-
-        HashMap<String, String> headerMap = new HashMap<>();
-
-        headerMap.put(Header.CONTENT_TYPE.getValue(), "application/x-www-form-urlencoded");
-
-        config.setHeaders(headerMap);
-
-        config.setMethod("UrlencodedPOST");
-
-        config.setBody(tokenParam);
-
-        String response = request(config);
-
-        OIDCTokenResponse deserializeOIDCResponse = deserialize(response, OIDCTokenResponse.class);
-
-        return new LoginState(deserializeOIDCResponse.getAccessToken(),
-                deserializeOIDCResponse.getIdToken(),
-                deserializeOIDCResponse.getRefreshToken(),
-                deserializeOIDCResponse.getExpiresIn(),
-                this.parseIDToken(deserializeOIDCResponse.getIdToken()),
-                this.parseAccessToken(deserializeOIDCResponse.getAccessToken()));
-    }
-
-    public LoginState refreshLoginState(String token) throws Exception {
-        RefreshTokenParams tokenParam = new RefreshTokenParams(this.options.getAppId(), this.options.getAppSecret(),
-                token);
-        AuthingRequestConfig config = new AuthingRequestConfig();
-
-        config.setUrl("/oidc/token");
-
-        HashMap<String, String> headerMap = new HashMap<>();
-
-        headerMap.put(Header.CONTENT_TYPE.getValue(), "application/x-www-form-urlencoded");
-
-        config.setHeaders(headerMap);
-
-        config.setBody(tokenParam);
-
-        config.setMethod("UrlencodedPOST");
-
-        String response = request(config);
-
-        OIDCTokenResponse deserializeOIDCResponse = deserialize(response, OIDCTokenResponse.class);
-
-        return new LoginState(deserializeOIDCResponse.getAccessToken(),
-                deserializeOIDCResponse.getIdToken(),
-                deserializeOIDCResponse.getRefreshToken(),
-                deserializeOIDCResponse.getExpiresIn(),
-                this.parseIDToken(deserializeOIDCResponse.getIdToken()),
-                this.parseAccessToken(deserializeOIDCResponse.getAccessToken()));
-
-    }
-
-    private IDToken parseIDToken(String token) throws Exception {
-        JWSObject jwsObject = JWSObject.parse(token);
-        String payload;
-
-        if (jwsObject.getHeader().getAlgorithm() == JWSAlgorithm.HS256) {
-            JWSVerifier jwsVerifier = new MACVerifier(this.options.getAppSecret());
-            if (!jwsObject.verify(jwsVerifier)) {
-                throw new Exception("token 签名不合法");
-            }
-        } else {
-            RSAKey rsaKey = this.jwks.getKeys().get(0).toRSAKey();
-            RSASSAVerifier verifier = new RSASSAVerifier(rsaKey);
-            if (!jwsObject.verify(verifier)) {
-                throw new Exception("校验不通过");
-            }
-        }
-
-        payload = jwsObject.getPayload().toString();
-
-        return deserialize(payload, IDToken.class);
-    }
-
-    private AccessToken parseAccessToken(String token) throws Exception {
-        JWSObject jwsObject = JWSObject.parse(token);
-        String payload;
-        RSAKey rsaKey = this.jwks.getKeys().get(0).toRSAKey();
-        RSASSAVerifier verifier = new RSASSAVerifier(rsaKey);
-        if (!jwsObject.verify(verifier)) {
-            throw new Exception("校验不通过");
-        }
-        payload = jwsObject.getPayload().toString();
-        return deserialize(payload, AccessToken.class);
-    }
+//    private IDToken parseIDToken(String token) throws Exception {
+//        JWSObject jwsObject = JWSObject.parse(token);
+//        String payload;
+//
+//        if (jwsObject.getHeader().getAlgorithm() == JWSAlgorithm.HS256) {
+//            JWSVerifier jwsVerifier = new MACVerifier(this.options.getAppSecret());
+//            if (!jwsObject.verify(jwsVerifier)) {
+//                throw new Exception("token 签名不合法");
+//            }
+//        } else {
+//            RSAKey rsaKey = this.jwks.getKeys().get(0).toRSAKey();
+//            RSASSAVerifier verifier = new RSASSAVerifier(rsaKey);
+//            if (!jwsObject.verify(verifier)) {
+//                throw new Exception("校验不通过");
+//            }
+//        }
+//
+//        payload = jwsObject.getPayload().toString();
+//
+//        return deserialize(payload, IDToken.class);
+//    }
+//
+//    private AccessToken parseAccessToken(String token) throws Exception {
+//        JWSObject jwsObject = JWSObject.parse(token);
+//        String payload;
+//        RSAKey rsaKey = this.jwks.getKeys().get(0).toRSAKey();
+//        RSASSAVerifier verifier = new RSASSAVerifier(rsaKey);
+//        if (!jwsObject.verify(verifier)) {
+//            throw new Exception("校验不通过");
+//        }
+//        payload = jwsObject.getPayload().toString();
+//        return deserialize(payload, AccessToken.class);
+//    }
 
     public UserInfo getUserinfo(String accessToken) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -1154,5 +1149,397 @@ public class AuthenticationClient extends BaseClient {
 
     public AuthenticationClientOptions getOptions() {
         return options;
+    }
+    /**
+     * Client Credentials 模式获取 Access Token
+     */
+    public GetAccessTokenByClientCredentialsRespDto getAccessTokenByClientCredentials(String scope, ClientCredentialInput options) throws Exception {
+        if (StrUtil.isEmpty(scope)) {
+            throw new InvalidParameterException("请传入 scope 参数，请看文档：https://docs.authing.cn/v2/guides/authorization/m2m-authz.html");
+        }
+
+        if (options == null) {
+            throw new InvalidParameterException("请在调用本方法时传入 { accessKey: string, accessSecret: string }，请看文档：https://docs.authing.cn/v2/guides/authorization/m2m-authz.html");
+        }
+
+        GetAccessTokenByClientCredentialsDto reqDto = new GetAccessTokenByClientCredentialsDto();
+        reqDto.setScope(scope);
+        reqDto.setClientId(options.getAccessKey());
+        reqDto.setClientSecret(options.getAccessSecret());
+        reqDto.setGrantType(TokenEndPointParams.Grant_type.CLIENT_CREDENTIALS.getValue());
+
+        Map<String, String> headers = new HashMap<>();
+        headers.put(Header.CONTENT_TYPE.getValue(), "application/x-www-form-urlencoded");
+
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/oidc/token");
+        config.setBody(reqDto);
+        config.setMethod("UrlencodedPOST");
+        config.setHeaders(headers);
+
+        String response = request(config);
+        return deserialize(response, GetAccessTokenByClientCredentialsRespDto.class);
+    }
+
+    /**
+     * accessToken 换取用户信息
+     */
+    public UserInfo getUserInfoByAccessToken(String accessToken) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+
+        if (ProtocolEnum.OAUTH.getValue().equals(options.getProtocol())) {
+            config.setMethod("POST");
+            config.setBody(new Object());
+        } else {
+            config.setMethod("GET");
+        }
+
+        config.setUrl("/oidc/me/?access_token=" + accessToken);
+
+        String response = request(config);
+        return deserialize(response, UserInfo.class);
+    }
+
+    /**
+     * 拼接 OIDC、OAuth 2.0、SAML、CAS 协议授权链接
+     */
+    public String buildAuthorizeUrl(IOidcParams params) {
+        if (options.getAppId() == null) {
+            throw new InvalidParameterException("请在初始化 AuthenticationClient 时传入 appId");
+        }
+
+        if (ProtocolEnum.OIDC.getValue().equals(options.getProtocol())) {
+            throw new InvalidParameterException("初始化 AuthenticationClient 传入的 protocol 应为 ProtocolEnum.OIDC 不应该为 $protocol");
+        }
+
+        if (StrUtil.isEmpty(options.getRedirectUri())) {
+            throw new InvalidParameterException("redirectUri 不应该为空 解决方法：请在 AuthenticationClient 初始化时传入 redirectUri，或者调用 buildAuthorizeUrl 时传入 redirectUri");
+        }
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("client_id", Optional.ofNullable(params.getAppId()).orElse(options.getAppId()));
+        map.put("scope", Optional.ofNullable(params.getScope()).orElse("openid profile email phone address"));
+        map.put("state", Optional.ofNullable(params.getState()).orElse(CommonUtils.createRandomString(12)));
+        map.put("nonce", Optional.ofNullable(params.getNonce()).orElse(CommonUtils.createRandomString(12)));
+        map.put("response_mode", Optional.ofNullable(params.getResponseMode()).orElse(null));
+        map.put("response_type", Optional.ofNullable(params.getResponseType()).orElse("code"));
+        map.put("redirect_uri", Optional.ofNullable(params.getRedirectUri()).orElse(options.getRedirectUri()));
+        map.put("prompt", params.getScope() != null && params.getScope().contains("offline_access") ? "consent" : null);
+
+        return HttpUtils.buildUrlWithQueryParams(options.getHost()+"/oidc/auth", map);
+    }
+
+    /**
+     * 使用 Refresh token 获取新的 Access token
+     */
+    public GetNewAccessTokenByRefreshTokenRespDto getNewAccessTokenByRefreshToken(String refreshToken) {
+        verificationProtocol();
+
+        String tokenEndPointAuthMethod = options.getTokenEndPointAuthMethod();
+        if (AuthMethodEnum.CLIENT_SECRET_POST.getValue().equals(tokenEndPointAuthMethod)) {
+            return getNewAccessTokenByRefreshTokenWithClientSecretPost(refreshToken);
+        } else if (AuthMethodEnum.CLIENT_SECRET_BASIC.getValue().equals(tokenEndPointAuthMethod)) {
+            return getNewAccessTokenByRefreshTokenWithClientSecretBasic(refreshToken);
+        } else {
+            return getNewAccessTokenByRefreshTokenWithNone(refreshToken);
+        }
+    }
+
+    private void verificationProtocol() {
+        if (!(ProtocolEnum.OAUTH.getValue().equals(options.getProtocol()) || ProtocolEnum.OIDC.getValue().equals(options.getProtocol()))) {
+            throw new InvalidParameterException("初始化 AuthenticationClient 时传入的 protocol 参数必须为 ProtocolEnum.OAUTH 或 ProtocolEnum.OIDC，请检查参数");
+        }
+        if (StrUtil.isEmpty(options.getAppSecret()) && !AuthMethodEnum.NONE.getValue().equals(options.getTokenEndPointAuthMethod())) {
+            throw new InvalidParameterException("请在初始化 AuthenticationClient 时传入 appId 和 secret 参数");
+        }
+    }
+
+    private GetNewAccessTokenByRefreshTokenRespDto getNewAccessTokenByRefreshTokenWithClientSecretPost(String refreshToken) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+
+        if (ProtocolEnum.OIDC.getValue().equals(options.getProtocol())) {
+            config.setUrl("/oidc/token");
+        } else {
+            config.setUrl("/oauth/token");
+        }
+
+        config.setMethod("UrlencodedPOST");
+
+        Map<String, String> headers = new HashMap<>();
+        headers.put(Header.CONTENT_TYPE.getValue(), "application/x-www-form-urlencoded");
+        config.setHeaders(headers);
+
+        GetNewAccessTokenByRefreshTokenDto reqDto = new GetNewAccessTokenByRefreshTokenDto();
+        reqDto.setClientId(options.getAppId());
+        reqDto.setClientSecret(options.getAppSecret());
+        reqDto.setGrantType(TokenEndPointParams.Grant_type.REFRESH_TOKEN.getValue());
+        reqDto.setRefreshToken(refreshToken);
+        config.setBody(reqDto);
+
+        String response = request(config);
+        return deserialize(response, GetNewAccessTokenByRefreshTokenRespDto.class);
+    }
+
+    private GetNewAccessTokenByRefreshTokenRespDto getNewAccessTokenByRefreshTokenWithClientSecretBasic(String refreshToken) {
+        String basic64Str = "Basic " + Base64Encoder.encode((options.getAppId() + ":" + options.getAppSecret()).getBytes());
+
+        AuthingRequestConfig config = new AuthingRequestConfig();
+
+        if (ProtocolEnum.OIDC.getValue().equals(options.getProtocol())) {
+            config.setUrl("/oidc/token");
+        } else {
+            config.setUrl("/oauth/token");
+        }
+
+        config.setMethod("UrlencodedPOST");
+
+        Map<String, String> headers = new HashMap<>();
+        headers.put(Header.CONTENT_TYPE.getValue(), "application/x-www-form-urlencoded");
+        headers.put(Header.AUTHORIZATION.getValue(), basic64Str);
+        config.setHeaders(headers);
+
+        GetNewAccessTokenByRefreshTokenDto reqDto = new GetNewAccessTokenByRefreshTokenDto();
+        reqDto.setGrantType(TokenEndPointParams.Grant_type.REFRESH_TOKEN.getValue());
+        reqDto.setRefreshToken(refreshToken);
+        config.setBody(reqDto);
+
+        String resqonse = request(config);
+        return deserialize(resqonse, GetNewAccessTokenByRefreshTokenRespDto.class);
+    }
+
+    private GetNewAccessTokenByRefreshTokenRespDto getNewAccessTokenByRefreshTokenWithNone(String refreshToken) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+
+        if (ProtocolEnum.OIDC.getValue().equals(options.getProtocol())) {
+            config.setUrl("/oidc/token");
+        } else {
+            config.setUrl("/oauth/token");
+        }
+
+        config.setMethod("UrlencodedPOST");
+
+        Map<String, String> headers = new HashMap<>();
+        headers.put(Header.CONTENT_TYPE.getValue(), "application/x-www-form-urlencoded");
+        config.setHeaders(headers);
+
+        GetNewAccessTokenByRefreshTokenDto reqDto = new GetNewAccessTokenByRefreshTokenDto();
+        reqDto.setClientId(options.getAppId());
+        reqDto.setGrantType(TokenEndPointParams.Grant_type.REFRESH_TOKEN.getValue());
+        reqDto.setRefreshToken(refreshToken);
+        config.setBody(reqDto);
+
+        String response = request(config);
+        return deserialize(response, GetNewAccessTokenByRefreshTokenRespDto.class);
+    }
+
+    /**
+     * 检查 Access token 或 Refresh token 的状态
+     */
+    public IntrospectTokenWithClientSecretPostRespDto introspectToken(String token) {
+        verificationProtocol();
+
+        String introspectionEndPointAuthMethod = options.getIntrospectionEndPointAuthMethod();
+        if (AuthMethodEnum.CLIENT_SECRET_POST.getValue().equals(introspectionEndPointAuthMethod)) {
+            return introspectTokenWithClientSecretPost(token);
+        } else if (AuthMethodEnum.CLIENT_SECRET_BASIC.getValue().equals(introspectionEndPointAuthMethod)) {
+            return introspectTokenWithClientSecretBasic(token);
+        } else {
+            return introspectTokenWithNone(token);
+        }
+    }
+
+    private IntrospectTokenWithClientSecretPostRespDto introspectTokenWithClientSecretPost(String token) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+
+        if (ProtocolEnum.OIDC.getValue().equals(options.getProtocol())) {
+            config.setUrl("/oidc/token/introspection");
+        } else {
+            config.setUrl("/oauth/token/introspection");
+        }
+
+        config.setMethod("UrlencodedPOST");
+
+        Map<String, String> headers = new HashMap<>();
+        headers.put(Header.CONTENT_TYPE.getValue(), "application/x-www-form-urlencoded");
+        config.setHeaders(headers);
+
+        IntrospectTokenDto reqDto = new IntrospectTokenDto();
+        reqDto.setClientId(options.getAppId());
+        reqDto.setClientSecret(options.getAppSecret());
+        reqDto.setToken(token);
+        config.setBody(reqDto);
+
+        String response = request(config);
+        return deserialize(response, IntrospectTokenWithClientSecretPostRespDto.class);
+    }
+
+    private IntrospectTokenWithClientSecretPostRespDto introspectTokenWithClientSecretBasic(String token) {
+        String basic64Str = "Basic " + Base64Encoder.encode((options.getAppId() + ":" + options.getAppSecret()).getBytes());
+
+        AuthingRequestConfig config = new AuthingRequestConfig();
+
+        if (ProtocolEnum.OIDC.getValue().equals(options.getProtocol())) {
+            config.setUrl("/oidc/token/introspection");
+        } else {
+            config.setUrl("/oauth/token/introspection");
+        }
+
+        config.setMethod("UrlencodedPOST");
+
+        Map<String, String> headers = new HashMap<>();
+        headers.put(Header.CONTENT_TYPE.getValue(), "application/x-www-form-urlencoded");
+        headers.put(Header.AUTHORIZATION.getValue(), basic64Str);
+        config.setHeaders(headers);
+
+        IntrospectTokenDto reqDto = new IntrospectTokenDto();
+        reqDto.setToken(token);
+        config.setBody(reqDto);
+
+        String response = request(config);
+        return deserialize(response, IntrospectTokenWithClientSecretPostRespDto.class);
+    }
+
+    private IntrospectTokenWithClientSecretPostRespDto introspectTokenWithNone(String token) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+
+        if (ProtocolEnum.OIDC.getValue().equals(options.getProtocol())) {
+            config.setUrl("/oidc/token/introspection");
+        } else {
+            config.setUrl("/oauth/token/introspection");
+        }
+
+        config.setMethod("UrlencodedPOST");
+
+        Map<String, String> headers = new HashMap<>();
+        headers.put(Header.CONTENT_TYPE.getValue(), "application/x-www-form-urlencoded");
+        config.setHeaders(headers);
+
+        IntrospectTokenDto reqDto = new IntrospectTokenDto();
+        reqDto.setClientId(options.getAppId());
+        reqDto.setToken(token);
+        config.setBody(reqDto);
+
+        String response = request(config);
+        return deserialize(response, IntrospectTokenWithClientSecretPostRespDto.class);
+    }
+
+    /**
+     * 效验Token合法性
+     */
+    public ValidateTokenRespDto validateToken(ValidateTokenParams params) {
+        String idToken = params.getIdToken();
+        String accessToken = params.getAccessToken();
+        if (idToken == null && accessToken == null) {
+            throw new InvalidParameterException("请在传入的参数对象中包含 accessToken 或 idToken 字段");
+        }
+        if (accessToken != null && idToken != null) {
+            throw new InvalidParameterException("accessToken 和 idToken 只能传入一个，不能同时传入");
+        }
+
+        AuthingRequestConfig config = new AuthingRequestConfig();
+
+        if (accessToken != null) {
+            config.setUrl("/api/v2/oidc/validate_token?access_token=" + accessToken);
+        } else {
+            config.setUrl("/api/v2/oidc/validate_token?id_token=" + idToken);
+        }
+
+        config.setMethod("GET");
+
+        Map<String, String> headers = new HashMap<>();
+        headers.put(Header.CONTENT_TYPE.getValue(), "application/x-www-form-urlencoded");
+        config.setHeaders(headers);
+
+        String response = request(config);
+        return deserialize(response, ValidateTokenRespDto.class);
+    }
+
+    /**
+     * 撤回 Access token 或 Refresh token
+     */
+    public Boolean revokeToken(String token) {
+        verificationProtocol();
+
+        String introspectionEndPointAuthMethod = options.getIntrospectionEndPointAuthMethod();
+        if (AuthMethodEnum.CLIENT_SECRET_POST.getValue().equals(introspectionEndPointAuthMethod)) {
+            return revokeTokenWithClientSecretPost(token);
+        } else if (AuthMethodEnum.CLIENT_SECRET_BASIC.getValue().equals(introspectionEndPointAuthMethod)) {
+            return revokeTokenWithClientSecretBasic(token);
+        } else {
+            return revokeTokenWithNone(token);
+        }
+    }
+
+    private Boolean revokeTokenWithClientSecretPost(String token) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+
+        if (ProtocolEnum.OIDC.getValue().equals(options.getProtocol())) {
+            config.setUrl("/oidc/token/revocation");
+        } else {
+            config.setUrl("/oauth/token/revocation");
+        }
+
+        config.setMethod("UrlencodedPOST");
+
+        Map<String, String> headers = new HashMap<>();
+        headers.put(Header.CONTENT_TYPE.getValue(), "application/x-www-form-urlencoded");
+        config.setHeaders(headers);
+
+        RevokeTokenDto reqDto = new RevokeTokenDto();
+        reqDto.setClientId(options.getAppId());
+        reqDto.setClientSecret(options.getAppSecret());
+        reqDto.setToken(token);
+        config.setBody(reqDto);
+
+        String response = request(config);
+        return deserialize(response, Boolean.class);
+    }
+
+    private Boolean revokeTokenWithClientSecretBasic(String token) {
+        if (ProtocolEnum.OAUTH.getValue().equals(options.getProtocol())) {
+            throw new InvalidParameterException("OAuth 2.0 暂不支持用 client_secret_basic 模式身份验证撤回 Token");
+        }
+
+        String basic64Str = "Basic " + Base64Encoder.encode((options.getAppId() + ":" + options.getAppSecret()).getBytes());
+
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/oidc/token/revocation");
+        config.setMethod("UrlencodedPOST");
+
+        Map<String, String> headers = new HashMap<>();
+        headers.put(Header.CONTENT_TYPE.getValue(), "application/x-www-form-urlencoded");
+        headers.put(Header.AUTHORIZATION.getValue(), basic64Str);
+        config.setHeaders(headers);
+
+        RevokeTokenDto reqDto = new RevokeTokenDto();
+        reqDto.setToken(token);
+        config.setBody(reqDto);
+
+        String response = request(config);
+        return deserialize(response, Boolean.class);
+    }
+
+    private Boolean revokeTokenWithNone(String token) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+
+        if (ProtocolEnum.OIDC.getValue().equals(options.getProtocol())) {
+            config.setUrl("/oidc/token/revocation");
+        } else {
+            config.setUrl("/oauth/token/revocation");
+        }
+
+        config.setMethod("UrlencodedPOST");
+
+        Map<String, String> headers = new HashMap<>();
+        headers.put(Header.CONTENT_TYPE.getValue(), "application/x-www-form-urlencoded");
+        config.setHeaders(headers);
+
+        RevokeTokenDto reqDto = new RevokeTokenDto();
+        reqDto.setToken(token);
+        reqDto.setClientId(options.getAppId());
+        config.setBody(reqDto);
+
+        String response = request(config);
+        return deserialize(response, Boolean.class);
     }
 }
