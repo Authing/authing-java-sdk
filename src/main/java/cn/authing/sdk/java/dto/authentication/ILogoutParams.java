@@ -12,13 +12,13 @@ public class ILogoutParams {
     /**
      * 登出后的重定向地址
      */
-    @JsonProperty("redirect-uri")
-    private String redirectUri;
+    @JsonProperty("post_logout_redirect_uri")
+    private String postLogoutRedirectUri;
 
     /**
      * 用户的 idToken
      */
-    @JsonProperty("id-token")
+    @JsonProperty("id_token")
     private String idToken;
 
     public ILogoutParams() {}
@@ -31,14 +31,6 @@ public class ILogoutParams {
         this.expert = expert;
     }
 
-    public String getRedirectUri() {
-        return redirectUri;
-    }
-
-    public void setRedirectUri(String redirectUri) {
-        this.redirectUri = redirectUri;
-    }
-
     public String getIdToken() {
         return idToken;
     }
@@ -47,11 +39,19 @@ public class ILogoutParams {
         this.idToken = idToken;
     }
 
+    public String getPostLogoutRedirectUri() {
+        return postLogoutRedirectUri;
+    }
+
+    public void setPostLogoutRedirectUri(String postLogoutRedirectUri) {
+        this.postLogoutRedirectUri = postLogoutRedirectUri;
+    }
+
     @Override
     public String toString() {
         return "ILogoutParams{" +
                 "expert=" + expert +
-                ", redirectUri='" + redirectUri + '\'' +
+                ", postLogoutRedirectUri='" + postLogoutRedirectUri + '\'' +
                 ", idToken='" + idToken + '\'' +
                 '}';
     }

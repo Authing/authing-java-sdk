@@ -3,6 +3,7 @@ package cn.authing.sdk.java.model;
 import cn.authing.sdk.java.enums.AuthMethodEnum;
 import cn.authing.sdk.java.enums.ProtocolEnum;
 import cn.authing.sdk.java.util.HttpUtils;
+import cn.hutool.core.util.StrUtil;
 import com.nimbusds.jose.jwk.JWKSet;
 
 import java.util.HashMap;
@@ -19,7 +20,7 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
     private String appSecret;
 
     /** 应用对应的用户池域名，例如 pool.authing.cn */
-    private String host = "https://core.authing.cn";
+    private String host;
 
     /** 认证完成后的重定向目标 URL */
     private String redirectUri;
@@ -67,7 +68,14 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
      */
     private String introspectionEndPointAuthMethod = AuthMethodEnum.CLIENT_SECRET_POST.getValue();
 
+    /**
+     * 用户的AccessToken
+     */
+    private String AccessToken;
+
     public AuthenticationClientOptions(String appId, String appSecret, String redirectUri) {
+
+    public AuthenticationClientOptions(String appId, String appSecret, String domain, String redirectUri) {
         this.appId = appId;
         this.appSecret = appSecret;
         this.redirectUri = redirectUri;
@@ -80,6 +88,10 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
         }
         headers.put("x-authing-request-from", AuthingClientOptions.REQUEST_FROM);
         headers.put("x-authing-sdk-version", AuthingClientOptions.SDK_VERSION);
+        headers.put("x-authing-app-id",this.appId);
+        if(StrUtil.isNotBlank(this.AccessToken)){
+            headers.put("authorization","Bearer"+this.AccessToken);
+        }
         return HttpUtils.request(getHost() + url, method, body, headers, getTimeout());
     }
 
@@ -173,6 +185,14 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
 
     public void setIntrospectionEndPointAuthMethod(String introspectionEndPointAuthMethod) {
         this.introspectionEndPointAuthMethod = introspectionEndPointAuthMethod;
+    }
+
+    public String getAccessToken() {
+        return AccessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        AccessToken = accessToken;
     }
 }
 

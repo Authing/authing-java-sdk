@@ -13,7 +13,18 @@ import cn.authing.sdk.java.util.JsonUtils;
 import cn.hutool.core.codec.Base64Encoder;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.Header;
+import com.nimbusds.jose.JWSAlgorithm;
+import com.nimbusds.jose.JWSObject;
+import com.nimbusds.jose.JWSVerifier;
+import com.nimbusds.jose.crypto.MACVerifier;
+import com.nimbusds.jose.crypto.RSASSAVerifier;
+import com.nimbusds.jose.jwk.JWKSet;
+import com.nimbusds.jose.jwk.RSAKey;
+
 import java.io.IOException;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
 import java.security.InvalidParameterException;
 import java.text.ParseException;
 import java.util.Base64;
@@ -29,7 +40,7 @@ public class AuthenticationClient extends BaseClient {
 
     private final AuthenticationClientOptions options;
     private final String appId;
-//    private final JWKSet jwks;
+    private final JWKSet jwks;
 
     public AuthenticationClient(AuthenticationClientOptions options) throws IOException, ParseException {
         super(options);
@@ -41,11 +52,11 @@ public class AuthenticationClient extends BaseClient {
             throw new IllegalArgumentException("scope 中必须包含 openid");
         }
 
-//        if (options.getServerJWKS() != null && options.getServerJWKS().getKeys().size() > 0) {
-//            this.jwks = options.getServerJWKS();
-//        } else {
-//            this.jwks = JWKSet.load(new URL(this.options.getHost() + "/oidc/.well-known/jwks.json"));
-//        }
+        if (options.getServerJWKS() != null && options.getServerJWKS().getKeys().size() > 0) {
+            this.jwks = options.getServerJWKS();
+        } else {
+            this.jwks = JWKSet.load(new URL(this.options.getHost() + "/oidc/.well-known/jwks.json"));
+        }
     }
 
     public AuthUrlResult buildAuthUrl(BuildAuthUrlParams buildOptionParam) {
@@ -80,146 +91,99 @@ public class AuthenticationClient extends BaseClient {
         return new AuthUrlResult(url, buildOptionParam.getState(), params.getNonce());
     }
 
-    public OIDCTokenResponse getAccessTokenByCode(String code) throws Exception {
-        if ((StrUtil.isBlank(this.options.getAppId()) || StrUtil.isBlank(this.options.getAppSecret()))
-                && AuthMethodEnum.NONE.getValue().equals(this.options.getTokenEndPointAuthMethod())) {
-            throw new Exception("请在初始化 AuthenticationClient 时传入 appId 和 secret 参数");
-        }
-
-        String url = "";
-        if (ProtocolEnum.OAUTH.getValue().equals(this.options.getProtocol())) {
-            url += "/oauth/token";
-        } else {
-            url += "/oidc/token";
-        }
-
-        CodeToTokenParams tokenParam = new CodeToTokenParams();
-        tokenParam.setRedirectUri(this.options.getRedirectUri());
-        tokenParam.setCode(code);
-        tokenParam.setGrantType("authorization_code");
+    public LoginState getLoginStateByAuthCode(String code, String redirectUri) throws Exception {
+        CodeToTokenParams tokenParam = new CodeToTokenParams(code, this.options.getAppId(), this.options.getAppSecret(),
+                redirectUri, "authorization_code");
 
         AuthingRequestConfig config = new AuthingRequestConfig();
 
-        config.setUrl(url);
-        config.setMethod("UrlencodedPOST");
+        config.setUrl("/oidc/token");
 
         HashMap<String, String> headerMap = new HashMap<>();
+
         headerMap.put(Header.CONTENT_TYPE.getValue(), "application/x-www-form-urlencoded");
 
-        if (AuthMethodEnum.CLIENT_SECRET_POST.getValue().equals(this.options.getTokenEndPointAuthMethod())) {
-            tokenParam.setClientId(this.options.getAppId());
-            tokenParam.setClientSecret(this.options.getAppSecret());
-        } else if (AuthMethodEnum.CLIENT_SECRET_BASIC.getValue().equals(this.options.getTokenEndPointAuthMethod())) {
-            String basic64Str = "Basic " + Base64.getEncoder().encodeToString((this.options.getAppId() + ":" + this.options.getAppSecret()).getBytes());
-            headerMap.put(Header.AUTHORIZATION.getValue(), basic64Str);
-        } else {
-            // AuthMethodEnum.NONE
-            tokenParam.setClientId(this.options.getAppId());
-        }
-
         config.setHeaders(headerMap);
+
+        config.setMethod("UrlencodedPOST");
+
         config.setBody(tokenParam);
 
         String response = request(config);
 
         OIDCTokenResponse deserializeOIDCResponse = deserialize(response, OIDCTokenResponse.class);
 
-        return deserializeOIDCResponse;
+        return new LoginState(deserializeOIDCResponse.getAccessToken(),
+                deserializeOIDCResponse.getIdToken(),
+                deserializeOIDCResponse.getRefreshToken(),
+                deserializeOIDCResponse.getExpiresIn(),
+                this.parseIDToken(deserializeOIDCResponse.getIdToken()),
+                this.parseAccessToken(deserializeOIDCResponse.getAccessToken()));
     }
 
-//    public LoginState getLoginStateByAuthCode(String code, String redirectUri) throws Exception {
-//        CodeToTokenParams tokenParam = new CodeToTokenParams(code, this.options.getAppId(), this.options.getAppSecret(),
-//                redirectUri, "authorization_code");
-//
-//        AuthingRequestConfig config = new AuthingRequestConfig();
-//
-//        config.setUrl("/oidc/token");
-//
-//        HashMap<String, String> headerMap = new HashMap<>();
-//
-//        headerMap.put(Header.CONTENT_TYPE.getValue(), "application/x-www-form-urlencoded");
-//
-//        config.setHeaders(headerMap);
-//
-//        config.setMethod("UrlencodedPOST");
-//
-//        config.setBody(tokenParam);
-//
-//        String response = request(config);
-//
-//        OIDCTokenResponse deserializeOIDCResponse = deserialize(response, OIDCTokenResponse.class);
-//
-//        return new LoginState(deserializeOIDCResponse.getAccessToken(),
-//                deserializeOIDCResponse.getIdToken(),
-//                deserializeOIDCResponse.getRefreshToken(),
-//                deserializeOIDCResponse.getExpiresIn(),
-//                this.parseIDToken(deserializeOIDCResponse.getIdToken()),
-//                this.parseAccessToken(deserializeOIDCResponse.getAccessToken()));
-//    }
-//
-//    public LoginState refreshLoginState(String token) throws Exception {
-//        RefreshTokenParams tokenParam = new RefreshTokenParams(this.options.getAppId(), this.options.getAppSecret(),
-//                token);
-//        AuthingRequestConfig config = new AuthingRequestConfig();
-//
-//        config.setUrl("/oidc/token");
-//
-//        HashMap<String, String> headerMap = new HashMap<>();
-//
-//        headerMap.put(Header.CONTENT_TYPE.getValue(), "application/x-www-form-urlencoded");
-//
-//        config.setHeaders(headerMap);
-//
-//        config.setBody(tokenParam);
-//
-//        config.setMethod("UrlencodedPOST");
-//
-//        String response = request(config);
-//
-//        OIDCTokenResponse deserializeOIDCResponse = deserialize(response, OIDCTokenResponse.class);
-//
-//        return new LoginState(deserializeOIDCResponse.getAccessToken(),
-//                deserializeOIDCResponse.getIdToken(),
-//                deserializeOIDCResponse.getRefreshToken(),
-//                deserializeOIDCResponse.getExpiresIn(),
-//                this.parseIDToken(deserializeOIDCResponse.getIdToken()),
-//                this.parseAccessToken(deserializeOIDCResponse.getAccessToken()));
-//
-//    }
+    public LoginState refreshLoginState(String token) throws Exception {
+        RefreshTokenParams tokenParam = new RefreshTokenParams(this.options.getAppId(), this.options.getAppSecret(),
+                token);
+        AuthingRequestConfig config = new AuthingRequestConfig();
 
-//    private IDToken parseIDToken(String token) throws Exception {
-//        JWSObject jwsObject = JWSObject.parse(token);
-//        String payload;
-//
-//        if (jwsObject.getHeader().getAlgorithm() == JWSAlgorithm.HS256) {
-//            JWSVerifier jwsVerifier = new MACVerifier(this.options.getAppSecret());
-//            if (!jwsObject.verify(jwsVerifier)) {
-//                throw new Exception("token 签名不合法");
-//            }
-//        } else {
-//            RSAKey rsaKey = this.jwks.getKeys().get(0).toRSAKey();
-//            RSASSAVerifier verifier = new RSASSAVerifier(rsaKey);
-//            if (!jwsObject.verify(verifier)) {
-//                throw new Exception("校验不通过");
-//            }
-//        }
-//
-//        payload = jwsObject.getPayload().toString();
-//
-//        return deserialize(payload, IDToken.class);
-//    }
-//
-//    private AccessToken parseAccessToken(String token) throws Exception {
-//        JWSObject jwsObject = JWSObject.parse(token);
-//        String payload;
-//        RSAKey rsaKey = this.jwks.getKeys().get(0).toRSAKey();
-//        RSASSAVerifier verifier = new RSASSAVerifier(rsaKey);
-//        if (!jwsObject.verify(verifier)) {
-//            throw new Exception("校验不通过");
-//        }
-//        payload = jwsObject.getPayload().toString();
-//        return deserialize(payload, AccessToken.class);
-//    }
+        config.setUrl("/oidc/token");
+
+        HashMap<String, String> headerMap = new HashMap<>();
+
+        headerMap.put(Header.CONTENT_TYPE.getValue(), "application/x-www-form-urlencoded");
+
+        config.setHeaders(headerMap);
+
+        config.setBody(tokenParam);
+
+        config.setMethod("UrlencodedPOST");
+
+        String response = request(config);
+
+        OIDCTokenResponse deserializeOIDCResponse = deserialize(response, OIDCTokenResponse.class);
+
+        return new LoginState(deserializeOIDCResponse.getAccessToken(),
+                deserializeOIDCResponse.getIdToken(),
+                deserializeOIDCResponse.getRefreshToken(),
+                deserializeOIDCResponse.getExpiresIn(),
+                this.parseIDToken(deserializeOIDCResponse.getIdToken()),
+                this.parseAccessToken(deserializeOIDCResponse.getAccessToken()));
+
+    }
+
+    private IDToken parseIDToken(String token) throws Exception {
+        JWSObject jwsObject = JWSObject.parse(token);
+        String payload;
+
+        if (jwsObject.getHeader().getAlgorithm() == JWSAlgorithm.HS256) {
+            JWSVerifier jwsVerifier = new MACVerifier(this.options.getAppSecret());
+            if (!jwsObject.verify(jwsVerifier)) {
+                throw new Exception("token 签名不合法");
+            }
+        } else {
+            RSAKey rsaKey = this.jwks.getKeys().get(0).toRSAKey();
+            RSASSAVerifier verifier = new RSASSAVerifier(rsaKey);
+            if (!jwsObject.verify(verifier)) {
+                throw new Exception("校验不通过");
+            }
+        }
+
+        payload = jwsObject.getPayload().toString();
+
+        return deserialize(payload, IDToken.class);
+    }
+
+    private AccessToken parseAccessToken(String token) throws Exception {
+        JWSObject jwsObject = JWSObject.parse(token);
+        String payload;
+        RSAKey rsaKey = this.jwks.getKeys().get(0).toRSAKey();
+        RSASSAVerifier verifier = new RSASSAVerifier(rsaKey);
+        if (!jwsObject.verify(verifier)) {
+            throw new Exception("校验不通过");
+        }
+        payload = jwsObject.getPayload().toString();
+        return deserialize(payload, AccessToken.class);
+    }
 
     public UserInfo getUserinfo(String accessToken) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -1149,6 +1113,177 @@ public class AuthenticationClient extends BaseClient {
 
     public AuthenticationClientOptions getOptions() {
         return options;
+    }
+
+    public OIDCTokenResponse getAccessTokenByCode(String code) throws Exception {
+        if ((StrUtil.isBlank(this.options.getAppId()) || StrUtil.isBlank(this.options.getAppSecret()))
+                && this.options.getTokenEndPointAuthMethod() != AuthMethodEnum.NONE){
+            throw new Exception("请在初始化 AuthenticationClient 时传入 appId 和 secret 参数");
+        }
+
+        String url = "";
+        if(this.options.getProtocol() == ProtocolEnum.OAUTH){
+            url += "/oauth/token";
+        }else{
+            url += "/oidc/token";
+        }
+
+        CodeToTokenParams tokenParam = new CodeToTokenParams();
+        tokenParam.setRedirectUri(this.options.getRedirectUri());
+        tokenParam.setCode(code);
+        tokenParam.setGrantType("authorization_code");
+
+        AuthingRequestConfig config = new AuthingRequestConfig();
+
+        config.setUrl(url);
+        config.setMethod("UrlencodedPOST");
+
+        HashMap<String, String> headerMap = new HashMap<>();
+        headerMap.put(Header.CONTENT_TYPE.getValue(), "application/x-www-form-urlencoded");
+
+        if(this.options.getTokenEndPointAuthMethod() == AuthMethodEnum.CLIENT_SECRET_POST){
+            tokenParam.setClientId(this.options.getAppId());
+            tokenParam.setClientSecret(this.options.getAppSecret());
+        }else if(this.options.getTokenEndPointAuthMethod() == AuthMethodEnum.CLIENT_SECRET_BASIC){
+            String basic64Str = "Basic " + Base64.getEncoder().encodeToString((this.options.getAppId()+":"+this.options.getAppSecret()).getBytes());
+            headerMap.put("Authorization",basic64Str);
+        }else{
+            // AuthMethodEnum.NONE
+            tokenParam.setClientId(this.options.getAppId());
+        }
+
+        config.setHeaders(headerMap);
+        config.setBody(tokenParam);
+
+        String response = request(config);
+
+        OIDCTokenResponse deserializeOIDCResponse = deserialize(response, OIDCTokenResponse.class);
+
+        return deserializeOIDCResponse;
+    }
+
+    /**
+     * 检验 CAS 1.0 Ticket 合法性
+     */
+    public ValidateTicketV1Response validateTicketV1(String ticket,String service){
+        String url = this.options.getHost() + "/cas-idp/" + this.options.getAppId() + "/validate";
+
+        Map<String, Object> paramsMap = new HashMap<>();
+        paramsMap.put("ticket",ticket);
+        paramsMap.put("service",service);
+
+        url = HttpUtils.buildUrlWithQueryParams(url, paramsMap);
+
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl(url);
+
+        String response = request(config);
+
+        ValidateTicketV1Response validateTicketV1Response = deserialize(response, ValidateTicketV1Response.class);
+
+        System.out.println("ValidateTicketV1Response:"+validateTicketV1Response.toString());
+
+        return validateTicketV1Response;
+
+    }
+
+    /**
+     * 通过远端服务验证票据合法性
+     */
+    public String validateTicketV2(String ticket,String service,String format) throws Exception {
+        if (format != "XML" && format != "JSON") {
+            throw new Exception("format 参数可选值为 XML、JSON，请检查输入");
+        }
+        String url = this.options.getHost() + "/cas-idp/" + this.options.getAppId() + "/serviceValidate";
+
+        Map<String, Object> paramsMap = new HashMap<>();
+        paramsMap.put("ticket",ticket);
+        paramsMap.put("service",service);
+        paramsMap.put("format",format);
+
+        url = HttpUtils.buildUrlWithQueryParams(url, paramsMap);
+
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl(url);
+
+        String response = request(config);
+
+        return response;
+    }
+
+    /**
+     * 生成 PKCE 校验码摘要值
+     */
+    public String getCodeChallengeDigest(CodeChallengeDigestParam options) throws Exception {
+        String codeChallenge = options.getCodeChallenge();
+        String method = options.getMethod();
+
+        if(StrUtil.isBlank(codeChallenge)){
+            throw new Exception("请提供 options.codeChallenge，值为一个长度大于等于 43 的字符串");
+        }
+
+        if (method == "S256" || method == "") {
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+            messageDigest.update(codeChallenge.getBytes("UTF-8"));
+            byte[] encode = Base64.getEncoder().encode(messageDigest.digest());
+            return new String(encode, Charset.forName("UTF-8")).replace("+", "-")
+                    .replace("/", "_").replace("=", "");
+        }else if (method == "plain") {
+            return codeChallenge;
+        }else{
+            throw new Exception("不支持的 options.method，可选值为 S256、plain");
+        }
+    }
+
+    /**
+     * 之前版本 buildLogoutUrl 的补充，由于 buildLogoutUrl 函数名已经被占用，故命名为 buildLogoutUrlNew
+     * @param params
+     * @return
+     * @throws Exception
+     */
+    public String buildLogoutUrlNew(ILogoutParams params) throws Exception {
+        if (this.options.getProtocol() == ProtocolEnum.OAUTH)
+            return this.buildCasLogoutUrl(params);
+
+        if (this.options.getProtocol() == ProtocolEnum.OIDC)
+            return this.buildOidcLogoutUrl(params);
+
+        return buildEasyLogoutUrl(params);
+    }
+
+    public String buildCasLogoutUrl(ILogoutParams params){
+        String url = "";
+        if(StrUtil.isNotBlank(params.getPostLogoutRedirectUri())){
+            url = this.options.getHost() + "/cas-idp/logout?url=" + params.getPostLogoutRedirectUri();
+        }else{
+            url = this.options.getHost() + "/cas-idp/logout";
+        }
+        return url;
+    }
+
+    public String buildOidcLogoutUrl(ILogoutParams params) throws Exception {
+        if ((params.getPostLogoutRedirectUri() != null && params.getIdToken() != null) ||
+                (params.getPostLogoutRedirectUri() == null && params.getIdToken() == null)) {
+            throw new Exception("必须同时传入 idToken 和 redirectUri 参数，或者同时都不传入");
+        }
+        String url = "";
+        if(StrUtil.isNotBlank(params.getPostLogoutRedirectUri())){
+            url = this.options.getHost() + "/oidc/session/end?id_token_hint=" + params.getIdToken()
+                    + "&post_logout_redirect_uri=" + params.getPostLogoutRedirectUri();
+        }else{
+            url = this.options.getHost() + "/oidc/session/end";
+        }
+        return url;
+    }
+
+    public String buildEasyLogoutUrl(ILogoutParams params) throws Exception{
+        String url = "";
+        if(StrUtil.isNotBlank(params.getPostLogoutRedirectUri())){
+            url = this.options.getHost() + "/login/profile/logout?redirect_uri=" + params.getPostLogoutRedirectUri();
+        }else{
+            url = this.options.getHost() + "/login/profile/logout";
+        }
+        return url;
     }
     /**
      * Client Credentials 模式获取 Access Token
