@@ -74,8 +74,6 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
     private String AccessToken;
 
     public AuthenticationClientOptions(String appId, String appSecret, String redirectUri) {
-
-    public AuthenticationClientOptions(String appId, String appSecret, String domain, String redirectUri) {
         this.appId = appId;
         this.appSecret = appSecret;
         this.redirectUri = redirectUri;

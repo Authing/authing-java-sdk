@@ -11,7 +11,7 @@ public class getAccessTokenByCodeTest {
     private static final String REDIRECT_URI = "https://www.baidu.com";
 
     public static void main(String[] args) throws Exception{
-        AuthenticationClientOptions clientOptions = new AuthenticationClientOptions(ACCESS_KEY_ID, ACCESS_KEY_SECRET, HOST, REDIRECT_URI);
+        AuthenticationClientOptions clientOptions = new AuthenticationClientOptions(ACCESS_KEY_ID, ACCESS_KEY_SECRET, REDIRECT_URI);
         AuthenticationClient client = new AuthenticationClient(clientOptions);
 
         //获取登录页 url

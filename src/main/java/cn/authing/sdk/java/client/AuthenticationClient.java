@@ -1117,12 +1117,12 @@ public class AuthenticationClient extends BaseClient {
 
     public OIDCTokenResponse getAccessTokenByCode(String code) throws Exception {
         if ((StrUtil.isBlank(this.options.getAppId()) || StrUtil.isBlank(this.options.getAppSecret()))
-                && this.options.getTokenEndPointAuthMethod() != AuthMethodEnum.NONE){
+                && this.options.getTokenEndPointAuthMethod() != AuthMethodEnum.NONE.getValue()){
             throw new Exception("请在初始化 AuthenticationClient 时传入 appId 和 secret 参数");
         }
 
         String url = "";
-        if(this.options.getProtocol() == ProtocolEnum.OAUTH){
+        if(this.options.getProtocol() == ProtocolEnum.OAUTH.getValue()){
             url += "/oauth/token";
         }else{
             url += "/oidc/token";
@@ -1141,10 +1141,10 @@ public class AuthenticationClient extends BaseClient {
         HashMap<String, String> headerMap = new HashMap<>();
         headerMap.put(Header.CONTENT_TYPE.getValue(), "application/x-www-form-urlencoded");
 
-        if(this.options.getTokenEndPointAuthMethod() == AuthMethodEnum.CLIENT_SECRET_POST){
+        if(this.options.getTokenEndPointAuthMethod() == AuthMethodEnum.CLIENT_SECRET_POST.getValue()){
             tokenParam.setClientId(this.options.getAppId());
             tokenParam.setClientSecret(this.options.getAppSecret());
-        }else if(this.options.getTokenEndPointAuthMethod() == AuthMethodEnum.CLIENT_SECRET_BASIC){
+        }else if(this.options.getTokenEndPointAuthMethod() == AuthMethodEnum.CLIENT_SECRET_BASIC.getValue()){
             String basic64Str = "Basic " + Base64.getEncoder().encodeToString((this.options.getAppId()+":"+this.options.getAppSecret()).getBytes());
             headerMap.put("Authorization",basic64Str);
         }else{
@@ -1242,10 +1242,10 @@ public class AuthenticationClient extends BaseClient {
      * @throws Exception
      */
     public String buildLogoutUrlNew(ILogoutParams params) throws Exception {
-        if (this.options.getProtocol() == ProtocolEnum.OAUTH)
+        if (this.options.getProtocol() == ProtocolEnum.OAUTH.getValue())
             return this.buildCasLogoutUrl(params);
 
-        if (this.options.getProtocol() == ProtocolEnum.OIDC)
+        if (this.options.getProtocol() == ProtocolEnum.OIDC.getValue())
             return this.buildOidcLogoutUrl(params);
 
         return buildEasyLogoutUrl(params);
