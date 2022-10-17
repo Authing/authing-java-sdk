@@ -49,7 +49,7 @@ public class UpdateSecuritySettingsTest {
         request.setCompletePasswordAfterPassCodeLogin(Boolean.FALSE);
 
         LoginAnomalyDetectionConfigDto loginAnomalyDetectionConfigDto = new LoginAnomalyDetectionConfigDto();
-        loginAnomalyDetectionConfigDto.setLoginFailStrategy(LoginAnomalyDetectionConfigDto.LoginFailStrategy.CAPTCHA.getValue());
+//        loginAnomalyDetectionConfigDto.setLoginFailStrategy(LoginAnomalyDetectionConfigDto.LoginFailStrategy.CAPTCHA.getValue());
         LoginFailCheckConfigDto loginFailCheckConfigDto = new LoginFailCheckConfigDto();
         loginFailCheckConfigDto.setEnabled(Boolean.FALSE);
         loginFailCheckConfigDto.setLimit(50);
@@ -66,7 +66,7 @@ public class UpdateSecuritySettingsTest {
 
         SelfUnlockAccountConfigDto selfUnlockAccountConfigDto = new SelfUnlockAccountConfigDto();
         selfUnlockAccountConfigDto.setEnabled(Boolean.FALSE);
-        selfUnlockAccountConfigDto.setStrategy(SelfUnlockAccountConfigDto.Strategy.CAPTCHA.getValue());
+//        selfUnlockAccountConfigDto.setStrategy(SelfUnlockAccountConfigDto.Strategy.CAPTCHA.getValue());
         request.setSelfUnlockAccount(selfUnlockAccountConfigDto);
 
         request.setEnableLoginAccountSwitch(Boolean.FALSE);

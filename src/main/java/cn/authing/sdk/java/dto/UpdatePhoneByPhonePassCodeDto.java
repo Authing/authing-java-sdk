@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class UpdatePhoneByPhonePassCodeDto {
     /**
-     * 新手机号码，不带去号。如果是国外手机号，请在 newPhoneCountryCode 参数中指定区号。
+     * 新手机号码，不带区号。如果是国外手机号，请在 newPhoneCountryCode 参数中指定区号。
      */
     @JsonProperty("newPhoneNumber")
     private String newPhoneNumber;
@@ -21,7 +21,7 @@ public class UpdatePhoneByPhonePassCodeDto {
     @JsonProperty("newPhoneCountryCode")
     private String newPhoneCountryCode;
     /**
-     * 旧手机号码，不带去号。如果是国外手机号，请在 oldPhoneCountryCode 参数中指定区号。如果用户池开启了修改手机号需要验证之前的手机号，此参数必填。
+     * 旧手机号码，不带区号。如果是国外手机号，请在 oldPhoneCountryCode 参数中指定区号。如果用户池开启了修改手机号需要验证之前的手机号，此参数必填。
      */
     @JsonProperty("oldPhoneNumber")
     private String oldPhoneNumber;

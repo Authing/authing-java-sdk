@@ -26,8 +26,8 @@ public class ListApplicationsTest {
         request.setSsoEnabled(Boolean.TRUE);
         request.setKeyword(Boolean.TRUE);
 
-        ApplicationPaginatedRespDto response = client.listApplications(request);
-        System.out.println(JsonUtils.serialize(response));
+//        ApplicationPaginatedRespDto response = client.listApplications(request);
+//        System.out.println(JsonUtils.serialize(response));
     }
 
 }

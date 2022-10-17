@@ -44,7 +44,7 @@ public class ListUsersAdvancedFilterItemDto {
     @JsonProperty("field")
     private String field;
     /**
-     * 运算符：
+     * 运算符，可选值为：
      * - `EQUAL`: 全等，适用于数字和字符串的全等匹配
      * - `NOT_EQUAL`: 不等于，适用于数字和字符串的匹配
      * - `CONTAINS`: 字符串包含
@@ -88,7 +88,7 @@ public class ListUsersAdvancedFilterItemDto {
 
 
     /**
-     * 运算符：
+     * 运算符，可选值为：
      * - `EQUAL`: 全等，适用于数字和字符串的全等匹配
      * - `NOT_EQUAL`: 不等于，适用于数字和字符串的匹配
      * - `CONTAINS`: 字符串包含

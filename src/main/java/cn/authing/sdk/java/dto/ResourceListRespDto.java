@@ -22,6 +22,11 @@ public class ResourceListRespDto {
     @JsonProperty("apiCode")
     private Integer apiCode;
     /**
+     * 请求 ID。当请求失败时会返回。
+     */
+    @JsonProperty("requestId")
+    private String requestId;
+    /**
      * 资源详情列表
      */
     @JsonProperty("data")
@@ -46,6 +51,13 @@ public class ResourceListRespDto {
     }
     public void setApiCode(Integer apiCode) {
         this.apiCode = apiCode;
+    }
+
+    public String getRequestId() {
+        return requestId;
+    }
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
     }
 
     public List<ResourceDto> getData() {

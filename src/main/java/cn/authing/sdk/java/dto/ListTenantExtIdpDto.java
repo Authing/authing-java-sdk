@@ -19,7 +19,7 @@ public class ListTenantExtIdpDto {
      * 身份源类型
      */
     @JsonProperty("type")
-    private Object type;
+    private String type;
     /**
      * 页码
      */
@@ -45,10 +45,10 @@ public class ListTenantExtIdpDto {
         this.appId = appId;
     }
 
-    public Object getType() {
+    public String getType() {
         return type;
     }
-    public void setType(Object type) {
+    public void setType(String type) {
         this.type = type;
     }
 

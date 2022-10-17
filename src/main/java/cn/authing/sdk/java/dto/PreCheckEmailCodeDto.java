@@ -60,6 +60,9 @@ public class PreCheckEmailCodeDto {
         @JsonProperty("CHANNEL_VERIFY_EMAIL_LINK")
         CHANNEL_VERIFY_EMAIL_LINK("CHANNEL_VERIFY_EMAIL_LINK"),
 
+        @JsonProperty("CHANNEL_UPDATE_EMAIL")
+        CHANNEL_UPDATE_EMAIL("CHANNEL_UPDATE_EMAIL"),
+
         @JsonProperty("CHANNEL_BIND_EMAIL")
         CHANNEL_BIND_EMAIL("CHANNEL_BIND_EMAIL"),
 

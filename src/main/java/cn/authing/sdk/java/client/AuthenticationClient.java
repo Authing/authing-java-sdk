@@ -40,7 +40,7 @@ public class AuthenticationClient extends BaseClient {
 
     private final AuthenticationClientOptions options;
     private final String appId;
-    private final JWKSet jwks;
+    private JWKSet jwks;
 
     public AuthenticationClient(AuthenticationClientOptions options) throws IOException, ParseException {
         super(options);
@@ -50,12 +50,6 @@ public class AuthenticationClient extends BaseClient {
 
         if (!(options.getScope().contains("openid"))) {
             throw new IllegalArgumentException("scope 中必须包含 openid");
-        }
-
-        if (options.getServerJWKS() != null && options.getServerJWKS().getKeys().size() > 0) {
-            this.jwks = options.getServerJWKS();
-        } else {
-            this.jwks = JWKSet.load(new URL(this.options.getHost() + "/oidc/.well-known/jwks.json"));
         }
     }
 
@@ -86,7 +80,7 @@ public class AuthenticationClient extends BaseClient {
             params.setPrompt("consent");
         }
 
-        String url = HttpUtils.buildUrlWithQueryParams(options.getHost() + "/oidc/auth",
+        String url = HttpUtils.buildUrlWithQueryParams(options.getAppHost() + "/oidc/auth",
                 JsonUtils.deserialize(JsonUtils.serialize(params), Map.class));
         return new AuthUrlResult(url, buildOptionParam.getState(), params.getNonce());
     }
@@ -151,6 +145,16 @@ public class AuthenticationClient extends BaseClient {
 
     }
 
+    private JWKSet fetchJwks() throws IOException, ParseException {
+        if (this.jwks != null) {
+            return this.jwks;
+        } else {
+            JWKSet jwks = JWKSet.load(new URL(this.options.getAppHost() + "/oidc/.well-known/jwks.json"));
+            this.jwks = jwks;
+            return jwks;
+        }
+    }
+
     private IDToken parseIDToken(String token) throws Exception {
         JWSObject jwsObject = JWSObject.parse(token);
         String payload;
@@ -161,7 +165,7 @@ public class AuthenticationClient extends BaseClient {
                 throw new Exception("token 签名不合法");
             }
         } else {
-            RSAKey rsaKey = this.jwks.getKeys().get(0).toRSAKey();
+            RSAKey rsaKey = this.fetchJwks().getKeys().get(0).toRSAKey();
             RSASSAVerifier verifier = new RSASSAVerifier(rsaKey);
             if (!jwsObject.verify(verifier)) {
                 throw new Exception("校验不通过");
@@ -176,7 +180,7 @@ public class AuthenticationClient extends BaseClient {
     private AccessToken parseAccessToken(String token) throws Exception {
         JWSObject jwsObject = JWSObject.parse(token);
         String payload;
-        RSAKey rsaKey = this.jwks.getKeys().get(0).toRSAKey();
+        RSAKey rsaKey = this.fetchJwks().getKeys().get(0).toRSAKey();
         RSASSAVerifier verifier = new RSASSAVerifier(rsaKey);
         if (!jwsObject.verify(verifier)) {
             throw new Exception("校验不通过");
@@ -205,12 +209,12 @@ public class AuthenticationClient extends BaseClient {
     }
 
     public String buildLogoutUrlWithHost(ILogoutParams param) {
-        String host = this.options.getHost();
+        String host = this.options.getAppHost();
 
         String path = HttpUtils.buildUrlWithQueryParams("/oidc/session/end",
                 JsonUtils.deserialize(JsonUtils.serialize(param), Map.class));
 
-        return host+path;
+        return host + path;
     }
 
     public String buildLogoutUrl(LogoutUrlParams param) {
@@ -228,14 +232,378 @@ public class AuthenticationClient extends BaseClient {
                 JsonUtils.deserialize(JsonUtils.serialize(param), Map.class));
     }
 
+    /**
+     * 使用用户名 + 密码登录
+     *
+     * @param username 用户名
+     * @param password 用户密码，默认不加密。Authing 所有 API 均通过 HTTPS 协议对密码进行安全传输，可以在一定程度上保证安全性。如果你还需要更高级别的安全性，我们还支持 `RSA256` 和国密 `SM2` 的密码加密方式。详情见可选参数 `options.passwordEncryptType`。
+     * @param options  认证可选参数
+     * @return
+     */
+    public LoginTokenRespDto signInByUsernamePassword(String username, String password, SignInOptionsDto options) {
+        SigninByCredentialsDto dto = new SigninByCredentialsDto();
+
+        // 设置认证方式
+        dto.setConnection(SigninByCredentialsDto.Connection.PASSWORD);
+
+        // 设置认证数据
+        SignInByPasswordPayloadDto payload = new SignInByPasswordPayloadDto();
+        payload.setUsername(username);
+        payload.setPassword(password);
+        dto.setPasswordPayload(payload);
+
+        // 设置可选参数
+        dto.setOptions(options);
+
+        // 设置 client_id 和 client_secret
+        if (this.options.getTokenEndPointAuthMethod() == AuthMethodEnum.CLIENT_SECRET_POST.getValue()) {
+            dto.setClientId(this.options.getAppId());
+            dto.setClientSecret(this.options.getAppSecret());
+        }
+
+        return this.signInByCredentials(dto);
+    }
+
+    /**
+     * 使用邮箱 + 密码登录
+     *
+     * @param email    邮箱
+     * @param password 用户密码，默认不加密。Authing 所有 API 均通过 HTTPS 协议对密码进行安全传输，可以在一定程度上保证安全性。如果你还需要更高级别的安全性，我们还支持 `RSA256` 和国密 `SM2` 的密码加密方式。详情见可选参数 `options.passwordEncryptType`。
+     * @param options  认证可选参数
+     * @return
+     */
+    public LoginTokenRespDto signInByEmailPassword(String email, String password, SignInOptionsDto options) {
+        SigninByCredentialsDto dto = new SigninByCredentialsDto();
+
+        // 设置认证方式
+        dto.setConnection(SigninByCredentialsDto.Connection.PASSWORD);
+
+        // 设置认证数据
+        SignInByPasswordPayloadDto payload = new SignInByPasswordPayloadDto();
+        payload.setEmail(email);
+        payload.setPassword(password);
+        dto.setPasswordPayload(payload);
+
+        // 设置可选参数
+        dto.setOptions(options);
+
+        // 设置 client_id 和 client_secret
+        if (this.options.getTokenEndPointAuthMethod() == AuthMethodEnum.CLIENT_SECRET_POST.getValue()) {
+            dto.setClientId(this.options.getAppId());
+            dto.setClientSecret(this.options.getAppSecret());
+        }
+
+        return this.signInByCredentials(dto);
+    }
+
+    /**
+     * 使用手机号 + 密码登录
+     *
+     * @param phone    手机号
+     * @param password 用户密码，默认不加密。Authing 所有 API 均通过 HTTPS 协议对密码进行安全传输，可以在一定程度上保证安全性。如果你还需要更高级别的安全性，我们还支持 `RSA256` 和国密 `SM2` 的密码加密方式。详情见可选参数 `options.passwordEncryptType`。
+     * @param options  认证可选参数
+     * @return
+     */
+    public LoginTokenRespDto signInByPhonePassword(String phone, String password, SignInOptionsDto options) {
+        SigninByCredentialsDto dto = new SigninByCredentialsDto();
+
+        // 设置认证方式
+        dto.setConnection(SigninByCredentialsDto.Connection.PASSWORD);
+
+        // 设置认证数据
+        SignInByPasswordPayloadDto payload = new SignInByPasswordPayloadDto();
+        payload.setPhone(phone);
+        payload.setPassword(password);
+        dto.setPasswordPayload(payload);
+
+        // 设置可选参数
+        dto.setOptions(options);
+
+        // 设置 client_id 和 client_secret
+        if (this.options.getTokenEndPointAuthMethod() == AuthMethodEnum.CLIENT_SECRET_POST.getValue()) {
+            dto.setClientId(this.options.getAppId());
+            dto.setClientSecret(this.options.getAppSecret());
+        }
+
+        return this.signInByCredentials(dto);
+    }
+
+    /**
+     * 使用账号（手机号/邮箱/用户名） + 密码登录
+     *
+     * @param acconnt  账号（手机号/邮箱/用户名）
+     * @param password 用户密码，默认不加密。Authing 所有 API 均通过 HTTPS 协议对密码进行安全传输，可以在一定程度上保证安全性。如果你还需要更高级别的安全性，我们还支持 `RSA256` 和国密 `SM2` 的密码加密方式。详情见可选参数 `options.passwordEncryptType`。
+     * @param options  认证可选参数
+     * @return
+     */
+    public LoginTokenRespDto signInByAccountPassword(String acconnt, String password, SignInOptionsDto options) {
+        SigninByCredentialsDto dto = new SigninByCredentialsDto();
+
+        // 设置认证方式
+        dto.setConnection(SigninByCredentialsDto.Connection.PASSWORD);
+
+        // 设置认证数据
+        SignInByPasswordPayloadDto payload = new SignInByPasswordPayloadDto();
+        payload.setAccount(acconnt);
+        payload.setPassword(password);
+        dto.setPasswordPayload(payload);
+
+        // 设置可选参数
+        dto.setOptions(options);
+
+        // 设置 client_id 和 client_secret
+        if (this.options.getTokenEndPointAuthMethod() == AuthMethodEnum.CLIENT_SECRET_POST.getValue()) {
+            dto.setClientId(this.options.getAppId());
+            dto.setClientSecret(this.options.getAppSecret());
+        }
+
+        return this.signInByCredentials(dto);
+    }
+
+
+    /**
+     * 使用手机号 + 验证码登录
+     *
+     * @param phone            手机号
+     * @param phoneCountryCode 手机区号
+     * @param passCode         验证码
+     * @param options          认证可选参数
+     * @return
+     */
+    public LoginTokenRespDto signInByPhonePassCode(String phone, String passCode, String phoneCountryCode, SignInOptionsDto options) {
+        SigninByCredentialsDto dto = new SigninByCredentialsDto();
+
+        // 设置认证方式
+        dto.setConnection(SigninByCredentialsDto.Connection.PASSCODE);
+
+        // 设置认证数据
+        SignInByPassCodePayloadDto payload = new SignInByPassCodePayloadDto();
+        payload.setPhone(phone);
+        payload.setPhoneCountryCode(phoneCountryCode);
+        payload.setPassCode(passCode);
+        dto.setPassCodePayload(payload);
+
+        // 设置可选参数
+        dto.setOptions(options);
+
+        // 设置 client_id 和 client_secret
+        if (this.options.getTokenEndPointAuthMethod() == AuthMethodEnum.CLIENT_SECRET_POST.getValue()) {
+            dto.setClientId(this.options.getAppId());
+            dto.setClientSecret(this.options.getAppSecret());
+        }
+
+        return this.signInByCredentials(dto);
+    }
+
+    /**
+     * 使用邮箱 + 验证码登录
+     *
+     * @param email    邮箱
+     * @param passCode 验证码
+     * @param options  认证可选参数
+     * @return
+     */
+    public LoginTokenRespDto signInByEmailPassCode(String email, String passCode, SignInOptionsDto options) {
+        SigninByCredentialsDto dto = new SigninByCredentialsDto();
+
+        // 设置认证方式
+        dto.setConnection(SigninByCredentialsDto.Connection.PASSCODE);
+
+        // 设置认证数据
+        SignInByPassCodePayloadDto payload = new SignInByPassCodePayloadDto();
+        payload.setEmail(email);
+        payload.setPassCode(passCode);
+        dto.setPassCodePayload(payload);
+
+        // 设置可选参数
+        dto.setOptions(options);
+
+        // 设置 client_id 和 client_secret
+        if (this.options.getTokenEndPointAuthMethod() == AuthMethodEnum.CLIENT_SECRET_POST.getValue()) {
+            dto.setClientId(this.options.getAppId());
+            dto.setClientSecret(this.options.getAppSecret());
+        }
+
+        return this.signInByCredentials(dto);
+    }
+
+    /**
+     * 使用 LDAP 账号密码登录
+     *
+     * @param sAMAccountName LDAP 用户目录中账号的 sAMAccountName
+     * @param password       用户密码，默认不加密。Authing 所有 API 均通过 HTTPS 协议对密码进行安全传输，可以在一定程度上保证安全性。如果你还需要更高级别的安全性，我们还支持 `RSA256` 和国密 `SM2` 的密码加密方式。详情见可选参数 `options.passwordEncryptType`。
+     * @param options        认证可选参数
+     * @return
+     */
+    public LoginTokenRespDto signInByLDAP(String sAMAccountName, String password, SignInOptionsDto options) {
+        SigninByCredentialsDto dto = new SigninByCredentialsDto();
+
+        // 设置认证方式
+        dto.setConnection(SigninByCredentialsDto.Connection.LDAP);
+
+        // 设置认证数据
+        SignInByLdapPayloadDto payload = new SignInByLdapPayloadDto();
+        payload.setPassword(password);
+        payload.setSAMAccountName(sAMAccountName);
+        dto.setLdapPayload(payload);
+
+        // 设置可选参数
+        dto.setOptions(options);
+
+        // 设置 client_id 和 client_secret
+        if (this.options.getTokenEndPointAuthMethod() == AuthMethodEnum.CLIENT_SECRET_POST.getValue()) {
+            dto.setClientId(this.options.getAppId());
+            dto.setClientSecret(this.options.getAppSecret());
+        }
+
+        return this.signInByCredentials(dto);
+    }
+
+    /**
+     * 使用 AD 账号密码登录
+     *
+     * @param sAMAccountName LDAP 用户目录中账号的 sAMAccountName
+     * @param password       用户密码，默认不加密。Authing 所有 API 均通过 HTTPS 协议对密码进行安全传输，可以在一定程度上保证安全性。如果你还需要更高级别的安全性，我们还支持 `RSA256` 和国密 `SM2` 的密码加密方式。详情见可选参数 `options.passwordEncryptType`。
+     * @param options        认证可选参数
+     * @return
+     */
+    public LoginTokenRespDto signInByAD(String sAMAccountName, String password, SignInOptionsDto options) {
+        SigninByCredentialsDto dto = new SigninByCredentialsDto();
+
+        // 设置认证方式
+        dto.setConnection(SigninByCredentialsDto.Connection.AD);
+
+        // 设置认证数据
+        SignInByAdPayloadDto payload = new SignInByAdPayloadDto();
+        payload.setPassword(password);
+        payload.setSAMAccountName(sAMAccountName);
+        dto.setAdPayload(payload);
+
+        // 设置可选参数
+        dto.setOptions(options);
+
+        // 设置 client_id 和 client_secret
+        if (this.options.getTokenEndPointAuthMethod() == AuthMethodEnum.CLIENT_SECRET_POST.getValue()) {
+            dto.setClientId(this.options.getAppId());
+            dto.setClientSecret(this.options.getAppSecret());
+        }
+
+        return this.signInByCredentials(dto);
+    }
+
+
+    /**
+     * 使用用户名 + 密码注册
+     *
+     * @param username 用户名
+     * @param password 用户密码，默认不加密。Authing 所有 API 均通过 HTTPS 协议对密码进行安全传输，可以在一定程度上保证安全性。如果你还需要更高级别的安全性，我们还支持 `RSA256` 和国密 `SM2` 的密码加密方式。详情见可选参数 `options.passwordEncryptType`。
+     * @param options  注册可选参数
+     * @return
+     */
+    public UserSingleRespDto signUpByUsernamePassword(String username, String password, SignupOptionsDto options) {
+        SignupDto dto = new SignupDto();
+
+        // 设置认证方式
+        dto.setConnection(SignupDto.Connection.PASSWORD);
+
+        // 设置注册数据
+        SignUpByPasswordDto payload = new SignUpByPasswordDto();
+        payload.setPassword(password);
+        payload.setUsername(username);
+        dto.setPasswordPayload(payload);
+
+        // 设置可选参数
+        dto.setOptions(options);
+
+        return this.signUp(dto);
+    }
+
+    /**
+     * 使用邮箱 + 密码注册
+     *
+     * @param email    邮箱
+     * @param password 用户密码，默认不加密。Authing 所有 API 均通过 HTTPS 协议对密码进行安全传输，可以在一定程度上保证安全性。如果你还需要更高级别的安全性，我们还支持 `RSA256` 和国密 `SM2` 的密码加密方式。详情见可选参数 `options.passwordEncryptType`。
+     * @param options  注册可选参数
+     * @return
+     */
+    public UserSingleRespDto signUpByEmailPassword(String email, String password, SignupOptionsDto options) {
+        SignupDto dto = new SignupDto();
+
+        // 设置认证方式
+        dto.setConnection(SignupDto.Connection.PASSWORD);
+
+        // 设置注册数据
+        SignUpByPasswordDto payload = new SignUpByPasswordDto();
+        payload.setPassword(password);
+        payload.setEmail(email);
+        dto.setPasswordPayload(payload);
+
+        // 设置可选参数
+        dto.setOptions(options);
+
+        return this.signUp(dto);
+    }
+
+    /**
+     * 使用邮箱 + 验证码注册
+     *
+     * @param email    邮箱
+     * @param passCode 验证码
+     * @param options  注册可选参数
+     * @return
+     */
+    public UserSingleRespDto signUpByEmailPassCode(String email, String passCode, SignupOptionsDto options) {
+        SignupDto dto = new SignupDto();
+
+        // 设置认证方式
+        dto.setConnection(SignupDto.Connection.PASSCODE);
+
+        // 设置注册数据
+        SignUpByPassCodeDto payload = new SignUpByPassCodeDto();
+        payload.setPassCode(passCode);
+        payload.setEmail(email);
+        dto.setPassCodePayload(payload);
+
+        // 设置可选参数
+        dto.setOptions(options);
+
+        return this.signUp(dto);
+    }
+
+    /**
+     * 使用手机号 + 验证码注册
+     *
+     * @param phone            手机号
+     * @param phoneCountryCode 手机区号
+     * @param passCode         验证码
+     * @param options          注册可选参数
+     * @return
+     */
+    public UserSingleRespDto signUpByPhonePassCode(String phone, String passCode, String phoneCountryCode, SignupOptionsDto options) {
+        SignupDto dto = new SignupDto();
+
+        // 设置认证方式
+        dto.setConnection(SignupDto.Connection.PASSCODE);
+
+        // 设置注册数据
+        SignUpByPassCodeDto payload = new SignUpByPassCodeDto();
+        payload.setPassCode(passCode);
+        payload.setPhone(phone);
+        payload.setPhoneCountryCode(phoneCountryCode);
+        dto.setPassCodePayload(payload);
+
+        // 设置可选参数
+        dto.setOptions(options);
+
+        return this.signUp(dto);
+    }
+
+
     // ==== AUTO GENERATED AUTHENTICATION METHODS BEGIN ====
+
     /**
      * @summary 发起绑定 MFA 认证要素请求
-     * @description 当用户未绑定某个 MFA 认证要素时，可以发起绑定 MFA 认证要素请求。不同类型的 MFA
-     *              认证要素绑定请求需要发送不同的参数，详细见 profile 参数。发起验证请求之后，Authing
-     *              服务器会根据相应的认证要素类型和传递的参数，使用不同的手段要求验证。此接口会返回
-     *              enrollmentToken，你需要在请求「绑定 MFA 认证要素」接口时带上此
-     *              enrollmentToken，并提供相应的凭证。
+     * @description 当用户未绑定某个 MFA 认证要素时，可以发起绑定 MFA 认证要素请求。不同类型的 MFA 认证要素绑定请求需要发送不同的参数，详细见 profile 参数。发起验证请求之后，Authing 服务器会根据相应的认证要素类型和传递的参数，使用不同的手段要求验证。此接口会返回 enrollmentToken，你需要在请求「绑定 MFA 认证要素」接口时带上此 enrollmentToken，并提供相应的凭证。
      **/
     public SendEnrollFactorRequestRespDto sendEnrollFactorRequest(SendEnrollFactorRequestDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -274,8 +642,7 @@ public class AuthenticationClient extends BaseClient {
 
     /**
      * @summary 获取绑定的所有 MFA 认证要素
-     * @description Authing 目前支持四种类型的 MFA 认证要素：手机短信、邮件验证码、OTP、人脸。如果用户绑定了手机号 /
-     *              邮箱之后，默认就具备了手机短信、邮箱验证码的 MFA 认证要素。
+     * @description Authing 目前支持四种类型的 MFA 认证要素：手机短信、邮件验证码、OTP、人脸。如果用户绑定了手机号 / 邮箱之后，默认就具备了手机短信、邮箱验证码的 MFA 认证要素。
      **/
     public ListEnrolledFactorsRespDto listEnrolledFactors() {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -314,82 +681,73 @@ public class AuthenticationClient extends BaseClient {
 
     /**
      * @summary 绑定外部身份源
-     * @description
-     *
-     *              由于绝大多数的外部身份源登录不允许在第三方系统直接输入账号密码进行登录，所以外部身份源的绑定总是需要先跳转到对方的登录页面进行认证。此端点会通过浏览器
-     *              `302` 跳转的方式先跳转到第三方的登录页面，
-     *              终端用户在第三方系统认证完成之后，浏览器再会跳转到 Authing 服务器，Authing
-     *              服务器会将此外部身份源绑定到该用户身上。最终的结果会通过浏览器 Window Post Message 的方式传递给开发者。
-     *              你可以在你的应用系统中放置一个按钮，引导用户点击之后，弹出一个 Window
-     *              Popup，地址为此端点，当用户在第三方身份源认证完成之后，此 Popup 会通过 Window Post Message
-     *              的方式传递给父窗口。
-     *
-     *              为此我们在 `@authing/browser` SDK 中封装了相关方法，为开发者省去了其中大量的细节：
-     *
-     *              ```typescript
-     *              import { Authing } from "@authing/browser"
-     *              const sdk = new Authing({
-     *              // 应用的认证地址，例如：https://domain.authing.cn
-     *              domain: "",
-     *
-     *              // Authing 应用 ID
-     *              appId: "you_authing_app_id",
-     *
-     *              // 登录回调地址，需要在控制台『应用配置 - 登录回调 URL』中指定
-     *              redirectUri: "your_redirect_uri"
-     *              });
-     *
-     *
-     *              // success 表示此次绑定操作是否成功；
-     *              // errMsg 为如果绑定失败，具体的失败原因，如此身份源已被其他账号绑定等。
-     *              // identities 为此次绑定操作具体绑定的第三方身份信息
-     *              const { success, errMsg, identities } = await
-     *              sdk.bindExtIdpWithPopup({
-     *              "extIdpConnIdentifier": "my-wechat"
-     *              })
-     *
-     *              ```
-     *
-     *              绑定外部身份源成功之后，你可以得到用户在此第三方身份源的信息，以绑定飞书账号为例：
-     *
-     *              ```json
-     *              [
-     *              {
-     *              "identityId": "62f20932xxxxbcc10d966ee5",
-     *              "extIdpId": "62f209327xxxxcc10d966ee5",
-     *              "provider": "lark",
-     *              "type": "open_id",
-     *              "userIdInIdp": "ou_8bae746eac07cd2564654140d2a9ac61",
-     *              "originConnIds": ["62f2093244fa5cb19ff21ed3"]
-     *              },
-     *              {
-     *              "identityId": "62f726239xxxxe3285d21c93",
-     *              "extIdpId": "62f209327xxxxcc10d966ee5",
-     *              "provider": "lark",
-     *              "type": "union_id",
-     *              "userIdInIdp": "on_093ce5023288856aa0abe4099123b18b",
-     *              "originConnIds": ["62f2093244fa5cb19ff21ed3"]
-     *              },
-     *              {
-     *              "identityId": "62f72623e011cf10c8851e4c",
-     *              "extIdpId": "62f209327xxxxcc10d966ee5",
-     *              "provider": "lark",
-     *              "type": "user_id",
-     *              "userIdInIdp": "23ded785",
-     *              "originConnIds": ["62f2093244fa5cb19ff21ed3"]
-     *              }
-     *              ]
-     *              ```
-     *
-     *              可以看到，我们获取到了用户在飞书中的身份信息：
-     *
-     *              - `open_id`: ou_8bae746eac07cd2564654140d2a9ac61
-     *              - `union_id`: on_093ce5023288856aa0abe4099123b18b
-     *              - `user_id`: 23ded785
-     *
-     *              绑定此外部身份源之后，后续用户就可以使用此身份源进行登录了，见**登录**接口。
-     *
-     *
+     * @description 由于绝大多数的外部身份源登录不允许在第三方系统直接输入账号密码进行登录，所以外部身份源的绑定总是需要先跳转到对方的登录页面进行认证。此端点会通过浏览器 `302` 跳转的方式先跳转到第三方的登录页面，
+     * 终端用户在第三方系统认证完成之后，浏览器再会跳转到 Authing 服务器，Authing 服务器会将此外部身份源绑定到该用户身上。最终的结果会通过浏览器 Window Post Message 的方式传递给开发者。
+     * 你可以在你的应用系统中放置一个按钮，引导用户点击之后，弹出一个 Window Popup，地址为此端点，当用户在第三方身份源认证完成之后，此 Popup 会通过 Window Post Message 的方式传递给父窗口。
+     * <p>
+     * 为此我们在 `@authing/browser` SDK 中封装了相关方法，为开发者省去了其中大量的细节：
+     * <p>
+     * ```typescript
+     * import { Authing } from "@authing/browser"
+     * const sdk = new Authing({
+     * // 应用的认证地址，例如：https://domain.authing.cn
+     * domain: "",
+     * <p>
+     * // Authing 应用 ID
+     * appId: "you_authing_app_id",
+     * <p>
+     * // 登录回调地址，需要在控制台『应用配置 - 登录回调 URL』中指定
+     * redirectUri: "your_redirect_uri"
+     * });
+     * <p>
+     * <p>
+     * // success 表示此次绑定操作是否成功；
+     * // errMsg 为如果绑定失败，具体的失败原因，如此身份源已被其他账号绑定等。
+     * // identities 为此次绑定操作具体绑定的第三方身份信息
+     * const { success, errMsg, identities } = await sdk.bindExtIdpWithPopup({
+     * "extIdpConnIdentifier": "my-wechat"
+     * })
+     * <p>
+     * ```
+     * <p>
+     * 绑定外部身份源成功之后，你可以得到用户在此第三方身份源的信息，以绑定飞书账号为例：
+     * <p>
+     * ```json
+     * [
+     * {
+     * "identityId": "62f20932xxxxbcc10d966ee5",
+     * "extIdpId": "62f209327xxxxcc10d966ee5",
+     * "provider": "lark",
+     * "type": "open_id",
+     * "userIdInIdp": "ou_8bae746eac07cd2564654140d2a9ac61",
+     * "originConnIds": ["62f2093244fa5cb19ff21ed3"]
+     * },
+     * {
+     * "identityId": "62f726239xxxxe3285d21c93",
+     * "extIdpId": "62f209327xxxxcc10d966ee5",
+     * "provider": "lark",
+     * "type": "union_id",
+     * "userIdInIdp": "on_093ce5023288856aa0abe4099123b18b",
+     * "originConnIds": ["62f2093244fa5cb19ff21ed3"]
+     * },
+     * {
+     * "identityId": "62f72623e011cf10c8851e4c",
+     * "extIdpId": "62f209327xxxxcc10d966ee5",
+     * "provider": "lark",
+     * "type": "user_id",
+     * "userIdInIdp": "23ded785",
+     * "originConnIds": ["62f2093244fa5cb19ff21ed3"]
+     * }
+     * ]
+     * ```
+     * <p>
+     * 可以看到，我们获取到了用户在飞书中的身份信息：
+     * <p>
+     * - `open_id`: ou_8bae746eac07cd2564654140d2a9ac61
+     * - `union_id`: on_093ce5023288856aa0abe4099123b18b
+     * - `user_id`: 23ded785
+     * <p>
+     * 绑定此外部身份源之后，后续用户就可以使用此身份源进行登录了，见**登录**接口。
      **/
     public GenerateBindExtIdpLinkRespDto linkExtIdp(LinkExtidpDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -402,82 +760,73 @@ public class AuthenticationClient extends BaseClient {
 
     /**
      * @summary 生成绑定外部身份源的链接
-     * @description
-     *
-     *              由于绝大多数的外部身份源登录不允许在第三方系统直接输入账号密码进行登录，所以外部身份源的绑定总是需要先跳转到对方的登录页面进行认证。此端点会通过浏览器
-     *              `302` 跳转的方式先跳转到第三方的登录页面，
-     *              终端用户在第三方系统认证完成之后，浏览器再会跳转到 Authing 服务器，Authing
-     *              服务器会将此外部身份源绑定到该用户身上。最终的结果会通过浏览器 Window Post Message 的方式传递给开发者。
-     *              你可以在你的应用系统中放置一个按钮，引导用户点击之后，弹出一个 Window
-     *              Popup，地址为此端点，当用户在第三方身份源认证完成之后，此 Popup 会通过 Window Post Message
-     *              的方式传递给父窗口。
-     *
-     *              为此我们在 `@authing/browser` SDK 中封装了相关方法，为开发者省去了其中大量的细节：
-     *
-     *              ```typescript
-     *              import { Authing } from "@authing/browser"
-     *              const sdk = new Authing({
-     *              // 应用的认证地址，例如：https://domain.authing.cn
-     *              domain: "",
-     *
-     *              // Authing 应用 ID
-     *              appId: "you_authing_app_id",
-     *
-     *              // 登录回调地址，需要在控制台『应用配置 - 登录回调 URL』中指定
-     *              redirectUri: "your_redirect_uri"
-     *              });
-     *
-     *
-     *              // success 表示此次绑定操作是否成功；
-     *              // errMsg 为如果绑定失败，具体的失败原因，如此身份源已被其他账号绑定等。
-     *              // identities 为此次绑定操作具体绑定的第三方身份信息
-     *              const { success, errMsg, identities } = await
-     *              sdk.bindExtIdpWithPopup({
-     *              "extIdpConnIdentifier": "my-wechat"
-     *              })
-     *
-     *              ```
-     *
-     *              绑定外部身份源成功之后，你可以得到用户在此第三方身份源的信息，以绑定飞书账号为例：
-     *
-     *              ```json
-     *              [
-     *              {
-     *              "identityId": "62f20932xxxxbcc10d966ee5",
-     *              "extIdpId": "62f209327xxxxcc10d966ee5",
-     *              "provider": "lark",
-     *              "type": "open_id",
-     *              "userIdInIdp": "ou_8bae746eac07cd2564654140d2a9ac61",
-     *              "originConnIds": ["62f2093244fa5cb19ff21ed3"]
-     *              },
-     *              {
-     *              "identityId": "62f726239xxxxe3285d21c93",
-     *              "extIdpId": "62f209327xxxxcc10d966ee5",
-     *              "provider": "lark",
-     *              "type": "union_id",
-     *              "userIdInIdp": "on_093ce5023288856aa0abe4099123b18b",
-     *              "originConnIds": ["62f2093244fa5cb19ff21ed3"]
-     *              },
-     *              {
-     *              "identityId": "62f72623e011cf10c8851e4c",
-     *              "extIdpId": "62f209327xxxxcc10d966ee5",
-     *              "provider": "lark",
-     *              "type": "user_id",
-     *              "userIdInIdp": "23ded785",
-     *              "originConnIds": ["62f2093244fa5cb19ff21ed3"]
-     *              }
-     *              ]
-     *              ```
-     *
-     *              可以看到，我们获取到了用户在飞书中的身份信息：
-     *
-     *              - `open_id`: ou_8bae746eac07cd2564654140d2a9ac61
-     *              - `union_id`: on_093ce5023288856aa0abe4099123b18b
-     *              - `user_id`: 23ded785
-     *
-     *              绑定此外部身份源之后，后续用户就可以使用此身份源进行登录了，见**登录**接口。
-     *
-     *
+     * @description 由于绝大多数的外部身份源登录不允许在第三方系统直接输入账号密码进行登录，所以外部身份源的绑定总是需要先跳转到对方的登录页面进行认证。此端点会通过浏览器 `302` 跳转的方式先跳转到第三方的登录页面，
+     * 终端用户在第三方系统认证完成之后，浏览器再会跳转到 Authing 服务器，Authing 服务器会将此外部身份源绑定到该用户身上。最终的结果会通过浏览器 Window Post Message 的方式传递给开发者。
+     * 你可以在你的应用系统中放置一个按钮，引导用户点击之后，弹出一个 Window Popup，地址为此端点，当用户在第三方身份源认证完成之后，此 Popup 会通过 Window Post Message 的方式传递给父窗口。
+     * <p>
+     * 为此我们在 `@authing/browser` SDK 中封装了相关方法，为开发者省去了其中大量的细节：
+     * <p>
+     * ```typescript
+     * import { Authing } from "@authing/browser"
+     * const sdk = new Authing({
+     * // 应用的认证地址，例如：https://domain.authing.cn
+     * domain: "",
+     * <p>
+     * // Authing 应用 ID
+     * appId: "you_authing_app_id",
+     * <p>
+     * // 登录回调地址，需要在控制台『应用配置 - 登录回调 URL』中指定
+     * redirectUri: "your_redirect_uri"
+     * });
+     * <p>
+     * <p>
+     * // success 表示此次绑定操作是否成功；
+     * // errMsg 为如果绑定失败，具体的失败原因，如此身份源已被其他账号绑定等。
+     * // identities 为此次绑定操作具体绑定的第三方身份信息
+     * const { success, errMsg, identities } = await sdk.bindExtIdpWithPopup({
+     * "extIdpConnIdentifier": "my-wechat"
+     * })
+     * <p>
+     * ```
+     * <p>
+     * 绑定外部身份源成功之后，你可以得到用户在此第三方身份源的信息，以绑定飞书账号为例：
+     * <p>
+     * ```json
+     * [
+     * {
+     * "identityId": "62f20932xxxxbcc10d966ee5",
+     * "extIdpId": "62f209327xxxxcc10d966ee5",
+     * "provider": "lark",
+     * "type": "open_id",
+     * "userIdInIdp": "ou_8bae746eac07cd2564654140d2a9ac61",
+     * "originConnIds": ["62f2093244fa5cb19ff21ed3"]
+     * },
+     * {
+     * "identityId": "62f726239xxxxe3285d21c93",
+     * "extIdpId": "62f209327xxxxcc10d966ee5",
+     * "provider": "lark",
+     * "type": "union_id",
+     * "userIdInIdp": "on_093ce5023288856aa0abe4099123b18b",
+     * "originConnIds": ["62f2093244fa5cb19ff21ed3"]
+     * },
+     * {
+     * "identityId": "62f72623e011cf10c8851e4c",
+     * "extIdpId": "62f209327xxxxcc10d966ee5",
+     * "provider": "lark",
+     * "type": "user_id",
+     * "userIdInIdp": "23ded785",
+     * "originConnIds": ["62f2093244fa5cb19ff21ed3"]
+     * }
+     * ]
+     * ```
+     * <p>
+     * 可以看到，我们获取到了用户在飞书中的身份信息：
+     * <p>
+     * - `open_id`: ou_8bae746eac07cd2564654140d2a9ac61
+     * - `union_id`: on_093ce5023288856aa0abe4099123b18b
+     * - `user_id`: 23ded785
+     * <p>
+     * 绑定此外部身份源之后，后续用户就可以使用此身份源进行登录了，见**登录**接口。
      **/
     public GenerateBindExtIdpLinkRespDto generateLinkExtIdpUrl(GenerateLinkExtidpUrlDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -503,46 +852,38 @@ public class AuthenticationClient extends BaseClient {
 
     /**
      * @summary 获取绑定的外部身份源
-     * @description
-     *              如在**介绍**部分中所描述的，一个外部身份源对应多个外部身份源连接，用户通过某个外部身份源连接绑定了某个外部身份源账号之后，
-     *              用户会建立一条与此外部身份源之间的关联关系。此接口用于获取此用户绑定的所有外部身份源。
-     *
-     *              取决于外部身份源的具体实现，一个用户在外部身份源中，可能会有多个身份 ID，比如在微信体系中会有 `openid` 和
-     *              `unionid`，在非书中有
-     *              `open_id`、`union_id` 和 `user_id`。在 Authing 中，我们把这样的一条 `open_id`
-     *              或者 `unionid_` 叫做一条 `Identity`， 所以用户在一个身份源会有多条 `Identity` 记录。
-     *
-     *              以微信为例，如果用户使用微信登录或者绑定了微信账号，他的 `Identity` 信息如下所示：
-     *
-     *              ```json
-     *              [
-     *              {
-     *              "identityId": "62f20932xxxxbcc10d966ee5",
-     *              "extIdpId": "62f209327xxxxcc10d966ee5",
-     *              "provider": "wechat",
-     *              "type": "openid",
-     *              "userIdInIdp": "oH_5k5SflrwjGvk7wqpoBKq_cc6M",
-     *              "originConnIds": ["62f2093244fa5cb19ff21ed3"]
-     *              },
-     *              {
-     *              "identityId": "62f726239xxxxe3285d21c93",
-     *              "extIdpId": "62f209327xxxxcc10d966ee5",
-     *              "provider": "wechat",
-     *              "type": "unionid",
-     *              "userIdInIdp": "o9Nka5ibU-lUGQaeAHqu0nOZyJg0",
-     *              "originConnIds": ["62f2093244fa5cb19ff21ed3"]
-     *              }
-     *              ]
-     *              ```
-     *
-     *
-     *              可以看到他们的 `extIdpId` 是一样的，这个是你在 Authing 中创建的**身份源 ID**；`provider`
-     *              都是 `wechat`；
-     *              通过 `type` 可以区分出哪个是 `openid`，哪个是
-     *              `unionid`，以及具体的值（`userIdInIdp`）；他们都来自于同一个身份源连接（`originConnIds`）。
-     *
-     *
-     *
+     * @description 如在**介绍**部分中所描述的，一个外部身份源对应多个外部身份源连接，用户通过某个外部身份源连接绑定了某个外部身份源账号之后，
+     * 用户会建立一条与此外部身份源之间的关联关系。此接口用于获取此用户绑定的所有外部身份源。
+     * <p>
+     * 取决于外部身份源的具体实现，一个用户在外部身份源中，可能会有多个身份 ID，比如在微信体系中会有 `openid` 和 `unionid`，在非书中有
+     * `open_id`、`union_id` 和 `user_id`。在 Authing 中，我们把这样的一条 `open_id` 或者 `unionid_` 叫做一条 `Identity`， 所以用户在一个身份源会有多条 `Identity` 记录。
+     * <p>
+     * 以微信为例，如果用户使用微信登录或者绑定了微信账号，他的 `Identity` 信息如下所示：
+     * <p>
+     * ```json
+     * [
+     * {
+     * "identityId": "62f20932xxxxbcc10d966ee5",
+     * "extIdpId": "62f209327xxxxcc10d966ee5",
+     * "provider": "wechat",
+     * "type": "openid",
+     * "userIdInIdp": "oH_5k5SflrwjGvk7wqpoBKq_cc6M",
+     * "originConnIds": ["62f2093244fa5cb19ff21ed3"]
+     * },
+     * {
+     * "identityId": "62f726239xxxxe3285d21c93",
+     * "extIdpId": "62f209327xxxxcc10d966ee5",
+     * "provider": "wechat",
+     * "type": "unionid",
+     * "userIdInIdp": "o9Nka5ibU-lUGQaeAHqu0nOZyJg0",
+     * "originConnIds": ["62f2093244fa5cb19ff21ed3"]
+     * }
+     * ]
+     * ```
+     * <p>
+     * <p>
+     * 可以看到他们的 `extIdpId` 是一样的，这个是你在 Authing 中创建的**身份源 ID**；`provider` 都是 `wechat`；
+     * 通过 `type` 可以区分出哪个是 `openid`，哪个是 `unionid`，以及具体的值（`userIdInIdp`）；他们都来自于同一个身份源连接（`originConnIds`）。
      **/
     public GetIdentitiesRespDto getIdentities() {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -568,15 +909,12 @@ public class AuthenticationClient extends BaseClient {
 
     /**
      * @summary 注册
-     * @description
-     *              此端点目前支持以下几种基于的注册方式：
-     *
-     *              1. 基于密码（PASSWORD）：用户名 + 密码，邮箱 + 密码。
-     *              2. 基于一次性临时验证码（PASSCODE）：手机号 + 验证码，邮箱 +
-     *              验证码。你需要先调用发送短信或者发送邮件接口获取验证码。
-     *
-     *              社会化登录等使用外部身份源“注册”请直接使用**登录**接口，我们会在其第一次登录的时候为其创建一个新账号。
-     *
+     * @description 此端点目前支持以下几种基于的注册方式：
+     * <p>
+     * 1. 基于密码（PASSWORD）：用户名 + 密码，邮箱 + 密码。
+     * 2. 基于一次性临时验证码（PASSCODE）：手机号 + 验证码，邮箱 + 验证码。你需要先调用发送短信或者发送邮件接口获取验证码。
+     * <p>
+     * 社会化登录等使用外部身份源“注册”请直接使用**登录**接口，我们会在其第一次登录的时候为其创建一个新账号。
      **/
     public UserSingleRespDto signUp(SignupDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -590,25 +928,25 @@ public class AuthenticationClient extends BaseClient {
     /**
      * @summary 解密微信小程序数据
      **/
-    public Object decryptWechatMiniProgramData(DecryptWechatMiniProgramDataDto reqDto) {
+    public DecryptWechatMiniProgramDataRespDto decryptWechatMiniProgramData(DecryptWechatMiniProgramDataDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/decrypt-wechat-miniprogram-data");
         config.setBody(reqDto);
         config.setMethod("POST");
         String response = request(config);
-        return deserialize(response, Object.class);
+        return deserialize(response, DecryptWechatMiniProgramDataRespDto.class);
     }
 
     /**
      * @summary 获取小程序的手机号
      **/
-    public Object getWechatMiniprogramPhone(GetWechatMiniProgramPhoneDto reqDto) {
+    public GetWechatMiniProgramPhoneRespDto getWechatMiniprogramPhone(GetWechatMiniProgramPhoneDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-wechat-miniprogram-phone");
         config.setBody(reqDto);
         config.setMethod("POST");
         String response = request(config);
-        return deserialize(response, Object.class);
+        return deserialize(response, GetWechatMiniProgramPhoneRespDto.class);
     }
 
     /**
@@ -627,7 +965,7 @@ public class AuthenticationClient extends BaseClient {
      * @summary 获取登录日志
      * @description 获取登录日志
      **/
-    public GetLoginHistoryRespDto decryptWechatMiniProgramData1(GetLoginHistoryDto reqDto) {
+    public GetLoginHistoryRespDto getLoginHistory(GetLoginHistoryDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-login-history");
         config.setBody(reqDto);
@@ -702,44 +1040,54 @@ public class AuthenticationClient extends BaseClient {
 
     /**
      * @summary 使用用户凭证登录
-     * @description
-     *              此端点为基于直接 API 调用形式的登录端点，适用于你需要自建登录页面的场景。**此端点暂时不支持
-     *              MFA、信息补全、首次密码重置等流程，如有需要，请使用 OIDC 标准协议认证端点。**
+     * @description 此端点为基于直接 API 调用形式的登录端点，适用于你需要自建登录页面的场景。**此端点暂时不支持 MFA、信息补全、首次密码重置等流程，如有需要，请使用 OIDC 标准协议认证端点。**
+     * <p>
+     * <p>
+     * 注意事项：取决于你在 Authing 创建应用时选择的**应用类型**和应用配置的**换取 token 身份验证方式**，在调用此接口时需要对客户端的身份进行不同形式的验证。
      *
-     *              ### 错误码
+     * <details>
+     * <summary>点击展开详情</summary>
      *
-     *              此接口可能出现的异常类型：
+     * <br>
+     * <p>
+     * 你可以在 [Authing 控制台](https://console.authing.cn) 的**应用** - **自建应用** - **应用详情** - **应用配置** - **其他设置** - **授权配置**
+     * 中找到**换取 token 身份验证方式** 配置项：
+     * <p>
+     * > 单页 Web 应用和客户端应用隐藏，默认为 `none`，不允许修改；后端应用和标准 Web 应用可以修改此配置项。
+     * <p>
+     * ![](https://files.authing.co/api-explorer/tokenAuthMethod.jpg)
+     * <p>
+     * #### 换取 token 身份验证方式为 none 时
+     * <p>
+     * 调用此接口不需要进行额外操作。
+     * <p>
+     * #### 换取 token 身份验证方式为 client_secret_post 时
+     * <p>
+     * 调用此接口时必须在 body 中传递 `client_id` 和 `client_secret` 参数，作为验证客户端身份的条件。其中 `client_id` 为应用 ID、`client_secret` 为应用密钥。
+     * <p>
+     * #### 换取 token 身份验证方式为 client_secret_basic 时
+     * <p>
+     * 调用此接口时必须在 HTTP 请求头中携带 `authorization` 请求头，作为验证客户端身份的条件。`authorization` 请求头的格式如下（其中 `client_id` 为应用 ID、`client_secret` 为应用密钥。）：
+     * <p>
+     * ```
+     * Basic base64(<client_id>:<client_secret>)
+     * ```
+     * <p>
+     * 结果示例：
+     * <p>
+     * ```
+     * Basic NjA2M2ZiMmYzY3h4eHg2ZGY1NWYzOWViOjJmZTdjODdhODFmODY3eHh4eDAzMjRkZjEyZGFlZGM3
+     * ```
+     * <p>
+     * JS 代码示例：
+     * <p>
+     * ```js
+     * 'Basic ' + Buffer.from(client_id + ':' + client_secret).toString('base64');
+     * ```
      *
-     *              | 请求状态码 `statusCode` | 业务状态码 `apiCode` | 含义 | 错误提示示例 |
-     *              | --- | --- | --- | --- |
-     *              | 400 | - | 请求参数错误 | Parameter passwordPayload must include
-     *              account, email, username or phone when authenticationType is
-     *              PASSWORD. |
-     *              | 403 | 2333 | 账号或密码错误 | Account not exists or password is
-     *              incorrect. |
-     *              | 403 | 2006 | 密码错误 | Password is incorrect. |
-     *              | 403 | 2000 |
-     *              当用户池开启**登录失败次数限制**并且**登录安全策略**设置为**验证码**时，如果当前请求触发登录失败次数上限，要求用户输入图形验证码。见**生成图形验证码**接口了解如何生成图形验证码。图形验证码参数通过
-     *              `options.captchaCode` 进行传递。 | Please enter captcha code for this
-     *              login request. |
-     *              | 404 | 2004 | 用户不存在 | User not exists. |
-     *              | 499 | 2016 | 当 `passwordEncryptType` 不为 `none` 时，服务器尝试解密密码失败 |
-     *              Decrypt password failed, please check your encryption
-     *              configuration. |
-     *
-     *              错误示例：
-     *
-     *              ```json
-     *              {
-     *              "statusCode": 400,
-     *              "message": "Parameter passwordPayload must include account,
-     *              email, username or phone when authenticationType is PASSWORD."
-     *              }
-     *              ```
-     *
-     *
+     * </details>
      **/
-    public LoginTokenRespDto loginByCredentials(LoginByCredentialsDto reqDto) {
+    public LoginTokenRespDto signInByCredentials(SigninByCredentialsDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/signin");
         config.setBody(reqDto);
@@ -750,12 +1098,54 @@ public class AuthenticationClient extends BaseClient {
 
     /**
      * @summary 使用移动端社会化登录
-     * @description
-     *              此端点为移动端社会化登录接口，使用第三方移动社会化登录返回的临时凭证登录，并换取用户的 `id_token` 和
-     *              `access_token`。请先阅读相应社会化登录的接入流程。
+     * @description 此端点为移动端社会化登录接口，使用第三方移动社会化登录返回的临时凭证登录，并换取用户的 `id_token` 和 `access_token`。请先阅读相应社会化登录的接入流程。
+     * <p>
+     * <p>
+     * 注意事项：取决于你在 Authing 创建应用时选择的**应用类型**和应用配置的**换取 token 身份验证方式**，在调用此接口时需要对客户端的身份进行不同形式的验证。
      *
+     * <details>
+     * <summary>点击展开详情</summary>
+     *
+     * <br>
+     * <p>
+     * 你可以在 [Authing 控制台](https://console.authing.cn) 的**应用** - **自建应用** - **应用详情** - **应用配置** - **其他设置** - **授权配置**
+     * 中找到**换取 token 身份验证方式** 配置项：
+     * <p>
+     * > 单页 Web 应用和客户端应用隐藏，默认为 `none`，不允许修改；后端应用和标准 Web 应用可以修改此配置项。
+     * <p>
+     * ![](https://files.authing.co/api-explorer/tokenAuthMethod.jpg)
+     * <p>
+     * #### 换取 token 身份验证方式为 none 时
+     * <p>
+     * 调用此接口不需要进行额外操作。
+     * <p>
+     * #### 换取 token 身份验证方式为 client_secret_post 时
+     * <p>
+     * 调用此接口时必须在 body 中传递 `client_id` 和 `client_secret` 参数，作为验证客户端身份的条件。其中 `client_id` 为应用 ID、`client_secret` 为应用密钥。
+     * <p>
+     * #### 换取 token 身份验证方式为 client_secret_basic 时
+     * <p>
+     * 调用此接口时必须在 HTTP 请求头中携带 `authorization` 请求头，作为验证客户端身份的条件。`authorization` 请求头的格式如下（其中 `client_id` 为应用 ID、`client_secret` 为应用密钥。）：
+     * <p>
+     * ```
+     * Basic base64(<client_id>:<client_secret>)
+     * ```
+     * <p>
+     * 结果示例：
+     * <p>
+     * ```
+     * Basic NjA2M2ZiMmYzY3h4eHg2ZGY1NWYzOWViOjJmZTdjODdhODFmODY3eHh4eDAzMjRkZjEyZGFlZGM3
+     * ```
+     * <p>
+     * JS 代码示例：
+     * <p>
+     * ```js
+     * 'Basic ' + Buffer.from(client_id + ':' + client_secret).toString('base64');
+     * ```
+     *
+     * </details>
      **/
-    public LoginTokenRespDto signInByMobile(MobileSignInDto reqDto) {
+    public LoginTokenRespDto signInByMobile(SigninByMobileDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/signin-by-mobile");
         config.setBody(reqDto);
@@ -766,8 +1156,7 @@ public class AuthenticationClient extends BaseClient {
 
     /**
      * @summary 获取支付宝 AuthInfo
-     * @description 此接口用于获取发起支付宝认证需要的[初始化参数
-     *              AuthInfo](https://opendocs.alipay.com/open/218/105325)。
+     * @description 此接口用于获取发起支付宝认证需要的[初始化参数 AuthInfo](https://opendocs.alipay.com/open/218/105325)。
      **/
     public GetAlipayAuthInfoRespDto getAlipayAuthInfo(GetAlipayAuthinfoDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -806,39 +1195,70 @@ public class AuthenticationClient extends BaseClient {
 
     /**
      * @summary 使用二维码 ticket 换取 TokenSet
+     * @description 此端点为使用二维码的 ticket 换取用户的 `access_token` 和 `id_token`。
+     * <p>
+     * <p>
+     * 注意事项：取决于你在 Authing 创建应用时选择的**应用类型**和应用配置的**换取 token 身份验证方式**，在调用此接口时需要对客户端的身份进行不同形式的验证。
+     *
+     * <details>
+     * <summary>点击展开详情</summary>
+     *
+     * <br>
+     * <p>
+     * 你可以在 [Authing 控制台](https://console.authing.cn) 的**应用** - **自建应用** - **应用详情** - **应用配置** - **其他设置** - **授权配置**
+     * 中找到**换取 token 身份验证方式** 配置项：
+     * <p>
+     * > 单页 Web 应用和客户端应用隐藏，默认为 `none`，不允许修改；后端应用和标准 Web 应用可以修改此配置项。
+     * <p>
+     * ![](https://files.authing.co/api-explorer/tokenAuthMethod.jpg)
+     * <p>
+     * #### 换取 token 身份验证方式为 none 时
+     * <p>
+     * 调用此接口不需要进行额外操作。
+     * <p>
+     * #### 换取 token 身份验证方式为 client_secret_post 时
+     * <p>
+     * 调用此接口时必须在 body 中传递 `client_id` 和 `client_secret` 参数，作为验证客户端身份的条件。其中 `client_id` 为应用 ID、`client_secret` 为应用密钥。
+     * <p>
+     * #### 换取 token 身份验证方式为 client_secret_basic 时
+     * <p>
+     * 调用此接口时必须在 HTTP 请求头中携带 `authorization` 请求头，作为验证客户端身份的条件。`authorization` 请求头的格式如下（其中 `client_id` 为应用 ID、`client_secret` 为应用密钥。）：
+     * <p>
+     * ```
+     * Basic base64(<client_id>:<client_secret>)
+     * ```
+     * <p>
+     * 结果示例：
+     * <p>
+     * ```
+     * Basic NjA2M2ZiMmYzY3h4eHg2ZGY1NWYzOWViOjJmZTdjODdhODFmODY3eHh4eDAzMjRkZjEyZGFlZGM3
+     * ```
+     * <p>
+     * JS 代码示例：
+     * <p>
+     * ```js
+     * 'Basic ' + Buffer.from(client_id + ':' + client_secret).toString('base64');
+     * ```
+     *
+     * </details>
      **/
-    public LoginTokenRespDto exchangeTokenSetWithQrCodeTicket() {
+    public LoginTokenRespDto exchangeTokenSetWithQrCodeTicket(ExchangeTokenSetWithQRcodeTicketDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/exchange-tokenset-with-qrcode-ticket");
-
+        config.setBody(reqDto);
         config.setMethod("POST");
         String response = request(config);
         return deserialize(response, LoginTokenRespDto.class);
     }
 
     /**
-     * @summary 生成图形验证码
-     * @description 当用户池开启**登录失败次数限制**并且**登录安全策略**设置为**验证码**时，如果当前请求触发登录失败次数上限，要求用户输入图形验证码。此接口用于在前端生成图形验证码，会返回一个
-     *              `content-type` 为 `image/svg+xml` 的响应。
-     **/
-    public Object geneCaptchaCode(CaptchaCodeDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/captcha-code");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, Object.class);
-    }
-
-    /**
      * @summary 自建 APP 扫码登录：APP 端修改二维码状态
-     * @description 此端点用于在自建 APP
-     *              扫码登录中修改二维码状态，对应着在浏览器渲染出二维码之后，终端用户扫码、确认授权、取消授权的过程。**此接口要求具备用户的登录态**。
+     * @description 此端点用于在自建 APP 扫码登录中修改二维码状态，对应着在浏览器渲染出二维码之后，终端用户扫码、确认授权、取消授权的过程。**此接口要求具备用户的登录态**。
      **/
-    public CommonResponseDto changeQrCodeStatus() {
+    public CommonResponseDto changeQrCodeStatus(ChangeQRCodeStatusDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/change-qrcode-status");
-
+        config.setBody(reqDto);
         config.setMethod("POST");
         String response = request(config);
         return deserialize(response, CommonResponseDto.class);
@@ -872,13 +1292,12 @@ public class AuthenticationClient extends BaseClient {
 
     /**
      * @summary 获取用户资料
-     * @description 此端点用户获取用户资料，需要在请求头中带上用户的 `access_token`，Authing 服务器会根据用户
-     *              `access_token` 中的 `scope` 返回对应的字段。
+     * @description 此端点用户获取用户资料，需要在请求头中带上用户的 `access_token`，Authing 服务器会根据用户 `access_token` 中的 `scope` 返回对应的字段。
      **/
-    public UserSingleRespDto user() {
+    public UserSingleRespDto getProfile(GetProfileDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-profile");
-        config.setBody(new Object());
+        config.setBody(reqDto);
         config.setMethod("GET");
         String response = request(config);
         return deserialize(response, UserSingleRespDto.class);
@@ -888,7 +1307,7 @@ public class AuthenticationClient extends BaseClient {
      * @summary 修改用户资料
      * @description 此接口用于修改用户的用户资料，包含用户的自定义数据。如果需要**修改邮箱**、**修改手机号**、**修改密码**，请使用对应的单独接口。
      **/
-    public UserSingleRespDto updateUserProfile(UpdateUserProfileDto reqDto) {
+    public UserSingleRespDto updateProfile(UpdateUserProfileDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/update-profile");
         config.setBody(reqDto);
@@ -911,12 +1330,38 @@ public class AuthenticationClient extends BaseClient {
     }
 
     /**
+     * @summary 解绑邮箱
+     * @description 用户解绑邮箱，如果用户没有绑定其他登录方式（手机号、社会化登录账号），将无法解绑邮箱，会提示错误。
+     **/
+    public CommonResponseDto unbindEmail(UnbindEmailDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/unbind-email");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, CommonResponseDto.class);
+    }
+
+    /**
      * @summary 绑定手机号
      * @description 如果用户还**没有绑定手机号**，此接口可用于用户**自主**绑定手机号。如果用户已经绑定手机号想要修改手机号，请使用**修改手机号**接口。你需要先调用**发送短信**接口发送短信验证码。
      **/
     public CommonResponseDto bindPhone(BindPhoneDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/bind-phone");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, CommonResponseDto.class);
+    }
+
+    /**
+     * @summary 解绑手机号
+     * @description 用户解绑手机号，如果用户没有绑定其他登录方式（邮箱、社会化登录账号），将无法解绑手机号，会提示错误。
+     **/
+    public CommonResponseDto unbindPhone(UnbindPhoneDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/unbind-phone");
         config.setBody(reqDto);
         config.setMethod("POST");
         String response = request(config);
@@ -953,9 +1398,9 @@ public class AuthenticationClient extends BaseClient {
      * @summary 发起修改邮箱的验证请求
      * @description 终端用户自主修改邮箱时，需要提供相应的验证手段。此接口用于验证用户的修改邮箱请求是否合法。当前支持通过**邮箱验证码**的方式进行验证，你需要先调用发送邮件接口发送对应的邮件验证码。
      **/
-    public VerifyUpdateEmailRequestRespDto updateEmailVerification(UpdateEmailVerifyRequestDto reqDto) {
+    public VerifyUpdateEmailRequestRespDto verifyUpdateEmailRequest(VerifyUpdateEmailRequestDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/veirfy-update-email-request");
+        config.setUrl("/api/v3/verify-update-email-request");
         config.setBody(reqDto);
         config.setMethod("POST");
         String response = request(config);
@@ -965,7 +1410,7 @@ public class AuthenticationClient extends BaseClient {
     /**
      * @summary 修改邮箱
      * @description 终端用户自主修改邮箱，需要提供相应的验证手段，见[发起修改邮箱的验证请求](#tag/用户资料/修改邮箱/operation/ProfileV3Controller_updateEmailVerification)。
-     *              此参数需要提供一次性临时凭证 `updateEmailToken`，此数据需要从**发起修改邮箱的验证请求**接口获取。
+     * 此参数需要提供一次性临时凭证 `updateEmailToken`，此数据需要从**发起修改邮箱的验证请求**接口获取。
      **/
     public CommonResponseDto updateEmail(UpdateEmailDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -980,9 +1425,9 @@ public class AuthenticationClient extends BaseClient {
      * @summary 发起修改手机号的验证请求
      * @description 终端用户自主修改手机号时，需要提供相应的验证手段。此接口用于验证用户的修改手机号请求是否合法。当前支持通过**短信验证码**的方式进行验证，你需要先调用发送短信接口发送对应的短信验证码。
      **/
-    public VerifyUpdatePhoneRequestRespDto updatePhoneVerification(VerifyUpdatePhoneRequestDto reqDto) {
+    public VerifyUpdatePhoneRequestRespDto verifyUpdatePhoneRequest(VerifyUpdatePhoneRequestDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/veirfy-update-phone-request");
+        config.setUrl("/api/v3/verify-update-phone-request");
         config.setBody(reqDto);
         config.setMethod("POST");
         String response = request(config);
@@ -992,7 +1437,7 @@ public class AuthenticationClient extends BaseClient {
     /**
      * @summary 修改手机号
      * @description 终端用户自主修改手机号，需要提供相应的验证手段，见[发起修改手机号的验证请求](#tag/用户资料/修改邮箱/operation/ProfileV3Controller_updatePhoneVerification)。
-     *              此参数需要提供一次性临时凭证 `updatePhoneToken`，此数据需要从**发起修改手机号的验证请求**接口获取。
+     * 此参数需要提供一次性临时凭证 `updatePhoneToken`，此数据需要从**发起修改手机号的验证请求**接口获取。
      **/
     public CommonResponseDto updatePhone(UpdatePhoneDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -1007,7 +1452,7 @@ public class AuthenticationClient extends BaseClient {
      * @summary 发起忘记密码请求
      * @description 当用户忘记密码时，可以通过此端点找回密码。用户需要使用相关验证手段进行验证，目前支持**邮箱验证码**和**手机号验证码**两种验证手段。
      **/
-    public PasswordResetVerifyResp resetPasswordVerify(VerifyResetPasswordRequestDto reqDto) {
+    public PasswordResetVerifyResp verifyResetPasswordRequest(VerifyResetPasswordRequestDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/verify-reset-password-request");
         config.setBody(reqDto);
@@ -1018,8 +1463,7 @@ public class AuthenticationClient extends BaseClient {
 
     /**
      * @summary 忘记密码
-     * @description 此端点用于用户忘记密码之后，通过**手机号验证码**或者**邮箱验证码**的方式重置密码。此接口需要提供用于重置密码的临时凭证
-     *              `passwordResetToken`，此参数需要通过**发起忘记密码请求**接口获取。
+     * @description 此端点用于用户忘记密码之后，通过**手机号验证码**或者**邮箱验证码**的方式重置密码。此接口需要提供用于重置密码的临时凭证 `passwordResetToken`，此参数需要通过**发起忘记密码请求**接口获取。
      **/
     public IsSuccessRespDto resetPassword(ResetPasswordDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -1034,7 +1478,7 @@ public class AuthenticationClient extends BaseClient {
      * @summary 发起注销账号请求
      * @description 当用户希望注销账号时，需提供相应凭证，当前支持**使用邮箱验证码**、使用**手机验证码**、**使用密码**三种验证方式。
      **/
-    public VerifyDeleteAccountRequestRespDto deleteAccountVerify(VerifyDeleteAccountRequestDto reqDto) {
+    public VerifyDeleteAccountRequestRespDto veirfyDeleteAccountRequest(VerifyDeleteAccountRequestDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/verify-delete-account-request");
         config.setBody(reqDto);
@@ -1045,8 +1489,7 @@ public class AuthenticationClient extends BaseClient {
 
     /**
      * @summary 注销账户
-     * @description 此端点用于用户自主注销账号，需要提供用于注销账号的临时凭证
-     *              passwordResetToken，此参数需要通过**发起注销账号请求**接口获取。
+     * @description 此端点用于用户自主注销账号，需要提供用于注销账号的临时凭证 deleteAccountToken，此参数需要通过**发起注销账号请求**接口获取。
      **/
     public IsSuccessRespDto deleteAccount(DeleteAccounDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -1055,18 +1498,6 @@ public class AuthenticationClient extends BaseClient {
         config.setMethod("POST");
         String response = request(config);
         return deserialize(response, IsSuccessRespDto.class);
-    }
-
-    /**
-     * @summary 获取应用公开配置
-     **/
-    public Object getApplicationPublicConfig(GetApplicationPublicConfigDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-application-public-config");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, Object.class);
     }
 
     /**
@@ -1108,7 +1539,7 @@ public class AuthenticationClient extends BaseClient {
         return deserialize(response, PreCheckCodeRespDto.class);
     }
 
-    // ==== AUTO GENERATED AUTHENTICATION METHODS END ====
+// ==== AUTO GENERATED AUTHENTICATION METHODS END ====
 
 
     public AuthenticationClientOptions getOptions() {
@@ -1117,14 +1548,14 @@ public class AuthenticationClient extends BaseClient {
 
     public OIDCTokenResponse getAccessTokenByCode(String code) throws Exception {
         if ((StrUtil.isBlank(this.options.getAppId()) || StrUtil.isBlank(this.options.getAppSecret()))
-                && this.options.getTokenEndPointAuthMethod() != AuthMethodEnum.NONE.getValue()){
+                && this.options.getTokenEndPointAuthMethod() != AuthMethodEnum.NONE.getValue()) {
             throw new Exception("请在初始化 AuthenticationClient 时传入 appId 和 secret 参数");
         }
 
         String url = "";
-        if(this.options.getProtocol() == ProtocolEnum.OAUTH.getValue()){
+        if (this.options.getProtocol() == ProtocolEnum.OAUTH.getValue()) {
             url += "/oauth/token";
-        }else{
+        } else {
             url += "/oidc/token";
         }
 
@@ -1141,13 +1572,13 @@ public class AuthenticationClient extends BaseClient {
         HashMap<String, String> headerMap = new HashMap<>();
         headerMap.put(Header.CONTENT_TYPE.getValue(), "application/x-www-form-urlencoded");
 
-        if(this.options.getTokenEndPointAuthMethod() == AuthMethodEnum.CLIENT_SECRET_POST.getValue()){
+        if (this.options.getTokenEndPointAuthMethod() == AuthMethodEnum.CLIENT_SECRET_POST.getValue()) {
             tokenParam.setClientId(this.options.getAppId());
             tokenParam.setClientSecret(this.options.getAppSecret());
-        }else if(this.options.getTokenEndPointAuthMethod() == AuthMethodEnum.CLIENT_SECRET_BASIC.getValue()){
-            String basic64Str = "Basic " + Base64.getEncoder().encodeToString((this.options.getAppId()+":"+this.options.getAppSecret()).getBytes());
-            headerMap.put("Authorization",basic64Str);
-        }else{
+        } else if (this.options.getTokenEndPointAuthMethod() == AuthMethodEnum.CLIENT_SECRET_BASIC.getValue()) {
+            String basic64Str = "Basic " + Base64.getEncoder().encodeToString((this.options.getAppId() + ":" + this.options.getAppSecret()).getBytes());
+            headerMap.put("Authorization", basic64Str);
+        } else {
             // AuthMethodEnum.NONE
             tokenParam.setClientId(this.options.getAppId());
         }
@@ -1165,12 +1596,12 @@ public class AuthenticationClient extends BaseClient {
     /**
      * 检验 CAS 1.0 Ticket 合法性
      */
-    public ValidateTicketV1Response validateTicketV1(String ticket,String service){
-        String url = this.options.getHost() + "/cas-idp/" + this.options.getAppId() + "/validate";
+    public ValidateTicketV1Response validateTicketV1(String ticket, String service) {
+        String url = this.options.getAppHost() + "/cas-idp/" + this.options.getAppId() + "/validate";
 
         Map<String, Object> paramsMap = new HashMap<>();
-        paramsMap.put("ticket",ticket);
-        paramsMap.put("service",service);
+        paramsMap.put("ticket", ticket);
+        paramsMap.put("service", service);
 
         url = HttpUtils.buildUrlWithQueryParams(url, paramsMap);
 
@@ -1181,7 +1612,7 @@ public class AuthenticationClient extends BaseClient {
 
         ValidateTicketV1Response validateTicketV1Response = deserialize(response, ValidateTicketV1Response.class);
 
-        System.out.println("ValidateTicketV1Response:"+validateTicketV1Response.toString());
+        System.out.println("ValidateTicketV1Response:" + validateTicketV1Response.toString());
 
         return validateTicketV1Response;
 
@@ -1190,16 +1621,16 @@ public class AuthenticationClient extends BaseClient {
     /**
      * 通过远端服务验证票据合法性
      */
-    public String validateTicketV2(String ticket,String service,String format) throws Exception {
+    public String validateTicketV2(String ticket, String service, String format) throws Exception {
         if (format != "XML" && format != "JSON") {
             throw new Exception("format 参数可选值为 XML、JSON，请检查输入");
         }
-        String url = this.options.getHost() + "/cas-idp/" + this.options.getAppId() + "/serviceValidate";
+        String url = this.options.getAppHost() + "/cas-idp/" + this.options.getAppId() + "/serviceValidate";
 
         Map<String, Object> paramsMap = new HashMap<>();
-        paramsMap.put("ticket",ticket);
-        paramsMap.put("service",service);
-        paramsMap.put("format",format);
+        paramsMap.put("ticket", ticket);
+        paramsMap.put("service", service);
+        paramsMap.put("format", format);
 
         url = HttpUtils.buildUrlWithQueryParams(url, paramsMap);
 
@@ -1218,7 +1649,7 @@ public class AuthenticationClient extends BaseClient {
         String codeChallenge = options.getCodeChallenge();
         String method = options.getMethod();
 
-        if(StrUtil.isBlank(codeChallenge)){
+        if (StrUtil.isBlank(codeChallenge)) {
             throw new Exception("请提供 options.codeChallenge，值为一个长度大于等于 43 的字符串");
         }
 
@@ -1228,15 +1659,16 @@ public class AuthenticationClient extends BaseClient {
             byte[] encode = Base64.getEncoder().encode(messageDigest.digest());
             return new String(encode, Charset.forName("UTF-8")).replace("+", "-")
                     .replace("/", "_").replace("=", "");
-        }else if (method == "plain") {
+        } else if (method == "plain") {
             return codeChallenge;
-        }else{
+        } else {
             throw new Exception("不支持的 options.method，可选值为 S256、plain");
         }
     }
 
     /**
      * 之前版本 buildLogoutUrl 的补充，由于 buildLogoutUrl 函数名已经被占用，故命名为 buildLogoutUrlNew
+     *
      * @param params
      * @return
      * @throws Exception
@@ -1251,12 +1683,12 @@ public class AuthenticationClient extends BaseClient {
         return buildEasyLogoutUrl(params);
     }
 
-    public String buildCasLogoutUrl(ILogoutParams params){
+    public String buildCasLogoutUrl(ILogoutParams params) {
         String url = "";
-        if(StrUtil.isNotBlank(params.getPostLogoutRedirectUri())){
-            url = this.options.getHost() + "/cas-idp/logout?url=" + params.getPostLogoutRedirectUri();
-        }else{
-            url = this.options.getHost() + "/cas-idp/logout";
+        if (StrUtil.isNotBlank(params.getPostLogoutRedirectUri())) {
+            url = this.options.getAppHost() + "/cas-idp/logout?url=" + params.getPostLogoutRedirectUri();
+        } else {
+            url = this.options.getAppHost() + "/cas-idp/logout";
         }
         return url;
     }
@@ -1267,24 +1699,25 @@ public class AuthenticationClient extends BaseClient {
             throw new Exception("必须同时传入 idToken 和 redirectUri 参数，或者同时都不传入");
         }
         String url = "";
-        if(StrUtil.isNotBlank(params.getPostLogoutRedirectUri())){
-            url = this.options.getHost() + "/oidc/session/end?id_token_hint=" + params.getIdToken()
+        if (StrUtil.isNotBlank(params.getPostLogoutRedirectUri())) {
+            url = this.options.getAppHost() + "/oidc/session/end?id_token_hint=" + params.getIdToken()
                     + "&post_logout_redirect_uri=" + params.getPostLogoutRedirectUri();
-        }else{
-            url = this.options.getHost() + "/oidc/session/end";
+        } else {
+            url = this.options.getAppHost() + "/oidc/session/end";
         }
         return url;
     }
 
-    public String buildEasyLogoutUrl(ILogoutParams params) throws Exception{
+    public String buildEasyLogoutUrl(ILogoutParams params) throws Exception {
         String url = "";
-        if(StrUtil.isNotBlank(params.getPostLogoutRedirectUri())){
-            url = this.options.getHost() + "/login/profile/logout?redirect_uri=" + params.getPostLogoutRedirectUri();
-        }else{
-            url = this.options.getHost() + "/login/profile/logout";
+        if (StrUtil.isNotBlank(params.getPostLogoutRedirectUri())) {
+            url = this.options.getAppHost() + "/login/profile/logout?redirect_uri=" + params.getPostLogoutRedirectUri();
+        } else {
+            url = this.options.getAppHost() + "/login/profile/logout";
         }
         return url;
     }
+
     /**
      * Client Credentials 模式获取 Access Token
      */
@@ -1361,7 +1794,7 @@ public class AuthenticationClient extends BaseClient {
         map.put("redirect_uri", Optional.ofNullable(params.getRedirectUri()).orElse(options.getRedirectUri()));
         map.put("prompt", params.getScope() != null && params.getScope().contains("offline_access") ? "consent" : null);
 
-        return HttpUtils.buildUrlWithQueryParams(options.getHost()+"/oidc/auth", map);
+        return HttpUtils.buildUrlWithQueryParams(options.getAppHost() + "/oidc/auth", map);
     }
 
     /**

@@ -13,6 +13,11 @@ public class SignUpByPasswordDto {
     @JsonProperty("password")
     private String password;
     /**
+     * 用户名
+     */
+    @JsonProperty("username")
+    private String username;
+    /**
      * 邮箱，不区分大小写。
      */
     @JsonProperty("email")
@@ -23,6 +28,13 @@ public class SignUpByPasswordDto {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {

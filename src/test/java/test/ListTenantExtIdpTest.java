@@ -21,7 +21,7 @@ public class ListTenantExtIdpTest {
         ListTenantExtIdpDto request = new ListTenantExtIdpDto();
         request.setTenantId("tenantId_5935");
         request.setAppId("appId_4300");
-        request.setType(Collections.emptyList());
+//        request.setType(Collections.emptyList());
         request.setPage("page_4751");
         request.setLimit("limit_3186");
 

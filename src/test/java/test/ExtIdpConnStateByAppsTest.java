@@ -22,7 +22,7 @@ public class ExtIdpConnStateByAppsTest {
         request.setId("id_1028");
         request.setTenantId("tenantId_7922");
         request.setAppId("appId_3888");
-        request.setType(Collections.emptyList());
+//        request.setType(Collections.emptyList());
 
         ExtIdpListPaginatedRespDto response = client.extIdpConnStateByApps(request);
         System.out.println(JsonUtils.serialize(response));

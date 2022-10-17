@@ -34,7 +34,7 @@ public class ListApplicationSimpleInfoDto {
      * 模糊搜索字符串
      */
     @JsonProperty("keyword")
-    private Boolean keyword;
+    private String keyword;
 
     public Integer getPage() {
         return page;
@@ -71,10 +71,10 @@ public class ListApplicationSimpleInfoDto {
         this.ssoEnabled = ssoEnabled;
     }
 
-    public Boolean getKeyword() {
+    public String getKeyword() {
         return keyword;
     }
-    public void setKeyword(Boolean keyword) {
+    public void setKeyword(String keyword) {
         this.keyword = keyword;
     }
 

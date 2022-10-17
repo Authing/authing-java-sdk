@@ -20,6 +20,11 @@ public class SendEmailRespDto {
      */
     @JsonProperty("apiCode")
     private Integer apiCode;
+    /**
+     * 请求 ID。当请求失败时会返回。
+     */
+    @JsonProperty("requestId")
+    private String requestId;
 
     public Integer getStatusCode() {
         return statusCode;
@@ -40,6 +45,13 @@ public class SendEmailRespDto {
     }
     public void setApiCode(Integer apiCode) {
         this.apiCode = apiCode;
+    }
+
+    public String getRequestId() {
+        return requestId;
+    }
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
     }
 
 

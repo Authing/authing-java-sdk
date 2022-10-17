@@ -22,8 +22,8 @@ public class GetManagementTokenTest {
         request.setAccessKeySecret("accessKeySecret_262");
         request.setAccessKeyId("accessKeyId_8108");
 
-        GetManagementTokenRespDto response = client.getManagementToken(request);
-        System.out.println(JsonUtils.serialize(response));
+//        GetManagementTokenRespDto response = client.getManagementToken(request);
+//        System.out.println(JsonUtils.serialize(response));
     }
 
 }

@@ -22,6 +22,11 @@ public class NamespaceRespDto {
     @JsonProperty("apiCode")
     private Integer apiCode;
     /**
+     * 请求 ID。当请求失败时会返回。
+     */
+    @JsonProperty("requestId")
+    private String requestId;
+    /**
      * 权限分组详情
      */
     @JsonProperty("data")
@@ -46,6 +51,13 @@ public class NamespaceRespDto {
     }
     public void setApiCode(Integer apiCode) {
         this.apiCode = apiCode;
+    }
+
+    public String getRequestId() {
+        return requestId;
+    }
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
     }
 
     public NamespaceDto getData() {

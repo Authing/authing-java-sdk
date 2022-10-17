@@ -29,7 +29,7 @@ public class UpdateWebhookDto {
      * 请求数据格式
      */
     @JsonProperty("contentType")
-    private String contentType;
+    private ContentType contentType;
     /**
      * 是否启用
      */
@@ -69,10 +69,10 @@ public class UpdateWebhookDto {
         this.events = events;
     }
 
-    public String getContentType() {
+    public ContentType getContentType() {
         return contentType;
     }
-    public void setContentType(String contentType) {
+    public void setContentType(ContentType contentType) {
         this.contentType = contentType;
     }
 

@@ -22,7 +22,7 @@ public class GetExtIdpTest {
         request.setId("id_3779");
         request.setTenantId("tenantId_8581");
         request.setAppId("appId_719");
-        request.setType(Collections.emptyList());
+//        request.setType(Collections.emptyList());
 
         ExtIdpDetailSingleRespDto response = client.getExtIdp(request);
         System.out.println(JsonUtils.serialize(response));

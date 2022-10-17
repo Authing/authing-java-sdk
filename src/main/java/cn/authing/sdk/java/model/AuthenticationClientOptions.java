@@ -4,8 +4,9 @@ import cn.authing.sdk.java.enums.AuthMethodEnum;
 import cn.authing.sdk.java.enums.ProtocolEnum;
 import cn.authing.sdk.java.util.HttpUtils;
 import cn.hutool.core.util.StrUtil;
-import com.nimbusds.jose.jwk.JWKSet;
 
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,19 +14,29 @@ import java.util.Map;
  * @author ZKB
  */
 public class AuthenticationClientOptions extends AuthingClientOptions {
-    /** 应用 ID */
+    /**
+     * 应用 ID
+     */
     private String appId;
 
-    /** 应用 Secret */
+    /**
+     * 应用 Secret
+     */
     private String appSecret;
 
-    /** 应用对应的用户池域名，例如 pool.authing.cn */
-    private String host;
+    /**
+     * 应用域名，例如 https://example.authing.cn
+     */
+    private String appHost;
 
-    /** 认证完成后的重定向目标 URL */
+    /**
+     * 认证完成后的重定向目标 URL
+     */
     private String redirectUri;
 
-    /** 登出完成后的重定向目标 URL */
+    /**
+     * 登出完成后的重定向目标 URL
+     */
     private String logoutRedirectUri;
 
     /**
@@ -37,11 +48,6 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
      * - offline_access: 获取用户的 Refresh Token，可用于调用 refreshLoginState 刷新用户的登录态
      */
     private String scope = "openid profile offline_access";
-
-    /**
-     * 服务端的 JWKS 公钥，用于验证 Token 签名，默认会通过网络请求从服务端的 JWKS 端点自动获取
-     */
-    private JWKSet serverJWKS;
 
     /**
      * 存储认证上下文的 Cookie 名称
@@ -86,11 +92,31 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
         }
         headers.put("x-authing-request-from", AuthingClientOptions.REQUEST_FROM);
         headers.put("x-authing-sdk-version", AuthingClientOptions.SDK_VERSION);
-        headers.put("x-authing-app-id",this.appId);
-        if(StrUtil.isNotBlank(this.AccessToken)){
-            headers.put("authorization","Bearer"+this.AccessToken);
+        headers.put("x-authing-app-id", this.appId);
+
+        // 如果设置的 tokenEndPointAuthMethod 为 client_secret_basic 并且调用的是 /oidc 相关接口：
+        // 1. 获取 token: /oidc(oauth)/token
+        // 2. 撤销 token: /oidc(oauth)/token/revocation
+        // 3. 检查 token: /oidc(oauth)/token/introspection
+        // 4. 其他登录获取 token 接口
+        String[] endpointsToSendBasicHeader = {
+                "/oidc/token",
+                "/oidc/token/revocation",
+                "/oidc/token/introspection",
+                "/oauth/token",
+                "/oauth/token/revocation",
+                "/oauth/token/introspection",
+                "/api/v3/signin",
+                "/api/v3/signin-by-mobile",
+                "/api/v3/exchange-tokenset-with-qrcode-ticket"
+        };
+        if (this.getTokenEndPointAuthMethod() == AuthMethodEnum.CLIENT_SECRET_BASIC.getValue() && Arrays.asList(endpointsToSendBasicHeader).contains(url)) {
+            headers.put("authorization", "Basic " + Base64.getEncoder().encodeToString((this.getAppId() + ":" + this.getAppSecret()).getBytes()));
+        } else if (StrUtil.isNotBlank(this.AccessToken)) {
+            headers.put("authorization", "Bearer" + this.AccessToken);
         }
-        return HttpUtils.request(getHost() + url, method, body, headers, getTimeout());
+
+        return HttpUtils.request(getAppHost() + url, method, body, headers, getTimeout());
     }
 
     public int getTimeout() {
@@ -113,12 +139,12 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
         this.appSecret = appSecret;
     }
 
-    public String getHost() {
-        return host;
+    public String getAppHost() {
+        return appHost;
     }
 
-    public void setHost(String host) {
-        this.host = host;
+    public void setAppHost(String appHost) {
+        this.appHost = appHost;
     }
 
     public String getRedirectUri() {
@@ -143,14 +169,6 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
 
     public void setScope(String scope) {
         this.scope = scope;
-    }
-
-    public JWKSet getServerJWKS() {
-        return serverJWKS;
-    }
-
-    public void setServerJWKS(JWKSet serverJWKS) {
-        this.serverJWKS = serverJWKS;
     }
 
     public String getCookieKey() {

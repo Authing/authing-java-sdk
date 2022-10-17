@@ -24,7 +24,7 @@ public class ListApplicationSimpleInfoTest {
         request.setIsIntegrateApp(Boolean.TRUE);
         request.setIsSelfBuiltApp(Boolean.TRUE);
         request.setSsoEnabled(Boolean.TRUE);
-        request.setKeyword(Boolean.TRUE);
+//        request.setKeyword(Boolean.TRUE);
 
         ApplicationSimpleInfoSingleRespDto response = client.listApplicationSimpleInfo(request);
         System.out.println(JsonUtils.serialize(response));

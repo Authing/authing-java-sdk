@@ -9,7 +9,7 @@ public class CreateWebhookDto {
      * 请求数据格式
      */
     @JsonProperty("contentType")
-    private String contentType;
+    private ContentType contentType;
     /**
      * 用户真实名称，不具备唯一性。 示例值: 张三
      */
@@ -36,10 +36,10 @@ public class CreateWebhookDto {
     @JsonProperty("secret")
     private String secret;
 
-    public String getContentType() {
+    public ContentType getContentType() {
         return contentType;
     }
-    public void setContentType(String contentType) {
+    public void setContentType(ContentType contentType) {
         this.contentType = contentType;
     }
 

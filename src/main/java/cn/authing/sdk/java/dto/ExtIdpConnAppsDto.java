@@ -24,7 +24,7 @@ public class ExtIdpConnAppsDto {
      * 身份源类型
      */
     @JsonProperty("type")
-    private Object type;
+    private String type;
 
     public String getId() {
         return id;
@@ -47,10 +47,10 @@ public class ExtIdpConnAppsDto {
         this.appId = appId;
     }
 
-    public Object getType() {
+    public String getType() {
         return type;
     }
-    public void setType(Object type) {
+    public void setType(String type) {
         this.type = type;
     }
 

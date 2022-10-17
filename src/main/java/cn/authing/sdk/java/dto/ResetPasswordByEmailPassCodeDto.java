@@ -11,7 +11,7 @@ public class ResetPasswordByEmailPassCodeDto {
     @JsonProperty("email")
     private String email;
     /**
-     * 邮箱验证码，一个短信验证码只能使用一次，默认有效时间为无分钟。你需要通过**发送邮件**接口获取。
+     * 邮箱验证码，一个短信验证码只能使用一次，默认有效时间为 5 分钟。你需要通过**发送邮件**接口获取。
      */
     @JsonProperty("passCode")
     private String passCode;

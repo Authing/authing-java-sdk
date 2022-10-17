@@ -290,6 +290,12 @@ public class AdminAuditLogDto {
 
         @JsonProperty("userEnable")
         USER_ENABLE("userEnable"),
+
+        @JsonProperty("activate")
+        ACTIVATE("activate"),
+
+        @JsonProperty("deactivate")
+        DEACTIVATE("deactivate"),
         ;
 
         private String value;
