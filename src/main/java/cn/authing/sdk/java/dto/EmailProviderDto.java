@@ -98,14 +98,18 @@ public class EmailProviderDto {
      */
     public static enum Type {
 
+
         @JsonProperty("smtp")
         SMTP("smtp"),
+
 
         @JsonProperty("ali")
         ALI("ali"),
 
+
         @JsonProperty("tencent")
         TENCENT("tencent"),
+
 
         @JsonProperty("sendgrid")
         SENDGRID("sendgrid"),

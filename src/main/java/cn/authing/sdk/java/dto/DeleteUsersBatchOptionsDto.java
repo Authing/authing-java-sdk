@@ -40,20 +40,26 @@ public class DeleteUsersBatchOptionsDto {
      */
     public static enum UserIdType {
 
+
         @JsonProperty("user_id")
         USER_ID("user_id"),
+
 
         @JsonProperty("external_id")
         EXTERNAL_ID("external_id"),
 
+
         @JsonProperty("phone")
         PHONE("phone"),
+
 
         @JsonProperty("email")
         EMAIL("email"),
 
+
         @JsonProperty("username")
         USERNAME("username"),
+
 
         @JsonProperty("identity")
         IDENTITY("identity"),

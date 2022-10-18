@@ -60,8 +60,10 @@ public class RemoveDepartmentMembersReqDto {
      */
     public static enum DepartmentIdType {
 
+
         @JsonProperty("department_id")
         DEPARTMENT_ID("department_id"),
+
 
         @JsonProperty("open_department_id")
         OPEN_DEPARTMENT_ID("open_department_id"),

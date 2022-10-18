@@ -97,17 +97,22 @@ public class AuthorizedResourceDto {
      */
     public static enum ResourceType {
 
+
         @JsonProperty("DATA")
         DATA("DATA"),
+
 
         @JsonProperty("API")
         API("API"),
 
+
         @JsonProperty("MENU")
         MENU("MENU"),
 
+
         @JsonProperty("BUTTON")
         BUTTON("BUTTON"),
+
 
         @JsonProperty("UI")
         UI("UI"),
@@ -129,8 +134,10 @@ public class AuthorizedResourceDto {
      */
     public static enum Effect {
 
+
         @JsonProperty("ALLOW")
         ALLOW("ALLOW"),
+
 
         @JsonProperty("DENY")
         DENY("DENY"),

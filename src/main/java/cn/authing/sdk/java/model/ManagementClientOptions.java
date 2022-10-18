@@ -1,5 +1,6 @@
 package cn.authing.sdk.java.model;
 
+import cn.authing.sdk.java.dto.CreateUserReqDto;
 import cn.authing.sdk.java.enums.SignatureEnum;
 import cn.authing.sdk.java.util.CommonUtils;
 import cn.authing.sdk.java.util.signature.ISignatureComposer;
@@ -120,6 +121,11 @@ public class ManagementClientOptions extends AuthingClientOptions {
         return HttpUtils.request(getHost() + url, method, body, headers, getTimeout());
     }
 
+    private boolean isObject(Object obj) {
+        return !(obj instanceof String || obj instanceof Integer || obj instanceof Enum || obj instanceof Double ||
+                obj instanceof Float || obj instanceof Boolean);
+    }
+
     private Map<String, String> objectToMap(Object object) throws IllegalAccessException {
         Map<String, String> map = new HashMap<>();
         Field[] fields = object.getClass().getDeclaredFields();
@@ -127,11 +133,16 @@ public class ManagementClientOptions extends AuthingClientOptions {
             field.setAccessible(true);
             Object obj = field.get(object);
             if (obj != null) {
-                if (!(obj instanceof String || obj instanceof Integer || obj instanceof Enum || obj instanceof Double ||
-                        obj instanceof Float || obj instanceof Boolean)) {
+                // 如果是对象类型，转成 JSON 字符串
+                if (isObject(obj)) {
                     map.put(field.getName(), JsonUtils.serialize(obj));
-                } else {
-                    map.put(field.getName(), obj.toString());
+                }
+                else {
+                    if (obj instanceof Enum) {
+                        map.put(field.getName(), JsonUtils.serialize(obj).replaceAll("\"", ""));
+                    } else {
+                        map.put(field.getName(), obj.toString());
+                    }
                 }
             }
         }

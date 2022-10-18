@@ -89,8 +89,10 @@ public class CreateUserOptionsDto {
      */
     public static enum DepartmentIdType {
 
+
         @JsonProperty("department_id")
         DEPARTMENT_ID("department_id"),
+
 
         @JsonProperty("open_department_id")
         OPEN_DEPARTMENT_ID("open_department_id"),
@@ -116,11 +118,14 @@ public class CreateUserOptionsDto {
      */
     public static enum PasswordEncryptType {
 
+
         @JsonProperty("sm2")
         SM2("sm2"),
 
+
         @JsonProperty("rsa")
         RSA("rsa"),
+
 
         @JsonProperty("none")
         NONE("none"),

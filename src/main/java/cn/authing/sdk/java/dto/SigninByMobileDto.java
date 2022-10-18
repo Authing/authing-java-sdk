@@ -225,32 +225,42 @@ public class SigninByMobileDto {
      */
     public static enum Connection {
 
+
         @JsonProperty("wechat")
         WECHAT("wechat"),
+
 
         @JsonProperty("alipay")
         ALIPAY("alipay"),
 
+
         @JsonProperty("wechatwork")
         WECHATWORK("wechatwork"),
+
 
         @JsonProperty("wechatwork_agency")
         WECHATWORK_AGENCY("wechatwork_agency"),
 
+
         @JsonProperty("lark_internal")
         LARK_INTERNAL("lark_internal"),
+
 
         @JsonProperty("lark_public")
         LARK_PUBLIC("lark_public"),
 
+
         @JsonProperty("yidun")
         YIDUN("yidun"),
+
 
         @JsonProperty("wechat_mini_program_code")
         WECHAT_MINI_PROGRAM_CODE("wechat_mini_program_code"),
 
+
         @JsonProperty("wechat_mini_program_phone")
         WECHAT_MINI_PROGRAM_PHONE("wechat_mini_program_phone"),
+
 
         @JsonProperty("google")
         GOOGLE("google"),

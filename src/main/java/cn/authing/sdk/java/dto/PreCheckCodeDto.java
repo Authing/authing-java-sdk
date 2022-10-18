@@ -50,8 +50,10 @@ public class PreCheckCodeDto {
      */
     public static enum CodeType {
 
+
         @JsonProperty("SMS")
         SMS("SMS"),
+
 
         @JsonProperty("EMAIL")
         EMAIL("EMAIL"),

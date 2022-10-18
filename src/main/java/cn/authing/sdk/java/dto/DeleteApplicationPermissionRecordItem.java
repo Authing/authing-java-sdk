@@ -48,14 +48,18 @@ public class DeleteApplicationPermissionRecordItem {
      */
     public static enum TargetType {
 
+
         @JsonProperty("USER")
         USER("USER"),
+
 
         @JsonProperty("ROLE")
         ROLE("ROLE"),
 
+
         @JsonProperty("GROUP")
         GROUP("GROUP"),
+
 
         @JsonProperty("ORG")
         ORG("ORG"),

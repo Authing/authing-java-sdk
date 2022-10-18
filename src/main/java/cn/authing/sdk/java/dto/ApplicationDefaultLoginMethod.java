@@ -84,17 +84,22 @@ public class ApplicationDefaultLoginMethod {
      */
     public static enum ConnectionType {
 
+
         @JsonProperty("PASSCODE")
         PASSCODE("PASSCODE"),
+
 
         @JsonProperty("PASSWORD")
         PASSWORD("PASSWORD"),
 
+
         @JsonProperty("QRCODE")
         QRCODE("QRCODE"),
 
+
         @JsonProperty("LDAP")
         LDAP("LDAP"),
+
 
         @JsonProperty("AD")
         AD("AD"),
@@ -120,11 +125,14 @@ public class ApplicationDefaultLoginMethod {
      */
     public static enum QrcodeType {
 
+
         @JsonProperty("SELF_BUILT_APP")
         SELF_BUILT_APP("SELF_BUILT_APP"),
 
+
         @JsonProperty("WECHAT_OFFICIAL_ACCOUNT")
         WECHAT_OFFICIAL_ACCOUNT("WECHAT_OFFICIAL_ACCOUNT"),
+
 
         @JsonProperty("WECHAT_MINI_PROGRAM")
         WECHAT_MINI_PROGRAM("WECHAT_MINI_PROGRAM"),

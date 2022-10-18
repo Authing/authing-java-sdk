@@ -72,8 +72,10 @@ public class AppDto {
      */
     public static enum AppDefaultLoginStrategy {
 
+
         @JsonProperty("ALLOW_ALL")
         ALLOW_ALL("ALLOW_ALL"),
+
 
         @JsonProperty("DENY_ALL")
         DENY_ALL("DENY_ALL"),

@@ -36,8 +36,10 @@ public class SelfUnlockAccountConfigDto {
      */
     public static enum Strategy {
 
+
         @JsonProperty("captcha")
         CAPTCHA("captcha"),
+
 
         @JsonProperty("password-captcha")
         PASSWORD_CAPTCHA("password-captcha"),

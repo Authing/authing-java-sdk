@@ -72,14 +72,18 @@ public class ApplicationPermissionRecordItem {
      */
     public static enum TargetType {
 
+
         @JsonProperty("USER")
         USER("USER"),
+
 
         @JsonProperty("ROLE")
         ROLE("ROLE"),
 
+
         @JsonProperty("GROUP")
         GROUP("GROUP"),
+
 
         @JsonProperty("ORG")
         ORG("ORG"),
@@ -101,8 +105,10 @@ public class ApplicationPermissionRecordItem {
      */
     public static enum Effect {
 
+
         @JsonProperty("ALLOW")
         ALLOW("ALLOW"),
+
 
         @JsonProperty("DENY")
         DENY("DENY"),

@@ -48,17 +48,22 @@ public class SyncTaskTimedScheduler {
      */
     public static enum Cycle {
 
+
         @JsonProperty("month")
         MONTH("month"),
+
 
         @JsonProperty("week")
         WEEK("week"),
 
+
         @JsonProperty("days")
         DAYS("days"),
 
+
         @JsonProperty("sixHours")
         SIX_HOURS("sixHours"),
+
 
         @JsonProperty("twoHours")
         TWO_HOURS("twoHours"),

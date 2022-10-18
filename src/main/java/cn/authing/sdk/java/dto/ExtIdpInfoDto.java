@@ -132,86 +132,114 @@ public class ExtIdpInfoDto {
      */
     public static enum Type {
 
+
         @JsonProperty("oidc")
         OIDC("oidc"),
+
 
         @JsonProperty("oauth2")
         OAUTH2("oauth2"),
 
+
         @JsonProperty("saml")
         SAML("saml"),
+
 
         @JsonProperty("ldap")
         LDAP("ldap"),
 
+
         @JsonProperty("ad")
         AD("ad"),
+
 
         @JsonProperty("cas")
         CAS("cas"),
 
+
         @JsonProperty("azure-ad")
         AZURE_AD("azure-ad"),
+
 
         @JsonProperty("wechat")
         WECHAT("wechat"),
 
+
         @JsonProperty("google")
         GOOGLE("google"),
+
 
         @JsonProperty("qq")
         QQ("qq"),
 
+
         @JsonProperty("wechatwork")
         WECHATWORK("wechatwork"),
+
 
         @JsonProperty("dingtalk")
         DINGTALK("dingtalk"),
 
+
         @JsonProperty("weibo")
         WEIBO("weibo"),
+
 
         @JsonProperty("github")
         GITHUB("github"),
 
+
         @JsonProperty("alipay")
         ALIPAY("alipay"),
+
 
         @JsonProperty("apple")
         APPLE("apple"),
 
+
         @JsonProperty("baidu")
         BAIDU("baidu"),
+
 
         @JsonProperty("lark")
         LARK("lark"),
 
+
         @JsonProperty("gitlab")
         GITLAB("gitlab"),
+
 
         @JsonProperty("twitter")
         TWITTER("twitter"),
 
+
         @JsonProperty("facebook")
         FACEBOOK("facebook"),
+
 
         @JsonProperty("slack")
         SLACK("slack"),
 
+
         @JsonProperty("linkedin")
         LINKEDIN("linkedin"),
+
 
         @JsonProperty("yidun")
         YIDUN("yidun"),
 
+
         @JsonProperty("qingcloud")
         QINGCLOUD("qingcloud"),
+
 
         @JsonProperty("gitee")
         GITEE("gitee"),
 
+
         @JsonProperty("instagram")
         INSTAGRAM("instagram"),
+
 
         @JsonProperty("welink")
         WELINK("welink"),
@@ -233,8 +261,10 @@ public class ExtIdpInfoDto {
      */
     public static enum ExtIdpType {
 
+
         @JsonProperty("social")
         SOCIAL("social"),
+
 
         @JsonProperty("enterprise")
         ENTERPRISE("enterprise"),

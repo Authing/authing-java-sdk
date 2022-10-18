@@ -44,11 +44,14 @@ public class ChangeQRCodeStatusDto {
      */
     public static enum Action {
 
+
         @JsonProperty("SCAN")
         SCAN("SCAN"),
 
+
         @JsonProperty("CONFIRM")
         CONFIRM("CONFIRM"),
+
 
         @JsonProperty("CANCEL")
         CANCEL("CANCEL"),

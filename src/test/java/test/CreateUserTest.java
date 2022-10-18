@@ -10,12 +10,13 @@ import java.util.Collections;
 
 public class CreateUserTest {
 
-    private static final String ACCESS_KEY_ID = "YOUR_ACCESS_KEY_ID";
-    private static final String ACCESS_KEY_SECRET = "YOUR_ACCESS_KEY_SECRET";
+    private static final String ACCESS_KEY_ID = "6343b98b7cf019a9366e9b7c";
+    private static final String ACCESS_KEY_SECRET = "fb0cefa691df76920a1611b9dec38120";
 
 
     public static void main(String[] args) throws Throwable {
         ManagementClientOptions clientOptions = new ManagementClientOptions(ACCESS_KEY_ID, ACCESS_KEY_SECRET);
+        clientOptions.setHost("http://localhost:3000");
         ManagementClient client = new ManagementClient(clientOptions);
 
         CreateUserReqDto request = new CreateUserReqDto();

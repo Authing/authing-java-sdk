@@ -343,14 +343,18 @@ public class ApplicationDto {
      */
     public static enum AppType {
 
+
         @JsonProperty("web")
         WEB("web"),
+
 
         @JsonProperty("spa")
         SPA("spa"),
 
+
         @JsonProperty("native")
         NATIVE("native"),
+
 
         @JsonProperty("api")
         API("api"),
@@ -372,17 +376,22 @@ public class ApplicationDto {
      */
     public static enum DefaultProtocol {
 
+
         @JsonProperty("oidc")
         OIDC("oidc"),
+
 
         @JsonProperty("oauth")
         OAUTH("oauth"),
 
+
         @JsonProperty("saml")
         SAML("saml"),
 
+
         @JsonProperty("cas")
         CAS("cas"),
+
 
         @JsonProperty("asa")
         ASA("asa"),

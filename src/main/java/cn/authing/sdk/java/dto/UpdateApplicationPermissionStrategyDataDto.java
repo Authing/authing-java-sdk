@@ -36,8 +36,10 @@ public class UpdateApplicationPermissionStrategyDataDto {
      */
     public static enum PermissionStrategy {
 
+
         @JsonProperty("ALLOW_ALL")
         ALLOW_ALL("ALLOW_ALL"),
+
 
         @JsonProperty("DENY_ALL")
         DENY_ALL("DENY_ALL"),

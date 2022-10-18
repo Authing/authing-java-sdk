@@ -41,6 +41,7 @@ public class VerifyUpdatePhoneRequestDto {
      */
     public static enum VerifyMethod {
 
+
         @JsonProperty("PHONE_PASSCODE")
         PHONE_PASSCODE("PHONE_PASSCODE"),
         ;

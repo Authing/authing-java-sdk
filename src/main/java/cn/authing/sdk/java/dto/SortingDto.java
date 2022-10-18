@@ -75,53 +75,70 @@ public class SortingDto {
      */
     public static enum Field {
 
+
         @JsonProperty("createdAt")
         CREATED_AT("createdAt"),
+
 
         @JsonProperty("updatedAt")
         UPDATED_AT("updatedAt"),
 
+
         @JsonProperty("email")
         EMAIL("email"),
+
 
         @JsonProperty("username")
         USERNAME("username"),
 
+
         @JsonProperty("externalId")
         EXTERNAL_ID("externalId"),
+
 
         @JsonProperty("phone")
         PHONE("phone"),
 
+
         @JsonProperty("status")
         STATUS("status"),
+
 
         @JsonProperty("statusChangedAt")
         STATUS_CHANGED_AT("statusChangedAt"),
 
+
         @JsonProperty("passwordLastSetAt")
         PASSWORD_LAST_SET_AT("passwordLastSetAt"),
+
 
         @JsonProperty("loginsCount")
         LOGINS_COUNT("loginsCount"),
 
+
         @JsonProperty("gender")
         GENDER("gender"),
+
 
         @JsonProperty("lastLogin")
         LAST_LOGIN("lastLogin"),
 
+
         @JsonProperty("userSourceType")
         USER_SOURCE_TYPE("userSourceType"),
+
 
         @JsonProperty("lastMfaTime")
         LAST_MFA_TIME("lastMfaTime"),
 
+
         @JsonProperty("passwordSecurityLevel")
         PASSWORD_SECURITY_LEVEL("passwordSecurityLevel"),
 
+
         @JsonProperty("phoneCountryCode")
         PHONE_COUNTRY_CODE("phoneCountryCode"),
+
 
         @JsonProperty("lastIp")
         LAST_IP("lastIp"),
@@ -146,8 +163,10 @@ public class SortingDto {
      */
     public static enum Order {
 
+
         @JsonProperty("desc")
         DESC("desc"),
+
 
         @JsonProperty("asc")
         ASC("asc"),

@@ -48,14 +48,18 @@ public class FactorDto {
      */
     public static enum FactorType {
 
+
         @JsonProperty("OTP")
         OTP("OTP"),
+
 
         @JsonProperty("SMS")
         SMS("SMS"),
 
+
         @JsonProperty("EMAIL")
         EMAIL("EMAIL"),
+
 
         @JsonProperty("FACE")
         FACE("FACE"),

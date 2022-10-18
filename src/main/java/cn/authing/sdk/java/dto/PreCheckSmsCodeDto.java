@@ -60,35 +60,46 @@ public class PreCheckSmsCodeDto {
      */
     public static enum Channel {
 
+
         @JsonProperty("CHANNEL_LOGIN")
         CHANNEL_LOGIN("CHANNEL_LOGIN"),
+
 
         @JsonProperty("CHANNEL_REGISTER")
         CHANNEL_REGISTER("CHANNEL_REGISTER"),
 
+
         @JsonProperty("CHANNEL_RESET_PASSWORD")
         CHANNEL_RESET_PASSWORD("CHANNEL_RESET_PASSWORD"),
+
 
         @JsonProperty("CHANNEL_BIND_PHONE")
         CHANNEL_BIND_PHONE("CHANNEL_BIND_PHONE"),
 
+
         @JsonProperty("CHANNEL_UNBIND_PHONE")
         CHANNEL_UNBIND_PHONE("CHANNEL_UNBIND_PHONE"),
+
 
         @JsonProperty("CHANNEL_BIND_MFA")
         CHANNEL_BIND_MFA("CHANNEL_BIND_MFA"),
 
+
         @JsonProperty("CHANNEL_VERIFY_MFA")
         CHANNEL_VERIFY_MFA("CHANNEL_VERIFY_MFA"),
+
 
         @JsonProperty("CHANNEL_UNBIND_MFA")
         CHANNEL_UNBIND_MFA("CHANNEL_UNBIND_MFA"),
 
+
         @JsonProperty("CHANNEL_COMPLETE_PHONE")
         CHANNEL_COMPLETE_PHONE("CHANNEL_COMPLETE_PHONE"),
 
+
         @JsonProperty("CHANNEL_IDENTITY_VERIFICATION")
         CHANNEL_IDENTITY_VERIFICATION("CHANNEL_IDENTITY_VERIFICATION"),
+
 
         @JsonProperty("CHANNEL_DELETE_ACCOUNT")
         CHANNEL_DELETE_ACCOUNT("CHANNEL_DELETE_ACCOUNT"),

@@ -93,20 +93,26 @@ public class UpdateUserOptionsDto {
      */
     public static enum UserIdType {
 
+
         @JsonProperty("user_id")
         USER_ID("user_id"),
+
 
         @JsonProperty("external_id")
         EXTERNAL_ID("external_id"),
 
+
         @JsonProperty("phone")
         PHONE("phone"),
+
 
         @JsonProperty("email")
         EMAIL("email"),
 
+
         @JsonProperty("username")
         USERNAME("username"),
+
 
         @JsonProperty("identity")
         IDENTITY("identity"),
@@ -132,11 +138,14 @@ public class UpdateUserOptionsDto {
      */
     public static enum PasswordEncryptType {
 
+
         @JsonProperty("sm2")
         SM2("sm2"),
 
+
         @JsonProperty("rsa")
         RSA("rsa"),
+
 
         @JsonProperty("none")
         NONE("none"),

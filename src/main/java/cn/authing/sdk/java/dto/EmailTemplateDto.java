@@ -157,47 +157,62 @@ public class EmailTemplateDto {
      */
     public static enum Type {
 
+
         @JsonProperty("WELCOME_EMAIL")
         WELCOME_EMAIL("WELCOME_EMAIL"),
+
 
         @JsonProperty("FIRST_CREATED_USER")
         FIRST_CREATED_USER("FIRST_CREATED_USER"),
 
+
         @JsonProperty("REGISTER_VERIFY_CODE")
         REGISTER_VERIFY_CODE("REGISTER_VERIFY_CODE"),
+
 
         @JsonProperty("LOGIN_VERIFY_CODE")
         LOGIN_VERIFY_CODE("LOGIN_VERIFY_CODE"),
 
+
         @JsonProperty("MFA_VERIFY_CODE")
         MFA_VERIFY_CODE("MFA_VERIFY_CODE"),
+
 
         @JsonProperty("INFORMATION_COMPLETION_VERIFY_CODE")
         INFORMATION_COMPLETION_VERIFY_CODE("INFORMATION_COMPLETION_VERIFY_CODE"),
 
+
         @JsonProperty("FIRST_EMAIL_LOGIN_VERIFY")
         FIRST_EMAIL_LOGIN_VERIFY("FIRST_EMAIL_LOGIN_VERIFY"),
+
 
         @JsonProperty("CONSOLE_CONDUCTED_VERIFY")
         CONSOLE_CONDUCTED_VERIFY("CONSOLE_CONDUCTED_VERIFY"),
 
+
         @JsonProperty("USER_PASSWORD_UPDATE_REMIND")
         USER_PASSWORD_UPDATE_REMIND("USER_PASSWORD_UPDATE_REMIND"),
+
 
         @JsonProperty("ADMIN_RESET_USER_PASSWORD_NOTIFICATION")
         ADMIN_RESET_USER_PASSWORD_NOTIFICATION("ADMIN_RESET_USER_PASSWORD_NOTIFICATION"),
 
+
         @JsonProperty("USER_PASSWORD_RESET_NOTIFICATION")
         USER_PASSWORD_RESET_NOTIFICATION("USER_PASSWORD_RESET_NOTIFICATION"),
+
 
         @JsonProperty("RESET_PASSWORD_VERIFY_CODE")
         RESET_PASSWORD_VERIFY_CODE("RESET_PASSWORD_VERIFY_CODE"),
 
+
         @JsonProperty("SELF_UNLOCKING_VERIFY_CODE")
         SELF_UNLOCKING_VERIFY_CODE("SELF_UNLOCKING_VERIFY_CODE"),
 
+
         @JsonProperty("EMAIL_BIND_VERIFY_CODE")
         EMAIL_BIND_VERIFY_CODE("EMAIL_BIND_VERIFY_CODE"),
+
 
         @JsonProperty("EMAIL_UNBIND_VERIFY_CODE")
         EMAIL_UNBIND_VERIFY_CODE("EMAIL_UNBIND_VERIFY_CODE"),
@@ -224,8 +239,10 @@ public class EmailTemplateDto {
      */
     public static enum TplEngine {
 
+
         @JsonProperty("handlebar")
         HANDLEBAR("handlebar"),
+
 
         @JsonProperty("ejs")
         EJS("ejs"),

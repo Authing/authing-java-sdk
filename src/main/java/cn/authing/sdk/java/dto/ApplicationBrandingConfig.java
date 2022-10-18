@@ -171,8 +171,10 @@ public class ApplicationBrandingConfig {
      */
     public static enum GuardVersion {
 
+
         @JsonProperty("Advanced")
         ADVANCED("Advanced"),
+
 
         @JsonProperty("Classical")
         CLASSICAL("Classical"),
@@ -199,14 +201,18 @@ public class ApplicationBrandingConfig {
      */
     public static enum DefaultLanguage {
 
+
         @JsonProperty("zh-CN")
         ZH_CN("zh-CN"),
+
 
         @JsonProperty("en-US")
         EN_US("en-US"),
 
+
         @JsonProperty("zh-TW")
         ZH_TW("zh-TW"),
+
 
         @JsonProperty("ja-JP")
         JA_JP("ja-JP"),

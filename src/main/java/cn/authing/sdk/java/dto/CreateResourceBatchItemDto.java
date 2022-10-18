@@ -85,17 +85,22 @@ public class CreateResourceBatchItemDto {
      */
     public static enum Type {
 
+
         @JsonProperty("DATA")
         DATA("DATA"),
+
 
         @JsonProperty("API")
         API("API"),
 
+
         @JsonProperty("MENU")
         MENU("MENU"),
 
+
         @JsonProperty("BUTTON")
         BUTTON("BUTTON"),
+
 
         @JsonProperty("UI")
         UI("UI"),

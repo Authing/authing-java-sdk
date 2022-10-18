@@ -123,14 +123,18 @@ public class SigninByCredentialsDto {
      */
     public static enum Connection {
 
+
         @JsonProperty("PASSWORD")
         PASSWORD("PASSWORD"),
+
 
         @JsonProperty("PASSCODE")
         PASSCODE("PASSCODE"),
 
+
         @JsonProperty("LDAP")
         LDAP("LDAP"),
+
 
         @JsonProperty("AD")
         AD("AD"),

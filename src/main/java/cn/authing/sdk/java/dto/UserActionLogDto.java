@@ -252,53 +252,70 @@ public class UserActionLogDto {
      */
     public static enum EventType {
 
+
         @JsonProperty("login")
         LOGIN("login"),
+
 
         @JsonProperty("logout")
         LOGOUT("logout"),
 
+
         @JsonProperty("register")
         REGISTER("register"),
+
 
         @JsonProperty("verifyMfa")
         VERIFY_MFA("verifyMfa"),
 
+
         @JsonProperty("updateUserPrefile")
         UPDATE_USER_PREFILE("updateUserPrefile"),
+
 
         @JsonProperty("updateUserPassword")
         UPDATE_USER_PASSWORD("updateUserPassword"),
 
+
         @JsonProperty("updateUserEmail")
         UPDATE_USER_EMAIL("updateUserEmail"),
+
 
         @JsonProperty("updateUserPhone")
         UPDATE_USER_PHONE("updateUserPhone"),
 
+
         @JsonProperty("bindMfa")
         BIND_MFA("bindMfa"),
+
 
         @JsonProperty("bindEmail")
         BIND_EMAIL("bindEmail"),
 
+
         @JsonProperty("bindPhone")
         BIND_PHONE("bindPhone"),
+
 
         @JsonProperty("unbindPhone")
         UNBIND_PHONE("unbindPhone"),
 
+
         @JsonProperty("unbindEmail")
         UNBIND_EMAIL("unbindEmail"),
+
 
         @JsonProperty("unbindMFA")
         UNBIND_MFA("unbindMFA"),
 
+
         @JsonProperty("refreshUserTokenBySelf")
         REFRESH_USER_TOKEN_BY_SELF("refreshUserTokenBySelf"),
 
+
         @JsonProperty("deleteAccount")
         DELETE_ACCOUNT("deleteAccount"),
+
 
         @JsonProperty("verifyFirstLogin")
         VERIFY_FIRST_LOGIN("verifyFirstLogin"),

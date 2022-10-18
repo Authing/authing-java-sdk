@@ -82,8 +82,10 @@ public class SignupDto {
      */
     public static enum Connection {
 
+
         @JsonProperty("PASSWORD")
         PASSWORD("PASSWORD"),
+
 
         @JsonProperty("PASSCODE")
         PASSCODE("PASSCODE"),

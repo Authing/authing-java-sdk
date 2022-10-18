@@ -71,11 +71,14 @@ public class VerifyDeleteAccountRequestDto {
      */
     public static enum VerifyMethod {
 
+
         @JsonProperty("PHONE_PASSCODE")
         PHONE_PASSCODE("PHONE_PASSCODE"),
 
+
         @JsonProperty("EMAIL_PASSCODE")
         EMAIL_PASSCODE("EMAIL_PASSCODE"),
+
 
         @JsonProperty("PASSWORD")
         PASSWORD("PASSWORD"),

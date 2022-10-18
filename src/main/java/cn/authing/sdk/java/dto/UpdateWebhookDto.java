@@ -96,8 +96,10 @@ public class UpdateWebhookDto {
      */
     public static enum ContentType {
 
+
         @JsonProperty("application/json")
         APPLICATION_JSON("application/json"),
+
 
         @JsonProperty("application/x-www-form-urlencoded")
         APPLICATION_X_WWW_FORM_URLENCODED("application/x-www-form-urlencoded"),

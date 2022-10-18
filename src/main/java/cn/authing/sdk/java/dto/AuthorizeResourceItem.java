@@ -64,14 +64,18 @@ public class AuthorizeResourceItem {
      */
     public static enum TargetType {
 
+
         @JsonProperty("USER")
         USER("USER"),
+
 
         @JsonProperty("ROLE")
         ROLE("ROLE"),
 
+
         @JsonProperty("GROUP")
         GROUP("GROUP"),
+
 
         @JsonProperty("DEPARTMENT")
         DEPARTMENT("DEPARTMENT"),
