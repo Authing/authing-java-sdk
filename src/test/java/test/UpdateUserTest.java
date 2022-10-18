@@ -37,7 +37,6 @@ public class UpdateUserTest {
         request.setPostalCode("postalCode_8148");
         request.setGender(cn.authing.sdk.java.dto.UpdateUserReqDto.Gender.M);
         request.setUsername("username_8477");
-        request.setPasswordEncryptType(cn.authing.sdk.java.dto.UpdateUserReqDto.PasswordEncryptType.SM2);
         request.setEmail("email_9402");
         request.setPhone("phone_9464");
         request.setPassword("password_7064");

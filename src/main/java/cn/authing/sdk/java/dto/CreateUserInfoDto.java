@@ -18,11 +18,6 @@ public class CreateUserInfoDto {
     @JsonProperty("email")
     private String email;
     /**
-     * 密码加密类型，支持 sm2 和 rsa
-     */
-    @JsonProperty("passwordEncryptType")
-    private PasswordEncryptType passwordEncryptType;
-    /**
      * 手机号，不带区号。如果是国外手机号，请在 phoneCountryCode 参数中指定区号。
      */
     @JsonProperty("phone")
@@ -173,17 +168,7 @@ public class CreateUserInfoDto {
     @JsonProperty("region")
     private String region;
     /**
-     * 用户所属部门 ID 列表
-     */
-    @JsonProperty("departmentIds")
-    private List<String> departmentIds;
-    /**
-     * 自定义数据，传入的对象中的 key 必须先在用户池定义相关自定义字段
-     */
-    @JsonProperty("customData")
-    private Object customData;
-    /**
-     * 密码。可选加密方式进行加密，通过 passwordEncryptType 参数进行加密方法选择，默认为未加密
+     * 用户密码。我们使用 HTTPS 协议对密码进行安全传输，可以在一定程度上保证安全性。如果你还需要更高级别的安全性，我们还支持 RSA256 和国密 SM2 两种方式对密码进行加密。详情见 `passwordEncryptType` 参数。
      */
     @JsonProperty("password")
     private String password;
@@ -203,6 +188,16 @@ public class CreateUserInfoDto {
     @JsonProperty("otp")
     private CreateUserOtpDto otp;
     /**
+     * 用户所属部门 ID 列表
+     */
+    @JsonProperty("departmentIds")
+    private List<String> departmentIds;
+    /**
+     * 自定义数据，传入的对象中的 key 必须先在用户池定义相关自定义字段
+     */
+    @JsonProperty("customData")
+    private Object customData;
+    /**
      * 第三方身份源（建议调用绑定接口进行绑定）
      */
     @JsonProperty("identities")
@@ -220,13 +215,6 @@ public class CreateUserInfoDto {
     }
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public PasswordEncryptType getPasswordEncryptType() {
-        return passwordEncryptType;
-    }
-    public void setPasswordEncryptType(PasswordEncryptType passwordEncryptType) {
-        this.passwordEncryptType = passwordEncryptType;
     }
 
     public String getPhone() {
@@ -439,20 +427,6 @@ public class CreateUserInfoDto {
         this.region = region;
     }
 
-    public List<String> getDepartmentIds() {
-        return departmentIds;
-    }
-    public void setDepartmentIds(List<String> departmentIds) {
-        this.departmentIds = departmentIds;
-    }
-
-    public Object getCustomData() {
-        return customData;
-    }
-    public void setCustomData(Object customData) {
-        this.customData = customData;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -479,6 +453,20 @@ public class CreateUserInfoDto {
     }
     public void setOtp(CreateUserOtpDto otp) {
         this.otp = otp;
+    }
+
+    public List<String> getDepartmentIds() {
+        return departmentIds;
+    }
+    public void setDepartmentIds(List<String> departmentIds) {
+        this.departmentIds = departmentIds;
+    }
+
+    public Object getCustomData() {
+        return customData;
+    }
+    public void setCustomData(Object customData) {
+        this.customData = customData;
     }
 
     public List<CreateIdentityDto> getIdentities() {
@@ -513,32 +501,6 @@ public class CreateUserInfoDto {
         private String value;
 
         Status(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
-    }
-
-    /**
-     * 密码加密类型，支持 sm2 和 rsa
-     */
-    public static enum PasswordEncryptType {
-
-        @JsonProperty("sm2")
-        SM2("sm2"),
-
-        @JsonProperty("rsa")
-        RSA("rsa"),
-
-        @JsonProperty("none")
-        NONE("none"),
-        ;
-
-        private String value;
-
-        PasswordEncryptType(String value) {
             this.value = value;
         }
 

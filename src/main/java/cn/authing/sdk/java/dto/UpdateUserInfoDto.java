@@ -96,11 +96,6 @@ public class UpdateUserInfoDto {
     @JsonProperty("username")
     private String username;
     /**
-     * 密码加密类型，支持 sm2 和 rsa
-     */
-    @JsonProperty("passwordEncryptType")
-    private PasswordEncryptType passwordEncryptType;
-    /**
      * 邮箱，不区分大小写
      */
     @JsonProperty("email")
@@ -111,7 +106,7 @@ public class UpdateUserInfoDto {
     @JsonProperty("phone")
     private String phone;
     /**
-     * 密码。可选加密方式进行加密，通过 passwordEncryptType 参数进行加密方法选择，默认为未加密
+     * 用户密码。我们使用 HTTPS 协议对密码进行安全传输，可以在一定程度上保证安全性。如果你还需要更高级别的安全性，我们还支持 RSA256 和国密 SM2 两种方式对密码进行加密。详情见 `passwordEncryptType` 参数。
      */
     @JsonProperty("password")
     private String password;
@@ -312,13 +307,6 @@ public class UpdateUserInfoDto {
         this.username = username;
     }
 
-    public PasswordEncryptType getPasswordEncryptType() {
-        return passwordEncryptType;
-    }
-    public void setPasswordEncryptType(PasswordEncryptType passwordEncryptType) {
-        this.passwordEncryptType = passwordEncryptType;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -489,32 +477,6 @@ public class UpdateUserInfoDto {
         private String value;
 
         Gender(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
-    }
-
-    /**
-     * 密码加密类型，支持 sm2 和 rsa
-     */
-    public static enum PasswordEncryptType {
-
-        @JsonProperty("sm2")
-        SM2("sm2"),
-
-        @JsonProperty("rsa")
-        RSA("rsa"),
-
-        @JsonProperty("none")
-        NONE("none"),
-        ;
-
-        private String value;
-
-        PasswordEncryptType(String value) {
             this.value = value;
         }
 

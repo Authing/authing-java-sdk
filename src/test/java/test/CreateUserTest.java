@@ -21,7 +21,6 @@ public class CreateUserTest {
         CreateUserReqDto request = new CreateUserReqDto();
         request.setStatus(cn.authing.sdk.java.dto.CreateUserReqDto.Status.SUSPENDED);
         request.setEmail("email_3519");
-        request.setPasswordEncryptType(cn.authing.sdk.java.dto.CreateUserReqDto.PasswordEncryptType.SM2);
         request.setPhone("phone_8055");
         request.setPhoneCountryCode("phoneCountryCode_4130");
         request.setUsername("username_3094");

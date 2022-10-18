@@ -757,6 +757,7 @@ public class AuthenticationClient extends BaseClient {
         String response = request(config);
         return deserialize(response, GenerateBindExtIdpLinkRespDto.class);
     }
+
     /**
      * @summary 生成绑定外部身份源的链接
      * @description 由于绝大多数的外部身份源登录不允许在第三方系统直接输入账号密码进行登录，所以外部身份源的绑定总是需要先跳转到对方的登录页面进行认证。此端点会通过浏览器 `302` 跳转的方式先跳转到第三方的登录页面，

@@ -32,6 +32,11 @@ public class CreateSyncTaskDto {
     @JsonProperty("syncTaskFlow")
     private SyncTaskFlow syncTaskFlow;
     /**
+     * 同步任务配置信息
+     */
+    @JsonProperty("clientConfig")
+    private SyncTaskClientConfig clientConfig;
+    /**
      * 同步任务类型:
      * - `lark`: 飞书
      * - `lark-international`: 飞书国际版
@@ -55,11 +60,6 @@ public class CreateSyncTaskDto {
      */
     @JsonProperty("syncTaskName")
     private String syncTaskName;
-    /**
-     * 同步任务配置信息
-     */
-    @JsonProperty("clientConfig")
-    private SyncTaskClientConfig clientConfig;
     /**
      * 此同步任务绑定的组织机构。针对上游同步，需执行一次同步任务之后才会绑定组织机构；针对下游同步，创建同步任务的时候就需要设置。
      */
@@ -97,6 +97,13 @@ public class CreateSyncTaskDto {
         this.syncTaskFlow = syncTaskFlow;
     }
 
+    public SyncTaskClientConfig getClientConfig() {
+        return clientConfig;
+    }
+    public void setClientConfig(SyncTaskClientConfig clientConfig) {
+        this.clientConfig = clientConfig;
+    }
+
     public SyncTaskType getSyncTaskType() {
         return syncTaskType;
     }
@@ -109,13 +116,6 @@ public class CreateSyncTaskDto {
     }
     public void setSyncTaskName(String syncTaskName) {
         this.syncTaskName = syncTaskName;
-    }
-
-    public SyncTaskClientConfig getClientConfig() {
-        return clientConfig;
-    }
-    public void setClientConfig(SyncTaskClientConfig clientConfig) {
-        this.clientConfig = clientConfig;
     }
 
     public String getOrganizationCode() {
