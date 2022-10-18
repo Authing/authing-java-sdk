@@ -93,7 +93,6 @@ public class ManagementClientOptions extends AuthingClientOptions {
             headers = new HashMap<>();
         }
         // put 签名所需的头部
-        headers.put(Header.CONTENT_TYPE.getValue().toLowerCase(), "application/json;charset=UTF-8");
         headers.put("x-authing-lang", getLang().getValue());
         headers.put("x-authing-request-from", AuthingClientOptions.REQUEST_FROM);
         headers.put("x-authing-sdk-client", SignatureEnum.X_AUTHING_SDK_CLIENT.getValue());
