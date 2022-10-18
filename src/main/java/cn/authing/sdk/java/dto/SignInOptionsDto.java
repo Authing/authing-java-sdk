@@ -50,7 +50,7 @@ public class SignInOptionsDto {
      * Captcha 图形验证码，不区分大小写。当**安全策略**设置为**验证码**且触发**登录失败次数限制**时，下次登录需要填写图形验证码。
      */
     @JsonProperty("captchaCode")
-    private Boolean captchaCode;
+    private String captchaCode;
     /**
      * 密码加密类型，支持 sm2 和 rsa。默认可以不加密。
      * - `none`: 不对密码进行加密，使用明文进行传输。
@@ -103,10 +103,10 @@ public class SignInOptionsDto {
         this.autoRegister = autoRegister;
     }
 
-    public Boolean getCaptchaCode() {
+    public String getCaptchaCode() {
         return captchaCode;
     }
-    public void setCaptchaCode(Boolean captchaCode) {
+    public void setCaptchaCode(String captchaCode) {
         this.captchaCode = captchaCode;
     }
 

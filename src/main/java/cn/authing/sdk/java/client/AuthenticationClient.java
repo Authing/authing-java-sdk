@@ -757,7 +757,6 @@ public class AuthenticationClient extends BaseClient {
         String response = request(config);
         return deserialize(response, GenerateBindExtIdpLinkRespDto.class);
     }
-
     /**
      * @summary 生成绑定外部身份源的链接
      * @description 由于绝大多数的外部身份源登录不允许在第三方系统直接输入账号密码进行登录，所以外部身份源的绑定总是需要先跳转到对方的登录页面进行认证。此端点会通过浏览器 `302` 跳转的方式先跳转到第三方的登录页面，
@@ -965,9 +964,9 @@ public class AuthenticationClient extends BaseClient {
      * @summary 获取登录日志
      * @description 获取登录日志
      **/
-    public GetLoginHistoryRespDto getLoginHistory(GetLoginHistoryDto reqDto) {
+    public GetLoginHistoryRespDto getLoginHistory(GetMyLoginHistoryDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-login-history");
+        config.setUrl("/api/v3/get-my-login-history");
         config.setBody(reqDto);
         config.setMethod("GET");
         String response = request(config);
@@ -980,7 +979,7 @@ public class AuthenticationClient extends BaseClient {
      **/
     public GetLoggedInAppsRespDto getLoggedInApps() {
         AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-logged-in-apps");
+        config.setUrl("/api/v3/get-my-logged-in-apps");
         config.setBody(new Object());
         config.setMethod("GET");
         String response = request(config);
@@ -993,7 +992,7 @@ public class AuthenticationClient extends BaseClient {
      **/
     public GetAccessibleAppsRespDto getAccessibleApps() {
         AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-accessible-apps");
+        config.setUrl("/api/v3/get-my-accessible-apps");
         config.setBody(new Object());
         config.setMethod("GET");
         String response = request(config);
@@ -1001,12 +1000,51 @@ public class AuthenticationClient extends BaseClient {
     }
 
     /**
+     * @summary 获取租户列表
+     * @description 获取租户列表
+     **/
+    public GetTenantListRespDto getTenantList() {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-my-tenant-list");
+        config.setBody(new Object());
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, GetTenantListRespDto.class);
+    }
+
+    /**
+     * @summary 获取角色列表
+     * @description 获取角色列表
+     **/
+    public RoleListRespDto getRoleList(GetMyRoleListDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-my-role-list");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, RoleListRespDto.class);
+    }
+
+    /**
+     * @summary 获取分组列表
+     * @description 获取分组列表
+     **/
+    public GroupListRespDto getGroupList() {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-my-group-list");
+        config.setBody(new Object());
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, GroupListRespDto.class);
+    }
+
+    /**
      * @summary 获取部门列表
      * @description 此接口用于获取用户的部门列表，可根据一定排序规则进行排序。
      **/
-    public UserDepartmentPaginatedRespDto getDepartmentList(GetDepartmentListDto reqDto) {
+    public UserDepartmentPaginatedRespDto getDepartmentList(GetMyDepartmentListDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-department-list");
+        config.setUrl("/api/v3/get-my-department-list");
         config.setBody(reqDto);
         config.setMethod("GET");
         String response = request(config);
@@ -1017,9 +1055,9 @@ public class AuthenticationClient extends BaseClient {
      * @summary 获取被授权的资源列表
      * @description 此接口用于获取用户被授权的资源列表。
      **/
-    public AuthorizedResourcePaginatedRespDto getAuthorizedResources(GetAuthorizedResourcesDto reqDto) {
+    public AuthorizedResourcePaginatedRespDto getAuthorizedResources(GetMyAuthorizedResourcesDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-authorized-resources");
+        config.setUrl("/api/v3/get-my-authorized-resources");
         config.setBody(reqDto);
         config.setMethod("GET");
         String response = request(config);
