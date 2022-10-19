@@ -4,7 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-public class SignupProfileDto {
+public class SignUpProfileDto {
     /**
      * 昵称
      */

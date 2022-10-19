@@ -108,17 +108,22 @@ public class TokenEndPointParams {
      */
     public static enum Grant_type {
 
+
         @JsonProperty("authorization_code")
         AUTHORIZATION_CODE("authorization_code"),
+
 
         @JsonProperty("refresh_token")
         REFRESH_TOKEN("refresh_token"),
 
+
         @JsonProperty("client_credentials")
         CLIENT_CREDENTIALS("client_credentials"),
 
+
         @JsonProperty("password")
         PASSWORD("password"),
+
 
         @JsonProperty("http://authing.cn/oidc/grant_type/authing_token")
         HTTP_AUTHING_CN_OIDC_GRANT_TYPE_AUTHING_TOKEN("http://authing.cn/oidc/grant_type/authing_token"),

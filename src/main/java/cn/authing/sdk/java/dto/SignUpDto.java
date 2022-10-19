@@ -5,10 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.SignUpByPassCodeDto;
 import cn.authing.sdk.java.dto.SignUpByPasswordDto;
-import cn.authing.sdk.java.dto.SignupOptionsDto;
-import cn.authing.sdk.java.dto.SignupProfileDto;
+import cn.authing.sdk.java.dto.SignUpOptionsDto;
+import cn.authing.sdk.java.dto.SignUpProfileDto;
 
-public class SignupDto {
+public class SignUpDto {
     /**
      * 注册方式：
      * - `PASSWORD`: 邮箱密码方式
@@ -31,12 +31,12 @@ public class SignupDto {
      * 用户资料
      */
     @JsonProperty("profile")
-    private SignupProfileDto profile;
+    private SignUpProfileDto profile;
     /**
      * 可选参数
      */
     @JsonProperty("options")
-    private SignupOptionsDto options;
+    private SignUpOptionsDto options;
 
     public Connection getConnection() {
         return connection;
@@ -59,17 +59,17 @@ public class SignupDto {
         this.passCodePayload = passCodePayload;
     }
 
-    public SignupProfileDto getProfile() {
+    public SignUpProfileDto getProfile() {
         return profile;
     }
-    public void setProfile(SignupProfileDto profile) {
+    public void setProfile(SignUpProfileDto profile) {
         this.profile = profile;
     }
 
-    public SignupOptionsDto getOptions() {
+    public SignUpOptionsDto getOptions() {
         return options;
     }
-    public void setOptions(SignupOptionsDto options) {
+    public void setOptions(SignUpOptionsDto options) {
         this.options = options;
     }
 
