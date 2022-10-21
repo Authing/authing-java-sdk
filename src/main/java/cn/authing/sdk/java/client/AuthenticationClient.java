@@ -2118,8 +2118,9 @@ public class AuthenticationClient extends BaseClient {
         reqDto.setToken(token);
         config.setBody(reqDto);
 
-        String response = request(config);
-        return deserialize(response, Boolean.class);
+        // 暂时修改为恒 true
+        request(config);
+        return true;
     }
 
     private Boolean revokeTokenWithClientSecretBasic(String token) {
@@ -2142,8 +2143,8 @@ public class AuthenticationClient extends BaseClient {
         reqDto.setToken(token);
         config.setBody(reqDto);
 
-        String response = request(config);
-        return deserialize(response, Boolean.class);
+        request(config);
+        return true;
     }
 
     private Boolean revokeTokenWithNone(String token) {
@@ -2166,7 +2167,7 @@ public class AuthenticationClient extends BaseClient {
         reqDto.setClientId(options.getAppId());
         config.setBody(reqDto);
 
-        String response = request(config);
-        return deserialize(response, Boolean.class);
+        request(config);
+        return true;
     }
 }
