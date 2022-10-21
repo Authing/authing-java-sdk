@@ -26,9 +26,7 @@ public class TestGenerator2 {
 
     public static void main(String[] args) throws Throwable{
         // 管理侧生成
-        File file = new File("/Users/yujiale/work/authing/node/sdk/authing-java-sdk-v5/target/classes/cn/authing/sdk/java/dto");
-        //auth 生成
-        //File file = new File("/Users/yujiale/work/authing/node/sdk/authing-java-sdk-v5/target/classes/cn/authing/sdk/java/dto/authentication");
+        File file = new File("./target/classes/cn/authing/sdk/java/dto");
         Map<String, Class<?>> classMap = new HashMap<>();
         for (File f : Objects.requireNonNull(file.listFiles())) {
             if (f.isDirectory()){
@@ -79,10 +77,10 @@ public class TestGenerator2 {
 
         // write
         for (TestTemplate.Method method : testTemplate.getMethods()) {
-            FileReader fileReader = new FileReader(new File("/Users/yujiale/work/authing/node/sdk/authing-java-sdk-v5/src/test/java/resources/test_template2.ftl"));
-            FileWriter fileWriter = new FileWriter(new File("/Users/yujiale/work/authing/node/sdk/authing-java-sdk-v5/src/test/java/test/" + StrUtil.upperFirst(method.getMethodName()) + "Test.java"));
+            FileReader fileReader = new FileReader(new File("./src/test/java/resources/test_template2.ftl"));
+            FileWriter fileWriter = new FileWriter(new File("./src/test/java/test/" + StrUtil.upperFirst(method.getMethodName()) + "Test.java"));
             // 认证侧生成
-            //FileWriter fileWriter = new FileWriter(new File("/Users/yujiale/work/authing/node/sdk/authing-java-sdk-v5/src/test/java/test/authentication/" + StrUtil.upperFirst(method.getMethodName()) + "Test.java"));
+            // FileWriter fileWriter = new FileWriter(new File("/Users/yujiale/work/authing/node/sdk/authing-java-sdk-v5/src/test/java/test/authentication/" + StrUtil.upperFirst(method.getMethodName()) + "Test.java"));
             FreeMarkerUtils.process(fileReader, fileWriter, method, method.getMethodName());
         }
     }

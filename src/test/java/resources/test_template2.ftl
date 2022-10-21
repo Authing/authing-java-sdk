@@ -10,12 +10,13 @@ import java.util.Collections;
 
 public class ${methodName?cap_first}Test {
 
-    private static final String ACCESS_KEY_ID = "YOUR_ACCESS_KEY_ID";
-    private static final String ACCESS_KEY_SECRET = "YOUR_ACCESS_KEY_SECRET";
-
+    private static final String ACCESS_KEY_ID = "AUTHING_ACCESS_KEY_ID";
+    private static final String ACCESS_KEY_SECRET = "AUTHING_ACCESS_KEY_SECRET";
 
     public static void main(String[] args) throws Throwable {
-        ManagementClientOptions clientOptions = new ManagementClientOptions(ACCESS_KEY_ID, ACCESS_KEY_SECRET);
+        ManagementClientOptions clientOptions = new ManagementClientOptions();
+        clientOptions.setAccessKeyId(ACCESS_KEY_ID);
+        clientOptions.setAccessKeySecret(ACCESS_KEY_SECRET);
         ManagementClient client = new ManagementClient(clientOptions);
 
         <#list reqParameters as reqParameter>
