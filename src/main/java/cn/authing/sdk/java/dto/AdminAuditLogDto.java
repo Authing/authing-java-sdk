@@ -252,62 +252,47 @@ public class AdminAuditLogDto {
      */
     public static enum OperationType {
 
-
         @JsonProperty("all")
         ALL("all"),
-
 
         @JsonProperty("create")
         CREATE("create"),
 
-
         @JsonProperty("delete")
         DELETE("delete"),
-
 
         @JsonProperty("import")
         IMPORT("import"),
 
-
         @JsonProperty("export")
         EXPORT("export"),
-
 
         @JsonProperty("update")
         UPDATE("update"),
 
-
         @JsonProperty("refresh")
         REFRESH("refresh"),
-
 
         @JsonProperty("sync")
         SYNC("sync"),
 
-
         @JsonProperty("invite")
         INVITE("invite"),
-
 
         @JsonProperty("resign")
         RESIGN("resign"),
 
-
         @JsonProperty("recover")
         RECOVER("recover"),
-
 
         @JsonProperty("disable")
         DISABLE("disable"),
 
-
         @JsonProperty("userEnable")
         USER_ENABLE("userEnable"),
 
-
         @JsonProperty("activate")
         ACTIVATE("activate"),
-
 
         @JsonProperty("deactivate")
         DEACTIVATE("deactivate"),
@@ -349,82 +334,62 @@ public class AdminAuditLogDto {
      */
     public static enum ResourceType {
 
-
         @JsonProperty("all")
         ALL("all"),
-
 
         @JsonProperty("user")
         USER("user"),
 
-
         @JsonProperty("userpool")
         USERPOOL("userpool"),
-
 
         @JsonProperty("tenant")
         TENANT("tenant"),
 
-
         @JsonProperty("userLoginState")
         USER_LOGIN_STATE("userLoginState"),
-
 
         @JsonProperty("userAccountState")
         USER_ACCOUNT_STATE("userAccountState"),
 
-
         @JsonProperty("userGroup")
         USER_GROUP("userGroup"),
-
 
         @JsonProperty("fieldEncryptState")
         FIELD_ENCRYPT_STATE("fieldEncryptState"),
 
-
         @JsonProperty("syncTask")
         SYNC_TASK("syncTask"),
-
 
         @JsonProperty("socialConnection")
         SOCIAL_CONNECTION("socialConnection"),
 
-
         @JsonProperty("enterpriseConnection")
         ENTERPRISE_CONNECTION("enterpriseConnection"),
-
 
         @JsonProperty("customDatabase")
         CUSTOM_DATABASE("customDatabase"),
 
-
         @JsonProperty("org")
         ORG("org"),
-
 
         @JsonProperty("cooperator")
         COOPERATOR("cooperator"),
 
-
         @JsonProperty("application")
         APPLICATION("application"),
-
 
         @JsonProperty("resourceNamespace")
         RESOURCE_NAMESPACE("resourceNamespace"),
 
-
         @JsonProperty("resource")
         RESOURCE("resource"),
-
 
         @JsonProperty("role")
         ROLE("role"),
 
-
         @JsonProperty("roleAssign")
         ROLE_ASSIGN("roleAssign"),
-
 
         @JsonProperty("policy")
         POLICY("policy"),

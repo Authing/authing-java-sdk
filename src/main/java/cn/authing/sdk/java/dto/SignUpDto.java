@@ -18,7 +18,7 @@ public class SignUpDto {
     @JsonProperty("connection")
     private Connection connection;
     /**
-     * 当主持方式为 `PASSWORD` 时此参数必填。
+     * 当注册方式为 `PASSWORD` 时此参数必填。
      */
     @JsonProperty("passwordPayload")
     private SignUpByPasswordDto passwordPayload;

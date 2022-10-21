@@ -622,19 +622,6 @@ public class AuthenticationClient extends BaseClient {
     // ==== AUTO GENERATED AUTHENTICATION METHODS BEGIN ====
 
     /**
-     * @summary 预检验验证码是否正确
-     * @description 预检测验证码是否有效，此检验不会使得验证码失效。
-     **/
-    public PreCheckCodeRespDto preCheckCode(PreCheckCodeDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/pre-check-code");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, PreCheckCodeRespDto.class);
-    }
-
-    /**
      * @summary 使用用户凭证登录
      * @description 此端点为基于直接 API 调用形式的登录端点，适用于你需要自建登录页面的场景。**此端点暂时不支持 MFA、信息补全、首次密码重置等流程，如有需要，请使用 OIDC 标准协议认证端点。**
      * <p>
@@ -1123,6 +1110,19 @@ public class AuthenticationClient extends BaseClient {
     }
 
     /**
+     * @summary 预检验验证码是否正确
+     * @description 预检测验证码是否有效，此检验不会使得验证码失效。
+     **/
+    public PreCheckCodeRespDto preCheckCode(PreCheckCodeDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/pre-check-code");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, PreCheckCodeRespDto.class);
+    }
+
+    /**
      * @summary 发起绑定 MFA 认证要素请求
      * @description 当用户未绑定某个 MFA 认证要素时，可以发起绑定 MFA 认证要素请求。不同类型的 MFA 认证要素绑定请求需要发送不同的参数，详细见 profile 参数。发起验证请求之后，Authing 服务器会根据相应的认证要素类型和传递的参数，使用不同的手段要求验证。此接口会返回 enrollmentToken，你需要在请求「绑定 MFA 认证要素」接口时带上此 enrollmentToken，并提供相应的凭证。
      **/
@@ -1206,16 +1206,16 @@ public class AuthenticationClient extends BaseClient {
      * 终端用户在第三方系统认证完成之后，浏览器再会跳转到 Authing 服务器，Authing 服务器会将此外部身份源绑定到该用户身上。最终的结果会通过浏览器 Window Post Message 的方式传递给开发者。
      * 你可以在你的应用系统中放置一个按钮，引导用户点击之后，弹出一个 Window Popup，地址为此端点，当用户在第三方身份源认证完成之后，此 Popup 会通过 Window Post Message 的方式传递给父窗口。
      * <p>
-     * 为此我们在 `@authing/browser` SDK 中封装了相关方法，为开发者省去了其中大量的细节：
+     * 为此我们在 `@authing/web` SDK 中封装了相关方法，为开发者省去了其中大量的细节：
      * <p>
      * ```typescript
-     * import { Authing } from "@authing/browser"
+     * import { Authing } from "@authing/web"
      * const sdk = new Authing({
      * // 应用的认证地址，例如：https://domain.authing.cn
      * domain: "",
      * <p>
      * // Authing 应用 ID
-     * appId: "you_authing_app_id",
+     * appId: "AUTHING_APP_ID",
      * <p>
      * // 登录回调地址，需要在控制台『应用配置 - 登录回调 URL』中指定
      * redirectUri: "your_redirect_uri"
@@ -1285,16 +1285,16 @@ public class AuthenticationClient extends BaseClient {
      * 终端用户在第三方系统认证完成之后，浏览器再会跳转到 Authing 服务器，Authing 服务器会将此外部身份源绑定到该用户身上。最终的结果会通过浏览器 Window Post Message 的方式传递给开发者。
      * 你可以在你的应用系统中放置一个按钮，引导用户点击之后，弹出一个 Window Popup，地址为此端点，当用户在第三方身份源认证完成之后，此 Popup 会通过 Window Post Message 的方式传递给父窗口。
      * <p>
-     * 为此我们在 `@authing/browser` SDK 中封装了相关方法，为开发者省去了其中大量的细节：
+     * 为此我们在 `@authing/web` SDK 中封装了相关方法，为开发者省去了其中大量的细节：
      * <p>
      * ```typescript
-     * import { Authing } from "@authing/browser"
+     * import { Authing } from "@authing/web"
      * const sdk = new Authing({
      * // 应用的认证地址，例如：https://domain.authing.cn
      * domain: "",
      * <p>
      * // Authing 应用 ID
-     * appId: "you_authing_app_id",
+     * appId: "AUTHING_APP_ID",
      * <p>
      * // 登录回调地址，需要在控制台『应用配置 - 登录回调 URL』中指定
      * redirectUri: "your_redirect_uri"
@@ -1584,18 +1584,6 @@ public class AuthenticationClient extends BaseClient {
         config.setMethod("GET");
         String response = request(config);
         return deserialize(response, AuthorizedResourcePaginatedRespDto.class);
-    }
-
-    /**
-     * @summary 文件上传
-     **/
-    public UploadRespDto upload(UploadDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v2/upload");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, UploadRespDto.class);
     }
 
 // ==== AUTO GENERATED AUTHENTICATION METHODS END ====

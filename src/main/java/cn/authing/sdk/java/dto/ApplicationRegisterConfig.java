@@ -42,10 +42,8 @@ public class ApplicationRegisterConfig {
      */
     public static enum DefaultRegisterMethod {
 
-
         @JsonProperty("PASSCODE")
         PASSCODE("PASSCODE"),
-
 
         @JsonProperty("PASSWORD")
         PASSWORD("PASSWORD"),

@@ -103,42 +103,32 @@ public class ListUsersAdvancedFilterItemDto {
      */
     public static enum Operator {
 
-
         @JsonProperty("EQUAL")
         EQUAL("EQUAL"),
-
 
         @JsonProperty("NOT_EQUAL")
         NOT_EQUAL("NOT_EQUAL"),
 
-
         @JsonProperty("CONTAINS")
         CONTAINS("CONTAINS"),
-
 
         @JsonProperty("NOT_CONTAINS")
         NOT_CONTAINS("NOT_CONTAINS"),
 
-
         @JsonProperty("IS_NULL")
         IS_NULL("IS_NULL"),
-
 
         @JsonProperty("NOT_NULL")
         NOT_NULL("NOT_NULL"),
 
-
         @JsonProperty("IN")
         IN("IN"),
-
 
         @JsonProperty("GREATER")
         GREATER("GREATER"),
 
-
         @JsonProperty("LESSER")
         LESSER("LESSER"),
-
 
         @JsonProperty("BETWEEN")
         BETWEEN("BETWEEN"),

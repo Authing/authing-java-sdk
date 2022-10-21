@@ -171,58 +171,44 @@ public class UpdateSyncTaskDto {
      */
     public static enum SyncTaskType {
 
-
         @JsonProperty("lark")
         LARK("lark"),
-
 
         @JsonProperty("lark-international")
         LARK_INTERNATIONAL("lark-international"),
 
-
         @JsonProperty("wechatwork")
         WECHATWORK("wechatwork"),
-
 
         @JsonProperty("dingtalk")
         DINGTALK("dingtalk"),
 
-
         @JsonProperty("active-directory")
         ACTIVE_DIRECTORY("active-directory"),
-
 
         @JsonProperty("italent")
         ITALENT("italent"),
 
-
         @JsonProperty("maycur")
         MAYCUR("maycur"),
-
 
         @JsonProperty("ldap")
         LDAP("ldap"),
 
-
         @JsonProperty("moka")
         MOKA("moka"),
-
 
         @JsonProperty("fxiaoke")
         FXIAOKE("fxiaoke"),
 
-
         @JsonProperty("scim")
         SCIM("scim"),
-
 
         @JsonProperty("xiaoshouyi")
         XIAOSHOUYI("xiaoshouyi"),
 
-
         @JsonProperty("kayang")
         KAYANG("kayang"),
-
 
         @JsonProperty("custom")
         CUSTOM("custom"),
@@ -247,10 +233,8 @@ public class UpdateSyncTaskDto {
      */
     public static enum SyncTaskFlow {
 
-
         @JsonProperty("upstream")
         UPSTREAM("upstream"),
-
 
         @JsonProperty("downstream")
         DOWNSTREAM("downstream"),
@@ -276,14 +260,11 @@ public class UpdateSyncTaskDto {
      */
     public static enum SyncTaskTrigger {
 
-
         @JsonProperty("manually")
         MANUALLY("manually"),
 
-
         @JsonProperty("timed")
         TIMED("timed"),
-
 
         @JsonProperty("automatic")
         AUTOMATIC("automatic"),

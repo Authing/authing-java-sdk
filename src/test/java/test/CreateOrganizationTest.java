@@ -1,0 +1,33 @@
+package test;
+import cn.authing.sdk.java.client.ManagementClient;
+import cn.authing.sdk.java.dto.*;
+import cn.authing.sdk.java.model.ManagementClientOptions;
+import cn.authing.sdk.java.util.JsonUtils;
+
+import java.util.Collections;
+
+
+
+public class CreateOrganizationTest {
+
+    private static final String ACCESS_KEY_ID = "AUTHING_ACCESS_KEY_ID";
+    private static final String ACCESS_KEY_SECRET = "AUTHING_ACCESS_KEY_SECRET";
+
+    public static void main(String[] args) throws Throwable {
+        ManagementClientOptions clientOptions = new ManagementClientOptions();
+        clientOptions.setAccessKeyId(ACCESS_KEY_ID);
+        clientOptions.setAccessKeySecret(ACCESS_KEY_SECRET);
+        ManagementClient client = new ManagementClient(clientOptions);
+
+        CreateOrganizationReqDto request = new CreateOrganizationReqDto();
+        request.setOrganizationName("organizationName_162");
+        request.setOrganizationCode("organizationCode_6458");
+        request.setDescription("description_7605");
+        request.setOpenDepartmentId("openDepartmentId_8693");
+        request.setI18n(new cn.authing.sdk.java.dto.OrganizationNameI18nDto());
+
+        OrganizationSingleRespDto response = client.createOrganization(request);
+        System.out.println(JsonUtils.serialize(response));
+    }
+
+}

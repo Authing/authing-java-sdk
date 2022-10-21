@@ -3,8 +3,8 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import cn.authing.sdk.java.dto.AuthenticateByWechatworkDto;
 import cn.authing.sdk.java.dto.SignInByAlipayPayloadDto;
+import cn.authing.sdk.java.dto.SignInByApplePayloadDto;
 import cn.authing.sdk.java.dto.SignInByGooglePayloadDto;
 import cn.authing.sdk.java.dto.SignInByLarkInternalPayloadDto;
 import cn.authing.sdk.java.dto.SignInByLarkPublicPayloadDto;
@@ -13,6 +13,7 @@ import cn.authing.sdk.java.dto.SignInByWechatMiniProgramCodePayloadDto;
 import cn.authing.sdk.java.dto.SignInByWechatMiniProgramPhonePayloadDto;
 import cn.authing.sdk.java.dto.SignInByWechatPayloadDto;
 import cn.authing.sdk.java.dto.SignInByWechatworkAgencyPayloadDto;
+import cn.authing.sdk.java.dto.SignInByWechatworkDto;
 import cn.authing.sdk.java.dto.SignInByYidunPayloadDto;
 
 public class SigninByMobileDto {
@@ -23,6 +24,7 @@ public class SigninByMobileDto {
     private String extIdpConnidentifier;
     /**
      * 移动端社会化登录类型：
+     * - `apple`: Apple 移动端应用
      * - `wechat`: 微信移动应用
      * - `alipay`: 支付宝移动应用
      * - `wechatwork`: 企业微信移动应用
@@ -38,52 +40,57 @@ public class SigninByMobileDto {
     @JsonProperty("connection")
     private Connection connection;
     /**
-     * 微信移动端社会化登录数据，当 `connection` 为 `wechat` 的时候必填
+     * 苹果移动端社会化登录数据，当 `connection` 为 `wechat` 的时候必填。
      */
     @JsonProperty("wechatPayload")
     private SignInByWechatPayloadDto wechatPayload;
     /**
-     * 支付宝移动端社会化登录数据，当 `connection` 为 `alipay` 的时候必填
+     * 微信移动端社会化登录数据，当 `connection` 为 `apple` 的时候必填。
+     */
+    @JsonProperty("applePayload")
+    private SignInByApplePayloadDto applePayload;
+    /**
+     * 支付宝移动端社会化登录数据，当 `connection` 为 `alipay` 的时候必填。
      */
     @JsonProperty("alipayPayload")
     private SignInByAlipayPayloadDto alipayPayload;
     /**
-     * 企业微信移动端社会化登录数据，当 `connection` 为 `wechatwork` 的时候必填
+     * 企业微信移动端社会化登录数据，当 `connection` 为 `wechatwork` 的时候必填。
      */
     @JsonProperty("wechatworkPayload")
-    private AuthenticateByWechatworkDto wechatworkPayload;
+    private SignInByWechatworkDto wechatworkPayload;
     /**
-     * 企业微信（代开发模式）移动端社会化登录数据，当 `connection` 为 `wechatwork_agency` 的时候必填
+     * 企业微信（代开发模式）移动端社会化登录数据，当 `connection` 为 `wechatwork_agency` 的时候必填。
      */
     @JsonProperty("wechatworkAgencyPayload")
     private SignInByWechatworkAgencyPayloadDto wechatworkAgencyPayload;
     /**
-     * 飞书应用商店应用移动端社会化登录数据，当 `connection` 为 `lark_public` 的时候必填
+     * 飞书应用商店应用移动端社会化登录数据，当 `connection` 为 `lark_public` 的时候必填。
      */
     @JsonProperty("larkPublicPayload")
     private SignInByLarkPublicPayloadDto larkPublicPayload;
     /**
-     * 飞书自建应用移动端社会化登录数据，当 `connection` 为 `lark_internal` 的时候必填
+     * 飞书自建应用移动端社会化登录数据，当 `connection` 为 `lark_internal` 的时候必填。
      */
     @JsonProperty("larkInternalPayload")
     private SignInByLarkInternalPayloadDto larkInternalPayload;
     /**
-     * 网易易盾移动端社会化登录数据，当 `connection` 为 `yidun` 的时候必填
+     * 网易易盾移动端社会化登录数据，当 `connection` 为 `yidun` 的时候必填。
      */
     @JsonProperty("yidunPayload")
     private SignInByYidunPayloadDto yidunPayload;
     /**
-     * 网易易盾移动端社会化登录数据，当 `connection` 为 `wechat_mini_program_code` 的时候必填
+     * 网易易盾移动端社会化登录数据，当 `connection` 为 `wechat_mini_program_code` 的时候必填。
      */
     @JsonProperty("wechatMiniProgramCodePayload")
     private SignInByWechatMiniProgramCodePayloadDto wechatMiniProgramCodePayload;
     /**
-     * 网易易盾移动端社会化登录数据，当 `connection` 为 `wechat_mini_program_phone` 的时候必填
+     * 网易易盾移动端社会化登录数据，当 `connection` 为 `wechat_mini_program_phone` 的时候必填。
      */
     @JsonProperty("wechatMiniProgramPhonePayload")
     private SignInByWechatMiniProgramPhonePayloadDto wechatMiniProgramPhonePayload;
     /**
-     * Google 移动端社会化登录数据，当 `connection` 为 `google` 的时候必填
+     * Google 移动端社会化登录数据，当 `connection` 为 `google` 的时候必填。
      */
     @JsonProperty("googlePayload")
     private SignInByGooglePayloadDto googlePayload;
@@ -124,6 +131,13 @@ public class SigninByMobileDto {
         this.wechatPayload = wechatPayload;
     }
 
+    public SignInByApplePayloadDto getApplePayload() {
+        return applePayload;
+    }
+    public void setApplePayload(SignInByApplePayloadDto applePayload) {
+        this.applePayload = applePayload;
+    }
+
     public SignInByAlipayPayloadDto getAlipayPayload() {
         return alipayPayload;
     }
@@ -131,10 +145,10 @@ public class SigninByMobileDto {
         this.alipayPayload = alipayPayload;
     }
 
-    public AuthenticateByWechatworkDto getWechatworkPayload() {
+    public SignInByWechatworkDto getWechatworkPayload() {
         return wechatworkPayload;
     }
-    public void setWechatworkPayload(AuthenticateByWechatworkDto wechatworkPayload) {
+    public void setWechatworkPayload(SignInByWechatworkDto wechatworkPayload) {
         this.wechatworkPayload = wechatworkPayload;
     }
 
@@ -211,6 +225,7 @@ public class SigninByMobileDto {
 
     /**
      * 移动端社会化登录类型：
+     * - `apple`: Apple 移动端应用
      * - `wechat`: 微信移动应用
      * - `alipay`: 支付宝移动应用
      * - `wechatwork`: 企业微信移动应用
@@ -224,6 +239,9 @@ public class SigninByMobileDto {
      *
      */
     public static enum Connection {
+
+        @JsonProperty("Apple")
+        APPLE("Apple"),
 
         @JsonProperty("wechat")
         WECHAT("wechat"),

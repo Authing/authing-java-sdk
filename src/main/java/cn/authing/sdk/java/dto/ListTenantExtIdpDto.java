@@ -21,15 +21,15 @@ public class ListTenantExtIdpDto {
     @JsonProperty("type")
     private String type;
     /**
-     * 页码
+     * 当前页数，从 1 开始
      */
     @JsonProperty("page")
-    private String page;
+    private Integer page;
     /**
-     * 每页获取的数据量
+     * 每页数目，最大不能超过 50，默认为 10
      */
     @JsonProperty("limit")
-    private String limit;
+    private Integer limit;
 
     public String getTenantId() {
         return tenantId;
@@ -52,17 +52,17 @@ public class ListTenantExtIdpDto {
         this.type = type;
     }
 
-    public String getPage() {
+    public Integer getPage() {
         return page;
     }
-    public void setPage(String page) {
+    public void setPage(Integer page) {
         this.page = page;
     }
 
-    public String getLimit() {
+    public Integer getLimit() {
         return limit;
     }
-    public void setLimit(String limit) {
+    public void setLimit(Integer limit) {
         this.limit = limit;
     }
 
