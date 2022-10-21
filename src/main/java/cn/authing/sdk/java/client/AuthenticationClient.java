@@ -53,6 +53,10 @@ public class AuthenticationClient extends BaseClient {
         }
     }
 
+    public void setAccessToken(String accessToken) {
+        this.options.setAccessToken(accessToken);
+    }
+
     public AuthUrlResult buildAuthUrl(BuildAuthUrlParams buildOptionParam) {
         if (StrUtil.isBlank(buildOptionParam.getState())) {
             buildOptionParam.setState(CommonUtils.createRandomString(16));
@@ -218,7 +222,7 @@ public class AuthenticationClient extends BaseClient {
     }
 
     public String buildLogoutUrl(LogoutUrlParams param) {
-        String redirectUri = this.options.getRedirectUri();
+        String redirectUri = this.options.getLogoutRedirectUri();
 
         if (StrUtil.isBlank(redirectUri)) {
             param.setPostLogoutRedirectUri(param.getPostLogoutRedirectUri());
@@ -618,479 +622,16 @@ public class AuthenticationClient extends BaseClient {
     // ==== AUTO GENERATED AUTHENTICATION METHODS BEGIN ====
 
     /**
-     * @summary 发起绑定 MFA 认证要素请求
-     * @description 当用户未绑定某个 MFA 认证要素时，可以发起绑定 MFA 认证要素请求。不同类型的 MFA 认证要素绑定请求需要发送不同的参数，详细见 profile 参数。发起验证请求之后，Authing 服务器会根据相应的认证要素类型和传递的参数，使用不同的手段要求验证。此接口会返回 enrollmentToken，你需要在请求「绑定 MFA 认证要素」接口时带上此 enrollmentToken，并提供相应的凭证。
+     * @summary 预检验验证码是否正确
+     * @description 预检测验证码是否有效，此检验不会使得验证码失效。
      **/
-    public SendEnrollFactorRequestRespDto sendEnrollFactorRequest(SendEnrollFactorRequestDto reqDto) {
+    public PreCheckCodeRespDto preCheckCode(PreCheckCodeDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/send-enroll-factor-request");
+        config.setUrl("/api/v3/pre-check-code");
         config.setBody(reqDto);
         config.setMethod("POST");
         String response = request(config);
-        return deserialize(response, SendEnrollFactorRequestRespDto.class);
-    }
-
-    /**
-     * @summary 绑定 MFA 认证要素
-     * @description 绑定 MFA 要素
-     **/
-    public EnrollFactorRespDto enrollFactor(EnrollFactorDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/enroll-factor");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, EnrollFactorRespDto.class);
-    }
-
-    /**
-     * @summary 解绑 MFA 认证要素
-     * @description 当前不支持通过此接口解绑短信、邮箱验证码类型的认证要素。如果需要，请调用「解绑邮箱」和「解绑手机号」接口。
-     **/
-    public ResetFactorRespDto resetFactor(RestFactorDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/reset-factor");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, ResetFactorRespDto.class);
-    }
-
-    /**
-     * @summary 获取绑定的所有 MFA 认证要素
-     * @description Authing 目前支持四种类型的 MFA 认证要素：手机短信、邮件验证码、OTP、人脸。如果用户绑定了手机号 / 邮箱之后，默认就具备了手机短信、邮箱验证码的 MFA 认证要素。
-     **/
-    public ListEnrolledFactorsRespDto listEnrolledFactors() {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/list-enrolled-factors");
-        config.setBody(new Object());
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, ListEnrolledFactorsRespDto.class);
-    }
-
-    /**
-     * @summary 获取绑定的某个 MFA 认证要素
-     * @description 根据 Factor ID 获取用户绑定的某个 MFA Factor 详情。
-     **/
-    public GetFactorRespDto getFactor(GetFactorDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-factor");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, GetFactorRespDto.class);
-    }
-
-    /**
-     * @summary 获取可绑定的 MFA 认证要素
-     * @description 获取所有应用已经开启、用户暂未绑定的 MFA 认证要素，用户可以从返回的列表中绑定新的 MFA 认证要素。
-     **/
-    public ListFactorsToEnrollRespDto listFactorsToEnroll() {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/list-factors-to-enroll");
-        config.setBody(new Object());
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, ListFactorsToEnrollRespDto.class);
-    }
-
-    /**
-     * @summary 绑定外部身份源
-     * @description 由于绝大多数的外部身份源登录不允许在第三方系统直接输入账号密码进行登录，所以外部身份源的绑定总是需要先跳转到对方的登录页面进行认证。此端点会通过浏览器 `302` 跳转的方式先跳转到第三方的登录页面，
-     * 终端用户在第三方系统认证完成之后，浏览器再会跳转到 Authing 服务器，Authing 服务器会将此外部身份源绑定到该用户身上。最终的结果会通过浏览器 Window Post Message 的方式传递给开发者。
-     * 你可以在你的应用系统中放置一个按钮，引导用户点击之后，弹出一个 Window Popup，地址为此端点，当用户在第三方身份源认证完成之后，此 Popup 会通过 Window Post Message 的方式传递给父窗口。
-     * <p>
-     * 为此我们在 `@authing/browser` SDK 中封装了相关方法，为开发者省去了其中大量的细节：
-     * <p>
-     * ```typescript
-     * import { Authing } from "@authing/browser"
-     * const sdk = new Authing({
-     * // 应用的认证地址，例如：https://domain.authing.cn
-     * domain: "",
-     * <p>
-     * // Authing 应用 ID
-     * appId: "you_authing_app_id",
-     * <p>
-     * // 登录回调地址，需要在控制台『应用配置 - 登录回调 URL』中指定
-     * redirectUri: "your_redirect_uri"
-     * });
-     * <p>
-     * <p>
-     * // success 表示此次绑定操作是否成功；
-     * // errMsg 为如果绑定失败，具体的失败原因，如此身份源已被其他账号绑定等。
-     * // identities 为此次绑定操作具体绑定的第三方身份信息
-     * const { success, errMsg, identities } = await sdk.bindExtIdpWithPopup({
-     * "extIdpConnIdentifier": "my-wechat"
-     * })
-     * <p>
-     * ```
-     * <p>
-     * 绑定外部身份源成功之后，你可以得到用户在此第三方身份源的信息，以绑定飞书账号为例：
-     * <p>
-     * ```json
-     * [
-     * {
-     * "identityId": "62f20932xxxxbcc10d966ee5",
-     * "extIdpId": "62f209327xxxxcc10d966ee5",
-     * "provider": "lark",
-     * "type": "open_id",
-     * "userIdInIdp": "ou_8bae746eac07cd2564654140d2a9ac61",
-     * "originConnIds": ["62f2093244fa5cb19ff21ed3"]
-     * },
-     * {
-     * "identityId": "62f726239xxxxe3285d21c93",
-     * "extIdpId": "62f209327xxxxcc10d966ee5",
-     * "provider": "lark",
-     * "type": "union_id",
-     * "userIdInIdp": "on_093ce5023288856aa0abe4099123b18b",
-     * "originConnIds": ["62f2093244fa5cb19ff21ed3"]
-     * },
-     * {
-     * "identityId": "62f72623e011cf10c8851e4c",
-     * "extIdpId": "62f209327xxxxcc10d966ee5",
-     * "provider": "lark",
-     * "type": "user_id",
-     * "userIdInIdp": "23ded785",
-     * "originConnIds": ["62f2093244fa5cb19ff21ed3"]
-     * }
-     * ]
-     * ```
-     * <p>
-     * 可以看到，我们获取到了用户在飞书中的身份信息：
-     * <p>
-     * - `open_id`: ou_8bae746eac07cd2564654140d2a9ac61
-     * - `union_id`: on_093ce5023288856aa0abe4099123b18b
-     * - `user_id`: 23ded785
-     * <p>
-     * 绑定此外部身份源之后，后续用户就可以使用此身份源进行登录了，见**登录**接口。
-     **/
-    public GenerateBindExtIdpLinkRespDto linkExtIdp(LinkExtidpDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/link-extidp");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, GenerateBindExtIdpLinkRespDto.class);
-    }
-
-    /**
-     * @summary 生成绑定外部身份源的链接
-     * @description 由于绝大多数的外部身份源登录不允许在第三方系统直接输入账号密码进行登录，所以外部身份源的绑定总是需要先跳转到对方的登录页面进行认证。此端点会通过浏览器 `302` 跳转的方式先跳转到第三方的登录页面，
-     * 终端用户在第三方系统认证完成之后，浏览器再会跳转到 Authing 服务器，Authing 服务器会将此外部身份源绑定到该用户身上。最终的结果会通过浏览器 Window Post Message 的方式传递给开发者。
-     * 你可以在你的应用系统中放置一个按钮，引导用户点击之后，弹出一个 Window Popup，地址为此端点，当用户在第三方身份源认证完成之后，此 Popup 会通过 Window Post Message 的方式传递给父窗口。
-     * <p>
-     * 为此我们在 `@authing/browser` SDK 中封装了相关方法，为开发者省去了其中大量的细节：
-     * <p>
-     * ```typescript
-     * import { Authing } from "@authing/browser"
-     * const sdk = new Authing({
-     * // 应用的认证地址，例如：https://domain.authing.cn
-     * domain: "",
-     * <p>
-     * // Authing 应用 ID
-     * appId: "you_authing_app_id",
-     * <p>
-     * // 登录回调地址，需要在控制台『应用配置 - 登录回调 URL』中指定
-     * redirectUri: "your_redirect_uri"
-     * });
-     * <p>
-     * <p>
-     * // success 表示此次绑定操作是否成功；
-     * // errMsg 为如果绑定失败，具体的失败原因，如此身份源已被其他账号绑定等。
-     * // identities 为此次绑定操作具体绑定的第三方身份信息
-     * const { success, errMsg, identities } = await sdk.bindExtIdpWithPopup({
-     * "extIdpConnIdentifier": "my-wechat"
-     * })
-     * <p>
-     * ```
-     * <p>
-     * 绑定外部身份源成功之后，你可以得到用户在此第三方身份源的信息，以绑定飞书账号为例：
-     * <p>
-     * ```json
-     * [
-     * {
-     * "identityId": "62f20932xxxxbcc10d966ee5",
-     * "extIdpId": "62f209327xxxxcc10d966ee5",
-     * "provider": "lark",
-     * "type": "open_id",
-     * "userIdInIdp": "ou_8bae746eac07cd2564654140d2a9ac61",
-     * "originConnIds": ["62f2093244fa5cb19ff21ed3"]
-     * },
-     * {
-     * "identityId": "62f726239xxxxe3285d21c93",
-     * "extIdpId": "62f209327xxxxcc10d966ee5",
-     * "provider": "lark",
-     * "type": "union_id",
-     * "userIdInIdp": "on_093ce5023288856aa0abe4099123b18b",
-     * "originConnIds": ["62f2093244fa5cb19ff21ed3"]
-     * },
-     * {
-     * "identityId": "62f72623e011cf10c8851e4c",
-     * "extIdpId": "62f209327xxxxcc10d966ee5",
-     * "provider": "lark",
-     * "type": "user_id",
-     * "userIdInIdp": "23ded785",
-     * "originConnIds": ["62f2093244fa5cb19ff21ed3"]
-     * }
-     * ]
-     * ```
-     * <p>
-     * 可以看到，我们获取到了用户在飞书中的身份信息：
-     * <p>
-     * - `open_id`: ou_8bae746eac07cd2564654140d2a9ac61
-     * - `union_id`: on_093ce5023288856aa0abe4099123b18b
-     * - `user_id`: 23ded785
-     * <p>
-     * 绑定此外部身份源之后，后续用户就可以使用此身份源进行登录了，见**登录**接口。
-     **/
-    public GenerateBindExtIdpLinkRespDto generateLinkExtIdpUrl(GenerateLinkExtidpUrlDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/generate-link-extidp-url");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, GenerateBindExtIdpLinkRespDto.class);
-    }
-
-    /**
-     * @summary 解绑外部身份源
-     * @description 解绑外部身份源，此接口需要传递用户绑定的外部身份源 ID，**注意不是身份源连接 ID**。
-     **/
-    public CommonResponseDto unbindExtIdp(UnbindExtIdpDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/unlink-extidp");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, CommonResponseDto.class);
-    }
-
-    /**
-     * @summary 获取绑定的外部身份源
-     * @description 如在**介绍**部分中所描述的，一个外部身份源对应多个外部身份源连接，用户通过某个外部身份源连接绑定了某个外部身份源账号之后，
-     * 用户会建立一条与此外部身份源之间的关联关系。此接口用于获取此用户绑定的所有外部身份源。
-     * <p>
-     * 取决于外部身份源的具体实现，一个用户在外部身份源中，可能会有多个身份 ID，比如在微信体系中会有 `openid` 和 `unionid`，在非书中有
-     * `open_id`、`union_id` 和 `user_id`。在 Authing 中，我们把这样的一条 `open_id` 或者 `unionid_` 叫做一条 `Identity`， 所以用户在一个身份源会有多条 `Identity` 记录。
-     * <p>
-     * 以微信为例，如果用户使用微信登录或者绑定了微信账号，他的 `Identity` 信息如下所示：
-     * <p>
-     * ```json
-     * [
-     * {
-     * "identityId": "62f20932xxxxbcc10d966ee5",
-     * "extIdpId": "62f209327xxxxcc10d966ee5",
-     * "provider": "wechat",
-     * "type": "openid",
-     * "userIdInIdp": "oH_5k5SflrwjGvk7wqpoBKq_cc6M",
-     * "originConnIds": ["62f2093244fa5cb19ff21ed3"]
-     * },
-     * {
-     * "identityId": "62f726239xxxxe3285d21c93",
-     * "extIdpId": "62f209327xxxxcc10d966ee5",
-     * "provider": "wechat",
-     * "type": "unionid",
-     * "userIdInIdp": "o9Nka5ibU-lUGQaeAHqu0nOZyJg0",
-     * "originConnIds": ["62f2093244fa5cb19ff21ed3"]
-     * }
-     * ]
-     * ```
-     * <p>
-     * <p>
-     * 可以看到他们的 `extIdpId` 是一样的，这个是你在 Authing 中创建的**身份源 ID**；`provider` 都是 `wechat`；
-     * 通过 `type` 可以区分出哪个是 `openid`，哪个是 `unionid`，以及具体的值（`userIdInIdp`）；他们都来自于同一个身份源连接（`originConnIds`）。
-     **/
-    public GetIdentitiesRespDto getIdentities() {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-identities");
-        config.setBody(new Object());
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, GetIdentitiesRespDto.class);
-    }
-
-    /**
-     * @summary 获取应用开启的外部身份源列表
-     * @description 获取应用开启的外部身份源列表，前端可以基于此渲染外部身份源按钮。
-     **/
-    public GetExtIdpsRespDto getExtIdps() {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-extidps");
-        config.setBody(new Object());
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, GetExtIdpsRespDto.class);
-    }
-
-    /**
-     * @summary 注册
-     * @description 此端点目前支持以下几种基于的注册方式：
-     * <p>
-     * 1. 基于密码（PASSWORD）：用户名 + 密码，邮箱 + 密码。
-     * 2. 基于一次性临时验证码（PASSCODE）：手机号 + 验证码，邮箱 + 验证码。你需要先调用发送短信或者发送邮件接口获取验证码。
-     * <p>
-     * 社会化登录等使用外部身份源“注册”请直接使用**登录**接口，我们会在其第一次登录的时候为其创建一个新账号。
-     **/
-    public UserSingleRespDto signUp(SignUpDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/signup");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, UserSingleRespDto.class);
-    }
-
-    /**
-     * @summary 解密微信小程序数据
-     **/
-    public DecryptWechatMiniProgramDataRespDto decryptWechatMiniProgramData(DecryptWechatMiniProgramDataDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/decrypt-wechat-miniprogram-data");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, DecryptWechatMiniProgramDataRespDto.class);
-    }
-
-    /**
-     * @summary 获取小程序的手机号
-     **/
-    public GetWechatMiniProgramPhoneRespDto getWechatMiniprogramPhone(GetWechatMiniProgramPhoneDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-wechat-miniprogram-phone");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, GetWechatMiniProgramPhoneRespDto.class);
-    }
-
-    /**
-     * @summary 获取 Authing 服务器缓存的微信小程序、公众号 Access Token
-     **/
-    public GetWechatAccessTokenRespDto getWechatMpAccessToken(GetWechatAccessTokenDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-wechat-access-token");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, GetWechatAccessTokenRespDto.class);
-    }
-
-    /**
-     * @summary 获取登录日志
-     * @description 获取登录日志
-     **/
-    public GetLoginHistoryRespDto getLoginHistory(GetMyLoginHistoryDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-my-login-history");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, GetLoginHistoryRespDto.class);
-    }
-
-    /**
-     * @summary 获取登录应用
-     * @description 获取登录应用
-     **/
-    public GetLoggedInAppsRespDto getLoggedInApps() {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-my-logged-in-apps");
-        config.setBody(new Object());
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, GetLoggedInAppsRespDto.class);
-    }
-
-    /**
-     * @summary 获取具备访问权限的应用
-     * @description 获取具备访问权限的应用
-     **/
-    public GetAccessibleAppsRespDto getAccessibleApps() {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-my-accessible-apps");
-        config.setBody(new Object());
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, GetAccessibleAppsRespDto.class);
-    }
-
-    /**
-     * @summary 获取租户列表
-     * @description 获取租户列表
-     **/
-    public GetTenantListRespDto getTenantList() {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-my-tenant-list");
-        config.setBody(new Object());
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, GetTenantListRespDto.class);
-    }
-
-    /**
-     * @summary 获取角色列表
-     * @description 获取角色列表
-     **/
-    public RoleListRespDto getRoleList(GetMyRoleListDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-my-role-list");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, RoleListRespDto.class);
-    }
-
-    /**
-     * @summary 获取分组列表
-     * @description 获取分组列表
-     **/
-    public GroupListRespDto getGroupList() {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-my-group-list");
-        config.setBody(new Object());
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, GroupListRespDto.class);
-    }
-
-    /**
-     * @summary 获取部门列表
-     * @description 此接口用于获取用户的部门列表，可根据一定排序规则进行排序。
-     **/
-    public UserDepartmentPaginatedRespDto getDepartmentList(GetMyDepartmentListDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-my-department-list");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, UserDepartmentPaginatedRespDto.class);
-    }
-
-    /**
-     * @summary 获取被授权的资源列表
-     * @description 此接口用于获取用户被授权的资源列表。
-     **/
-    public AuthorizedResourcePaginatedRespDto getAuthorizedResources(GetMyAuthorizedResourcesDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-my-authorized-resources");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, AuthorizedResourcePaginatedRespDto.class);
-    }
-
-    /**
-     * @summary 文件上传
-     **/
-    public UploadRespDto upload(UploadDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v2/upload");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, UploadRespDto.class);
+        return deserialize(response, PreCheckCodeRespDto.class);
     }
 
     /**
@@ -1582,16 +1123,479 @@ public class AuthenticationClient extends BaseClient {
     }
 
     /**
-     * @summary 预检验验证码是否正确
-     * @description 预检测验证码是否有效，此检验不会使得验证码失效。
+     * @summary 发起绑定 MFA 认证要素请求
+     * @description 当用户未绑定某个 MFA 认证要素时，可以发起绑定 MFA 认证要素请求。不同类型的 MFA 认证要素绑定请求需要发送不同的参数，详细见 profile 参数。发起验证请求之后，Authing 服务器会根据相应的认证要素类型和传递的参数，使用不同的手段要求验证。此接口会返回 enrollmentToken，你需要在请求「绑定 MFA 认证要素」接口时带上此 enrollmentToken，并提供相应的凭证。
      **/
-    public PreCheckCodeRespDto preCheckCode(PreCheckCodeDto reqDto) {
+    public SendEnrollFactorRequestRespDto sendEnrollFactorRequest(SendEnrollFactorRequestDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/pre-check-code");
+        config.setUrl("/api/v3/send-enroll-factor-request");
         config.setBody(reqDto);
         config.setMethod("POST");
         String response = request(config);
-        return deserialize(response, PreCheckCodeRespDto.class);
+        return deserialize(response, SendEnrollFactorRequestRespDto.class);
+    }
+
+    /**
+     * @summary 绑定 MFA 认证要素
+     * @description 绑定 MFA 要素
+     **/
+    public EnrollFactorRespDto enrollFactor(EnrollFactorDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/enroll-factor");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, EnrollFactorRespDto.class);
+    }
+
+    /**
+     * @summary 解绑 MFA 认证要素
+     * @description 当前不支持通过此接口解绑短信、邮箱验证码类型的认证要素。如果需要，请调用「解绑邮箱」和「解绑手机号」接口。
+     **/
+    public ResetFactorRespDto resetFactor(RestFactorDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/reset-factor");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, ResetFactorRespDto.class);
+    }
+
+    /**
+     * @summary 获取绑定的所有 MFA 认证要素
+     * @description Authing 目前支持四种类型的 MFA 认证要素：手机短信、邮件验证码、OTP、人脸。如果用户绑定了手机号 / 邮箱之后，默认就具备了手机短信、邮箱验证码的 MFA 认证要素。
+     **/
+    public ListEnrolledFactorsRespDto listEnrolledFactors() {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/list-enrolled-factors");
+        config.setBody(new Object());
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, ListEnrolledFactorsRespDto.class);
+    }
+
+    /**
+     * @summary 获取绑定的某个 MFA 认证要素
+     * @description 根据 Factor ID 获取用户绑定的某个 MFA Factor 详情。
+     **/
+    public GetFactorRespDto getFactor(GetFactorDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-factor");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, GetFactorRespDto.class);
+    }
+
+    /**
+     * @summary 获取可绑定的 MFA 认证要素
+     * @description 获取所有应用已经开启、用户暂未绑定的 MFA 认证要素，用户可以从返回的列表中绑定新的 MFA 认证要素。
+     **/
+    public ListFactorsToEnrollRespDto listFactorsToEnroll() {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/list-factors-to-enroll");
+        config.setBody(new Object());
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, ListFactorsToEnrollRespDto.class);
+    }
+
+    /**
+     * @summary 绑定外部身份源
+     * @description 由于绝大多数的外部身份源登录不允许在第三方系统直接输入账号密码进行登录，所以外部身份源的绑定总是需要先跳转到对方的登录页面进行认证。此端点会通过浏览器 `302` 跳转的方式先跳转到第三方的登录页面，
+     * 终端用户在第三方系统认证完成之后，浏览器再会跳转到 Authing 服务器，Authing 服务器会将此外部身份源绑定到该用户身上。最终的结果会通过浏览器 Window Post Message 的方式传递给开发者。
+     * 你可以在你的应用系统中放置一个按钮，引导用户点击之后，弹出一个 Window Popup，地址为此端点，当用户在第三方身份源认证完成之后，此 Popup 会通过 Window Post Message 的方式传递给父窗口。
+     * <p>
+     * 为此我们在 `@authing/browser` SDK 中封装了相关方法，为开发者省去了其中大量的细节：
+     * <p>
+     * ```typescript
+     * import { Authing } from "@authing/browser"
+     * const sdk = new Authing({
+     * // 应用的认证地址，例如：https://domain.authing.cn
+     * domain: "",
+     * <p>
+     * // Authing 应用 ID
+     * appId: "you_authing_app_id",
+     * <p>
+     * // 登录回调地址，需要在控制台『应用配置 - 登录回调 URL』中指定
+     * redirectUri: "your_redirect_uri"
+     * });
+     * <p>
+     * <p>
+     * // success 表示此次绑定操作是否成功；
+     * // errMsg 为如果绑定失败，具体的失败原因，如此身份源已被其他账号绑定等。
+     * // identities 为此次绑定操作具体绑定的第三方身份信息
+     * const { success, errMsg, identities } = await sdk.bindExtIdpWithPopup({
+     * "extIdpConnIdentifier": "my-wechat"
+     * })
+     * <p>
+     * ```
+     * <p>
+     * 绑定外部身份源成功之后，你可以得到用户在此第三方身份源的信息，以绑定飞书账号为例：
+     * <p>
+     * ```json
+     * [
+     * {
+     * "identityId": "62f20932xxxxbcc10d966ee5",
+     * "extIdpId": "62f209327xxxxcc10d966ee5",
+     * "provider": "lark",
+     * "type": "open_id",
+     * "userIdInIdp": "ou_8bae746eac07cd2564654140d2a9ac61",
+     * "originConnIds": ["62f2093244fa5cb19ff21ed3"]
+     * },
+     * {
+     * "identityId": "62f726239xxxxe3285d21c93",
+     * "extIdpId": "62f209327xxxxcc10d966ee5",
+     * "provider": "lark",
+     * "type": "union_id",
+     * "userIdInIdp": "on_093ce5023288856aa0abe4099123b18b",
+     * "originConnIds": ["62f2093244fa5cb19ff21ed3"]
+     * },
+     * {
+     * "identityId": "62f72623e011cf10c8851e4c",
+     * "extIdpId": "62f209327xxxxcc10d966ee5",
+     * "provider": "lark",
+     * "type": "user_id",
+     * "userIdInIdp": "23ded785",
+     * "originConnIds": ["62f2093244fa5cb19ff21ed3"]
+     * }
+     * ]
+     * ```
+     * <p>
+     * 可以看到，我们获取到了用户在飞书中的身份信息：
+     * <p>
+     * - `open_id`: ou_8bae746eac07cd2564654140d2a9ac61
+     * - `union_id`: on_093ce5023288856aa0abe4099123b18b
+     * - `user_id`: 23ded785
+     * <p>
+     * 绑定此外部身份源之后，后续用户就可以使用此身份源进行登录了，见**登录**接口。
+     **/
+    public GenerateBindExtIdpLinkRespDto linkExtIdp(LinkExtidpDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/link-extidp");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, GenerateBindExtIdpLinkRespDto.class);
+    }
+
+    /**
+     * @summary 生成绑定外部身份源的链接
+     * @description 由于绝大多数的外部身份源登录不允许在第三方系统直接输入账号密码进行登录，所以外部身份源的绑定总是需要先跳转到对方的登录页面进行认证。此端点会通过浏览器 `302` 跳转的方式先跳转到第三方的登录页面，
+     * 终端用户在第三方系统认证完成之后，浏览器再会跳转到 Authing 服务器，Authing 服务器会将此外部身份源绑定到该用户身上。最终的结果会通过浏览器 Window Post Message 的方式传递给开发者。
+     * 你可以在你的应用系统中放置一个按钮，引导用户点击之后，弹出一个 Window Popup，地址为此端点，当用户在第三方身份源认证完成之后，此 Popup 会通过 Window Post Message 的方式传递给父窗口。
+     * <p>
+     * 为此我们在 `@authing/browser` SDK 中封装了相关方法，为开发者省去了其中大量的细节：
+     * <p>
+     * ```typescript
+     * import { Authing } from "@authing/browser"
+     * const sdk = new Authing({
+     * // 应用的认证地址，例如：https://domain.authing.cn
+     * domain: "",
+     * <p>
+     * // Authing 应用 ID
+     * appId: "you_authing_app_id",
+     * <p>
+     * // 登录回调地址，需要在控制台『应用配置 - 登录回调 URL』中指定
+     * redirectUri: "your_redirect_uri"
+     * });
+     * <p>
+     * <p>
+     * // success 表示此次绑定操作是否成功；
+     * // errMsg 为如果绑定失败，具体的失败原因，如此身份源已被其他账号绑定等。
+     * // identities 为此次绑定操作具体绑定的第三方身份信息
+     * const { success, errMsg, identities } = await sdk.bindExtIdpWithPopup({
+     * "extIdpConnIdentifier": "my-wechat"
+     * })
+     * <p>
+     * ```
+     * <p>
+     * 绑定外部身份源成功之后，你可以得到用户在此第三方身份源的信息，以绑定飞书账号为例：
+     * <p>
+     * ```json
+     * [
+     * {
+     * "identityId": "62f20932xxxxbcc10d966ee5",
+     * "extIdpId": "62f209327xxxxcc10d966ee5",
+     * "provider": "lark",
+     * "type": "open_id",
+     * "userIdInIdp": "ou_8bae746eac07cd2564654140d2a9ac61",
+     * "originConnIds": ["62f2093244fa5cb19ff21ed3"]
+     * },
+     * {
+     * "identityId": "62f726239xxxxe3285d21c93",
+     * "extIdpId": "62f209327xxxxcc10d966ee5",
+     * "provider": "lark",
+     * "type": "union_id",
+     * "userIdInIdp": "on_093ce5023288856aa0abe4099123b18b",
+     * "originConnIds": ["62f2093244fa5cb19ff21ed3"]
+     * },
+     * {
+     * "identityId": "62f72623e011cf10c8851e4c",
+     * "extIdpId": "62f209327xxxxcc10d966ee5",
+     * "provider": "lark",
+     * "type": "user_id",
+     * "userIdInIdp": "23ded785",
+     * "originConnIds": ["62f2093244fa5cb19ff21ed3"]
+     * }
+     * ]
+     * ```
+     * <p>
+     * 可以看到，我们获取到了用户在飞书中的身份信息：
+     * <p>
+     * - `open_id`: ou_8bae746eac07cd2564654140d2a9ac61
+     * - `union_id`: on_093ce5023288856aa0abe4099123b18b
+     * - `user_id`: 23ded785
+     * <p>
+     * 绑定此外部身份源之后，后续用户就可以使用此身份源进行登录了，见**登录**接口。
+     **/
+    public GenerateBindExtIdpLinkRespDto generateLinkExtIdpUrl(GenerateLinkExtidpUrlDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/generate-link-extidp-url");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, GenerateBindExtIdpLinkRespDto.class);
+    }
+
+    /**
+     * @summary 解绑外部身份源
+     * @description 解绑外部身份源，此接口需要传递用户绑定的外部身份源 ID，**注意不是身份源连接 ID**。
+     **/
+    public CommonResponseDto unbindExtIdp(UnbindExtIdpDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/unlink-extidp");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, CommonResponseDto.class);
+    }
+
+    /**
+     * @summary 获取绑定的外部身份源
+     * @description 如在**介绍**部分中所描述的，一个外部身份源对应多个外部身份源连接，用户通过某个外部身份源连接绑定了某个外部身份源账号之后，
+     * 用户会建立一条与此外部身份源之间的关联关系。此接口用于获取此用户绑定的所有外部身份源。
+     * <p>
+     * 取决于外部身份源的具体实现，一个用户在外部身份源中，可能会有多个身份 ID，比如在微信体系中会有 `openid` 和 `unionid`，在非书中有
+     * `open_id`、`union_id` 和 `user_id`。在 Authing 中，我们把这样的一条 `open_id` 或者 `unionid_` 叫做一条 `Identity`， 所以用户在一个身份源会有多条 `Identity` 记录。
+     * <p>
+     * 以微信为例，如果用户使用微信登录或者绑定了微信账号，他的 `Identity` 信息如下所示：
+     * <p>
+     * ```json
+     * [
+     * {
+     * "identityId": "62f20932xxxxbcc10d966ee5",
+     * "extIdpId": "62f209327xxxxcc10d966ee5",
+     * "provider": "wechat",
+     * "type": "openid",
+     * "userIdInIdp": "oH_5k5SflrwjGvk7wqpoBKq_cc6M",
+     * "originConnIds": ["62f2093244fa5cb19ff21ed3"]
+     * },
+     * {
+     * "identityId": "62f726239xxxxe3285d21c93",
+     * "extIdpId": "62f209327xxxxcc10d966ee5",
+     * "provider": "wechat",
+     * "type": "unionid",
+     * "userIdInIdp": "o9Nka5ibU-lUGQaeAHqu0nOZyJg0",
+     * "originConnIds": ["62f2093244fa5cb19ff21ed3"]
+     * }
+     * ]
+     * ```
+     * <p>
+     * <p>
+     * 可以看到他们的 `extIdpId` 是一样的，这个是你在 Authing 中创建的**身份源 ID**；`provider` 都是 `wechat`；
+     * 通过 `type` 可以区分出哪个是 `openid`，哪个是 `unionid`，以及具体的值（`userIdInIdp`）；他们都来自于同一个身份源连接（`originConnIds`）。
+     **/
+    public GetIdentitiesRespDto getIdentities() {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-identities");
+        config.setBody(new Object());
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, GetIdentitiesRespDto.class);
+    }
+
+    /**
+     * @summary 获取应用开启的外部身份源列表
+     * @description 获取应用开启的外部身份源列表，前端可以基于此渲染外部身份源按钮。
+     **/
+    public GetExtIdpsRespDto getExtIdps() {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-extidps");
+        config.setBody(new Object());
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, GetExtIdpsRespDto.class);
+    }
+
+    /**
+     * @summary 注册
+     * @description 此端点目前支持以下几种基于的注册方式：
+     * <p>
+     * 1. 基于密码（PASSWORD）：用户名 + 密码，邮箱 + 密码。
+     * 2. 基于一次性临时验证码（PASSCODE）：手机号 + 验证码，邮箱 + 验证码。你需要先调用发送短信或者发送邮件接口获取验证码。
+     * <p>
+     * 社会化登录等使用外部身份源“注册”请直接使用**登录**接口，我们会在其第一次登录的时候为其创建一个新账号。
+     **/
+    public UserSingleRespDto signUp(SignUpDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/signup");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, UserSingleRespDto.class);
+    }
+
+    /**
+     * @summary 解密微信小程序数据
+     **/
+    public DecryptWechatMiniProgramDataRespDto decryptWechatMiniProgramData(DecryptWechatMiniProgramDataDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/decrypt-wechat-miniprogram-data");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, DecryptWechatMiniProgramDataRespDto.class);
+    }
+
+    /**
+     * @summary 获取小程序的手机号
+     **/
+    public GetWechatMiniProgramPhoneRespDto getWechatMiniprogramPhone(GetWechatMiniProgramPhoneDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-wechat-miniprogram-phone");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, GetWechatMiniProgramPhoneRespDto.class);
+    }
+
+    /**
+     * @summary 获取 Authing 服务器缓存的微信小程序、公众号 Access Token
+     **/
+    public GetWechatAccessTokenRespDto getWechatMpAccessToken(GetWechatAccessTokenDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-wechat-access-token");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, GetWechatAccessTokenRespDto.class);
+    }
+
+    /**
+     * @summary 获取登录日志
+     * @description 获取登录日志
+     **/
+    public GetLoginHistoryRespDto getLoginHistory(GetMyLoginHistoryDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-my-login-history");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, GetLoginHistoryRespDto.class);
+    }
+
+    /**
+     * @summary 获取登录应用
+     * @description 获取登录应用
+     **/
+    public GetLoggedInAppsRespDto getLoggedInApps() {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-my-logged-in-apps");
+        config.setBody(new Object());
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, GetLoggedInAppsRespDto.class);
+    }
+
+    /**
+     * @summary 获取具备访问权限的应用
+     * @description 获取具备访问权限的应用
+     **/
+    public GetAccessibleAppsRespDto getAccessibleApps() {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-my-accessible-apps");
+        config.setBody(new Object());
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, GetAccessibleAppsRespDto.class);
+    }
+
+    /**
+     * @summary 获取租户列表
+     * @description 获取租户列表
+     **/
+    public GetTenantListRespDto getTenantList() {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-my-tenant-list");
+        config.setBody(new Object());
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, GetTenantListRespDto.class);
+    }
+
+    /**
+     * @summary 获取角色列表
+     * @description 获取角色列表
+     **/
+    public RoleListRespDto getRoleList(GetMyRoleListDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-my-role-list");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, RoleListRespDto.class);
+    }
+
+    /**
+     * @summary 获取分组列表
+     * @description 获取分组列表
+     **/
+    public GroupListRespDto getGroupList() {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-my-group-list");
+        config.setBody(new Object());
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, GroupListRespDto.class);
+    }
+
+    /**
+     * @summary 获取部门列表
+     * @description 此接口用于获取用户的部门列表，可根据一定排序规则进行排序。
+     **/
+    public UserDepartmentPaginatedRespDto getDepartmentList(GetMyDepartmentListDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-my-department-list");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, UserDepartmentPaginatedRespDto.class);
+    }
+
+    /**
+     * @summary 获取被授权的资源列表
+     * @description 此接口用于获取用户被授权的资源列表。
+     **/
+    public AuthorizedResourcePaginatedRespDto getAuthorizedResources(GetMyAuthorizedResourcesDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-my-authorized-resources");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, AuthorizedResourcePaginatedRespDto.class);
+    }
+
+    /**
+     * @summary 文件上传
+     **/
+    public UploadRespDto upload(UploadDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v2/upload");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, UploadRespDto.class);
     }
 
 // ==== AUTO GENERATED AUTHENTICATION METHODS END ====
@@ -2083,10 +2087,10 @@ public class AuthenticationClient extends BaseClient {
     public Boolean revokeToken(String token) {
         verificationProtocol();
 
-        String introspectionEndPointAuthMethod = options.getIntrospectionEndPointAuthMethod();
-        if (AuthMethodEnum.CLIENT_SECRET_POST.getValue().equals(introspectionEndPointAuthMethod)) {
+        String revocationEndPointAuthMethod = options.getRevocationEndPointAuthMethod();
+        if (AuthMethodEnum.CLIENT_SECRET_POST.getValue().equals(revocationEndPointAuthMethod)) {
             return revokeTokenWithClientSecretPost(token);
-        } else if (AuthMethodEnum.CLIENT_SECRET_BASIC.getValue().equals(introspectionEndPointAuthMethod)) {
+        } else if (AuthMethodEnum.CLIENT_SECRET_BASIC.getValue().equals(revocationEndPointAuthMethod)) {
             return revokeTokenWithClientSecretBasic(token);
         } else {
             return revokeTokenWithNone(token);

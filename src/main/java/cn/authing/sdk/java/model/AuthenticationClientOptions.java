@@ -15,27 +15,27 @@ import java.util.Map;
  */
 public class AuthenticationClientOptions extends AuthingClientOptions {
     /**
-     * 应用 ID
+     * Authing 应用 ID，必填。
      */
     private String appId;
 
     /**
-     * 应用 Secret
+     * Authing 应用密钥，必填。
      */
     private String appSecret;
 
     /**
-     * 应用域名，例如 https://example.authing.cn
+     * Authing 应用域名，如 https://example.authing.cn，必填。
      */
     private String appHost;
 
     /**
-     * 认证完成后的重定向目标 URL
+     * 认证完成后的重定向目标 URL，可选。Authing 服务器会对此链接进行校验，需要和控制台的设置保持一致。
      */
     private String redirectUri;
 
     /**
-     * 登出完成后的重定向目标 URL
+     * 登出完成后的重定向目标 URL，可选。Authing 服务器会对此链接进行校验，需要和控制台的设置保持一致。
      */
     private String logoutRedirectUri;
 
@@ -75,15 +75,14 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
     private String introspectionEndPointAuthMethod = AuthMethodEnum.CLIENT_SECRET_POST.getValue();
 
     /**
+     * 检查 token 端点认证方式
+     */
+    private String revocationEndPointAuthMethod = AuthMethodEnum.CLIENT_SECRET_POST.getValue();
+
+    /**
      * 用户的AccessToken
      */
     private String AccessToken;
-
-    public AuthenticationClientOptions(String appId, String appSecret, String redirectUri) {
-        this.appId = appId;
-        this.appSecret = appSecret;
-        this.redirectUri = redirectUri;
-    }
 
     @Override
     public String doRequest(String url, String method, Map<String, String> headers, Object body) {
@@ -112,8 +111,8 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
         };
         if (this.getTokenEndPointAuthMethod() == AuthMethodEnum.CLIENT_SECRET_BASIC.getValue() && Arrays.asList(endpointsToSendBasicHeader).contains(url)) {
             headers.put("authorization", "Basic " + Base64.getEncoder().encodeToString((this.getAppId() + ":" + this.getAppSecret()).getBytes()));
-        } else if (StrUtil.isNotBlank(this.AccessToken)) {
-            headers.put("authorization", "Bearer" + this.AccessToken);
+        } else if (StrUtil.isNotBlank(this.getAccessToken())) {
+            headers.put("authorization", "Bearer" + this.getAccessToken());
         }
 
         return HttpUtils.request(getAppHost() + url, method, body, headers, getTimeout());
@@ -171,14 +170,6 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
         this.scope = scope;
     }
 
-    public String getCookieKey() {
-        return cookieKey;
-    }
-
-    public void setCookieKey(String cookieKey) {
-        this.cookieKey = cookieKey;
-    }
-
     public String getTokenEndPointAuthMethod() {
         return tokenEndPointAuthMethod;
     }
@@ -209,6 +200,14 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
 
     public void setAccessToken(String accessToken) {
         AccessToken = accessToken;
+    }
+
+    public String getRevocationEndPointAuthMethod() {
+        return revocationEndPointAuthMethod;
+    }
+
+    public void setRevocationEndPointAuthMethod(String revocationEndPointAuthMethod) {
+        this.revocationEndPointAuthMethod = revocationEndPointAuthMethod;
     }
 }
 

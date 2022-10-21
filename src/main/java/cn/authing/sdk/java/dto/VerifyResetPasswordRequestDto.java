@@ -54,10 +54,8 @@ public class VerifyResetPasswordRequestDto {
      */
     public static enum VerifyMethod {
 
-
         @JsonProperty("EMAIL_PASSCODE")
         EMAIL_PASSCODE("EMAIL_PASSCODE"),
-
 
         @JsonProperty("PHONE_PASSCODE")
         PHONE_PASSCODE("PHONE_PASSCODE"),

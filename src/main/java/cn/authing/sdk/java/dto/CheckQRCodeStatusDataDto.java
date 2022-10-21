@@ -59,26 +59,20 @@ public class CheckQRCodeStatusDataDto {
      */
     public static enum Status {
 
-
         @JsonProperty("EXPIRED")
         EXPIRED("EXPIRED"),
-
 
         @JsonProperty("PENDING")
         PENDING("PENDING"),
 
-
         @JsonProperty("SCANNED")
         SCANNED("SCANNED"),
-
 
         @JsonProperty("AUTHORIZED")
         AUTHORIZED("AUTHORIZED"),
 
-
         @JsonProperty("CANCELLED")
         CANCELLED("CANCELLED"),
-
 
         @JsonProperty("ERROR")
         ERROR("ERROR"),

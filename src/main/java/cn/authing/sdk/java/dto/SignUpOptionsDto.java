@@ -80,14 +80,11 @@ public class SignUpOptionsDto {
      */
     public static enum PasswordEncryptType {
 
-
         @JsonProperty("sm2")
         SM2("sm2"),
 
-
         @JsonProperty("rsa")
         RSA("rsa"),
-
 
         @JsonProperty("none")
         NONE("none"),

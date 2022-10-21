@@ -78,14 +78,11 @@ public class GenerateQrcodeDto {
      */
     public static enum Type {
 
-
         @JsonProperty("MOBILE_APP")
         MOBILE_APP("MOBILE_APP"),
 
-
         @JsonProperty("WECHAT_MINIPROGRAM")
         WECHAT_MINIPROGRAM("WECHAT_MINIPROGRAM"),
-
 
         @JsonProperty("WECHAT_OFFICIAL_ACCOUNT")
         WECHAT_OFFICIAL_ACCOUNT("WECHAT_OFFICIAL_ACCOUNT"),

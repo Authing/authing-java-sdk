@@ -60,46 +60,35 @@ public class SendEmailDto {
      */
     public static enum Channel {
 
-
         @JsonProperty("CHANNEL_LOGIN")
         CHANNEL_LOGIN("CHANNEL_LOGIN"),
-
 
         @JsonProperty("CHANNEL_REGISTER")
         CHANNEL_REGISTER("CHANNEL_REGISTER"),
 
-
         @JsonProperty("CHANNEL_RESET_PASSWORD")
         CHANNEL_RESET_PASSWORD("CHANNEL_RESET_PASSWORD"),
-
 
         @JsonProperty("CHANNEL_VERIFY_EMAIL_LINK")
         CHANNEL_VERIFY_EMAIL_LINK("CHANNEL_VERIFY_EMAIL_LINK"),
 
-
         @JsonProperty("CHANNEL_UPDATE_EMAIL")
         CHANNEL_UPDATE_EMAIL("CHANNEL_UPDATE_EMAIL"),
-
 
         @JsonProperty("CHANNEL_BIND_EMAIL")
         CHANNEL_BIND_EMAIL("CHANNEL_BIND_EMAIL"),
 
-
         @JsonProperty("CHANNEL_UNBIND_EMAIL")
         CHANNEL_UNBIND_EMAIL("CHANNEL_UNBIND_EMAIL"),
-
 
         @JsonProperty("CHANNEL_VERIFY_MFA")
         CHANNEL_VERIFY_MFA("CHANNEL_VERIFY_MFA"),
 
-
         @JsonProperty("CHANNEL_UNLOCK_ACCOUNT")
         CHANNEL_UNLOCK_ACCOUNT("CHANNEL_UNLOCK_ACCOUNT"),
 
-
         @JsonProperty("CHANNEL_COMPLETE_EMAIL")
         CHANNEL_COMPLETE_EMAIL("CHANNEL_COMPLETE_EMAIL"),
-
 
         @JsonProperty("CHANNEL_DELETE_ACCOUNT")
         CHANNEL_DELETE_ACCOUNT("CHANNEL_DELETE_ACCOUNT"),

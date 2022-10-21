@@ -6,11 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class TokenRevocationEndpointParams {
     /**
-     * `access_token` 或者 `refresh_token` 的值
-     */
-    @JsonProperty("token")
-    private String token;
-    /**
      * Authing 应用 ID。当在控制台配置撤回 token 身份验证方式为 client_secret_post 和 none 时必填。
      */
     @JsonProperty("client_id")
@@ -20,13 +15,11 @@ public class TokenRevocationEndpointParams {
      */
     @JsonProperty("client_secret")
     private String clientSecret;
-
-    public String getToken() {
-        return token;
-    }
-    public void setToken(String token) {
-        this.token = token;
-    }
+    /**
+     * `access_token` 或者 `refresh_token` 的值
+     */
+    @JsonProperty("token")
+    private String token;
 
     public String getClientId() {
         return clientId;
@@ -40,6 +33,13 @@ public class TokenRevocationEndpointParams {
     }
     public void setClientSecret(String clientSecret) {
         this.clientSecret = clientSecret;
+    }
+
+    public String getToken() {
+        return token;
+    }
+    public void setToken(String token) {
+        this.token = token;
     }
 
 

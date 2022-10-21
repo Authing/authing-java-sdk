@@ -180,14 +180,11 @@ public class UpdateUserProfileDto {
      */
     public static enum Gender {
 
-
         @JsonProperty("M")
         M("M"),
 
-
         @JsonProperty("F")
         F("F"),
-
 
         @JsonProperty("U")
         U("U"),

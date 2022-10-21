@@ -65,11 +65,6 @@ public class ManagementClientOptions extends AuthingClientOptions {
     public ManagementClientOptions() {
     }
 
-    public ManagementClientOptions(String accessKeyId, String accessKeySecret) {
-        this.accessKeyId = accessKeyId;
-        this.accessKeySecret = accessKeySecret;
-    }
-
     /**
      * 管理端 token 存储
      **/

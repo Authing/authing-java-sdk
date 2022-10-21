@@ -41,7 +41,6 @@ public class VerifyUpdateEmailRequestDto {
      */
     public static enum VerifyMethod {
 
-
         @JsonProperty("EMAIL_PASSCODE")
         EMAIL_PASSCODE("EMAIL_PASSCODE"),
         ;

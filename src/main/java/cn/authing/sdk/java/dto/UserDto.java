@@ -622,22 +622,17 @@ public class UserDto {
      */
     public static enum Status {
 
-
         @JsonProperty("Suspended")
         SUSPENDED("Suspended"),
-
 
         @JsonProperty("Resigned")
         RESIGNED("Resigned"),
 
-
         @JsonProperty("Activated")
         ACTIVATED("Activated"),
 
-
         @JsonProperty("Archived")
         ARCHIVED("Archived"),
-
 
         @JsonProperty("Deactivated")
         DEACTIVATED("Deactivated"),
@@ -663,14 +658,11 @@ public class UserDto {
      */
     public static enum Gender {
 
-
         @JsonProperty("M")
         M("M"),
 
-
         @JsonProperty("F")
         F("F"),
-
 
         @JsonProperty("U")
         U("U"),
@@ -697,18 +689,14 @@ public class UserDto {
      */
     public static enum UserSourceType {
 
-
         @JsonProperty("excel")
         EXCEL("excel"),
-
 
         @JsonProperty("register")
         REGISTER("register"),
 
-
         @JsonProperty("adminCreated")
         ADMIN_CREATED("adminCreated"),
-
 
         @JsonProperty("syncTask")
         SYNC_TASK("syncTask"),
