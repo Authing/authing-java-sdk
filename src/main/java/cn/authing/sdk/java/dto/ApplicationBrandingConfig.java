@@ -76,7 +76,7 @@ public class ApplicationBrandingConfig {
      * 展示的登录注册协议列表
      */
     @JsonProperty("agreements")
-    private ApplicationAgreementDto agreements;
+    private List<ApplicationAgreementDto> agreements;
 
     public Boolean getCustomCSSEnabled() {
         return customCSSEnabled;
@@ -155,10 +155,10 @@ public class ApplicationBrandingConfig {
         this.showAgreement = showAgreement;
     }
 
-    public ApplicationAgreementDto getAgreements() {
+    public List<ApplicationAgreementDto> getAgreements() {
         return agreements;
     }
-    public void setAgreements(ApplicationAgreementDto agreements) {
+    public void setAgreements(List<ApplicationAgreementDto> agreements) {
         this.agreements = agreements;
     }
 
@@ -171,10 +171,8 @@ public class ApplicationBrandingConfig {
      */
     public static enum GuardVersion {
 
-
         @JsonProperty("Advanced")
         ADVANCED("Advanced"),
-
 
         @JsonProperty("Classical")
         CLASSICAL("Classical"),
@@ -201,18 +199,14 @@ public class ApplicationBrandingConfig {
      */
     public static enum DefaultLanguage {
 
-
         @JsonProperty("zh-CN")
         ZH_CN("zh-CN"),
-
 
         @JsonProperty("en-US")
         EN_US("en-US"),
 
-
         @JsonProperty("zh-TW")
         ZH_TW("zh-TW"),
-
 
         @JsonProperty("ja-JP")
         JA_JP("ja-JP"),

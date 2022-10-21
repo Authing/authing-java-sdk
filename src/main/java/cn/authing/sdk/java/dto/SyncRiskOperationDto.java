@@ -147,22 +147,17 @@ public class SyncRiskOperationDto {
      */
     public static enum Status {
 
-
         @JsonProperty("PENDING")
         PENDING("PENDING"),
-
 
         @JsonProperty("SUCCESS")
         SUCCESS("SUCCESS"),
 
-
         @JsonProperty("FAILED")
         FAILED("FAILED"),
 
-
         @JsonProperty("CANCELED")
         CANCELED("CANCELED"),
-
 
         @JsonProperty("EXECUTING")
         EXECUTING("EXECUTING"),
@@ -187,10 +182,8 @@ public class SyncRiskOperationDto {
      */
     public static enum ObjectType {
 
-
         @JsonProperty("DEPARTMENT")
         DEPARTMENT("DEPARTMENT"),
-
 
         @JsonProperty("USER")
         USER("USER"),

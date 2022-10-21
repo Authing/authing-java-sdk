@@ -223,22 +223,17 @@ public class SyncJobDto {
      */
     public static enum SyncStatus {
 
-
         @JsonProperty("free")
         FREE("free"),
-
 
         @JsonProperty("pending")
         PENDING("pending"),
 
-
         @JsonProperty("onProgress")
         ON_PROGRESS("onProgress"),
 
-
         @JsonProperty("success")
         SUCCESS("success"),
-
 
         @JsonProperty("failed")
         FAILED("failed"),
@@ -263,10 +258,8 @@ public class SyncJobDto {
      */
     public static enum SyncFlow {
 
-
         @JsonProperty("upstream")
         UPSTREAM("upstream"),
-
 
         @JsonProperty("downstream")
         DOWNSTREAM("downstream"),
@@ -292,14 +285,11 @@ public class SyncJobDto {
      */
     public static enum SyncTrigger {
 
-
         @JsonProperty("manually")
         MANUALLY("manually"),
 
-
         @JsonProperty("timed")
         TIMED("timed"),
-
 
         @JsonProperty("automatic")
         AUTOMATIC("automatic"),

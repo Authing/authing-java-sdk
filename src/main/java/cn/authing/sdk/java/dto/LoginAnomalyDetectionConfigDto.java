@@ -50,10 +50,8 @@ public class LoginAnomalyDetectionConfigDto {
      */
     public static enum LoginFailStrategy {
 
-
         @JsonProperty("captcha")
         CAPTCHA("captcha"),
-
 
         @JsonProperty("block-account")
         BLOCK_ACCOUNT("block-account"),

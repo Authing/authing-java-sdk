@@ -190,18 +190,14 @@ public class CustomFieldDto {
      */
     public static enum TargetType {
 
-
         @JsonProperty("USER")
         USER("USER"),
-
 
         @JsonProperty("ROLE")
         ROLE("ROLE"),
 
-
         @JsonProperty("GROUP")
         GROUP("GROUP"),
-
 
         @JsonProperty("DEPARTMENT")
         DEPARTMENT("DEPARTMENT"),
@@ -229,22 +225,17 @@ public class CustomFieldDto {
      */
     public static enum DataType {
 
-
         @JsonProperty("STRING")
         STRING("STRING"),
-
 
         @JsonProperty("NUMBER")
         NUMBER("NUMBER"),
 
-
         @JsonProperty("DATETIME")
         DATETIME("DATETIME"),
 
-
         @JsonProperty("BOOLEAN")
         BOOLEAN("BOOLEAN"),
-
 
         @JsonProperty("ENUM")
         ENUM("ENUM"),

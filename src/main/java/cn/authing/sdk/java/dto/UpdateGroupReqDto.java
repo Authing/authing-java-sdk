@@ -11,15 +11,15 @@ public class UpdateGroupReqDto {
     @JsonProperty("description")
     private String description;
     /**
-     * 分组名称
-     */
-    @JsonProperty("name")
-    private String name;
-    /**
      * 分组 code
      */
     @JsonProperty("code")
     private String code;
+    /**
+     * 分组名称
+     */
+    @JsonProperty("name")
+    private String name;
     /**
      * 分组新的 code
      */
@@ -33,18 +33,18 @@ public class UpdateGroupReqDto {
         this.description = description;
     }
 
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getCode() {
         return code;
     }
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getNewCode() {

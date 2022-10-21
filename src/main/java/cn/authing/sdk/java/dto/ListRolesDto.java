@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ListRolesDto {
     /**
-     * 搜索角色 code
+     * 用于根据角色的 code 进行模糊搜索，可选。
      */
     @JsonProperty("keywords")
     private String keywords;

@@ -445,22 +445,17 @@ public class UpdateUserReqDto {
      */
     public static enum Status {
 
-
         @JsonProperty("Suspended")
         SUSPENDED("Suspended"),
-
 
         @JsonProperty("Resigned")
         RESIGNED("Resigned"),
 
-
         @JsonProperty("Activated")
         ACTIVATED("Activated"),
 
-
         @JsonProperty("Archived")
         ARCHIVED("Archived"),
-
 
         @JsonProperty("Deactivated")
         DEACTIVATED("Deactivated"),
@@ -482,14 +477,11 @@ public class UpdateUserReqDto {
      */
     public static enum Gender {
 
-
         @JsonProperty("M")
         M("M"),
 
-
         @JsonProperty("F")
         F("F"),
-
 
         @JsonProperty("U")
         U("U"),

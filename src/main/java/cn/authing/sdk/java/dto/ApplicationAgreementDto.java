@@ -73,18 +73,14 @@ public class ApplicationAgreementDto {
      */
     public static enum Lang {
 
-
         @JsonProperty("zh-CN")
         ZH_CN("zh-CN"),
-
 
         @JsonProperty("en-US")
         EN_US("en-US"),
 
-
         @JsonProperty("zh-TW")
         ZH_TW("zh-TW"),
-
 
         @JsonProperty("ja-JP")
         JA_JP("ja-JP"),

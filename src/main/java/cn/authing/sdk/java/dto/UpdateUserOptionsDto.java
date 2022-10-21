@@ -25,7 +25,7 @@ public class UpdateUserOptionsDto {
     @JsonProperty("resetPasswordOnNextLogin")
     private Boolean resetPasswordOnNextLogin;
     /**
-     * 密码加密类型，支持 sm2 和 rsa。默认可以不加密。
+     * 密码加密类型，支持使用 RSA256 和国密 SM2 算法进行加密。默认为 `none` 不加密。
      * - `none`: 不对密码进行加密，使用明文进行传输。
      * - `rsa`: 使用 RSA256 算法对密码进行加密，需要使用 Authing 服务的 RSA 公钥进行加密，请阅读**介绍**部分了解如何获取 Authing 服务的 RSA256 公钥。
      * - `sm2`: 使用 [国密 SM2 算法](https://baike.baidu.com/item/SM2/15081831) 对密码进行加密，需要使用 Authing 服务的 SM2 公钥进行加密，请阅读**介绍**部分了解如何获取 Authing 服务的 SM2 公钥。
@@ -93,26 +93,20 @@ public class UpdateUserOptionsDto {
      */
     public static enum UserIdType {
 
-
         @JsonProperty("user_id")
         USER_ID("user_id"),
-
 
         @JsonProperty("external_id")
         EXTERNAL_ID("external_id"),
 
-
         @JsonProperty("phone")
         PHONE("phone"),
-
 
         @JsonProperty("email")
         EMAIL("email"),
 
-
         @JsonProperty("username")
         USERNAME("username"),
-
 
         @JsonProperty("identity")
         IDENTITY("identity"),
@@ -130,7 +124,7 @@ public class UpdateUserOptionsDto {
     }
 
     /**
-     * 密码加密类型，支持 sm2 和 rsa。默认可以不加密。
+     * 密码加密类型，支持使用 RSA256 和国密 SM2 算法进行加密。默认为 `none` 不加密。
      * - `none`: 不对密码进行加密，使用明文进行传输。
      * - `rsa`: 使用 RSA256 算法对密码进行加密，需要使用 Authing 服务的 RSA 公钥进行加密，请阅读**介绍**部分了解如何获取 Authing 服务的 RSA256 公钥。
      * - `sm2`: 使用 [国密 SM2 算法](https://baike.baidu.com/item/SM2/15081831) 对密码进行加密，需要使用 Authing 服务的 SM2 公钥进行加密，请阅读**介绍**部分了解如何获取 Authing 服务的 SM2 公钥。
@@ -138,14 +132,11 @@ public class UpdateUserOptionsDto {
      */
     public static enum PasswordEncryptType {
 
-
         @JsonProperty("sm2")
         SM2("sm2"),
 
-
         @JsonProperty("rsa")
         RSA("rsa"),
-
 
         @JsonProperty("none")
         NONE("none"),

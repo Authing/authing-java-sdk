@@ -124,30 +124,23 @@ public class CreatePipelineFunctionDto {
      */
     public static enum Scene {
 
-
         @JsonProperty("PRE_REGISTER")
         PRE_REGISTER("PRE_REGISTER"),
-
 
         @JsonProperty("POST_REGISTER")
         POST_REGISTER("POST_REGISTER"),
 
-
         @JsonProperty("PRE_AUTHENTICATION")
         PRE_AUTHENTICATION("PRE_AUTHENTICATION"),
-
 
         @JsonProperty("POST_AUTHENTICATION")
         POST_AUTHENTICATION("POST_AUTHENTICATION"),
 
-
         @JsonProperty("PRE_OIDC_ID_TOKEN_ISSUED")
         PRE_OIDC_ID_TOKEN_ISSUED("PRE_OIDC_ID_TOKEN_ISSUED"),
 
-
         @JsonProperty("PRE_OIDC_ACCESS_TOKEN_ISSUED")
         PRE_OIDC_ACCESS_TOKEN_ISSUED("PRE_OIDC_ACCESS_TOKEN_ISSUED"),
-
 
         @JsonProperty("PRE_COMPLETE_USER_INFO")
         PRE_COMPLETE_USER_INFO("PRE_COMPLETE_USER_INFO"),

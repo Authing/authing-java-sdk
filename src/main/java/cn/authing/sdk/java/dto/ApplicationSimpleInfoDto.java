@@ -96,18 +96,14 @@ public class ApplicationSimpleInfoDto {
      */
     public static enum AppType {
 
-
         @JsonProperty("web")
         WEB("web"),
-
 
         @JsonProperty("spa")
         SPA("spa"),
 
-
         @JsonProperty("native")
         NATIVE("native"),
-
 
         @JsonProperty("api")
         API("api"),
