@@ -240,8 +240,8 @@ public class SigninByMobileDto {
      */
     public static enum Connection {
 
-        @JsonProperty("Apple")
-        APPLE("Apple"),
+        @JsonProperty("apple")
+        APPLE("apple"),
 
         @JsonProperty("wechat")
         WECHAT("wechat"),

@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class GetManagementAccessTokenDto {
     /**
-     * AccessKey ID: 如果是以用户池全局 AK/SK 初始化，为用户池 ID；如果是以协作管理员的 AK/SK 初始化，为协作管理员的 AccessKey ID。
+     * AccessKey ID: 如果是以用户池全局 AK/SK 初始化，为用户池 ID;如果是以协作管理员的 AK/SK 初始化，为协作管理员的 AccessKey ID。
      */
     @JsonProperty("accessKeyId")
     private String accessKeyId;

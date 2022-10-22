@@ -17,7 +17,12 @@ public class EnrollFactorDto {
     @JsonProperty("enrollmentToken")
     private String enrollmentToken;
     /**
-     * MFA 认证要素类型，目前共支持短信、邮箱验证码、OTP、人脸四种类型的认证要素。
+     * MFA 认证要素类型：
+     * - `OTP`: OTP
+     * - `SMS`: 短信
+     * - `EMAIL`: 邮件
+     * - `FACE`: 人脸
+     *
      */
     @JsonProperty("factorType")
     private FactorType factorType;
@@ -45,7 +50,12 @@ public class EnrollFactorDto {
 
 
     /**
-     * MFA 认证要素类型，目前共支持短信、邮箱验证码、OTP、人脸四种类型的认证要素。
+     * MFA 认证要素类型：
+     * - `OTP`: OTP
+     * - `SMS`: 短信
+     * - `EMAIL`: 邮件
+     * - `FACE`: 人脸
+     *
      */
     public static enum FactorType {
 

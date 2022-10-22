@@ -1248,9 +1248,9 @@ public class ManagementClient extends BaseClient {
      * @summary 身份源连接开关
      * @description 身份源连接开关，可以打开或关闭身份源连接。
      **/
-    public IsSuccessRespDto changeConnState(EnableExtIdpConnDto reqDto) {
+    public IsSuccessRespDto changeExtIdpConnState(ChangeExtIdpConnStateDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/enable-ext-idp-conn");
+        config.setUrl("/api/v3/change-ext-idp-conn-state");
         config.setBody(reqDto);
         config.setMethod("POST");
         String response = request(config);
@@ -1261,9 +1261,9 @@ public class ManagementClient extends BaseClient {
      * @summary 租户关联身份源
      * @description 租户可以关联或取消关联身份源连接。
      **/
-    public IsSuccessRespDto changeAssociationState(AssociationExtIdpDto reqDto) {
+    public IsSuccessRespDto changeExtIdpConnAssociationState(ChangeExtIdpAssociationStateDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/association-ext-idp");
+        config.setUrl("/api/v3/change-ext-idp-conn-association-state");
         config.setBody(reqDto);
         config.setMethod("POST");
         String response = request(config);
@@ -1482,7 +1482,7 @@ public class ManagementClient extends BaseClient {
      * @summary 关联/取消关联应用资源到租户
      * @description 通过资源唯一标识以及权限分组，关联或取消关联资源到租户
      **/
-    public IsSuccessRespDto associationTenantResource(AssociationTenantResourceDto reqDto) {
+    public IsSuccessRespDto associateTenantResource(AssociateTenantResourceDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/associate-tenant-resource");
         config.setBody(reqDto);
@@ -1846,26 +1846,26 @@ public class ManagementClient extends BaseClient {
      * @summary 获取第三方邮件服务配置
      * @description 获取第三方邮件服务配置
      **/
-    public EmailProviderDto getEmailProvider() {
+    public EmailProviderRespDto getEmailProvider() {
         AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-email-provier");
+        config.setUrl("/api/v3/get-email-provider");
         config.setBody(new Object());
         config.setMethod("GET");
         String response = request(config);
-        return deserialize(response, EmailProviderDto.class);
+        return deserialize(response, EmailProviderRespDto.class);
     }
 
     /**
      * @summary 配置第三方邮件服务
      * @description 配置第三方邮件服务
      **/
-    public EmailProviderDto configEmailProvider(ConfigEmailProviderDto reqDto) {
+    public EmailProviderRespDto configEmailProvider(ConfigEmailProviderDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/config-email-provier");
         config.setBody(reqDto);
         config.setMethod("POST");
         String response = request(config);
-        return deserialize(response, EmailProviderDto.class);
+        return deserialize(response, EmailProviderRespDto.class);
     }
 
     /**
@@ -2015,9 +2015,9 @@ public class ManagementClient extends BaseClient {
      * @summary 授权应用访问权限
      * @description 给用户、分组、组织或角色授权应用访问权限
      **/
-    public IsSuccessRespDto authorizeApplicationAccess(AddApplicationPermissionRecord reqDto) {
+    public IsSuccessRespDto authorizeApplicationAccess(AuthorizeApplicationAccessDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/add-application-permission-record");
+        config.setUrl("/api/v3/authorize-application-access");
         config.setBody(reqDto);
         config.setMethod("POST");
         String response = request(config);
@@ -2028,9 +2028,9 @@ public class ManagementClient extends BaseClient {
      * @summary 删除应用访问授权记录
      * @description 取消给用户、分组、组织或角色的应用访问权限授权
      **/
-    public IsSuccessRespDto revokeApplicationAccess(DeleteApplicationPermissionRecord reqDto) {
+    public IsSuccessRespDto revokeApplicationAccess(RevokeApplicationAccessDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/delete-application-permission-record");
+        config.setUrl("/api/v3/revoke-application-access");
         config.setBody(reqDto);
         config.setMethod("POST");
         String response = request(config);
@@ -2056,7 +2056,7 @@ public class ManagementClient extends BaseClient {
      **/
     public SecuritySettingsRespDto getSecuritySettings() {
         AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/update-security-settings");
+        config.setUrl("/api/v3/get-security-settings");
         config.setBody(new Object());
         config.setMethod("GET");
         String response = request(config);
@@ -2275,9 +2275,9 @@ public class ManagementClient extends BaseClient {
      * @summary 获取 Pipeline 函数列表
      * @description 获取 Pipeline 函数列表
      **/
-    public PipelineFunctionPaginatedRespDto listPipelineFunctions(ListPipelineFunctionDto reqDto) {
+    public PipelineFunctionPaginatedRespDto listPipelineFunctions(ListPipelineFunctionsDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/list-pipeline-function");
+        config.setUrl("/api/v3/list-pipeline-functions");
         config.setBody(reqDto);
         config.setMethod("GET");
         String response = request(config);

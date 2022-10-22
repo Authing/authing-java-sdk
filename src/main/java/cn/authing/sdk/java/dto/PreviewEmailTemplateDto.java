@@ -6,11 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PreviewEmailTemplateDto {
     /**
-     * 邮件发件人名称，可选，如果不传默认使用用户池配置的邮件模版进行渲染。
-     */
-    @JsonProperty("sender")
-    private String sender;
-    /**
      * 模版类型:
      * - `WELCOME_EMAIL`: 欢迎邮件
      * - `FIRST_CREATED_USER`: 首次创建用户通知
@@ -42,6 +37,11 @@ public class PreviewEmailTemplateDto {
     @JsonProperty("subject")
     private String subject;
     /**
+     * 邮件发件人名称，可选，如果不传默认使用用户池配置的邮件模版进行渲染。
+     */
+    @JsonProperty("sender")
+    private String sender;
+    /**
      * 验证码/邮件有效时间，只有验证类邮件才有有效时间。可选，如果不传默认使用用户池配置的邮件模版进行渲染。
      */
     @JsonProperty("expiresIn")
@@ -56,13 +56,6 @@ public class PreviewEmailTemplateDto {
      */
     @JsonProperty("tplEngine")
     private TplEngine tplEngine;
-
-    public String getSender() {
-        return sender;
-    }
-    public void setSender(String sender) {
-        this.sender = sender;
-    }
 
     public Type getType() {
         return type;
@@ -83,6 +76,13 @@ public class PreviewEmailTemplateDto {
     }
     public void setSubject(String subject) {
         this.subject = subject;
+    }
+
+    public String getSender() {
+        return sender;
+    }
+    public void setSender(String sender) {
+        this.sender = sender;
     }
 
     public Integer getExpiresIn() {

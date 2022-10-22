@@ -8,7 +8,7 @@ import cn.authing.sdk.java.dto.QRCodeStatusBriefUserInfoDto;
 
 public class CheckQRCodeStatusDataDto {
     /**
-     * 二维码状态。按照用户扫码顺序，共分为未扫码、已扫码等待用户确认、用户同意/取消授权、二维码过期以及未知错误六种状态。
+     * 二维码状态。按照用户扫码顺序，共分为 PENDING(未扫码)、SCANNED(已扫码等待用户确认)、AUTHORIZED(用户已授权)、CANCELLED(取消授权)、EXPIRED(二维码过期)以及 ERROR(未知错误)六种状态。
      */
     @JsonProperty("status")
     private Status status;
@@ -55,12 +55,9 @@ public class CheckQRCodeStatusDataDto {
 
 
     /**
-     * 二维码状态。按照用户扫码顺序，共分为未扫码、已扫码等待用户确认、用户同意/取消授权、二维码过期以及未知错误六种状态。
+     * 二维码状态。按照用户扫码顺序，共分为 PENDING(未扫码)、SCANNED(已扫码等待用户确认)、AUTHORIZED(用户已授权)、CANCELLED(取消授权)、EXPIRED(二维码过期)以及 ERROR(未知错误)六种状态。
      */
     public static enum Status {
-
-        @JsonProperty("EXPIRED")
-        EXPIRED("EXPIRED"),
 
         @JsonProperty("PENDING")
         PENDING("PENDING"),
@@ -73,6 +70,9 @@ public class CheckQRCodeStatusDataDto {
 
         @JsonProperty("CANCELLED")
         CANCELLED("CANCELLED"),
+
+        @JsonProperty("EXPIRED")
+        EXPIRED("EXPIRED"),
 
         @JsonProperty("ERROR")
         ERROR("ERROR"),

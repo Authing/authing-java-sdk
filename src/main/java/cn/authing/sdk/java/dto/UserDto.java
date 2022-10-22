@@ -27,6 +27,11 @@ public class UserDto {
     @JsonProperty("status")
     private Status status;
     /**
+     * 账户当前工作状态
+     */
+    @JsonProperty("workStatus")
+    private WorkStatus workStatus;
+    /**
      * 第三方外部 ID
      */
     @JsonProperty("externalId")
@@ -292,6 +297,13 @@ public class UserDto {
     }
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public WorkStatus getWorkStatus() {
+        return workStatus;
+    }
+    public void setWorkStatus(WorkStatus workStatus) {
+        this.workStatus = workStatus;
     }
 
     public String getExternalId() {
@@ -641,6 +653,29 @@ public class UserDto {
         private String value;
 
         Status(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    /**
+     * 账户当前工作状态
+     */
+    public static enum WorkStatus {
+
+        @JsonProperty("Closed")
+        CLOSED("Closed"),
+
+        @JsonProperty("Active")
+        ACTIVE("Active"),
+        ;
+
+        private String value;
+
+        WorkStatus(String value) {
             this.value = value;
         }
 

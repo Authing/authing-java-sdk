@@ -9,7 +9,8 @@ import cn.authing.sdk.java.dto.ResetPasswordByPhonePassCodeDto;
 public class VerifyResetPasswordRequestDto {
     /**
      * 忘记密码请求使用的验证手段：
-     * - `EMAIL_PASSCODE`: 通过邮箱验证码进行验证，当前只支持这种验证方式。
+     * - `EMAIL_PASSCODE`: 通过邮箱验证码进行验证
+     * - `PHONE_PASSCODE`: 通过手机号验证码进行验证
      *
      */
     @JsonProperty("verifyMethod")
@@ -49,7 +50,8 @@ public class VerifyResetPasswordRequestDto {
 
     /**
      * 忘记密码请求使用的验证手段：
-     * - `EMAIL_PASSCODE`: 通过邮箱验证码进行验证，当前只支持这种验证方式。
+     * - `EMAIL_PASSCODE`: 通过邮箱验证码进行验证
+     * - `PHONE_PASSCODE`: 通过手机号验证码进行验证
      *
      */
     public static enum VerifyMethod {

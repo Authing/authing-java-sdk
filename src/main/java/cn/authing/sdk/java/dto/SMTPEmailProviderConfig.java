@@ -8,12 +8,12 @@ public class SMTPEmailProviderConfig {
     /**
      * SMTP 地址
      */
-    @JsonProperty("smtpHost")
+    @JsonProperty("smtp_host")
     private String smtpHost;
     /**
      * SMTP 端口
      */
-    @JsonProperty("smtpPort")
+    @JsonProperty("smtp_port")
     private Integer smtpPort;
     /**
      * 用户名
@@ -28,8 +28,8 @@ public class SMTPEmailProviderConfig {
     /**
      * 是否启用 SSL
      */
-    @JsonProperty("enableSSL")
-    private Boolean enableSSL;
+    @JsonProperty("secure")
+    private Boolean secure;
 
     public String getSmtpHost() {
         return smtpHost;
@@ -59,11 +59,11 @@ public class SMTPEmailProviderConfig {
         this.senderPass = senderPass;
     }
 
-    public Boolean getEnableSSL() {
-        return enableSSL;
+    public Boolean getSecure() {
+        return secure;
     }
-    public void setEnableSSL(Boolean enableSSL) {
-        this.enableSSL = enableSSL;
+    public void setSecure(Boolean secure) {
+        this.secure = secure;
     }
 
 

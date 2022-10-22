@@ -9,8 +9,8 @@ public class VerifyUpdateEmailRequestDto {
     /**
      * 使用邮箱验证码方式验证的数据
      */
-    @JsonProperty("emailPasscodePayload")
-    private UpdateEmailByEmailPassCodeDto emailPasscodePayload;
+    @JsonProperty("emailPassCodePayload")
+    private UpdateEmailByEmailPassCodeDto emailPassCodePayload;
     /**
      * 修改当前邮箱使用的验证手段：
      * - `EMAIL_PASSCODE`: 通过邮箱验证码进行验证，当前只支持这种验证方式。
@@ -19,11 +19,11 @@ public class VerifyUpdateEmailRequestDto {
     @JsonProperty("verifyMethod")
     private VerifyMethod verifyMethod;
 
-    public UpdateEmailByEmailPassCodeDto getEmailPasscodePayload() {
-        return emailPasscodePayload;
+    public UpdateEmailByEmailPassCodeDto getEmailPassCodePayload() {
+        return emailPassCodePayload;
     }
-    public void setEmailPasscodePayload(UpdateEmailByEmailPassCodeDto emailPasscodePayload) {
-        this.emailPasscodePayload = emailPasscodePayload;
+    public void setEmailPassCodePayload(UpdateEmailByEmailPassCodeDto emailPassCodePayload) {
+        this.emailPassCodePayload = emailPassCodePayload;
     }
 
     public VerifyMethod getVerifyMethod() {

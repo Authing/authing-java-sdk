@@ -9,7 +9,7 @@ public class GenerateQrcodeDto {
      * 二维码类型。当前支持三种类型：
      * - `MOBILE_APP`: 自建移动端 APP 扫码
      * - `WECHAT_MINIPROGRAM`: 微信小程序扫码
-     * - `WECHAT_OFFICIAL_ACCOUN` 关注微信公众号扫码
+     * - `WECHAT_OFFICIAL_ACCOUNT` 关注微信公众号扫码
      */
     @JsonProperty("type")
     private Type type;
@@ -74,7 +74,7 @@ public class GenerateQrcodeDto {
      * 二维码类型。当前支持三种类型：
      * - `MOBILE_APP`: 自建移动端 APP 扫码
      * - `WECHAT_MINIPROGRAM`: 微信小程序扫码
-     * - `WECHAT_OFFICIAL_ACCOUN` 关注微信公众号扫码
+     * - `WECHAT_OFFICIAL_ACCOUNT` 关注微信公众号扫码
      */
     public static enum Type {
 
