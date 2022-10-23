@@ -1,12 +1,12 @@
 package test.management;
 
 import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.AuthorizedResourceListRespDto;
-import cn.authing.sdk.java.dto.GetGroupAuthorizedResourcesDto;
+import cn.authing.sdk.java.dto.SecuritySettingsRespDto;
+import cn.authing.sdk.java.dto.UpdateSecuritySettingsDto;
 import cn.authing.sdk.java.model.ManagementClientOptions;
 import cn.authing.sdk.java.util.JsonUtils;
 
-public class GetGroupAuthorizedResources {
+public class UpdateSecuritySettingsTest {
     // 需要替换成你的 Authing Access Key ID
     private static final String ACCESS_KEY_ID = "AUTHING_ACCESS_KEY_ID";
     // 需要替换成你的 Authing Access Key Secret
@@ -21,9 +21,7 @@ public class GetGroupAuthorizedResources {
 
         ManagementClient client = new ManagementClient(clientOptions);
 
-        GetGroupAuthorizedResourcesDto reqDto = new GetGroupAuthorizedResourcesDto();
-        reqDto.setCode("code1");
-        AuthorizedResourceListRespDto response = client.getGroupAuthorizedResources(reqDto);
+        SecuritySettingsRespDto response = client.updateSecuritySettings(new UpdateSecuritySettingsDto());
         System.out.println(JsonUtils.serialize(response));
     }
 }
