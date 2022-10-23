@@ -1,12 +1,12 @@
 package test.management;
 
 import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.CreateExtIdpConnDto;
-import cn.authing.sdk.java.dto.ExtIdpConnDetailSingleRespDto;
+import cn.authing.sdk.java.dto.ListSyncJobsDto;
+import cn.authing.sdk.java.dto.SyncJobPaginatedRespDto;
 import cn.authing.sdk.java.model.ManagementClientOptions;
 import cn.authing.sdk.java.util.JsonUtils;
 
-public class CreateExtIdpConnTest {
+public class ListSyncJobsTest {
     // 需要替换成你的 Authing Access Key ID
     private static final String ACCESS_KEY_ID = "AUTHING_ACCESS_KEY_ID";
     // 需要替换成你的 Authing Access Key Secret
@@ -21,13 +21,9 @@ public class CreateExtIdpConnTest {
 
         ManagementClient client = new ManagementClient(clientOptions);
 
-        CreateExtIdpConnDto reqDto = new CreateExtIdpConnDto();
-        reqDto.setFields(new Object());
-        reqDto.setExtIdpId("60b49eb83fxxxxxdb96f26e68");
-        reqDto.setIdentifier("60b49eb83fd80adb96f26e68");
-        reqDto.setType(CreateExtIdpConnDto.Type.OIDC);
-        reqDto.setDisplayName("登录页");
-        ExtIdpConnDetailSingleRespDto response = client.createExtIdpConn(reqDto);
+        ListSyncJobsDto reqDto = new ListSyncJobsDto();
+        reqDto.setSyncTaskId(1000);
+        SyncJobPaginatedRespDto response = client.listSyncJobs(reqDto);
         System.out.println(JsonUtils.serialize(response));
     }
 }
