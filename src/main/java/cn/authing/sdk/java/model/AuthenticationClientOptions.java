@@ -80,7 +80,7 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
     private String revocationEndPointAuthMethod = AuthMethodEnum.CLIENT_SECRET_POST.getValue();
 
     /**
-     * 用户的AccessToken
+     * 用户的 access_token，可以通过登录接口获取
      */
     private String AccessToken;
 

@@ -2,14 +2,14 @@ package cn.authing.sdk.java.dto.authentication;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class LogoutUrlParams {
+public class BuildLogoutUrlParams {
     /**
      * 登出重定向地址
      */
     @JsonProperty("post_logout_redirect_uri")
     private String postLogoutRedirectUri;
 
-    public LogoutUrlParams() {
+    public BuildLogoutUrlParams() {
     }
 
     /**
