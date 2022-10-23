@@ -7,17 +7,17 @@ import cn.authing.sdk.java.dto.IdentityDto;
 
 public class UserDto {
     /**
-     * 用户 ID
+     * 用户唯一标志，可以是用户 ID、用户名、邮箱、手机号、外部 ID、在外部身份源的 ID。
      */
     @JsonProperty("userId")
     private String userId;
     /**
-     * 账号创建时间
+     * 创建时间
      */
     @JsonProperty("createdAt")
     private String createdAt;
     /**
-     * 账号更新时间
+     * 更新时间
      */
     @JsonProperty("updatedAt")
     private String updatedAt;
@@ -27,17 +27,27 @@ public class UserDto {
     @JsonProperty("status")
     private Status status;
     /**
-     * 邮箱
+     * 账户当前工作状态
+     */
+    @JsonProperty("workStatus")
+    private WorkStatus workStatus;
+    /**
+     * 第三方外部 ID
+     */
+    @JsonProperty("externalId")
+    private String externalId;
+    /**
+     * 邮箱，不区分大小写
      */
     @JsonProperty("email")
     private String email;
     /**
-     * 手机号
+     * 手机号，不带区号。如果是国外手机号，请在 phoneCountryCode 参数中指定区号。
      */
     @JsonProperty("phone")
     private String phone;
     /**
-     * 手机区号
+     * 手机区号，中国大陆手机号可不填。Authing 短信服务暂不内置支持国际手机号，你需要在 Authing 控制台配置对应的国际短信服务。完整的手机区号列表可参阅 https://en.wikipedia.org/wiki/List_of_country_calling_codes。
      */
     @JsonProperty("phoneCountryCode")
     private String phoneCountryCode;
@@ -77,7 +87,11 @@ public class UserDto {
     @JsonProperty("lastIp")
     private String lastIp;
     /**
-     * 性别
+     * 性别:
+     * - `M`: 男性，`male`
+     * - `F`: 女性，`female`
+     * - `U`: 未知，`unknown`
+     *
      */
     @JsonProperty("gender")
     private Gender gender;
@@ -132,10 +146,105 @@ public class UserDto {
     @JsonProperty("postalCode")
     private String postalCode;
     /**
-     * 第三方外部 ID
+     * 所在公司
      */
-    @JsonProperty("externalId")
-    private String externalId;
+    @JsonProperty("company")
+    private String company;
+    /**
+     * 最近一次登录时使用的浏览器 UA
+     */
+    @JsonProperty("browser")
+    private String browser;
+    /**
+     * 最近一次登录时使用的设备
+     */
+    @JsonProperty("device")
+    private String device;
+    /**
+     * 名
+     */
+    @JsonProperty("givenName")
+    private String givenName;
+    /**
+     * 姓
+     */
+    @JsonProperty("familyName")
+    private String familyName;
+    /**
+     * 中间名
+     */
+    @JsonProperty("middleName")
+    private String middleName;
+    /**
+     * Preferred Username
+     */
+    @JsonProperty("profile")
+    private String profile;
+    /**
+     * Preferred Username
+     */
+    @JsonProperty("preferredUsername")
+    private String preferredUsername;
+    /**
+     * 用户个人网页
+     */
+    @JsonProperty("website")
+    private String website;
+    /**
+     * 用户时区信息
+     */
+    @JsonProperty("zoneinfo")
+    private String zoneinfo;
+    /**
+     * Locale
+     */
+    @JsonProperty("locale")
+    private String locale;
+    /**
+     * 标准的完整地址
+     */
+    @JsonProperty("formatted")
+    private String formatted;
+    /**
+     * 用户所在区域
+     */
+    @JsonProperty("region")
+    private String region;
+    /**
+     * 来源类型:
+     * - `excel`: 通过 excel 导入
+     * - `register`: 用户自主注册
+     * - `adminCreated`: 管理员后台手动创建（包含使用管理 API 创建用户 ）
+     * - `syncTask`: 同步中心的同步任务
+     *
+     */
+    @JsonProperty("userSourceType")
+    private UserSourceType userSourceType;
+    /**
+     * 应用 ID 或者同步任务 ID
+     */
+    @JsonProperty("userSourceId")
+    private String userSourceId;
+    /**
+     * 用户上次登录的应用 ID
+     */
+    @JsonProperty("lastLoginApp")
+    private String lastLoginApp;
+    /**
+     * 用户主部门 ID
+     */
+    @JsonProperty("mainDepartmentId")
+    private String mainDepartmentId;
+    /**
+     * 用户上次进行 MFA 认证的时间
+     */
+    @JsonProperty("lastMfaTime")
+    private String lastMfaTime;
+    /**
+     * 用户密码安全强度等级
+     */
+    @JsonProperty("passwordSecurityLevel")
+    private Integer passwordSecurityLevel;
     /**
      * 下次登录要求重置密码
      */
@@ -188,6 +297,20 @@ public class UserDto {
     }
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public WorkStatus getWorkStatus() {
+        return workStatus;
+    }
+    public void setWorkStatus(WorkStatus workStatus) {
+        this.workStatus = workStatus;
+    }
+
+    public String getExternalId() {
+        return externalId;
+    }
+    public void setExternalId(String externalId) {
+        this.externalId = externalId;
     }
 
     public String getEmail() {
@@ -337,11 +460,137 @@ public class UserDto {
         this.postalCode = postalCode;
     }
 
-    public String getExternalId() {
-        return externalId;
+    public String getCompany() {
+        return company;
     }
-    public void setExternalId(String externalId) {
-        this.externalId = externalId;
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getBrowser() {
+        return browser;
+    }
+    public void setBrowser(String browser) {
+        this.browser = browser;
+    }
+
+    public String getDevice() {
+        return device;
+    }
+    public void setDevice(String device) {
+        this.device = device;
+    }
+
+    public String getGivenName() {
+        return givenName;
+    }
+    public void setGivenName(String givenName) {
+        this.givenName = givenName;
+    }
+
+    public String getFamilyName() {
+        return familyName;
+    }
+    public void setFamilyName(String familyName) {
+        this.familyName = familyName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
+
+    public String getPreferredUsername() {
+        return preferredUsername;
+    }
+    public void setPreferredUsername(String preferredUsername) {
+        this.preferredUsername = preferredUsername;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public String getZoneinfo() {
+        return zoneinfo;
+    }
+    public void setZoneinfo(String zoneinfo) {
+        this.zoneinfo = zoneinfo;
+    }
+
+    public String getLocale() {
+        return locale;
+    }
+    public void setLocale(String locale) {
+        this.locale = locale;
+    }
+
+    public String getFormatted() {
+        return formatted;
+    }
+    public void setFormatted(String formatted) {
+        this.formatted = formatted;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public UserSourceType getUserSourceType() {
+        return userSourceType;
+    }
+    public void setUserSourceType(UserSourceType userSourceType) {
+        this.userSourceType = userSourceType;
+    }
+
+    public String getUserSourceId() {
+        return userSourceId;
+    }
+    public void setUserSourceId(String userSourceId) {
+        this.userSourceId = userSourceId;
+    }
+
+    public String getLastLoginApp() {
+        return lastLoginApp;
+    }
+    public void setLastLoginApp(String lastLoginApp) {
+        this.lastLoginApp = lastLoginApp;
+    }
+
+    public String getMainDepartmentId() {
+        return mainDepartmentId;
+    }
+    public void setMainDepartmentId(String mainDepartmentId) {
+        this.mainDepartmentId = mainDepartmentId;
+    }
+
+    public String getLastMfaTime() {
+        return lastMfaTime;
+    }
+    public void setLastMfaTime(String lastMfaTime) {
+        this.lastMfaTime = lastMfaTime;
+    }
+
+    public Integer getPasswordSecurityLevel() {
+        return passwordSecurityLevel;
+    }
+    public void setPasswordSecurityLevel(Integer passwordSecurityLevel) {
+        this.passwordSecurityLevel = passwordSecurityLevel;
     }
 
     public Boolean getResetPasswordOnNextLogin() {
@@ -396,6 +645,9 @@ public class UserDto {
 
         @JsonProperty("Archived")
         ARCHIVED("Archived"),
+
+        @JsonProperty("Deactivated")
+        DEACTIVATED("Deactivated"),
         ;
 
         private String value;
@@ -410,15 +662,42 @@ public class UserDto {
     }
 
     /**
-     * 性别
+     * 账户当前工作状态
+     */
+    public static enum WorkStatus {
+
+        @JsonProperty("Closed")
+        CLOSED("Closed"),
+
+        @JsonProperty("Active")
+        ACTIVE("Active"),
+        ;
+
+        private String value;
+
+        WorkStatus(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    /**
+     * 性别:
+     * - `M`: 男性，`male`
+     * - `F`: 女性，`female`
+     * - `U`: 未知，`unknown`
+     *
      */
     public static enum Gender {
 
         @JsonProperty("M")
         M("M"),
 
-        @JsonProperty("W")
-        W("W"),
+        @JsonProperty("F")
+        F("F"),
 
         @JsonProperty("U")
         U("U"),
@@ -427,6 +706,40 @@ public class UserDto {
         private String value;
 
         Gender(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    /**
+     * 来源类型:
+     * - `excel`: 通过 excel 导入
+     * - `register`: 用户自主注册
+     * - `adminCreated`: 管理员后台手动创建（包含使用管理 API 创建用户 ）
+     * - `syncTask`: 同步中心的同步任务
+     *
+     */
+    public static enum UserSourceType {
+
+        @JsonProperty("excel")
+        EXCEL("excel"),
+
+        @JsonProperty("register")
+        REGISTER("register"),
+
+        @JsonProperty("adminCreated")
+        ADMIN_CREATED("adminCreated"),
+
+        @JsonProperty("syncTask")
+        SYNC_TASK("syncTask"),
+        ;
+
+        private String value;
+
+        UserSourceType(String value) {
             this.value = value;
         }
 

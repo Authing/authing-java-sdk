@@ -31,6 +31,15 @@ public class CreateUserOptionsDto {
      */
     @JsonProperty("sendNotification")
     private SendCreateAccountNotificationDto sendNotification;
+    /**
+     * 密码加密类型，支持使用 RSA256 和国密 SM2 算法进行加密。默认为 `none` 不加密。
+     * - `none`: 不对密码进行加密，使用明文进行传输。
+     * - `rsa`: 使用 RSA256 算法对密码进行加密，需要使用 Authing 服务的 RSA 公钥进行加密，请阅读**介绍**部分了解如何获取 Authing 服务的 RSA256 公钥。
+     * - `sm2`: 使用 [国密 SM2 算法](https://baike.baidu.com/item/SM2/15081831) 对密码进行加密，需要使用 Authing 服务的 SM2 公钥进行加密，请阅读**介绍**部分了解如何获取 Authing 服务的 SM2 公钥。
+     *
+     */
+    @JsonProperty("passwordEncryptType")
+    private PasswordEncryptType passwordEncryptType;
 
     public Boolean getKeepPassword() {
         return keepPassword;
@@ -67,6 +76,13 @@ public class CreateUserOptionsDto {
         this.sendNotification = sendNotification;
     }
 
+    public PasswordEncryptType getPasswordEncryptType() {
+        return passwordEncryptType;
+    }
+    public void setPasswordEncryptType(PasswordEncryptType passwordEncryptType) {
+        this.passwordEncryptType = passwordEncryptType;
+    }
+
 
     /**
      * 此次调用中使用的父部门 ID 的类型
@@ -83,6 +99,36 @@ public class CreateUserOptionsDto {
         private String value;
 
         DepartmentIdType(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    /**
+     * 密码加密类型，支持使用 RSA256 和国密 SM2 算法进行加密。默认为 `none` 不加密。
+     * - `none`: 不对密码进行加密，使用明文进行传输。
+     * - `rsa`: 使用 RSA256 算法对密码进行加密，需要使用 Authing 服务的 RSA 公钥进行加密，请阅读**介绍**部分了解如何获取 Authing 服务的 RSA256 公钥。
+     * - `sm2`: 使用 [国密 SM2 算法](https://baike.baidu.com/item/SM2/15081831) 对密码进行加密，需要使用 Authing 服务的 SM2 公钥进行加密，请阅读**介绍**部分了解如何获取 Authing 服务的 SM2 公钥。
+     *
+     */
+    public static enum PasswordEncryptType {
+
+        @JsonProperty("sm2")
+        SM2("sm2"),
+
+        @JsonProperty("rsa")
+        RSA("rsa"),
+
+        @JsonProperty("none")
+        NONE("none"),
+        ;
+
+        private String value;
+
+        PasswordEncryptType(String value) {
             this.value = value;
         }
 

@@ -126,6 +126,9 @@ public class CreateExtIdpConnDto {
         @JsonProperty("twitter")
         TWITTER("twitter"),
 
+        @JsonProperty("google:mobile")
+        GOOGLE_MOBILE("google:mobile"),
+
         @JsonProperty("google")
         GOOGLE("google"),
 
@@ -167,6 +170,9 @@ public class CreateExtIdpConnDto {
 
         @JsonProperty("wechatwork:mobile")
         WECHATWORK_MOBILE("wechatwork:mobile"),
+
+        @JsonProperty("wechatwork:agency:mobile")
+        WECHATWORK_AGENCY_MOBILE("wechatwork:agency:mobile"),
 
         @JsonProperty("dingtalk")
         DINGTALK("dingtalk"),
@@ -215,6 +221,9 @@ public class CreateExtIdpConnDto {
 
         @JsonProperty("welink")
         WELINK("welink"),
+
+        @JsonProperty("ad-kerberos")
+        AD_KERBEROS("ad-kerberos"),
         ;
 
         private String value;

@@ -6,7 +6,7 @@
 
     <groupId>cn.authing</groupId>
     <artifactId>authing-java-sdk</artifactId>
-    <version>1.0.6</version>
+    <version>3.0.0</version>
 
     <name>Authing Java SDK</name>
     <description>java backend sdk for authing</description>
@@ -28,6 +28,9 @@
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+<!--        TODO-->
+        <maven.test.skip>true</maven.test.skip>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
     </properties>
 
     <developers>
@@ -89,6 +92,12 @@
             <artifactId>junit-jupiter</artifactId>
             <version>RELEASE</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.0</version>
         </dependency>
 
     </dependencies>

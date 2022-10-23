@@ -1,27 +1,42 @@
 package cn.authing.sdk.java.model;
 
+import cn.authing.sdk.java.enums.AuthMethodEnum;
+import cn.authing.sdk.java.enums.ProtocolEnum;
 import cn.authing.sdk.java.util.HttpUtils;
-import com.nimbusds.jose.jwk.JWKSet;
+import cn.hutool.core.util.StrUtil;
 
+import java.util.Arrays;
+import java.util.Base64;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  * @author ZKB
  */
 public class AuthenticationClientOptions extends AuthingClientOptions {
-    /** 应用 ID */
+    /**
+     * Authing 应用 ID，必填。
+     */
     private String appId;
 
-    /** 应用 Secret */
+    /**
+     * Authing 应用密钥，必填。
+     */
     private String appSecret;
 
-    /** 应用对应的用户池域名，例如 pool.authing.cn */
-    private String host;
+    /**
+     * Authing 应用域名，如 https://example.authing.cn，必填。
+     */
+    private String appHost;
 
-    /** 认证完成后的重定向目标 URL */
+    /**
+     * 认证完成后的重定向目标 URL，可选。Authing 服务器会对此链接进行校验，需要和控制台的设置保持一致。
+     */
     private String redirectUri;
 
-    /** 登出完成后的重定向目标 URL */
+    /**
+     * 登出完成后的重定向目标 URL，可选。Authing 服务器会对此链接进行校验，需要和控制台的设置保持一致。
+     */
     private String logoutRedirectUri;
 
     /**
@@ -35,11 +50,6 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
     private String scope = "openid profile offline_access";
 
     /**
-     * 服务端的 JWKS 公钥，用于验证 Token 签名，默认会通过网络请求从服务端的 JWKS 端点自动获取
-     */
-    private JWKSet serverJWKS;
-
-    /**
      * 存储认证上下文的 Cookie 名称
      */
     private String cookieKey;
@@ -49,18 +59,63 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
      */
     private int timeout = 10000;
 
-    public AuthenticationClientOptions(String appId, String appSecret, String domain, String redirectUri) {
-        this.appId = appId;
-        this.appSecret = appSecret;
-        this.host = domain;
-        this.redirectUri = redirectUri;
-    }
+    /**
+     * 获取 token 端点认证方式
+     */
+    private String tokenEndPointAuthMethod = AuthMethodEnum.CLIENT_SECRET_POST.getValue();
+
+    /**
+     * 获取 token 端点认证方式
+     */
+    private String protocol = ProtocolEnum.OIDC.getValue();
+
+    /**
+     * 检查 token 端点认证方式
+     */
+    private String introspectionEndPointAuthMethod = AuthMethodEnum.CLIENT_SECRET_POST.getValue();
+
+    /**
+     * 检查 token 端点认证方式
+     */
+    private String revocationEndPointAuthMethod = AuthMethodEnum.CLIENT_SECRET_POST.getValue();
+
+    /**
+     * 用户的 access_token，可以通过登录接口获取
+     */
+    private String AccessToken;
 
     @Override
     public String doRequest(String url, String method, Map<String, String> headers, Object body) {
+        if (headers == null) {
+            headers = new HashMap<>();
+        }
         headers.put("x-authing-request-from", AuthingClientOptions.REQUEST_FROM);
         headers.put("x-authing-sdk-version", AuthingClientOptions.SDK_VERSION);
-        return HttpUtils.request(getHost() + url, method, body, headers, getTimeout());
+        headers.put("x-authing-app-id", this.appId);
+
+        // 如果设置的 tokenEndPointAuthMethod 为 client_secret_basic 并且调用的是 /oidc 相关接口：
+        // 1. 获取 token: /oidc(oauth)/token
+        // 2. 撤销 token: /oidc(oauth)/token/revocation
+        // 3. 检查 token: /oidc(oauth)/token/introspection
+        // 4. 其他登录获取 token 接口
+        String[] endpointsToSendBasicHeader = {
+                "/oidc/token",
+                "/oidc/token/revocation",
+                "/oidc/token/introspection",
+                "/oauth/token",
+                "/oauth/token/revocation",
+                "/oauth/token/introspection",
+                "/api/v3/signin",
+                "/api/v3/signin-by-mobile",
+                "/api/v3/exchange-tokenset-with-qrcode-ticket"
+        };
+        if (this.getTokenEndPointAuthMethod() == AuthMethodEnum.CLIENT_SECRET_BASIC.getValue() && Arrays.asList(endpointsToSendBasicHeader).contains(url)) {
+            headers.put("authorization", "Basic " + Base64.getEncoder().encodeToString((this.getAppId() + ":" + this.getAppSecret()).getBytes()));
+        } else if (StrUtil.isNotBlank(this.getAccessToken())) {
+            headers.put("authorization", "Bearer " + this.getAccessToken());
+        }
+
+        return HttpUtils.request(getAppHost() + url, method, body, headers, getTimeout());
     }
 
     public int getTimeout() {
@@ -83,12 +138,12 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
         this.appSecret = appSecret;
     }
 
-    public String getHost() {
-        return host;
+    public String getAppHost() {
+        return appHost;
     }
 
-    public void setHost(String host) {
-        this.host = host;
+    public void setAppHost(String appHost) {
+        this.appHost = appHost;
     }
 
     public String getRedirectUri() {
@@ -115,20 +170,44 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
         this.scope = scope;
     }
 
-    public JWKSet getServerJWKS() {
-        return serverJWKS;
+    public String getTokenEndPointAuthMethod() {
+        return tokenEndPointAuthMethod;
     }
 
-    public void setServerJWKS(JWKSet serverJWKS) {
-        this.serverJWKS = serverJWKS;
+    public void setTokenEndPointAuthMethod(String tokenEndPointAuthMethod) {
+        this.tokenEndPointAuthMethod = tokenEndPointAuthMethod;
     }
 
-    public String getCookieKey() {
-        return cookieKey;
+    public String getProtocol() {
+        return protocol;
     }
 
-    public void setCookieKey(String cookieKey) {
-        this.cookieKey = cookieKey;
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
+    }
+
+    public String getIntrospectionEndPointAuthMethod() {
+        return introspectionEndPointAuthMethod;
+    }
+
+    public void setIntrospectionEndPointAuthMethod(String introspectionEndPointAuthMethod) {
+        this.introspectionEndPointAuthMethod = introspectionEndPointAuthMethod;
+    }
+
+    public String getAccessToken() {
+        return AccessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        AccessToken = accessToken;
+    }
+
+    public String getRevocationEndPointAuthMethod() {
+        return revocationEndPointAuthMethod;
+    }
+
+    public void setRevocationEndPointAuthMethod(String revocationEndPointAuthMethod) {
+        this.revocationEndPointAuthMethod = revocationEndPointAuthMethod;
     }
 }
 

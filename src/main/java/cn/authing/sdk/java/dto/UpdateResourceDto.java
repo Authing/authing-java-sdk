@@ -96,6 +96,9 @@ public class UpdateResourceDto {
 
         @JsonProperty("BUTTON")
         BUTTON("BUTTON"),
+
+        @JsonProperty("UI")
+        UI("UI"),
         ;
 
         private String value;

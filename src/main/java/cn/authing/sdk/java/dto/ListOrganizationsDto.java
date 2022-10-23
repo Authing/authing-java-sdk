@@ -20,6 +20,11 @@ public class ListOrganizationsDto {
      */
     @JsonProperty("fetchAll")
     private Boolean fetchAll;
+    /**
+     * 是否获取自定义数据
+     */
+    @JsonProperty("withCustomData")
+    private Boolean withCustomData;
 
     public Integer getPage() {
         return page;
@@ -40,6 +45,13 @@ public class ListOrganizationsDto {
     }
     public void setFetchAll(Boolean fetchAll) {
         this.fetchAll = fetchAll;
+    }
+
+    public Boolean getWithCustomData() {
+        return withCustomData;
+    }
+    public void setWithCustomData(Boolean withCustomData) {
+        this.withCustomData = withCustomData;
     }
 
 

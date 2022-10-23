@@ -15,6 +15,16 @@ public class GetExtIdpDto {
      */
     @JsonProperty("tenantId")
     private String tenantId;
+    /**
+     * 应用 ID
+     */
+    @JsonProperty("appId")
+    private String appId;
+    /**
+     * 身份源类型
+     */
+    @JsonProperty("type")
+    private String type;
 
     public String getId() {
         return id;
@@ -28,6 +38,20 @@ public class GetExtIdpDto {
     }
     public void setTenantId(String tenantId) {
         this.tenantId = tenantId;
+    }
+
+    public String getAppId() {
+        return appId;
+    }
+    public void setAppId(String appId) {
+        this.appId = appId;
+    }
+
+    public String getType() {
+        return type;
+    }
+    public void setType(String type) {
+        this.type = type;
     }
 
 

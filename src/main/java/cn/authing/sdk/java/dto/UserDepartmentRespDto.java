@@ -3,7 +3,7 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import cn.authing.sdk.java.dto.I18nDto;
+import cn.authing.sdk.java.dto.DepartmentI18nDto;
 
 public class UserDepartmentRespDto {
     /**
@@ -65,7 +65,7 @@ public class UserDepartmentRespDto {
      * 多语言设置
      */
     @JsonProperty("i18n")
-    private I18nDto i18n;
+    private DepartmentI18nDto i18n;
     /**
      * 部门的扩展字段数据
      */
@@ -149,10 +149,10 @@ public class UserDepartmentRespDto {
         this.isVirtualNode = isVirtualNode;
     }
 
-    public I18nDto getI18n() {
+    public DepartmentI18nDto getI18n() {
         return i18n;
     }
-    public void setI18n(I18nDto i18n) {
+    public void setI18n(DepartmentI18nDto i18n) {
         this.i18n = i18n;
     }
 

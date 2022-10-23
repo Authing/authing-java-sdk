@@ -1,3 +1,4 @@
+import cn.authing.sdk.java.client.AuthenticationClient;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.hutool.core.util.StrUtil;
 
@@ -22,21 +23,30 @@ import java.util.UUID;
  * @author chho
  */
 public class TestGenerator2 {
-    
+
     public static void main(String[] args) throws Throwable{
-        File file = new File("D:\\Work\\Java_\\Workspace\\Authing\\authing-java-sdk-v5\\target\\classes\\cn\\authing\\sdk\\java\\dto");
+        // 管理侧生成
+        File file = new File("./target/classes/cn/authing/sdk/java/dto");
         Map<String, Class<?>> classMap = new HashMap<>();
         for (File f : Objects.requireNonNull(file.listFiles())) {
-            String s = f.getName().split("\\.")[0];
+            if (f.isDirectory()){
+                continue;
+            }
+            String s = f.getName();
+            s = s.substring(s.lastIndexOf("/")+1,s.lastIndexOf("."));
+            System.out.println(s);
             Class<?> aClass = Class.forName("cn.authing.sdk.java.dto." + s);
             classMap.put(aClass.getCanonicalName(), aClass);
         }
-        
+        // 私有化，直接打包给客户，maven 打包
+        // 管理侧生成
         Method[] methods = ManagementClient.class.getDeclaredMethods();
+        // 认证侧生成
+//         Method[] methods = AuthenticationClient.class.getDeclaredMethods();
         TestTemplate testTemplate = new TestTemplate();
         testTemplate.setClassName("ManagementClient");
         testTemplate.setMethods(new ArrayList<>());
-        
+
         for (Method m : methods) {
             System.out.println("-------------------- method " + m.getName() + " --------------------");
             TestTemplate.Method method = new TestTemplate.Method();
@@ -44,12 +54,12 @@ public class TestGenerator2 {
             method.setMethodName(m.getName());
             method.setReqParameters(new ArrayList<>());
             for (java.lang.reflect.Parameter p : m.getParameters()) {
-    
+
                 TestTemplate.Parameter parameter = new TestTemplate.Parameter();
                 parameter.setClassName(p.getType().getSimpleName());
                 parameter.setName("request");
                 parameter.setValue(generateValue(p));
-                
+
                 List<TestTemplate.Parameter> properties = new ArrayList<>();
                 for (Field field : p.getType().getDeclaredFields()) {
                     TestTemplate.Parameter property = new TestTemplate.Parameter();
@@ -64,15 +74,17 @@ public class TestGenerator2 {
             }
             testTemplate.getMethods().add(method);
         }
-        
+
         // write
         for (TestTemplate.Method method : testTemplate.getMethods()) {
-            FileReader fileReader = new FileReader(new File("D:\\Work\\Java_\\Workspace\\Authing\\authing-java-sdk-v5\\src\\test\\java\\resources\\test_template2.ftl"));
-            FileWriter fileWriter = new FileWriter(new File("D:\\Work\\Java_\\Workspace\\Authing\\authing-java-sdk-v5\\src\\test\\java\\test\\" + StrUtil.upperFirst(method.getMethodName()) + "Test.java"));
+            FileReader fileReader = new FileReader(new File("./src/test/java/resources/test_template2.ftl"));
+            FileWriter fileWriter = new FileWriter(new File("./src/test/java/test/" + StrUtil.upperFirst(method.getMethodName()) + "Test.java"));
+            // 认证侧生成
+            // FileWriter fileWriter = new FileWriter(new File("/Users/yujiale/work/authing/node/sdk/authing-java-sdk-v5/src/test/java/test/authentication/" + StrUtil.upperFirst(method.getMethodName()) + "Test.java"));
             FreeMarkerUtils.process(fileReader, fileWriter, method, method.getMethodName());
         }
     }
-    
+
     private static String generateValue(java.lang.reflect.Parameter p) {
         if (p.getType().isAssignableFrom(List.class)) {
             return "new ArrayList<>()";
@@ -85,7 +97,7 @@ public class TestGenerator2 {
         }
         return "new " + p.getType().getSimpleName() + "()";
     }
-    
+
     private static String generateValue(Field f, Class<?> p, Map<String, Class<?>> classMap) {
         if (f.getType().isAssignableFrom(List.class)) {
             Type fc = f.getGenericType(); //如果是List类型，得到其Generic的类型
@@ -119,7 +131,7 @@ public class TestGenerator2 {
         }
         return "null";
     }
-    
+
     private static String generateValue(Class<?> f, Map<String, Class<?>> classMap) {
         if (f.isAssignableFrom(String.class)) {
             return "\"" + f.getSimpleName() + "_" + new Random().nextInt(9999) + "\"";

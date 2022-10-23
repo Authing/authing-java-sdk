@@ -10,12 +10,24 @@ public class ListExtIdpDto {
      */
     @JsonProperty("tenantId")
     private String tenantId;
+    /**
+     * 应用 ID
+     */
+    @JsonProperty("appId")
+    private String appId;
 
     public String getTenantId() {
         return tenantId;
     }
     public void setTenantId(String tenantId) {
         this.tenantId = tenantId;
+    }
+
+    public String getAppId() {
+        return appId;
+    }
+    public void setAppId(String appId) {
+        this.appId = appId;
     }
 
 

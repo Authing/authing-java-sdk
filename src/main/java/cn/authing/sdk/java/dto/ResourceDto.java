@@ -17,6 +17,11 @@ public class ResourceDto {
     @JsonProperty("description")
     private String description;
     /**
+     * 资源名称
+     */
+    @JsonProperty("name")
+    private String name;
+    /**
      * 资源类型，如数据、API、按钮、菜单
      */
     @JsonProperty("type")
@@ -36,6 +41,11 @@ public class ResourceDto {
      */
     @JsonProperty("namespace")
     private String namespace;
+    /**
+     * 租户应用是否关联自建应用资源
+     */
+    @JsonProperty("linkedToTenant")
+    private Boolean linkedToTenant;
 
     public String getCode() {
         return code;
@@ -49,6 +59,13 @@ public class ResourceDto {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Type getType() {
@@ -79,6 +96,13 @@ public class ResourceDto {
         this.namespace = namespace;
     }
 
+    public Boolean getLinkedToTenant() {
+        return linkedToTenant;
+    }
+    public void setLinkedToTenant(Boolean linkedToTenant) {
+        this.linkedToTenant = linkedToTenant;
+    }
+
 
     /**
      * 资源类型，如数据、API、按钮、菜单
@@ -96,6 +120,9 @@ public class ResourceDto {
 
         @JsonProperty("BUTTON")
         BUTTON("BUTTON"),
+
+        @JsonProperty("UI")
+        UI("UI"),
         ;
 
         private String value;

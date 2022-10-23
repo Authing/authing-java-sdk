@@ -24,9 +24,12 @@ import java.util.UUID;
 public class GoTestGenerator2 {
     
     public static void main(String[] args) throws Throwable{
-        File file = new File("D:\\Work\\Java_\\Workspace\\Authing\\authing-java-sdk-v5\\target\\classes\\cn\\authing\\sdk\\java\\dto");
+        File file = new File("./target/classes/cn/authing/sdk/java/dto");
         Map<String, Class<?>> classMap = new HashMap<>();
         for (File f : Objects.requireNonNull(file.listFiles())) {
+            if (f.isDirectory()){
+                continue;
+            }
             String s = f.getName().split("\\.")[0];
             Class<?> aClass = Class.forName("cn.authing.sdk.java.dto." + s);
             classMap.put(aClass.getCanonicalName(), aClass);
@@ -71,8 +74,8 @@ public class GoTestGenerator2 {
     
         for (TestTemplate.Method method : testTemplate.getMethods()) {
             // write
-            FileReader fileReader = new FileReader(new File("D:\\Work\\Java_\\Workspace\\Authing\\authing-java-sdk-v5\\src\\test\\java\\resources\\go_template2.ftl"));
-            FileWriter fileWriter = new FileWriter(new File("D:\\Work\\Java_\\Workspace\\Authing\\authing-java-sdk-v5\\src\\test\\go\\test\\" + StrUtil.upperFirst(method.getMethodName()) + "Test.go"));
+            FileReader fileReader = new FileReader(new File("./src/test/java/resources/go_template2.ftl"));
+            FileWriter fileWriter = new FileWriter(new File("./src/test/go/test/" + StrUtil.upperFirst(method.getMethodName()) + "Test.go"));
     
             FreeMarkerUtils.process(fileReader, fileWriter, method, method.getMethodName());
         }

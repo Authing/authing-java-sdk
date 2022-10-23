@@ -6,6 +6,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ListGroupsDto {
     /**
+     * 搜索分组 code 或分组名称
+     */
+    @JsonProperty("keywords")
+    private String keywords;
+    /**
      * 当前页数，从 1 开始
      */
     @JsonProperty("page")
@@ -15,6 +20,13 @@ public class ListGroupsDto {
      */
     @JsonProperty("limit")
     private Integer limit;
+
+    public String getKeywords() {
+        return keywords;
+    }
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
+    }
 
     public Integer getPage() {
         return page;

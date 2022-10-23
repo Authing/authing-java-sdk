@@ -8,6 +8,11 @@ public class EnableExtIdpConnDto {
     /**
      * 应用 ID
      */
+    @JsonProperty("appIds")
+    private String appIds;
+    /**
+     * 应用 ID
+     */
     @JsonProperty("appId")
     private String appId;
     /**
@@ -25,6 +30,13 @@ public class EnableExtIdpConnDto {
      */
     @JsonProperty("tenantId")
     private String tenantId;
+
+    public String getAppIds() {
+        return appIds;
+    }
+    public void setAppIds(String appIds) {
+        this.appIds = appIds;
+    }
 
     public String getAppId() {
         return appId;

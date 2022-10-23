@@ -14,7 +14,7 @@ public class LangUnit {
      * 多语言内容
      */
     @JsonProperty("value")
-    private Boolean value;
+    private String value;
 
     public Boolean getEnabled() {
         return enabled;
@@ -23,10 +23,10 @@ public class LangUnit {
         this.enabled = enabled;
     }
 
-    public Boolean getValue() {
+    public String getValue() {
         return value;
     }
-    public void setValue(Boolean value) {
+    public void setValue(String value) {
         this.value = value;
     }
 

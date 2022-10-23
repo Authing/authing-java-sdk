@@ -6,7 +6,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class GetCustomFieldsDto {
     /**
-     * 主体类型，目前支持用户、角色、分组、部门
+     * 目标对象类型：
+     * - `USER`: 用户
+     * - `ROLE`: 角色
+     * - `GROUP`: 分组
+     * - `DEPARTMENT`: 部门
+     * ;该接口暂不支持分组(GROUP)
      */
     @JsonProperty("targetType")
     private String targetType;

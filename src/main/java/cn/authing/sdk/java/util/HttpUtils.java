@@ -68,13 +68,17 @@ public class HttpUtils {
     
     public static String buildUrlWithQueryParams(String url, Map<String, Object> params) {
         StringBuilder sb = new StringBuilder(url);
-        sb.append(buildQueryParams(params));
+        if(params != null && !params.isEmpty()){
+            sb.append("?");
+            sb.append(buildQueryParams(params));
+            sb.deleteCharAt(sb.length()-1);
+        }
         return sb.toString();
     }
 
     public static String buildQueryParams(Map<String, Object> params) {
         StringBuilder sb = new StringBuilder();
-        if (params != null) {
+        if (params != null && !params.isEmpty()) {
             Set<Map.Entry<String, Object>> entries = params.entrySet();
             for (Map.Entry<String, Object> entry : entries) {
                 if (entry.getValue() != null) {
@@ -82,7 +86,6 @@ public class HttpUtils {
                 }
             }
         }
-
         return sb.toString();
     }
     

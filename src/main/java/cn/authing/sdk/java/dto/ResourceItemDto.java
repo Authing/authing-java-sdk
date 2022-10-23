@@ -59,6 +59,9 @@ public class ResourceItemDto {
 
         @JsonProperty("BUTTON")
         BUTTON("BUTTON"),
+
+        @JsonProperty("UI")
+        UI("UI"),
         ;
 
         private String value;

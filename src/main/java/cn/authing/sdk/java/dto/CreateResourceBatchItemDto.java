@@ -17,6 +17,11 @@ public class CreateResourceBatchItemDto {
     @JsonProperty("description")
     private String description;
     /**
+     * 资源名称
+     */
+    @JsonProperty("name")
+    private String name;
+    /**
      * 资源类型，如数据、API、按钮、菜单
      */
     @JsonProperty("type")
@@ -44,6 +49,13 @@ public class CreateResourceBatchItemDto {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Type getType() {
@@ -84,6 +96,9 @@ public class CreateResourceBatchItemDto {
 
         @JsonProperty("BUTTON")
         BUTTON("BUTTON"),
+
+        @JsonProperty("UI")
+        UI("UI"),
         ;
 
         private String value;

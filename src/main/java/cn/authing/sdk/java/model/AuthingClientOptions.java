@@ -27,7 +27,5 @@ public abstract class AuthingClientOptions {
      * @param body   请求内容
      * @return 响应
      */
-    public String doRequest(String url, String method, Map<String, String> headers, Object body) {
-        return null;
-    }
+    public abstract String doRequest(String url, String method, Map<String, String> headers, Object body);
 }
