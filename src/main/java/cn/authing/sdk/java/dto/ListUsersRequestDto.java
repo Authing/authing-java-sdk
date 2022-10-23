@@ -10,8 +10,8 @@ public class ListUsersRequestDto {
     /**
      * 模糊搜索关键字
      */
-    @JsonProperty("query")
-    private String query;
+    @JsonProperty("keywords")
+    private String keywords;
     /**
      * 高级搜索
      */
@@ -23,11 +23,11 @@ public class ListUsersRequestDto {
     @JsonProperty("options")
     private ListUsersOptionsDto options;
 
-    public String getQuery() {
-        return query;
+    public String getKeywords() {
+        return keywords;
     }
-    public void setQuery(String query) {
-        this.query = query;
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
     }
 
     public List<ListUsersAdvancedFilterItemDto> getAdvancedFilter() {

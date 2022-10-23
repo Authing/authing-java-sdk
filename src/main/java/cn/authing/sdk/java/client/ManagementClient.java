@@ -44,7 +44,7 @@ public class ManagementClient extends BaseClient {
      * <p>
      * ```json
      * {
-     * "query": "北京",
+     * "keywords": "北京",
      * "options": {
      * "fuzzySearchOn": [
      * "address"
@@ -1861,7 +1861,7 @@ public class ManagementClient extends BaseClient {
      **/
     public EmailProviderRespDto configEmailProvider(ConfigEmailProviderDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/config-email-provier");
+        config.setUrl("/api/v3/config-email-provider");
         config.setBody(reqDto);
         config.setMethod("POST");
         String response = request(config);
@@ -2013,7 +2013,7 @@ public class ManagementClient extends BaseClient {
 
     /**
      * @summary 授权应用访问权限
-     * @description 给用户、分组、组织或角色授权应用访问权限
+     * @description 给用户、分组、组织或角色授权应用访问权限，如果用户、分组、组织或角色不存在，则跳过，进行下一步授权，不返回报错
      **/
     public IsSuccessRespDto authorizeApplicationAccess(AuthorizeApplicationAccessDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -2026,7 +2026,7 @@ public class ManagementClient extends BaseClient {
 
     /**
      * @summary 删除应用访问授权记录
-     * @description 取消给用户、分组、组织或角色的应用访问权限授权
+     * @description 取消给用户、分组、组织或角色的应用访问权限授权,如果传入数据不存在，则返回数据不报错处理。
      **/
     public IsSuccessRespDto revokeApplicationAccess(RevokeApplicationAccessDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -2091,7 +2091,7 @@ public class ManagementClient extends BaseClient {
 
     /**
      * @summary 修改全局多因素认证配置
-     * @description 传入 MFA 认证因素列表进行修改
+     * @description 传入 MFA 认证因素列表进行开启,
      **/
     public MFASettingsRespDto updateGlobalMfaSettings(MFASettingsDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -2338,7 +2338,7 @@ public class ManagementClient extends BaseClient {
 
     /**
      * @summary 删除 Webhook
-     * @description 通过指定多个 webhookId，以数组的形式进行 webhook 的删除
+     * @description 通过指定多个 webhookId,以数组的形式进行 webhook 的删除,如果 webhookId 不存在,不提示报错
      **/
     public DeleteWebhookRespDto deleteWebhook(DeleteWebhookDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -2351,7 +2351,7 @@ public class ManagementClient extends BaseClient {
 
     /**
      * @summary 获取 Webhook 日志
-     * @description 通过指定 webhookId，可选 page 和 limit 来获取 webhook 日志
+     * @description 通过指定 webhookId，可选 page 和 limit 来获取 webhook 日志,如果 webhookId 不存在,不返回报错信息
      **/
     public ListWebhookLogsRespDto getWebhookLogs(ListWebhookLogs reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();

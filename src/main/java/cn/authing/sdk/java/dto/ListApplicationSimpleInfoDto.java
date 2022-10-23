@@ -33,8 +33,8 @@ public class ListApplicationSimpleInfoDto {
     /**
      * 模糊搜索字符串
      */
-    @JsonProperty("keyword")
-    private String keyword;
+    @JsonProperty("keywords")
+    private String keywords;
 
     public Integer getPage() {
         return page;
@@ -71,11 +71,11 @@ public class ListApplicationSimpleInfoDto {
         this.ssoEnabled = ssoEnabled;
     }
 
-    public String getKeyword() {
-        return keyword;
+    public String getKeywords() {
+        return keywords;
     }
-    public void setKeyword(String keyword) {
-        this.keyword = keyword;
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
     }
 
 
