@@ -2,12 +2,11 @@ package test.authentication;
 
 import cn.authing.sdk.java.client.AuthenticationClient;
 import cn.authing.sdk.java.dto.CommonResponseDto;
-import cn.authing.sdk.java.dto.UnbindExtIdpDto;
 import cn.authing.sdk.java.dto.UnlinkExtIdpDto;
 import cn.authing.sdk.java.model.AuthenticationClientOptions;
 import cn.authing.sdk.java.util.JsonUtils;
 
-public class UnbindExtIdpTest {
+public class UnLinkExtIdpTest {
     // 需要替换成你的 Authing App ID
     private static final String APP_ID = "AUTHING_APP_ID";
     // 需要替换成你的 Authing App Secret

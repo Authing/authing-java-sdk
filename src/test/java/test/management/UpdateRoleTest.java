@@ -6,7 +6,7 @@ import cn.authing.sdk.java.dto.UpdateRoleDto;
 import cn.authing.sdk.java.model.ManagementClientOptions;
 import cn.authing.sdk.java.util.JsonUtils;
 
-public class UpdateRole {
+public class UpdateRoleTest {
     // 需要替换成你的 Authing Access Key ID
     private static final String ACCESS_KEY_ID = "AUTHING_ACCESS_KEY_ID";
     // 需要替换成你的 Authing Access Key Secret

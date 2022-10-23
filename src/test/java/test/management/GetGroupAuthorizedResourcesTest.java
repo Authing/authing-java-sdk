@@ -1,13 +1,12 @@
 package test.management;
 
 import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.AdminAuditLogRespDto;
-import cn.authing.sdk.java.dto.CostGetCurrentUsageRespDto;
-import cn.authing.sdk.java.dto.GetAdminAuditLogsDto;
+import cn.authing.sdk.java.dto.AuthorizedResourceListRespDto;
+import cn.authing.sdk.java.dto.GetGroupAuthorizedResourcesDto;
 import cn.authing.sdk.java.model.ManagementClientOptions;
 import cn.authing.sdk.java.util.JsonUtils;
 
-public class GetAdminAuditLogsTest {
+public class GetGroupAuthorizedResourcesTest {
     // 需要替换成你的 Authing Access Key ID
     private static final String ACCESS_KEY_ID = "AUTHING_ACCESS_KEY_ID";
     // 需要替换成你的 Authing Access Key Secret
@@ -22,8 +21,9 @@ public class GetAdminAuditLogsTest {
 
         ManagementClient client = new ManagementClient(clientOptions);
 
-        GetAdminAuditLogsDto getAdminAuditLogsDto = new GetAdminAuditLogsDto();
-        AdminAuditLogRespDto adminAuditLogs = client.getAdminAuditLogs(getAdminAuditLogsDto);
-        System.out.println(JsonUtils.serialize(adminAuditLogs.getData()));
+        GetGroupAuthorizedResourcesDto reqDto = new GetGroupAuthorizedResourcesDto();
+        reqDto.setCode("code1");
+        AuthorizedResourceListRespDto response = client.getGroupAuthorizedResources(reqDto);
+        System.out.println(JsonUtils.serialize(response));
     }
 }
