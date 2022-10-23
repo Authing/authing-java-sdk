@@ -1,13 +1,11 @@
 package cn.authing.sdk.java.model;
 
-import cn.authing.sdk.java.dto.CreateUserReqDto;
 import cn.authing.sdk.java.enums.SignatureEnum;
 import cn.authing.sdk.java.util.CommonUtils;
 import cn.authing.sdk.java.util.signature.ISignatureComposer;
 import cn.authing.sdk.java.util.signature.Impl.SignatureComposer;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.http.Header;
 import cn.hutool.http.Method;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
