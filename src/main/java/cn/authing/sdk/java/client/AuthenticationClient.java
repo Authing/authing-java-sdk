@@ -330,11 +330,11 @@ public class AuthenticationClient extends BaseClient {
             throw new InvalidParameterException("请在初始化 AuthenticationClient 时传入 appId");
         }
 
-        if (ProtocolEnum.OIDC.getValue().equals(options.getProtocol())) {
+        if (!ProtocolEnum.OIDC.getValue().equals(options.getProtocol())) {
             throw new InvalidParameterException("初始化 AuthenticationClient 传入的 protocol 应为 ProtocolEnum.OIDC 不应该为 $protocol");
         }
 
-        if (StrUtil.isEmpty(options.getRedirectUri())) {
+        if (StrUtil.isEmpty(options.getRedirectUri()) && StrUtil.isEmpty(params.getRedirectUri())) {
             throw new InvalidParameterException("redirectUri 不应该为空 解决方法：请在 AuthenticationClient 初始化时传入 redirectUri，或者调用 buildAuthorizeUrl 时传入 redirectUri");
         }
 
