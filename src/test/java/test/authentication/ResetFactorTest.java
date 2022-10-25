@@ -1,6 +1,7 @@
 package test.authentication;
 
 import cn.authing.sdk.java.client.AuthenticationClient;
+import cn.authing.sdk.java.dto.ResetFactorDto;
 import cn.authing.sdk.java.dto.ResetFactorRespDto;
 import cn.authing.sdk.java.dto.RestFactorDto;
 import cn.authing.sdk.java.model.AuthenticationClientOptions;
@@ -25,7 +26,7 @@ public class ResetFactorTest {
 
         AuthenticationClient client = new AuthenticationClient(clientOptions);
 
-        RestFactorDto reqDto = new RestFactorDto();
+        ResetFactorDto reqDto = new ResetFactorDto();
         reqDto.setFactorId("6229ffaxxxxxxxxcade3e3d9");
         ResetFactorRespDto response = client.resetFactor(reqDto);
         System.out.println(JsonUtils.serialize(response));
