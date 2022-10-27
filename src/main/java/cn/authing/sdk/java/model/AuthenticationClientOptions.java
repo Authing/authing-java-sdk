@@ -5,10 +5,7 @@ import cn.authing.sdk.java.enums.ProtocolEnum;
 import cn.authing.sdk.java.util.HttpUtils;
 import cn.hutool.core.util.StrUtil;
 
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author ZKB
@@ -109,10 +106,14 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
                 "/api/v3/signin-by-mobile",
                 "/api/v3/exchange-tokenset-with-qrcode-ticket"
         };
-        if (this.getTokenEndPointAuthMethod() == AuthMethodEnum.CLIENT_SECRET_BASIC.getValue() && Arrays.asList(endpointsToSendBasicHeader).contains(url)) {
-            headers.put("authorization", "Basic " + Base64.getEncoder().encodeToString((this.getAppId() + ":" + this.getAppSecret()).getBytes()));
-        } else if (StrUtil.isNotBlank(this.getAccessToken())) {
-            headers.put("authorization", "Bearer " + this.getAccessToken());
+
+        // 请求的是上述几个地址
+        if (Arrays.asList(endpointsToSendBasicHeader).contains(url)) {
+            if (Objects.equals(this.getTokenEndPointAuthMethod(), AuthMethodEnum.CLIENT_SECRET_BASIC.getValue())) {
+                headers.put("authorization", "Basic " + Base64.getEncoder().encodeToString((this.getAppId() + ":" + this.getAppSecret()).getBytes()));
+            }
+        } else if (StrUtil.isNotBlank(this.getAccessToken())){
+                headers.put("authorization", "Bearer " + this.getAccessToken());
         }
 
         return HttpUtils.request(getAppHost() + url, method, body, headers, getTimeout());
