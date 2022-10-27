@@ -339,7 +339,7 @@ public class AuthenticationClient extends BaseClient {
         }
 
         Map<String, Object> map = new HashMap<>();
-        map.put("client_id", Optional.ofNullable(params.getAppId()).orElse(options.getAppId()));
+        map.put("client_id", options.getAppId());
         map.put("scope", Optional.ofNullable(params.getScope()).orElse("openid profile email phone address"));
         map.put("state", Optional.ofNullable(params.getState()).orElse(CommonUtils.createRandomString(12)));
         map.put("nonce", Optional.ofNullable(params.getNonce()).orElse(CommonUtils.createRandomString(12)));

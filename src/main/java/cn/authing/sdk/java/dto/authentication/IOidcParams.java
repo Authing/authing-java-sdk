@@ -3,8 +3,6 @@ package cn.authing.sdk.java.dto.authentication;
 
 public class IOidcParams {
 
-    private String appId;
-
     private String scope;
 
     private String nonce;
@@ -16,14 +14,6 @@ public class IOidcParams {
     private String responseType;
 
     private String redirectUri;
-
-    public String getAppId() {
-        return appId;
-    }
-
-    public void setAppId(String appId) {
-        this.appId = appId;
-    }
 
     public String getScope() {
         return scope;
