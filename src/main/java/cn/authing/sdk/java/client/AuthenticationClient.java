@@ -88,7 +88,7 @@ public class AuthenticationClient extends BaseClient {
         return deserialize(payload, IDToken.class);
     }
 
-    private AccessToken introspectAccessTokenOffline(String token) throws Exception {
+    public AccessToken introspectAccessTokenOffline(String token) throws Exception {
         JWSObject jwsObject = JWSObject.parse(token);
         String payload;
         RSAKey rsaKey = this.fetchJwks().getKeys().get(0).toRSAKey();
@@ -457,7 +457,7 @@ public class AuthenticationClient extends BaseClient {
     /**
      * 检查 Access token 或 Refresh token 的状态
      */
-    public IntrospectTokenWithClientSecretPostRespDto introspectToken(String token) {
+    public IntrospectTokenRespDto introspectToken(String token) {
         verificationProtocol();
 
         String introspectionEndPointAuthMethod = options.getIntrospectionEndPointAuthMethod();
@@ -470,7 +470,7 @@ public class AuthenticationClient extends BaseClient {
         }
     }
 
-    private IntrospectTokenWithClientSecretPostRespDto introspectTokenWithClientSecretPost(String token) {
+    private IntrospectTokenRespDto introspectTokenWithClientSecretPost(String token) {
         AuthingRequestConfig config = new AuthingRequestConfig();
 
         if (ProtocolEnum.OIDC.getValue().equals(options.getProtocol())) {
@@ -492,10 +492,10 @@ public class AuthenticationClient extends BaseClient {
         config.setBody(reqDto);
 
         String response = request(config);
-        return deserialize(response, IntrospectTokenWithClientSecretPostRespDto.class);
+        return deserialize(response, IntrospectTokenRespDto.class);
     }
 
-    private IntrospectTokenWithClientSecretPostRespDto introspectTokenWithClientSecretBasic(String token) {
+    private IntrospectTokenRespDto introspectTokenWithClientSecretBasic(String token) {
         String basic64Str = "Basic " + Base64Encoder.encode((options.getAppId() + ":" + options.getAppSecret()).getBytes());
 
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -518,10 +518,10 @@ public class AuthenticationClient extends BaseClient {
         config.setBody(reqDto);
 
         String response = request(config);
-        return deserialize(response, IntrospectTokenWithClientSecretPostRespDto.class);
+        return deserialize(response, IntrospectTokenRespDto.class);
     }
 
-    private IntrospectTokenWithClientSecretPostRespDto introspectTokenWithNone(String token) {
+    private IntrospectTokenRespDto introspectTokenWithNone(String token) {
         AuthingRequestConfig config = new AuthingRequestConfig();
 
         if (ProtocolEnum.OIDC.getValue().equals(options.getProtocol())) {
@@ -542,7 +542,7 @@ public class AuthenticationClient extends BaseClient {
         config.setBody(reqDto);
 
         String response = request(config);
-        return deserialize(response, IntrospectTokenWithClientSecretPostRespDto.class);
+        return deserialize(response, IntrospectTokenRespDto.class);
     }
 
     /**
@@ -579,7 +579,7 @@ public class AuthenticationClient extends BaseClient {
     /**
      * 撤回 Access token 或 Refresh token
      */
-    public Boolean revokeToken(String token) {
+    public boolean revokeToken(String token) {
         verificationProtocol();
 
         String revocationEndPointAuthMethod = options.getRevocationEndPointAuthMethod();
@@ -592,7 +592,7 @@ public class AuthenticationClient extends BaseClient {
         }
     }
 
-    private Boolean revokeTokenWithClientSecretPost(String token) {
+    private boolean revokeTokenWithClientSecretPost(String token) {
         AuthingRequestConfig config = new AuthingRequestConfig();
 
         if (ProtocolEnum.OIDC.getValue().equals(options.getProtocol())) {
@@ -618,7 +618,7 @@ public class AuthenticationClient extends BaseClient {
         return true;
     }
 
-    private Boolean revokeTokenWithClientSecretBasic(String token) {
+    private boolean revokeTokenWithClientSecretBasic(String token) {
         if (ProtocolEnum.OAUTH.getValue().equals(options.getProtocol())) {
             throw new InvalidParameterException("OAuth 2.0 暂不支持用 client_secret_basic 模式身份验证撤回 Token");
         }
@@ -642,7 +642,7 @@ public class AuthenticationClient extends BaseClient {
         return true;
     }
 
-    private Boolean revokeTokenWithNone(String token) {
+    private boolean revokeTokenWithNone(String token) {
         AuthingRequestConfig config = new AuthingRequestConfig();
 
         if (ProtocolEnum.OIDC.getValue().equals(options.getProtocol())) {

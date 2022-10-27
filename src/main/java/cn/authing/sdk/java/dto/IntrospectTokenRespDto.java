@@ -2,7 +2,7 @@ package cn.authing.sdk.java.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class IntrospectTokenWithClientSecretPostRespDto {
+public class IntrospectTokenRespDto {
 
     @JsonProperty("active")
     private Boolean active;
