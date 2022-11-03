@@ -20,6 +20,11 @@ public class LoginFailCheckConfigDto {
      */
     @JsonProperty("timeInterval")
     private Integer timeInterval;
+    /**
+     * 时间长度单位。Second/Minute/Hour/Day，仅仅做显示，timeInterval的单位还是秒
+     */
+    @JsonProperty("unit")
+    private String unit;
 
     public Boolean getEnabled() {
         return enabled;
@@ -40,6 +45,13 @@ public class LoginFailCheckConfigDto {
     }
     public void setTimeInterval(Integer timeInterval) {
         this.timeInterval = timeInterval;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
 

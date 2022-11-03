@@ -16,7 +16,7 @@ public class UpdateSecuritySettingsDto {
      * 安全域（CORS）
      */
     @JsonProperty("allowedOrigins")
-    private String allowedOrigins;
+    private List<String> allowedOrigins;
     /**
      * Authing Token 有效时间（秒）
      */
@@ -88,10 +88,10 @@ public class UpdateSecuritySettingsDto {
     @JsonProperty("qrcodeLoginStrategy")
     private QrcodeLoginStrategyDto qrcodeLoginStrategy;
 
-    public String getAllowedOrigins() {
+    public List<String> getAllowedOrigins() {
         return allowedOrigins;
     }
-    public void setAllowedOrigins(String allowedOrigins) {
+    public void setAllowedOrigins(List<String> allowedOrigins) {
         this.allowedOrigins = allowedOrigins;
     }
 

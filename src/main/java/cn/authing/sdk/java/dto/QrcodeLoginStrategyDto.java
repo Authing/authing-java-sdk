@@ -6,15 +6,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class QrcodeLoginStrategyDto {
     /**
-     * 二维码有效时间（秒）
+     * 二维码有效时间，单位秒
      */
     @JsonProperty("qrcodeExpiresIn")
     private Integer qrcodeExpiresIn;
     /**
-     * ticket 有效时间（秒）
+     * 时间长度单位，Second/Minute/Hour/Day，仅做显示用
+     */
+    @JsonProperty("qrcodeExpiresInUnit")
+    private String qrcodeExpiresInUnit;
+    /**
+     * ticket 有效时间，单位秒
      */
     @JsonProperty("ticketExpiresIn")
     private Integer ticketExpiresIn;
+    /**
+     * 时间长度单位，Second/Minute/Hour/Day，仅作显示用
+     */
+    @JsonProperty("ticketExpiresInUnit")
+    private String ticketExpiresInUnit;
     /**
      * Web 轮询接口返回完整用户信息，详情见此文档：Web 轮询接口返回完整用户信息
      */
@@ -33,11 +43,25 @@ public class QrcodeLoginStrategyDto {
         this.qrcodeExpiresIn = qrcodeExpiresIn;
     }
 
+    public String getQrcodeExpiresInUnit() {
+        return qrcodeExpiresInUnit;
+    }
+    public void setQrcodeExpiresInUnit(String qrcodeExpiresInUnit) {
+        this.qrcodeExpiresInUnit = qrcodeExpiresInUnit;
+    }
+
     public Integer getTicketExpiresIn() {
         return ticketExpiresIn;
     }
     public void setTicketExpiresIn(Integer ticketExpiresIn) {
         this.ticketExpiresIn = ticketExpiresIn;
+    }
+
+    public String getTicketExpiresInUnit() {
+        return ticketExpiresInUnit;
+    }
+    public void setTicketExpiresInUnit(String ticketExpiresInUnit) {
+        this.ticketExpiresInUnit = ticketExpiresInUnit;
     }
 
     public Boolean getAllowExchangeUserInfoFromBrowser() {

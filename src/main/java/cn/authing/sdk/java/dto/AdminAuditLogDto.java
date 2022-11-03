@@ -44,7 +44,7 @@ public class AdminAuditLogDto {
      *
      */
     @JsonProperty("operationType")
-    private String operationType;
+    private OperationType operationType;
     /**
      * 事件类型：
      * - `user`: 用户
@@ -69,7 +69,7 @@ public class AdminAuditLogDto {
      *
      */
     @JsonProperty("resourceType")
-    private String resourceType;
+    private ResourceType resourceType;
     /**
      * 事件详情
      */
@@ -149,17 +149,17 @@ public class AdminAuditLogDto {
         this.clientIp = clientIp;
     }
 
-    public String getOperationType() {
+    public OperationType getOperationType() {
         return operationType;
     }
-    public void setOperationType(String operationType) {
+    public void setOperationType(OperationType operationType) {
         this.operationType = operationType;
     }
 
-    public String getResourceType() {
+    public ResourceType getResourceType() {
         return resourceType;
     }
-    public void setResourceType(String resourceType) {
+    public void setResourceType(ResourceType resourceType) {
         this.resourceType = resourceType;
     }
 
@@ -232,5 +232,182 @@ public class AdminAuditLogDto {
     public void setRequestId(String requestId) {
         this.requestId = requestId;
     }
+
+
+    /**
+     * 操作类型：
+     * - `create`: 创建
+     * - `delete`: 删除
+     * - `import`: 导入
+     * - `export`: 导出
+     * - `update`: 修改
+     * - `refresh`: 刷新
+     * - `sync`: 同步
+     * - `invite`: 邀请
+     * - `resign`: 离职
+     * - `recover`: 恢复
+     * - `disable`: 禁用
+     * - `userEnable`: 启用
+     *
+     */
+    public static enum OperationType {
+
+        @JsonProperty("all")
+        ALL("all"),
+
+        @JsonProperty("create")
+        CREATE("create"),
+
+        @JsonProperty("delete")
+        DELETE("delete"),
+
+        @JsonProperty("import")
+        IMPORT("import"),
+
+        @JsonProperty("export")
+        EXPORT("export"),
+
+        @JsonProperty("update")
+        UPDATE("update"),
+
+        @JsonProperty("refresh")
+        REFRESH("refresh"),
+
+        @JsonProperty("sync")
+        SYNC("sync"),
+
+        @JsonProperty("invite")
+        INVITE("invite"),
+
+        @JsonProperty("resign")
+        RESIGN("resign"),
+
+        @JsonProperty("recover")
+        RECOVER("recover"),
+
+        @JsonProperty("disable")
+        DISABLE("disable"),
+
+        @JsonProperty("userEnable")
+        USER_ENABLE("userEnable"),
+
+        @JsonProperty("activate")
+        ACTIVATE("activate"),
+
+        @JsonProperty("deactivate")
+        DEACTIVATE("deactivate"),
+        ;
+
+        private String value;
+
+        OperationType(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    /**
+     * 事件类型：
+     * - `user`: 用户
+     * - `userpool`: 用户池
+     * - `tenant`: 租户
+     * - `userLoginState`: 用户登录态
+     * - `userAccountState`: 用户账号状态
+     * - `userGroup`: 用户分组
+     * - `fieldEncryptState`: 字段加密状态
+     * - `syncTask`: 同步任务
+     * - `socialConnection`: 社会化身份源
+     * - `enterpriseConnection`: 社会化身份源
+     * - `customDatabase`: 自定义数据库
+     * - `org`: 组织机构
+     * - `cooperator`: 协作管理员
+     * - `application`: 应用
+     * - `resourceNamespace`: 权限分组
+     * - `resource`: 资源
+     * - `role`: 角色
+     * - `roleAssign`: 角色授权
+     * - `policy`: 策略
+     *
+     */
+    public static enum ResourceType {
+
+        @JsonProperty("all")
+        ALL("all"),
+
+        @JsonProperty("user")
+        USER("user"),
+
+        @JsonProperty("userpool")
+        USERPOOL("userpool"),
+
+        @JsonProperty("tenant")
+        TENANT("tenant"),
+
+        @JsonProperty("userLoginState")
+        USER_LOGIN_STATE("userLoginState"),
+
+        @JsonProperty("userAccountState")
+        USER_ACCOUNT_STATE("userAccountState"),
+
+        @JsonProperty("userGroup")
+        USER_GROUP("userGroup"),
+
+        @JsonProperty("fieldEncryptState")
+        FIELD_ENCRYPT_STATE("fieldEncryptState"),
+
+        @JsonProperty("syncTask")
+        SYNC_TASK("syncTask"),
+
+        @JsonProperty("socialConnection")
+        SOCIAL_CONNECTION("socialConnection"),
+
+        @JsonProperty("enterpriseConnection")
+        ENTERPRISE_CONNECTION("enterpriseConnection"),
+
+        @JsonProperty("customDatabase")
+        CUSTOM_DATABASE("customDatabase"),
+
+        @JsonProperty("org")
+        ORG("org"),
+
+        @JsonProperty("cooperator")
+        COOPERATOR("cooperator"),
+
+        @JsonProperty("application")
+        APPLICATION("application"),
+
+        @JsonProperty("resourceNamespace")
+        RESOURCE_NAMESPACE("resourceNamespace"),
+
+        @JsonProperty("resource")
+        RESOURCE("resource"),
+
+        @JsonProperty("role")
+        ROLE("role"),
+
+        @JsonProperty("roleAssign")
+        ROLE_ASSIGN("roleAssign"),
+
+        @JsonProperty("policy")
+        POLICY("policy"),
+
+        @JsonProperty("customDomain")
+        CUSTOM_DOMAIN("customDomain"),
+        ;
+
+        private String value;
+
+        ResourceType(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
 
 }
