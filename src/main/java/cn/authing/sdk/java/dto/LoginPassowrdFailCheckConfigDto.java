@@ -6,12 +6,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class LoginPassowrdFailCheckConfigDto {
     /**
-     * 是否开启登录失败次数限制。
+     * 是否开启登录密码错误限制
      */
     @JsonProperty("enabled")
     private Boolean enabled;
     /**
-     * 在一定时间周期内，对于同一个 IP，最多因为密码错误导致登录失败多少次后会触发安全策略。
+     * 密码错误次数最大限制
      */
     @JsonProperty("limit")
     private Integer limit;
@@ -20,6 +20,11 @@ public class LoginPassowrdFailCheckConfigDto {
      */
     @JsonProperty("timeInterval")
     private Integer timeInterval;
+    /**
+     * 时间长度单位。Second/Minute/Hour/Day，仅仅做显示，timeInterval的单位还是秒
+     */
+    @JsonProperty("unit")
+    private String unit;
 
     public Boolean getEnabled() {
         return enabled;
@@ -40,6 +45,13 @@ public class LoginPassowrdFailCheckConfigDto {
     }
     public void setTimeInterval(Integer timeInterval) {
         this.timeInterval = timeInterval;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
 
