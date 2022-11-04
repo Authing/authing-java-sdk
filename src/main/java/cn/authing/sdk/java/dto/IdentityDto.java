@@ -59,6 +59,16 @@ public class IdentityDto {
     @JsonProperty("userIdInIdp")
     private String userIdInIdp;
     /**
+     * 在外部身份源中的 Access Token（此参数只会在用户主动获取时返回，管理侧接口不会返回）。
+     */
+    @JsonProperty("accessToken")
+    private String accessToken;
+    /**
+     * 在外部身份源中的 Refresh Token（此参数只会在用户主动获取时返回，管理侧接口不会返回）。
+     */
+    @JsonProperty("refreshToken")
+    private String refreshToken;
+    /**
      * 身份来自的身份源连接 ID 列表
      */
     @JsonProperty("originConnIds")
@@ -97,6 +107,20 @@ public class IdentityDto {
     }
     public void setUserIdInIdp(String userIdInIdp) {
         this.userIdInIdp = userIdInIdp;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 
     public List<String> getOriginConnIds() {

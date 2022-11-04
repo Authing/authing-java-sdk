@@ -5,7 +5,6 @@ import cn.authing.sdk.java.dto.*;
 
 import cn.authing.sdk.java.model.AuthingRequestConfig;
 import cn.authing.sdk.java.model.ManagementClientOptions;
-
 import java.util.HashMap;
 import java.util.Collections;
 import java.util.Map;
@@ -39,19 +38,10 @@ public class ManagementClient extends BaseClient {
      * <p>
      * ### 模糊搜素示例
      * <p>
-     * 模糊搜索默认会从 `phone`, `email`, `name`, `username`, `nickname` 五个字段对用户进行模糊搜索，你也可以通过设置 `options.fuzzySearchOn`
-     * 决定模糊匹配的字段范围：
+     * 模糊搜索默认会从 `phone`, `email`, `name`, `username`, `nickname` 五个字段对用户进行模糊搜索，你也可以通过设置
+     * `options.fuzzySearchOn` 决定模糊匹配的字段范围：
      * <p>
-     * ```json
-     * {
-     * "keywords": "北京",
-     * "options": {
-     * "fuzzySearchOn": [
-     * "address"
-     * ]
-     * }
-     * }
-     * ```
+     * ```json { "keywords": "北京", "options": { "fuzzySearchOn": [ "address" ] } } ```
      * <p>
      * ### 高级搜索示例
      * <p>
@@ -62,150 +52,58 @@ public class ManagementClient extends BaseClient {
      * <p>
      * 用户状态（`status`）为字符串类型，可选值为 `Activated` 和 `Suspended`：
      * <p>
-     * ```json
-     * {
-     * "advancedFilter": [
-     * {
-     * "field": "status",
-     * "operator": "EQUAL",
-     * "value": "Suspended"
-     * }
-     * ]
-     * }
-     * ```
+     * ```json { "advancedFilter": [ { "field": "status", "operator": "EQUAL", "value": "Suspended"
+     * } ] } ```
      * <p>
      * #### 筛选邮箱中包含 `@example.com` 的用户
      * <p>
      * 用户邮箱（`email`）为字符串类型，可以进行模糊搜索：
      * <p>
-     * ```json
-     * {
-     * "advancedFilter": [
-     * {
-     * "field": "email",
-     * "operator": "CONTAINS",
-     * "value": "@example.com"
-     * }
-     * ]
-     * }
-     * ```
+     * ```json { "advancedFilter": [ { "field": "email", "operator": "CONTAINS", "value":
+     * "@example.com" } ] } ```
      * <p>
      * #### 根据用户的任意扩展字段进行搜索
      * <p>
-     * ```json
-     * {
-     * "advancedFilter": [
-     * {
-     * "field": "some-custom-key",
-     * "operator": "EQUAL",
-     * "value": "some-value"
-     * }
-     * ]
-     * }
-     * ```
+     * ```json { "advancedFilter": [ { "field": "some-custom-key", "operator": "EQUAL", "value":
+     * "some-value" } ] } ```
      * <p>
      * #### 根据用户登录次数筛选
      * <p>
      * 筛选登录次数大于 10 的用户：
      * <p>
-     * ```json
-     * {
-     * "advancedFilter": [
-     * {
-     * "field": "loginsCount",
-     * "operator": "GREATER",
-     * "value": 10
-     * }
-     * ]
-     * }
-     * ```
+     * ```json { "advancedFilter": [ { "field": "loginsCount", "operator": "GREATER", "value": 10 }
+     * ] } ```
      * <p>
      * 筛选登录次数在 10 - 100 次的用户：
      * <p>
-     * ```json
-     * {
-     * "advancedFilter": [
-     * {
-     * "field": "loginsCount",
-     * "operator": "BETWEEN",
-     * "value": [10, 100]
-     * }
-     * ]
-     * }
-     * ```
+     * ```json { "advancedFilter": [ { "field": "loginsCount", "operator": "BETWEEN", "value": [10,
+     * 100] } ] } ```
      * <p>
      * #### 根据用户上次登录时间进行筛选
      * <p>
      * 筛选最近 7 天内登录过的用户：
      * <p>
-     * ```json
-     * {
-     * "advancedFilter": [
-     * {
-     * "field": "lastLoginTime",
-     * "operator": "GREATER",
-     * "value": new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
-     * }
-     * ]
-     * }
-     * ```
+     * ```json { "advancedFilter": [ { "field": "lastLoginTime", "operator": "GREATER", "value": new
+     * Date(Date.now() - 7 * 24 * 60 * 60 * 1000) } ] } ```
      * <p>
      * 筛选在某一段时间内登录过的用户：
      * <p>
-     * ```json
-     * {
-     * "advancedFilter": [
-     * {
-     * "field": "lastLoginTime",
-     * "operator": "BETWEEN",
-     * "value": [
-     * new Date(Date.now() - 14 * 24 * 60 * 60 * 1000),
-     * new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
-     * ]
-     * }
-     * ]
-     * }
-     * ```
+     * ```json { "advancedFilter": [ { "field": "lastLoginTime", "operator": "BETWEEN", "value": [
+     * new Date(Date.now() - 14 * 24 * 60 * 60 * 1000), new Date(Date.now() - 7 * 24 * 60 * 60 *
+     * 1000) ] } ] } ```
      * <p>
      * #### 根据用户曾经登录过的应用筛选
      * <p>
      * 筛选出曾经登录过应用 `appId1` 或者 `appId2` 的用户：
      * <p>
-     * ```json
-     * {
-     * "advancedFilter": [
-     * {
-     * "field": "loggedInApps",
-     * "operator": "IN",
-     * "value": [
-     * "appId1",
-     * "appId2"
-     * ]
-     * }
-     * ]
-     * }
-     * ```
+     * ```json { "advancedFilter": [ { "field": "loggedInApps", "operator": "IN", "value": [
+     * "appId1", "appId2" ] } ] } ```
      * <p>
      * #### 根据用户所在部门进行筛选
      * <p>
-     * ```json
-     * {
-     * "advancedFilter": [
-     * {
-     * "field": "department",
-     * "operator": "IN",
-     * "value": [
-     * {
-     * "organizationCode": "steamory",
-     * "departmentId": "root",
-     * "departmentIdType": "department_id",
-     * "includeChildrenDepartments": true
-     * }
-     * ]
-     * }
-     * ]
-     * }
-     * ```
+     * ```json { "advancedFilter": [ { "field": "department", "operator": "IN", "value": [ {
+     * "organizationCode": "steamory", "departmentId": "root", "departmentIdType": "department_id",
+     * "includeChildrenDepartments": true } ] } ] } ```
      **/
     public UserPaginatedRespDto listUsers(ListUsersRequestDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -351,7 +249,8 @@ public class ManagementClient extends BaseClient {
      * @summary 获取用户实名认证信息
      * @description 通过用户 ID，获取用户实名认证信息，可以选择指定用户 ID 类型。
      **/
-    public PrincipalAuthenticationInfoPaginatedRespDto getUserPrincipalAuthenticationInfo(GetUserPrincipalAuthenticationInfoDto reqDto) {
+    public PrincipalAuthenticationInfoPaginatedRespDto getUserPrincipalAuthenticationInfo(
+            GetUserPrincipalAuthenticationInfoDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-user-principal-authentication-info");
         config.setBody(reqDto);
@@ -364,7 +263,8 @@ public class ManagementClient extends BaseClient {
      * @summary 删除用户实名认证信息
      * @description 通过用户 ID，删除用户实名认证信息，可以选择指定用户 ID 类型等。
      **/
-    public IsSuccessRespDto resetUserPrincipalAuthenticationInfo(ResetUserPrincipalAuthenticationInfoDto reqDto) {
+    public IsSuccessRespDto resetUserPrincipalAuthenticationInfo(
+            ResetUserPrincipalAuthenticationInfoDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/reset-user-principal-authentication-info");
         config.setBody(reqDto);
@@ -533,7 +433,8 @@ public class ManagementClient extends BaseClient {
      * @summary 获取用户曾经登录过的身份源
      * @description 通过用户 ID，获取用户曾经登录过的身份源，可以选择指定用户 ID 类型等。
      **/
-    public UserLoggedInIdentitiesRespDto getUserLoggedinIdentities(GetUserLoggedInIdentitiesDto reqDto) {
+    public UserLoggedInIdentitiesRespDto getUserLoggedinIdentities(
+            GetUserLoggedInIdentitiesDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-user-logged-in-identities");
         config.setBody(reqDto);
@@ -572,7 +473,8 @@ public class ManagementClient extends BaseClient {
      * @summary 获取用户被授权的所有资源
      * @description 通过用户 ID，获取用户被授权的所有资源，可以选择指定用户 ID 类型等，用户被授权的资源是用户自身被授予、通过分组继承、通过角色继承、通过组织机构继承的集合。
      **/
-    public AuthorizedResourcePaginatedRespDto getUserAuthorizedResources(GetUserAuthorizedResourcesDto reqDto) {
+    public AuthorizedResourcePaginatedRespDto getUserAuthorizedResources(
+            GetUserAuthorizedResourcesDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-user-authorized-resources");
         config.setBody(reqDto);
@@ -988,7 +890,8 @@ public class ManagementClient extends BaseClient {
      * @summary 获取分组被授权的资源列表
      * @description 通过分组 code，获取分组被授权的资源列表，可以通过资源类型、权限分组 code 筛选。
      **/
-    public AuthorizedResourceListRespDto getGroupAuthorizedResources(GetGroupAuthorizedResourcesDto reqDto) {
+    public AuthorizedResourceListRespDto getGroupAuthorizedResources(
+            GetGroupAuthorizedResourcesDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-group-authorized-resources");
         config.setBody(reqDto);
@@ -1040,7 +943,8 @@ public class ManagementClient extends BaseClient {
      * @summary 获取角色被授权的资源列表
      * @description 通过权限分组内角色 code，获取角色被授权的资源列表。
      **/
-    public RoleAuthorizedResourcePaginatedRespDto getRoleAuthorizedResources(GetRoleAuthorizedResourcesDto reqDto) {
+    public RoleAuthorizedResourcePaginatedRespDto getRoleAuthorizedResources(
+            GetRoleAuthorizedResourcesDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-role-authorized-resources");
         config.setBody(reqDto);
@@ -1077,7 +981,7 @@ public class ManagementClient extends BaseClient {
 
     /**
      * @summary 创建角色
-     * @description 通过权限分组内角色 code，创建角色，可以选择权限分组、角色描述等。
+     * @description 通过权限分组（权限空间）内角色 code，创建角色，可以选择权限分组、角色描述、角色名称等。
      **/
     public RoleSingleRespDto createRole(CreateRoleDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -1090,7 +994,7 @@ public class ManagementClient extends BaseClient {
 
     /**
      * @summary 获取角色列表
-     * @description 获取角色列表，支持分页。
+     * @description 获取角色列表，支持分页、支持根据权限分组（权限空间）筛选
      **/
     public RolePaginatedRespDto listRoles(ListRolesDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -1102,8 +1006,8 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
-     * @summary 删除角色
-     * @description 删除角色，可以批量删除。
+     * @summary 单个权限分组（权限空间）内删除角色
+     * @description 单个权限分组（权限空间）内删除角色，可以批量删除。
      **/
     public IsSuccessRespDto deleteRolesBatch(DeleteRoleDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -1129,7 +1033,7 @@ public class ManagementClient extends BaseClient {
 
     /**
      * @summary 修改角色
-     * @description 通过权限分组内角色新旧 code，修改角色，可以选择角色描述等。
+     * @description 通过权限分组(权限空间 ） 内角色新旧 Code ， 修改角色 ， 可以选择角色名称 、 角色描述等 。
      **/
     public IsSuccessRespDto updateRole(UpdateRoleDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -1138,6 +1042,32 @@ public class ManagementClient extends BaseClient {
         config.setMethod("POST");
         String response = request(config);
         return deserialize(response, IsSuccessRespDto.class);
+    }
+
+    /**
+     * @summary 跨权限分组（空间）删除角色
+     * @description 跨权限分组（空间）删除角色，可以批量删除。
+     **/
+    public IsSuccessRespDto deleteRoles(DeleteRoleBatchDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/multiple-namespace-delete-roles-batch");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, IsSuccessRespDto.class);
+    }
+
+    /**
+     * @summary 校验角色 Code 或者名称是否可用
+     * @description 通过用户池 ID、权限空间 Code和角色 Code,或者用户池 ID、权限空间名称和角色名称查询是否可用。
+     **/
+    public RoleCheckParamsRespDto checkParamsNamespace(CheckRoleParamsDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/check-role-params");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, RoleCheckParamsRespDto.class);
     }
 
     /**
@@ -1261,7 +1191,8 @@ public class ManagementClient extends BaseClient {
      * @summary 租户关联身份源
      * @description 租户可以关联或取消关联身份源连接。
      **/
-    public IsSuccessRespDto changeExtIdpConnAssociationState(ChangeExtIdpAssociationStateDto reqDto) {
+    public IsSuccessRespDto changeExtIdpConnAssociationState(
+            ChangeExtIdpAssociationStateDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/change-ext-idp-conn-association-state");
         config.setBody(reqDto);
@@ -1427,6 +1358,19 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
+     * @summary 分页获取常规资源列表
+     * @description 根据筛选条件，分页获取常规资源详情列表。
+     **/
+    public CommonResourcePaginatedRespDto listCommonResource(CommonListResourceDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/list-common-resource");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, CommonResourcePaginatedRespDto.class);
+    }
+
+    /**
      * @summary 分页获取资源列表
      * @description 根据筛选条件，分页获取资源详情列表。
      **/
@@ -1477,7 +1421,10 @@ public class ManagementClient extends BaseClient {
         String response = request(config);
         return deserialize(response, IsSuccessRespDto.class);
     }
-
+    /**
+     * @summary 批量删除资源
+     * @description 通过资源id批量删除资源
+     **/
     /**
      * @summary 关联/取消关联应用资源到租户
      * @description 通过资源唯一标识以及权限分组，关联或取消关联资源到租户
@@ -1492,8 +1439,8 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
-     * @summary 创建权限分组
-     * @description 创建权限分组，可以设置分组名称与描述信息。
+     * @summary 创建权限分组（权限空间）
+     * @description 创建权限分组（权限空间），可以设置分组（空间）名称、Code 和描述信息。
      **/
     public NamespaceRespDto createNamespace(CreateNamespaceDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -1505,8 +1452,8 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
-     * @summary 批量创建权限分组
-     * @description 批量创建权限分组，可以分别设置分组名称与描述信息。
+     * @summary 批量创建权限分组（权限空间）
+     * @description 批量创建权限分组（权限空间），可以分别设置分组名称、Code 和描述信息。
      **/
     public IsSuccessRespDto createNamespacesBatch(CreateNamespacesBatchDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -1518,8 +1465,8 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
-     * @summary 获取权限分组详情
-     * @description 通过权限分组唯一标志符，获取权限分组详情。
+     * @summary 获取权限分组（权限空间）详情
+     * @description 通过权限分组（权限空间）唯一标志符（Code），获取权限分组（权限空间）详情。
      **/
     public NamespaceRespDto getNamespace(GetNamespaceDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -1531,8 +1478,8 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
-     * @summary 批量获取权限分组详情
-     * @description 分别通过权限分组唯一标志符，批量获取权限分组详情。
+     * @summary 批量获取权限分组（权限空间）详情
+     * @description 分别通过权限分组（权限空间）唯一标志符(Code)，批量获取权限分组（权限空间）详情。
      **/
     public NamespaceListRespDto getNamespacesBatch(GetNamespacesBatchDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -1544,8 +1491,8 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
-     * @summary 修改权限分组信息
-     * @description 修改权限分组信息，可以修改名称、描述信息以及新的唯一标志符。
+     * @summary 修改权限分组（权限空间）信息
+     * @description 修改权限分组（权限空间）信息，可以修改名称、描述信息以及新的唯一标志符。
      **/
     public UpdateNamespaceRespDto updateNamespace(UpdateNamespaceDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -1557,8 +1504,8 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
-     * @summary 删除权限分组信息
-     * @description 通过权限分组唯一标志符，删除权限分组信息。
+     * @summary 删除权限分组（权限空间）信息
+     * @description 通过权限分组（权限空间）唯一标志符，删除权限分组信息。
      **/
     public IsSuccessRespDto deleteNamespace(DeleteNamespaceDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -1570,8 +1517,8 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
-     * @summary 批量删除权限分组
-     * @description 分别通过权限分组唯一标志符，批量删除权限分组。
+     * @summary 批量删除权限分组（权限空间）
+     * @description 分别通过权限分组（权限空间）唯一标志符，批量删除权限分组（权限空间）。
      **/
     public IsSuccessRespDto deleteNamespacesBatch(DeleteNamespacesBatchDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -1580,6 +1527,45 @@ public class ManagementClient extends BaseClient {
         config.setMethod("POST");
         String response = request(config);
         return deserialize(response, IsSuccessRespDto.class);
+    }
+
+    /**
+     * @summary 校验权限空间 Code 或者名称是否不重复
+     * @description 通过用户池 ID 和权限空间 Code,或者用户池 ID 和权限空间名称查询是否不重复。
+     **/
+    public NamespaceCheckParamsRespDto checkParamsNamespace1(CheckNamespaceParamsDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/check-namespace-params");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, NamespaceCheckParamsRespDto.class);
+    }
+
+    /**
+     * @summary 分页获取权限分组（权限空间）列表
+     * @description 根据筛选条件，分页获取资源详情列表。
+     **/
+    public NamespaceListPaginatedRespDto listNamespaces(ListNamespacesDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/list-namespaces");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, NamespaceListPaginatedRespDto.class);
+    }
+
+    /**
+     * @summary 分页权限分组（权限空间）下所有的角色列表
+     * @description 根据筛选条件，分页获取权限分组（权限空间）下所有的角色列表。
+     **/
+    public NamespaceRolesListPaginatedRespDto listNamespaceRoles(ListNamespaceRolesDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/list-namespace-roles");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, NamespaceRolesListPaginatedRespDto.class);
     }
 
     /**
@@ -1599,7 +1585,8 @@ public class ManagementClient extends BaseClient {
      * @summary 获取某个主体被授权的资源列表
      * @description 根据筛选条件，获取某个主体被授权的资源列表。
      **/
-    public AuthorizedResourcePaginatedRespDto getAuthorizedResources(GetAuthorizedResourcesDto reqDto) {
+    public AuthorizedResourcePaginatedRespDto getAuthorizedResources(
+            GetAuthorizedResourcesDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-authorized-resources");
         config.setBody(reqDto);
@@ -1625,7 +1612,8 @@ public class ManagementClient extends BaseClient {
      * @summary 获取资源被授权的主体
      * @description 获取资源被授权的主体
      **/
-    public GetResourceAuthorizedTargetRespDto getResourceAuthorizedTargets(GetResourceAuthorizedTargetsDto reqDto) {
+    public GetResourceAuthorizedTargetRespDto getResourceAuthorizedTargets(
+            GetResourceAuthorizedTargetsDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-resource-authorized-targets");
         config.setBody(reqDto);
@@ -1742,7 +1730,8 @@ public class ManagementClient extends BaseClient {
      * @summary 获取同步风险操作列表
      * @description 获取同步风险操作列表
      **/
-    public SyncRiskOperationPaginatedRespDto listSyncRiskOperations(ListSyncRiskOperationsDto reqDto) {
+    public SyncRiskOperationPaginatedRespDto listSyncRiskOperations(
+            ListSyncRiskOperationsDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/list-sync-risk-operations");
         config.setBody(reqDto);
@@ -1755,7 +1744,8 @@ public class ManagementClient extends BaseClient {
      * @summary 执行同步风险操作
      * @description 执行同步风险操作
      **/
-    public TriggerSyncRiskOperationsRespDto triggerSyncRiskOperations(TriggerSyncRiskOperationDto reqDto) {
+    public TriggerSyncRiskOperationsRespDto triggerSyncRiskOperations(
+            TriggerSyncRiskOperationDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/trigger-sync-risk-operations");
         config.setBody(reqDto);
@@ -1768,7 +1758,8 @@ public class ManagementClient extends BaseClient {
      * @summary 取消同步风险操作
      * @description 取消同步风险操作
      **/
-    public CancelSyncRiskOperationsRespDto cancelSyncRiskOperation(CancelSyncRiskOperationDto reqDto) {
+    public CancelSyncRiskOperationsRespDto cancelSyncRiskOperation(
+            CancelSyncRiskOperationDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/cancel-sync-risk-operation");
         config.setBody(reqDto);
@@ -1779,7 +1770,7 @@ public class ManagementClient extends BaseClient {
 
     /**
      * @summary 获取用户行为日志
-     * @description 可以选择请求 ID、客户端 IP、用户 ID、应用 ID、开始时间戳、请求是否成功、分页参数去获取用户行为日志
+     * @description 可以选择请求 ID、客户端 IP、用户 ID、应用 ID、开始时间戳、请求是否成功、分页参数来获取用户行为日志
      **/
     public UserActionLogRespDto getUserActionLogs(GetUserActionLogsDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -1898,7 +1889,8 @@ public class ManagementClient extends BaseClient {
      * @summary 获取应用简单信息
      * @description 通过应用 ID，获取应用简单信息。
      **/
-    public ApplicationSimpleInfoSingleRespDto getApplicationSimpleInfo(GetApplicationSimpleInfoDto reqDto) {
+    public ApplicationSimpleInfoSingleRespDto getApplicationSimpleInfo(
+            GetApplicationSimpleInfoDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-application-simple-info");
         config.setBody(reqDto);
@@ -1911,7 +1903,8 @@ public class ManagementClient extends BaseClient {
      * @summary 获取应用简单信息列表
      * @description 获取应用简单信息列表
      **/
-    public ApplicationSimpleInfoPaginatedRespDto listApplicationSimpleInfo(ListApplicationSimpleInfoDto reqDto) {
+    public ApplicationSimpleInfoPaginatedRespDto listApplicationSimpleInfo(
+            ListApplicationSimpleInfoDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/list-application-simple-info");
         config.setBody(reqDto);
@@ -1963,7 +1956,8 @@ public class ManagementClient extends BaseClient {
      * @summary 刷新应用密钥
      * @description 刷新应用密钥
      **/
-    public RefreshApplicationSecretRespDto refreshApplicationSecret(RefreshApplicationSecretDto reqDto) {
+    public RefreshApplicationSecretRespDto refreshApplicationSecret(
+            RefreshApplicationSecretDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/refresh-application-secret");
         config.setBody(reqDto);
@@ -1989,7 +1983,8 @@ public class ManagementClient extends BaseClient {
      * @summary 获取应用默认访问授权策略
      * @description 获取应用默认访问授权策略
      **/
-    public GetApplicationPermissionStrategyRespDto getApplicationPermissionStrategy(GetApplicationPermissionStrategyDto reqDto) {
+    public GetApplicationPermissionStrategyRespDto getApplicationPermissionStrategy(
+            GetApplicationPermissionStrategyDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-application-permission-strategy");
         config.setBody(reqDto);
@@ -2002,7 +1997,8 @@ public class ManagementClient extends BaseClient {
      * @summary 更新应用默认访问授权策略
      * @description 更新应用默认访问授权策略
      **/
-    public IsSuccessRespDto updateApplicationPermissionStrategy(UpdateApplicationPermissionStrategyDataDto reqDto) {
+    public IsSuccessRespDto updateApplicationPermissionStrategy(
+            UpdateApplicationPermissionStrategyDataDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/update-application-permission-strategy");
         config.setBody(reqDto);
@@ -2065,7 +2061,9 @@ public class ManagementClient extends BaseClient {
 
     /**
      * @summary 修改安全配置
-     * @description 可选安全域、Authing Token 有效时间（秒）、验证码长度、验证码尝试次数、用户修改邮箱的安全策略、用户修改手机号的安全策略、Cookie 过期时间设置、是否禁止用户注册、频繁注册检测配置、验证码注册后是否要求用户设置密码、未验证的邮箱登录时是否禁止登录并发送认证邮件、用户自助解锁配置、Authing 登录页面是否开启登录账号选择、APP 扫码登录安全配置进行修改安全配置
+     * @description 可选安全域、Authing Token 有效时间（秒）、验证码长度、验证码尝试次数、用户修改邮箱的安全策略、用户修改手机号的安全策略、Cookie
+     * 过期时间设置、是否禁止用户注册、频繁注册检测配置、验证码注册后是否要求用户设置密码、未验证的邮箱登录时是否禁止登录并发送认证邮件、用户自助解锁配置、Authing
+     * 登录页面是否开启登录账号选择、APP 扫码登录安全配置进行修改安全配置
      **/
     public SecuritySettingsRespDto updateSecuritySettings(UpdateSecuritySettingsDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -2132,7 +2130,8 @@ public class ManagementClient extends BaseClient {
      * @summary 获取 MAU 使用记录
      * @description 获取当前用户池 MAU 使用记录
      **/
-    public CostGetMauPeriodUsageHistoryRespDto getMauPeriodUsageHistory(GetMauPeriodUsageHistoryDto reqDto) {
+    public CostGetMauPeriodUsageHistoryRespDto getMauPeriodUsageHistory(
+            GetMauPeriodUsageHistoryDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-mau-period-usage-history");
         config.setBody(reqDto);
@@ -2223,7 +2222,8 @@ public class ManagementClient extends BaseClient {
      * @summary 重新上传 Pipeline 函数
      * @description 当 Pipeline 函数上传失败时，重新上传 Pipeline 函数
      **/
-    public PipelineFunctionSingleRespDto reuploadPipelineFunction(ReUploadPipelineFunctionDto reqDto) {
+    public PipelineFunctionSingleRespDto reuploadPipelineFunction(
+            ReUploadPipelineFunctionDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/reupload-pipeline-function");
         config.setBody(reqDto);
@@ -2299,7 +2299,7 @@ public class ManagementClient extends BaseClient {
 
     /**
      * @summary 创建 Webhook
-     * @description 你需要指定 Webhoook 名称、Webhook 回调地址、请求数据格式、用户真实名称来创建 Webhook。还可选是否启用、请求密钥进行创建
+     * @description 你需要指定 Webhook 名称、Webhook 回调地址、请求数据格式、用户真实名称来创建 Webhook。还可选是否启用、请求密钥进行创建
      **/
     public CreateWebhookRespDto createWebhook(CreateWebhookDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -2325,7 +2325,7 @@ public class ManagementClient extends BaseClient {
 
     /**
      * @summary 修改 Webhook 配置
-     * @description 需要指定 webhookId，可选 Webhoook 名称、Webhook 回调地址、请求数据格式、用户真实名称、是否启用、请求密钥参数进行修改 webhook
+     * @description 需要指定 webhookId，可选 Webhook 名称、Webhook 回调地址、请求数据格式、用户真实名称、是否启用、请求密钥参数进行修改 webhook
      **/
     public UpdateWebhooksRespDto updateWebhook(UpdateWebhookDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();

@@ -11,12 +11,17 @@ public class RoleListItem {
     @JsonProperty("code")
     private String code;
     /**
+     * 权限分组内角色名称
+     */
+    @JsonProperty("name")
+    private String name;
+    /**
      * 角色描述
      */
     @JsonProperty("description")
     private String description;
     /**
-     * 所属权限分组的 code
+     * 所属权限分组(权限空间)的 code
      */
     @JsonProperty("namespace")
     private String namespace;
@@ -26,6 +31,13 @@ public class RoleListItem {
     }
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {

@@ -39,12 +39,17 @@ public class TestGenerator2 {
             classMap.put(aClass.getCanonicalName(), aClass);
         }
         // 私有化，直接打包给客户，maven 打包
-        // 管理侧生成
-        Method[] methods = ManagementClient.class.getDeclaredMethods();
-        // 认证侧生成
-//         Method[] methods = AuthenticationClient.class.getDeclaredMethods();
+
+
+
+
         TestTemplate testTemplate = new TestTemplate();
-        testTemplate.setClassName("ManagementClient");
+//         管理侧生成
+//      Method[] methods = ManagementClient.class.getDeclaredMethods();
+//        testTemplate.setClassName("ManagementClient");
+        // 认证侧生成
+        Method[] methods = AuthenticationClient.class.getDeclaredMethods();
+        testTemplate.setClassName("AuthenticationClient");
         testTemplate.setMethods(new ArrayList<>());
 
         for (Method m : methods) {
@@ -78,9 +83,9 @@ public class TestGenerator2 {
         // write
         for (TestTemplate.Method method : testTemplate.getMethods()) {
             FileReader fileReader = new FileReader(new File("./src/test/java/resources/test_template2.ftl"));
-            FileWriter fileWriter = new FileWriter(new File("./src/test/java/test/" + StrUtil.upperFirst(method.getMethodName()) + "Test.java"));
+            FileWriter fileWriter = new FileWriter(new File("./src/test/java/test/generator/authentication/" + StrUtil.upperFirst(method.getMethodName()) + "Test.java"));
             // 认证侧生成
-            // FileWriter fileWriter = new FileWriter(new File("/Users/yujiale/work/authing/node/sdk/authing-java-sdk-v5/src/test/java/test/authentication/" + StrUtil.upperFirst(method.getMethodName()) + "Test.java"));
+//             FileWriter fileWriter = new FileWriter(new File("/Users/yujiale/work/authing/node/sdk/authing-java-sdk-v5/src/test/java/test/authentication/" + StrUtil.upperFirst(method.getMethodName()) + "Test.java"));
             FreeMarkerUtils.process(fileReader, fileWriter, method, method.getMethodName());
         }
     }

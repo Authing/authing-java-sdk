@@ -6,17 +6,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class UpdateRoleDto {
     /**
-     * 角色新的权限分组内唯一识别码
+     * 权限分组（权限空间）角色名称
+     */
+    @JsonProperty("name")
+    private String name;
+    /**
+     * 角色新的权限分组（权限空间）内唯一识别码
      */
     @JsonProperty("newCode")
     private String newCode;
     /**
-     * 权限分组内角色的唯一标识符
+     * 权限分组(权限空间）内角色的唯一标识符
      */
     @JsonProperty("code")
     private String code;
     /**
-     * 所属权限分组的 code
+     * 所属权限分组(权限空间)的 code
      */
     @JsonProperty("namespace")
     private String namespace;
@@ -25,6 +30,13 @@ public class UpdateRoleDto {
      */
     @JsonProperty("description")
     private String description;
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getNewCode() {
         return newCode;
