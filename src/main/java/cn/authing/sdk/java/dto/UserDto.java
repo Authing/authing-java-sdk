@@ -733,8 +733,8 @@ public class UserDto {
         @JsonProperty("adminCreated")
         ADMIN_CREATED("adminCreated"),
 
-        @JsonProperty("syncTask")
-        SYNC_TASK("syncTask"),
+        @JsonProperty("sync")
+        SYNC("sync"),
         ;
 
         private String value;
