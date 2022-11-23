@@ -3,20 +3,43 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import cn.authing.sdk.java.dto.CheckUserSameLevelPermissionDataDto;
 
 public class CheckUserSameLevelPermissionRespDto {
     /**
-     * 响应数据
+     * 数据资源权限操作
      */
-    @JsonProperty("data")
-    private CheckUserSameLevelPermissionDataDto data;
+    @JsonProperty("action")
+    private String action;
+    /**
+     * 树资源节点code
+     */
+    @JsonProperty("resourceNodeCode")
+    private String resourceNodeCode;
+    /**
+     * 是否拥有 action 权限
+     */
+    @JsonProperty("enabled")
+    private Boolean enabled;
 
-    public CheckUserSameLevelPermissionDataDto getData() {
-        return data;
+    public String getAction() {
+        return action;
     }
-    public void setData(CheckUserSameLevelPermissionDataDto data) {
-        this.data = data;
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    public String getResourceNodeCode() {
+        return resourceNodeCode;
+    }
+    public void setResourceNodeCode(String resourceNodeCode) {
+        this.resourceNodeCode = resourceNodeCode;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
 

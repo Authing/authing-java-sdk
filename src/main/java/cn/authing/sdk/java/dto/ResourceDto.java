@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.ResourceActionListDto;
 
-public class ResourceDto {
+public class resourceDto {
     /**
      * 数据策略下所授权的数据资源 Code
      */
@@ -14,8 +14,8 @@ public class ResourceDto {
     /**
      * 数据资源权限操作列表
      */
-    @JsonProperty("actions")
-    private List<ResourceActionListDto> actions;
+    @JsonProperty("actionList")
+    private List<ResourceActionListDto> actionList;
 
     public String getResourceCode() {
         return resourceCode;
@@ -24,11 +24,11 @@ public class ResourceDto {
         this.resourceCode = resourceCode;
     }
 
-    public List<ResourceActionListDto> getActions() {
-        return actions;
+    public List<ResourceActionListDto> getActionList() {
+        return actionList;
     }
-    public void setActions(List<ResourceActionListDto> actions) {
-        this.actions = actions;
+    public void setActionList(List<ResourceActionListDto> actionList) {
+        this.actionList = actionList;
     }
 
 

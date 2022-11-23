@@ -3,7 +3,9 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
+import cn.authing.sdk.java.dto.ARRAY;
+import cn.authing.sdk.java.dto.DataResourceTreeStructs;
+import cn.authing.sdk.java.dto.STRING;
 
 public class GetDataResourceRespDto {
     /**
@@ -30,7 +32,7 @@ public class GetDataResourceRespDto {
      * 数据资源节点类型，支持字符串（STRING）、树结构（TREE）和数组结构（ARRAY）。
      */
     @JsonProperty("struct")
-    private Object struct;
+    private (DataResourceTreeStructs | STRING | ARRAY) struct;
     /**
      * 数据策略所在的权限空间 Code
      */
@@ -70,10 +72,10 @@ public class GetDataResourceRespDto {
         this.description = description;
     }
 
-    public Object getStruct() {
+    public (DataResourceTreeStructs | STRING | ARRAY) getStruct() {
         return struct;
     }
-    public void setStruct(Object struct) {
+    public void setStruct((DataResourceTreeStructs | STRING | ARRAY) struct) {
         this.struct = struct;
     }
 
