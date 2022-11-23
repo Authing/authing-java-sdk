@@ -16,7 +16,7 @@ public class ListNamespacesDto {
     @JsonProperty("limit")
     private Integer limit;
     /**
-     * 搜索权限分组（权限空间） Code
+     * 搜索权限分组 Code
      */
     @JsonProperty("keywords")
     private String keywords;

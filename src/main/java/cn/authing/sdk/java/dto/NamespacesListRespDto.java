@@ -6,37 +6,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class NamespacesListRespDto {
     /**
-     * 权限分组（权限空间） ID
-     */
-    @JsonProperty("id")
-    private String id;
-    /**
-     * 权限分组（权限空间） 名称
+     * 权限分组 名称
      */
     @JsonProperty("name")
     private String name;
     /**
-     * 权限分组（权限空间） Code
+     * 权限分组 Code
      */
     @JsonProperty("code")
     private String code;
     /**
-     * 权限分组（权限空间）描述信息
+     * 权限分组描述信息
      */
     @JsonProperty("description")
     private String description;
     /**
-     * 权限分组（权限空间）状态：0 -> 关闭、1 -> 开启
+     * 权限分组状态：0 -> 关闭、1 -> 开启
      */
     @JsonProperty("status")
     private Integer status;
-
-    public String getId() {
-        return id;
-    }
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

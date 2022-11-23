@@ -22,6 +22,11 @@ public class CreateResourceDto {
     @JsonProperty("description")
     private String description;
     /**
+     * 资源名称
+     */
+    @JsonProperty("name")
+    private String name;
+    /**
      * 资源定义的操作类型
      */
     @JsonProperty("actions")
@@ -56,6 +61,13 @@ public class CreateResourceDto {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<ResourceAction> getActions() {

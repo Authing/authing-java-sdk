@@ -302,6 +302,9 @@ public class UserActionLogDto {
 
         @JsonProperty("verifyFirstLogin")
         VERIFY_FIRST_LOGIN("verifyFirstLogin"),
+
+        @JsonProperty("securityResourceAccess")
+        SECURITY_RESOURCE_ACCESS("securityResourceAccess"),
         ;
 
         private String value;

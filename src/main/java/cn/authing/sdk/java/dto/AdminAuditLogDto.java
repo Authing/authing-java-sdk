@@ -296,6 +296,15 @@ public class AdminAuditLogDto {
 
         @JsonProperty("deactivate")
         DEACTIVATE("deactivate"),
+
+        @JsonProperty("add")
+        ADD("add"),
+
+        @JsonProperty("remove")
+        REMOVE("remove"),
+
+        @JsonProperty("query")
+        QUERY("query"),
         ;
 
         private String value;
@@ -396,6 +405,33 @@ public class AdminAuditLogDto {
 
         @JsonProperty("customDomain")
         CUSTOM_DOMAIN("customDomain"),
+
+        @JsonProperty("permitSpace")
+        PERMIT_SPACE("permitSpace"),
+
+        @JsonProperty("generalResource")
+        GENERAL_RESOURCE("generalResource"),
+
+        @JsonProperty("generalResourceAuthorization")
+        GENERAL_RESOURCE_AUTHORIZATION("generalResourceAuthorization"),
+
+        @JsonProperty("roleSubject")
+        ROLE_SUBJECT("roleSubject"),
+
+        @JsonProperty("subjectOfRole")
+        SUBJECT_OF_ROLE("subjectOfRole"),
+
+        @JsonProperty("dataResource")
+        DATA_RESOURCE("dataResource"),
+
+        @JsonProperty("dataPolicy")
+        DATA_POLICY("dataPolicy"),
+
+        @JsonProperty("authorization")
+        AUTHORIZATION("authorization"),
+
+        @JsonProperty("userAuthorization")
+        USER_AUTHORIZATION("userAuthorization"),
         ;
 
         private String value;

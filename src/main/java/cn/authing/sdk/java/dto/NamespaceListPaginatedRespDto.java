@@ -27,7 +27,7 @@ public class NamespaceListPaginatedRespDto {
     @JsonProperty("requestId")
     private String requestId;
     /**
-     * 数据
+     * 响应数据
      */
     @JsonProperty("data")
     private NamespaceListPagingDto data;

@@ -26,7 +26,7 @@ public class NamespaceRolesListRespDto {
     @JsonProperty("description")
     private String description;
     /**
-     * 权限分组（权限空间） Code
+     * 权限分组 Code
      */
     @JsonProperty("namespace")
     private String namespace;
