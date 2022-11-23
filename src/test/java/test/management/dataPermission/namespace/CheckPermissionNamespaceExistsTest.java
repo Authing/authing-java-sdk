@@ -22,12 +22,15 @@ public class CheckPermissionNamespaceExistsTest {
         // clientOptions.setHost("https://api.your-authing-service.com");
         ManagementClient client = new ManagementClient(clientOptions);
 
-        CheckPermissionNamespaceExistsDto request = new CheckPermissionNamespaceExistsDto();
-        request.setName("name_7991");
-        request.setCode("code_6301");
+        CheckPermissionNamespaceExistsDto request1 = new CheckPermissionNamespaceExistsDto();
+        request1.setName("示例权限空间名称");
+        PermissionNamespaceCheckExistsRespDto response1 = client.checkPermissionNamespaceExists(request1);
+        System.out.println(JsonUtils.serialize(response1));
 
-        PermissionNamespaceCheckExistsRespDto response = client.checkPermissionNamespaceExists(request);
-        System.out.println(JsonUtils.serialize(response));
+        CheckPermissionNamespaceExistsDto request2 = new CheckPermissionNamespaceExistsDto();
+        request2.setCode("examplePermissionNamespace");
+        PermissionNamespaceCheckExistsRespDto response2 = client.checkPermissionNamespaceExists(request2);
+        System.out.println(JsonUtils.serialize(response2));
     }
 
 }

@@ -5,8 +5,6 @@ import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.model.ManagementClientOptions;
 import cn.authing.sdk.java.util.JsonUtils;
 
-import java.util.Collections;
-
 public class CreatePermissionNamespaceTest {
 
     // 需要替换成你的 Authing Access Key ID

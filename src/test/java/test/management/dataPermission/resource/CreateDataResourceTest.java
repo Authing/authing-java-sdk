@@ -53,12 +53,6 @@ public class CreateDataResourceTest {
         actions.add("get");
         actions.add("read");
         request.setActionList(actions);
-
-
-
-
-
-
         CreateDataResourceResponseDto response = client.createDataResource(request);
         System.out.println(JsonUtils.serialize(response));
     }
