@@ -323,6 +323,25 @@ public class AuthenticationClient extends BaseClient {
     }
 
     /**
+     * accessToken 换取用户信息，用户可以自取自定义的扩展字段
+     */
+    public Map<String,Object> getUserInfoMapByAccessToken(String accessToken) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+
+        if (ProtocolEnum.OAUTH.getValue().equals(options.getProtocol())) {
+            config.setMethod("POST");
+            config.setBody(new Object());
+        } else {
+            config.setMethod("GET");
+        }
+
+        config.setUrl("/oidc/me/?access_token=" + accessToken);
+
+        String response = request(config);
+        return deserialize(response, Map.class);
+    }
+
+    /**
      * 拼接 OIDC、OAuth 2.0、SAML、CAS 协议授权链接
      */
     public String buildAuthorizeUrl(IOidcParams params) {

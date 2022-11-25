@@ -96,11 +96,7 @@ public class SignatureComposer implements ISignatureComposer {
             mac.init(new SecretKeySpec(accessKeySecret.getBytes(ENCODING), ALGORITHM_NAME));
             byte[] signData = mac.doFinal(stringToSign.getBytes(ENCODING));
             return DatatypeConverter.printBase64Binary(signData);
-        } catch (NoSuchAlgorithmException e) {
-            throw new IllegalArgumentException(e.toString());
-        } catch (UnsupportedEncodingException e) {
-            throw new IllegalArgumentException(e.toString());
-        } catch (InvalidKeyException e) {
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException | InvalidKeyException e) {
             throw new IllegalArgumentException(e.toString());
         }
     }
