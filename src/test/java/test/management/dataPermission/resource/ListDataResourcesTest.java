@@ -24,7 +24,7 @@ public class ListDataResourcesTest {
         ListDataResourcesDto request = new ListDataResourcesDto();
         request.setPage(1);
         request.setLimit(10);
-        request.setNamespaceCodes("examplePermissionNamespace");
+        request.setNamespaceCodes("examplePermissionNamespace1,examplePermissionNamespace2");
 
         ListDataResourcesPaginatedRespDto response = client.listDataResources(request);
         System.out.println(JsonUtils.serialize(response));

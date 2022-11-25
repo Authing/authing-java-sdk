@@ -23,7 +23,7 @@ public class GetDataResourceTest {
 
         GetDataResourceDto request = new GetDataResourceDto();
         request.setNamespaceCode("examplePermissionNamespace");
-        request.setResourceCode("treeResourceCode");
+        request.setResourceCode("resourceCode");
 
         GetDataResourceResponseDto response = client.getDataResource(request);
         System.out.println(JsonUtils.serialize(response));

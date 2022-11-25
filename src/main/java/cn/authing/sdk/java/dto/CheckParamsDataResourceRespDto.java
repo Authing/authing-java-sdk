@@ -14,7 +14,7 @@ public class CheckParamsDataResourceRespDto {
      * 数据资源名称或者 Code 校验失败提示信息,如果校验成功, message 不返回
      */
     @JsonProperty("message")
-    private Boolean message;
+    private String message;
 
     public Boolean getIsValid() {
         return isValid;
@@ -23,10 +23,10 @@ public class CheckParamsDataResourceRespDto {
         this.isValid = isValid;
     }
 
-    public Boolean getMessage() {
+    public String getMessage() {
         return message;
     }
-    public void setMessage(Boolean message) {
+    public void setMessage(String message) {
         this.message = message;
     }
 

@@ -23,14 +23,8 @@ public class GetPermissionNamespacesBatchTest {
         // 如果是私有化部署的客户，需要设置 Authing 服务域名
         // clientOptions.setHost("https://api.your-authing-service.com");
         ManagementClient client = new ManagementClient(clientOptions);
-
         GetPermissionNamespacesBatchDto request = new GetPermissionNamespacesBatchDto();
-        List<String> codes = new ArrayList<>();
-        codes.add("examplePermissionNamespace1");
-        codes.add("examplePermissionNamespace2");
-        codes.add("examplePermissionNamespace3");
-        request.setCodes("codes,asdas");
-
+        request.setCodes("code1,code2");
         GetPermissionNamespaceListResponseDto response = client.getPermissionNamespacesBatch(request);
         System.out.println(JsonUtils.serialize(response));
     }
