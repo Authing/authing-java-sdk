@@ -17,6 +17,11 @@ public class AssignRoleDto {
     @JsonProperty("code")
     private String code;
     /**
+     * 主体过期时间毫秒值
+     */
+    @JsonProperty("endTime")
+    private Integer endTime;
+    /**
      * 所属权限分组的 code
      */
     @JsonProperty("namespace")
@@ -34,6 +39,13 @@ public class AssignRoleDto {
     }
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public Integer getEndTime() {
+        return endTime;
+    }
+    public void setEndTime(Integer endTime) {
+        this.endTime = endTime;
     }
 
     public String getNamespace() {

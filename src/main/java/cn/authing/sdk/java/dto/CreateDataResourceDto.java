@@ -3,14 +3,14 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
+import cn.authing.sdk.java.dto.DataResourceTreeStructs;
 
 public class CreateDataResourceDto {
     /**
      * 数据资源权限操作列表
      */
-    @JsonProperty("actionList")
-    private List<String> actionList;
+    @JsonProperty("actions")
+    private List<String> actions;
     /**
      * 数据资源节点类型，支持字符串（STRING）、树结构（TREE）和数组结构（ARRAY）。
      */
@@ -42,11 +42,11 @@ public class CreateDataResourceDto {
     @JsonProperty("description")
     private String description;
 
-    public List<String> getActionList() {
-        return actionList;
+    public List<String> getActions() {
+        return actions;
     }
-    public void setActionList(List<String> actionList) {
-        this.actionList = actionList;
+    public void setActions(List<String> actions) {
+        this.actions = actions;
     }
 
     public Object getStruct() {

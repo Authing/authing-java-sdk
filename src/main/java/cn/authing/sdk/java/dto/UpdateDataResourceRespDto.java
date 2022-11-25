@@ -3,9 +3,7 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import cn.authing.sdk.java.dto.ARRAY;
 import cn.authing.sdk.java.dto.DataResourceTreeStructs;
-import cn.authing.sdk.java.dto.STRING;
 
 public class UpdateDataResourceRespDto {
     /**
@@ -32,12 +30,12 @@ public class UpdateDataResourceRespDto {
      * 数据资源节点类型，支持字符串（STRING）、树结构（TREE）和数组结构（ARRAY）。
      */
     @JsonProperty("struct")
-    private (DataResourceTreeStructs | STRING | ARRAY) struct;
+    private Object struct;
     /**
      * 数据资源权限操作列表
      */
-    @JsonProperty("actionList")
-    private List<String> actionList;
+    @JsonProperty("actions")
+    private List<String> actions;
 
     public String getResourceName() {
         return resourceName;
@@ -67,18 +65,18 @@ public class UpdateDataResourceRespDto {
         this.description = description;
     }
 
-    public (DataResourceTreeStructs | STRING | ARRAY) getStruct() {
+    public Object getStruct() {
         return struct;
     }
-    public void setStruct((DataResourceTreeStructs | STRING | ARRAY) struct) {
+    public void setStruct(Object struct) {
         this.struct = struct;
     }
 
-    public List<String> getActionList() {
-        return actionList;
+    public List<String> getActions() {
+        return actions;
     }
-    public void setActionList(List<String> actionList) {
-        this.actionList = actionList;
+    public void setActions(List<String> actions) {
+        this.actions = actions;
     }
 
 

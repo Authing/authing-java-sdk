@@ -6,26 +6,26 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ListResourceTargets {
     /**
-     * 数据策略所属的数据资源路径列表
+     * 权限空间 Code
      */
-    @JsonProperty("resources")
-    private List<String> resources;
+    @JsonProperty("namespaceCode")
+    private String namespaceCode;
     /**
      * 数据资源权限操作列表
      */
     @JsonProperty("actions")
     private List<String> actions;
     /**
-     * 权限空间 Code
+     * 数据策略所属的数据资源路径列表
      */
-    @JsonProperty("namespaceCode")
-    private String namespaceCode;
+    @JsonProperty("resources")
+    private List<String> resources;
 
-    public List<String> getResources() {
-        return resources;
+    public String getNamespaceCode() {
+        return namespaceCode;
     }
-    public void setResources(List<String> resources) {
-        this.resources = resources;
+    public void setNamespaceCode(String namespaceCode) {
+        this.namespaceCode = namespaceCode;
     }
 
     public List<String> getActions() {
@@ -35,11 +35,11 @@ public class ListResourceTargets {
         this.actions = actions;
     }
 
-    public String getNamespaceCode() {
-        return namespaceCode;
+    public List<String> getResources() {
+        return resources;
     }
-    public void setNamespaceCode(String namespaceCode) {
-        this.namespaceCode = namespaceCode;
+    public void setResources(List<String> resources) {
+        this.resources = resources;
     }
 
 

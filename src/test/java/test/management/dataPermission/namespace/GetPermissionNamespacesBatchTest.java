@@ -29,7 +29,7 @@ public class GetPermissionNamespacesBatchTest {
         codes.add("examplePermissionNamespace1");
         codes.add("examplePermissionNamespace2");
         codes.add("examplePermissionNamespace3");
-        request.setCodeList("codes,asdas");
+        request.setCodes("codes,asdas");
 
         GetPermissionNamespaceListResponseDto response = client.getPermissionNamespacesBatch(request);
         System.out.println(JsonUtils.serialize(response));

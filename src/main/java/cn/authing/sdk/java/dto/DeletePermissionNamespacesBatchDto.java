@@ -8,14 +8,14 @@ public class DeletePermissionNamespacesBatchDto {
     /**
      * 权限分组 code 列表
      */
-    @JsonProperty("codeList")
-    private List<String> codeList;
+    @JsonProperty("codes")
+    private List<String> codes;
 
-    public List<String> getCodeList() {
-        return codeList;
+    public List<String> getCodes() {
+        return codes;
     }
-    public void setCodeList(List<String> codeList) {
-        this.codeList = codeList;
+    public void setCodes(List<String> codes) {
+        this.codes = codes;
     }
 
 

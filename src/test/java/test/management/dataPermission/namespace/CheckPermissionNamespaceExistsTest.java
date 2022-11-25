@@ -10,9 +10,9 @@ import cn.authing.sdk.java.util.JsonUtils;
 public class CheckPermissionNamespaceExistsTest {
 
     // 需要替换成你的 Authing Access Key ID
-    private static final String ACCESS_KEY_ID = "AUTHING_ACCESS_KEY_ID";
+    private static final String ACCESS_KEY_ID = "63805c471fad0e46f020ba3d";
     // 需要替换成你的 Authing Access Key Secret
-    private static final String ACCESS_KEY_SECRET = "AUTHING_ACCESS_KEY_SECRET";
+    private static final String ACCESS_KEY_SECRET = "6559485abfae9c0918a9ec6578dfb006";
 
     public static void main(String[] args) throws Throwable {
         ManagementClientOptions clientOptions = new ManagementClientOptions();

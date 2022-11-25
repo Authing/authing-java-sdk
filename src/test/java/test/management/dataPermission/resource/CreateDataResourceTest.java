@@ -52,7 +52,7 @@ public class CreateDataResourceTest {
         ArrayList<String> actions = new ArrayList<>();
         actions.add("get");
         actions.add("read");
-        request.setActionList(actions);
+        request.setActions(actions);
         CreateDataResourceResponseDto response = client.createDataResource(request);
         System.out.println(JsonUtils.serialize(response));
     }

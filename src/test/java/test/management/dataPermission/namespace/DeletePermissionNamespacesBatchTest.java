@@ -27,7 +27,7 @@ public class DeletePermissionNamespacesBatchTest {
         ArrayList<String> codes = new ArrayList<>();
         codes.add("examplePermissionNamespace1");
         codes.add("examplePermissionNamespace2");
-        request.setCodeList(codes);
+        request.setCodes(codes);
         IsSuccessRespDto response = client.deletePermissionNamespacesBatch(request);
         System.out.println(JsonUtils.serialize(response));
     }
