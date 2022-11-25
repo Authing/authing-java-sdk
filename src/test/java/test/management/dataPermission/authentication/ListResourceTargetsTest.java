@@ -37,8 +37,7 @@ public class ListResourceTargetsTest {
         resources.add("arrayResourceCode1");
         resources.add("/treeResourceCode1/StructCode1/resourceStructChildrenCode1");
         request.setResources(resources);
-        ListResourceTargetsRespDto response = client.listResourceTargets(request);
-        System.out.println(JsonUtils.serialize(response));
+//        ListResourceTargetsRespDto response = client.listResourceTargets(request);
+//        System.out.println(JsonUtils.serialize(response));
     }
-
 }

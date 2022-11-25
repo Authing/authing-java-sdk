@@ -33,8 +33,8 @@ public class GetUserResourcePermissionListTest {
         resources.add("arrayResourceCode1");
         resources.add("/treeResourceCode1/StructCode1/resourceStructChildrenCode1");
         request.setResources(resources);
-        GetUserResourcePermissionListRespDto response = client.getUserResourcePermissionList(request);
-        System.out.println(JsonUtils.serialize(response));
+//        GetUserResourcePermissionListRespDto response = client.getUserResourcePermissionList(request);
+//        System.out.println(JsonUtils.serialize(response));
     }
 
 }

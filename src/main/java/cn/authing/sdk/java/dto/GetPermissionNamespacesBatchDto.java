@@ -8,14 +8,14 @@ public class GetPermissionNamespacesBatchDto {
     /**
      * 权限空间 code 列表，批量可以使用逗号分隔
      */
-    @JsonProperty("codeList")
-    private String codeList;
+    @JsonProperty("codes")
+    private String codes;
 
-    public String getCodeList() {
-        return codeList;
+    public String getCodes() {
+        return codes;
     }
-    public void setCodeList(String codeList) {
-        this.codeList = codeList;
+    public void setCodes(String codes) {
+        this.codes = codes;
     }
 
 

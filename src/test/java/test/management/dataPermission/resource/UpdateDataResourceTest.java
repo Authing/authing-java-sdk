@@ -38,7 +38,7 @@ public class UpdateDataResourceTest {
         actionList.add("read");
         actionList.add("delete");
         actionList.add("update");
-        request.setActionList(actionList);
+        request.setActions(actionList);
         UpdateDataResourceResponseDto response = client.updateDataResource(request);
         System.out.println(JsonUtils.serialize(response));
     }

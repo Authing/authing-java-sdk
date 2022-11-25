@@ -43,18 +43,18 @@ public class CreateDataResourceTest {
         childrenList.add(dataResourceTreeStructChildren);
         dataResourceTreeStruct1.setChildren(childrenList);
         DataResourceTreeStructs dataResourceTreeStruct2 = new DataResourceTreeStructs();
-        dataResourceTreeStruct1.setCode("tree2");
-        dataResourceTreeStruct1.setName("树节点2");
-        dataResourceTreeStruct1.setValue("树节点2描述");
+        dataResourceTreeStruct2.setCode("tree2");
+        dataResourceTreeStruct2.setName("树节点2");
+        dataResourceTreeStruct2.setValue("树节点2描述");
+        dataResourceTreeStructList.add(dataResourceTreeStruct1);
         dataResourceTreeStructList.add(dataResourceTreeStruct2);
         request.setStruct(dataResourceTreeStructList);
         request.setDescription("示例树数据资源描述");
         ArrayList<String> actions = new ArrayList<>();
         actions.add("get");
         actions.add("read");
-        request.setActionList(actions);
+        request.setActions(actions);
         CreateDataResourceResponseDto response = client.createDataResource(request);
         System.out.println(JsonUtils.serialize(response));
     }
-
 }

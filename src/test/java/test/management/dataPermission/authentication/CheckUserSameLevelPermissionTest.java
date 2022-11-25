@@ -29,9 +29,9 @@ public class CheckUserSameLevelPermissionTest {
         request.setAction("get");
         request.setResource("strResourceCode1");
 
-        CheckUserSameLevelPermissionResponseDto response = client
-                .checkUserSameLevelPermission(request);
-        System.out.println(JsonUtils.serialize(response));
+//        CheckUserSameLevelPermissionResponseDto response = client
+//                .checkUserSameLevelPermission(request);
+//        System.out.println(JsonUtils.serialize(response));
     }
 
 }

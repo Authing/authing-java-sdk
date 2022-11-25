@@ -24,7 +24,7 @@ public class DataResourceTreeStructs {
      * 数据资源节点的子节点,子节点层级最多支持五个层级
      */
     @JsonProperty("children")
-    private List<String> children;
+    private List<DataResourceTreeStructs> children;
 
     public String getCode() {
         return code;
@@ -47,10 +47,10 @@ public class DataResourceTreeStructs {
         this.value = value;
     }
 
-    public List<String> getChildren() {
+    public List<DataResourceTreeStructs> getChildren() {
         return children;
     }
-    public void setChildren(List<String> children) {
+    public void setChildren(List<DataResourceTreeStructs> children) {
         this.children = children;
     }
 

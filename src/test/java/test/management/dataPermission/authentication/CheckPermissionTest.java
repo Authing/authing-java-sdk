@@ -34,8 +34,8 @@ public class CheckPermissionTest {
         resources.add("arrayResourceCode1");
         resources.add("/treeResourceCode1/StructCode1/resourceStructChildrenCode1");
         request.setResources(resources);
-        CheckPermissionRespDto response = client.checkPermission(request);
-        System.out.println(JsonUtils.serialize(response));
+//        CheckPermissionRespDto response = client.checkPermission(request);
+//        System.out.println(JsonUtils.serialize(response));
     }
 
 }

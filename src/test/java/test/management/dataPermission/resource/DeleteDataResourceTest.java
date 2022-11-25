@@ -23,7 +23,7 @@ public class DeleteDataResourceTest {
 
         DeleteDataResourceDto request = new DeleteDataResourceDto();
         request.setNamespaceCode("examplePermissionNamespace");
-        request.setResourceCode("treeResourceCode");
+        request.setResourceCode("resourceCode");
         CommonResponseDto response = client.deleteDataResource(request);
         System.out.println(JsonUtils.serialize(response));
     }

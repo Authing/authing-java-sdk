@@ -6,43 +6,36 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CheckUserSameLevelPermissionDto {
     /**
-     * 资源路径
+     * 权限空间 Code
      */
-    @JsonProperty("resource")
-    private String resource;
-    /**
-     * 数据资源权限操作
-     */
-    @JsonProperty("action")
-    private String action;
+    @JsonProperty("namespaceCode")
+    private String namespaceCode;
     /**
      * 用户 ID
      */
     @JsonProperty("userId")
     private String userId;
     /**
-     * 权限空间 Code
+     * 数据资源权限操作
      */
-    @JsonProperty("namespaceCode")
-    private String namespaceCode;
+    @JsonProperty("action")
+    private String action;
+    /**
+     * 资源路径
+     */
+    @JsonProperty("resource")
+    private String resource;
     /**
      * 当前树资源路径子节点code
      */
     @JsonProperty("resourceNodeCodes")
     private List<String> resourceNodeCodes;
 
-    public String getResource() {
-        return resource;
+    public String getNamespaceCode() {
+        return namespaceCode;
     }
-    public void setResource(String resource) {
-        this.resource = resource;
-    }
-
-    public String getAction() {
-        return action;
-    }
-    public void setAction(String action) {
-        this.action = action;
+    public void setNamespaceCode(String namespaceCode) {
+        this.namespaceCode = namespaceCode;
     }
 
     public String getUserId() {
@@ -52,11 +45,18 @@ public class CheckUserSameLevelPermissionDto {
         this.userId = userId;
     }
 
-    public String getNamespaceCode() {
-        return namespaceCode;
+    public String getAction() {
+        return action;
     }
-    public void setNamespaceCode(String namespaceCode) {
-        this.namespaceCode = namespaceCode;
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    public String getResource() {
+        return resource;
+    }
+    public void setResource(String resource) {
+        this.resource = resource;
     }
 
     public List<String> getResourceNodeCodes() {
