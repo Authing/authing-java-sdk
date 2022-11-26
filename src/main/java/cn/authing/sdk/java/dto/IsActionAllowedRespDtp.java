@@ -27,7 +27,7 @@ public class IsActionAllowedRespDtp {
     @JsonProperty("requestId")
     private String requestId;
     /**
-     * 返回数据
+     * 响应数据
      */
     @JsonProperty("data")
     private IsActionAllowedDataDto data;

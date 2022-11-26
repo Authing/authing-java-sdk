@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class GetNamespacesBatchDto {
     /**
-     * 资源 code 列表，批量可以使用逗号分隔
+     * 权限分组 code 列表，批量可以使用逗号分隔
      */
     @JsonProperty("codeList")
     private String codeList;

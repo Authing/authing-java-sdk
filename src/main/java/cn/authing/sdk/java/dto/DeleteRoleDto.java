@@ -11,7 +11,7 @@ public class DeleteRoleDto {
     @JsonProperty("codeList")
     private List<String> codeList;
     /**
-     * 所属权限分组的 code
+     * 所属权限分组(权限空间)的 code
      */
     @JsonProperty("namespace")
     private String namespace;

@@ -24,7 +24,7 @@ public class GetUserAuthorizedResourcesDto {
     @JsonProperty("userIdType")
     private String userIdType;
     /**
-     * 所属权限分组的 code
+     * 所属权限分组(权限空间)的 Code
      */
     @JsonProperty("namespace")
     private String namespace;
