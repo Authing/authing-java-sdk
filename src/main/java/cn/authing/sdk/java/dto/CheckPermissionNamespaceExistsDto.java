@@ -6,28 +6,28 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CheckPermissionNamespaceExistsDto {
     /**
-     * 权限空间名称
-     */
-    @JsonProperty("name")
-    private String name;
-    /**
      * 权限空间 Code
      */
     @JsonProperty("code")
     private String code;
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
+    /**
+     * 权限空间名称
+     */
+    @JsonProperty("name")
+    private String name;
 
     public String getCode() {
         return code;
     }
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
 
 

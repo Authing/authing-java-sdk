@@ -29,12 +29,12 @@ public class GetUserResourcePermissionListTest {
         request.setNamespaceCode("examplePermissionNamespace");
         request.setUserId("63721xxxxxxxxxxxxdde14a3");
         List<String> resources = new ArrayList<>();
-        resources.add("strResourceCode1");
-        resources.add("arrayResourceCode1");
-        resources.add("/treeResourceCode1/StructCode1/resourceStructChildrenCode1");
+        resources.add("strResourceCode");
+        resources.add("arrayResourceCode");
+        resources.add("/treeResourceCode/structCode/resourceStructChildrenCode");
         request.setResources(resources);
-//        GetUserResourcePermissionListRespDto response = client.getUserResourcePermissionList(request);
-//        System.out.println(JsonUtils.serialize(response));
+        GetUserResourcePermissionListRespDto response = client.getUserResourcePermissionList(request);
+        System.out.println(JsonUtils.serialize(response));
     }
 
 }

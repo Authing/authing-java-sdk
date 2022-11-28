@@ -33,11 +33,11 @@ public class ListResourceTargetsTest {
         actionList.add("read");
         request.setActions(actionList);
         List<String> resources = new ArrayList<>();
-        resources.add("strResourceCode1");
-        resources.add("arrayResourceCode1");
-        resources.add("/treeResourceCode1/StructCode1/resourceStructChildrenCode1");
+        resources.add("strResourceCode");
+        resources.add("arrayResourceCode");
+        resources.add("/treeResourceCode/structCode/resourceStructChildrenCode2");
         request.setResources(resources);
-//        ListResourceTargetsRespDto response = client.listResourceTargets(request);
-//        System.out.println(JsonUtils.serialize(response));
+        ListResourceTargetsRespDto response = client.listResourceTargets(request);
+        System.out.println(JsonUtils.serialize(response));
     }
 }
