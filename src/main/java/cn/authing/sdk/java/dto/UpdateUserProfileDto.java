@@ -71,6 +71,11 @@ public class UpdateUserProfileDto {
     @JsonProperty("username")
     private String username;
     /**
+     * 所在公司
+     */
+    @JsonProperty("company")
+    private String company;
+    /**
      * 自定义数据，传入的对象中的 key 必须先在用户池定义相关自定义字段
      */
     @JsonProperty("customData")
@@ -165,6 +170,13 @@ public class UpdateUserProfileDto {
     }
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+    public void setCompany(String company) {
+        this.company = company;
     }
 
     public Object getCustomData() {
