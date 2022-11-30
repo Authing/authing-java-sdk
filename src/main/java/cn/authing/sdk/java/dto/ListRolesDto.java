@@ -6,16 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ListRolesDto {
     /**
-     * 用于根据角色的 code 进行模糊搜索，可选。
-     */
-    @JsonProperty("keywords")
-    private String keywords;
-    /**
-     * 所属权限分组的 code
-     */
-    @JsonProperty("namespace")
-    private String namespace;
-    /**
      * 当前页数，从 1 开始
      */
     @JsonProperty("page")
@@ -25,20 +15,16 @@ public class ListRolesDto {
      */
     @JsonProperty("limit")
     private Integer limit;
-
-    public String getKeywords() {
-        return keywords;
-    }
-    public void setKeywords(String keywords) {
-        this.keywords = keywords;
-    }
-
-    public String getNamespace() {
-        return namespace;
-    }
-    public void setNamespace(String namespace) {
-        this.namespace = namespace;
-    }
+    /**
+     * 用于根据角色的 code 或者名称进行模糊搜索，可选。
+     */
+    @JsonProperty("keywords")
+    private String keywords;
+    /**
+     * 所属权限分组(权限空间)的 code
+     */
+    @JsonProperty("namespace")
+    private String namespace;
 
     public Integer getPage() {
         return page;
@@ -52,6 +38,20 @@ public class ListRolesDto {
     }
     public void setLimit(Integer limit) {
         this.limit = limit;
+    }
+
+    public String getKeywords() {
+        return keywords;
+    }
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
+    }
+
+    public String getNamespace() {
+        return namespace;
+    }
+    public void setNamespace(String namespace) {
+        this.namespace = namespace;
     }
 
 

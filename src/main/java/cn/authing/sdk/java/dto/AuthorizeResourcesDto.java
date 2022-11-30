@@ -12,7 +12,7 @@ public class AuthorizeResourcesDto {
     @JsonProperty("list")
     private List<AuthorizeResourceItem> list;
     /**
-     * 所属权限分组的 code
+     * 所属权限分组(权限空间)的 Code
      */
     @JsonProperty("namespace")
     private String namespace;

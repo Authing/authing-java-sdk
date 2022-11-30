@@ -17,6 +17,11 @@ public class UpdateResourceDto {
     @JsonProperty("description")
     private String description;
     /**
+     * 资源名称
+     */
+    @JsonProperty("name")
+    private String name;
+    /**
      * 资源定义的操作类型
      */
     @JsonProperty("actions")
@@ -27,7 +32,7 @@ public class UpdateResourceDto {
     @JsonProperty("apiIdentifier")
     private String apiIdentifier;
     /**
-     * 所属权限分组的 code
+     * 所属权限分组(权限空间)的 Code
      */
     @JsonProperty("namespace")
     private String namespace;
@@ -49,6 +54,13 @@ public class UpdateResourceDto {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<ResourceAction> getActions() {

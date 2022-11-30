@@ -11,7 +11,7 @@ public class GetGroupAuthorizedResourcesDto {
     @JsonProperty("code")
     private String code;
     /**
-     * 所属权限分组的 code
+     * 所属权限分组(权限空间)的 Code
      */
     @JsonProperty("namespace")
     private String namespace;
