@@ -3,9 +3,9 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import cn.authing.sdk.java.dto.PermissionNamespacesListRespDto;
+import cn.authing.sdk.java.dto.ListDataPoliciesRespDto;
 
-public class PermissionNamespaceListPagingDto {
+public class DataPoliciesPaginatedRespDto {
     /**
      * 记录总数
      */
@@ -15,7 +15,7 @@ public class PermissionNamespaceListPagingDto {
      * 响应数据
      */
     @JsonProperty("list")
-    private List<PermissionNamespacesListRespDto> list;
+    private List<ListDataPoliciesRespDto> list;
 
     public Integer getTotalCount() {
         return totalCount;
@@ -24,10 +24,10 @@ public class PermissionNamespaceListPagingDto {
         this.totalCount = totalCount;
     }
 
-    public List<PermissionNamespacesListRespDto> getList() {
+    public List<ListDataPoliciesRespDto> getList() {
         return list;
     }
-    public void setList(List<PermissionNamespacesListRespDto> list) {
+    public void setList(List<ListDataPoliciesRespDto> list) {
         this.list = list;
     }
 

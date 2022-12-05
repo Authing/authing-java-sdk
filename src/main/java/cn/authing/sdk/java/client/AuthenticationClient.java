@@ -1565,7 +1565,7 @@ public SendEnrollFactorRequestRespDto sendEnrollFactorRequest(SendEnrollFactorRe
 }
 /**
  * @summary 绑定 MFA 认证要素
- * @description 绑定 MFA 要素
+ * @description 绑定 MFA 要素。
  **/
 public EnrollFactorRespDto enrollFactor(EnrollFactorDto reqDto) {
     AuthingRequestConfig config = new AuthingRequestConfig();
@@ -1577,7 +1577,7 @@ public EnrollFactorRespDto enrollFactor(EnrollFactorDto reqDto) {
 }
 /**
  * @summary 解绑 MFA 认证要素
- * @description 当前不支持通过此接口解绑短信、邮箱验证码类型的认证要素。如果需要，请调用「解绑邮箱」和「解绑手机号」接口。
+ * @description 根据 Factor ID 解绑用户绑定的某个 MFA 认证要素。
  **/
 public ResetFactorRespDto resetFactor(ResetFactorDto reqDto) {
     AuthingRequestConfig config = new AuthingRequestConfig();
@@ -1589,7 +1589,7 @@ public ResetFactorRespDto resetFactor(ResetFactorDto reqDto) {
 }
 /**
  * @summary 获取绑定的所有 MFA 认证要素
- * @description Authing 目前支持四种类型的 MFA 认证要素：手机短信、邮件验证码、OTP、人脸。如果用户绑定了手机号 / 邮箱之后，默认就具备了手机短信、邮箱验证码的 MFA 认证要素。
+ * @description Authing 目前支持四种类型的 MFA 认证要素：手机短信、邮件验证码、OTP、人脸。
  **/
 public ListEnrolledFactorsRespDto listEnrolledFactors() {
     AuthingRequestConfig config = new AuthingRequestConfig();

@@ -18,8 +18,8 @@ public class GetUserResourcePermissionList {
     /**
      * 资源路径
      */
-    @JsonProperty("resources")
-    private String resources;
+    @JsonProperty("resource")
+    private String resource;
 
     public String getNamespaceCode() {
         return namespaceCode;
@@ -35,11 +35,11 @@ public class GetUserResourcePermissionList {
         this.actions = actions;
     }
 
-    public String getResources() {
-        return resources;
+    public String getResource() {
+        return resource;
     }
-    public void setResources(String resources) {
-        this.resources = resources;
+    public void setResource(String resource) {
+        this.resource = resource;
     }
 
 

@@ -3,8 +3,7 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import cn.authing.sdk.java.dto.UserPermissionResourceDto;
-import cn.authing.sdk.java.dto.UserPermissionResourceOtherDto;
+import cn.authing.sdk.java.dto.OpenResource;
 
 public class UserPermissionListDto {
     /**
@@ -21,7 +20,7 @@ public class UserPermissionListDto {
      * 用户在权限空间下所有的数据策略资源列表
      */
     @JsonProperty("resourceList")
-    private Object resourceList;
+    private List<OpenResource> resourceList;
 
     public String getUserId() {
         return userId;
@@ -37,10 +36,10 @@ public class UserPermissionListDto {
         this.namespaceCode = namespaceCode;
     }
 
-    public Object getResourceList() {
+    public List<OpenResource> getResourceList() {
         return resourceList;
     }
-    public void setResourceList(Object resourceList) {
+    public void setResourceList(List<OpenResource> resourceList) {
         this.resourceList = resourceList;
     }
 

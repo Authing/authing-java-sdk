@@ -3,9 +3,9 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import cn.authing.sdk.java.dto.PermissionNamespaceRolesListPagingDto;
+import cn.authing.sdk.java.dto.GetDataPolicyRespDto;
 
-public class PermissionNamespaceRolesListPaginatedRespDto {
+public class GetDataPolicyResponseDto {
     /**
      * 业务状态码，可以通过此状态码判断操作是否成功，200 表示成功。
      */
@@ -27,10 +27,10 @@ public class PermissionNamespaceRolesListPaginatedRespDto {
     @JsonProperty("requestId")
     private String requestId;
     /**
-     * 响应数据
+     * 数据
      */
     @JsonProperty("data")
-    private PermissionNamespaceRolesListPagingDto data;
+    private GetDataPolicyRespDto data;
 
     public Integer getStatusCode() {
         return statusCode;
@@ -60,10 +60,10 @@ public class PermissionNamespaceRolesListPaginatedRespDto {
         this.requestId = requestId;
     }
 
-    public PermissionNamespaceRolesListPagingDto getData() {
+    public GetDataPolicyRespDto getData() {
         return data;
     }
-    public void setData(PermissionNamespaceRolesListPagingDto data) {
+    public void setData(GetDataPolicyRespDto data) {
         this.data = data;
     }
 
