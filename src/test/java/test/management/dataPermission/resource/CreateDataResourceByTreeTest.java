@@ -34,6 +34,13 @@ public class CreateDataResourceByTreeTest {
         DataResourceTreeStructs struct = new DataResourceTreeStructs();
         struct.setCode("code");
         struct.setName("name");
+        List<DataResourceTreeStructs> children = new ArrayList<>();
+        DataResourceTreeStructs child = new DataResourceTreeStructs();
+        child.setName("child_name");
+        child.setCode("child_code");
+        child.setValue("child_value");
+        children.add(child);
+        struct.setChildren(children);
         treeList.add(struct);
         reqDto.setStruct(treeList);
         CreateTreeDataResourceResponseDto response = client.createDataResourceByTree(reqDto);
