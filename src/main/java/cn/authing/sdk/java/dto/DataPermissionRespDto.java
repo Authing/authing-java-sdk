@@ -28,7 +28,7 @@ public class DataPermissionRespDto {
      *
      */
     @JsonProperty("resourceStruct")
-    private (DataResourcePolicyTreeStructs | DataResourcePolicyStringStructs | DataResourcePolicyArrayStructs) resourceStruct;
+    private Object resourceStruct;
 
     public String getResourceId() {
         return resourceId;
@@ -51,10 +51,10 @@ public class DataPermissionRespDto {
         this.resourceType = resourceType;
     }
 
-    public (DataResourcePolicyTreeStructs | DataResourcePolicyStringStructs | DataResourcePolicyArrayStructs) getResourceStruct() {
+    public Object getResourceStruct() {
         return resourceStruct;
     }
-    public void setResourceStruct((DataResourcePolicyTreeStructs | DataResourcePolicyStringStructs | DataResourcePolicyArrayStructs) resourceStruct) {
+    public void setResourceStruct(Object resourceStruct) {
         this.resourceStruct = resourceStruct;
     }
 

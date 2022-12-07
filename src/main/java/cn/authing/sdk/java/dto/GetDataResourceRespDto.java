@@ -30,7 +30,7 @@ public class GetDataResourceRespDto {
      * 数据资源节点类型，支持字符串（STRING）、树结构（TREE）和数组结构（ARRAY）。
      */
     @JsonProperty("struct")
-    private (DataResourceTreeStructs | String | List<String>) struct;
+    private Object struct;
     /**
      * 数据策略所在的权限空间 Code
      */
@@ -70,10 +70,10 @@ public class GetDataResourceRespDto {
         this.description = description;
     }
 
-    public (DataResourceTreeStructs | String | List<String>) getStruct() {
+    public Object getStruct() {
         return struct;
     }
-    public void setStruct((DataResourceTreeStructs | String | List<String>) struct) {
+    public void setStruct(Object struct) {
         this.struct = struct;
     }
 
