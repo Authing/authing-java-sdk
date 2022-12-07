@@ -3,9 +3,9 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import cn.authing.sdk.java.dto.GetDataPolicyRespDto;
+import cn.authing.sdk.java.dto.CreateArrayDataResourceRespDto;
 
-public class GetDataPolicyResponseDto {
+public class CreateArrayDataResourceResponseDto {
     /**
      * 业务状态码，可以通过此状态码判断操作是否成功，200 表示成功。
      */
@@ -30,7 +30,7 @@ public class GetDataPolicyResponseDto {
      * 响应数据
      */
     @JsonProperty("data")
-    private GetDataPolicyRespDto data;
+    private CreateArrayDataResourceRespDto data;
 
     public Integer getStatusCode() {
         return statusCode;
@@ -60,10 +60,10 @@ public class GetDataPolicyResponseDto {
         this.requestId = requestId;
     }
 
-    public GetDataPolicyRespDto getData() {
+    public CreateArrayDataResourceRespDto getData() {
         return data;
     }
-    public void setData(GetDataPolicyRespDto data) {
+    public void setData(CreateArrayDataResourceRespDto data) {
         this.data = data;
     }
 

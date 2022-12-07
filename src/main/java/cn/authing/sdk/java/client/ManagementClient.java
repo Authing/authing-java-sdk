@@ -711,12 +711,25 @@ public class ManagementClient extends BaseClient {
                                                                                                                                                 return deserialize(response, IsSuccessRespDto.class);
                                                                                                                                             }
                                                                                                                                             /**
+                                                                                                                                             * @deprecated
                                                                                                                                              * @summary 搜索部门
                                                                                                                                              * @description 通过组织 code、搜索关键词，搜索部门，可以搜索组织名称等。
                                                                                                                                              **/
                                                                                                                                             public DepartmentListRespDto searchDepartments(SearchDepartmentsReqDto reqDto) {
                                                                                                                                                 AuthingRequestConfig config = new AuthingRequestConfig();
                                                                                                                                                 config.setUrl("/api/v3/search-departments");
+                                                                                                                                                config.setBody(reqDto);
+                                                                                                                                                config.setMethod("POST");
+                                                                                                                                                String response = request(config);
+                                                                                                                                                return deserialize(response, DepartmentListRespDto.class);
+                                                                                                                                            }
+                                                                                                                                            /**
+                                                                                                                                             * @summary 搜索部门
+                                                                                                                                             * @description 通过组织 code、搜索关键词，搜索部门，可以搜索组织名称等。
+                                                                                                                                             **/
+                                                                                                                                            public DepartmentListRespDto searchDepartmentsList(SearchDepartmentsReqDto reqDto) {
+                                                                                                                                                AuthingRequestConfig config = new AuthingRequestConfig();
+                                                                                                                                                config.setUrl("/api/v3/search-departments-list");
                                                                                                                                                 config.setBody(reqDto);
                                                                                                                                                 config.setMethod("POST");
                                                                                                                                                 String response = request(config);
@@ -1432,7 +1445,7 @@ public class ManagementClient extends BaseClient {
                                                                                                                                             }
                                                                                                                                             /**
                                                                                                                                              * @summary 批量删除资源
-                                                                                                                                             * @description 通过资源唯一标志符以及所属权限分组，批量删除资源
+                                                                                                                                             * @description 批量删除资源，允许通过资源 Id 列表进行批量删除，同时允许权限空间加资源 Code 列表进行批量删除，资源 Id 列表和资源 Code 列表同时必须存在一个，如果两个都存在，则以资源 Id 列表为主
                                                                                                                                              **/
                                                                                                                                             public IsSuccessRespDto deleteResourcesBatch(DeleteResourcesBatchDto reqDto) {
                                                                                                                                                 AuthingRequestConfig config = new AuthingRequestConfig();
@@ -1443,10 +1456,11 @@ public class ManagementClient extends BaseClient {
                                                                                                                                                 return deserialize(response, IsSuccessRespDto.class);
                                                                                                                                             }
                                                                                                                                             /**
+                                                                                                                                             * @deprecated
                                                                                                                                              * @summary 批量删除资源
                                                                                                                                              * @description 批量删除资源，通过资源 Id 进行批量删除。
                                                                                                                                              **/
-                                                                                                                                            public IsSuccessRespDto batchDeleteCommonResource(DeleteCommonResourcesBatchDto reqDto) {
+                                                                                                                                            public IsSuccessRespDto deleteResourcesByIdBatch(DeleteCommonResourcesBatchDto reqDto) {
                                                                                                                                                 AuthingRequestConfig config = new AuthingRequestConfig();
                                                                                                                                                 config.setUrl("/api/v3/delete-common-resources-batch");
                                                                                                                                                 config.setBody(reqDto);
@@ -2387,6 +2401,42 @@ public class ManagementClient extends BaseClient {
                                                                                                                                                                         config.setMethod("POST");
                                                                                                                                                                         String response = request(config);
                                                                                                                                                                         return deserialize(response, CreateDataResourceResponseDto.class);
+                                                                                                                                                                    }
+                                                                                                                                                                    /**
+                                                                                                                                                                     * @summary 创建字符串数据资源
+                                                                                                                                                                     * @description 创建字符串数据资源，通过数据资源所属权限空间 Code、数据资源名称、数据资源 Code、数据资源节点和数据资源权限操作等字段进行创建
+                                                                                                                                                                     **/
+                                                                                                                                                                    public CreateStringDataResourceResponseDto createDataResourceByString(CreateStringDataResourceDto reqDto) {
+                                                                                                                                                                        AuthingRequestConfig config = new AuthingRequestConfig();
+                                                                                                                                                                        config.setUrl("/api/v3/create-string-data-resource");
+                                                                                                                                                                        config.setBody(reqDto);
+                                                                                                                                                                        config.setMethod("POST");
+                                                                                                                                                                        String response = request(config);
+                                                                                                                                                                        return deserialize(response, CreateStringDataResourceResponseDto.class);
+                                                                                                                                                                    }
+                                                                                                                                                                    /**
+                                                                                                                                                                     * @summary 创建数组数据资源
+                                                                                                                                                                     * @description 创建字符串数据资源，通过数据资源所属权限空间 Code、数据资源名称、数据资源 Code、数据资源节点和数据资源权限操作等字段进行创建
+                                                                                                                                                                     **/
+                                                                                                                                                                    public CreateArrayDataResourceResponseDto createDataResourceByArray(CreateArrayDataResourceDto reqDto) {
+                                                                                                                                                                        AuthingRequestConfig config = new AuthingRequestConfig();
+                                                                                                                                                                        config.setUrl("/api/v3/create-array-data-resource");
+                                                                                                                                                                        config.setBody(reqDto);
+                                                                                                                                                                        config.setMethod("POST");
+                                                                                                                                                                        String response = request(config);
+                                                                                                                                                                        return deserialize(response, CreateArrayDataResourceResponseDto.class);
+                                                                                                                                                                    }
+                                                                                                                                                                    /**
+                                                                                                                                                                     * @summary 创建树数据资源
+                                                                                                                                                                     * @description 创建树数据资源，通过数据资源所属权限空间 Code、数据资源名称、数据资源 Code、数据资源节点和数据资源权限操作等字段进行创建
+                                                                                                                                                                     **/
+                                                                                                                                                                    public CreateTreeDataResourceResponseDto createDataResourceByTree(CreateTreeDataResourceDto reqDto) {
+                                                                                                                                                                        AuthingRequestConfig config = new AuthingRequestConfig();
+                                                                                                                                                                        config.setUrl("/api/v3/create-tree-data-resource");
+                                                                                                                                                                        config.setBody(reqDto);
+                                                                                                                                                                        config.setMethod("POST");
+                                                                                                                                                                        String response = request(config);
+                                                                                                                                                                        return deserialize(response, CreateTreeDataResourceResponseDto.class);
                                                                                                                                                                     }
                                                                                                                                                                     /**
                                                                                                                                                                      * @summary 获取数据资源列表

@@ -3,19 +3,19 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import cn.authing.sdk.java.dto.RolePermissionListDto;
+import cn.authing.sdk.java.dto.AsaAccountTargetDto;
 
-public class RoleListPageDto {
+public class GetAsaAccountAssignedTargetDataDto {
     /**
-     * 记录总数
+     * 总数
      */
     @JsonProperty("totalCount")
     private Integer totalCount;
     /**
-     * 响应数据
+     * 主体列表
      */
-    @JsonProperty("data")
-    private List<RolePermissionListDto> data;
+    @JsonProperty("list")
+    private List<AsaAccountTargetDto> list;
 
     public Integer getTotalCount() {
         return totalCount;
@@ -24,11 +24,11 @@ public class RoleListPageDto {
         this.totalCount = totalCount;
     }
 
-    public List<RolePermissionListDto> getData() {
-        return data;
+    public List<AsaAccountTargetDto> getList() {
+        return list;
     }
-    public void setData(List<RolePermissionListDto> data) {
-        this.data = data;
+    public void setList(List<AsaAccountTargetDto> list) {
+        this.list = list;
     }
 
 

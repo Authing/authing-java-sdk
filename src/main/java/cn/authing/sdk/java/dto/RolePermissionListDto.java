@@ -31,16 +31,6 @@ public class RolePermissionListDto {
     @JsonProperty("description")
     private String description;
     /**
-     * 应用 id
-     */
-    @JsonProperty("appId")
-    private String appId;
-    /**
-     * 角色所属应用名称
-     */
-    @JsonProperty("appName")
-    private String appName;
-    /**
      * 创建时间
      */
     @JsonProperty("createdAt")
@@ -84,20 +74,6 @@ public class RolePermissionListDto {
     }
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getAppId() {
-        return appId;
-    }
-    public void setAppId(String appId) {
-        this.appId = appId;
-    }
-
-    public String getAppName() {
-        return appName;
-    }
-    public void setAppName(String appName) {
-        this.appName = appName;
     }
 
     public String getCreatedAt() {

@@ -45,6 +45,11 @@ public class ApplicationEnabledExtIdpConnDto {
      */
     @JsonProperty("extIdpConnLogo")
     private String extIdpConnLogo;
+    /**
+     * 是否允许身份源连接
+     */
+    @JsonProperty("enabled")
+    private Boolean enabled;
 
     public Boolean getIsSocial() {
         return isSocial;
@@ -100,6 +105,13 @@ public class ApplicationEnabledExtIdpConnDto {
     }
     public void setExtIdpConnLogo(String extIdpConnLogo) {
         this.extIdpConnLogo = extIdpConnLogo;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
 

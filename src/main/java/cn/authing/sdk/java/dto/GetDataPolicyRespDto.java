@@ -3,7 +3,6 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import cn.authing.sdk.java.dto.DataPermissionRespDto;
 
 public class GetDataPolicyRespDto {
     /**
@@ -31,11 +30,6 @@ public class GetDataPolicyRespDto {
      */
     @JsonProperty("updatedAt")
     private String updatedAt;
-    /**
-     * 数据权限列表，每个策略下所有的数据资源
-     */
-    @JsonProperty("dataPermissionList")
-    private List<DataPermissionRespDto> dataPermissionList;
 
     public String getPolicyId() {
         return policyId;
@@ -70,13 +64,6 @@ public class GetDataPolicyRespDto {
     }
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public List<DataPermissionRespDto> getDataPermissionList() {
-        return dataPermissionList;
-    }
-    public void setDataPermissionList(List<DataPermissionRespDto> dataPermissionList) {
-        this.dataPermissionList = dataPermissionList;
     }
 
 

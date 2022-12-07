@@ -6,15 +6,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DeleteResourcesBatchDto {
     /**
-     * 资源 code 列表
-     */
-    @JsonProperty("codeList")
-    private List<String> codeList;
-    /**
      * 所属权限分组(权限空间)的 Code
      */
     @JsonProperty("namespace")
     private String namespace;
+    /**
+     * 资源 Code 列表
+     */
+    @JsonProperty("codeList")
+    private List<String> codeList;
+    /**
+     * 资源 Id 列表
+     */
+    @JsonProperty("ids")
+    private List<String> ids;
+
+    public String getNamespace() {
+        return namespace;
+    }
+    public void setNamespace(String namespace) {
+        this.namespace = namespace;
+    }
 
     public List<String> getCodeList() {
         return codeList;
@@ -23,11 +35,11 @@ public class DeleteResourcesBatchDto {
         this.codeList = codeList;
     }
 
-    public String getNamespace() {
-        return namespace;
+    public List<String> getIds() {
+        return ids;
     }
-    public void setNamespace(String namespace) {
-        this.namespace = namespace;
+    public void setIds(List<String> ids) {
+        this.ids = ids;
     }
 
 
