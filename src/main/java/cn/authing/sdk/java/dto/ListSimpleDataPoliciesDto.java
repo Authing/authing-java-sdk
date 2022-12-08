@@ -16,7 +16,7 @@ public class ListSimpleDataPoliciesDto {
     @JsonProperty("limit")
     private Integer limit;
     /**
-     * 数据策略名称关键字搜索，
+     * 数据策略名称关键字搜索
      */
     @JsonProperty("query")
     private String query;

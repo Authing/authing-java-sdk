@@ -30,6 +30,11 @@ public class UpdateRoleDto {
      */
     @JsonProperty("description")
     private String description;
+    /**
+     * 角色状态，ENABLE-表示正常，DISABLE-表示禁止
+     */
+    @JsonProperty("status")
+    private String status;
 
     public String getName() {
         return name;
@@ -64,6 +69,13 @@ public class UpdateRoleDto {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+    public void setStatus(String status) {
+        this.status = status;
     }
 
 

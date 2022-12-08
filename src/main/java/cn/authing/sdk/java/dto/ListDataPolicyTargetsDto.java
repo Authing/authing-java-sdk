@@ -21,7 +21,7 @@ public class ListDataPolicyTargetsDto {
     @JsonProperty("limit")
     private Integer limit;
     /**
-     * 关键字搜索，可以是数据策略名称
+     * 数据策略名称搜索
      */
     @JsonProperty("query")
     private String query;

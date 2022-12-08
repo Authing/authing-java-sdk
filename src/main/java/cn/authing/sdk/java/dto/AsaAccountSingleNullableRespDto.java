@@ -30,7 +30,7 @@ public class AsaAccountSingleNullableRespDto {
      * 响应数据
      */
     @JsonProperty("data")
-    private AsaAccountDto data;
+    private AsaAccountDto | null data;
 
     public Integer getStatusCode() {
         return statusCode;
@@ -60,10 +60,10 @@ public class AsaAccountSingleNullableRespDto {
         this.requestId = requestId;
     }
 
-    public AsaAccountDto getData() {
+    public AsaAccountDto | null getData() {
         return data;
     }
-    public void setData(AsaAccountDto data) {
+    public void setData(AsaAccountDto | null data) {
         this.data = data;
     }
 

@@ -11,10 +11,10 @@ public class DataStatementPermissionDto {
     @JsonProperty("effect")
     private Effect effect;
     /**
-     * 资源权限列表，字符串数据资源和字符串数据资源，没有 path 路径，默认表达是 [‘namespaceCode/strResourceCode/action’]
+     * 资源权限列表，字符串数据资源和字符串数据资源，没有 path 路径
      */
-    @JsonProperty("dataPermissions")
-    private List<String> dataPermissions;
+    @JsonProperty("permissions")
+    private List<String> permissions;
 
     public Effect getEffect() {
         return effect;
@@ -23,11 +23,11 @@ public class DataStatementPermissionDto {
         this.effect = effect;
     }
 
-    public List<String> getDataPermissions() {
-        return dataPermissions;
+    public List<String> getPermissions() {
+        return permissions;
     }
-    public void setDataPermissions(List<String> dataPermissions) {
-        this.dataPermissions = dataPermissions;
+    public void setPermissions(List<String> permissions) {
+        this.permissions = permissions;
     }
 
 

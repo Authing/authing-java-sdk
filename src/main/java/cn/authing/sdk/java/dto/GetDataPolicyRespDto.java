@@ -11,12 +11,12 @@ public class GetDataPolicyRespDto {
     @JsonProperty("policyId")
     private String policyId;
     /**
-     * 数据策略名称权限空间内唯一
+     * 数据策略名称，用户池唯一
      */
     @JsonProperty("policyName")
     private String policyName;
     /**
-     * 数据策略描述， 限长 200 字符
+     * 数据策略描述
      */
     @JsonProperty("description")
     private String description;

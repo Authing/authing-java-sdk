@@ -15,7 +15,7 @@ public class CreateDataResourceDto {
      * 数据资源节点类型，支持字符串（STRING）、树结构（TREE）和数组结构（ARRAY）。
      */
     @JsonProperty("struct")
-    private Object struct;
+    private (DataResourceTreeStructs | String | List<String>) struct;
     /**
      * 数据资源类型，目前支持树结构（TREE）、字符串（STRING）、数组（ARRAY）
      */
@@ -49,10 +49,10 @@ public class CreateDataResourceDto {
         this.actions = actions;
     }
 
-    public Object getStruct() {
+    public (DataResourceTreeStructs | String | List<String>) getStruct() {
         return struct;
     }
-    public void setStruct(Object struct) {
+    public void setStruct((DataResourceTreeStructs | String | List<String>) struct) {
         this.struct = struct;
     }
 
