@@ -21,9 +21,9 @@ public class RevokeDataPolicyTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         DeleteAuthorizeDataPolicyDto reqDto = new DeleteAuthorizeDataPolicyDto();
-        reqDto.setPolicyId("policy_id");
+        reqDto.setPolicyId("60b49xxxxxxxxxxxxxxx6e68");
         reqDto.setTargetType(DeleteAuthorizeDataPolicyDto.TargetType.USER);
-        reqDto.setTargetIdentifier("identifier");
+        reqDto.setTargetIdentifier("6301cexxxxxxxxxxxxxxxxx78");
         CommonResponseDto response = client.revokeDataPolicy(reqDto);
         System.out.println(JsonUtils.serialize(response));
     }

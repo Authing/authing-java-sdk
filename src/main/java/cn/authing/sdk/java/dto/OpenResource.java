@@ -17,7 +17,7 @@ public class OpenResource {
      * 用户在权限空间下所有的数据策略的资源列表
      */
     @JsonProperty("authorize")
-    private (TreeAuthorize | ArrayAuthorize | StrAuthorize) authorize;
+    private Object authorize;
 
     public String getResourceCode() {
         return resourceCode;
@@ -26,10 +26,10 @@ public class OpenResource {
         this.resourceCode = resourceCode;
     }
 
-    public (TreeAuthorize | ArrayAuthorize | StrAuthorize) getAuthorize() {
+    public Object getAuthorize() {
         return authorize;
     }
-    public void setAuthorize((TreeAuthorize | ArrayAuthorize | StrAuthorize) authorize) {
+    public void setAuthorize(Object authorize) {
         this.authorize = authorize;
     }
 

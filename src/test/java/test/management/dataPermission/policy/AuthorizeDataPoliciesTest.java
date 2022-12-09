@@ -27,11 +27,14 @@ public class AuthorizeDataPoliciesTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         CreateAuthorizeDataPolicyDto reqDto = new CreateAuthorizeDataPolicyDto();
-        reqDto.setPolicyIds(Collections.singletonList("policy_id"));
+        List<String> list = new ArrayList<>();
+        list.add("6301cexxxxxxxxxx27478");
+        list.add("63123cexxxxxxxxxx2123101");
+        reqDto.setPolicyIds(list);
         List<SubjectDto> targetList = new ArrayList<>();
         SubjectDto subjectDto = new SubjectDto();
-        subjectDto.setId("id");
-        subjectDto.setName("name");
+        subjectDto.setId("6301cexxxxxxxxxxxxxxxxx78");
+        subjectDto.setName("用户名称");
         subjectDto.setType(SubjectDto.Type.USER);
         targetList.add(subjectDto);
         reqDto.setTargetList(targetList);

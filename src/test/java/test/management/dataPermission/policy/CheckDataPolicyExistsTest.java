@@ -21,7 +21,7 @@ public class CheckDataPolicyExistsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         CheckDataPolicyExistsDto reqDto = new CheckDataPolicyExistsDto();
-        reqDto.setPolicyName("policy_name");
+        reqDto.setPolicyName("示例数据策略名称");
         CheckParamsDataPolicyResponseDto response = client.checkDataPolicyExists(reqDto);
         System.out.println(JsonUtils.serialize(response));
     }

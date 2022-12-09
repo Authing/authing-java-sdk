@@ -21,7 +21,7 @@ public class GetDataPolicyTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetDataPolicyDto reqDto = new GetDataPolicyDto();
-        reqDto.setPolicyId("policy_id");
+        reqDto.setPolicyId("60b49xxxxxxxxxxxxxxx6e68");
         GetDataPolicyResponseDto response = client.getDataPolicy(reqDto);
         System.out.println(JsonUtils.serialize(response));
     }

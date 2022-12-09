@@ -21,7 +21,9 @@ public class ListDataPolicesTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListDataPoliciesDto reqDto = new ListDataPoliciesDto();
-        reqDto.setQuery("query");
+        reqDto.setPage(1);
+        reqDto.setLimit(10);
+        reqDto.setQuery("examplePolicyName");
         ListDataPoliciesPaginatedRespDto response = client.listDataPolices(reqDto);
         System.out.println(JsonUtils.serialize(response));
     }

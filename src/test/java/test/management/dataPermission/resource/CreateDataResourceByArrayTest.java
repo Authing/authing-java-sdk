@@ -6,7 +6,9 @@ import cn.authing.sdk.java.dto.CreateArrayDataResourceResponseDto;
 import cn.authing.sdk.java.model.ManagementClientOptions;
 import cn.authing.sdk.java.util.JsonUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class CreateDataResourceByArrayTest {
     // 需要替换成你的 Authing Access Key ID
@@ -23,11 +25,18 @@ public class CreateDataResourceByArrayTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         CreateArrayDataResourceDto reqDto = new CreateArrayDataResourceDto();
-        reqDto.setResourceCode("resource_code");
-        reqDto.setResourceName("resource_name");
-        reqDto.setNamespaceCode("namespace_code");
-        reqDto.setActions(Collections.singletonList("read"));
-        reqDto.setStruct(Collections.singletonList("struct"));
+        reqDto.setResourceCode("arrayResourceCode");
+        reqDto.setResourceName("示例数组数据资源");
+        reqDto.setNamespaceCode("examplePermissionNamespace");
+        List<String> list = new ArrayList<>();
+        list.add("read");
+        list.add("get");
+        reqDto.setActions(list);
+        List<String> list1 = new ArrayList<>();
+        list1.add("exampleArrayStruct1");
+        list1.add("exampleArrayStruct2");
+        reqDto.setStruct(list1);
+        reqDto.setDescription("示例数组数据资源描述");
         CreateArrayDataResourceResponseDto response = client.createDataResourceByArray(reqDto);
         System.out.println(JsonUtils.serialize(response));
     }

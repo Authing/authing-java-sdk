@@ -21,7 +21,9 @@ public class ListSimpleDataPolicesTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListSimpleDataPoliciesDto reqDto = new ListSimpleDataPoliciesDto();
-        reqDto.setQuery("query");
+        reqDto.setPage(1);
+        reqDto.setLimit(10);
+        reqDto.setQuery("examplePolicyName");
         ListSimpleDataPoliciesPaginatedRespDto response = client.listSimpleDataPolices(reqDto);
         System.out.println(JsonUtils.serialize(response));
     }

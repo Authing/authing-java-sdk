@@ -27,22 +27,24 @@ public class CreateDataResourceByTreeTest {
 
         CreateTreeDataResourceDto reqDto = new CreateTreeDataResourceDto();
         reqDto.setActions(Collections.singletonList("read"));
-        reqDto.setResourceCode("resource_code");
-        reqDto.setResourceName("resource_name");
-        reqDto.setNamespaceCode("namespace_code");
+        reqDto.setResourceCode("treeResourceCode");
+        reqDto.setResourceName("示例树数据资源");
+        reqDto.setNamespaceCode("examplePermissionNamespace");
         List<DataResourceTreeStructs> treeList = new ArrayList<>();
         DataResourceTreeStructs struct = new DataResourceTreeStructs();
-        struct.setCode("code");
-        struct.setName("name");
+        struct.setCode("tree1");
+        struct.setName("树节点1");
+        struct.setValue("树节点1描述");
         List<DataResourceTreeStructs> children = new ArrayList<>();
         DataResourceTreeStructs child = new DataResourceTreeStructs();
-        child.setName("child_name");
-        child.setCode("child_code");
-        child.setValue("child_value");
+        child.setName("树节点11");
+        child.setCode("tree11");
+        child.setValue("树节点11描述");
         children.add(child);
         struct.setChildren(children);
         treeList.add(struct);
         reqDto.setStruct(treeList);
+        reqDto.setDescription("示例树数据资源描述");
         CreateTreeDataResourceResponseDto response = client.createDataResourceByTree(reqDto);
         System.out.println(JsonUtils.serialize(response));
     }

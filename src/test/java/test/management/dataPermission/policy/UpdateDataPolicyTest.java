@@ -8,7 +8,6 @@ import cn.authing.sdk.java.model.ManagementClientOptions;
 import cn.authing.sdk.java.util.JsonUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class UpdateDataPolicyTest {
@@ -26,14 +25,17 @@ public class UpdateDataPolicyTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         UpdateDataPolicyDto reqDto = new UpdateDataPolicyDto();
-        reqDto.setPolicyId("policy_id");
-        reqDto.setPolicyName("policy_name");
+        reqDto.setPolicyId("60b49xxxxxxxxxxxxxxx6e68");
+        reqDto.setPolicyName("示例数据策略名称");
         List<DataStatementPermissionDto> list = new ArrayList<>();
         DataStatementPermissionDto permissionDto = new DataStatementPermissionDto();
-        permissionDto.setDataPermissions(Collections.singletonList("read"));
+        List<String> list1 = new ArrayList<>();
+        list1.add("namespaceCode/treeResourceCode/path/action");
+        permissionDto.setPermissions(list1);
         permissionDto.setEffect(DataStatementPermissionDto.Effect.ALLOW);
         list.add(permissionDto);
         reqDto.setStatementList(list);
+        reqDto.setDescription("示例数据策略描述");
         UpdateDataPolicyResponseDto response = client.updateDataPolicy(reqDto);
         System.out.println(JsonUtils.serialize(response));
     }

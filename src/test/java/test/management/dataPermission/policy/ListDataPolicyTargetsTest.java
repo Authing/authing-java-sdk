@@ -21,7 +21,11 @@ public class ListDataPolicyTargetsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListDataPolicyTargetsDto reqDto = new ListDataPolicyTargetsDto();
-        reqDto.setPolicyId("policy_id");
+        reqDto.setPolicyId("60b49xxxxxxxxxxxxxxx6e68");
+        reqDto.setQuery("示例1");
+        reqDto.setPage(1);
+        reqDto.setLimit(10);
+        reqDto.setTargetType("USER");
         ListDataPolicySubjectPaginatedRespDto response = client.listDataPolicyTargets(reqDto);
         System.out.println(JsonUtils.serialize(response));
     }

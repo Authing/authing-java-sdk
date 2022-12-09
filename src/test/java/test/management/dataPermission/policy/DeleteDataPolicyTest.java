@@ -21,7 +21,7 @@ public class DeleteDataPolicyTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         DeleteDataPolicyDto reqDto = new DeleteDataPolicyDto();
-        reqDto.setPolicyId("policy_id");
+        reqDto.setPolicyId("60b49xxxxxxxxxxxxxxx6e68");
         CommonResponseDto response = client.deleteDataPolicy(reqDto);
         System.out.println(JsonUtils.serialize(response));
     }

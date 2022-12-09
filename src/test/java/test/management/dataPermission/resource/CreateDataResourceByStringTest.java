@@ -6,7 +6,8 @@ import cn.authing.sdk.java.dto.CreateStringDataResourceResponseDto;
 import cn.authing.sdk.java.model.ManagementClientOptions;
 import cn.authing.sdk.java.util.JsonUtils;
 
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CreateDataResourceByStringTest {
     // 需要替换成你的 Authing Access Key ID
@@ -23,11 +24,15 @@ public class CreateDataResourceByStringTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         CreateStringDataResourceDto reqDto = new CreateStringDataResourceDto();
-        reqDto.setResourceName("resource_name");
-        reqDto.setNamespaceCode("namespace_code");
-        reqDto.setResourceName("resource_name");
-        reqDto.setActions(Collections.singletonList("read"));
-        reqDto.setStruct("strut");
+        reqDto.setResourceCode("stringResourceCode");
+        reqDto.setNamespaceCode("examplePermissionNamespace");
+        reqDto.setResourceName("示例字符串数据资源");
+        List<String> list = new ArrayList<>();
+        list.add("read");
+        list.add("get");
+        reqDto.setActions(list);
+        reqDto.setStruct("exampleStringStruct");
+        reqDto.setDescription("示例字符串数据资源描述");
         CreateStringDataResourceResponseDto response = client.createDataResourceByString(reqDto);
         System.out.println(JsonUtils.serialize(response));
     }
