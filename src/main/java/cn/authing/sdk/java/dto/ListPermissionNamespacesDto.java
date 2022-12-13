@@ -16,7 +16,7 @@ public class ListPermissionNamespacesDto {
     @JsonProperty("limit")
     private Integer limit;
     /**
-     * 权限空间 Code
+     * 权限空间 name
      */
     @JsonProperty("query")
     private String query;

@@ -35,6 +35,11 @@ public class UpdateRoleDto {
      */
     @JsonProperty("status")
     private String status;
+    /**
+     * 角色自动禁止时间，单位毫秒, 如果传null表示永久有效
+     */
+    @JsonProperty("disableTime")
+    private String disableTime;
 
     public String getName() {
         return name;
@@ -76,6 +81,13 @@ public class UpdateRoleDto {
     }
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getDisableTime() {
+        return disableTime;
+    }
+    public void setDisableTime(String disableTime) {
+        this.disableTime = disableTime;
     }
 
 

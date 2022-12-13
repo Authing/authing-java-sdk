@@ -7,15 +7,15 @@ import cn.authing.sdk.java.dto.DataStatementPermissionDto;
 
 public class UpdateDataPolicyDto {
     /**
-     * 数据策略名称，用户池唯一
-     */
-    @JsonProperty("policyName")
-    private String policyName;
-    /**
      * 数据策略 ID
      */
     @JsonProperty("policyId")
     private String policyId;
+    /**
+     * 数据策略名称，用户池唯一
+     */
+    @JsonProperty("policyName")
+    private String policyName;
     /**
      * 数据策略描述
      */
@@ -27,18 +27,18 @@ public class UpdateDataPolicyDto {
     @JsonProperty("statementList")
     private List<DataStatementPermissionDto> statementList;
 
-    public String getPolicyName() {
-        return policyName;
-    }
-    public void setPolicyName(String policyName) {
-        this.policyName = policyName;
-    }
-
     public String getPolicyId() {
         return policyId;
     }
     public void setPolicyId(String policyId) {
         this.policyId = policyId;
+    }
+
+    public String getPolicyName() {
+        return policyName;
+    }
+    public void setPolicyName(String policyName) {
+        this.policyName = policyName;
     }
 
     public String getDescription() {
