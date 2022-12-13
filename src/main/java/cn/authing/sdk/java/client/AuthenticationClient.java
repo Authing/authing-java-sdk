@@ -350,7 +350,7 @@ public class AuthenticationClient extends BaseClient {
         }
 
         if (!ProtocolEnum.OIDC.getValue().equals(options.getProtocol())) {
-            throw new InvalidParameterException("初始化 AuthenticationClient 传入的 protocol 应为 ProtocolEnum.OIDC 不应该为 $protocol");
+            throw new InvalidParameterException("初始化 AuthenticationClient 传入的 protocol 应为 ProtocolEnum.OIDC 不应该为"+options.getProtocol());
         }
 
         if (StrUtil.isEmpty(options.getRedirectUri()) && StrUtil.isEmpty(params.getRedirectUri())) {
@@ -363,6 +363,67 @@ public class AuthenticationClient extends BaseClient {
         map.put("state", Optional.ofNullable(params.getState()).orElse(CommonUtils.createRandomString(12)));
         map.put("nonce", Optional.ofNullable(params.getNonce()).orElse(CommonUtils.createRandomString(12)));
         map.put("response_mode", Optional.ofNullable(params.getResponseMode()).orElse(null));
+        map.put("response_type", Optional.ofNullable(params.getResponseType()).orElse("code"));
+        map.put("redirect_uri", Optional.ofNullable(params.getRedirectUri()).orElse(options.getRedirectUri()));
+        map.put("prompt", params.getScope() != null && params.getScope().contains("offline_access") ? "consent" : null);
+
+        return HttpUtils.buildUrlWithQueryParams(options.getAppHost() + "/oidc/auth", map);
+    }
+
+    /**
+     * 拼接 CAS 协议授权链接
+     */
+    public String buildAuthorizeUrl(ICasParams params) {
+        if (options.getAppId() == null) {
+            throw new InvalidParameterException("请在初始化 AuthenticationClient 时传入 appId");
+        }
+
+        if (!ProtocolEnum.CAS.getValue().equals(options.getProtocol())) {
+            throw new InvalidParameterException("初始化 AuthenticationClient 传入的 protocol 应为 ProtocolEnum.CAS 不应该为"+options.getProtocol());
+        }
+
+        if(StrUtil.isNotBlank(params.getService())){
+            return options.getAppHost() + "/cas-idp/" + options.getAppId() + "?service=" + params.getService();
+        }else {
+            return options.getAppHost() + "/cas-idp/" + options.getAppId();
+        }
+    }
+
+    /**
+     * 拼接 SAML 协议授权链接
+     */
+    public String buildAuthorizeUrl() {
+        if (options.getAppId() == null) {
+            throw new InvalidParameterException("请在初始化 AuthenticationClient 时传入 appId");
+        }
+
+        if (!ProtocolEnum.SAML.getValue().equals(options.getProtocol())) {
+            throw new InvalidParameterException("初始化 AuthenticationClient 传入的 protocol 应为 ProtocolEnum.SAML 不应该为"+options.getProtocol());
+        }
+
+        return options.getAppHost() + "/api/v2/saml-idp/" + options.getAppId();
+    }
+
+    /**
+     * 拼接 OAUTH 2.0 协议授权链接
+     */
+    public String buildAuthorizeUrl(IOauthParams params) {
+        if (options.getAppId() == null) {
+            throw new InvalidParameterException("请在初始化 AuthenticationClient 时传入 appId");
+        }
+
+        if (!ProtocolEnum.OAUTH.getValue().equals(options.getProtocol())) {
+            throw new InvalidParameterException("初始化 AuthenticationClient 传入的 protocol 应为 ProtocolEnum.OAUTH 不应该为"+options.getProtocol());
+        }
+
+        if (StrUtil.isEmpty(options.getRedirectUri()) && StrUtil.isEmpty(params.getRedirectUri())) {
+            throw new InvalidParameterException("redirectUri 不应该为空 解决方法：请在 AuthenticationClient 初始化时传入 redirectUri，或者调用 buildAuthorizeUrl 时传入 redirectUri");
+        }
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("client_id", options.getAppId());
+        map.put("scope", Optional.ofNullable(params.getScope()).orElse("user"));
+        map.put("state", Optional.ofNullable(params.getState()).orElse(CommonUtils.createRandomString(12)));
         map.put("response_type", Optional.ofNullable(params.getResponseType()).orElse("code"));
         map.put("redirect_uri", Optional.ofNullable(params.getRedirectUri()).orElse(options.getRedirectUri()));
         map.put("prompt", params.getScope() != null && params.getScope().contains("offline_access") ? "consent" : null);
