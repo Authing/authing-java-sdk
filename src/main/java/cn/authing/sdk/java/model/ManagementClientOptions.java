@@ -127,7 +127,16 @@ public class ManagementClientOptions extends AuthingClientOptions {
             if (obj != null) {
                 // 如果是对象类型，转成 JSON 字符串
                 if (isObject(obj)) {
-                    map.put(field.getName(), JsonUtils.serialize(obj));
+                    if (obj instanceof List && CollectionUtil.isNotEmpty((List<?>) obj)) {
+                        Object arr = ((List<?>) obj).get(0);
+                        if (arr instanceof Enum) {
+                            map.put(field.getName(), JsonUtils.serialize(obj).replaceAll("\"", "").replaceAll(",", ", "));
+                        } else {
+                            map.put(field.getName(), JsonUtils.serialize(obj));
+                        }
+                    } else {
+                        map.put(field.getName(), JsonUtils.serialize(obj));
+                    }
                 }
                 else {
                     if (obj instanceof Enum) {
