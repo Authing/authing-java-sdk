@@ -3,8 +3,12 @@ package test.management.dataPermission.policy;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.ListDataPolicySubjectPaginatedRespDto;
 import cn.authing.sdk.java.dto.ListDataPolicyTargetsDto;
+import cn.authing.sdk.java.dto.SubjectDto;
 import cn.authing.sdk.java.model.ManagementClientOptions;
 import cn.authing.sdk.java.util.JsonUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ListDataPolicyTargetsTest {
     // 需要替换成你的 Authing Access Key ID
@@ -22,10 +26,13 @@ public class ListDataPolicyTargetsTest {
 
         ListDataPolicyTargetsDto reqDto = new ListDataPolicyTargetsDto();
         reqDto.setPolicyId("60b49xxxxxxxxxxxxxxx6e68");
-        reqDto.setQuery("示例1");
+        reqDto.setQuery("主体名称");
         reqDto.setPage(1);
         reqDto.setLimit(10);
-        reqDto.setTargetType("USER");
+        List<SubjectDto.Type> targetType = new ArrayList<>();
+        targetType.add(SubjectDto.Type.USER);
+        targetType.add(SubjectDto.Type.ROLE);
+        reqDto.setTargetType(targetType);
         ListDataPolicySubjectPaginatedRespDto response = client.listDataPolicyTargets(reqDto);
         System.out.println(JsonUtils.serialize(response));
     }
