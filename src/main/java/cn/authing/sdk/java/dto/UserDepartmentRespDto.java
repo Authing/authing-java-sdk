@@ -71,6 +71,21 @@ public class UserDepartmentRespDto {
      */
     @JsonProperty("customData")
     private Object customData;
+    /**
+     * 部门 ID 路径
+     */
+    @JsonProperty("departmentIdPath")
+    private List<String> departmentIdPath;
+    /**
+     * 部门 Code 路径
+     */
+    @JsonProperty("departmentCodePath")
+    private List<String> departmentCodePath;
+    /**
+     * 部门名路径
+     */
+    @JsonProperty("departmentNamePath")
+    private List<String> departmentNamePath;
 
     public String getOrganizationCode() {
         return organizationCode;
@@ -161,6 +176,27 @@ public class UserDepartmentRespDto {
     }
     public void setCustomData(Object customData) {
         this.customData = customData;
+    }
+
+    public List<String> getDepartmentIdPath() {
+        return departmentIdPath;
+    }
+    public void setDepartmentIdPath(List<String> departmentIdPath) {
+        this.departmentIdPath = departmentIdPath;
+    }
+
+    public List<String> getDepartmentCodePath() {
+        return departmentCodePath;
+    }
+    public void setDepartmentCodePath(List<String> departmentCodePath) {
+        this.departmentCodePath = departmentCodePath;
+    }
+
+    public List<String> getDepartmentNamePath() {
+        return departmentNamePath;
+    }
+    public void setDepartmentNamePath(List<String> departmentNamePath) {
+        this.departmentNamePath = departmentNamePath;
     }
 
 

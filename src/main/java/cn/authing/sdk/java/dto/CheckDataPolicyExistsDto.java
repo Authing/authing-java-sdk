@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CheckDataPolicyExistsDto {
     /**
-     * 数据策略名称权限空间内唯一
+     * 数据策略名称，用户池唯一
      */
     @JsonProperty("policyName")
     private String policyName;

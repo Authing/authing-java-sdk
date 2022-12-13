@@ -12,7 +12,7 @@ public class RoleListPageDto {
     @JsonProperty("totalCount")
     private Integer totalCount;
     /**
-     * 数据
+     * 响应数据
      */
     @JsonProperty("data")
     private List<RolePermissionListDto> data;

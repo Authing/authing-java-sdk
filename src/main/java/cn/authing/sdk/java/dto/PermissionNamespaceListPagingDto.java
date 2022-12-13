@@ -3,7 +3,7 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import cn.authing.sdk.java.dto.PermissionNamespaceRolesListRespDto;
+import cn.authing.sdk.java.dto.PermissionNamespacesListRespDto;
 
 public class PermissionNamespaceListPagingDto {
     /**
@@ -15,7 +15,7 @@ public class PermissionNamespaceListPagingDto {
      * 响应数据
      */
     @JsonProperty("list")
-    private List<PermissionNamespaceRolesListRespDto> list;
+    private List<PermissionNamespacesListRespDto> list;
 
     public Integer getTotalCount() {
         return totalCount;
@@ -24,10 +24,10 @@ public class PermissionNamespaceListPagingDto {
         this.totalCount = totalCount;
     }
 
-    public List<PermissionNamespaceRolesListRespDto> getList() {
+    public List<PermissionNamespacesListRespDto> getList() {
         return list;
     }
-    public void setList(List<PermissionNamespaceRolesListRespDto> list) {
+    public void setList(List<PermissionNamespacesListRespDto> list) {
         this.list = list;
     }
 

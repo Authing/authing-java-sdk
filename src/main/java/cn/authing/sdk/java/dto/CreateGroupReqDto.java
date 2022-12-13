@@ -6,6 +6,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CreateGroupReqDto {
     /**
+     * 分组类型
+     */
+    @JsonProperty("type")
+    private String type;
+    /**
      * 分组描述
      */
     @JsonProperty("description")
@@ -20,6 +25,13 @@ public class CreateGroupReqDto {
      */
     @JsonProperty("code")
     private String code;
+
+    public String getType() {
+        return type;
+    }
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getDescription() {
         return description;

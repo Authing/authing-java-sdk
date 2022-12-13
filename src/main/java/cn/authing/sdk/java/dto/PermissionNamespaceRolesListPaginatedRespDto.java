@@ -3,7 +3,7 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import cn.authing.sdk.java.dto.PermissionNamespaceListPagingDto;
+import cn.authing.sdk.java.dto.PermissionNamespaceRolesListPagingDto;
 
 public class PermissionNamespaceRolesListPaginatedRespDto {
     /**
@@ -30,7 +30,7 @@ public class PermissionNamespaceRolesListPaginatedRespDto {
      * 响应数据
      */
     @JsonProperty("data")
-    private PermissionNamespaceListPagingDto data;
+    private PermissionNamespaceRolesListPagingDto data;
 
     public Integer getStatusCode() {
         return statusCode;
@@ -60,10 +60,10 @@ public class PermissionNamespaceRolesListPaginatedRespDto {
         this.requestId = requestId;
     }
 
-    public PermissionNamespaceListPagingDto getData() {
+    public PermissionNamespaceRolesListPagingDto getData() {
         return data;
     }
-    public void setData(PermissionNamespaceListPagingDto data) {
+    public void setData(PermissionNamespaceRolesListPagingDto data) {
         this.data = data;
     }
 

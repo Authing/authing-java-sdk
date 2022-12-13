@@ -39,6 +39,11 @@ public class GetUserDepartmentsDto {
     @JsonProperty("withCustomData")
     private Boolean withCustomData;
     /**
+     * 是否获取部门路径
+     */
+    @JsonProperty("withDepartmentPaths")
+    private Boolean withDepartmentPaths;
+    /**
      * 排序依据，如 部门创建时间、加入部门时间、部门名称、部门标志符
      */
     @JsonProperty("sortBy")
@@ -82,6 +87,13 @@ public class GetUserDepartmentsDto {
     }
     public void setWithCustomData(Boolean withCustomData) {
         this.withCustomData = withCustomData;
+    }
+
+    public Boolean getWithDepartmentPaths() {
+        return withDepartmentPaths;
+    }
+    public void setWithDepartmentPaths(Boolean withDepartmentPaths) {
+        this.withDepartmentPaths = withDepartmentPaths;
     }
 
     public String getSortBy() {

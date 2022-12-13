@@ -15,6 +15,16 @@ public class UserMfaRespDto {
      */
     @JsonProperty("faceMfaStatus")
     private String faceMfaStatus;
+    /**
+     * 是否绑定了 SMS MFA，可选值 enabled, disabled
+     */
+    @JsonProperty("smsMfaStatus")
+    private String smsMfaStatus;
+    /**
+     * 是否绑定了 EMAIL MFA，可选值 enabled, disabled
+     */
+    @JsonProperty("emailMfaStatus")
+    private String emailMfaStatus;
 
     public String getTotpStatus() {
         return totpStatus;
@@ -28,6 +38,20 @@ public class UserMfaRespDto {
     }
     public void setFaceMfaStatus(String faceMfaStatus) {
         this.faceMfaStatus = faceMfaStatus;
+    }
+
+    public String getSmsMfaStatus() {
+        return smsMfaStatus;
+    }
+    public void setSmsMfaStatus(String smsMfaStatus) {
+        this.smsMfaStatus = smsMfaStatus;
+    }
+
+    public String getEmailMfaStatus() {
+        return emailMfaStatus;
+    }
+    public void setEmailMfaStatus(String emailMfaStatus) {
+        this.emailMfaStatus = emailMfaStatus;
     }
 
 

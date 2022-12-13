@@ -32,5 +32,4 @@ public class CheckPermissionNamespaceExistsTest {
         PermissionNamespaceCheckExistsRespDto response2 = client.checkPermissionNamespaceExists(request2);
         System.out.println(JsonUtils.serialize(response2));
     }
-
 }

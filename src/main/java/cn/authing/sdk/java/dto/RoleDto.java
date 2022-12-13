@@ -1,5 +1,6 @@
 package cn.authing.sdk.java.dto;
 
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
@@ -29,6 +30,16 @@ public class RoleDto {
      */
     @JsonProperty("namespaceName")
     private String namespaceName;
+    /**
+     * 角色状态，ENABLE-表示正常，DISABLE-表示禁止
+     */
+    @JsonProperty("status")
+    private String status;
+    /**
+     * 角色自动禁止时间，单位毫秒, 如果传null表示永久有效
+     */
+    @JsonProperty("disableTime")
+    private Integer disableTime;
 
     public String getCode() {
         return code;
@@ -63,6 +74,20 @@ public class RoleDto {
     }
     public void setNamespaceName(String namespaceName) {
         this.namespaceName = namespaceName;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Integer getDisableTime() {
+        return disableTime;
+    }
+    public void setDisableTime(Integer disableTime) {
+        this.disableTime = disableTime;
     }
 
 

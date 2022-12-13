@@ -20,6 +20,11 @@ public class ResGroupDto {
      */
     @JsonProperty("description")
     private String description;
+    /**
+     * 分组类型
+     */
+    @JsonProperty("type")
+    private String type;
 
     public String getCode() {
         return code;
@@ -40,6 +45,13 @@ public class ResGroupDto {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getType() {
+        return type;
+    }
+    public void setType(String type) {
+        this.type = type;
     }
 
 

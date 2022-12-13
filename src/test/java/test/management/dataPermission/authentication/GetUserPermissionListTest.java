@@ -35,8 +35,8 @@ public class GetUserPermissionListTest {
         namespaceCodes.add("examplePermissionNamespace2");
         request.setNamespaceCodes(namespaceCodes);
 
-//        GetUserPermissionListRespDto response = client.getUserPermissionList(request);
-//        System.out.println(JsonUtils.serialize(response));
+        GetUserPermissionListRespDto response = client.getUserPermissionList(request);
+        System.out.println(JsonUtils.serialize(response));
     }
 
 }
