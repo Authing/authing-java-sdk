@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.LoginFailCheckConfigDto;
+import cn.authing.sdk.java.dto.LoginIpWhitelistCheckConfigDto;
 import cn.authing.sdk.java.dto.LoginPassowrdFailCheckConfigDto;
 
 public class LoginAnomalyDetectionConfigDto {
@@ -42,6 +43,21 @@ public class LoginAnomalyDetectionConfigDto {
      */
     @JsonProperty("robotVerifyLoginPasswordFailCheck")
     private LoginPassowrdFailCheckConfigDto robotVerifyLoginPasswordFailCheck;
+    /**
+     * 人机验证（验证码）- ip 白名单：当登录者 ip 不在白名单会触发人机验证。
+     */
+    @JsonProperty("robotVerifyLoginIpWhitelistCheck")
+    private LoginIpWhitelistCheckConfigDto robotVerifyLoginIpWhitelistCheck;
+    /**
+     * 是否开启登录时间限制
+     */
+    @JsonProperty("robotVerifyLoginTimeCheckEnable")
+    private Boolean robotVerifyLoginTimeCheckEnable;
+    /**
+     * 登录时间限制周几+起始时间数组
+     */
+    @JsonProperty("robotVerifyloginWeekStartEndTime")
+    private List<String> robotVerifyloginWeekStartEndTime;
 
     public LoginFailStrategy getLoginFailStrategy() {
         return loginFailStrategy;
@@ -90,6 +106,27 @@ public class LoginAnomalyDetectionConfigDto {
     }
     public void setRobotVerifyLoginPasswordFailCheck(LoginPassowrdFailCheckConfigDto robotVerifyLoginPasswordFailCheck) {
         this.robotVerifyLoginPasswordFailCheck = robotVerifyLoginPasswordFailCheck;
+    }
+
+    public LoginIpWhitelistCheckConfigDto getRobotVerifyLoginIpWhitelistCheck() {
+        return robotVerifyLoginIpWhitelistCheck;
+    }
+    public void setRobotVerifyLoginIpWhitelistCheck(LoginIpWhitelistCheckConfigDto robotVerifyLoginIpWhitelistCheck) {
+        this.robotVerifyLoginIpWhitelistCheck = robotVerifyLoginIpWhitelistCheck;
+    }
+
+    public Boolean getRobotVerifyLoginTimeCheckEnable() {
+        return robotVerifyLoginTimeCheckEnable;
+    }
+    public void setRobotVerifyLoginTimeCheckEnable(Boolean robotVerifyLoginTimeCheckEnable) {
+        this.robotVerifyLoginTimeCheckEnable = robotVerifyLoginTimeCheckEnable;
+    }
+
+    public List<String> getRobotVerifyloginWeekStartEndTime() {
+        return robotVerifyloginWeekStartEndTime;
+    }
+    public void setRobotVerifyloginWeekStartEndTime(List<String> robotVerifyloginWeekStartEndTime) {
+        this.robotVerifyloginWeekStartEndTime = robotVerifyloginWeekStartEndTime;
     }
 
 

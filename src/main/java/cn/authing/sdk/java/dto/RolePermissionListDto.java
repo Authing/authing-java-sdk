@@ -11,6 +11,21 @@ public class RolePermissionListDto {
     @JsonProperty("roleId")
     private String roleId;
     /**
+     * 主体状态，DISABLE-未加入角色，ENABLE-已经加入了角色
+     */
+    @JsonProperty("status")
+    private String status;
+    /**
+     * 主体加入时间毫秒值
+     */
+    @JsonProperty("enableTime")
+    private Integer enableTime;
+    /**
+     * 主体失效时间毫秒值，为 null 表示用不失效
+     */
+    @JsonProperty("endTime")
+    private Integer endTime;
+    /**
      * 所属用户池 ID
      */
     @JsonProperty("userPoolId")
@@ -46,6 +61,27 @@ public class RolePermissionListDto {
     }
     public void setRoleId(String roleId) {
         this.roleId = roleId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Integer getEnableTime() {
+        return enableTime;
+    }
+    public void setEnableTime(Integer enableTime) {
+        this.enableTime = enableTime;
+    }
+
+    public Integer getEndTime() {
+        return endTime;
+    }
+    public void setEndTime(Integer endTime) {
+        this.endTime = endTime;
     }
 
     public String getUserPoolId() {

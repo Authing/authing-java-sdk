@@ -144,6 +144,12 @@ public class CreatePipelineFunctionDto {
 
         @JsonProperty("PRE_COMPLETE_USER_INFO")
         PRE_COMPLETE_USER_INFO("PRE_COMPLETE_USER_INFO"),
+
+        @JsonProperty("PRE_MFA_VERIFY")
+        PRE_MFA_VERIFY("PRE_MFA_VERIFY"),
+
+        @JsonProperty("POST_MFA_VERIFY")
+        POST_MFA_VERIFY("POST_MFA_VERIFY"),
         ;
 
         private String value;

@@ -1908,6 +1908,54 @@ public CommonResponseDto unlinkExtIdp(UnlinkExtIdpDto reqDto) {
                 String response = request(config);
                 return deserialize(response, AuthorizedResourcePaginatedRespDto.class);
             }
+            /**
+             * @summary 字符串类型资源鉴权
+             * @description 字符串类型资源鉴权，支持用户对一个或者多个字符串资源进行权限判断
+             **/
+            public CheckResourcePermissionsRespDto checkPermissionByStringResource(CheckPermissionStringResourceDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/check-permission-string-resource");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, CheckResourcePermissionsRespDto.class);
+            }
+            /**
+             * @summary 数组类型资源鉴权
+             * @description 数组类型资源鉴权，支持用户对一个或者多个数组资源进行权限判断
+             **/
+            public CheckResourcePermissionsRespDto checkPermissionByArrayResource(CheckPermissionArrayResourceDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/check-permission-array-resource");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, CheckResourcePermissionsRespDto.class);
+            }
+            /**
+             * @summary 树类型资源鉴权
+             * @description 树类型资源鉴权，支持用户对一个或者多个树资源进行权限判断
+             **/
+            public CheckResourcePermissionsRespDto checkPermissionByTreeResource(CheckPermissionTreeResourceDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/check-permission-tree-resource");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, CheckResourcePermissionsRespDto.class);
+            }
+            /**
+             * @summary 获取用户在登录应用下被授权资源列表
+             * @description 获取用户指定资源权限列表，用户获取在某个应用下所拥有的资源列表
+             **/
+            public GetUserAuthResourceListRespDto getUserAuthorizedResourcesList() {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/get-user-auth-resource-list");
+                config.setBody(new Object());
+                config.setMethod("GET");
+                String response = request(config);
+                return deserialize(response, GetUserAuthResourceListRespDto.class);
+            }
 
 // ==== AUTO GENERATED AUTHENTICATION METHODS END ====
 
