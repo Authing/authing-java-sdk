@@ -5,34 +5,29 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.AuthEnvParams;
 
-public class CheckUserSameLevelPermissionDto {
+public class CheckExternalUserPermissionDto {
     /**
-     * 资源路径
+     * 数据资源路径列表,
      */
-    @JsonProperty("resource")
-    private String resource;
+    @JsonProperty("resources")
+    private List<String> resources;
     /**
-     * 数据资源权限操作
+     * 数据资源权限操作, read、get、write 等动作
      */
     @JsonProperty("action")
     private String action;
     /**
-     * 用户 ID
+     * 外部用户 ID
      */
-    @JsonProperty("userId")
-    private String userId;
+    @JsonProperty("externalId")
+    private String externalId;
     /**
      * 权限空间 Code
      */
     @JsonProperty("namespaceCode")
     private String namespaceCode;
     /**
-     * 当前树资源路径子节点code
-     */
-    @JsonProperty("resourceNodeCodes")
-    private List<String> resourceNodeCodes;
-    /**
-     * 是否开启条件判断，默认 false 不开启
+     * 是否开启条件判断，默认 true 开启
      */
     @JsonProperty("judgeConditionEnabled")
     private Boolean judgeConditionEnabled;
@@ -42,11 +37,11 @@ public class CheckUserSameLevelPermissionDto {
     @JsonProperty("authEnvParams")
     private AuthEnvParams authEnvParams;
 
-    public String getResource() {
-        return resource;
+    public List<String> getResources() {
+        return resources;
     }
-    public void setResource(String resource) {
-        this.resource = resource;
+    public void setResources(List<String> resources) {
+        this.resources = resources;
     }
 
     public String getAction() {
@@ -56,11 +51,11 @@ public class CheckUserSameLevelPermissionDto {
         this.action = action;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getExternalId() {
+        return externalId;
     }
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setExternalId(String externalId) {
+        this.externalId = externalId;
     }
 
     public String getNamespaceCode() {
@@ -68,13 +63,6 @@ public class CheckUserSameLevelPermissionDto {
     }
     public void setNamespaceCode(String namespaceCode) {
         this.namespaceCode = namespaceCode;
-    }
-
-    public List<String> getResourceNodeCodes() {
-        return resourceNodeCodes;
-    }
-    public void setResourceNodeCodes(List<String> resourceNodeCodes) {
-        this.resourceNodeCodes = resourceNodeCodes;
     }
 
     public Boolean getJudgeConditionEnabled() {

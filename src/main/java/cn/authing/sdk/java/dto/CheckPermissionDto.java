@@ -3,6 +3,7 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import cn.authing.sdk.java.dto.AuthEnvParams;
 
 public class CheckPermissionDto {
     /**
@@ -25,6 +26,16 @@ public class CheckPermissionDto {
      */
     @JsonProperty("namespaceCode")
     private String namespaceCode;
+    /**
+     * 是否开启条件判断，默认 false 不开启
+     */
+    @JsonProperty("judgeConditionEnabled")
+    private Boolean judgeConditionEnabled;
+    /**
+     * 条件环境属性，若开启条件判断则使用
+     */
+    @JsonProperty("authEnvParams")
+    private AuthEnvParams authEnvParams;
 
     public List<String> getResources() {
         return resources;
@@ -52,6 +63,20 @@ public class CheckPermissionDto {
     }
     public void setNamespaceCode(String namespaceCode) {
         this.namespaceCode = namespaceCode;
+    }
+
+    public Boolean getJudgeConditionEnabled() {
+        return judgeConditionEnabled;
+    }
+    public void setJudgeConditionEnabled(Boolean judgeConditionEnabled) {
+        this.judgeConditionEnabled = judgeConditionEnabled;
+    }
+
+    public AuthEnvParams getAuthEnvParams() {
+        return authEnvParams;
+    }
+    public void setAuthEnvParams(AuthEnvParams authEnvParams) {
+        this.authEnvParams = authEnvParams;
     }
 
 

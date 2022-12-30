@@ -3,6 +3,7 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import cn.authing.sdk.java.dto.User;
 
 public class IdentityDto {
     /**
@@ -59,6 +60,11 @@ public class IdentityDto {
     @JsonProperty("userIdInIdp")
     private String userIdInIdp;
     /**
+     * 用户在 idp 中的身份信息
+     */
+    @JsonProperty("userInfoInIdp")
+    private User userInfoInIdp;
+    /**
      * 在外部身份源中的 Access Token（此参数只会在用户主动获取时返回，管理侧接口不会返回）。
      */
     @JsonProperty("accessToken")
@@ -107,6 +113,13 @@ public class IdentityDto {
     }
     public void setUserIdInIdp(String userIdInIdp) {
         this.userIdInIdp = userIdInIdp;
+    }
+
+    public User getUserInfoInIdp() {
+        return userInfoInIdp;
+    }
+    public void setUserInfoInIdp(User userInfoInIdp) {
+        this.userInfoInIdp = userInfoInIdp;
     }
 
     public String getAccessToken() {

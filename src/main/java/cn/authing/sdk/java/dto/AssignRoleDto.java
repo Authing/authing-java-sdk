@@ -17,10 +17,15 @@ public class AssignRoleDto {
     @JsonProperty("code")
     private String code;
     /**
-     * 主体过期时间毫秒值
+     * 主体过期时间毫秒值, 为 null 时永久有效
      */
     @JsonProperty("endTime")
     private Integer endTime;
+    /**
+     * 主体加入时间毫秒值, 为 null 时立即加入
+     */
+    @JsonProperty("enableTime")
+    private Integer enableTime;
     /**
      * 所属权限分组的 code
      */
@@ -46,6 +51,13 @@ public class AssignRoleDto {
     }
     public void setEndTime(Integer endTime) {
         this.endTime = endTime;
+    }
+
+    public Integer getEnableTime() {
+        return enableTime;
+    }
+    public void setEnableTime(Integer enableTime) {
+        this.enableTime = enableTime;
     }
 
     public String getNamespace() {

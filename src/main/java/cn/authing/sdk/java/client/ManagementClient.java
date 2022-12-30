@@ -797,6 +797,19 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
+     * @summary 根据组织树批量创建部门
+     * @description 根据组织树批量创建部门，部门名称不存在时会自动创建
+     **/
+    public CreateDepartmentTreeRespDto createDepartmentTree(CreateDepartmentTreeReqDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/create-department-tree");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, CreateDepartmentTreeRespDto.class);
+    }
+
+    /**
      * @summary 获取分组详情
      * @description 通过分组 code，获取分组详情。
      **/
@@ -2821,14 +2834,14 @@ public class ManagementClient extends BaseClient {
 
     /**
      * @summary 判断用户权限
-     * @description 该接口用于判断用户权限，通过权限空间 Code、用户 ID、资源操作以及资源列表来判断用户是否对资源拥有操作权限。
+     * @description 该接口用于判断用户权限，通过权限空间 Code、用户 ID、资源操作以及资源列表来判断用户是否对资源拥有操作权限。可选传条件属性参数，默认不开启条件判断。
      * <p>
-     * ### 判断用户对字符串和数组资源权限示例
+     * ### 判断用户对字符串和数组资源权限示例（无条件判断）
      * <p>
      * - 入参
      * <p>
      * ```json { "namespaceCode": "examplePermissionNamespace", "userId":
-     * "63721xxxxxxxxxxxxdde14a3", "action": "get" "resources":["strResourceCode1",
+     * "63721xxxxxxxxxxxxdde14a3", "action": "get", "resources":["strResourceCode1",
      * "arrayResourceCode1"] } ```
      * <p>
      * - 出参
@@ -2836,6 +2849,24 @@ public class ManagementClient extends BaseClient {
      * ```json { "statusCode": 200, "message": "操作成功", "apiCode": 20001, "data": {
      * "checkResultList": [ { "namespaceCode": "examplePermissionNamespace", "resource":
      * "strResourceCode1", "action": "get", "enabled": true }, { "namespaceCode":
+     * "examplePermissionNamespace", "resource": "arrayResourceCode1", "action": "get", "enabled":
+     * true } ] } } ```
+     * <p>
+     * ### 判断用户对字符串和数组资源权限示例（开启条件判断）
+     * <p>
+     * - 入参
+     * <p>
+     * ```json { "namespaceCode": "examplePermissionNamespace", "userId":
+     * "63721xxxxxxxxxxxxdde14a3", "action": "get", "resources": ["strResourceCode1",
+     * "arrayResourceCode1"], "judgeConditionEnabled": true, "authEnvParams":{ "ip":"110.96.0.0",
+     * "city":"北京", "province":"北京", "country":"中国", "deviceType":"PC", "systemType":"ios",
+     * "browserType":"IE", "requestDate":"2022-12-26 17:40:00" } } ```
+     * <p>
+     * - 出参
+     * <p>
+     * ```json { "statusCode": 200, "message": "操作成功", "apiCode": 20001, "data": {
+     * "checkResultList": [ { "namespaceCode": "examplePermissionNamespace", "resource":
+     * "strResourceCode1", "action": "get", "enabled": false }, { "namespaceCode":
      * "examplePermissionNamespace", "resource": "arrayResourceCode1", "action": "get", "enabled":
      * false } ] } } ```
      * <p>
@@ -2862,6 +2893,20 @@ public class ManagementClient extends BaseClient {
         config.setMethod("POST");
         String response = request(config);
         return deserialize(response, CheckPermissionRespDto.class);
+    }
+
+    /**
+     * @summary 判断外部用户权限
+     * @description 判断外部用户权限
+     **/
+    public CheckExternalUserPermissionRespDto checkExternalUserPermission(
+            CheckExternalUserPermissionDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/check-external-user-permission");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, CheckExternalUserPermissionRespDto.class);
     }
 
     /**
@@ -2950,7 +2995,7 @@ public class ManagementClient extends BaseClient {
      * ["63721xxxxxxxxxxxxdde14a3"], "action": "update" },{ "userIds": ["63721xxxxxxxxxxxxdde14a3"],
      * "action": "delete" }] }] } } ```
      **/
-    public ListResourceTargetsRespDto listResourceTargets(ListResourceTargets reqDto) {
+    public ListResourceTargetsRespDto listResourceTargets(ListResourceTargetsDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/list-resource-targets");
         config.setBody(reqDto);
@@ -2960,23 +3005,90 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
-     * @summary 判断用户在同层级资源下的权限
-     * @description 该接口主要用于判断用户在同层级资源下的权限，通过权限空间 Code 、用户 ID、资源操作、资源或资源子节点查询用户是否有该同级资源的权限。
+     * @summary 获取用户授权资源的结构列表
+     * @description 该接口主要用于获取用户授权的资源列表，通过权限空间 Code、用户 id、资源 Code 获取用户资源的授权列表。
      * <p>
-     * ### 判断用户在同层级字符串资源权限示例
+     * ### 示例
+     * <p>
+     * - 入参
      * <p>
      * ```json { "namespaceCode": "examplePermissionNamespace", "userId":
-     * "63721xxxxxxxxxxxxdde14a3", "action": "read" "resource":"strResourceCode1" } ```
+     * "63721xxxxxxxxxxxxdde14a3", "resourceCode": "exampleResourceCode" } ```
+     * <p>
+     * - 出参
+     * <p>
+     * ```json { "statusCode": 200, "message": "操作成功", "apiCode": 20001, "data":{ "namespaceCode":
+     * "exampleNamespaceCode", "resourceCode": "exampleResourceCode", "permissionBo": {
+     * "resourceId": "63xxxxxxxxxxxxx999", "resourceType": "TREE", "nodeAuthActionList": [ { "name":
+     * "1", "code": "1", "children": [ { "name": "1-1", "code": "1-1", "children": [], "actions": [
+     * "read", "get" ] } ], "actions": [ "read" ] }, { "name": "2", "code": "2", "children": [ {
+     * "name": "2-1", "code": "2-1", "actions": [ "read" ] } ], "actions": [ "get" ] } ] } } } ```
+     **/
+    public GetUserResourceStructRespDto getUserResourceStruct(GetUserResourceStructDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-user-resource-struct");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, GetUserResourceStructRespDto.class);
+    }
+
+    /**
+     * @summary 获取外部用户授权资源的结构列表
+     * @description 该接口主要用于获取外部用户授权的资源列表，通过权限空间 Code、外部用户 id、资源 Code 获取外部用户资源的授权列表。
+     * <p>
+     * ### 示例
+     * <p>
+     * - 入参
+     * <p>
+     * ```json { "namespaceCode": "examplePermissionNamespace", "externalId":
+     * "63721xxxxxxxxxxxxdde14a3", "resourceCode": "exampleResourceCode" } ```
+     * <p>
+     * - 出参
+     * <p>
+     * ```json { "statusCode": 200, "message": "操作成功", "apiCode": 20001, "data":{ "namespaceCode":
+     * "exampleNamespaceCode", "resourceCode": "exampleResourceCode", "permissionBo": {
+     * "resourceId": "63xxxxxxxxxxxxx999", "resourceType": "TREE", "nodeAuthActionList": [ { "name":
+     * "1", "code": "1", "children": [ { "name": "1-1", "code": "1-1", "children": [], "actions": [
+     * "read", "get" ] } ], "actions": [ "read" ] }, { "name": "2", "code": "2", "children": [ {
+     * "name": "2-1", "code": "2-1", "actions": [ "read" ] } ], "actions": [ "get" ] } ] } } } ```
+     **/
+    public GetExternalUserResourceStructRespDto getExternalUserResourceStruct(
+            GetExternalUserResourceStructDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-external-user-resource-struct");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, GetExternalUserResourceStructRespDto.class);
+    }
+
+    /**
+     * @summary 判断用户在同层级资源下的权限
+     * @description 该接口主要用于判断用户在同层级资源下的权限，通过权限空间 Code 、用户 ID、资源操作、资源或资源子节点查询用户是否有该同级资源的权限。可选传条件属性参数，默认不开启条件判断。
+     * <p>
+     * ### 判断用户在同层级字符串资源权限示例（无条件判断）
+     * <p>
+     * ```json { "namespaceCode": "examplePermissionNamespace", "userId":
+     * "63721xxxxxxxxxxxxdde14a3", "action": "read", "resource": "strResourceCode1" } ```
+     * <p>
+     * ### 判断用户在同层级字符串资源权限示例（开启条件判断）
+     * <p>
+     * ```json { "namespaceCode": "examplePermissionNamespace", "userId":
+     * "63721xxxxxxxxxxxxdde14a3", "action": "read", "resource": "strResourceCode1",
+     * "judgeConditionEnabled": true, "authEnvParams":{ "ip":"110.96.0.0", "city":"北京",
+     * "province":"北京", "country":"中国", "deviceType":"PC", "systemType":"ios", "browserType":"IE",
+     * "requestDate":"2022-12-26 17:40:00" } } ```
      * <p>
      * ### 判断用户在同层级数组资源权限示例
      * <p>
      * ```json { "namespaceCode": "examplePermissionNamespace", "userId":
-     * "63721xxxxxxxxxxxxdde14a3", "action": "read", "resource":"arrayResourceCode1" } ```
+     * "63721xxxxxxxxxxxxdde14a3", "action": "read", "resource": "arrayResourceCode1" } ```
      * <p>
      * ### 判断用户在同层级树资源权限示例
      * <p>
      * ```json { "namespaceCode": "examplePermissionNamespace", "userId":
-     * "63721xxxxxxxxxxxxdde14a3", "action": "read", "resource":"/treeResourceCode1/structCode1",
+     * "63721xxxxxxxxxxxxdde14a3", "action": "read", "resource": "/treeResourceCode1/structCode1",
      * "resourceNodeCodes": ["resourceStructChildrenCode1","resourceStructChildrenCode2","resourceStructChildrenCode3"]
      * } ```
      **/

@@ -2,6 +2,7 @@ package test.management.dataPermission.authentication;
 
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.ListResourceTargets;
+import cn.authing.sdk.java.dto.ListResourceTargetsDto;
 import cn.authing.sdk.java.dto.ListResourceTargetsRespDto;
 import cn.authing.sdk.java.model.ManagementClientOptions;
 import cn.authing.sdk.java.util.JsonUtils;
@@ -25,7 +26,7 @@ public class ListResourceTargetsTest {
         // clientOptions.setHost("https://api.your-authing-service.com");
         ManagementClient client = new ManagementClient(clientOptions);
 
-        ListResourceTargets request = new ListResourceTargets();
+        ListResourceTargetsDto request = new ListResourceTargetsDto();
         request.setNamespaceCode("examplePermissionNamespace");
         ArrayList<String> actionList = new ArrayList<>();
         actionList.add("get");

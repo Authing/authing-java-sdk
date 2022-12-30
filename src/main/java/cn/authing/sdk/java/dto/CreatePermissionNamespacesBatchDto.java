@@ -7,7 +7,7 @@ import cn.authing.sdk.java.dto.CreatePermissionNamespacesBatchItemDto;
 
 public class CreatePermissionNamespacesBatchDto {
     /**
-     * 权限分组列表
+     * 权限空间列表
      */
     @JsonProperty("list")
     private List<CreatePermissionNamespacesBatchItemDto> list;

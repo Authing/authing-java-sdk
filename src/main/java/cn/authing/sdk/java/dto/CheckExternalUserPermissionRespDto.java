@@ -3,9 +3,9 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import cn.authing.sdk.java.dto.CheckParamsDataPolicyRespDto;
+import cn.authing.sdk.java.dto.CheckExternalUserPermissionDataDto;
 
-public class CheckParamsDataPolicyResponseDto {
+public class CheckExternalUserPermissionRespDto {
     /**
      * 业务状态码，可以通过此状态码判断操作是否成功，200 表示成功。
      */
@@ -22,15 +22,10 @@ public class CheckParamsDataPolicyResponseDto {
     @JsonProperty("apiCode")
     private Integer apiCode;
     /**
-     * 请求 ID。当请求失败时会返回。
-     */
-    @JsonProperty("requestId")
-    private String requestId;
-    /**
      * 响应数据
      */
     @JsonProperty("data")
-    private CheckParamsDataPolicyRespDto data;
+    private CheckExternalUserPermissionDataDto data;
 
     public Integer getStatusCode() {
         return statusCode;
@@ -53,17 +48,10 @@ public class CheckParamsDataPolicyResponseDto {
         this.apiCode = apiCode;
     }
 
-    public String getRequestId() {
-        return requestId;
-    }
-    public void setRequestId(String requestId) {
-        this.requestId = requestId;
-    }
-
-    public CheckParamsDataPolicyRespDto getData() {
+    public CheckExternalUserPermissionDataDto getData() {
         return data;
     }
-    public void setData(CheckParamsDataPolicyRespDto data) {
+    public void setData(CheckExternalUserPermissionDataDto data) {
         this.data = data;
     }
 

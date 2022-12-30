@@ -21,7 +21,7 @@ public class ListDataPolicyTargetsDto {
     @JsonProperty("limit")
     private Integer limit;
     /**
-     * 数据策略名称搜索
+     * 主体名称
      */
     @JsonProperty("query")
     private String query;
@@ -65,4 +65,7 @@ public class ListDataPolicyTargetsDto {
     public void setTargetType(List<SubjectDto.Type> targetType) {
         this.targetType = targetType;
     }
+
+
+
 }
