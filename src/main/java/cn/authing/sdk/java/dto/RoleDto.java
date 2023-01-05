@@ -6,6 +6,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class RoleDto {
     /**
+     * 角色 ID
+     */
+    @JsonProperty("id")
+    private String id;
+    /**
      * 权限分组(权限空间)内角色的唯一标识符 Code
      */
     @JsonProperty("code")
@@ -40,6 +45,13 @@ public class RoleDto {
      */
     @JsonProperty("disableTime")
     private Integer disableTime;
+
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getCode() {
         return code;

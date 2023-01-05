@@ -510,6 +510,19 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
+     * @summary 获取用户绑定 OTP 的秘钥
+     * @description 通过用户 ID，获取用户绑定 OTP 的秘钥。可以选择指定用户 ID 类型等。
+     **/
+    public GetOtpSecretRespDto getOtpSecretByUser(GetOtpSecretByUserDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-otp-secret-by-user");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, GetOtpSecretRespDto.class);
+    }
+
+    /**
      * @summary 获取组织机构详情
      * @description 获取组织机构详情
      **/
@@ -1969,13 +1982,13 @@ public class ManagementClient extends BaseClient {
      * @summary 创建应用
      * @description 创建应用
      **/
-    public ApplicationPaginatedRespDto createApplication(CreateApplicationDto reqDto) {
+    public CreateApplicationRespDto createApplication(CreateApplicationDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/create-application");
         config.setBody(reqDto);
         config.setMethod("POST");
         String response = request(config);
-        return deserialize(response, ApplicationPaginatedRespDto.class);
+        return deserialize(response, CreateApplicationRespDto.class);
     }
 
     /**
@@ -2783,11 +2796,11 @@ public class ManagementClient extends BaseClient {
      * "value": "示例字符串资源", "actions": [ "read", "post", "get", "write" ] } }, { "resourceCode":
      * "arrayCode", "authorize": { "values": [ "示例数据资源" ], "actions": [ "read", "post", "get",
      * "write" ] } }, { "resourceCode": "treeCode", "authorize": { "authList": [ { "nodePath":
-     * "/treeCode/treeChildrenCode1", "nodeActions": [ "read", "get" ], "nodeName":
+     * "treeCode/treeChildrenCode1", "nodeActions": [ "read", "get" ], "nodeName":
      * "treeChildrenName1", "nodeValue": "treeChildrenValue1" }, { "nodePath":
-     * "/treeCode/treeChildrenCode2", "nodeActions": [ "read", "get" ], "nodeName":
+     * "treeCode/treeChildrenCode2", "nodeActions": [ "read", "get" ], "nodeName":
      * "treeChildrenName2", "nodeValue": "treeChildrenValue2" }, { "nodePath":
-     * "/treeCode/treeChildrenCode3", "nodeActions": [ "read" ], "nodeName": "treeChildrenName3",
+     * "treeCode/treeChildrenCode3", "nodeActions": [ "read" ], "nodeName": "treeChildrenName3",
      * "nodeValue": "treeChildrenValue3" } ] } } ] } ] } } ```
      * <p>
      * ### 查询多个用户权限列表示例
@@ -2875,16 +2888,16 @@ public class ManagementClient extends BaseClient {
      * - 入参
      * <p>
      * ```json { "namespaceCode": "examplePermissionNamespace", "userId":
-     * "63721xxxxxxxxxxxxdde14a3", "action": "get" "resources":["/treeResourceCode1/StructCode1/resourceStructChildrenCode1",
-     * "/treeResourceCode2/StructCode1/resourceStructChildrenCode1"] } ```
+     * "63721xxxxxxxxxxxxdde14a3", "action": "get" "resources":["treeResourceCode1/StructCode1/resourceStructChildrenCode1",
+     * "treeResourceCode2/StructCode1/resourceStructChildrenCode1"] } ```
      * <p>
      * - 出参
      * <p>
      * ```json { "statusCode": 200, "message": "操作成功", "apiCode": 20001, "data":{ "checkResultList":
      * [{ "namespaceCode": "examplePermissionNamespace", "action": "get", "resource":
-     * "/treeResourceCode1/StructCode1/resourceStructChildrenCode1", "enabled": true },{
+     * "treeResourceCode1/StructCode1/resourceStructChildrenCode1", "enabled": true },{
      * "namespaceCode": "examplePermissionNamespace", "action": "get", "resource":
-     * "/treeResourceCode2/StructCode1/resourceStructChildrenCode1", "enabled": true }] } } ```
+     * "treeResourceCode2/StructCode1/resourceStructChildrenCode1", "enabled": true }] } } ```
      **/
     public CheckPermissionRespDto checkPermission(CheckPermissionDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -2934,16 +2947,16 @@ public class ManagementClient extends BaseClient {
      * - 入参
      * <p>
      * ```json { "namespaceCode": "examplePermissionNamespace", "userId":
-     * "63721xxxxxxxxxxxxdde14a3", "resources":["/treeResourceCode1/StructCode1/resourceStructChildrenCode1",
-     * "/treeResourceCode2/StructCode1/resourceStructChildrenCode1"] } ```
+     * "63721xxxxxxxxxxxxdde14a3", "resources":["treeResourceCode1/StructCode1/resourceStructChildrenCode1",
+     * "treeResourceCode2/StructCode1/resourceStructChildrenCode1"] } ```
      * <p>
      * - 出参
      * <p>
      * ```json { "statusCode": 200, "message": "操作成功", "apiCode": 20001, "data":{ "permissionList":
      * [{ "namespaceCode": "examplePermissionNamespace", "actionList": ["read", "update", "delete"],
-     * "resource": "/treeResourceCode1/StructCode1/resourceStructChildrenCode1" },{ "namespaceCode":
+     * "resource": "treeResourceCode1/StructCode1/resourceStructChildrenCode1" },{ "namespaceCode":
      * "examplePermissionNamespace", "actionList": ["read", "get", "delete"], "resource":
-     * "/treeResourceCode2/StructCode1/resourceStructChildrenCode1" }] } } ```
+     * "treeResourceCode2/StructCode1/resourceStructChildrenCode1" }] } } ```
      **/
     public GetUserResourcePermissionListRespDto getUserResourcePermissionList(
             GetUserResourcePermissionListDto reqDto) {
@@ -2981,16 +2994,16 @@ public class ManagementClient extends BaseClient {
      * - 入参
      * <p>
      * ```json { "namespaceCode": "examplePermissionNamespace", "actions": ["get", "update",
-     * "delete"] "resources":["/treeResourceCode1/StructCode1/resourceStructChildrenCode1",
-     * "/treeResourceCode2/StructCode1/resourceStructChildrenCode1"] } ```
+     * "delete"] "resources":["treeResourceCode1/StructCode1/resourceStructChildrenCode1",
+     * "treeResourceCode2/StructCode1/resourceStructChildrenCode1"] } ```
      * <p>
      * - 出参
      * <p>
      * ```json { "statusCode": 200, "message": "操作成功", "apiCode": 20001, "data":{ "authUserList": [{
-     * "resource": "/treeResourceCode1/StructCode1/resourceStructChildrenCode1", "actionAuthList":
-     * [{ "userIds": ["63721xxxxxxxxxxxxdde14a3"], "action": "get" },{ "userIds":
+     * "resource": "treeResourceCode1/StructCode1/resourceStructChildrenCode1", "actionAuthList": [{
+     * "userIds": ["63721xxxxxxxxxxxxdde14a3"], "action": "get" },{ "userIds":
      * ["63721xxxxxxxxxxxxdde14a3"], "action": "update" },{ "userIds": ["63721xxxxxxxxxxxxdde14a3"],
-     * "action": "delete" }] },{ "resource": "/treeResourceCode2/StructCode1/resourceStructChildrenCode1",
+     * "action": "delete" }] },{ "resource": "treeResourceCode2/StructCode1/resourceStructChildrenCode1",
      * "actionAuthList": [{ "userIds": ["63721xxxxxxxxxxxxdde14a3"], "action": "get" },{ "userIds":
      * ["63721xxxxxxxxxxxxdde14a3"], "action": "update" },{ "userIds": ["63721xxxxxxxxxxxxdde14a3"],
      * "action": "delete" }] }] } } ```
@@ -3088,7 +3101,7 @@ public class ManagementClient extends BaseClient {
      * ### 判断用户在同层级树资源权限示例
      * <p>
      * ```json { "namespaceCode": "examplePermissionNamespace", "userId":
-     * "63721xxxxxxxxxxxxdde14a3", "action": "read", "resource": "/treeResourceCode1/structCode1",
+     * "63721xxxxxxxxxxxxdde14a3", "action": "read", "resource": "treeResourceCode1/structCode1",
      * "resourceNodeCodes": ["resourceStructChildrenCode1","resourceStructChildrenCode2","resourceStructChildrenCode3"]
      * } ```
      **/

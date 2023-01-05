@@ -17,7 +17,7 @@ public class GetUserActionLogsDto {
     @JsonProperty("clientIp")
     private String clientIp;
     /**
-     * 事件类型
+     * 事件类型，用户的一系列操作，比如 login、logout、register、verifyMfa 等
      */
     @JsonProperty("eventType")
     private String eventType;

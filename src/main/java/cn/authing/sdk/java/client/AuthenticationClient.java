@@ -1685,6 +1685,18 @@ public ListFactorsToEnrollRespDto listFactorsToEnroll() {
     return deserialize(response, ListFactorsToEnrollRespDto.class);
 }
 /**
+ * @summary 校验用户 MFA 绑定的 OTP
+ * @description 校验用户 MFA 绑定的 OTP。
+ **/
+public MfaOtpVerityRespDto mfaOtpVerify(MfaOtpVerityDto reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/mfa-totp-verify");
+    config.setBody(reqDto);
+    config.setMethod("POST");
+    String response = request(config);
+    return deserialize(response, MfaOtpVerityRespDto.class);
+}
+/**
  * @summary 生成绑定外部身份源的链接
  * @description
  * 此接口用于生成绑定外部身份源的链接，生成之后可以引导用户进行跳转。

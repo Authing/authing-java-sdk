@@ -6,6 +6,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class GroupDto {
     /**
+     * 分组 ID
+     */
+    @JsonProperty("id")
+    private String id;
+    /**
      * 分组 code
      */
     @JsonProperty("code")
@@ -25,6 +30,13 @@ public class GroupDto {
      */
     @JsonProperty("type")
     private String type;
+
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getCode() {
         return code;
