@@ -3,6 +3,7 @@ package test.management;
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.ApplicationPaginatedRespDto;
 import cn.authing.sdk.java.dto.CreateApplicationDto;
+import cn.authing.sdk.java.dto.CreateApplicationRespDto;
 import cn.authing.sdk.java.model.ManagementClientOptions;
 import cn.authing.sdk.java.util.JsonUtils;
 
@@ -24,7 +25,7 @@ public class CreateApplicationTest {
         CreateApplicationDto reqDto = new CreateApplicationDto();
         reqDto.setAppName("示例应用");
         reqDto.setAppIdentifier("example");
-        ApplicationPaginatedRespDto response = client.createApplication(reqDto);
-        System.out.println(JsonUtils.serialize(response));
+        CreateApplicationRespDto application = client.createApplication(reqDto);
+        System.out.println(JsonUtils.serialize(application));
     }
 }
