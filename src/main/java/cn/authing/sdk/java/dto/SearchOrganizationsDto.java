@@ -25,6 +25,11 @@ public class SearchOrganizationsDto {
      */
     @JsonProperty("withCustomData")
     private Boolean withCustomData;
+    /**
+     * 租户 ID
+     */
+    @JsonProperty("tenantId")
+    private String tenantId;
 
     public String getKeywords() {
         return keywords;
@@ -52,6 +57,13 @@ public class SearchOrganizationsDto {
     }
     public void setWithCustomData(Boolean withCustomData) {
         this.withCustomData = withCustomData;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
     }
 
 

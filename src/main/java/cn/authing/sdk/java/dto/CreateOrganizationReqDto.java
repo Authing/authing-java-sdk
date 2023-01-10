@@ -31,6 +31,11 @@ public class CreateOrganizationReqDto {
      */
     @JsonProperty("i18n")
     private OrganizationNameI18nDto i18n;
+    /**
+     * 租户 ID
+     */
+    @JsonProperty("tenantId")
+    private String tenantId;
 
     public String getOrganizationName() {
         return organizationName;
@@ -65,6 +70,13 @@ public class CreateOrganizationReqDto {
     }
     public void setI18n(OrganizationNameI18nDto i18n) {
         this.i18n = i18n;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
     }
 
 

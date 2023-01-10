@@ -41,6 +41,11 @@ public class SearchDepartmentsListReqDto {
      */
     @JsonProperty("orderBy")
     private OrderBy orderBy;
+    /**
+     * 租户 ID
+     */
+    @JsonProperty("tenantId")
+    private String tenantId;
 
     public String getOrganizationCode() {
         return organizationCode;
@@ -89,6 +94,13 @@ public class SearchDepartmentsListReqDto {
     }
     public void setOrderBy(OrderBy orderBy) {
         this.orderBy = orderBy;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
     }
 
 

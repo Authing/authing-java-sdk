@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class GetUserResourcePermissionListDto {
     /**
-     * 资源路径列表
+     * 资源路径列表,**树资源需到具体树节点**
      */
     @JsonProperty("resources")
     private List<String> resources;

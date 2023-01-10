@@ -20,6 +20,11 @@ public class ListDepartmentMemberIdsDto {
      */
     @JsonProperty("departmentIdType")
     private String departmentIdType;
+    /**
+     * 租户 ID
+     */
+    @JsonProperty("tenantId")
+    private String tenantId;
 
     public String getOrganizationCode() {
         return organizationCode;
@@ -40,6 +45,13 @@ public class ListDepartmentMemberIdsDto {
     }
     public void setDepartmentIdType(String departmentIdType) {
         this.departmentIdType = departmentIdType;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
     }
 
 

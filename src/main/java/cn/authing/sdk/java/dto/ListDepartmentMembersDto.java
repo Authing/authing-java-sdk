@@ -60,6 +60,11 @@ public class ListDepartmentMembersDto {
      */
     @JsonProperty("withDepartmentIds")
     private Boolean withDepartmentIds;
+    /**
+     * 租户 ID
+     */
+    @JsonProperty("tenantId")
+    private String tenantId;
 
     public String getOrganizationCode() {
         return organizationCode;
@@ -136,6 +141,13 @@ public class ListDepartmentMembersDto {
     }
     public void setWithDepartmentIds(Boolean withDepartmentIds) {
         this.withDepartmentIds = withDepartmentIds;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
     }
 
 

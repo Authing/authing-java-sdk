@@ -7,7 +7,7 @@ import cn.authing.sdk.java.dto.AuthEnvParams;
 
 public class CheckPermissionDto {
     /**
-     * 数据资源路径列表,
+     * 资源路径列表,**树资源需到具体树节点**
      */
     @JsonProperty("resources")
     private List<String> resources;
