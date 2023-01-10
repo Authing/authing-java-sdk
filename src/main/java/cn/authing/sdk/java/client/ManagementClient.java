@@ -2125,19 +2125,6 @@ public class ManagementClient extends BaseClient {
         return deserialize(response, TenantApplicationListPaginatedRespDto.class);
     }
 
-    /**
-     * @summary 获取租户应用列表
-     * @description 获取应用列表，可以指定 租户 ID 筛选。
-     **/
-    public TenantApplicationListPaginatedRespDto listTenantApplications1(
-            ListTenantApplicationsDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/list-tenant-applications");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, TenantApplicationListPaginatedRespDto.class);
-    }
 
     /**
      * @summary 更新应用登录页配置
