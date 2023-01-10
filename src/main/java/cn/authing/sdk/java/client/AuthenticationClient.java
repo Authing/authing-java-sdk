@@ -1191,66 +1191,6 @@ public LoginTokenRespDto signInByCredentials(SigninByCredentialsDto reqDto) {
     return deserialize(response, LoginTokenRespDto.class);
 }
 /**
- * @summary 使用用户凭证登录
- * @description
- * 此端点为基于直接 API 调用形式的登录端点，适用于你需要自建登录页面的场景。**此端点暂时不支持 MFA、信息补全、首次密码重置等流程，如有需要，请使用 OIDC 标准协议认证端点。**
- *
- *
- * 注意事项：取决于你在 Authing 创建应用时选择的**应用类型**和应用配置的**换取 token 身份验证方式**，在调用此接口时需要对客户端的身份进行不同形式的验证。
- *
- * <details>
- * <summary>点击展开详情</summary>
- *
- * <br>
- *
- * 你可以在 [Authing 控制台](https://console.authing.cn) 的**应用** - **自建应用** - **应用详情** - **应用配置** - **其他设置** - **授权配置**
- * 中找到**换取 token 身份验证方式** 配置项：
- *
- * > 单页 Web 应用和客户端应用隐藏，默认为 `none`，不允许修改；后端应用和标准 Web 应用可以修改此配置项。
- *
- * ![](https://files.authing.co/api-explorer/tokenAuthMethod.jpg)
- *
- * #### 换取 token 身份验证方式为 none 时
- *
- * 调用此接口不需要进行额外操作。
- *
- * #### 换取 token 身份验证方式为 client_secret_post 时
- *
- * 调用此接口时必须在 body 中传递 `client_id` 和 `client_secret` 参数，作为验证客户端身份的条件。其中 `client_id` 为应用 ID、`client_secret` 为应用密钥。
- *
- * #### 换取 token 身份验证方式为 client_secret_basic 时
- *
- * 调用此接口时必须在 HTTP 请求头中携带 `authorization` 请求头，作为验证客户端身份的条件。`authorization` 请求头的格式如下（其中 `client_id` 为应用 ID、`client_secret` 为应用密钥。）：
- *
- * ```
- * Basic base64(<client_id>:<client_secret>)
- * ```
- *
- * 结果示例：
- *
- * ```
- * Basic NjA2M2ZiMmYzY3h4eHg2ZGY1NWYzOWViOjJmZTdjODdhODFmODY3eHh4eDAzMjRkZjEyZGFlZGM3
- * ```
- *
- * JS 代码示例：
- *
- * ```js
- * 'Basic ' + Buffer.from(client_id + ':' + client_secret).toString('base64');
- * ```
- *
- * </details>
- *
- *
- **/
-public LoginTokenRespDto signInByCredentials1(SigninByCredentialsDto reqDto) {
-    AuthingRequestConfig config = new AuthingRequestConfig();
-    config.setUrl("/api/v3/signin");
-    config.setBody(reqDto);
-    config.setMethod("POST");
-    String response = request(config);
-    return deserialize(response, LoginTokenRespDto.class);
-}
-/**
  * @summary 使用移动端社会化登录
  * @description
  * 此端点为移动端社会化登录接口，使用第三方移动社会化登录返回的临时凭证登录，并换取用户的 `id_token` 和 `access_token`。请先阅读相应社会化登录的接入流程。
@@ -1861,25 +1801,6 @@ public CommonResponseDto unlinkExtIdp(UnlinkExtIdpDto reqDto) {
                 return deserialize(response, UserSingleRespDto.class);
             }
             /**
-             * @summary 注册
-             * @description
-             * 此端点目前支持以下几种基于的注册方式：
-             *
-             * 1. 基于密码（PASSWORD）：用户名 + 密码，邮箱 + 密码。
-             * 2. 基于一次性临时验证码（PASSCODE）：手机号 + 验证码，邮箱 + 验证码。你需要先调用发送短信或者发送邮件接口获取验证码。
-             *
-             * 社会化登录等使用外部身份源“注册”请直接使用**登录**接口，我们会在其第一次登录的时候为其创建一个新账号。
-             *
-             **/
-            public UserSingleRespDto signUp1(SignUpDto reqDto) {
-                AuthingRequestConfig config = new AuthingRequestConfig();
-                config.setUrl("/api/v3/signup");
-                config.setBody(reqDto);
-                config.setMethod("POST");
-                String response = request(config);
-                return deserialize(response, UserSingleRespDto.class);
-            }
-            /**
              * @summary 解密微信小程序数据
              * @description 解密微信小程序数据
              **/
@@ -1944,18 +1865,6 @@ public CommonResponseDto unlinkExtIdp(UnlinkExtIdpDto reqDto) {
              * @description 获取租户列表
              **/
             public GetTenantListRespDto getTenantList() {
-                AuthingRequestConfig config = new AuthingRequestConfig();
-                config.setUrl("/api/v3/get-my-tenant-list");
-                config.setBody(new Object());
-                config.setMethod("GET");
-                String response = request(config);
-                return deserialize(response, GetTenantListRespDto.class);
-            }
-            /**
-             * @summary 获取租户列表
-             * @description 获取租户列表
-             **/
-            public GetTenantListRespDto getTenantList1() {
                 AuthingRequestConfig config = new AuthingRequestConfig();
                 config.setUrl("/api/v3/get-my-tenant-list");
                 config.setBody(new Object());

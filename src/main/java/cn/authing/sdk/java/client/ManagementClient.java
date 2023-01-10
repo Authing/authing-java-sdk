@@ -536,19 +536,6 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
-     * @summary 获取组织机构详情
-     * @description 获取组织机构详情
-     **/
-    public OrganizationSingleRespDto getOrganization1(GetOrganizationDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-organization");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, OrganizationSingleRespDto.class);
-    }
-
-    /**
      * @summary 批量获取组织机构详情
      * @description 批量获取组织机构详情
      **/
@@ -566,19 +553,6 @@ public class ManagementClient extends BaseClient {
      * @description 获取组织机构列表，支持分页。
      **/
     public OrganizationPaginatedRespDto listOrganizations(ListOrganizationsDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/list-organizations");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, OrganizationPaginatedRespDto.class);
-    }
-
-    /**
-     * @summary 获取组织机构列表
-     * @description 获取组织机构列表，支持分页。
-     **/
-    public OrganizationPaginatedRespDto listOrganizations1(ListOrganizationsDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/list-organizations");
         config.setBody(reqDto);
@@ -653,36 +627,10 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
-     * @summary 获取部门信息
-     * @description 通过组织 code 以及 部门 ID 或 部门 code，获取部门信息，可以获取自定义数据。
-     **/
-    public DepartmentSingleRespDto getDepartment1(GetDepartmentDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-department");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, DepartmentSingleRespDto.class);
-    }
-
-    /**
      * @summary 创建部门
      * @description 通过组织 code、部门名称、父部门 ID，创建部门，可以设置多种参数。
      **/
     public DepartmentSingleRespDto createDepartment(CreateDepartmentReqDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/create-department");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, DepartmentSingleRespDto.class);
-    }
-
-    /**
-     * @summary 创建部门
-     * @description 通过组织 code、部门名称、父部门 ID，创建部门，可以设置多种参数。
-     **/
-    public DepartmentSingleRespDto createDepartment1(CreateDepartmentReqDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/create-department");
         config.setBody(reqDto);
@@ -705,36 +653,10 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
-     * @summary 修改部门
-     * @description 通过组织 code、部门 ID，修改部门，可以设置多种参数。
-     **/
-    public DepartmentSingleRespDto updateDepartment1(UpdateDepartmentReqDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/update-department");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, DepartmentSingleRespDto.class);
-    }
-
-    /**
      * @summary 删除部门
      * @description 通过组织 code、部门 ID，删除部门。
      **/
     public IsSuccessRespDto deleteDepartment(DeleteDepartmentReqDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/delete-department");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, IsSuccessRespDto.class);
-    }
-
-    /**
-     * @summary 删除部门
-     * @description 通过组织 code、部门 ID，删除部门。
-     **/
-    public IsSuccessRespDto deleteDepartment1(DeleteDepartmentReqDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/delete-department");
         config.setBody(reqDto);
@@ -784,36 +706,10 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
-     * @summary 获取子部门列表
-     * @description 通过组织 code、部门 ID，获取子部门列表，可以选择获取自定义数据、虚拟组织等。
-     **/
-    public DepartmentPaginatedRespDto listChildrenDepartments1(ListChildrenDepartmentsDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/list-children-departments");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, DepartmentPaginatedRespDto.class);
-    }
-
-    /**
      * @summary 获取部门成员列表
      * @description 通过组织 code、部门 ID、排序，获取部门成员列表，支持分页，可以选择获取自定义数据、identities 等。
      **/
     public UserPaginatedRespDto listDepartmentMembers(ListDepartmentMembersDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/list-department-members");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, UserPaginatedRespDto.class);
-    }
-
-    /**
-     * @summary 获取部门成员列表
-     * @description 通过组织 code、部门 ID、排序，获取部门成员列表，支持分页，可以选择获取自定义数据、identities 等。
-     **/
-    public UserPaginatedRespDto listDepartmentMembers1(ListDepartmentMembersDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/list-department-members");
         config.setBody(reqDto);
@@ -1254,36 +1150,10 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
-     * @summary 获取身份源列表
-     * @description 获取身份源列表，可以指定 租户 ID 筛选。
-     **/
-    public ExtIdpListPaginatedRespDto listExtIdp1(ListExtIdpDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/list-ext-idp");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, ExtIdpListPaginatedRespDto.class);
-    }
-
-    /**
      * @summary 获取身份源详情
      * @description 通过 身份源 ID，获取身份源详情，可以指定 租户 ID 筛选。
      **/
     public ExtIdpDetailSingleRespDto getExtIdp(GetExtIdpDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-ext-idp");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, ExtIdpDetailSingleRespDto.class);
-    }
-
-    /**
-     * @summary 获取身份源详情
-     * @description 通过 身份源 ID，获取身份源详情，可以指定 租户 ID 筛选。
-     **/
-    public ExtIdpDetailSingleRespDto getExtIdp1(GetExtIdpDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-ext-idp");
         config.setBody(reqDto);
@@ -1306,36 +1176,10 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
-     * @summary 创建身份源
-     * @description 创建身份源，可以设置身份源名称、连接类型、租户 ID 等。
-     **/
-    public ExtIdpSingleRespDto createExtIdp1(CreateExtIdpDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/create-ext-idp");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, ExtIdpSingleRespDto.class);
-    }
-
-    /**
      * @summary 更新身份源配置
      * @description 更新身份源配置，可以设置身份源 ID 与 名称。
      **/
     public ExtIdpSingleRespDto updateExtIdp(UpdateExtIdpDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/update-ext-idp");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, ExtIdpSingleRespDto.class);
-    }
-
-    /**
-     * @summary 更新身份源配置
-     * @description 更新身份源配置，可以设置身份源 ID 与 名称。
-     **/
-    public ExtIdpSingleRespDto updateExtIdp1(UpdateExtIdpDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/update-ext-idp");
         config.setBody(reqDto);
@@ -1358,36 +1202,10 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
-     * @summary 删除身份源
-     * @description 通过身份源 ID，删除身份源。
-     **/
-    public IsSuccessRespDto deleteExtIdp1(DeleteExtIdpDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/delete-ext-idp");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, IsSuccessRespDto.class);
-    }
-
-    /**
      * @summary 在某个已有身份源下创建新连接
      * @description 在某个已有身份源下创建新连接，可以设置身份源图标、是否只支持登录等。
      **/
     public ExtIdpConnDetailSingleRespDto createExtIdpConn(CreateExtIdpConnDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/create-ext-idp-conn");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, ExtIdpConnDetailSingleRespDto.class);
-    }
-
-    /**
-     * @summary 在某个已有身份源下创建新连接
-     * @description 在某个已有身份源下创建新连接，可以设置身份源图标、是否只支持登录等。
-     **/
-    public ExtIdpConnDetailSingleRespDto createExtIdpConn1(CreateExtIdpConnDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/create-ext-idp-conn");
         config.setBody(reqDto);
@@ -1410,19 +1228,6 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
-     * @summary 更新身份源连接
-     * @description 更新身份源连接，可以设置身份源图标、是否只支持登录等。
-     **/
-    public ExtIdpConnDetailSingleRespDto updateExtIdpConn1(UpdateExtIdpConnDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/update-ext-idp-conn");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, ExtIdpConnDetailSingleRespDto.class);
-    }
-
-    /**
      * @summary 删除身份源连接
      * @description 通过身份源连接 ID，删除身份源连接。
      **/
@@ -1436,36 +1241,10 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
-     * @summary 删除身份源连接
-     * @description 通过身份源连接 ID，删除身份源连接。
-     **/
-    public IsSuccessRespDto deleteExtIdpConn1(DeleteExtIdpConnDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/delete-ext-idp-conn");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, IsSuccessRespDto.class);
-    }
-
-    /**
      * @summary 身份源连接开关
      * @description 身份源连接开关，可以打开或关闭身份源连接。
      **/
     public IsSuccessRespDto changeExtIdpConnState(ChangeExtIdpConnStateDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/change-ext-idp-conn-state");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, IsSuccessRespDto.class);
-    }
-
-    /**
-     * @summary 身份源连接开关
-     * @description 身份源连接开关，可以打开或关闭身份源连接。
-     **/
-    public IsSuccessRespDto changeExtIdpConnState1(ChangeExtIdpConnStateDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/change-ext-idp-conn-state");
         config.setBody(reqDto);
@@ -1489,20 +1268,6 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
-     * @summary 租户关联身份源
-     * @description 租户可以关联或取消关联身份源连接。
-     **/
-    public IsSuccessRespDto changeExtIdpConnAssociationState1(
-            ChangeExtIdpAssociationStateDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/change-ext-idp-conn-association-state");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, IsSuccessRespDto.class);
-    }
-
-    /**
      * @summary 租户控制台获取身份源列表
      * @description 在租户控制台内获取身份源列表，可以根据 应用 ID 筛选。
      **/
@@ -1516,36 +1281,10 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
-     * @summary 租户控制台获取身份源列表
-     * @description 在租户控制台内获取身份源列表，可以根据 应用 ID 筛选。
-     **/
-    public ExtIdpListPaginatedRespDto listTenantExtIdp1(ListTenantExtIdpDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/list-tenant-ext-idp");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, ExtIdpListPaginatedRespDto.class);
-    }
-
-    /**
      * @summary 身份源下应用的连接详情
      * @description 在身份源详情页获取应用的连接情况
      **/
     public ExtIdpListPaginatedRespDto extIdpConnStateByApps(ExtIdpConnAppsDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/ext-idp-conn-apps");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, ExtIdpListPaginatedRespDto.class);
-    }
-
-    /**
-     * @summary 身份源下应用的连接详情
-     * @description 在身份源详情页获取应用的连接情况
-     **/
-    public ExtIdpListPaginatedRespDto extIdpConnStateByApps1(ExtIdpConnAppsDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/ext-idp-conn-apps");
         config.setBody(reqDto);
@@ -1698,36 +1437,10 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
-     * @summary 分页获取常规资源列表
-     * @description 根据筛选条件，分页获取常规资源详情列表。
-     **/
-    public CommonResourcePaginatedRespDto listCommonResource1(ListCommonResourceDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/list-common-resource");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, CommonResourcePaginatedRespDto.class);
-    }
-
-    /**
      * @summary 分页获取资源列表
      * @description 根据筛选条件，分页获取资源详情列表。
      **/
     public ResourcePaginatedRespDto listResources(ListResourcesDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/list-resources");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, ResourcePaginatedRespDto.class);
-    }
-
-    /**
-     * @summary 分页获取资源列表
-     * @description 根据筛选条件，分页获取资源详情列表。
-     **/
-    public ResourcePaginatedRespDto listResources1(ListResourcesDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/list-resources");
         config.setBody(reqDto);
@@ -1795,19 +1508,6 @@ public class ManagementClient extends BaseClient {
      * @description 通过资源唯一标识以及权限分组，关联或取消关联资源到租户
      **/
     public IsSuccessRespDto associateTenantResource(AssociateTenantResourceDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/associate-tenant-resource");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, IsSuccessRespDto.class);
-    }
-
-    /**
-     * @summary 关联/取消关联应用资源到租户
-     * @description 通过资源唯一标识以及权限分组，关联或取消关联资源到租户
-     **/
-    public IsSuccessRespDto associateTenantResource1(AssociateTenantResourceDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/associate-tenant-resource");
         config.setBody(reqDto);
@@ -1947,19 +1647,6 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
-     * @summary 授权资源
-     * @description 将一个/多个资源授权给用户、角色、分组、组织机构等主体，且可以分别指定不同的操作权限。
-     **/
-    public IsSuccessRespDto authorizeResources1(AuthorizeResourcesDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/authorize-resources");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, IsSuccessRespDto.class);
-    }
-
-    /**
      * @summary 获取某个主体被授权的资源列表
      * @description 根据筛选条件，获取某个主体被授权的资源列表。
      **/
@@ -1978,19 +1665,6 @@ public class ManagementClient extends BaseClient {
      * @description 判断用户是否对某个资源的某个操作有权限。
      **/
     public IsActionAllowedRespDtp isActionAllowed(IsActionAllowedDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/is-action-allowed");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, IsActionAllowedRespDtp.class);
-    }
-
-    /**
-     * @summary 判断用户是否对某个资源的某个操作有权限
-     * @description 判断用户是否对某个资源的某个操作有权限。
-     **/
-    public IsActionAllowedRespDtp isActionAllowed1(IsActionAllowedDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/is-action-allowed");
         config.setBody(reqDto);
@@ -2264,19 +1938,6 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
-     * @summary 获取应用详情
-     * @description 通过应用 ID，获取应用详情。
-     **/
-    public ApplicationSingleRespDto getApplication1(GetApplicationDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-application");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, ApplicationSingleRespDto.class);
-    }
-
-    /**
      * @summary 获取应用列表
      * @description 获取应用列表
      **/
@@ -2294,20 +1955,6 @@ public class ManagementClient extends BaseClient {
      * @description 通过应用 ID，获取应用简单信息。
      **/
     public ApplicationSimpleInfoSingleRespDto getApplicationSimpleInfo(
-            GetApplicationSimpleInfoDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-application-simple-info");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, ApplicationSimpleInfoSingleRespDto.class);
-    }
-
-    /**
-     * @summary 获取应用简单信息
-     * @description 通过应用 ID，获取应用简单信息。
-     **/
-    public ApplicationSimpleInfoSingleRespDto getApplicationSimpleInfo1(
             GetApplicationSimpleInfoDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-application-simple-info");
@@ -2439,36 +2086,10 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
-     * @summary 授权应用访问权限
-     * @description 给用户、分组、组织或角色授权应用访问权限，如果用户、分组、组织或角色不存在，则跳过，进行下一步授权，不返回报错
-     **/
-    public IsSuccessRespDto authorizeApplicationAccess1(AuthorizeApplicationAccessDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/authorize-application-access");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, IsSuccessRespDto.class);
-    }
-
-    /**
      * @summary 删除应用访问授权记录
      * @description 取消给用户、分组、组织或角色的应用访问权限授权,如果传入数据不存在，则返回数据不报错处理。
      **/
     public IsSuccessRespDto revokeApplicationAccess(RevokeApplicationAccessDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/revoke-application-access");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, IsSuccessRespDto.class);
-    }
-
-    /**
-     * @summary 删除应用访问授权记录
-     * @description 取消给用户、分组、组织或角色的应用访问权限授权,如果传入数据不存在，则返回数据不报错处理。
-     **/
-    public IsSuccessRespDto revokeApplicationAccess1(RevokeApplicationAccessDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/revoke-application-access");
         config.setBody(reqDto);
@@ -2504,19 +2125,7 @@ public class ManagementClient extends BaseClient {
         return deserialize(response, TenantApplicationListPaginatedRespDto.class);
     }
 
-    /**
-     * @summary 获取租户应用列表
-     * @description 获取应用列表，可以指定 租户 ID 筛选。
-     **/
-    public TenantApplicationListPaginatedRespDto listTenantApplications1(
-            ListTenantApplicationsDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/list-tenant-applications");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, TenantApplicationListPaginatedRespDto.class);
-    }
+
 
     /**
      * @summary 更新应用登录页配置
