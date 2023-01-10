@@ -536,6 +536,19 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
+     * @summary 获取组织机构详情
+     * @description 获取组织机构详情
+     **/
+    public OrganizationSingleRespDto getOrganization1(GetOrganizationDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-organization");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, OrganizationSingleRespDto.class);
+    }
+
+    /**
      * @summary 批量获取组织机构详情
      * @description 批量获取组织机构详情
      **/
@@ -553,6 +566,19 @@ public class ManagementClient extends BaseClient {
      * @description 获取组织机构列表，支持分页。
      **/
     public OrganizationPaginatedRespDto listOrganizations(ListOrganizationsDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/list-organizations");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, OrganizationPaginatedRespDto.class);
+    }
+
+    /**
+     * @summary 获取组织机构列表
+     * @description 获取组织机构列表，支持分页。
+     **/
+    public OrganizationPaginatedRespDto listOrganizations1(ListOrganizationsDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/list-organizations");
         config.setBody(reqDto);
@@ -627,10 +653,36 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
+     * @summary 获取部门信息
+     * @description 通过组织 code 以及 部门 ID 或 部门 code，获取部门信息，可以获取自定义数据。
+     **/
+    public DepartmentSingleRespDto getDepartment1(GetDepartmentDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-department");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, DepartmentSingleRespDto.class);
+    }
+
+    /**
      * @summary 创建部门
      * @description 通过组织 code、部门名称、父部门 ID，创建部门，可以设置多种参数。
      **/
     public DepartmentSingleRespDto createDepartment(CreateDepartmentReqDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/create-department");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, DepartmentSingleRespDto.class);
+    }
+
+    /**
+     * @summary 创建部门
+     * @description 通过组织 code、部门名称、父部门 ID，创建部门，可以设置多种参数。
+     **/
+    public DepartmentSingleRespDto createDepartment1(CreateDepartmentReqDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/create-department");
         config.setBody(reqDto);
@@ -653,10 +705,36 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
+     * @summary 修改部门
+     * @description 通过组织 code、部门 ID，修改部门，可以设置多种参数。
+     **/
+    public DepartmentSingleRespDto updateDepartment1(UpdateDepartmentReqDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/update-department");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, DepartmentSingleRespDto.class);
+    }
+
+    /**
      * @summary 删除部门
      * @description 通过组织 code、部门 ID，删除部门。
      **/
     public IsSuccessRespDto deleteDepartment(DeleteDepartmentReqDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/delete-department");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, IsSuccessRespDto.class);
+    }
+
+    /**
+     * @summary 删除部门
+     * @description 通过组织 code、部门 ID，删除部门。
+     **/
+    public IsSuccessRespDto deleteDepartment1(DeleteDepartmentReqDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/delete-department");
         config.setBody(reqDto);
@@ -706,10 +784,36 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
+     * @summary 获取子部门列表
+     * @description 通过组织 code、部门 ID，获取子部门列表，可以选择获取自定义数据、虚拟组织等。
+     **/
+    public DepartmentPaginatedRespDto listChildrenDepartments1(ListChildrenDepartmentsDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/list-children-departments");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, DepartmentPaginatedRespDto.class);
+    }
+
+    /**
      * @summary 获取部门成员列表
      * @description 通过组织 code、部门 ID、排序，获取部门成员列表，支持分页，可以选择获取自定义数据、identities 等。
      **/
     public UserPaginatedRespDto listDepartmentMembers(ListDepartmentMembersDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/list-department-members");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, UserPaginatedRespDto.class);
+    }
+
+    /**
+     * @summary 获取部门成员列表
+     * @description 通过组织 code、部门 ID、排序，获取部门成员列表，支持分页，可以选择获取自定义数据、identities 等。
+     **/
+    public UserPaginatedRespDto listDepartmentMembers1(ListDepartmentMembersDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/list-department-members");
         config.setBody(reqDto);
@@ -1150,10 +1254,36 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
+     * @summary 获取身份源列表
+     * @description 获取身份源列表，可以指定 租户 ID 筛选。
+     **/
+    public ExtIdpListPaginatedRespDto listExtIdp1(ListExtIdpDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/list-ext-idp");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, ExtIdpListPaginatedRespDto.class);
+    }
+
+    /**
      * @summary 获取身份源详情
      * @description 通过 身份源 ID，获取身份源详情，可以指定 租户 ID 筛选。
      **/
     public ExtIdpDetailSingleRespDto getExtIdp(GetExtIdpDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-ext-idp");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, ExtIdpDetailSingleRespDto.class);
+    }
+
+    /**
+     * @summary 获取身份源详情
+     * @description 通过 身份源 ID，获取身份源详情，可以指定 租户 ID 筛选。
+     **/
+    public ExtIdpDetailSingleRespDto getExtIdp1(GetExtIdpDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-ext-idp");
         config.setBody(reqDto);
@@ -1176,10 +1306,36 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
+     * @summary 创建身份源
+     * @description 创建身份源，可以设置身份源名称、连接类型、租户 ID 等。
+     **/
+    public ExtIdpSingleRespDto createExtIdp1(CreateExtIdpDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/create-ext-idp");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, ExtIdpSingleRespDto.class);
+    }
+
+    /**
      * @summary 更新身份源配置
      * @description 更新身份源配置，可以设置身份源 ID 与 名称。
      **/
     public ExtIdpSingleRespDto updateExtIdp(UpdateExtIdpDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/update-ext-idp");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, ExtIdpSingleRespDto.class);
+    }
+
+    /**
+     * @summary 更新身份源配置
+     * @description 更新身份源配置，可以设置身份源 ID 与 名称。
+     **/
+    public ExtIdpSingleRespDto updateExtIdp1(UpdateExtIdpDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/update-ext-idp");
         config.setBody(reqDto);
@@ -1202,10 +1358,36 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
+     * @summary 删除身份源
+     * @description 通过身份源 ID，删除身份源。
+     **/
+    public IsSuccessRespDto deleteExtIdp1(DeleteExtIdpDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/delete-ext-idp");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, IsSuccessRespDto.class);
+    }
+
+    /**
      * @summary 在某个已有身份源下创建新连接
      * @description 在某个已有身份源下创建新连接，可以设置身份源图标、是否只支持登录等。
      **/
     public ExtIdpConnDetailSingleRespDto createExtIdpConn(CreateExtIdpConnDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/create-ext-idp-conn");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, ExtIdpConnDetailSingleRespDto.class);
+    }
+
+    /**
+     * @summary 在某个已有身份源下创建新连接
+     * @description 在某个已有身份源下创建新连接，可以设置身份源图标、是否只支持登录等。
+     **/
+    public ExtIdpConnDetailSingleRespDto createExtIdpConn1(CreateExtIdpConnDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/create-ext-idp-conn");
         config.setBody(reqDto);
@@ -1228,6 +1410,19 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
+     * @summary 更新身份源连接
+     * @description 更新身份源连接，可以设置身份源图标、是否只支持登录等。
+     **/
+    public ExtIdpConnDetailSingleRespDto updateExtIdpConn1(UpdateExtIdpConnDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/update-ext-idp-conn");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, ExtIdpConnDetailSingleRespDto.class);
+    }
+
+    /**
      * @summary 删除身份源连接
      * @description 通过身份源连接 ID，删除身份源连接。
      **/
@@ -1241,10 +1436,36 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
+     * @summary 删除身份源连接
+     * @description 通过身份源连接 ID，删除身份源连接。
+     **/
+    public IsSuccessRespDto deleteExtIdpConn1(DeleteExtIdpConnDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/delete-ext-idp-conn");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, IsSuccessRespDto.class);
+    }
+
+    /**
      * @summary 身份源连接开关
      * @description 身份源连接开关，可以打开或关闭身份源连接。
      **/
     public IsSuccessRespDto changeExtIdpConnState(ChangeExtIdpConnStateDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/change-ext-idp-conn-state");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, IsSuccessRespDto.class);
+    }
+
+    /**
+     * @summary 身份源连接开关
+     * @description 身份源连接开关，可以打开或关闭身份源连接。
+     **/
+    public IsSuccessRespDto changeExtIdpConnState1(ChangeExtIdpConnStateDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/change-ext-idp-conn-state");
         config.setBody(reqDto);
@@ -1268,6 +1489,20 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
+     * @summary 租户关联身份源
+     * @description 租户可以关联或取消关联身份源连接。
+     **/
+    public IsSuccessRespDto changeExtIdpConnAssociationState1(
+            ChangeExtIdpAssociationStateDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/change-ext-idp-conn-association-state");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, IsSuccessRespDto.class);
+    }
+
+    /**
      * @summary 租户控制台获取身份源列表
      * @description 在租户控制台内获取身份源列表，可以根据 应用 ID 筛选。
      **/
@@ -1281,10 +1516,36 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
+     * @summary 租户控制台获取身份源列表
+     * @description 在租户控制台内获取身份源列表，可以根据 应用 ID 筛选。
+     **/
+    public ExtIdpListPaginatedRespDto listTenantExtIdp1(ListTenantExtIdpDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/list-tenant-ext-idp");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, ExtIdpListPaginatedRespDto.class);
+    }
+
+    /**
      * @summary 身份源下应用的连接详情
      * @description 在身份源详情页获取应用的连接情况
      **/
     public ExtIdpListPaginatedRespDto extIdpConnStateByApps(ExtIdpConnAppsDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/ext-idp-conn-apps");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, ExtIdpListPaginatedRespDto.class);
+    }
+
+    /**
+     * @summary 身份源下应用的连接详情
+     * @description 在身份源详情页获取应用的连接情况
+     **/
+    public ExtIdpListPaginatedRespDto extIdpConnStateByApps1(ExtIdpConnAppsDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/ext-idp-conn-apps");
         config.setBody(reqDto);
@@ -1437,10 +1698,36 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
+     * @summary 分页获取常规资源列表
+     * @description 根据筛选条件，分页获取常规资源详情列表。
+     **/
+    public CommonResourcePaginatedRespDto listCommonResource1(ListCommonResourceDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/list-common-resource");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, CommonResourcePaginatedRespDto.class);
+    }
+
+    /**
      * @summary 分页获取资源列表
      * @description 根据筛选条件，分页获取资源详情列表。
      **/
     public ResourcePaginatedRespDto listResources(ListResourcesDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/list-resources");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, ResourcePaginatedRespDto.class);
+    }
+
+    /**
+     * @summary 分页获取资源列表
+     * @description 根据筛选条件，分页获取资源详情列表。
+     **/
+    public ResourcePaginatedRespDto listResources1(ListResourcesDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/list-resources");
         config.setBody(reqDto);
@@ -1508,6 +1795,19 @@ public class ManagementClient extends BaseClient {
      * @description 通过资源唯一标识以及权限分组，关联或取消关联资源到租户
      **/
     public IsSuccessRespDto associateTenantResource(AssociateTenantResourceDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/associate-tenant-resource");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, IsSuccessRespDto.class);
+    }
+
+    /**
+     * @summary 关联/取消关联应用资源到租户
+     * @description 通过资源唯一标识以及权限分组，关联或取消关联资源到租户
+     **/
+    public IsSuccessRespDto associateTenantResource1(AssociateTenantResourceDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/associate-tenant-resource");
         config.setBody(reqDto);
@@ -1647,6 +1947,19 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
+     * @summary 授权资源
+     * @description 将一个/多个资源授权给用户、角色、分组、组织机构等主体，且可以分别指定不同的操作权限。
+     **/
+    public IsSuccessRespDto authorizeResources1(AuthorizeResourcesDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/authorize-resources");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, IsSuccessRespDto.class);
+    }
+
+    /**
      * @summary 获取某个主体被授权的资源列表
      * @description 根据筛选条件，获取某个主体被授权的资源列表。
      **/
@@ -1665,6 +1978,19 @@ public class ManagementClient extends BaseClient {
      * @description 判断用户是否对某个资源的某个操作有权限。
      **/
     public IsActionAllowedRespDtp isActionAllowed(IsActionAllowedDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/is-action-allowed");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, IsActionAllowedRespDtp.class);
+    }
+
+    /**
+     * @summary 判断用户是否对某个资源的某个操作有权限
+     * @description 判断用户是否对某个资源的某个操作有权限。
+     **/
+    public IsActionAllowedRespDtp isActionAllowed1(IsActionAllowedDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/is-action-allowed");
         config.setBody(reqDto);
@@ -1938,6 +2264,19 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
+     * @summary 获取应用详情
+     * @description 通过应用 ID，获取应用详情。
+     **/
+    public ApplicationSingleRespDto getApplication1(GetApplicationDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-application");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, ApplicationSingleRespDto.class);
+    }
+
+    /**
      * @summary 获取应用列表
      * @description 获取应用列表
      **/
@@ -1955,6 +2294,20 @@ public class ManagementClient extends BaseClient {
      * @description 通过应用 ID，获取应用简单信息。
      **/
     public ApplicationSimpleInfoSingleRespDto getApplicationSimpleInfo(
+            GetApplicationSimpleInfoDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-application-simple-info");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, ApplicationSimpleInfoSingleRespDto.class);
+    }
+
+    /**
+     * @summary 获取应用简单信息
+     * @description 通过应用 ID，获取应用简单信息。
+     **/
+    public ApplicationSimpleInfoSingleRespDto getApplicationSimpleInfo1(
             GetApplicationSimpleInfoDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/get-application-simple-info");
@@ -2086,10 +2439,36 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
+     * @summary 授权应用访问权限
+     * @description 给用户、分组、组织或角色授权应用访问权限，如果用户、分组、组织或角色不存在，则跳过，进行下一步授权，不返回报错
+     **/
+    public IsSuccessRespDto authorizeApplicationAccess1(AuthorizeApplicationAccessDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/authorize-application-access");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, IsSuccessRespDto.class);
+    }
+
+    /**
      * @summary 删除应用访问授权记录
      * @description 取消给用户、分组、组织或角色的应用访问权限授权,如果传入数据不存在，则返回数据不报错处理。
      **/
     public IsSuccessRespDto revokeApplicationAccess(RevokeApplicationAccessDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/revoke-application-access");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, IsSuccessRespDto.class);
+    }
+
+    /**
+     * @summary 删除应用访问授权记录
+     * @description 取消给用户、分组、组织或角色的应用访问权限授权,如果传入数据不存在，则返回数据不报错处理。
+     **/
+    public IsSuccessRespDto revokeApplicationAccess1(RevokeApplicationAccessDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
         config.setUrl("/api/v3/revoke-application-access");
         config.setBody(reqDto);
@@ -2109,6 +2488,87 @@ public class ManagementClient extends BaseClient {
         config.setMethod("POST");
         String response = request(config);
         return deserialize(response, CheckDomainAvailableSecretRespDto.class);
+    }
+
+    /**
+     * @summary 获取租户应用列表
+     * @description 获取应用列表，可以指定 租户 ID 筛选。
+     **/
+    public TenantApplicationListPaginatedRespDto listTenantApplications(
+            ListTenantApplicationsDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/list-tenant-applications");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, TenantApplicationListPaginatedRespDto.class);
+    }
+
+    /**
+     * @summary 获取租户应用列表
+     * @description 获取应用列表，可以指定 租户 ID 筛选。
+     **/
+    public TenantApplicationListPaginatedRespDto listTenantApplications1(
+            ListTenantApplicationsDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/list-tenant-applications");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, TenantApplicationListPaginatedRespDto.class);
+    }
+
+    /**
+     * @summary 更新应用登录页配置
+     * @description 通过应用 ID 更新登录页配置。
+     **/
+    public IsSuccessRespDto updateLoginPageConfig(UpdateLoginConfigDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/update-login-page-config");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, IsSuccessRespDto.class);
+    }
+
+    /**
+     * @summary 获取用户池租户配置信息
+     * @description 根据用户池 ID 获取用户池多租户配置信息
+     **/
+    public UserPoolTenantConfigDtoRespDto userpollTenantConfig() {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/userpool-tenant-config");
+        config.setBody(new Object());
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, UserPoolTenantConfigDtoRespDto.class);
+    }
+
+    /**
+     * @summary 更新用户池租户配置信息
+     * @description 更新用户池多租户配置内登录信息
+     **/
+    public IsSuccessRespDto updateUserPoolTenantConfig(UpdateUserPoolTenantLoginConfigDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/update-userpool-tenant-config");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, IsSuccessRespDto.class);
+    }
+
+    /**
+     * @summary 设置用户池多租户身份源连接
+     * @description 设置用户池多租户身份源连接，支持同时设置多个身份源连接，支持设置连接和取消连接
+     **/
+    public IsSuccessRespDto changeUserpoolTenanExtIdpConnState(
+            ChangeUserPoolTenantExtIdpConnDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/change-userpool-tenant-ext-idp-conn-state");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, IsSuccessRespDto.class);
     }
 
     /**
@@ -2780,7 +3240,7 @@ public class ManagementClient extends BaseClient {
 
     /**
      * @summary 获取用户权限列表
-     * @description 该接口用于用户列表权限查询，可以通过用户 ID 列表进行批量查询权限，也可以通过查询多个用户在同一个权限空间的权限。
+     * @description 该接口用于用户列表权限查询，可以通过用户 ID 列表进行批量查询权限，也可以通过查询多个用户在同一个权限空间的权限,不同数据资源类型返回相应的资源结果。
      * <p>
      * ### 查询一个用户拥有的数组资源、字符串资源和树资源权限列表示例
      * <p>
@@ -2792,16 +3252,17 @@ public class ManagementClient extends BaseClient {
      * <p>
      * ```json { "statusCode": 200, "message": "操作成功", "apiCode": 20001, "data": {
      * "userPermissionList": [ { "userId": "6301ceaxxxxxxxxxxx27478", "namespaceCode":
-     * "examplePermissionNamespace", "resourceList": [ { "resourceCode": "strCode", "authorize": {
-     * "value": "示例字符串资源", "actions": [ "read", "post", "get", "write" ] } }, { "resourceCode":
-     * "arrayCode", "authorize": { "values": [ "示例数据资源" ], "actions": [ "read", "post", "get",
-     * "write" ] } }, { "resourceCode": "treeCode", "authorize": { "authList": [ { "nodePath":
-     * "treeCode/treeChildrenCode1", "nodeActions": [ "read", "get" ], "nodeName":
+     * "examplePermissionNamespace", "resourceList": [ { "resourceCode": "strCode", "resourceType":
+     * "STRING", "strAuthorize": { "value": "示例字符串资源", "actions": [ "read", "post", "get", "write" ]
+     * } }, { "resourceCode": "arrayCode", "resourceType": "ARRAY", "arrAuthorize": { "values": [
+     * "示例数据资源1", "示例数据资源2" ], "actions": [ "read", "post", "get", "write" ] } }, { "resourceCode":
+     * "treeCode", "resourceType": "TREE", "treeAuthorize": { "authList": [ { "nodePath":
+     * "/treeChildrenCode/treeChildrenCode1", "nodeActions": [ "read", "get" ], "nodeName":
      * "treeChildrenName1", "nodeValue": "treeChildrenValue1" }, { "nodePath":
-     * "treeCode/treeChildrenCode2", "nodeActions": [ "read", "get" ], "nodeName":
+     * "/treeChildrenCode/treeChildrenCode2", "nodeActions": [ "read", "get" ], "nodeName":
      * "treeChildrenName2", "nodeValue": "treeChildrenValue2" }, { "nodePath":
-     * "treeCode/treeChildrenCode3", "nodeActions": [ "read" ], "nodeName": "treeChildrenName3",
-     * "nodeValue": "treeChildrenValue3" } ] } } ] } ] } } ```
+     * "/treeChildrenCode/treeChildrenCode3", "nodeActions": [ "read" ], "nodeName":
+     * "treeChildrenName3", "nodeValue": "treeChildrenValue3" } ] } } ] } ] } } ```
      * <p>
      * ### 查询多个用户权限列表示例
      * <p>
@@ -2813,11 +3274,12 @@ public class ManagementClient extends BaseClient {
      * <p>
      * ```json { "statusCode": 200, "message": "操作成功", "apiCode": 20001, "data": {
      * "userPermissionList": [ { "userId": "6301ceaxxxxxxxxxxx27478", "namespaceCode":
-     * "examplePermissionNamespace1", "resourceList": [ { "resourceCode": "strCode1", "authorize": {
-     * "value": "示例字符串资源", "actions": [ "read", "post", "get", "write" ] } } ] }, { "userId":
-     * "6121ceaxxxxxxxxxxx27312", "namespaceCode": "examplePermissionNamespace2", "resourceList": [
-     * { "resourceCode": "arrayCode", "authorize": { "values": [ "示例数组资源1", "示例数组资源2" ], "actions":
-     * [ "read", "post", "get", "write" ] } } ] } ] } } ```
+     * "examplePermissionNamespace1", "resourceList": [ { "resourceCode": "strCode", "resourceType":
+     * "STRING", "strAuthorize": { "value": "示例字符串资源", "actions": [ "read", "post", "get", "write" ]
+     * } } ] }, { "userId": "6121ceaxxxxxxxxxxx27312", "namespaceCode":
+     * "examplePermissionNamespace2", "resourceList": [ { "resourceCode": "arrayCode",
+     * "resourceType": "ARRAY", "arrAuthorize": { "values": [ "示例数组资源1", "示例数组资源2" ], "actions": [
+     * "read", "post", "get", "write" ] } } ] } ] } } ```
      * <p>
      * ### 查询多个用户在多个权限空间下权限列表示例
      * <p>
@@ -2830,11 +3292,12 @@ public class ManagementClient extends BaseClient {
      * <p>
      * ```json { "statusCode": 200, "message": "操作成功", "apiCode": 20001, "data": {
      * "userPermissionList": [ { "userId": "6301ceaxxxxxxxxxxx27478", "namespaceCode":
-     * "examplePermissionNamespace1", "resourceList": [ { "resourceCode": "strCode1", "authorize": {
-     * "value": "示例字符串资源", "actions": [ "read", "post", "get", "write" ] } } ] }, { "userId":
-     * "6121ceaxxxxxxxxxxx27312", "namespaceCode": "examplePermissionNamespace2", "resourceList": [
-     * { "resourceCode": "arrayCode", "authorize": { "values": [ "示例数组资源1", "示例数组资源2" ], "actions":
-     * [ "read", "post", "get", "write" ] } } ] } ] } } ```
+     * "examplePermissionNamespace1", "resourceList": [ { "resourceCode": "strCode1",
+     * "resourceType": "STRING", "strAuthorize": { "value": "示例字符串资源", "actions": [ "read", "post",
+     * "get", "write" ] } } ] }, { "userId": "6121ceaxxxxxxxxxxx27312", "namespaceCode":
+     * "examplePermissionNamespace2", "resourceList": [ { "resourceCode": "arrayCode",
+     * "resourceType": "ARRAY", "arrAuthorize": { "values": [ "示例数组资源1", "示例数组资源2" ], "actions": [
+     * "read", "post", "get", "write" ] } } ] } ] } } ```
      **/
     public GetUserPermissionListRespDto getUserPermissionList(GetUserPermissionListDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -2976,8 +3439,8 @@ public class ManagementClient extends BaseClient {
      * <p>
      * - 入参
      * <p>
-     * ```json { "namespaceCode": "examplePermissionNamespace", "actions": ["get", "update", "read"]
-     * "resources":["strResourceCode1", "arrayResourceCode1"] } ```
+     * ```json { "namespaceCode": "examplePermissionNamespace", "actions": ["get", "update",
+     * "read"], "resources":["strResourceCode1", "arrayResourceCode1"] } ```
      * <p>
      * - 出参
      * <p>
@@ -2994,7 +3457,7 @@ public class ManagementClient extends BaseClient {
      * - 入参
      * <p>
      * ```json { "namespaceCode": "examplePermissionNamespace", "actions": ["get", "update",
-     * "delete"] "resources":["treeResourceCode1/StructCode1/resourceStructChildrenCode1",
+     * "delete"], "resources":["treeResourceCode1/StructCode1/resourceStructChildrenCode1",
      * "treeResourceCode2/StructCode1/resourceStructChildrenCode1"] } ```
      * <p>
      * - 出参
@@ -3019,23 +3482,53 @@ public class ManagementClient extends BaseClient {
 
     /**
      * @summary 获取用户授权资源的结构列表
-     * @description 该接口主要用于获取用户授权的资源列表，通过权限空间 Code、用户 id、资源 Code 获取用户资源的授权列表。
+     * @description 该接口主要用于获取用户授权的资源列表，通过权限空间 Code、用户 Id、资源 Code 获取用户资源的授权列表，通过不同的资源类型返回对应资源的授权。
      * <p>
-     * ### 示例
+     * ### 获取用户授权字符串数据资源示例
      * <p>
      * - 入参
      * <p>
      * ```json { "namespaceCode": "examplePermissionNamespace", "userId":
-     * "63721xxxxxxxxxxxxdde14a3", "resourceCode": "exampleResourceCode" } ```
+     * "63721xxxxxxxxxxxxdde14a3", "resourceCode": "exampleStrResourceCode" } ```
      * <p>
      * - 出参
      * <p>
      * ```json { "statusCode": 200, "message": "操作成功", "apiCode": 20001, "data":{ "namespaceCode":
-     * "exampleNamespaceCode", "resourceCode": "exampleResourceCode", "permissionBo": {
-     * "resourceId": "63xxxxxxxxxxxxx999", "resourceType": "TREE", "nodeAuthActionList": [ { "name":
-     * "1", "code": "1", "children": [ { "name": "1-1", "code": "1-1", "children": [], "actions": [
-     * "read", "get" ] } ], "actions": [ "read" ] }, { "name": "2", "code": "2", "children": [ {
-     * "name": "2-1", "code": "2-1", "actions": [ "read" ] } ], "actions": [ "get" ] } ] } } } ```
+     * "exampleNamespaceCode", "resourceCode": "exampleStrResourceCode", "resourceType": "STRING",
+     * "strResourceAuthAction":{ "value": "strTestValue", "actions": ["get","delete"] } } } ```
+     * <p>
+     * <p>
+     * ### 获取用户授权数据数组资源示例
+     * <p>
+     * - 入参
+     * <p>
+     * ```json { "namespaceCode": "examplePermissionNamespace", "userId":
+     * "63721xxxxxxxxxxxxdde14a3", "resourceCode": "exampleArrResourceCode" } ```
+     * <p>
+     * - 出参
+     * <p>
+     * ```json { "statusCode": 200, "message": "操作成功", "apiCode": 20001, "data":{ "namespaceCode":
+     * "exampleNamespaceCode", "resourceCode": "exampleArrResourceCode", "resourceType": "ARRAY",
+     * "arrResourceAuthAction":{ "values": ["arrTestValue1","arrTestValue2","arrTestValue3"],
+     * "actions": ["get","delete"] } } } ```
+     * <p>
+     * <p>
+     * ### 获取用户授权树数据资源示例
+     * <p>
+     * - 入参
+     * <p>
+     * ```json { "namespaceCode": "examplePermissionNamespace", "userId":
+     * "63721xxxxxxxxxxxxdde14a3", "resourceCode": "exampleArrResourceCode" } ```
+     * <p>
+     * - 出参
+     * <p>
+     * ```json { "statusCode": 200, "message": "操作成功", "apiCode": 20001, "data":{ "namespaceCode":
+     * "exampleNamespaceCode", "resourceCode": "exampleArrResourceCode", "resourceType": "TREE",
+     * "treeResourceAuthAction":{ "nodeAuthActionList":[{ "code": "tree11", "name": "tree11",
+     * "value": "test11Value", "actions": ["get","delete"], "children": [{ "code": "tree111",
+     * "name": "tree111", "value": "test111Value", "actions": ["update","read"], }] },{ "code":
+     * "tree22", "name": "tree22", "value": "test22Value", "actions": ["get","delete"], }] } } }
+     * ```
      **/
     public GetUserResourceStructRespDto getUserResourceStruct(GetUserResourceStructDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -3048,23 +3541,54 @@ public class ManagementClient extends BaseClient {
 
     /**
      * @summary 获取外部用户授权资源的结构列表
-     * @description 该接口主要用于获取外部用户授权的资源列表，通过权限空间 Code、外部用户 id、资源 Code 获取外部用户资源的授权列表。
+     * @description 该接口主要用于获取外部用户授权的资源列表，通过权限空间 Code、外部用户 Id、资源 Code 获取外部用户资源的授权列表,通过不同的资源类型返回对应资源的授权。
      * <p>
-     * ### 示例
+     * <p>
+     * ### 获取用户授权字符串数据资源示例
      * <p>
      * - 入参
      * <p>
      * ```json { "namespaceCode": "examplePermissionNamespace", "externalId":
-     * "63721xxxxxxxxxxxxdde14a3", "resourceCode": "exampleResourceCode" } ```
+     * "63721xxxxxxxxxxxxdde14a3", "resourceCode": "exampleStrResourceCode" } ```
      * <p>
      * - 出参
      * <p>
      * ```json { "statusCode": 200, "message": "操作成功", "apiCode": 20001, "data":{ "namespaceCode":
-     * "exampleNamespaceCode", "resourceCode": "exampleResourceCode", "permissionBo": {
-     * "resourceId": "63xxxxxxxxxxxxx999", "resourceType": "TREE", "nodeAuthActionList": [ { "name":
-     * "1", "code": "1", "children": [ { "name": "1-1", "code": "1-1", "children": [], "actions": [
-     * "read", "get" ] } ], "actions": [ "read" ] }, { "name": "2", "code": "2", "children": [ {
-     * "name": "2-1", "code": "2-1", "actions": [ "read" ] } ], "actions": [ "get" ] } ] } } } ```
+     * "exampleNamespaceCode", "resourceCode": "exampleStrResourceCode", "resourceType": "STRING",
+     * "strResourceAuthAction":{ "value": "strTestValue", "actions": ["get","delete"] } } } ```
+     * <p>
+     * <p>
+     * ### 获取用户授权数据数组资源示例
+     * <p>
+     * - 入参
+     * <p>
+     * ```json { "namespaceCode": "examplePermissionNamespace", "externalId":
+     * "63721xxxxxxxxxxxxdde14a3", "resourceCode": "exampleArrResourceCode" } ```
+     * <p>
+     * - 出参
+     * <p>
+     * ```json { "statusCode": 200, "message": "操作成功", "apiCode": 20001, "data":{ "namespaceCode":
+     * "exampleNamespaceCode", "resourceCode": "exampleArrResourceCode", "resourceType": "ARRAY",
+     * "arrResourceAuthAction":{ "values": ["arrTestValue1","arrTestValue2","arrTestValue3"],
+     * "actions": ["get","delete"] } } } ```
+     * <p>
+     * <p>
+     * ### 获取用户授权树数据资源示例
+     * <p>
+     * - 入参
+     * <p>
+     * ```json { "namespaceCode": "examplePermissionNamespace", "externalId":
+     * "63721xxxxxxxxxxxxdde14a3", "resourceCode": "exampleArrResourceCode" } ```
+     * <p>
+     * - 出参
+     * <p>
+     * ```json { "statusCode": 200, "message": "操作成功", "apiCode": 20001, "data":{ "namespaceCode":
+     * "exampleNamespaceCode", "resourceCode": "exampleArrResourceCode", "resourceType": "TREE",
+     * "treeResourceAuthAction":{ "nodeAuthActionList":[{ "code": "tree11", "name": "tree11",
+     * "value": "test11Value", "actions": ["get","delete"], "children": [{ "code": "tree111",
+     * "name": "tree111", "value": "test111Value", "actions": ["update","read"], }] },{ "code":
+     * "tree22", "name": "tree22", "value": "test22Value", "actions": ["get","delete"], }] } } }
+     * ```
      **/
     public GetExternalUserResourceStructRespDto getExternalUserResourceStruct(
             GetExternalUserResourceStructDto reqDto) {
@@ -3077,33 +3601,25 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
-     * @summary 判断用户在同层级资源下的权限
-     * @description 该接口主要用于判断用户在同层级资源下的权限，通过权限空间 Code 、用户 ID、资源操作、资源或资源子节点查询用户是否有该同级资源的权限。可选传条件属性参数，默认不开启条件判断。
+     * @summary 判断用户在树资源同层级下的权限
+     * @description 该接口主要用于判断用户在树资源同层级下的权限，通过权限空间 Code 、用户 ID、资源操作、资源或资源子节点查询用户是否有该树资源同级路径的权限。可选传条件属性参数，默认不开启条件判断。
      * <p>
-     * ### 判断用户在同层级字符串资源权限示例（无条件判断）
      * <p>
-     * ```json { "namespaceCode": "examplePermissionNamespace", "userId":
-     * "63721xxxxxxxxxxxxdde14a3", "action": "read", "resource": "strResourceCode1" } ```
-     * <p>
-     * ### 判断用户在同层级字符串资源权限示例（开启条件判断）
+     * ### 判断用户在树资源同层级权限示例（无条件判断）
      * <p>
      * ```json { "namespaceCode": "examplePermissionNamespace", "userId":
-     * "63721xxxxxxxxxxxxdde14a3", "action": "read", "resource": "strResourceCode1",
+     * "63721xxxxxxxxxxxxdde14a3", "action": "read", "resource": "treeResourceCode/structCode",
+     * "resourceNodeCodes": ["resourceStructChildrenCode1","resourceStructChildrenCode2","resourceStructChildrenCode3"]
+     * } ```
+     * <p>
+     * ### 判断用户在树资源同层级权限示例（开启条件判断）
+     * <p>
+     * ```json { "namespaceCode": "examplePermissionNamespace", "userId":
+     * "63721xxxxxxxxxxxxdde14a3", "action": "read", "resource": "treeResourceCode/structCode",
+     * "resourceNodeCodes": ["resourceStructChildrenCode1","resourceStructChildrenCode2","resourceStructChildrenCode3"],
      * "judgeConditionEnabled": true, "authEnvParams":{ "ip":"110.96.0.0", "city":"北京",
      * "province":"北京", "country":"中国", "deviceType":"PC", "systemType":"ios", "browserType":"IE",
      * "requestDate":"2022-12-26 17:40:00" } } ```
-     * <p>
-     * ### 判断用户在同层级数组资源权限示例
-     * <p>
-     * ```json { "namespaceCode": "examplePermissionNamespace", "userId":
-     * "63721xxxxxxxxxxxxdde14a3", "action": "read", "resource": "arrayResourceCode1" } ```
-     * <p>
-     * ### 判断用户在同层级树资源权限示例
-     * <p>
-     * ```json { "namespaceCode": "examplePermissionNamespace", "userId":
-     * "63721xxxxxxxxxxxxdde14a3", "action": "read", "resource": "treeResourceCode1/structCode1",
-     * "resourceNodeCodes": ["resourceStructChildrenCode1","resourceStructChildrenCode2","resourceStructChildrenCode3"]
-     * } ```
      **/
     public CheckUserSameLevelPermissionResponseDto checkUserSameLevelPermission(
             CheckUserSameLevelPermissionDto reqDto) {
@@ -3430,8 +3946,8 @@ public class ManagementClient extends BaseClient {
     }
 
     /**
-     * @summary 获取协作管理员 AK/Sk 详细信息
-     * @description 获取协作管理员 AK/Sk 详细信息,根据协作管理员 ID 和 accessKeyId 获取对应 AK/SK 的详细信息。
+     * @summary 获取协作管理员 AK/SK 详细信息
+     * @description 获取协作管理员 AK/SK 详细信息,根据协作管理员 ID 和 accessKeyId 获取对应 AK/SK 的详细信息。
      **/
     public GetAccessKeyResponseDto getAccessKey(GetAccessKeyDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -3467,4 +3983,19 @@ public class ManagementClient extends BaseClient {
         String response = request(config);
         return deserialize(response, CommonResponseDto.class);
     }
+
+    /**
+     * @summary 更新一个管理员 AccessKey
+     * @description 根据 AccessKeyId 更新一个管理员 AccessKey，目前只支持更新 status，status 支持 activated / revoked
+     **/
+    public IsSuccessRespDto updateAccessKey(UpdateAccessKeyDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/update-access-key");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, IsSuccessRespDto.class);
+    }
+
+
 }

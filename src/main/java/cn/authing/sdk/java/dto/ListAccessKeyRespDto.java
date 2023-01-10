@@ -11,6 +11,11 @@ public class ListAccessKeyRespDto {
     @JsonProperty("accessKeyId")
     private String accessKeyId;
     /**
+     * 用户所拥有的 accessKeySecret
+     */
+    @JsonProperty("accessKeySecret")
+    private String accessKeySecret;
+    /**
      * 用户 ID
      */
     @JsonProperty("userId")
@@ -35,12 +40,24 @@ public class ListAccessKeyRespDto {
      */
     @JsonProperty("userPoolId")
     private String userPoolId;
+    /**
+     * 密钥是否启用
+     */
+    @JsonProperty("enable")
+    private Boolean enable;
 
     public String getAccessKeyId() {
         return accessKeyId;
     }
     public void setAccessKeyId(String accessKeyId) {
         this.accessKeyId = accessKeyId;
+    }
+
+    public String getAccessKeySecret() {
+        return accessKeySecret;
+    }
+    public void setAccessKeySecret(String accessKeySecret) {
+        this.accessKeySecret = accessKeySecret;
     }
 
     public String getUserId() {
@@ -76,6 +93,13 @@ public class ListAccessKeyRespDto {
     }
     public void setUserPoolId(String userPoolId) {
         this.userPoolId = userPoolId;
+    }
+
+    public Boolean getEnable() {
+        return enable;
+    }
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
     }
 
 

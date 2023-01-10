@@ -71,6 +71,11 @@ public class OrganizationDto {
      */
     @JsonProperty("customData")
     private Object customData;
+    /**
+     * 租户 ID
+     */
+    @JsonProperty("tenantId")
+    private String tenantId;
 
     public String getOrganizationCode() {
         return organizationCode;
@@ -161,6 +166,13 @@ public class OrganizationDto {
     }
     public void setCustomData(Object customData) {
         this.customData = customData;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
     }
 
 

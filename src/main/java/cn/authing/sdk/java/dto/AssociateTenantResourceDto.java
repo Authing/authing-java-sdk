@@ -6,31 +6,31 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class AssociateTenantResourceDto {
     /**
-     * 应用 ID
+     * 资源 Code
      */
-    @JsonProperty("appId")
-    private String appId;
+    @JsonProperty("code")
+    private String code;
     /**
      * 是否关联应用资源
      */
     @JsonProperty("association")
     private Boolean association;
     /**
-     * 资源 Code
+     * 应用 ID
      */
-    @JsonProperty("code")
-    private String code;
+    @JsonProperty("appId")
+    private String appId;
     /**
      * 租户 ID
      */
     @JsonProperty("tenantId")
     private String tenantId;
 
-    public String getAppId() {
-        return appId;
+    public String getCode() {
+        return code;
     }
-    public void setAppId(String appId) {
-        this.appId = appId;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Boolean getAssociation() {
@@ -40,11 +40,11 @@ public class AssociateTenantResourceDto {
         this.association = association;
     }
 
-    public String getCode() {
-        return code;
+    public String getAppId() {
+        return appId;
     }
-    public void setCode(String code) {
-        this.code = code;
+    public void setAppId(String appId) {
+        this.appId = appId;
     }
 
     public String getTenantId() {

@@ -1,6 +1,8 @@
 package test.management.dataPermission.authentication;
 
 import cn.authing.sdk.java.client.ManagementClient;
+import cn.authing.sdk.java.dto.AuthEnvParams;
+import cn.authing.sdk.java.dto.AuthEnvParams.SystemType;
 import cn.authing.sdk.java.dto.CheckPermissionDto;
 import cn.authing.sdk.java.dto.CheckPermissionRespDto;
 import cn.authing.sdk.java.model.ManagementClientOptions;
@@ -34,6 +36,10 @@ public class CheckPermissionTest {
         resources.add("arrayResourceCode");
         resources.add("/treeResourceCode/structCode/resourceStructChildrenCode");
         request.setResources(resources);
+        request.setJudgeConditionEnabled(true);
+        AuthEnvParams authEnvParams = new AuthEnvParams();
+        authEnvParams.setSystemType(SystemType.MAC_OS);
+        request.setAuthEnvParams(authEnvParams);
         CheckPermissionRespDto response = client.checkPermission(request);
         System.out.println(JsonUtils.serialize(response));
     }

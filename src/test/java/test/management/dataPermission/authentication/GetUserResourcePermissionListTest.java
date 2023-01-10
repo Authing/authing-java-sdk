@@ -26,12 +26,14 @@ public class GetUserResourcePermissionListTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         GetUserResourcePermissionListDto request = new GetUserResourcePermissionListDto();
-        request.setNamespaceCode("examplePermissionNamespace");
-        request.setUserId("63721xxxxxxxxxxxxdde14a3");
+        request.setNamespaceCode("63bc13149b1439d7971e7db4");
+        request.setUserId("63bc133e45386813f0848c1e");
         List<String> resources = new ArrayList<>();
         resources.add("strResourceCode");
         resources.add("arrayResourceCode");
         resources.add("/treeResourceCode/structCode/resourceStructChildrenCode");
+        resources.add("tree1/tree11");
+        resources.add("tree1/tree22");
         request.setResources(resources);
         GetUserResourcePermissionListRespDto response = client.getUserResourcePermissionList(request);
         System.out.println(JsonUtils.serialize(response));
