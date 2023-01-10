@@ -6,20 +6,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ChangeExtIdpConnStateDto {
     /**
-     * 应用 ID
+     * 身份源连接 ID
      */
-    @JsonProperty("appId")
-    private String appId;
+    @JsonProperty("id")
+    private String id;
     /**
      * 是否开启身份源连接
      */
     @JsonProperty("enabled")
     private Boolean enabled;
     /**
-     * 身份源连接 ID
+     * 应用 ID
      */
-    @JsonProperty("id")
-    private String id;
+    @JsonProperty("appId")
+    private String appId;
     /**
      * 租户 ID
      */
@@ -31,11 +31,11 @@ public class ChangeExtIdpConnStateDto {
     @JsonProperty("appIds")
     private List<String> appIds;
 
-    public String getAppId() {
-        return appId;
+    public String getId() {
+        return id;
     }
-    public void setAppId(String appId) {
-        this.appId = appId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Boolean getEnabled() {
@@ -45,11 +45,11 @@ public class ChangeExtIdpConnStateDto {
         this.enabled = enabled;
     }
 
-    public String getId() {
-        return id;
+    public String getAppId() {
+        return appId;
     }
-    public void setId(String id) {
-        this.id = id;
+    public void setAppId(String appId) {
+        this.appId = appId;
     }
 
     public String getTenantId() {

@@ -6,33 +6,33 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CreateExtIdpDto {
     /**
-     * 身份源连接类型
-     */
-    @JsonProperty("type")
-    private Type type;
-    /**
      * 身份源名称
      */
     @JsonProperty("name")
     private String name;
+    /**
+     * 身份源连接类型
+     */
+    @JsonProperty("type")
+    private Type type;
     /**
      * 租户 ID
      */
     @JsonProperty("tenantId")
     private String tenantId;
 
-    public Type getType() {
-        return type;
-    }
-    public void setType(Type type) {
-        this.type = type;
-    }
-
     public String getName() {
         return name;
     }
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Type getType() {
+        return type;
+    }
+    public void setType(Type type) {
+        this.type = type;
     }
 
     public String getTenantId() {

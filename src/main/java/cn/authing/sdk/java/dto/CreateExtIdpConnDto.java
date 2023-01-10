@@ -6,30 +6,30 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CreateExtIdpConnDto {
     /**
-     * 连接的自定义配置信息
+     * 身份源连接 ID
      */
-    @JsonProperty("fields")
-    private Object fields;
-    /**
-     * 连接在登录页的显示名称
-     */
-    @JsonProperty("displayName")
-    private String displayName;
-    /**
-     * 身份源连接标识
-     */
-    @JsonProperty("identifier")
-    private String identifier;
+    @JsonProperty("extIdpId")
+    private String extIdpId;
     /**
      * 身份源连接类型
      */
     @JsonProperty("type")
     private Type type;
     /**
-     * 身份源连接 ID
+     * 身份源连接标识
      */
-    @JsonProperty("extIdpId")
-    private String extIdpId;
+    @JsonProperty("identifier")
+    private String identifier;
+    /**
+     * 连接在登录页的显示名称
+     */
+    @JsonProperty("displayName")
+    private String displayName;
+    /**
+     * 连接的自定义配置信息
+     */
+    @JsonProperty("fields")
+    private Object fields;
     /**
      * 是否只支持登录
      */
@@ -40,26 +40,17 @@ public class CreateExtIdpConnDto {
      */
     @JsonProperty("logo")
     private String logo;
+    /**
+     * 租户 ID
+     */
+    @JsonProperty("tenantId")
+    private String tenantId;
 
-    public Object getFields() {
-        return fields;
+    public String getExtIdpId() {
+        return extIdpId;
     }
-    public void setFields(Object fields) {
-        this.fields = fields;
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
-
-    public String getIdentifier() {
-        return identifier;
-    }
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
+    public void setExtIdpId(String extIdpId) {
+        this.extIdpId = extIdpId;
     }
 
     public Type getType() {
@@ -69,11 +60,25 @@ public class CreateExtIdpConnDto {
         this.type = type;
     }
 
-    public String getExtIdpId() {
-        return extIdpId;
+    public String getIdentifier() {
+        return identifier;
     }
-    public void setExtIdpId(String extIdpId) {
-        this.extIdpId = extIdpId;
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public Object getFields() {
+        return fields;
+    }
+    public void setFields(Object fields) {
+        this.fields = fields;
     }
 
     public Boolean getLoginOnly() {
@@ -88,6 +93,13 @@ public class CreateExtIdpConnDto {
     }
     public void setLogo(String logo) {
         this.logo = logo;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
     }
 
 

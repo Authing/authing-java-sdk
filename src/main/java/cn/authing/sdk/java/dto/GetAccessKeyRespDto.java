@@ -40,6 +40,11 @@ public class GetAccessKeyRespDto {
      */
     @JsonProperty("userPoolId")
     private String userPoolId;
+    /**
+     * 密钥是否启用
+     */
+    @JsonProperty("enable")
+    private Boolean enable;
 
     public String getAccessKeyId() {
         return accessKeyId;
@@ -88,6 +93,13 @@ public class GetAccessKeyRespDto {
     }
     public void setUserPoolId(String userPoolId) {
         this.userPoolId = userPoolId;
+    }
+
+    public Boolean getEnable() {
+        return enable;
+    }
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
     }
 
 
