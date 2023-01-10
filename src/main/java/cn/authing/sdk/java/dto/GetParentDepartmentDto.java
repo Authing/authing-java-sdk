@@ -25,11 +25,6 @@ public class GetParentDepartmentDto {
      */
     @JsonProperty("withCustomData")
     private Boolean withCustomData;
-    /**
-     * 租户 ID
-     */
-    @JsonProperty("tenantId")
-    private String tenantId;
 
     public String getOrganizationCode() {
         return organizationCode;
@@ -57,13 +52,6 @@ public class GetParentDepartmentDto {
     }
     public void setWithCustomData(Boolean withCustomData) {
         this.withCustomData = withCustomData;
-    }
-
-    public String getTenantId() {
-        return tenantId;
-    }
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
     }
 
 

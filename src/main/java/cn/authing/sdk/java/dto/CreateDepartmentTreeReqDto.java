@@ -21,11 +21,6 @@ public class CreateDepartmentTreeReqDto {
      */
     @JsonProperty("members")
     private UserInfoDto members;
-    /**
-     * 租户 ID
-     */
-    @JsonProperty("tenantId")
-    private String tenantId;
 
     public String getName() {
         return name;
@@ -46,13 +41,6 @@ public class CreateDepartmentTreeReqDto {
     }
     public void setMembers(UserInfoDto members) {
         this.members = members;
-    }
-
-    public String getTenantId() {
-        return tenantId;
-    }
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
     }
 
 

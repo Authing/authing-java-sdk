@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class GetUserResourceStructDto {
     /**
-     * 数据资源 Code
+     * 资源 Code
      */
     @JsonProperty("resourceCode")
     private String resourceCode;

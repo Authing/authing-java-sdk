@@ -10,24 +10,12 @@ public class GetDepartmentByIdDto {
      */
     @JsonProperty("departmentId")
     private String departmentId;
-    /**
-     * 租户 ID
-     */
-    @JsonProperty("tenantId")
-    private String tenantId;
 
     public String getDepartmentId() {
         return departmentId;
     }
     public void setDepartmentId(String departmentId) {
         this.departmentId = departmentId;
-    }
-
-    public String getTenantId() {
-        return tenantId;
-    }
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
     }
 
 

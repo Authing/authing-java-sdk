@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CheckPermissionArrayResourceDto {
     /**
-     * 数组数据资源路径列表,
+     * 数据资源路径列表,
      */
     @JsonProperty("resources")
     private List<String> resources;

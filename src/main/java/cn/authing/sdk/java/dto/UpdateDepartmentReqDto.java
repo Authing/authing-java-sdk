@@ -7,15 +7,15 @@ import cn.authing.sdk.java.dto.DepartmentI18nDto;
 
 public class UpdateDepartmentReqDto {
     /**
-     * 组织 Code（organizationCode）
-     */
-    @JsonProperty("organizationCode")
-    private String organizationCode;
-    /**
      * 部门系统 ID（为 Authing 系统自动生成，不可修改）
      */
     @JsonProperty("departmentId")
     private String departmentId;
+    /**
+     * 组织 Code（organizationCode）
+     */
+    @JsonProperty("organizationCode")
+    private String organizationCode;
     /**
      * 部门负责人 ID
      */
@@ -56,24 +56,19 @@ public class UpdateDepartmentReqDto {
      */
     @JsonProperty("customData")
     private Object customData;
-    /**
-     * 租户 ID
-     */
-    @JsonProperty("tenantId")
-    private String tenantId;
-
-    public String getOrganizationCode() {
-        return organizationCode;
-    }
-    public void setOrganizationCode(String organizationCode) {
-        this.organizationCode = organizationCode;
-    }
 
     public String getDepartmentId() {
         return departmentId;
     }
     public void setDepartmentId(String departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public String getOrganizationCode() {
+        return organizationCode;
+    }
+    public void setOrganizationCode(String organizationCode) {
+        this.organizationCode = organizationCode;
     }
 
     public List<String> getLeaderUserIds() {
@@ -130,13 +125,6 @@ public class UpdateDepartmentReqDto {
     }
     public void setCustomData(Object customData) {
         this.customData = customData;
-    }
-
-    public String getTenantId() {
-        return tenantId;
-    }
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
     }
 
 
