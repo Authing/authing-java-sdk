@@ -25,6 +25,11 @@ public class AddDepartmentMembersReqDto {
      */
     @JsonProperty("departmentIdType")
     private DepartmentIdType departmentIdType;
+    /**
+     * 租户 ID
+     */
+    @JsonProperty("tenantId")
+    private String tenantId;
 
     public List<String> getUserIds() {
         return userIds;
@@ -52,6 +57,13 @@ public class AddDepartmentMembersReqDto {
     }
     public void setDepartmentIdType(DepartmentIdType departmentIdType) {
         this.departmentIdType = departmentIdType;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
     }
 
 

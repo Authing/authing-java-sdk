@@ -270,6 +270,11 @@ public class UserDto {
      */
     @JsonProperty("statusChangedAt")
     private String statusChangedAt;
+    /**
+     * 用户租户 ID
+     */
+    @JsonProperty("tenantId")
+    private String tenantId;
 
     public String getUserId() {
         return userId;
@@ -626,6 +631,13 @@ public class UserDto {
     }
     public void setStatusChangedAt(String statusChangedAt) {
         this.statusChangedAt = statusChangedAt;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
     }
 
 

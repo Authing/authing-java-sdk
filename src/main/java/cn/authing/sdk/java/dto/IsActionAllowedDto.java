@@ -6,31 +6,31 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class IsActionAllowedDto {
     /**
-     * 资源标识符
+     * 用户 ID
      */
-    @JsonProperty("resource")
-    private String resource;
+    @JsonProperty("userId")
+    private String userId;
     /**
      * 资源对应的操作
      */
     @JsonProperty("action")
     private String action;
     /**
-     * 用户 ID
+     * 资源标识符
      */
-    @JsonProperty("userId")
-    private String userId;
+    @JsonProperty("resource")
+    private String resource;
     /**
      * 所属权限分组(权限空间)的 Code
      */
     @JsonProperty("namespace")
     private String namespace;
 
-    public String getResource() {
-        return resource;
+    public String getUserId() {
+        return userId;
     }
-    public void setResource(String resource) {
-        this.resource = resource;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getAction() {
@@ -40,11 +40,11 @@ public class IsActionAllowedDto {
         this.action = action;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getResource() {
+        return resource;
     }
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setResource(String resource) {
+        this.resource = resource;
     }
 
     public String getNamespace() {

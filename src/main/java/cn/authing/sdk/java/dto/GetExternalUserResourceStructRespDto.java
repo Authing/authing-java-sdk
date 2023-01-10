@@ -3,7 +3,7 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import cn.authing.sdk.java.dto.GetUserResourceStructDataDto;
+import cn.authing.sdk.java.dto.GetExternalUserResourceStructDataDto;
 
 public class GetExternalUserResourceStructRespDto {
     /**
@@ -30,7 +30,7 @@ public class GetExternalUserResourceStructRespDto {
      * 响应数据
      */
     @JsonProperty("data")
-    private GetUserResourceStructDataDto data;
+    private GetExternalUserResourceStructDataDto data;
 
     public Integer getStatusCode() {
         return statusCode;
@@ -60,10 +60,10 @@ public class GetExternalUserResourceStructRespDto {
         this.requestId = requestId;
     }
 
-    public GetUserResourceStructDataDto getData() {
+    public GetExternalUserResourceStructDataDto getData() {
         return data;
     }
-    public void setData(GetUserResourceStructDataDto data) {
+    public void setData(GetExternalUserResourceStructDataDto data) {
         this.data = data;
     }
 

@@ -30,6 +30,11 @@ public class IsUserInDepartmentDto {
      */
     @JsonProperty("includeChildrenDepartments")
     private Boolean includeChildrenDepartments;
+    /**
+     * 租户 ID
+     */
+    @JsonProperty("tenantId")
+    private String tenantId;
 
     public String getUserId() {
         return userId;
@@ -64,6 +69,13 @@ public class IsUserInDepartmentDto {
     }
     public void setIncludeChildrenDepartments(Boolean includeChildrenDepartments) {
         this.includeChildrenDepartments = includeChildrenDepartments;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
     }
 
 
