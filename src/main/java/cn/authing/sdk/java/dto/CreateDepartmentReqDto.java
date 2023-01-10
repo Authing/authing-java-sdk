@@ -7,20 +7,20 @@ import cn.authing.sdk.java.dto.DepartmentI18nDto;
 
 public class CreateDepartmentReqDto {
     /**
-     * 组织 Code（organizationCode）
+     * 父部门 id
      */
-    @JsonProperty("organizationCode")
-    private String organizationCode;
+    @JsonProperty("parentDepartmentId")
+    private String parentDepartmentId;
     /**
      * 部门名称
      */
     @JsonProperty("name")
     private String name;
     /**
-     * 父部门 id
+     * 组织 Code（organizationCode）
      */
-    @JsonProperty("parentDepartmentId")
-    private String parentDepartmentId;
+    @JsonProperty("organizationCode")
+    private String organizationCode;
     /**
      * 自定义部门 ID，用于存储自定义的 ID
      */
@@ -56,17 +56,12 @@ public class CreateDepartmentReqDto {
      */
     @JsonProperty("departmentIdType")
     private DepartmentIdType departmentIdType;
-    /**
-     * 租户 ID
-     */
-    @JsonProperty("tenantId")
-    private String tenantId;
 
-    public String getOrganizationCode() {
-        return organizationCode;
+    public String getParentDepartmentId() {
+        return parentDepartmentId;
     }
-    public void setOrganizationCode(String organizationCode) {
-        this.organizationCode = organizationCode;
+    public void setParentDepartmentId(String parentDepartmentId) {
+        this.parentDepartmentId = parentDepartmentId;
     }
 
     public String getName() {
@@ -76,11 +71,11 @@ public class CreateDepartmentReqDto {
         this.name = name;
     }
 
-    public String getParentDepartmentId() {
-        return parentDepartmentId;
+    public String getOrganizationCode() {
+        return organizationCode;
     }
-    public void setParentDepartmentId(String parentDepartmentId) {
-        this.parentDepartmentId = parentDepartmentId;
+    public void setOrganizationCode(String organizationCode) {
+        this.organizationCode = organizationCode;
     }
 
     public String getOpenDepartmentId() {
@@ -130,13 +125,6 @@ public class CreateDepartmentReqDto {
     }
     public void setDepartmentIdType(DepartmentIdType departmentIdType) {
         this.departmentIdType = departmentIdType;
-    }
-
-    public String getTenantId() {
-        return tenantId;
-    }
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
     }
 
 

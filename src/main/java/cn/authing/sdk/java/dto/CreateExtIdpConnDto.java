@@ -6,30 +6,30 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CreateExtIdpConnDto {
     /**
-     * 身份源连接 ID
+     * 连接的自定义配置信息
      */
-    @JsonProperty("extIdpId")
-    private String extIdpId;
-    /**
-     * 身份源连接类型
-     */
-    @JsonProperty("type")
-    private Type type;
-    /**
-     * 身份源连接标识
-     */
-    @JsonProperty("identifier")
-    private String identifier;
+    @JsonProperty("fields")
+    private Object fields;
     /**
      * 连接在登录页的显示名称
      */
     @JsonProperty("displayName")
     private String displayName;
     /**
-     * 连接的自定义配置信息
+     * 身份源连接标识
      */
-    @JsonProperty("fields")
-    private Object fields;
+    @JsonProperty("identifier")
+    private String identifier;
+    /**
+     * 身份源连接类型
+     */
+    @JsonProperty("type")
+    private Type type;
+    /**
+     * 身份源连接 ID
+     */
+    @JsonProperty("extIdpId")
+    private String extIdpId;
     /**
      * 是否只支持登录
      */
@@ -40,31 +40,12 @@ public class CreateExtIdpConnDto {
      */
     @JsonProperty("logo")
     private String logo;
-    /**
-     * 租户 ID
-     */
-    @JsonProperty("tenantId")
-    private String tenantId;
 
-    public String getExtIdpId() {
-        return extIdpId;
+    public Object getFields() {
+        return fields;
     }
-    public void setExtIdpId(String extIdpId) {
-        this.extIdpId = extIdpId;
-    }
-
-    public Type getType() {
-        return type;
-    }
-    public void setType(Type type) {
-        this.type = type;
-    }
-
-    public String getIdentifier() {
-        return identifier;
-    }
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
+    public void setFields(Object fields) {
+        this.fields = fields;
     }
 
     public String getDisplayName() {
@@ -74,11 +55,25 @@ public class CreateExtIdpConnDto {
         this.displayName = displayName;
     }
 
-    public Object getFields() {
-        return fields;
+    public String getIdentifier() {
+        return identifier;
     }
-    public void setFields(Object fields) {
-        this.fields = fields;
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
+
+    public Type getType() {
+        return type;
+    }
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public String getExtIdpId() {
+        return extIdpId;
+    }
+    public void setExtIdpId(String extIdpId) {
+        this.extIdpId = extIdpId;
     }
 
     public Boolean getLoginOnly() {
@@ -93,13 +88,6 @@ public class CreateExtIdpConnDto {
     }
     public void setLogo(String logo) {
         this.logo = logo;
-    }
-
-    public String getTenantId() {
-        return tenantId;
-    }
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
     }
 
 

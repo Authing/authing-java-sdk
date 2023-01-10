@@ -7,16 +7,7 @@ import cn.authing.sdk.java.dto.AuthEnvParams;
 
 public class CheckUserSameLevelPermissionDto {
     /**
-     * 当前树资源路径子节点 Code
-     */
-    @JsonProperty("resourceNodeCodes")
-    private List<String> resourceNodeCodes;
-    /**
-     * 树资源路径,允许多层级路径，示例如下所示
-     * - treeResourceCode
-     * - treeResourceCode/structCode
-     * - treeResourceCode/structCode/struct1Code
-     * - treeResourceCode/.../structCode
+     * 资源路径
      */
     @JsonProperty("resource")
     private String resource;
@@ -36,6 +27,11 @@ public class CheckUserSameLevelPermissionDto {
     @JsonProperty("namespaceCode")
     private String namespaceCode;
     /**
+     * 当前树资源路径子节点code
+     */
+    @JsonProperty("resourceNodeCodes")
+    private List<String> resourceNodeCodes;
+    /**
      * 是否开启条件判断，默认 false 不开启
      */
     @JsonProperty("judgeConditionEnabled")
@@ -45,13 +41,6 @@ public class CheckUserSameLevelPermissionDto {
      */
     @JsonProperty("authEnvParams")
     private AuthEnvParams authEnvParams;
-
-    public List<String> getResourceNodeCodes() {
-        return resourceNodeCodes;
-    }
-    public void setResourceNodeCodes(List<String> resourceNodeCodes) {
-        this.resourceNodeCodes = resourceNodeCodes;
-    }
 
     public String getResource() {
         return resource;
@@ -79,6 +68,13 @@ public class CheckUserSameLevelPermissionDto {
     }
     public void setNamespaceCode(String namespaceCode) {
         this.namespaceCode = namespaceCode;
+    }
+
+    public List<String> getResourceNodeCodes() {
+        return resourceNodeCodes;
+    }
+    public void setResourceNodeCodes(List<String> resourceNodeCodes) {
+        this.resourceNodeCodes = resourceNodeCodes;
     }
 
     public Boolean getJudgeConditionEnabled() {

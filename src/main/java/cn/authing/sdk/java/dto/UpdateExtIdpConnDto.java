@@ -6,20 +6,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class UpdateExtIdpConnDto {
     /**
-     * 身份源连接 ID
+     * 身份源连接自定义参数（增量修改）
      */
-    @JsonProperty("id")
-    private String id;
+    @JsonProperty("fields")
+    private Object fields;
     /**
      * 身份源连接显示名称
      */
     @JsonProperty("displayName")
     private String displayName;
     /**
-     * 身份源连接自定义参数（增量修改）
+     * 身份源连接 ID
      */
-    @JsonProperty("fields")
-    private Object fields;
+    @JsonProperty("id")
+    private String id;
     /**
      * 身份源连接的图标
      */
@@ -30,17 +30,12 @@ public class UpdateExtIdpConnDto {
      */
     @JsonProperty("loginOnly")
     private Boolean loginOnly;
-    /**
-     * 租户 ID
-     */
-    @JsonProperty("tenantId")
-    private String tenantId;
 
-    public String getId() {
-        return id;
+    public Object getFields() {
+        return fields;
     }
-    public void setId(String id) {
-        this.id = id;
+    public void setFields(Object fields) {
+        this.fields = fields;
     }
 
     public String getDisplayName() {
@@ -50,11 +45,11 @@ public class UpdateExtIdpConnDto {
         this.displayName = displayName;
     }
 
-    public Object getFields() {
-        return fields;
+    public String getId() {
+        return id;
     }
-    public void setFields(Object fields) {
-        this.fields = fields;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getLogo() {
@@ -69,13 +64,6 @@ public class UpdateExtIdpConnDto {
     }
     public void setLoginOnly(Boolean loginOnly) {
         this.loginOnly = loginOnly;
-    }
-
-    public String getTenantId() {
-        return tenantId;
-    }
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
     }
 
 

@@ -6,32 +6,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DeleteDepartmentReqDto {
     /**
-     * 组织 Code（organizationCode）
-     */
-    @JsonProperty("organizationCode")
-    private String organizationCode;
-    /**
      * 部门系统 ID（为 Authing 系统自动生成，不可修改）
      */
     @JsonProperty("departmentId")
     private String departmentId;
     /**
+     * 组织 Code（organizationCode）
+     */
+    @JsonProperty("organizationCode")
+    private String organizationCode;
+    /**
      * 此次调用中使用的部门 ID 的类型
      */
     @JsonProperty("departmentIdType")
     private DepartmentIdType departmentIdType;
-    /**
-     * 租户 ID
-     */
-    @JsonProperty("tenantId")
-    private String tenantId;
-
-    public String getOrganizationCode() {
-        return organizationCode;
-    }
-    public void setOrganizationCode(String organizationCode) {
-        this.organizationCode = organizationCode;
-    }
 
     public String getDepartmentId() {
         return departmentId;
@@ -40,18 +28,18 @@ public class DeleteDepartmentReqDto {
         this.departmentId = departmentId;
     }
 
+    public String getOrganizationCode() {
+        return organizationCode;
+    }
+    public void setOrganizationCode(String organizationCode) {
+        this.organizationCode = organizationCode;
+    }
+
     public DepartmentIdType getDepartmentIdType() {
         return departmentIdType;
     }
     public void setDepartmentIdType(DepartmentIdType departmentIdType) {
         this.departmentIdType = departmentIdType;
-    }
-
-    public String getTenantId() {
-        return tenantId;
-    }
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
     }
 
 

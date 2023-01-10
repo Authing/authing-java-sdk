@@ -27,8 +27,8 @@ public class GetUserPermissionListTest {
 
         GetUserPermissionListDto request = new GetUserPermissionListDto();
         List<String> userIds = new ArrayList<>();
-        userIds.add("63bc134b6d3cd2781d8724cb");
-        userIds.add("63bc133e45386813f0848c1e");
+        userIds.add("6301ceaxxxxxxxxxxx27478");
+        userIds.add("6121ceaxxxxxxxxxxx27312");
         request.setUserIds(userIds);
         List<String> namespaceCodes = new ArrayList<>();
         namespaceCodes.add("examplePermissionNamespace1");

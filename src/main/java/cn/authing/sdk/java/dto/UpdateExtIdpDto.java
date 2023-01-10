@@ -6,27 +6,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class UpdateExtIdpDto {
     /**
-     * 名称
-     */
-    @JsonProperty("name")
-    private String name;
-    /**
      * 身份源 ID
      */
     @JsonProperty("id")
     private String id;
     /**
-     * 租户 ID
+     * 名称
      */
-    @JsonProperty("tenantId")
-    private String tenantId;
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
+    @JsonProperty("name")
+    private String name;
 
     public String getId() {
         return id;
@@ -35,11 +23,11 @@ public class UpdateExtIdpDto {
         this.id = id;
     }
 
-    public String getTenantId() {
-        return tenantId;
+    public String getName() {
+        return name;
     }
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
+    public void setName(String name) {
+        this.name = name;
     }
 
 

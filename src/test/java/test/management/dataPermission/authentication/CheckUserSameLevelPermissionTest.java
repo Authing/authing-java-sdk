@@ -6,7 +6,6 @@ import cn.authing.sdk.java.dto.CheckUserSameLevelPermissionRespDto;
 import cn.authing.sdk.java.dto.CheckUserSameLevelPermissionResponseDto;
 import cn.authing.sdk.java.model.ManagementClientOptions;
 import cn.authing.sdk.java.util.JsonUtils;
-import java.util.ArrayList;
 
 
 public class CheckUserSameLevelPermissionTest {
@@ -25,14 +24,10 @@ public class CheckUserSameLevelPermissionTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         CheckUserSameLevelPermissionDto request = new CheckUserSameLevelPermissionDto();
-        request.setNamespaceCode("63bc13149b1439d7971e7db4");
-        request.setUserId("63bc133e45386813f0848c1e");
-        request.setAction("g1et");
-        request.setResource("tree1");
-        ArrayList<String> list = new ArrayList<String>();
-        list.add("tree11");
-        list.add("tree22");
-        request.setResourceNodeCodes(list);
+        request.setNamespaceCode("examplePermissionNamespace");
+        request.setUserId("63721xxxxxxxxxxxxdde14a3");
+        request.setAction("get");
+        request.setResource("treeResourceCode");
 
         CheckUserSameLevelPermissionResponseDto response = client
                 .checkUserSameLevelPermission(request);

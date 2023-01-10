@@ -32,11 +32,6 @@ public class UpdateOrganizationReqDto {
     @JsonProperty("i18n")
     private OrganizationNameI18nDto i18n;
     /**
-     * 租户 ID
-     */
-    @JsonProperty("tenantId")
-    private String tenantId;
-    /**
      * 新组织 code
      */
     @JsonProperty("organizationNewCode")
@@ -80,13 +75,6 @@ public class UpdateOrganizationReqDto {
     }
     public void setI18n(OrganizationNameI18nDto i18n) {
         this.i18n = i18n;
-    }
-
-    public String getTenantId() {
-        return tenantId;
-    }
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
     }
 
     public String getOrganizationNewCode() {
