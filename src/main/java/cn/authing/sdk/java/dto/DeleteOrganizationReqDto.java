@@ -10,24 +10,12 @@ public class DeleteOrganizationReqDto {
      */
     @JsonProperty("organizationCode")
     private String organizationCode;
-    /**
-     * 租户 ID
-     */
-    @JsonProperty("tenantId")
-    private String tenantId;
 
     public String getOrganizationCode() {
         return organizationCode;
     }
     public void setOrganizationCode(String organizationCode) {
         this.organizationCode = organizationCode;
-    }
-
-    public String getTenantId() {
-        return tenantId;
-    }
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
     }
 
 

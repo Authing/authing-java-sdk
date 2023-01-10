@@ -27,7 +27,7 @@ public class ListResourceTargetsTest {
         ManagementClient client = new ManagementClient(clientOptions);
 
         ListResourceTargetsDto request = new ListResourceTargetsDto();
-        request.setNamespaceCode("63bc13283ced10ef87460eca");
+        request.setNamespaceCode("examplePermissionNamespace");
         ArrayList<String> actionList = new ArrayList<>();
         actionList.add("get");
         actionList.add("update");
@@ -37,8 +37,6 @@ public class ListResourceTargetsTest {
         resources.add("strResourceCode");
         resources.add("arrayResourceCode");
         resources.add("/treeResourceCode/structCode/resourceStructChildrenCode2");
-        resources.add("arr");
-        resources.add("str");
         request.setResources(resources);
         ListResourceTargetsRespDto response = client.listResourceTargets(request);
         System.out.println(JsonUtils.serialize(response));
