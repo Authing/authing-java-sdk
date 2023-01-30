@@ -1,6 +1,5 @@
 package cn.authing.sdk.java.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ValidateTokenRespDto {
@@ -57,7 +56,7 @@ public class ValidateTokenRespDto {
     private Boolean emailVerified;
 
     @JsonProperty("phone_number")
-    private Integer phoneNumber;
+    private String phoneNumber;
 
     @JsonProperty("phone_number_verified")
     private Boolean phoneNumberVerified;
@@ -228,11 +227,11 @@ public class ValidateTokenRespDto {
         this.emailVerified = emailVerified;
     }
 
-    public Integer getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
