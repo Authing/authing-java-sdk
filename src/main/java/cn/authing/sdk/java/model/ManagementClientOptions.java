@@ -119,6 +119,9 @@ public class ManagementClientOptions extends AuthingClientOptions {
     }
 
     private Map<String, String> objectToMap(Object object) throws IllegalAccessException {
+        if (object instanceof Map) {
+            return (Map) object;
+        }
         Map<String, String> map = new HashMap<>();
         Field[] fields = object.getClass().getDeclaredFields();
         for (Field field : fields) {
