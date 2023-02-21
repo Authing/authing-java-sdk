@@ -60,6 +60,8 @@ public class ManagementClientOptions extends AuthingClientOptions {
      */
     private static final int RANDOM_STRING_LENGTH = 16;
 
+    private String eventEndpoint = "/event/v1/management/sub";
+
     public ManagementClientOptions() {
     }
 
@@ -316,5 +318,13 @@ public class ManagementClientOptions extends AuthingClientOptions {
             }
         }
 
+    }
+
+    public void setEventEndpoint(String eventEndpoint) {
+        this.eventEndpoint = eventEndpoint;
+    }
+
+    public String getEventEndpoint() {
+        return eventEndpoint;
     }
 }

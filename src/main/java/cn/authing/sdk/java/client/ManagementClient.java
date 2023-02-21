@@ -1,13 +1,17 @@
 package cn.authing.sdk.java.client;
 
+import cn.authing.sdk.java.model.AuthingWebsocketClient;
+import cn.authing.sdk.java.model.Receiver;
+import cn.authing.sdk.java.util.signature.Impl.SignatureComposer;
 import cn.hutool.core.util.StrUtil;
 import cn.authing.sdk.java.dto.*;
 
 import cn.authing.sdk.java.model.AuthingRequestConfig;
 import cn.authing.sdk.java.model.ManagementClientOptions;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
-import java.util.Collections;
-import java.util.Map;
 
 
 public class ManagementClient extends BaseClient {
@@ -3651,4 +3655,33 @@ public class ManagementClient extends BaseClient {
     }
 
 
+
+    @Override
+    public void subEvent(String eventCode, Receiver receiver) {
+        if (StrUtil.isBlank(eventCode)) {
+            throw new IllegalArgumentException("eventCode is required");
+        }
+        if (receiver == null) {
+            throw new IllegalArgumentException("receiver is required");
+        }
+        ManagementClientOptions options = (ManagementClientOptions) this.options;
+        String eventUri = "ws"+options.getHost().substring(4)
+                +options.getEventEndpoint()+"?code="+eventCode;
+        URI wssUri = null;
+        try {
+            wssUri = new URI(eventUri);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+        // System.out.println("eventUri:"+eventUri);
+        SignatureComposer signatureComposer = new SignatureComposer();
+        HashMap<String,String> query = new HashMap<String, String>();
+        String signa = signatureComposer.composeStringToSign("websocket",eventUri,query,query);
+        String authorization = signatureComposer.getAuthorization(options.getAccessKeyId(),options.getAccessKeySecret(),signa);
+        // System.out.println(authorization);
+        HashMap<String,String> headers = new HashMap();
+        headers.put("Authorization",authorization);
+        AuthingWebsocketClient client = new AuthingWebsocketClient(wssUri,headers,receiver);
+        client.connect();
+    }
 }
