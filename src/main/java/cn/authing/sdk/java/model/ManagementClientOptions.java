@@ -49,6 +49,24 @@ public class ManagementClientOptions extends AuthingClientOptions {
      * Authing 服务器地址
      */
     private String host = "https://core.authing.cn";
+    private String wssHost = "wss://events.authing.com";
+    private String wssEndpoint = "/events/v1/management/sub";
+
+    public String getWssHost() {
+        return wssHost;
+    }
+
+    public void setWssHost(String wssHost) {
+        this.wssHost = wssHost;
+    }
+
+    public String getWssEndpoint() {
+        return wssEndpoint;
+    }
+
+    public void setWssEndpoint(String wssEndpoint) {
+        this.wssEndpoint = wssEndpoint;
+    }
 
     /**
      * 请求头 key，适用于去 Authing 品牌化场景
@@ -59,8 +77,6 @@ public class ManagementClientOptions extends AuthingClientOptions {
      * x-authing-signature-nonce 随机字符串的长度
      */
     private static final int RANDOM_STRING_LENGTH = 16;
-
-    private String eventEndpoint = "/event/v1/management/sub";
 
     public ManagementClientOptions() {
     }
@@ -320,11 +336,4 @@ public class ManagementClientOptions extends AuthingClientOptions {
 
     }
 
-    public void setEventEndpoint(String eventEndpoint) {
-        this.eventEndpoint = eventEndpoint;
-    }
-
-    public String getEventEndpoint() {
-        return eventEndpoint;
-    }
 }

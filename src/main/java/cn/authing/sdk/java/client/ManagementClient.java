@@ -3665,8 +3665,7 @@ public class ManagementClient extends BaseClient {
             throw new IllegalArgumentException("receiver is required");
         }
         ManagementClientOptions options = (ManagementClientOptions) this.options;
-        String eventUri = "ws"+options.getHost().substring(4)
-                +options.getEventEndpoint()+"?code="+eventCode;
+        String eventUri = options.getWssHost()+options.getWssEndpoint()+"?code="+eventCode;
         URI wssUri = null;
         try {
             wssUri = new URI(eventUri);
@@ -3676,9 +3675,11 @@ public class ManagementClient extends BaseClient {
         // System.out.println("eventUri:"+eventUri);
         SignatureComposer signatureComposer = new SignatureComposer();
         HashMap<String,String> query = new HashMap<String, String>();
-        String signa = signatureComposer.composeStringToSign("websocket",eventUri,query,query);
+        String signa = signatureComposer.composeStringToSign("websocket","",query,query);
+        // String signa = signatureComposer.composeStringToSign("websocket",eventUri,query,query); // server 端验证不用传 uri
+        // System.out.println("signa:"+signa);
         String authorization = signatureComposer.getAuthorization(options.getAccessKeyId(),options.getAccessKeySecret(),signa);
-        // System.out.println(authorization);
+        System.out.println(authorization);
         HashMap<String,String> headers = new HashMap();
         headers.put("Authorization",authorization);
         AuthingWebsocketClient client = new AuthingWebsocketClient(wssUri,headers,receiver);
