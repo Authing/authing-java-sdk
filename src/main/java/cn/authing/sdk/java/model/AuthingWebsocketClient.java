@@ -21,7 +21,7 @@ public class AuthingWebsocketClient extends WebSocketClient {
 
     @Override
     public void onOpen(ServerHandshake serverHandshake) {
-        // System.out.println("onOpen");
+        System.out.println("onOpen");
     }
 
     @Override
