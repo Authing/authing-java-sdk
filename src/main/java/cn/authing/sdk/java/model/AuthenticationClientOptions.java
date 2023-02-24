@@ -26,6 +26,9 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
      */
     private String appHost;
 
+    private String webSocketHost = "wss://events.authing.com";
+    private String webSocketEndpoint = "/events/v1/authentication/sub";
+
     /**
      * 认证完成后的重定向目标 URL，可选。Authing 服务器会对此链接进行校验，需要和控制台的设置保持一致。
      */
@@ -117,6 +120,22 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
         }
 
         return HttpUtils.request(getAppHost() + url, method, body, headers, getTimeout());
+    }
+
+    public String getWebSocketHost() {
+        return webSocketHost;
+    }
+
+    public void setWebSocketHost(String webSocketHost) {
+        this.webSocketHost = webSocketHost;
+    }
+
+    public String getWebSocketEndpoint() {
+        return webSocketEndpoint;
+    }
+
+    public void setWebSocketEndpoint(String webSocketEndpoint) {
+        this.webSocketEndpoint = webSocketEndpoint;
     }
 
     public int getTimeout() {
