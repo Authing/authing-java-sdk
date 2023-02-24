@@ -4,12 +4,11 @@ import cn.authing.sdk.java.dto.*;
 import cn.authing.sdk.java.dto.authentication.*;
 import cn.authing.sdk.java.enums.AuthMethodEnum;
 import cn.authing.sdk.java.enums.ProtocolEnum;
-import cn.authing.sdk.java.model.AuthenticationClientOptions;
-import cn.authing.sdk.java.model.AuthingRequestConfig;
-import cn.authing.sdk.java.model.ClientCredentialInput;
+import cn.authing.sdk.java.model.*;
 import cn.authing.sdk.java.util.CommonUtils;
 import cn.authing.sdk.java.util.HttpUtils;
 import cn.hutool.core.codec.Base64Encoder;
+import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.Header;
 import com.nimbusds.jose.JWSAlgorithm;
@@ -21,6 +20,8 @@ import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
@@ -2000,4 +2001,39 @@ public CommonResponseDto unlinkExtIdp(UnlinkExtIdpDto reqDto) {
 
 // ==== AUTO GENERATED AUTHENTICATION METHODS END ====
 
+
+    @Override
+    public void subEvent(String eventCode, Receiver receiver) {
+        if (StrUtil.isBlank(eventCode)) {
+            throw new IllegalArgumentException("eventCode is required");
+        }
+        if (receiver == null) {
+            throw new IllegalArgumentException("receiver is required");
+        }
+        Assert.notNull(this.options.getAccessToken());
+        AuthenticationClientOptions options = (AuthenticationClientOptions) this.options;
+        String eventUri = options.getWebSocketHost()+options.getWebSocketEndpoint()
+                +"?code="+eventCode
+                +"&token="+this.options.getAccessToken();
+        URI wssUri = null;
+        try {
+            wssUri = new URI(eventUri);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+        HashMap<String,String> headers = new HashMap();
+        AuthingWebsocketClient client = new AuthingWebsocketClient(wssUri,headers,receiver);
+        client.connect();
+    }
+
+    public CommonResponseDto pubtEvent(String eventCode,Object data){
+        Assert.notNull(eventCode);
+        Assert.notNull(data);
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/pub-userEvent");
+        config.setBody(new EventDto(eventCode,data));
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, CommonResponseDto.class);
+    }
 }

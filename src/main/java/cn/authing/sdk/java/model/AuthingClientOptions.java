@@ -1,5 +1,7 @@
 package cn.authing.sdk.java.model;
 
+import org.java_websocket.client.WebSocketClient;
+
 import java.util.Map;
 
 /**
@@ -28,4 +30,5 @@ public abstract class AuthingClientOptions {
      * @return 响应
      */
     public abstract String doRequest(String url, String method, Map<String, String> headers, Object body);
+
 }
