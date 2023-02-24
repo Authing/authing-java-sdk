@@ -1970,6 +1970,35 @@ public CommonResponseDto unlinkExtIdp(UnlinkExtIdpDto reqDto) {
                 return deserialize(response, GetUserAuthResourceListRespDto.class);
             }
 
+    /**
+     * @summary 获取用户在登录应用下被授权资源列表
+     * @description 获取用户指定资源权限列表，用户获取在某个应用下所拥有的资源列表
+     **/
+    public GetUserAuthResourcePermissionListRespDto getUserAuthResourcePermissionList(
+        GetUserAuthResourcePermissionListDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-user-auth-resource-permission-list");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, GetUserAuthResourcePermissionListRespDto.class);
+    }
+
+    /**
+     * @summary 获取用户在登录应用下被授权资源列表
+     * @description 获取用户指定资源权限列表，用户获取在某个应用下所拥有的资源列表
+     **/
+    public GetUserAuthResourceStructRespDto getUserAuthResourceStruct(
+        GetUserAuthResourceStructDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-user-auth-resource-struct");
+        config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, GetUserAuthResourceStructRespDto.class);
+    }
+
+
 // ==== AUTO GENERATED AUTHENTICATION METHODS END ====
 
 
