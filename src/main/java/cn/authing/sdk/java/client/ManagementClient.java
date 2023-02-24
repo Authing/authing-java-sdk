@@ -3,6 +3,7 @@ package cn.authing.sdk.java.client;
 import cn.authing.sdk.java.model.AuthingWebsocketClient;
 import cn.authing.sdk.java.model.Receiver;
 import cn.authing.sdk.java.util.signature.Impl.SignatureComposer;
+import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.StrUtil;
 import cn.authing.sdk.java.dto.*;
 
@@ -3314,6 +3315,17 @@ public class ManagementClient extends BaseClient {
         return deserialize(response, CostGetCurrentUsageRespDto.class);
     }
 
+    public CostGetAllRightItemRespDto pubtEvent(String eventCode,Object data){
+        Assert.notNull(eventCode);
+        Assert.notNull(data);
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/pub-event");
+        config.setBody(new EventDto(eventCode,data));
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, CostGetAllRightItemRespDto.class);
+    }
+
     /**
      * @summary 获取 MAU 使用记录
      * @description 获取当前用户池 MAU 使用记录
@@ -3665,7 +3677,7 @@ public class ManagementClient extends BaseClient {
             throw new IllegalArgumentException("receiver is required");
         }
         ManagementClientOptions options = (ManagementClientOptions) this.options;
-        String eventUri = options.getWssHost()+options.getWssEndpoint()+"?code="+eventCode;
+        String eventUri = options.getWebsocketHost()+options.getWebsocketEndpoint()+"?code="+eventCode;
         URI wssUri = null;
         try {
             wssUri = new URI(eventUri);
@@ -3679,7 +3691,7 @@ public class ManagementClient extends BaseClient {
         // String signa = signatureComposer.composeStringToSign("websocket",eventUri,query,query); // server 端验证不用传 uri
         // System.out.println("signa:"+signa);
         String authorization = signatureComposer.getAuthorization(options.getAccessKeyId(),options.getAccessKeySecret(),signa);
-        System.out.println(authorization);
+        // System.out.println(authorization);
         HashMap<String,String> headers = new HashMap();
         headers.put("Authorization",authorization);
         AuthingWebsocketClient client = new AuthingWebsocketClient(wssUri,headers,receiver);

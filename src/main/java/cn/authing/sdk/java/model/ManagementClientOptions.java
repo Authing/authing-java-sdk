@@ -49,23 +49,23 @@ public class ManagementClientOptions extends AuthingClientOptions {
      * Authing 服务器地址
      */
     private String host = "https://core.authing.cn";
-    private String wssHost = "wss://events.authing.com";
-    private String wssEndpoint = "/events/v1/management/sub";
+    private String websocketHost = "wss://events.authing.com";
+    private String websocketEndpoint = "/events/v1/management/sub";
 
-    public String getWssHost() {
-        return wssHost;
+    public String getWebsocketHost() {
+        return websocketHost;
     }
 
-    public void setWssHost(String wssHost) {
-        this.wssHost = wssHost;
+    public void setWebsocketHost(String websocketHost) {
+        this.websocketHost = websocketHost;
     }
 
-    public String getWssEndpoint() {
-        return wssEndpoint;
+    public String getWebsocketEndpoint() {
+        return websocketEndpoint;
     }
 
-    public void setWssEndpoint(String wssEndpoint) {
-        this.wssEndpoint = wssEndpoint;
+    public void setWebsocketEndpoint(String websocketEndpoint) {
+        this.websocketEndpoint = websocketEndpoint;
     }
 
     /**
