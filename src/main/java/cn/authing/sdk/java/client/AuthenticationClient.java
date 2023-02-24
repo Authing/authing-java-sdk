@@ -7,7 +7,6 @@ import cn.authing.sdk.java.enums.ProtocolEnum;
 import cn.authing.sdk.java.model.*;
 import cn.authing.sdk.java.util.CommonUtils;
 import cn.authing.sdk.java.util.HttpUtils;
-import cn.authing.sdk.java.util.signature.Impl.SignatureComposer;
 import cn.hutool.core.codec.Base64Encoder;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.StrUtil;
@@ -1996,5 +1995,16 @@ public CommonResponseDto unlinkExtIdp(UnlinkExtIdpDto reqDto) {
         HashMap<String,String> headers = new HashMap();
         AuthingWebsocketClient client = new AuthingWebsocketClient(wssUri,headers,receiver);
         client.connect();
+    }
+
+    public CommonResponseDto pubtEvent(String eventCode,Object data){
+        Assert.notNull(eventCode);
+        Assert.notNull(data);
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/pub-userEvent");
+        config.setBody(new EventDto(eventCode,data));
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, CommonResponseDto.class);
     }
 }
