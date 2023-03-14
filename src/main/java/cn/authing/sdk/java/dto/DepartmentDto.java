@@ -81,6 +81,11 @@ public class DepartmentDto {
      */
     @JsonProperty("customData")
     private Object customData;
+    /**
+     * 岗位 id 列表
+     */
+    @JsonProperty("postIdList")
+    private String postIdList;
 
     public String getOrganizationCode() {
         return organizationCode;
@@ -185,6 +190,13 @@ public class DepartmentDto {
     }
     public void setCustomData(Object customData) {
         this.customData = customData;
+    }
+
+    public String getPostIdList() {
+        return postIdList;
+    }
+    public void setPostIdList(String postIdList) {
+        this.postIdList = postIdList;
     }
 
 

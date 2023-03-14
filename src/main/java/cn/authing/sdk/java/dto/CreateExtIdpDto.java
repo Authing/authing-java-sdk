@@ -131,6 +131,18 @@ public class CreateExtIdpDto {
 
         @JsonProperty("welink")
         WELINK("welink"),
+
+        @JsonProperty("huawei")
+        HUAWEI("huawei"),
+
+        @JsonProperty("honor")
+        HONOR("honor"),
+
+        @JsonProperty("xiaomi")
+        XIAOMI("xiaomi"),
+
+        @JsonProperty("aws")
+        AWS("aws"),
         ;
 
         private String value;

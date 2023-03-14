@@ -57,6 +57,11 @@ public class CreateDepartmentReqDto {
     @JsonProperty("departmentIdType")
     private DepartmentIdType departmentIdType;
     /**
+     * 岗位 id 列表
+     */
+    @JsonProperty("postIdList")
+    private String postIdList;
+    /**
      * 租户 ID
      */
     @JsonProperty("tenantId")
@@ -130,6 +135,13 @@ public class CreateDepartmentReqDto {
     }
     public void setDepartmentIdType(DepartmentIdType departmentIdType) {
         this.departmentIdType = departmentIdType;
+    }
+
+    public String getPostIdList() {
+        return postIdList;
+    }
+    public void setPostIdList(String postIdList) {
+        this.postIdList = postIdList;
     }
 
     public String getTenantId() {

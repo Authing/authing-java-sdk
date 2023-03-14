@@ -251,6 +251,11 @@ public class UserDto {
     @JsonProperty("resetPasswordOnNextLogin")
     private Boolean resetPasswordOnNextLogin;
     /**
+     * 注册方式
+     */
+    @JsonProperty("registerSource")
+    private List<String> registerSource;
+    /**
      * 用户所属部门 ID 列表
      */
     @JsonProperty("departmentIds")
@@ -603,6 +608,13 @@ public class UserDto {
     }
     public void setResetPasswordOnNextLogin(Boolean resetPasswordOnNextLogin) {
         this.resetPasswordOnNextLogin = resetPasswordOnNextLogin;
+    }
+
+    public List<String> getRegisterSource() {
+        return registerSource;
+    }
+    public void setRegisterSource(List<String> registerSource) {
+        this.registerSource = registerSource;
     }
 
     public List<String> getDepartmentIds() {

@@ -107,6 +107,9 @@ public class ApplicationSimpleInfoDto {
 
         @JsonProperty("api")
         API("api"),
+
+        @JsonProperty("mini-program")
+        MINI_PROGRAM("mini-program"),
         ;
 
         private String value;
