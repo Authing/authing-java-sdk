@@ -57,6 +57,11 @@ public class UpdateDepartmentReqDto {
     @JsonProperty("customData")
     private Object customData;
     /**
+     * 岗位 id 列表
+     */
+    @JsonProperty("postIdList")
+    private String postIdList;
+    /**
      * 租户 ID
      */
     @JsonProperty("tenantId")
@@ -130,6 +135,13 @@ public class UpdateDepartmentReqDto {
     }
     public void setCustomData(Object customData) {
         this.customData = customData;
+    }
+
+    public String getPostIdList() {
+        return postIdList;
+    }
+    public void setPostIdList(String postIdList) {
+        this.postIdList = postIdList;
     }
 
     public String getTenantId() {

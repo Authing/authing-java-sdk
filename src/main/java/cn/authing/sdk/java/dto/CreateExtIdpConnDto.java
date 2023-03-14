@@ -135,6 +135,9 @@ public class CreateExtIdpConnDto {
         @JsonProperty("facebook")
         FACEBOOK("facebook"),
 
+        @JsonProperty("facebook:mobile")
+        FACEBOOK_MOBILE("facebook:mobile"),
+
         @JsonProperty("twitter")
         TWITTER("twitter"),
 
@@ -171,6 +174,9 @@ public class CreateExtIdpConnDto {
         @JsonProperty("qq")
         QQ("qq"),
 
+        @JsonProperty("qq:mobile")
+        QQ_MOBILE("qq:mobile"),
+
         @JsonProperty("wechatwork:corp:qrconnect")
         WECHATWORK_CORP_QRCONNECT("wechatwork:corp:qrconnect"),
 
@@ -189,11 +195,17 @@ public class CreateExtIdpConnDto {
         @JsonProperty("dingtalk")
         DINGTALK("dingtalk"),
 
+        @JsonProperty("dingtalk:mobile")
+        DINGTALK_MOBILE("dingtalk:mobile"),
+
         @JsonProperty("dingtalk:provider")
         DINGTALK_PROVIDER("dingtalk:provider"),
 
         @JsonProperty("weibo")
         WEIBO("weibo"),
+
+        @JsonProperty("weibo:mobile")
+        WEIBO_MOBILE("weibo:mobile"),
 
         @JsonProperty("apple")
         APPLE("apple"),
@@ -203,6 +215,9 @@ public class CreateExtIdpConnDto {
 
         @JsonProperty("baidu")
         BAIDU("baidu"),
+
+        @JsonProperty("baidu:mobile")
+        BAIDU_MOBILE("baidu:mobile"),
 
         @JsonProperty("lark-internal")
         LARK_INTERNAL("lark-internal"),
@@ -215,6 +230,9 @@ public class CreateExtIdpConnDto {
 
         @JsonProperty("linkedin")
         LINKEDIN("linkedin"),
+
+        @JsonProperty("linkedin:mobile")
+        LINKEDIN_MOBILE("linkedin:mobile"),
 
         @JsonProperty("slack")
         SLACK("slack"),
@@ -236,6 +254,18 @@ public class CreateExtIdpConnDto {
 
         @JsonProperty("ad-kerberos")
         AD_KERBEROS("ad-kerberos"),
+
+        @JsonProperty("huawei")
+        HUAWEI("huawei"),
+
+        @JsonProperty("honor")
+        HONOR("honor"),
+
+        @JsonProperty("xiaomi")
+        XIAOMI("xiaomi"),
+
+        @JsonProperty("aws")
+        AWS("aws"),
         ;
 
         private String value;

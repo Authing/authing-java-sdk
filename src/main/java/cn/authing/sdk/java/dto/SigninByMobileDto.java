@@ -5,15 +5,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.SignInByAlipayPayloadDto;
 import cn.authing.sdk.java.dto.SignInByApplePayloadDto;
+import cn.authing.sdk.java.dto.SignInByBaiduPayloadDto;
+import cn.authing.sdk.java.dto.SignInByDingTalkPayloadDto;
+import cn.authing.sdk.java.dto.SignInByFacebookPayloadDto;
 import cn.authing.sdk.java.dto.SignInByGooglePayloadDto;
 import cn.authing.sdk.java.dto.SignInByLarkInternalPayloadDto;
 import cn.authing.sdk.java.dto.SignInByLarkPublicPayloadDto;
+import cn.authing.sdk.java.dto.SignInByLinkedInPayloadDto;
 import cn.authing.sdk.java.dto.SignInByMobileOptionsDto;
+import cn.authing.sdk.java.dto.SignInByQQPayloadDto;
+import cn.authing.sdk.java.dto.SignInByWechatMiniProgramCodeAndPhonePayloadDto;
 import cn.authing.sdk.java.dto.SignInByWechatMiniProgramCodePayloadDto;
 import cn.authing.sdk.java.dto.SignInByWechatMiniProgramPhonePayloadDto;
 import cn.authing.sdk.java.dto.SignInByWechatPayloadDto;
 import cn.authing.sdk.java.dto.SignInByWechatworkAgencyPayloadDto;
 import cn.authing.sdk.java.dto.SignInByWechatworkDto;
+import cn.authing.sdk.java.dto.SignInByWeiboPayloadDto;
 import cn.authing.sdk.java.dto.SignInByYidunPayloadDto;
 
 public class SigninByMobileDto {
@@ -34,7 +41,14 @@ public class SigninByMobileDto {
      * - `yidun`: 网易易盾一键登录
      * - `wechat_mini_program_code`: 微信小程序使用 code 登录
      * - `wechat_mini_program_phone `: 微信小程序使用手机号登录
+     * - `wechat_mini_program_code_and_phone `: 微信小程序使用 code 和手机号登录
      * - `google`: Google 移动端社会化登录
+     * - `facebook`: Facebook 移动端社会化登录
+     * - `qq`: QQ 移动端社会化登录
+     * - `weibo`: 新浪微博移动端社会化登录
+     * - `baidu`: 百度移动端社会化登录
+     * - `linkedin`: LinkedIn 移动端社会化登录
+     * - `dingtalk`: 钉钉移动端社会化登录
      *
      */
     @JsonProperty("connection")
@@ -90,10 +104,45 @@ public class SigninByMobileDto {
     @JsonProperty("wechatMiniProgramPhonePayload")
     private SignInByWechatMiniProgramPhonePayloadDto wechatMiniProgramPhonePayload;
     /**
+     * 微信小程序使用 code 和手机号登录相关数据，当 `connection` 为 `wechat_mini_program_code_and_phone` 的时候必填。
+     */
+    @JsonProperty("wechatMiniProgramCodeAndPhonePayload")
+    private SignInByWechatMiniProgramCodeAndPhonePayloadDto wechatMiniProgramCodeAndPhonePayload;
+    /**
      * Google 移动端社会化登录数据，当 `connection` 为 `google` 的时候必填。
      */
     @JsonProperty("googlePayload")
     private SignInByGooglePayloadDto googlePayload;
+    /**
+     * Facebook 移动端社会化登录数据，当 `connection` 为 `facebook` 的时候必填。
+     */
+    @JsonProperty("facebookPayload")
+    private SignInByFacebookPayloadDto facebookPayload;
+    /**
+     * QQ 移动端社会化登录数据，当 `connection` 为 `qq` 的时候必填。
+     */
+    @JsonProperty("qqPayload")
+    private SignInByQQPayloadDto qqPayload;
+    /**
+     * 新浪微博移动端社会化登录数据，当 `connection` 为 `weibo` 的时候必填。
+     */
+    @JsonProperty("weiboPayload")
+    private SignInByWeiboPayloadDto weiboPayload;
+    /**
+     * 百度移动端社会化登录数据，当 `connection` 为 `baidu` 的时候必填，且 `baiduPayload` 的属性 `code` 和 `access_token` 必选其一，优先使用 `code` 值作为授权登录方式。
+     */
+    @JsonProperty("baiduPayload")
+    private SignInByBaiduPayloadDto baiduPayload;
+    /**
+     * LinkedIn 移动端社会化登录数据，当 `connection` 为 `linkedin` 的时候必填。
+     */
+    @JsonProperty("linkedInPayload")
+    private SignInByLinkedInPayloadDto linkedInPayload;
+    /**
+     * 钉钉移动端社会化登录数据，当 `connection` 为 `dingtalk` 的时候必填。
+     */
+    @JsonProperty("dingTalkPayload")
+    private SignInByDingTalkPayloadDto dingTalkPayload;
     /**
      * 可选参数
      */
@@ -194,11 +243,60 @@ public class SigninByMobileDto {
         this.wechatMiniProgramPhonePayload = wechatMiniProgramPhonePayload;
     }
 
+    public SignInByWechatMiniProgramCodeAndPhonePayloadDto getWechatMiniProgramCodeAndPhonePayload() {
+        return wechatMiniProgramCodeAndPhonePayload;
+    }
+    public void setWechatMiniProgramCodeAndPhonePayload(SignInByWechatMiniProgramCodeAndPhonePayloadDto wechatMiniProgramCodeAndPhonePayload) {
+        this.wechatMiniProgramCodeAndPhonePayload = wechatMiniProgramCodeAndPhonePayload;
+    }
+
     public SignInByGooglePayloadDto getGooglePayload() {
         return googlePayload;
     }
     public void setGooglePayload(SignInByGooglePayloadDto googlePayload) {
         this.googlePayload = googlePayload;
+    }
+
+    public SignInByFacebookPayloadDto getFacebookPayload() {
+        return facebookPayload;
+    }
+    public void setFacebookPayload(SignInByFacebookPayloadDto facebookPayload) {
+        this.facebookPayload = facebookPayload;
+    }
+
+    public SignInByQQPayloadDto getQqPayload() {
+        return qqPayload;
+    }
+    public void setQqPayload(SignInByQQPayloadDto qqPayload) {
+        this.qqPayload = qqPayload;
+    }
+
+    public SignInByWeiboPayloadDto getWeiboPayload() {
+        return weiboPayload;
+    }
+    public void setWeiboPayload(SignInByWeiboPayloadDto weiboPayload) {
+        this.weiboPayload = weiboPayload;
+    }
+
+    public SignInByBaiduPayloadDto getBaiduPayload() {
+        return baiduPayload;
+    }
+    public void setBaiduPayload(SignInByBaiduPayloadDto baiduPayload) {
+        this.baiduPayload = baiduPayload;
+    }
+
+    public SignInByLinkedInPayloadDto getLinkedInPayload() {
+        return linkedInPayload;
+    }
+    public void setLinkedInPayload(SignInByLinkedInPayloadDto linkedInPayload) {
+        this.linkedInPayload = linkedInPayload;
+    }
+
+    public SignInByDingTalkPayloadDto getDingTalkPayload() {
+        return dingTalkPayload;
+    }
+    public void setDingTalkPayload(SignInByDingTalkPayloadDto dingTalkPayload) {
+        this.dingTalkPayload = dingTalkPayload;
     }
 
     public SignInByMobileOptionsDto getOptions() {
@@ -235,7 +333,14 @@ public class SigninByMobileDto {
      * - `yidun`: 网易易盾一键登录
      * - `wechat_mini_program_code`: 微信小程序使用 code 登录
      * - `wechat_mini_program_phone `: 微信小程序使用手机号登录
+     * - `wechat_mini_program_code_and_phone `: 微信小程序使用 code 和手机号登录
      * - `google`: Google 移动端社会化登录
+     * - `facebook`: Facebook 移动端社会化登录
+     * - `qq`: QQ 移动端社会化登录
+     * - `weibo`: 新浪微博移动端社会化登录
+     * - `baidu`: 百度移动端社会化登录
+     * - `linkedin`: LinkedIn 移动端社会化登录
+     * - `dingtalk`: 钉钉移动端社会化登录
      *
      */
     public static enum Connection {
@@ -270,8 +375,29 @@ public class SigninByMobileDto {
         @JsonProperty("wechat_mini_program_phone")
         WECHAT_MINI_PROGRAM_PHONE("wechat_mini_program_phone"),
 
+        @JsonProperty("wechat_mini_program_code_and_phone")
+        WECHAT_MINI_PROGRAM_CODE_AND_PHONE("wechat_mini_program_code_and_phone"),
+
         @JsonProperty("google")
         GOOGLE("google"),
+
+        @JsonProperty("facebook")
+        FACEBOOK("facebook"),
+
+        @JsonProperty("qq")
+        QQ("qq"),
+
+        @JsonProperty("weibo")
+        WEIBO("weibo"),
+
+        @JsonProperty("baidu")
+        BAIDU("baidu"),
+
+        @JsonProperty("linkedin")
+        LINKEDIN("linkedin"),
+
+        @JsonProperty("dingtalk")
+        DINGTALK("dingtalk"),
         ;
 
         private String value;
