@@ -3,7 +3,7 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import cn.authing.sdk.java.dto.User;
+
 
 public class IdentityDto {
     /**
@@ -272,6 +272,12 @@ public class IdentityDto {
 
         @JsonProperty("aws")
         AWS("aws"),
+
+        @JsonProperty("douyin")
+        DOUYIN("douyin"),
+
+        @JsonProperty("kuaishou")
+        KUAISHOU("kuaishou"),
         ;
 
         private String value;

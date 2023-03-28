@@ -227,6 +227,12 @@ public class ExtIdpInfoDto {
 
         @JsonProperty("aws")
         AWS("aws"),
+
+        @JsonProperty("douyin")
+        DOUYIN("douyin"),
+
+        @JsonProperty("kuaishou")
+        KUAISHOU("kuaishou"),
         ;
 
         private String value;

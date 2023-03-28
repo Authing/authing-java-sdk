@@ -233,13 +233,13 @@ public class AuthenticationClient extends BaseClient {
    * @throws Exception
    */
   public String buildLogoutUrl(BuildLogoutUrlParams params) throws Exception {
-      if (this.options.getProtocol() == ProtocolEnum.OAUTH.getValue()) {
-          return this.buildCasLogoutUrl(params);
-      }
+    if (this.options.getProtocol() == ProtocolEnum.OAUTH.getValue()) {
+      return this.buildCasLogoutUrl(params);
+    }
 
-      if (this.options.getProtocol() == ProtocolEnum.OIDC.getValue()) {
-          return this.buildOidcLogoutUrl(params);
-      }
+    if (this.options.getProtocol() == ProtocolEnum.OIDC.getValue()) {
+      return this.buildOidcLogoutUrl(params);
+    }
 
     return buildEasyLogoutUrl(params);
   }
@@ -1590,7 +1590,9 @@ public class AuthenticationClient extends BaseClient {
 
   /**
    * @summary 获取微信小程序、公众号 Access Token
-   * @description 获取 Authing 服务器缓存的微信小程序、公众号 Access Token
+   * @description 获取 Authing 服务器缓存的微信小程序、公众号 Access Token（废弃，请使用
+   * /api/v3/get-wechat-access-token-info）
+   * @deprecated
    **/
   public GetWechatAccessTokenRespDto getWechatMpAccessToken(GetWechatAccessTokenDto reqDto) {
     AuthingRequestConfig config = new AuthingRequestConfig();
@@ -1599,6 +1601,20 @@ public class AuthenticationClient extends BaseClient {
     config.setMethod("POST");
     String response = request(config);
     return deserialize(response, GetWechatAccessTokenRespDto.class);
+  }
+
+  /**
+   * @summary 获取微信小程序、公众号 Access Token
+   * @description 获取 Authing 服务器缓存的微信小程序、公众号 Access Token
+   **/
+  public GetWechatAccessTokenInfoRespDto getWechatMpAccessTokenInfo(
+      GetWechatAccessTokenDto reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/get-wechat-access-token-info");
+    config.setBody(reqDto);
+    config.setMethod("POST");
+    String response = request(config);
+    return deserialize(response, GetWechatAccessTokenInfoRespDto.class);
   }
 
   /**
@@ -2178,6 +2194,7 @@ public class AuthenticationClient extends BaseClient {
     String response = request(config);
     return deserialize(response, WechatLoginTokenRespDto.class);
   }
+
 
   /**
    * @summary 获取推送登录请求关联的客户端应用

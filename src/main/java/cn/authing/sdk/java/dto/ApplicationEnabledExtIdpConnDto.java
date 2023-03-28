@@ -215,6 +215,12 @@ public class ApplicationEnabledExtIdpConnDto {
 
         @JsonProperty("aws")
         AWS("aws"),
+
+        @JsonProperty("douyin")
+        DOUYIN("douyin"),
+
+        @JsonProperty("kuaishou")
+        KUAISHOU("kuaishou"),
         ;
 
         private String value;
@@ -296,6 +302,9 @@ public class ApplicationEnabledExtIdpConnDto {
         @JsonProperty("github")
         GITHUB("github"),
 
+        @JsonProperty("github:mobile")
+        GITHUB_MOBILE("github:mobile"),
+
         @JsonProperty("qq")
         QQ("qq"),
 
@@ -353,6 +362,9 @@ public class ApplicationEnabledExtIdpConnDto {
         @JsonProperty("gitlab")
         GITLAB("gitlab"),
 
+        @JsonProperty("gitlab:mobile")
+        GITLAB_MOBILE("gitlab:mobile"),
+
         @JsonProperty("linkedin")
         LINKEDIN("linkedin"),
 
@@ -370,6 +382,9 @@ public class ApplicationEnabledExtIdpConnDto {
 
         @JsonProperty("gitee")
         GITEE("gitee"),
+
+        @JsonProperty("gitee:mobile")
+        GITEE_MOBILE("gitee:mobile"),
 
         @JsonProperty("instagram")
         INSTAGRAM("instagram"),
@@ -389,8 +404,17 @@ public class ApplicationEnabledExtIdpConnDto {
         @JsonProperty("xiaomi")
         XIAOMI("xiaomi"),
 
+        @JsonProperty("xiaomi:mobile")
+        XIAOMI_MOBILE("xiaomi:mobile"),
+
         @JsonProperty("aws")
         AWS("aws"),
+
+        @JsonProperty("douyin:mobile")
+        DOUYIN_MOBILE("douyin:mobile"),
+
+        @JsonProperty("kuaishou:mobile")
+        KUAISHOU_MOBILE("kuaishou:mobile"),
         ;
 
         private String value;

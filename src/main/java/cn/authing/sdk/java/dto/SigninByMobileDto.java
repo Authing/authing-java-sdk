@@ -7,8 +7,13 @@ import cn.authing.sdk.java.dto.SignInByAlipayPayloadDto;
 import cn.authing.sdk.java.dto.SignInByApplePayloadDto;
 import cn.authing.sdk.java.dto.SignInByBaiduPayloadDto;
 import cn.authing.sdk.java.dto.SignInByDingTalkPayloadDto;
+import cn.authing.sdk.java.dto.SignInByDouyinPayloadDto;
 import cn.authing.sdk.java.dto.SignInByFacebookPayloadDto;
+import cn.authing.sdk.java.dto.SignInByGiteePayloadDto;
+import cn.authing.sdk.java.dto.SignInByGithubPayloadDto;
+import cn.authing.sdk.java.dto.SignInByGitlabPayloadDto;
 import cn.authing.sdk.java.dto.SignInByGooglePayloadDto;
+import cn.authing.sdk.java.dto.SignInByKuaishouPayloadDto;
 import cn.authing.sdk.java.dto.SignInByLarkInternalPayloadDto;
 import cn.authing.sdk.java.dto.SignInByLarkPublicPayloadDto;
 import cn.authing.sdk.java.dto.SignInByLinkedInPayloadDto;
@@ -21,6 +26,7 @@ import cn.authing.sdk.java.dto.SignInByWechatPayloadDto;
 import cn.authing.sdk.java.dto.SignInByWechatworkAgencyPayloadDto;
 import cn.authing.sdk.java.dto.SignInByWechatworkDto;
 import cn.authing.sdk.java.dto.SignInByWeiboPayloadDto;
+import cn.authing.sdk.java.dto.SignInByXiaomiPayloadDto;
 import cn.authing.sdk.java.dto.SignInByYidunPayloadDto;
 
 public class SigninByMobileDto {
@@ -49,6 +55,12 @@ public class SigninByMobileDto {
      * - `baidu`: 百度移动端社会化登录
      * - `linkedin`: LinkedIn 移动端社会化登录
      * - `dingtalk`: 钉钉移动端社会化登录
+     * - `github`: Github 动端社会化登录
+     * - `gitee`: Gitee 移动端社会化登录
+     * - `gitlab`: GitLab 移动端社会化登录
+     * - `douyin`: 抖音移动端社会化登录
+     * - `kuaishou`: 快手移动端社会化登录
+     * - `xiaomi`: 小米移动端社会化登录
      *
      */
     @JsonProperty("connection")
@@ -143,6 +155,36 @@ public class SigninByMobileDto {
      */
     @JsonProperty("dingTalkPayload")
     private SignInByDingTalkPayloadDto dingTalkPayload;
+    /**
+     * Github 移动端社会化登录数据，当 `connection` 为 `github` 的时候必填。
+     */
+    @JsonProperty("githubPayload")
+    private SignInByGithubPayloadDto githubPayload;
+    /**
+     * Gitee 移动端社会化登录数据，当 `connection` 为 `gitee` 的时候必填。
+     */
+    @JsonProperty("giteePayload")
+    private SignInByGiteePayloadDto giteePayload;
+    /**
+     * GitLab 移动端社会化登录数据，当 `connection` 为 `gitlab` 的时候必填。
+     */
+    @JsonProperty("gitlabPayload")
+    private SignInByGitlabPayloadDto gitlabPayload;
+    /**
+     * 抖音移动端社会化登录数据，当 `connection` 为 `douyin` 的时候必填。
+     */
+    @JsonProperty("douyinPayload")
+    private SignInByDouyinPayloadDto douyinPayload;
+    /**
+     * 快手移动端社会化登录数据，当 `connection` 为 `kuaishou` 的时候必填。
+     */
+    @JsonProperty("kuaishouPayload")
+    private SignInByKuaishouPayloadDto kuaishouPayload;
+    /**
+     * 小米移动端社会化登录数据，当 `connection` 为 `xiaomi` 的时候必填。
+     */
+    @JsonProperty("xiaomiPayload")
+    private SignInByXiaomiPayloadDto xiaomiPayload;
     /**
      * 可选参数
      */
@@ -299,6 +341,48 @@ public class SigninByMobileDto {
         this.dingTalkPayload = dingTalkPayload;
     }
 
+    public SignInByGithubPayloadDto getGithubPayload() {
+        return githubPayload;
+    }
+    public void setGithubPayload(SignInByGithubPayloadDto githubPayload) {
+        this.githubPayload = githubPayload;
+    }
+
+    public SignInByGiteePayloadDto getGiteePayload() {
+        return giteePayload;
+    }
+    public void setGiteePayload(SignInByGiteePayloadDto giteePayload) {
+        this.giteePayload = giteePayload;
+    }
+
+    public SignInByGitlabPayloadDto getGitlabPayload() {
+        return gitlabPayload;
+    }
+    public void setGitlabPayload(SignInByGitlabPayloadDto gitlabPayload) {
+        this.gitlabPayload = gitlabPayload;
+    }
+
+    public SignInByDouyinPayloadDto getDouyinPayload() {
+        return douyinPayload;
+    }
+    public void setDouyinPayload(SignInByDouyinPayloadDto douyinPayload) {
+        this.douyinPayload = douyinPayload;
+    }
+
+    public SignInByKuaishouPayloadDto getKuaishouPayload() {
+        return kuaishouPayload;
+    }
+    public void setKuaishouPayload(SignInByKuaishouPayloadDto kuaishouPayload) {
+        this.kuaishouPayload = kuaishouPayload;
+    }
+
+    public SignInByXiaomiPayloadDto getXiaomiPayload() {
+        return xiaomiPayload;
+    }
+    public void setXiaomiPayload(SignInByXiaomiPayloadDto xiaomiPayload) {
+        this.xiaomiPayload = xiaomiPayload;
+    }
+
     public SignInByMobileOptionsDto getOptions() {
         return options;
     }
@@ -341,6 +425,12 @@ public class SigninByMobileDto {
      * - `baidu`: 百度移动端社会化登录
      * - `linkedin`: LinkedIn 移动端社会化登录
      * - `dingtalk`: 钉钉移动端社会化登录
+     * - `github`: Github 动端社会化登录
+     * - `gitee`: Gitee 移动端社会化登录
+     * - `gitlab`: GitLab 移动端社会化登录
+     * - `douyin`: 抖音移动端社会化登录
+     * - `kuaishou`: 快手移动端社会化登录
+     * - `xiaomi`: 小米移动端社会化登录
      *
      */
     public static enum Connection {
@@ -398,6 +488,24 @@ public class SigninByMobileDto {
 
         @JsonProperty("dingtalk")
         DINGTALK("dingtalk"),
+
+        @JsonProperty("github")
+        GITHUB("github"),
+
+        @JsonProperty("gitee")
+        GITEE("gitee"),
+
+        @JsonProperty("gitlab")
+        GITLAB("gitlab"),
+
+        @JsonProperty("douyin")
+        DOUYIN("douyin"),
+
+        @JsonProperty("kuaishou")
+        KUAISHOU("kuaishou"),
+
+        @JsonProperty("xiaomi")
+        XIAOMI("xiaomi"),
         ;
 
         private String value;

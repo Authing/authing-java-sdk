@@ -1,6 +1,5 @@
 package cn.authing.sdk.java.dto;
 
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
@@ -35,6 +34,11 @@ public class ListApplicationsDto {
      */
     @JsonProperty("keywords")
     private String keywords;
+    /**
+     * 搜索应用，true：搜索所有应用, 默认为 false
+     */
+    @JsonProperty("all")
+    private Boolean all;
 
     public Integer getPage() {
         return page;
@@ -76,6 +80,13 @@ public class ListApplicationsDto {
     }
     public void setKeywords(String keywords) {
         this.keywords = keywords;
+    }
+
+    public Boolean getAll() {
+        return all;
+    }
+    public void setAll(Boolean all) {
+        this.all = all;
     }
 
 
