@@ -4484,7 +4484,6 @@ public class ManagementClient extends BaseClient {
     return deserialize(response, PubEventRespDto.class);
   }
 
-
   /**
    * @summary 获取推送登录请求关联的客户端应用
    * @description 此端点用于在 Authing 令牌 APP 收到推送登录通知时，可检查当前用户登录的应用是否支持对推送登录请求进行授权。
@@ -4824,4 +4823,5 @@ public class ManagementClient extends BaseClient {
     String response = request(config);
     return deserialize(response, IsSuccessRespDto.class);
   }
+
 }
