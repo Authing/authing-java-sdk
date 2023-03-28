@@ -2,8 +2,7 @@ package test.management;
 
 import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.AuthorizedResourcePaginatedRespDto;
-import cn.authing.sdk.java.dto.GetAuthorizedResourcesDto;
-import cn.authing.sdk.java.dto.TargetDto;
+import cn.authing.sdk.java.dto.GetMyAuthorizedResourcesDto;
 import cn.authing.sdk.java.model.ManagementClientOptions;
 import cn.authing.sdk.java.util.JsonUtils;
 
@@ -22,9 +21,9 @@ public class GetAuthorizedResourcesTest {
 
         ManagementClient client = new ManagementClient(clientOptions);
 
-        GetAuthorizedResourcesDto reqDto = new GetAuthorizedResourcesDto();
-        reqDto.setTargetType(TargetDto.TargetType.USER.getValue());
-        reqDto.setTargetIdentifier("6343b98b7cfxxx9366e9b7c");
+        GetMyAuthorizedResourcesDto reqDto = new GetMyAuthorizedResourcesDto();
+//        reqDto.setTargetType(TargetDto.TargetType.USER.getValue());
+//        reqDto.setTargetIdentifier("6343b98b7cfxxx9366e9b7c");
         AuthorizedResourcePaginatedRespDto response = client.getAuthorizedResources(reqDto);
         System.out.println(JsonUtils.serialize(response));
     }

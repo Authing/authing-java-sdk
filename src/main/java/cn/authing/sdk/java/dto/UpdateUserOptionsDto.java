@@ -20,6 +20,11 @@ public class UpdateUserOptionsDto {
     @JsonProperty("userIdType")
     private UserIdType userIdType;
     /**
+     * 设置用户首次登录要求重置密码
+     */
+    @JsonProperty("resetPasswordOnFirstLogin")
+    private Boolean resetPasswordOnFirstLogin;
+    /**
      * 下次登录要求重置密码
      */
     @JsonProperty("resetPasswordOnNextLogin")
@@ -49,6 +54,13 @@ public class UpdateUserOptionsDto {
     }
     public void setUserIdType(UserIdType userIdType) {
         this.userIdType = userIdType;
+    }
+
+    public Boolean getResetPasswordOnFirstLogin() {
+        return resetPasswordOnFirstLogin;
+    }
+    public void setResetPasswordOnFirstLogin(Boolean resetPasswordOnFirstLogin) {
+        this.resetPasswordOnFirstLogin = resetPasswordOnFirstLogin;
     }
 
     public Boolean getResetPasswordOnNextLogin() {

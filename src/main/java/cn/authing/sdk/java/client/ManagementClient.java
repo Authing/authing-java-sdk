@@ -5,9 +5,6 @@ import cn.authing.sdk.java.dto.*;
 
 import cn.authing.sdk.java.model.AuthingRequestConfig;
 import cn.authing.sdk.java.model.ManagementClientOptions;
-import java.util.HashMap;
-import java.util.Collections;
-import java.util.Map;
 
 
 public class ManagementClient extends BaseClient {
@@ -654,7 +651,7 @@ public class ManagementClient extends BaseClient {
    * @description 此接口用于获取用户被授权的资源列表。
    **/
   public AuthorizedResourcePaginatedRespDto getAuthorizedResources(
-      GetAuthorizedResourcesDto reqDto) {
+      GetMyAuthorizedResourcesDto reqDto) {
     AuthingRequestConfig config = new AuthingRequestConfig();
     config.setUrl("/api/v3/get-my-authorized-resources");
     config.setBody(reqDto);
@@ -1152,6 +1149,20 @@ public class ManagementClient extends BaseClient {
     config.setMethod("GET");
     String response = request(config);
     return deserialize(response, GetOtpSecretRespDto.class);
+  }
+
+  /**
+   * @summary 获取用户自定义加密的密码
+   * @description 此功能主要是用户在控制台配置加基于 RSA、SM2 等加密的密钥后，加密用户的密码。
+   **/
+  public GetUserPasswordCiphertextRespDto getUserPasswordCiphertext(
+      GetUserPasswordCiphertextDto reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/get-user-password-ciphertext");
+    config.setBody(reqDto);
+    config.setMethod("POST");
+    String response = request(config);
+    return deserialize(response, GetUserPasswordCiphertextRespDto.class);
   }
 
   /**
@@ -2406,6 +2417,61 @@ public class ManagementClient extends BaseClient {
     return deserialize(response, ApplicationSingleRespDto.class);
   }
 
+  /**
+   * @summary 主体授权详情
+   * @description 主体授权详情
+   **/
+  public GetSubjectAuthRespDto detailAuthSubject(GetSubjectAuthDetailDto reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/get-subject-auth-detail");
+    config.setBody(reqDto);
+    config.setMethod("GET");
+    String response = request(config);
+    return deserialize(response, GetSubjectAuthRespDto.class);
+  }
+
+  /**
+   * @summary 主体授权列表
+   * @description 主体授权列表
+   **/
+  public ListApplicationSubjectRespDto listAuthSubject(ListAuthSubjectDto reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/list-subject-auth");
+    config.setBody(reqDto);
+    config.setMethod("POST");
+    String response = request(config);
+    return deserialize(response, ListApplicationSubjectRespDto.class);
+  }
+
+  /**
+   * @summary 应用授权列表
+   * @description 应用授权列表
+   **/
+  public ListApplicationAuthPaginatedRespDto listAuthApplication(ListApplicationAuthDto reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/list-applications-auth");
+    config.setBody(reqDto);
+    config.setMethod("POST");
+    String response = request(config);
+    return deserialize(response, ListApplicationAuthPaginatedRespDto.class);
+  }
+
+  /**
+   * @summary 更新授权开关
+   * @description 更新授权开关
+   **/
+  public IsSuccessRespDto enabledAuth(UpdateAuthEnabledDto reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/update-auth-enabled");
+    config.setBody(reqDto);
+    config.setMethod("POST");
+    String response = request(config);
+    return deserialize(response, IsSuccessRespDto.class);
+  }
+  /**
+   * @summary 批量删除应用授权
+   * @description 批量删除应用授权
+   **/
   /**
    * @summary 获取应用列表
    * @description 获取应用列表
@@ -4417,6 +4483,7 @@ public class ManagementClient extends BaseClient {
     String response = request(config);
     return deserialize(response, PubEventRespDto.class);
   }
+
 
   /**
    * @summary 获取推送登录请求关联的客户端应用

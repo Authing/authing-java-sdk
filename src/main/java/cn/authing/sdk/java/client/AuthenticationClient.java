@@ -1592,13 +1592,14 @@ public class AuthenticationClient extends BaseClient {
    * @summary 获取微信小程序、公众号 Access Token
    * @description 获取 Authing 服务器缓存的微信小程序、公众号 Access Token
    **/
-  public GetWechatAccessTokenRespDto getWechatMpAccessToken(GetWechatAccessTokenDto reqDto) {
+  public GetWechatAccessTokenInfoRespDto getWechatMpAccessTokenInfo(
+      GetWechatAccessTokenDto reqDto) {
     AuthingRequestConfig config = new AuthingRequestConfig();
-    config.setUrl("/api/v3/get-wechat-access-token");
+    config.setUrl("/api/v3/get-wechat-access-token-info");
     config.setBody(reqDto);
     config.setMethod("POST");
     String response = request(config);
-    return deserialize(response, GetWechatAccessTokenRespDto.class);
+    return deserialize(response, GetWechatAccessTokenInfoRespDto.class);
   }
 
   /**
@@ -2256,6 +2257,18 @@ public class AuthenticationClient extends BaseClient {
     config.setMethod("POST");
     String response = request(config);
     return deserialize(response, PreCheckCodeRespDto.class);
+  }
+
+  /**
+   *
+   **/
+  public GetWechatAccessTokenRespDto getWechatMpAccessToken(GetWechatAccessTokenDto reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/get-wechat-access-token");
+    config.setBody(reqDto);
+    config.setMethod("POST");
+    String response = request(config);
+    return deserialize(response, GetWechatAccessTokenRespDto.class);
   }
 
   /**

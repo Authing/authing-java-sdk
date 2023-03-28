@@ -14,7 +14,7 @@ public class GetWechatAccessTokenDataDto {
      * Access Token 到期时间，为单位为秒的时间戳
      */
     @JsonProperty("expiresAt")
-    private Integer expiresAt;
+    private String expiresAt;
 
     public String getAccessToken() {
         return accessToken;
@@ -23,10 +23,10 @@ public class GetWechatAccessTokenDataDto {
         this.accessToken = accessToken;
     }
 
-    public Integer getExpiresAt() {
+    public String getExpiresAt() {
         return expiresAt;
     }
-    public void setExpiresAt(Integer expiresAt) {
+    public void setExpiresAt(String expiresAt) {
         this.expiresAt = expiresAt;
     }
 

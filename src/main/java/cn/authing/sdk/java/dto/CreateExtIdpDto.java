@@ -1,6 +1,6 @@
 package cn.authing.sdk.java.dto;
 
-import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
@@ -46,7 +46,7 @@ public class CreateExtIdpDto {
     /**
      * 身份源连接类型
      */
-    public static enum Type {
+    public enum Type {
 
         @JsonProperty("oidc")
         OIDC("oidc"),
@@ -143,6 +143,12 @@ public class CreateExtIdpDto {
 
         @JsonProperty("aws")
         AWS("aws"),
+
+        @JsonProperty("douyin")
+        DOUYIN("douyin"),
+
+        @JsonProperty("kuaishou")
+        KUAISHOU("kuaishou"),
         ;
 
         private String value;
