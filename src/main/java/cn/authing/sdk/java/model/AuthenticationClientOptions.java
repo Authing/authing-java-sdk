@@ -26,7 +26,7 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
      */
     private String appHost;
 
-    private String webSocketHost = "wss://events.authing.com";
+    private String webSocketHost = "wss://openevent.authing.cn";
     private String webSocketEndpoint = "/events/v1/authentication/sub";
 
     /**

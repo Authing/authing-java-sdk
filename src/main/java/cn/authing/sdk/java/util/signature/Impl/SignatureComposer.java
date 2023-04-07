@@ -92,6 +92,8 @@ public class SignatureComposer implements ISignatureComposer {
 
     private String signString(String stringToSign, String accessKeySecret) {
         try {
+            // System.out.println("stringToSign:"+stringToSign);
+            // System.out.println("accessKeySecret:"+accessKeySecret);
             Mac mac = Mac.getInstance(ALGORITHM_NAME);
             mac.init(new SecretKeySpec(accessKeySecret.getBytes(ENCODING), ALGORITHM_NAME));
             byte[] signData = mac.doFinal(stringToSign.getBytes(ENCODING));

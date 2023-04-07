@@ -16,9 +16,8 @@ public class EventSubTest {
 
     public static void main(String[] args) {
         ManagementClientOptions clientOptions = new ManagementClientOptions();
-        clientOptions.setAccessKeyId("59f86b4832eb28071bdd9214");
-        clientOptions.setAccessKeySecret("821b67f2474e92cdbed18615e13c2f0c");
-        //clientOptions.setWssHost("wss://events.hydra.authing-inc.co");
+        clientOptions.setAccessKeyId(ACCESS_KEY_ID);
+        clientOptions.setAccessKeySecret(ACCESS_KEY_SECRET);
         clientOptions.setWebsocketHost("ws://192.168.0.145:8866");
 
         ManagementClient client = new ManagementClient(clientOptions);

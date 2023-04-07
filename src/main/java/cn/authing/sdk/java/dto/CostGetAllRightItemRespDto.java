@@ -67,6 +67,14 @@ public class CostGetAllRightItemRespDto {
         this.data = data;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "CostGetAllRightItemRespDto{" +
+                "statusCode=" + statusCode +
+                ", message='" + message + '\'' +
+                ", apiCode=" + apiCode +
+                ", requestId='" + requestId + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }
