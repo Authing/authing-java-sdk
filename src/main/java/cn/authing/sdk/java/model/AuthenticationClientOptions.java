@@ -11,6 +11,26 @@ import java.util.*;
  * @author ZKB
  */
 public class AuthenticationClientOptions extends AuthingClientOptions {
+
+    private String webSocketHost = "wss://openevent.authing.cn";
+    private String webSocketEndpoint = "/events/v1/authentication/sub";
+
+    public String getWebSocketHost() {
+        return webSocketHost;
+    }
+
+    public void setWebSocketHost(String webSocketHost) {
+        this.webSocketHost = webSocketHost;
+    }
+
+    public String getWebSocketEndpoint() {
+        return webSocketEndpoint;
+    }
+
+    public void setWebSocketEndpoint(String webSocketEndpoint) {
+        this.webSocketEndpoint = webSocketEndpoint;
+    }
+
     /**
      * Authing 应用 ID，必填。
      */
