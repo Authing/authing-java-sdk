@@ -1,10 +1,18 @@
 package cn.authing.sdk.java.client;
 
+import cn.authing.sdk.java.model.AuthingWebsocketClient;
+import cn.authing.sdk.java.model.Receiver;
+import cn.authing.sdk.java.util.signature.Impl.SignatureComposer;
+import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.StrUtil;
 import cn.authing.sdk.java.dto.*;
 
 import cn.authing.sdk.java.model.AuthingRequestConfig;
 import cn.authing.sdk.java.model.ManagementClientOptions;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.HashMap;
 
 
 public class ManagementClient extends BaseClient {
@@ -4823,5 +4831,47 @@ public class ManagementClient extends BaseClient {
     String response = request(config);
     return deserialize(response, IsSuccessRespDto.class);
   }
+
+
+    @Override
+    public void subEvent(String eventCode, Receiver receiver) {
+        if (StrUtil.isBlank(eventCode)) {
+            throw new IllegalArgumentException("eventCode is required");
+        }
+        if (receiver == null) {
+            throw new IllegalArgumentException("receiver is required");
+        }
+        ManagementClientOptions options = (ManagementClientOptions) this.options;
+        String eventUri = options.getWebsocketHost()+options.getWebsocketEndpoint()+"?code="+eventCode;
+        URI wssUri = null;
+        try {
+            wssUri = new URI(eventUri);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+        // System.out.println("eventUri:"+eventUri);
+        SignatureComposer signatureComposer = new SignatureComposer();
+        HashMap<String,String> query = new HashMap<String, String>();
+        String signa = signatureComposer.composeStringToSign("websocket","",query,query);
+        // String signa = signatureComposer.composeStringToSign("websocket",eventUri,query,query); // server 端验证不用传 uri
+        // System.out.println("signa:"+signa);
+        String authorization = signatureComposer.getAuthorization(options.getAccessKeyId(),options.getAccessKeySecret(),signa);
+        // System.out.println(authorization);
+        HashMap<String,String> headers = new HashMap();
+        headers.put("Authorization",authorization);
+        AuthingWebsocketClient client = new AuthingWebsocketClient(wssUri,headers,receiver);
+        client.connect();
+    }
+
+    public CostGetAllRightItemRespDto pubtEvent(String eventCode,Object data){
+        Assert.notNull(eventCode);
+        Assert.notNull(data);
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/pub-event");
+        config.setBody(new EventDto(eventCode,data));
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, CostGetAllRightItemRespDto.class);
+    }
 
 }

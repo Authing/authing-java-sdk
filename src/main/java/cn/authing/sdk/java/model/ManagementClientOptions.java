@@ -19,6 +19,25 @@ import java.util.*;
 
 public class ManagementClientOptions extends AuthingClientOptions {
 
+    private String websocketHost = "wss://openevent.authing.cn";
+    private String websocketEndpoint = "/events/v1/management/sub";
+
+    public String getWebsocketHost() {
+        return websocketHost;
+    }
+
+    public void setWebsocketHost(String websocketHost) {
+        this.websocketHost = websocketHost;
+    }
+
+    public String getWebsocketEndpoint() {
+        return websocketEndpoint;
+    }
+
+    public void setWebsocketEndpoint(String websocketEndpoint) {
+        this.websocketEndpoint = websocketEndpoint;
+    }
+
     /**
      * 用户池 ID
      **/
