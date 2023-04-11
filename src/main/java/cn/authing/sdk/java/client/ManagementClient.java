@@ -1203,7 +1203,7 @@ public class ManagementClient extends BaseClient {
    * @summary 设置用户 MFA 状态
    * @description 设置用户 MFA 状态，即 MFA 触发数据。
    **/
-  public IsSuccessRespDto setUsersMfaStatus(GetMfaStatusDto reqDto) {
+  public IsSuccessRespDto setUsersMfaStatus(SetMfaStatusDto reqDto) {
     AuthingRequestConfig config = new AuthingRequestConfig();
     config.setUrl("/api/v3/set-mfa-status");
     config.setBody(reqDto);
