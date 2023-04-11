@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.SignInByAlipayPayloadDto;
+import cn.authing.sdk.java.dto.SignInByAmazonPayloadDto;
 import cn.authing.sdk.java.dto.SignInByApplePayloadDto;
 import cn.authing.sdk.java.dto.SignInByBaiduPayloadDto;
 import cn.authing.sdk.java.dto.SignInByDingTalkPayloadDto;
@@ -13,12 +14,16 @@ import cn.authing.sdk.java.dto.SignInByGiteePayloadDto;
 import cn.authing.sdk.java.dto.SignInByGithubPayloadDto;
 import cn.authing.sdk.java.dto.SignInByGitlabPayloadDto;
 import cn.authing.sdk.java.dto.SignInByGooglePayloadDto;
+import cn.authing.sdk.java.dto.SignInByHuaweiPayloadDto;
 import cn.authing.sdk.java.dto.SignInByKuaishouPayloadDto;
 import cn.authing.sdk.java.dto.SignInByLarkInternalPayloadDto;
 import cn.authing.sdk.java.dto.SignInByLarkPublicPayloadDto;
+import cn.authing.sdk.java.dto.SignInByLinePayloadDto;
 import cn.authing.sdk.java.dto.SignInByLinkedInPayloadDto;
 import cn.authing.sdk.java.dto.SignInByMobileOptionsDto;
+import cn.authing.sdk.java.dto.SignInByOPPOPayloadDto;
 import cn.authing.sdk.java.dto.SignInByQQPayloadDto;
+import cn.authing.sdk.java.dto.SignInBySlackPayloadDto;
 import cn.authing.sdk.java.dto.SignInByWechatMiniProgramCodeAndPhonePayloadDto;
 import cn.authing.sdk.java.dto.SignInByWechatMiniProgramCodePayloadDto;
 import cn.authing.sdk.java.dto.SignInByWechatMiniProgramPhonePayloadDto;
@@ -61,6 +66,11 @@ public class SigninByMobileDto {
      * - `douyin`: 抖音移动端社会化登录
      * - `kuaishou`: 快手移动端社会化登录
      * - `xiaomi`: 小米移动端社会化登录
+     * - `line`: LINE 移动端社会化登录
+     * - `slack`: Slack 移动端社会化登录
+     * - `oppo`: OPPO 移动端社会化登录
+     * - `huawei`: 华为移动端社会化登录
+     * - `amazon`: 亚马逊移动端社会化登录
      *
      */
     @JsonProperty("connection")
@@ -185,6 +195,31 @@ public class SigninByMobileDto {
      */
     @JsonProperty("xiaomiPayload")
     private SignInByXiaomiPayloadDto xiaomiPayload;
+    /**
+     * LINE 移动端社会化登录数据，当 `connection` 为 `line` 的时候必填。
+     */
+    @JsonProperty("linePayload")
+    private SignInByLinePayloadDto linePayload;
+    /**
+     * Slack 移动端社会化登录数据，当 `connection` 为 `slack` 的时候必填。
+     */
+    @JsonProperty("slackPayload")
+    private SignInBySlackPayloadDto slackPayload;
+    /**
+     * OPPO 移动端社会化登录数据，当 `connection` 为 `oppo` 的时候必填。
+     */
+    @JsonProperty("oppoPayload")
+    private SignInByOPPOPayloadDto oppoPayload;
+    /**
+     * 华为移动端社会化登录数据，当 `connection` 为 `huawei` 的时候必填。
+     */
+    @JsonProperty("huaweiPayload")
+    private SignInByHuaweiPayloadDto huaweiPayload;
+    /**
+     * 亚马逊移动端社会化登录数据，当 `connection` 为 `amazon` 的时候必填。
+     */
+    @JsonProperty("amazonPayload")
+    private SignInByAmazonPayloadDto amazonPayload;
     /**
      * 可选参数
      */
@@ -383,6 +418,41 @@ public class SigninByMobileDto {
         this.xiaomiPayload = xiaomiPayload;
     }
 
+    public SignInByLinePayloadDto getLinePayload() {
+        return linePayload;
+    }
+    public void setLinePayload(SignInByLinePayloadDto linePayload) {
+        this.linePayload = linePayload;
+    }
+
+    public SignInBySlackPayloadDto getSlackPayload() {
+        return slackPayload;
+    }
+    public void setSlackPayload(SignInBySlackPayloadDto slackPayload) {
+        this.slackPayload = slackPayload;
+    }
+
+    public SignInByOPPOPayloadDto getOppoPayload() {
+        return oppoPayload;
+    }
+    public void setOppoPayload(SignInByOPPOPayloadDto oppoPayload) {
+        this.oppoPayload = oppoPayload;
+    }
+
+    public SignInByHuaweiPayloadDto getHuaweiPayload() {
+        return huaweiPayload;
+    }
+    public void setHuaweiPayload(SignInByHuaweiPayloadDto huaweiPayload) {
+        this.huaweiPayload = huaweiPayload;
+    }
+
+    public SignInByAmazonPayloadDto getAmazonPayload() {
+        return amazonPayload;
+    }
+    public void setAmazonPayload(SignInByAmazonPayloadDto amazonPayload) {
+        this.amazonPayload = amazonPayload;
+    }
+
     public SignInByMobileOptionsDto getOptions() {
         return options;
     }
@@ -431,6 +501,11 @@ public class SigninByMobileDto {
      * - `douyin`: 抖音移动端社会化登录
      * - `kuaishou`: 快手移动端社会化登录
      * - `xiaomi`: 小米移动端社会化登录
+     * - `line`: LINE 移动端社会化登录
+     * - `slack`: Slack 移动端社会化登录
+     * - `oppo`: OPPO 移动端社会化登录
+     * - `huawei`: 华为移动端社会化登录
+     * - `amazon`: 亚马逊移动端社会化登录
      *
      */
     public static enum Connection {
@@ -506,6 +581,21 @@ public class SigninByMobileDto {
 
         @JsonProperty("xiaomi")
         XIAOMI("xiaomi"),
+
+        @JsonProperty("line")
+        LINE("line"),
+
+        @JsonProperty("slack")
+        SLACK("slack"),
+
+        @JsonProperty("oppo")
+        OPPO("oppo"),
+
+        @JsonProperty("huawei")
+        HUAWEI("huawei"),
+
+        @JsonProperty("amazon")
+        AMAZON("amazon"),
         ;
 
         private String value;

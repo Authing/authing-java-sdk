@@ -213,14 +213,23 @@ public class ApplicationEnabledExtIdpConnDto {
         @JsonProperty("xiaomi")
         XIAOMI("xiaomi"),
 
+        @JsonProperty("oppo")
+        OPPO("oppo"),
+
         @JsonProperty("aws")
         AWS("aws"),
+
+        @JsonProperty("amazon")
+        AMAZON("amazon"),
 
         @JsonProperty("douyin")
         DOUYIN("douyin"),
 
         @JsonProperty("kuaishou")
         KUAISHOU("kuaishou"),
+
+        @JsonProperty("line")
+        LINE("line"),
         ;
 
         private String value;
@@ -374,6 +383,9 @@ public class ApplicationEnabledExtIdpConnDto {
         @JsonProperty("slack")
         SLACK("slack"),
 
+        @JsonProperty("slack:mobile")
+        SLACK_MOBILE("slack:mobile"),
+
         @JsonProperty("yidun")
         YIDUN("yidun"),
 
@@ -398,6 +410,9 @@ public class ApplicationEnabledExtIdpConnDto {
         @JsonProperty("huawei")
         HUAWEI("huawei"),
 
+        @JsonProperty("huawei:mobile")
+        HUAWEI_MOBILE("huawei:mobile"),
+
         @JsonProperty("honor")
         HONOR("honor"),
 
@@ -410,11 +425,23 @@ public class ApplicationEnabledExtIdpConnDto {
         @JsonProperty("aws")
         AWS("aws"),
 
+        @JsonProperty("amazon")
+        AMAZON("amazon"),
+
+        @JsonProperty("amazon:mobile")
+        AMAZON_MOBILE("amazon:mobile"),
+
         @JsonProperty("douyin:mobile")
         DOUYIN_MOBILE("douyin:mobile"),
 
         @JsonProperty("kuaishou:mobile")
         KUAISHOU_MOBILE("kuaishou:mobile"),
+
+        @JsonProperty("line:mobile")
+        LINE_MOBILE("line:mobile"),
+
+        @JsonProperty("oppo:mobile")
+        OPPO_MOBILE("oppo:mobile"),
         ;
 
         private String value;

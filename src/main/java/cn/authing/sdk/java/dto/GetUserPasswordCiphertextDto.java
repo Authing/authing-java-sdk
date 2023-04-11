@@ -49,7 +49,7 @@ public class GetUserPasswordCiphertextDto {
      * 示例值：`62f20932716fbcc10d966ee5:ou_8bae746eac07cd2564654140d2a9ac61`。
      *
      */
-    public enum UserIdType {
+    public static enum UserIdType {
 
         @JsonProperty("user_id")
         USER_ID("user_id"),
