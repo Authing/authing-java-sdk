@@ -2337,6 +2337,19 @@ public class AuthenticationClient extends BaseClient {
   }
 
   /**
+   * @summary 验证 MFA Token
+   * @description 验证 MFA Token
+   **/
+  public MfaTokenIntrospectResponse verifyMfaToken(MfaTokenIntrospectEndpointParams reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/mfa/token/introspection");
+    config.setBody(reqDto);
+    config.setMethod("POST");
+    String response = request(config);
+    return deserialize(response, MfaTokenIntrospectResponse.class);
+  }
+
+  /**
    * @summary 发起绑定 MFA 认证要素请求
    * @description 当用户未绑定某个 MFA 认证要素时，可以发起绑定 MFA 认证要素请求。不同类型的 MFA 认证要素绑定请求需要发送不同的参数，详细见 profile
    * 参数。发起验证请求之后，Authing 服务器会根据相应的认证要素类型和传递的参数，使用不同的手段要求验证。此接口会返回 enrollmentToken，你需要在请求「绑定 MFA
@@ -2429,40 +2442,40 @@ public class AuthenticationClient extends BaseClient {
     return deserialize(response, MfaOtpVerityRespDto.class);
   }
 
-// ==== AUTO GENERATED AUTHENTICATION METHODS END ====
-    @Override
-    public void subEvent(String eventCode, Receiver receiver) {
-        if (StrUtil.isBlank(eventCode)) {
-            throw new IllegalArgumentException("eventCode is required");
-        }
-        if (receiver == null) {
-            throw new IllegalArgumentException("receiver is required");
-        }
-        Assert.notNull(this.options.getAccessToken());
-        AuthenticationClientOptions options = (AuthenticationClientOptions) this.options;
-        String eventUri = options.getWebSocketHost()+options.getWebSocketEndpoint()
-                +"?code="+eventCode
-                +"&token="+this.options.getAccessToken();
-        URI wssUri = null;
-        try {
-            wssUri = new URI(eventUri);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-        HashMap<String,String> headers = new HashMap();
-        AuthingWebsocketClient client = new AuthingWebsocketClient(wssUri,headers,receiver);
-        client.connect();
+  // ==== AUTO GENERATED AUTHENTICATION METHODS END ====
+  @Override
+  public void subEvent(String eventCode, Receiver receiver) {
+    if (StrUtil.isBlank(eventCode)) {
+      throw new IllegalArgumentException("eventCode is required");
     }
+    if (receiver == null) {
+      throw new IllegalArgumentException("receiver is required");
+    }
+    Assert.notNull(this.options.getAccessToken());
+    AuthenticationClientOptions options = (AuthenticationClientOptions) this.options;
+    String eventUri = options.getWebSocketHost() + options.getWebSocketEndpoint()
+        + "?code=" + eventCode
+        + "&token=" + this.options.getAccessToken();
+    URI wssUri = null;
+    try {
+      wssUri = new URI(eventUri);
+    } catch (URISyntaxException e) {
+      throw new RuntimeException(e);
+    }
+    HashMap<String, String> headers = new HashMap();
+    AuthingWebsocketClient client = new AuthingWebsocketClient(wssUri, headers, receiver);
+    client.connect();
+  }
 
-    public CommonResponseDto pubtEvent(String eventCode,Object data){
-        Assert.notNull(eventCode);
-        Assert.notNull(data);
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/pub-userEvent");
-        config.setBody(new EventDto(eventCode,data));
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, CommonResponseDto.class);
-    }
+  public CommonResponseDto pubtEvent(String eventCode, Object data) {
+    Assert.notNull(eventCode);
+    Assert.notNull(data);
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/pub-userEvent");
+    config.setBody(new EventDto(eventCode, data));
+    config.setMethod("POST");
+    String response = request(config);
+    return deserialize(response, CommonResponseDto.class);
+  }
 
 }
