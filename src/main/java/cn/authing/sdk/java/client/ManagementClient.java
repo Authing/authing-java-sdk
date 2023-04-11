@@ -1200,6 +1200,32 @@ public class ManagementClient extends BaseClient {
   }
 
   /**
+   * @summary 设置用户 MFA 状态
+   * @description 设置用户 MFA 状态，即 MFA 触发数据。
+   **/
+  public IsSuccessRespDto setUsersMfaStatus(GetMfaStatusDto reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/set-mfa-status");
+    config.setBody(reqDto);
+    config.setMethod("POST");
+    String response = request(config);
+    return deserialize(response, IsSuccessRespDto.class);
+  }
+
+  /**
+   * @summary 获取用户 MFA 状态
+   * @description 获取用户 MFA 状态，即 MFA 触发数据。
+   **/
+  public GetMapInfoRespDto getUserMfaStatus(GetMfaStatusDto reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/get-mfa-status");
+    config.setBody(reqDto);
+    config.setMethod("GET");
+    String response = request(config);
+    return deserialize(response, GetMapInfoRespDto.class);
+  }
+
+  /**
    * @summary 获取组织机构详情
    * @description 获取组织机构详情
    **/
