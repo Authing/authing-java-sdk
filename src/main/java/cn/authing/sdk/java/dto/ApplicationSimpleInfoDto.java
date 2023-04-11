@@ -108,6 +108,9 @@ public class ApplicationSimpleInfoDto {
         @JsonProperty("api")
         API("api"),
 
+        @JsonProperty("mfa")
+        MFA("mfa"),
+
         @JsonProperty("mini-program")
         MINI_PROGRAM("mini-program"),
         ;

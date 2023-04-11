@@ -255,6 +255,9 @@ public class ExtIdpConnDetail {
         @JsonProperty("slack")
         SLACK("slack"),
 
+        @JsonProperty("slack:mobile")
+        SLACK_MOBILE("slack:mobile"),
+
         @JsonProperty("yidun")
         YIDUN("yidun"),
 
@@ -279,6 +282,9 @@ public class ExtIdpConnDetail {
         @JsonProperty("huawei")
         HUAWEI("huawei"),
 
+        @JsonProperty("huawei:mobile")
+        HUAWEI_MOBILE("huawei:mobile"),
+
         @JsonProperty("honor")
         HONOR("honor"),
 
@@ -291,11 +297,23 @@ public class ExtIdpConnDetail {
         @JsonProperty("aws")
         AWS("aws"),
 
+        @JsonProperty("amazon")
+        AMAZON("amazon"),
+
+        @JsonProperty("amazon:mobile")
+        AMAZON_MOBILE("amazon:mobile"),
+
         @JsonProperty("douyin:mobile")
         DOUYIN_MOBILE("douyin:mobile"),
 
         @JsonProperty("kuaishou:mobile")
         KUAISHOU_MOBILE("kuaishou:mobile"),
+
+        @JsonProperty("line:mobile")
+        LINE_MOBILE("line:mobile"),
+
+        @JsonProperty("oppo:mobile")
+        OPPO_MOBILE("oppo:mobile"),
         ;
 
         private String value;

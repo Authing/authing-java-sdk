@@ -1,11 +1,18 @@
 package cn.authing.sdk.java.dto;
 
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import cn.authing.sdk.java.dto.GetMfaInfoDataDto;
 
-public class GetUserPasswordCiphertextDto {
+public class SetMfaStatusDto {
     /**
-     * 用户 ID
+     * MFA Factor 列表
+     */
+    @JsonProperty("mfaTriggerData")
+    private GetMfaInfoDataDto mfaTriggerData;
+    /**
+     * 用户唯一标志，可以是用户 ID、用户名、邮箱、手机号、外部 ID、在外部身份源的 ID。
      */
     @JsonProperty("userId")
     private String userId;
@@ -22,6 +29,13 @@ public class GetUserPasswordCiphertextDto {
      */
     @JsonProperty("userIdType")
     private UserIdType userIdType;
+
+    public GetMfaInfoDataDto getMfaTriggerData() {
+        return mfaTriggerData;
+    }
+    public void setMfaTriggerData(GetMfaInfoDataDto mfaTriggerData) {
+        this.mfaTriggerData = mfaTriggerData;
+    }
 
     public String getUserId() {
         return userId;

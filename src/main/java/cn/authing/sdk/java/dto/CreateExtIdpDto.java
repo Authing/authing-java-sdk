@@ -141,14 +141,23 @@ public class CreateExtIdpDto {
         @JsonProperty("xiaomi")
         XIAOMI("xiaomi"),
 
+        @JsonProperty("oppo")
+        OPPO("oppo"),
+
         @JsonProperty("aws")
         AWS("aws"),
+
+        @JsonProperty("amazon")
+        AMAZON("amazon"),
 
         @JsonProperty("douyin")
         DOUYIN("douyin"),
 
         @JsonProperty("kuaishou")
         KUAISHOU("kuaishou"),
+
+        @JsonProperty("line")
+        LINE("line"),
         ;
 
         private String value;

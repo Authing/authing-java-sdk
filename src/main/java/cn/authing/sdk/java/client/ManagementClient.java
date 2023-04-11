@@ -1174,6 +1174,58 @@ public class ManagementClient extends BaseClient {
   }
 
   /**
+   * @summary 给用户绑定一个身份信息
+   * @description 用户池管理员手动将来自外部身份源的身份信息绑定到用户上。绑定完成后，可以用执行过绑定操作的身份源登录到对应的 Authing 用户。
+   **/
+  public Object linkIdentity(LinkIdentity reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/link-identity");
+    config.setBody(reqDto);
+    config.setMethod("POST");
+    String response = request(config);
+    return deserialize(response, Object.class);
+  }
+
+  /**
+   * @summary 解除绑定用户在身份源下的所有身份信息
+   * @description 解除绑定用户在某个身份源下的所有身份信息。解绑后，将无法使用执行过解绑操作的身份源登录到对应的 Authing 用户，除非重新绑定身份信息。
+   **/
+  public Object unlinkIdentity(UnlinkIdentity reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/unlink-identity");
+    config.setBody(reqDto);
+    config.setMethod("POST");
+    String response = request(config);
+    return deserialize(response, Object.class);
+  }
+
+  /**
+   * @summary 设置用户 MFA 状态
+   * @description 设置用户 MFA 状态，即 MFA 触发数据。
+   **/
+  public IsSuccessRespDto setUsersMfaStatus(SetMfaStatusDto reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/set-mfa-status");
+    config.setBody(reqDto);
+    config.setMethod("POST");
+    String response = request(config);
+    return deserialize(response, IsSuccessRespDto.class);
+  }
+
+  /**
+   * @summary 获取用户 MFA 状态
+   * @description 获取用户 MFA 状态，即 MFA 触发数据。
+   **/
+  public GetMapInfoRespDto getUserMfaStatus(GetMfaStatusDto reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/get-mfa-status");
+    config.setBody(reqDto);
+    config.setMethod("GET");
+    String response = request(config);
+    return deserialize(response, GetMapInfoRespDto.class);
+  }
+
+  /**
    * @summary 获取组织机构详情
    * @description 获取组织机构详情
    **/
@@ -2719,6 +2771,32 @@ public class ManagementClient extends BaseClient {
     config.setMethod("POST");
     String response = request(config);
     return deserialize(response, IsSuccessRespDto.class);
+  }
+
+  /**
+   * @summary 修改应用多因素认证配置
+   * @description 传入 MFA 认证因素列表进行开启或关闭
+   **/
+  public MFASettingsRespDto updateApplicationMfaSettings(UpdateApplicationMfaSettingsDto reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/update-application-mfa-settings");
+    config.setBody(reqDto);
+    config.setMethod("POST");
+    String response = request(config);
+    return deserialize(response, MFASettingsRespDto.class);
+  }
+
+  /**
+   * @summary 获取应用下用户 MFA 触发数据
+   * @description 获取应用下用户 MFA 触发数据。
+   **/
+  public GetMapInfoRespDto getMfaTriggerData(GetMfaTriggerDataDto reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/get-mfa-trigger-data");
+    config.setBody(reqDto);
+    config.setMethod("GET");
+    String response = request(config);
+    return deserialize(response, GetMapInfoRespDto.class);
   }
 
   /**
