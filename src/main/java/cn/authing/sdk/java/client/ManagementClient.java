@@ -844,7 +844,7 @@ public class ManagementClient extends BaseClient {
   }
 
   /**
-   * @summary 删除用户
+   * @summary 批量删除用户
    * @description 通过用户 ID 列表，删除用户，支持批量删除，可以选择指定用户 ID 类型等。
    **/
   public IsSuccessRespDto deleteUsersBatch(DeleteUsersBatchDto reqDto) {
@@ -1223,6 +1223,19 @@ public class ManagementClient extends BaseClient {
     config.setMethod("GET");
     String response = request(config);
     return deserialize(response, GetMapInfoRespDto.class);
+  }
+
+  /**
+   * @summary 获取用户绑定的第三方同步关系
+   * @description 如果在 Authing 中的用户进行了上下游同步，此接口可以用于查询出在第三方的关联用户信息
+   **/
+  public SyncRelationListRespDto getUserSyncRelations(GetUserSyncRelationsDto reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/get-user-sync-relations");
+    config.setBody(reqDto);
+    config.setMethod("GET");
+    String response = request(config);
+    return deserialize(response, SyncRelationListRespDto.class);
   }
 
   /**
@@ -2009,6 +2022,19 @@ public class ManagementClient extends BaseClient {
   }
 
   /**
+   * @summary 获取用户内置字段列表
+   * @description 获取用户内置的字段列表
+   **/
+  public ListCistomFieldsResDto listUserBaseFields(ListUserBaseFieldsDto reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/list-user-base-fields");
+    config.setBody(reqDto);
+    config.setMethod("GET");
+    String response = request(config);
+    return deserialize(response, ListCistomFieldsResDto.class);
+  }
+
+  /**
    * @summary 修改用户内置字段配置
    * @description 修改用户内置字段配置，内置字段不允许修改数据类型、唯一性。
    **/
@@ -2035,6 +2061,19 @@ public class ManagementClient extends BaseClient {
   }
 
   /**
+   * @summary 获取自定义字段列表
+   * @description 通过主体类型，获取用户、部门或角色的自定义字段列表。
+   **/
+  public ListCistomFieldsResDto listCustFields(ListCustomFieldsDto reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/list-custom-fields");
+    config.setBody(reqDto);
+    config.setMethod("GET");
+    String response = request(config);
+    return deserialize(response, ListCistomFieldsResDto.class);
+  }
+
+  /**
    * @summary 创建/修改自定义字段定义
    * @description 创建/修改用户、部门或角色自定义字段定义，如果传入的 key 不存在则创建，存在则更新。
    **/
@@ -2045,6 +2084,19 @@ public class ManagementClient extends BaseClient {
     config.setMethod("POST");
     String response = request(config);
     return deserialize(response, CustomFieldListRespDto.class);
+  }
+
+  /**
+   * @summary 删除自定义字段定义
+   * @description 删除用户、部门或角色自定义字段定义。
+   **/
+  public IsSuccessRespDto deleteCustomFields(DeleteCustomFieldsReqDto reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/delete-custom-fields");
+    config.setBody(reqDto);
+    config.setMethod("POST");
+    String response = request(config);
+    return deserialize(response, IsSuccessRespDto.class);
   }
 
   /**
@@ -2760,6 +2812,19 @@ public class ManagementClient extends BaseClient {
   }
 
   /**
+   * @summary 更新租户控制台扫码登录状态
+   * @description 更新租户控制台扫码登录状态
+   **/
+  public IsSuccessRespDto updateTenantQrCodeState(UpdateTenantAppqrcodeState reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/update-userpool-tenant-appqrcode-state");
+    config.setBody(reqDto);
+    config.setMethod("POST");
+    String response = request(config);
+    return deserialize(response, IsSuccessRespDto.class);
+  }
+
+  /**
    * @summary 设置用户池多租户身份源连接
    * @description 设置用户池多租户身份源连接，支持同时设置多个身份源连接，支持设置连接和取消连接
    **/
@@ -3059,6 +3124,19 @@ public class ManagementClient extends BaseClient {
     config.setMethod("GET");
     String response = request(config);
     return deserialize(response, TenantListPaginatedRespDto.class);
+  }
+
+  /**
+   * @summary 获取租户一点点的信息
+   * @description 根据租户 ID 获取租户一点点的详情
+   **/
+  public TenantSingleRespDto getTenantLittleInfo(GetTenantLittleInfoDto reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/get-tenant-little-info");
+    config.setBody(reqDto);
+    config.setMethod("GET");
+    String response = request(config);
+    return deserialize(response, TenantSingleRespDto.class);
   }
 
   /**
@@ -3362,6 +3440,19 @@ public class ManagementClient extends BaseClient {
     config.setMethod("POST");
     String response = request(config);
     return deserialize(response, CommonResponseDto.class);
+  }
+
+  /**
+   * @summary 获取租户详情
+   * @description 根据租户 Code 获取租户详情
+   **/
+  public TenantSingleRespDto getTenantByCode(GetTenantByCodeDto reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/get-tenant-by-code");
+    config.setBody(reqDto);
+    config.setMethod("GET");
+    String response = request(config);
+    return deserialize(response, TenantSingleRespDto.class);
   }
 
   /**
@@ -4843,6 +4934,97 @@ public class ManagementClient extends BaseClient {
     config.setMethod("GET");
     String response = request(config);
     return deserialize(response, WebhookEventListRespDto.class);
+  }
+
+  /**
+   * @summary 生成 LDAP Server 管理员密码
+   * @description 生成 LDAP Server 管理员密码
+   **/
+  public LdapGetBindPwdRespDto getBindPwd() {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/get-ldap-server-random-pwd");
+    config.setBody(new Object());
+    config.setMethod("GET");
+    String response = request(config);
+    return deserialize(response, LdapGetBindPwdRespDto.class);
+  }
+
+  /**
+   * @summary 获取 LDAP server 配置信息
+   * @description 获取 LDAP server 配置信息
+   **/
+  public LdapConfigInfoRespDto queryLdapConfigInfo() {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/get-ldap-server-config");
+    config.setBody(new Object());
+    config.setMethod("GET");
+    String response = request(config);
+    return deserialize(response, LdapConfigInfoRespDto.class);
+  }
+
+  /**
+   * @summary 更新 LDAP server 配置信息
+   * @description 更新 LDAP server 配置信息
+   **/
+  public LdapOperateRespDto updateLdapConfigInfo(LdapUpdateDto reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/update-ldap-server-config");
+    config.setBody(reqDto);
+    config.setMethod("POST");
+    String response = request(config);
+    return deserialize(response, LdapOperateRespDto.class);
+  }
+
+  /**
+   * @summary 初始化/重启 LDAP server
+   * @description 初始化/重启 LDAP server
+   **/
+  public LdapOperateRespDto saveLdapConfigInfo(LdapSaveDto reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/enable-ldap-server");
+    config.setBody(reqDto);
+    config.setMethod("POST");
+    String response = request(config);
+    return deserialize(response, LdapOperateRespDto.class);
+  }
+
+  /**
+   * @summary 关闭 LDAP server 服务，关闭前必须先初始化
+   * @description 关闭 LDAP server 服务，关闭前必须先初始化
+   **/
+  public LdapOperateRespDto disableLdapServer(LdapSetEnabledFlagDto reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/disable-ldap-server");
+    config.setBody(reqDto);
+    config.setMethod("POST");
+    String response = request(config);
+    return deserialize(response, LdapOperateRespDto.class);
+  }
+
+  /**
+   * @summary LDAP server 日志查询
+   * @description LDAP server 日志查询
+   **/
+  public LdapLogRespDto queryLdapLog(GetLdapServerLogDto reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/get-ldap-server-log");
+    config.setBody(reqDto);
+    config.setMethod("GET");
+    String response = request(config);
+    return deserialize(response, LdapLogRespDto.class);
+  }
+
+  /**
+   * @summary LDAP server 根据 DN 查询下一级
+   * @description LDAP server 根据 DN 查询下一级
+   **/
+  public LdapLogRespDto queryLdapSubEntries(GetLdapSubEntriesDto reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/get-ldap-sub-entries");
+    config.setBody(reqDto);
+    config.setMethod("GET");
+    String response = request(config);
+    return deserialize(response, LdapLogRespDto.class);
   }
 
   /**
