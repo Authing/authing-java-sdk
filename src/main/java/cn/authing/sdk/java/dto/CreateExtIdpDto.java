@@ -46,7 +46,7 @@ public class CreateExtIdpDto {
     /**
      * 身份源连接类型
      */
-    public enum Type {
+    public static enum Type {
 
         @JsonProperty("oidc")
         OIDC("oidc"),

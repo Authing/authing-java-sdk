@@ -30,6 +30,11 @@ public class PostItemDto {
      */
     @JsonProperty("departmentCount")
     private Integer departmentCount;
+    /**
+     * 岗位元数据信息
+     */
+    @JsonProperty("metadataSource")
+    private List<String> metadataSource;
 
     public String getCode() {
         return code;
@@ -64,6 +69,13 @@ public class PostItemDto {
     }
     public void setDepartmentCount(Integer departmentCount) {
         this.departmentCount = departmentCount;
+    }
+
+    public List<String> getMetadataSource() {
+        return metadataSource;
+    }
+    public void setMetadataSource(List<String> metadataSource) {
+        this.metadataSource = metadataSource;
     }
 
 

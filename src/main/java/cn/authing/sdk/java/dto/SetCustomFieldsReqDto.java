@@ -11,12 +11,24 @@ public class SetCustomFieldsReqDto {
      */
     @JsonProperty("list")
     private List<SetCustomFieldDto> list;
+    /**
+     * 租户 ID
+     */
+    @JsonProperty("tenantId")
+    private String tenantId;
 
     public List<SetCustomFieldDto> getList() {
         return list;
     }
     public void setList(List<SetCustomFieldDto> list) {
         this.list = list;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
     }
 
 

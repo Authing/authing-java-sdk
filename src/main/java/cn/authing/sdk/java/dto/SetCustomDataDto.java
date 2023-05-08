@@ -6,6 +6,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SetCustomDataDto {
     /**
+     * 租户 ID
+     */
+    @JsonProperty("tenantId")
+    private String tenantId;
+    /**
      * 字段 key，不能和内置字段的 key 冲突
      */
     @JsonProperty("key")
@@ -15,6 +20,13 @@ public class SetCustomDataDto {
      */
     @JsonProperty("value")
     private String value;
+
+    public String getTenantId() {
+        return tenantId;
+    }
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+    }
 
     public String getKey() {
         return key;

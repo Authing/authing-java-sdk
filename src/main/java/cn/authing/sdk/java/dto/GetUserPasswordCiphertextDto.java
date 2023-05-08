@@ -1,5 +1,6 @@
 package cn.authing.sdk.java.dto;
 
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
@@ -18,6 +19,8 @@ public class GetUserPasswordCiphertextDto {
      * - `external_id`: 用户在外部系统的 ID，对应 Authing 用户信息的 `externalId` 字段
      * - `identity`: 用户的外部身份源信息，格式为 `<extIdpId>:<userIdInIdp>`，其中 `<extIdpId>` 为 Authing 身份源的 ID，`<userIdInIdp>` 为用户在外部身份源的 ID。
      * 示例值：`62f20932716fbcc10d966ee5:ou_8bae746eac07cd2564654140d2a9ac61`。
+     * - `sync_relation`: 用户的外部身份源信息，格式为 `<provier>:<userIdInIdp>`，其中 `<provier>` 为同步身份源类型，如 wechatwork, lark；`<userIdInIdp>` 为用户在外部身份源的 ID。
+     * 示例值：`lark:ou_8bae746eac07cd2564654140d2a9ac61`。
      *
      */
     @JsonProperty("userIdType")
@@ -47,6 +50,8 @@ public class GetUserPasswordCiphertextDto {
      * - `external_id`: 用户在外部系统的 ID，对应 Authing 用户信息的 `externalId` 字段
      * - `identity`: 用户的外部身份源信息，格式为 `<extIdpId>:<userIdInIdp>`，其中 `<extIdpId>` 为 Authing 身份源的 ID，`<userIdInIdp>` 为用户在外部身份源的 ID。
      * 示例值：`62f20932716fbcc10d966ee5:ou_8bae746eac07cd2564654140d2a9ac61`。
+     * - `sync_relation`: 用户的外部身份源信息，格式为 `<provier>:<userIdInIdp>`，其中 `<provier>` 为同步身份源类型，如 wechatwork, lark；`<userIdInIdp>` 为用户在外部身份源的 ID。
+     * 示例值：`lark:ou_8bae746eac07cd2564654140d2a9ac61`。
      *
      */
     public static enum UserIdType {
@@ -68,6 +73,9 @@ public class GetUserPasswordCiphertextDto {
 
         @JsonProperty("identity")
         IDENTITY("identity"),
+
+        @JsonProperty("sync_relation")
+        SYNC_RELATION("sync_relation"),
         ;
 
         private String value;

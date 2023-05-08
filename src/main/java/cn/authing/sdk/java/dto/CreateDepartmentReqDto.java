@@ -22,6 +22,11 @@ public class CreateDepartmentReqDto {
     @JsonProperty("parentDepartmentId")
     private String parentDepartmentId;
     /**
+     * 元数据信息
+     */
+    @JsonProperty("metadata")
+    private Object metadata;
+    /**
      * 自定义部门 ID，用于存储自定义的 ID
      */
     @JsonProperty("openDepartmentId")
@@ -86,6 +91,13 @@ public class CreateDepartmentReqDto {
     }
     public void setParentDepartmentId(String parentDepartmentId) {
         this.parentDepartmentId = parentDepartmentId;
+    }
+
+    public Object getMetadata() {
+        return metadata;
+    }
+    public void setMetadata(Object metadata) {
+        this.metadata = metadata;
     }
 
     public String getOpenDepartmentId() {
@@ -162,6 +174,9 @@ public class CreateDepartmentReqDto {
 
         @JsonProperty("open_department_id")
         OPEN_DEPARTMENT_ID("open_department_id"),
+
+        @JsonProperty("sync_relation")
+        SYNC_RELATION("sync_relation"),
         ;
 
         private String value;

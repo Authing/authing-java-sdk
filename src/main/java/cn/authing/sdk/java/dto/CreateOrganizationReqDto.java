@@ -7,6 +7,11 @@ import cn.authing.sdk.java.dto.OrganizationNameI18nDto;
 
 public class CreateOrganizationReqDto {
     /**
+     * 元数据信息
+     */
+    @JsonProperty("metadata")
+    private Object metadata;
+    /**
      * 组织名称
      */
     @JsonProperty("organizationName")
@@ -41,6 +46,13 @@ public class CreateOrganizationReqDto {
      */
     @JsonProperty("postIdList")
     private String postIdList;
+
+    public Object getMetadata() {
+        return metadata;
+    }
+    public void setMetadata(Object metadata) {
+        this.metadata = metadata;
+    }
 
     public String getOrganizationName() {
         return organizationName;

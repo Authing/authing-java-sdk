@@ -32,6 +32,11 @@ public class SetCustomDataReqDto {
     @JsonProperty("targetType")
     private TargetType targetType;
     /**
+     * 租户 ID
+     */
+    @JsonProperty("tenantId")
+    private String tenantId;
+    /**
      * 所属权限分组的 code，当 target_type 为角色的时候需要填写，否则可以忽略
      */
     @JsonProperty("namespace")
@@ -56,6 +61,13 @@ public class SetCustomDataReqDto {
     }
     public void setTargetType(TargetType targetType) {
         this.targetType = targetType;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
     }
 
     public String getNamespace() {

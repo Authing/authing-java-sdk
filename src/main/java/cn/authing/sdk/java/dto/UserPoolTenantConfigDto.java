@@ -53,6 +53,36 @@ public class UserPoolTenantConfigDto {
     @JsonProperty("loadingBackground")
     private String loadingBackground;
     /**
+     * 是否允许创建租户
+     */
+    @JsonProperty("enableCreateTenant")
+    private Boolean enableCreateTenant;
+    /**
+     * 允许创建租户的场景
+     */
+    @JsonProperty("createTenantScenes")
+    private List<String> createTenantScenes;
+    /**
+     * 是否允许加入租户
+     */
+    @JsonProperty("enableJoinTenant")
+    private Boolean enableJoinTenant;
+    /**
+     * 允许创建加入的场景
+     */
+    @JsonProperty("joinTenantScenes")
+    private List<String> joinTenantScenes;
+    /**
+     * 是否校验企业域名
+     */
+    @JsonProperty("enableVerifyDomain")
+    private Boolean enableVerifyDomain;
+    /**
+     * 校验企业域名的场景
+     */
+    @JsonProperty("verifyDomainScenes")
+    private List<String> verifyDomainScenes;
+    /**
      * 页面自定义配置
      */
     @JsonProperty("ssoPageCustomizationSettings")
@@ -129,6 +159,48 @@ public class UserPoolTenantConfigDto {
     }
     public void setLoadingBackground(String loadingBackground) {
         this.loadingBackground = loadingBackground;
+    }
+
+    public Boolean getEnableCreateTenant() {
+        return enableCreateTenant;
+    }
+    public void setEnableCreateTenant(Boolean enableCreateTenant) {
+        this.enableCreateTenant = enableCreateTenant;
+    }
+
+    public List<String> getCreateTenantScenes() {
+        return createTenantScenes;
+    }
+    public void setCreateTenantScenes(List<String> createTenantScenes) {
+        this.createTenantScenes = createTenantScenes;
+    }
+
+    public Boolean getEnableJoinTenant() {
+        return enableJoinTenant;
+    }
+    public void setEnableJoinTenant(Boolean enableJoinTenant) {
+        this.enableJoinTenant = enableJoinTenant;
+    }
+
+    public List<String> getJoinTenantScenes() {
+        return joinTenantScenes;
+    }
+    public void setJoinTenantScenes(List<String> joinTenantScenes) {
+        this.joinTenantScenes = joinTenantScenes;
+    }
+
+    public Boolean getEnableVerifyDomain() {
+        return enableVerifyDomain;
+    }
+    public void setEnableVerifyDomain(Boolean enableVerifyDomain) {
+        this.enableVerifyDomain = enableVerifyDomain;
+    }
+
+    public List<String> getVerifyDomainScenes() {
+        return verifyDomainScenes;
+    }
+    public void setVerifyDomainScenes(List<String> verifyDomainScenes) {
+        this.verifyDomainScenes = verifyDomainScenes;
     }
 
     public ISsoPageCustomizationSettingsDto getSsoPageCustomizationSettings() {

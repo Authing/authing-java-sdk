@@ -51,6 +51,21 @@ public class TenantRespDto {
     @JsonProperty("sourceAppId")
     private String sourceAppId;
     /**
+     * 租户来源
+     */
+    @JsonProperty("source")
+    private String source;
+    /**
+     * 租户 Code
+     */
+    @JsonProperty("code")
+    private String code;
+    /**
+     * 租户配置的企业域名
+     */
+    @JsonProperty("enterpriseDomains")
+    private String enterpriseDomains;
+    /**
      * 创建者基本信息
      */
     @JsonProperty("creatorDetail")
@@ -122,6 +137,27 @@ public class TenantRespDto {
     }
     public void setSourceAppId(String sourceAppId) {
         this.sourceAppId = sourceAppId;
+    }
+
+    public String getSource() {
+        return source;
+    }
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public String getCode() {
+        return code;
+    }
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getEnterpriseDomains() {
+        return enterpriseDomains;
+    }
+    public void setEnterpriseDomains(String enterpriseDomains) {
+        this.enterpriseDomains = enterpriseDomains;
     }
 
     public Object getCreatorDetail() {

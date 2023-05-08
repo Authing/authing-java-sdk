@@ -94,6 +94,9 @@ public class CreateUserOptionsDto {
 
         @JsonProperty("open_department_id")
         OPEN_DEPARTMENT_ID("open_department_id"),
+
+        @JsonProperty("sync_relation")
+        SYNC_RELATION("sync_relation"),
         ;
 
         private String value;
