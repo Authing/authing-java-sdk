@@ -30,6 +30,11 @@ public class GroupDto {
      */
     @JsonProperty("type")
     private String type;
+    /**
+     * 分组元数据信息
+     */
+    @JsonProperty("metadataSource")
+    private List<String> metadataSource;
 
     public String getId() {
         return id;
@@ -64,6 +69,13 @@ public class GroupDto {
     }
     public void setType(String type) {
         this.type = type;
+    }
+
+    public List<String> getMetadataSource() {
+        return metadataSource;
+    }
+    public void setMetadataSource(List<String> metadataSource) {
+        this.metadataSource = metadataSource;
     }
 
 

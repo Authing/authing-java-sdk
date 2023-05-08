@@ -266,6 +266,11 @@ public class UserDto {
     @JsonProperty("identities")
     private List<IdentityDto> identities;
     /**
+     * 用户身份证号码
+     */
+    @JsonProperty("identityNumber")
+    private String identityNumber;
+    /**
      * 用户的扩展字段数据
      */
     @JsonProperty("customData")
@@ -629,6 +634,13 @@ public class UserDto {
     }
     public void setIdentities(List<IdentityDto> identities) {
         this.identities = identities;
+    }
+
+    public String getIdentityNumber() {
+        return identityNumber;
+    }
+    public void setIdentityNumber(String identityNumber) {
+        this.identityNumber = identityNumber;
     }
 
     public Object getCustomData() {
