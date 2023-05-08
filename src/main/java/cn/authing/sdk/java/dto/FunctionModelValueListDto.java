@@ -14,7 +14,7 @@ public class FunctionModelValueListDto {
      * 响应数据
      */
     @JsonProperty("list")
-    private List<any[]> list;
+    private List<Object[]> list;
 
     public Integer getTotalCount() {
         return totalCount;
@@ -23,10 +23,10 @@ public class FunctionModelValueListDto {
         this.totalCount = totalCount;
     }
 
-    public List<any[]> getList() {
+    public List<Object[]> getList() {
         return list;
     }
-    public void setList(List<any[]> list) {
+    public void setList(List<Object[]> list) {
         this.list = list;
     }
 
