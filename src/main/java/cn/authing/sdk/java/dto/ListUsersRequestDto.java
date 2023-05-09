@@ -18,6 +18,11 @@ public class ListUsersRequestDto {
     @JsonProperty("advancedFilter")
     private List<ListUsersAdvancedFilterItemDto> advancedFilter;
     /**
+     * 使用 ES 查询语句执行搜索命令
+     */
+    @JsonProperty("searchQuery")
+    private Object searchQuery;
+    /**
      * 可选项
      */
     @JsonProperty("options")
@@ -35,6 +40,13 @@ public class ListUsersRequestDto {
     }
     public void setAdvancedFilter(List<ListUsersAdvancedFilterItemDto> advancedFilter) {
         this.advancedFilter = advancedFilter;
+    }
+
+    public Object getSearchQuery() {
+        return searchQuery;
+    }
+    public void setSearchQuery(Object searchQuery) {
+        this.searchQuery = searchQuery;
     }
 
     public ListUsersOptionsDto getOptions() {

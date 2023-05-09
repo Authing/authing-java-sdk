@@ -80,6 +80,11 @@ public class UpdateUserProfileDto {
      */
     @JsonProperty("customData")
     private Object customData;
+    /**
+     * 用户身份证号码
+     */
+    @JsonProperty("identityNumber")
+    private String identityNumber;
 
     public String getName() {
         return name;
@@ -184,6 +189,13 @@ public class UpdateUserProfileDto {
     }
     public void setCustomData(Object customData) {
         this.customData = customData;
+    }
+
+    public String getIdentityNumber() {
+        return identityNumber;
+    }
+    public void setIdentityNumber(String identityNumber) {
+        this.identityNumber = identityNumber;
     }
 
 

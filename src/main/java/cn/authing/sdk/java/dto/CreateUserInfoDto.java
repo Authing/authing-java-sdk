@@ -202,6 +202,11 @@ public class CreateUserInfoDto {
      */
     @JsonProperty("identities")
     private List<CreateIdentityDto> identities;
+    /**
+     * 用户身份证号码
+     */
+    @JsonProperty("identityNumber")
+    private String identityNumber;
 
     public Status getStatus() {
         return status;
@@ -474,6 +479,13 @@ public class CreateUserInfoDto {
     }
     public void setIdentities(List<CreateIdentityDto> identities) {
         this.identities = identities;
+    }
+
+    public String getIdentityNumber() {
+        return identityNumber;
+    }
+    public void setIdentityNumber(String identityNumber) {
+        this.identityNumber = identityNumber;
     }
 
 

@@ -68,6 +68,21 @@ public class SetCustomFieldDto {
     @JsonProperty("visibleInUserCenter")
     private Boolean visibleInUserCenter;
     /**
+     * 校验规则
+     */
+    @JsonProperty("validateRules")
+    private Object validateRules;
+    /**
+     * App Id 列表
+     */
+    @JsonProperty("appIds")
+    private List<String> appIds;
+    /**
+     * 脱敏
+     */
+    @JsonProperty("desensitization")
+    private Boolean desensitization;
+    /**
      * 枚举值类型选择项
      */
     @JsonProperty("options")
@@ -146,6 +161,27 @@ public class SetCustomFieldDto {
     }
     public void setVisibleInUserCenter(Boolean visibleInUserCenter) {
         this.visibleInUserCenter = visibleInUserCenter;
+    }
+
+    public Object getValidateRules() {
+        return validateRules;
+    }
+    public void setValidateRules(Object validateRules) {
+        this.validateRules = validateRules;
+    }
+
+    public List<String> getAppIds() {
+        return appIds;
+    }
+    public void setAppIds(List<String> appIds) {
+        this.appIds = appIds;
+    }
+
+    public Boolean getDesensitization() {
+        return desensitization;
+    }
+    public void setDesensitization(Boolean desensitization) {
+        this.desensitization = desensitization;
     }
 
     public List<CustomFieldSelectOption> getOptions() {

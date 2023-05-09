@@ -204,6 +204,11 @@ public class CreateUserReqDto {
     @JsonProperty("identities")
     private List<CreateIdentityDto> identities;
     /**
+     * 用户身份证号码
+     */
+    @JsonProperty("identityNumber")
+    private String identityNumber;
+    /**
      * 可选参数
      */
     @JsonProperty("options")
@@ -480,6 +485,13 @@ public class CreateUserReqDto {
     }
     public void setIdentities(List<CreateIdentityDto> identities) {
         this.identities = identities;
+    }
+
+    public String getIdentityNumber() {
+        return identityNumber;
+    }
+    public void setIdentityNumber(String identityNumber) {
+        this.identityNumber = identityNumber;
     }
 
     public CreateUserOptionsDto getOptions() {

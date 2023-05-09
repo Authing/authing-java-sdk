@@ -35,6 +35,31 @@ public class CreateTenantDto {
      */
     @JsonProperty("sourceAppId")
     private String sourceAppId;
+    /**
+     * 企业邮箱域名
+     */
+    @JsonProperty("enterpriseDomains")
+    private List<String> enterpriseDomains;
+    /**
+     * 租户过期时间
+     */
+    @JsonProperty("expireTime")
+    private String expireTime;
+    /**
+     * 租户 MAU 上限
+     */
+    @JsonProperty("mauAmount")
+    private Integer mauAmount;
+    /**
+     * 租户成员上限
+     */
+    @JsonProperty("memberAmount")
+    private Integer memberAmount;
+    /**
+     * 租户管理员上限
+     */
+    @JsonProperty("adminAmount")
+    private Integer adminAmount;
 
     public String getName() {
         return name;
@@ -76,6 +101,41 @@ public class CreateTenantDto {
     }
     public void setSourceAppId(String sourceAppId) {
         this.sourceAppId = sourceAppId;
+    }
+
+    public List<String> getEnterpriseDomains() {
+        return enterpriseDomains;
+    }
+    public void setEnterpriseDomains(List<String> enterpriseDomains) {
+        this.enterpriseDomains = enterpriseDomains;
+    }
+
+    public String getExpireTime() {
+        return expireTime;
+    }
+    public void setExpireTime(String expireTime) {
+        this.expireTime = expireTime;
+    }
+
+    public Integer getMauAmount() {
+        return mauAmount;
+    }
+    public void setMauAmount(Integer mauAmount) {
+        this.mauAmount = mauAmount;
+    }
+
+    public Integer getMemberAmount() {
+        return memberAmount;
+    }
+    public void setMemberAmount(Integer memberAmount) {
+        this.memberAmount = memberAmount;
+    }
+
+    public Integer getAdminAmount() {
+        return adminAmount;
+    }
+    public void setAdminAmount(Integer adminAmount) {
+        this.adminAmount = adminAmount;
     }
 
 

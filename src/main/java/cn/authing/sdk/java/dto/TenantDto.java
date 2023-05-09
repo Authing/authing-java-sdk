@@ -50,6 +50,21 @@ public class TenantDto {
      */
     @JsonProperty("sourceAppId")
     private String sourceAppId;
+    /**
+     * 租户来源
+     */
+    @JsonProperty("source")
+    private String source;
+    /**
+     * 租户 Code
+     */
+    @JsonProperty("code")
+    private String code;
+    /**
+     * 租户配置的企业域名
+     */
+    @JsonProperty("enterpriseDomains")
+    private String enterpriseDomains;
 
     public String getTenantId() {
         return tenantId;
@@ -112,6 +127,27 @@ public class TenantDto {
     }
     public void setSourceAppId(String sourceAppId) {
         this.sourceAppId = sourceAppId;
+    }
+
+    public String getSource() {
+        return source;
+    }
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public String getCode() {
+        return code;
+    }
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getEnterpriseDomains() {
+        return enterpriseDomains;
+    }
+    public void setEnterpriseDomains(String enterpriseDomains) {
+        this.enterpriseDomains = enterpriseDomains;
     }
 
 

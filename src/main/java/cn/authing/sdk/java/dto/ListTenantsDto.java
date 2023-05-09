@@ -40,6 +40,11 @@ public class ListTenantsDto {
      */
     @JsonProperty("limit")
     private String limit;
+    /**
+     * 租户来源
+     */
+    @JsonProperty("source")
+    private Object source;
 
     public String getKeywords() {
         return keywords;
@@ -88,6 +93,13 @@ public class ListTenantsDto {
     }
     public void setLimit(String limit) {
         this.limit = limit;
+    }
+
+    public Object getSource() {
+        return source;
+    }
+    public void setSource(Object source) {
+        this.source = source;
     }
 
 

@@ -20,6 +20,11 @@ public class ListGroupsDto {
      */
     @JsonProperty("limit")
     private Integer limit;
+    /**
+     * 是否展示元数据内容
+     */
+    @JsonProperty("withMetadata")
+    private Boolean withMetadata;
 
     public String getKeywords() {
         return keywords;
@@ -40,6 +45,13 @@ public class ListGroupsDto {
     }
     public void setLimit(Integer limit) {
         this.limit = limit;
+    }
+
+    public Boolean getWithMetadata() {
+        return withMetadata;
+    }
+    public void setWithMetadata(Boolean withMetadata) {
+        this.withMetadata = withMetadata;
     }
 
 

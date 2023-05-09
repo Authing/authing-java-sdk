@@ -72,6 +72,11 @@ public class LoginHistoryDto {
      */
     @JsonProperty("geoip")
     private GeoIp geoip;
+    /**
+     * 租户 ID
+     */
+    @JsonProperty("tenantId")
+    private String tenantId;
 
     public String getUserId() {
         return userId;
@@ -162,6 +167,13 @@ public class LoginHistoryDto {
     }
     public void setGeoip(GeoIp geoip) {
         this.geoip = geoip;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
     }
 
 

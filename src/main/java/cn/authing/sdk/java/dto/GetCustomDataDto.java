@@ -6,6 +6,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class GetCustomDataDto {
     /**
+     * 租户 ID
+     */
+    @JsonProperty("tenantId")
+    private String tenantId;
+    /**
      * 目标对象类型：
      * - `USER`: 用户
      * - `ROLE`: 角色
@@ -30,6 +35,13 @@ public class GetCustomDataDto {
      */
     @JsonProperty("namespace")
     private String namespace;
+
+    public String getTenantId() {
+        return tenantId;
+    }
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+    }
 
     public String getTargetType() {
         return targetType;
