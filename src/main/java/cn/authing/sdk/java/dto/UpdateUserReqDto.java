@@ -177,6 +177,11 @@ public class UpdateUserReqDto {
     @JsonProperty("region")
     private String region;
     /**
+     * 用户身份证号码
+     */
+    @JsonProperty("identityNumber")
+    private String identityNumber;
+    /**
      * 自定义数据，传入的对象中的 key 必须先在用户池定义相关自定义字段
      */
     @JsonProperty("customData")
@@ -423,6 +428,13 @@ public class UpdateUserReqDto {
     }
     public void setRegion(String region) {
         this.region = region;
+    }
+
+    public String getIdentityNumber() {
+        return identityNumber;
+    }
+    public void setIdentityNumber(String identityNumber) {
+        this.identityNumber = identityNumber;
     }
 
     public Object getCustomData() {
