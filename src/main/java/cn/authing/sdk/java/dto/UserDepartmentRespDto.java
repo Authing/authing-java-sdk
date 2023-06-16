@@ -42,6 +42,11 @@ public class UserDepartmentRespDto {
     @JsonProperty("isLeader")
     private Boolean isLeader;
     /**
+     * isRoot
+     */
+    @JsonProperty("isRoot")
+    private Boolean isRoot;
+    /**
      * 部门识别码
      */
     @JsonProperty("code")
