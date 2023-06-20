@@ -204,6 +204,11 @@ public class UserDepartmentRespDto {
         this.departmentNamePath = departmentNamePath;
     }
 
+    public Boolean getRoot() {
+        return isRoot;
+    }
 
-
+    public void setRoot(Boolean root) {
+        isRoot = root;
+    }
 }
