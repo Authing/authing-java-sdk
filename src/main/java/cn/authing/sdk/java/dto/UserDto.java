@@ -771,7 +771,10 @@ public class UserDto {
 
         @JsonProperty("sync")
         SYNC("sync"),
-        ;
+
+        @JsonProperty("workflow")
+        WORKFLOW("workflow"),
+                ;
 
         private String value;
 
