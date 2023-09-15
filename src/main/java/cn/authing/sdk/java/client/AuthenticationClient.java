@@ -148,6 +148,7 @@ public class AuthenticationClient extends BaseClient {
 
     OIDCTokenResponse deserializeOIDCResponse = deserialize(response, OIDCTokenResponse.class);
 
+    this.options.setAccessToken(deserializeOIDCResponse.getAccessToken());
     return deserializeOIDCResponse;
   }
 
