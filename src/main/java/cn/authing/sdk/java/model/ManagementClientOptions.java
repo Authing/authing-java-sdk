@@ -9,7 +9,6 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.Method;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.sun.nio.sctp.IllegalReceiveException;
 import cn.authing.sdk.java.enums.LanguageEnum;
 import cn.authing.sdk.java.util.HttpUtils;
 import cn.authing.sdk.java.util.JsonUtils;
@@ -267,7 +266,7 @@ public class ManagementClientOptions extends AuthingClientOptions {
                     body, null, options.getTimeout());
             LoginResponse loginResponse = JsonUtils.deserialize(response, LoginResponse.class);
             if (loginResponse == null) {
-                throw new IllegalReceiveException("response is null");
+                throw new IllegalStateException("response is null");
             }
             if (loginResponse.statusCode != 200) {
                 throw new RuntimeException(loginResponse.getMessage());
