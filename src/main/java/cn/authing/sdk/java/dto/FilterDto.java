@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.Condition;
+import cn.authing.sdk.java.dto.Expand;
 import cn.authing.sdk.java.dto.ScopeDto;
 
 public class FilterDto {
@@ -18,7 +19,10 @@ public class FilterDto {
     @JsonProperty("keywords")
     private String keywords;
     /**
-     * 连词
+     * 多个搜索条件的关系：
+     * - and: 且
+     * - or:  或
+     *
      */
     @JsonProperty("conjunction")
     private String conjunction;
@@ -26,7 +30,12 @@ public class FilterDto {
      * 搜索条件
      */
     @JsonProperty("conditions")
-    private Condition conditions;
+    private List<Condition> conditions;
+    /**
+     * 排序条件
+     */
+    @JsonProperty("sort")
+    private List<Object> sort;
     /**
      * 当前页数，从 1 开始
      */
@@ -38,6 +47,16 @@ public class FilterDto {
     @JsonProperty("limit")
     private Integer limit;
     /**
+     * 是否不分页返回所有（仅支持树形结构获取子节点的场景）
+     */
+    @JsonProperty("fetchAll")
+    private Boolean fetchAll;
+    /**
+     * 是否返回节点的全路径（仅支持树形结构）
+     */
+    @JsonProperty("withPath")
+    private Boolean withPath;
+    /**
      * 返回结果中是否使用字段 id 作为 key
      */
     @JsonProperty("showFieldId")
@@ -48,10 +67,25 @@ public class FilterDto {
     @JsonProperty("previewRelation")
     private Boolean previewRelation;
     /**
+     * 是否返回关联数据的详细用户信息，当前只支持用户。
+     */
+    @JsonProperty("getRelationFieldDetail")
+    private Boolean getRelationFieldDetail;
+    /**
      * 限定检索范围为被某个功能关联的部分
      */
     @JsonProperty("scope")
     private ScopeDto scope;
+    /**
+     * 过滤指定关联数据
+     */
+    @JsonProperty("filterRelation")
+    private ScopeDto filterRelation;
+    /**
+     * 获取对应关联数据的详细字段
+     */
+    @JsonProperty("expand")
+    private List<Expand> expand;
 
     public String getModelId() {
         return modelId;
@@ -74,11 +108,18 @@ public class FilterDto {
         this.conjunction = conjunction;
     }
 
-    public Condition getConditions() {
+    public List<Condition> getConditions() {
         return conditions;
     }
-    public void setConditions(Condition conditions) {
+    public void setConditions(List<Condition> conditions) {
         this.conditions = conditions;
+    }
+
+    public List<Object> getSort() {
+        return sort;
+    }
+    public void setSort(List<Object> sort) {
+        this.sort = sort;
     }
 
     public Integer getPage() {
@@ -95,6 +136,20 @@ public class FilterDto {
         this.limit = limit;
     }
 
+    public Boolean getFetchAll() {
+        return fetchAll;
+    }
+    public void setFetchAll(Boolean fetchAll) {
+        this.fetchAll = fetchAll;
+    }
+
+    public Boolean getWithPath() {
+        return withPath;
+    }
+    public void setWithPath(Boolean withPath) {
+        this.withPath = withPath;
+    }
+
     public Boolean getShowFieldId() {
         return showFieldId;
     }
@@ -109,11 +164,32 @@ public class FilterDto {
         this.previewRelation = previewRelation;
     }
 
+    public Boolean getGetRelationFieldDetail() {
+        return getRelationFieldDetail;
+    }
+    public void setGetRelationFieldDetail(Boolean getRelationFieldDetail) {
+        this.getRelationFieldDetail = getRelationFieldDetail;
+    }
+
     public ScopeDto getScope() {
         return scope;
     }
     public void setScope(ScopeDto scope) {
         this.scope = scope;
+    }
+
+    public ScopeDto getFilterRelation() {
+        return filterRelation;
+    }
+    public void setFilterRelation(ScopeDto filterRelation) {
+        this.filterRelation = filterRelation;
+    }
+
+    public List<Expand> getExpand() {
+        return expand;
+    }
+    public void setExpand(List<Expand> expand) {
+        this.expand = expand;
     }
 
 

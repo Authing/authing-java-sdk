@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class IdentityDto {
     /**
      * 身份源 ID
@@ -63,7 +62,7 @@ public class IdentityDto {
      * 用户在 idp 中的身份信息
      */
     @JsonProperty("userInfoInIdp")
-    private User userInfoInIdp;
+    private Object userInfoInIdp;
     /**
      * 在外部身份源中的 Access Token（此参数只会在用户主动获取时返回，管理侧接口不会返回）。
      */
@@ -115,10 +114,10 @@ public class IdentityDto {
         this.userIdInIdp = userIdInIdp;
     }
 
-    public User getUserInfoInIdp() {
+    public Object getUserInfoInIdp() {
         return userInfoInIdp;
     }
-    public void setUserInfoInIdp(User userInfoInIdp) {
+    public void setUserInfoInIdp(Object userInfoInIdp) {
         this.userInfoInIdp = userInfoInIdp;
     }
 
@@ -287,6 +286,9 @@ public class IdentityDto {
 
         @JsonProperty("line")
         LINE("line"),
+
+        @JsonProperty("sdbz")
+        SDBZ("sdbz"),
         ;
 
         private String value;

@@ -107,7 +107,7 @@ public class ManagementClientOptions extends AuthingClientOptions {
         }
         // put 签名所需的头部
         headers.put("x-authing-lang", getLang().getValue());
-        headers.put("x-authing-sdk-version", "authing-java-sdk:3.0.0");
+        headers.put("x-authing-sdk-version", "authing-java-sdk:3.1.0");
         headers.put("x-authing-signature-method", SignatureEnum.X_AUTHING_SIGNATURE_METHOD.getValue());
         headers.put("x-authing-signature-nonce", CommonUtils.createRandomString(RANDOM_STRING_LENGTH));
         headers.put("x-authing-signature-version", SignatureEnum.X_AUTHING_SIGNATURE_VERSION.getValue());

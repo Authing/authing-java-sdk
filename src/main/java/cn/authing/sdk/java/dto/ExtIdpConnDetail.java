@@ -240,6 +240,9 @@ public class ExtIdpConnDetail {
         @JsonProperty("lark-public")
         LARK_PUBLIC("lark-public"),
 
+        @JsonProperty("lark-block")
+        LARK_BLOCK("lark-block"),
+
         @JsonProperty("gitlab")
         GITLAB("gitlab"),
 
@@ -314,6 +317,12 @@ public class ExtIdpConnDetail {
 
         @JsonProperty("oppo:mobile")
         OPPO_MOBILE("oppo:mobile"),
+
+        @JsonProperty("wechatwork:qrconnect:of:authing:agency")
+        WECHATWORK_QRCONNECT_OF_AUTHING_AGENCY("wechatwork:qrconnect:of:authing:agency"),
+
+        @JsonProperty("sdbz")
+        SDBZ("sdbz"),
         ;
 
         private String value;

@@ -11,7 +11,7 @@ public class GetDataResourceDto {
     @JsonProperty("namespaceCode")
     private String namespaceCode;
     /**
-     * 数据资源 Code,权限空间内唯一
+     * 数据资源 Code, 权限空间内唯一
      */
     @JsonProperty("resourceCode")
     private String resourceCode;

@@ -6,15 +6,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CreateRowDto {
     /**
+     * 数据内容
+     */
+    @JsonProperty("data")
+    private Object data;
+    /**
      * 功能 id
      */
     @JsonProperty("modelId")
     private String modelId;
     /**
-     * 数据内容
+     * 自定义行 id，默认自动生成。最长只允许 32 位。
      */
-    @JsonProperty("data")
-    private Object data;
+    @JsonProperty("rowId")
+    private String rowId;
+
+    public Object getData() {
+        return data;
+    }
+    public void setData(Object data) {
+        this.data = data;
+    }
 
     public String getModelId() {
         return modelId;
@@ -23,11 +35,11 @@ public class CreateRowDto {
         this.modelId = modelId;
     }
 
-    public Object getData() {
-        return data;
+    public String getRowId() {
+        return rowId;
     }
-    public void setData(Object data) {
-        this.data = data;
+    public void setRowId(String rowId) {
+        this.rowId = rowId;
     }
 
 

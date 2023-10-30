@@ -26,10 +26,20 @@ public class GetUserDto {
     @JsonProperty("userIdType")
     private String userIdType;
     /**
+     * 是否拍平扩展字段
+     */
+    @JsonProperty("flatCustomData")
+    private Boolean flatCustomData;
+    /**
      * 是否获取自定义数据
      */
     @JsonProperty("withCustomData")
     private Boolean withCustomData;
+    /**
+     * 是否获取 部门信息
+     */
+    @JsonProperty("withPost")
+    private Boolean withPost;
     /**
      * 是否获取 identities
      */
@@ -55,11 +65,25 @@ public class GetUserDto {
         this.userIdType = userIdType;
     }
 
+    public Boolean getFlatCustomData() {
+        return flatCustomData;
+    }
+    public void setFlatCustomData(Boolean flatCustomData) {
+        this.flatCustomData = flatCustomData;
+    }
+
     public Boolean getWithCustomData() {
         return withCustomData;
     }
     public void setWithCustomData(Boolean withCustomData) {
         this.withCustomData = withCustomData;
+    }
+
+    public Boolean getWithPost() {
+        return withPost;
+    }
+    public void setWithPost(Boolean withPost) {
+        this.withPost = withPost;
     }
 
     public Boolean getWithIdentities() {

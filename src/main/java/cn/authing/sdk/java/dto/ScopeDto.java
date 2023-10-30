@@ -11,10 +11,15 @@ public class ScopeDto {
     @JsonProperty("modelId")
     private String modelId;
     /**
-     * id
+     * 行 id
      */
     @JsonProperty("id")
     private String id;
+    /**
+     * 字段 id
+     */
+    @JsonProperty("fieldId")
+    private String fieldId;
 
     public String getModelId() {
         return modelId;
@@ -28,6 +33,13 @@ public class ScopeDto {
     }
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getFieldId() {
+        return fieldId;
+    }
+    public void setFieldId(String fieldId) {
+        this.fieldId = fieldId;
     }
 
 

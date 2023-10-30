@@ -7,12 +7,12 @@ import cn.authing.sdk.java.dto.DataResourceTreeStructs;
 
 public class GetDataResourceRespDto {
     /**
-     * 数据资源名称,权限空间内唯一
+     * 数据资源名称, 权限空间内唯一
      */
     @JsonProperty("resourceName")
     private String resourceName;
     /**
-     * 数据资源 Code,权限空间内唯一
+     * 数据资源 Code, 权限空间内唯一
      */
     @JsonProperty("resourceCode")
     private String resourceCode;
@@ -27,10 +27,10 @@ public class GetDataResourceRespDto {
     @JsonProperty("description")
     private String description;
     /**
-     * 数据资源节点类型，支持字符串（STRING）、树结构（TREE）和数组结构（ARRAY）。
+     * 数据资源结构，支持字符串（STRING）、树结构（TREE）和数组结构（ARRAY）。
      */
     @JsonProperty("struct")
-    private Object struct;
+    private (DataResourceTreeStructs | String | List<String>) struct;
     /**
      * 数据策略所在的权限空间 Code
      */
@@ -70,10 +70,10 @@ public class GetDataResourceRespDto {
         this.description = description;
     }
 
-    public Object getStruct() {
+    public (DataResourceTreeStructs | String | List<String>) getStruct() {
         return struct;
     }
-    public void setStruct(Object struct) {
+    public void setStruct((DataResourceTreeStructs | String | List<String>) struct) {
         this.struct = struct;
     }
 

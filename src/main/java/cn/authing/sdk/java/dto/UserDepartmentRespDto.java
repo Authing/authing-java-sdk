@@ -17,6 +17,11 @@ public class UserDepartmentRespDto {
     @JsonProperty("departmentId")
     private String departmentId;
     /**
+     * 是否为根部门
+     */
+    @JsonProperty("isRoot")
+    private Boolean isRoot;
+    /**
      * 部门创建时间
      */
     @JsonProperty("createdAt")
@@ -41,11 +46,6 @@ public class UserDepartmentRespDto {
      */
     @JsonProperty("isLeader")
     private Boolean isLeader;
-    /**
-     * isRoot
-     */
-    @JsonProperty("isRoot")
-    private Boolean isRoot;
     /**
      * 部门识别码
      */
@@ -104,6 +104,13 @@ public class UserDepartmentRespDto {
     }
     public void setDepartmentId(String departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public Boolean getIsRoot() {
+        return isRoot;
+    }
+    public void setIsRoot(Boolean isRoot) {
+        this.isRoot = isRoot;
     }
 
     public String getCreatedAt() {
@@ -204,11 +211,6 @@ public class UserDepartmentRespDto {
         this.departmentNamePath = departmentNamePath;
     }
 
-    public Boolean getRoot() {
-        return isRoot;
-    }
 
-    public void setRoot(Boolean root) {
-        isRoot = root;
-    }
+
 }

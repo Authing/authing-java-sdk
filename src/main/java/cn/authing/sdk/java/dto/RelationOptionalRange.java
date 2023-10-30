@@ -7,7 +7,10 @@ import cn.authing.sdk.java.dto.Condition;
 
 public class RelationOptionalRange {
     /**
-     * 连词
+     * 多个搜索条件的关系：
+     * - and: 且
+     * - or:  或
+     *
      */
     @JsonProperty("conjunction")
     private String conjunction;

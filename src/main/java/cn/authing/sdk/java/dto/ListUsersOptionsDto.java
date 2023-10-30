@@ -46,6 +46,11 @@ public class ListUsersOptionsDto {
     @JsonProperty("withCustomData")
     private Boolean withCustomData;
     /**
+     * 是否获取 部门信息
+     */
+    @JsonProperty("withPost")
+    private Boolean withPost;
+    /**
      * 是否获取 identities
      */
     @JsonProperty("withIdentities")
@@ -55,6 +60,11 @@ public class ListUsersOptionsDto {
      */
     @JsonProperty("withDepartmentIds")
     private Boolean withDepartmentIds;
+    /**
+     * 是否拍平扩展字段
+     */
+    @JsonProperty("flatCustomData")
+    private Boolean flatCustomData;
 
     public PaginationDto getPagination() {
         return pagination;
@@ -84,6 +94,13 @@ public class ListUsersOptionsDto {
         this.withCustomData = withCustomData;
     }
 
+    public Boolean getWithPost() {
+        return withPost;
+    }
+    public void setWithPost(Boolean withPost) {
+        this.withPost = withPost;
+    }
+
     public Boolean getWithIdentities() {
         return withIdentities;
     }
@@ -96,6 +113,13 @@ public class ListUsersOptionsDto {
     }
     public void setWithDepartmentIds(Boolean withDepartmentIds) {
         this.withDepartmentIds = withDepartmentIds;
+    }
+
+    public Boolean getFlatCustomData() {
+        return flatCustomData;
+    }
+    public void setFlatCustomData(Boolean flatCustomData) {
+        this.flatCustomData = flatCustomData;
     }
 
 

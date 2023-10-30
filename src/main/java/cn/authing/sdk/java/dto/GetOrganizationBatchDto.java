@@ -16,6 +16,11 @@ public class GetOrganizationBatchDto {
     @JsonProperty("withCustomData")
     private Boolean withCustomData;
     /**
+     * 是否获取 部门信息
+     */
+    @JsonProperty("withPost")
+    private Boolean withPost;
+    /**
      * 租户 ID
      */
     @JsonProperty("tenantId")
@@ -33,6 +38,13 @@ public class GetOrganizationBatchDto {
     }
     public void setWithCustomData(Boolean withCustomData) {
         this.withCustomData = withCustomData;
+    }
+
+    public Boolean getWithPost() {
+        return withPost;
+    }
+    public void setWithPost(Boolean withPost) {
+        this.withPost = withPost;
     }
 
     public String getTenantId() {

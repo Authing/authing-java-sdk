@@ -169,7 +169,7 @@ public class CreateUserReqDto {
     @JsonProperty("region")
     private String region;
     /**
-     * 用户密码。我们使用 HTTPS 协议对密码进行安全传输，可以在一定程度上保证安全性。如果你还需要更高级别的安全性，我们还支持 RSA256 和国密 SM2 两种方式对密码进行加密。详情见 `passwordEncryptType` 参数。
+     * 用户密码，默认为明文。我们使用 HTTPS 协议对密码进行安全传输，可以在一定程度上保证安全性。如果你还需要更高级别的安全性，我们还支持 RSA256 和国密 SM2 两种方式对密码进行加密。详情见 `passwordEncryptType` 参数。
      */
     @JsonProperty("password")
     private String password;
@@ -198,6 +198,11 @@ public class CreateUserReqDto {
      */
     @JsonProperty("customData")
     private Object customData;
+    /**
+     * 数据对象数据，传入的对象中的 key 必须先在用户池定义相关自定义字段
+     */
+    @JsonProperty("metadataSource")
+    private Object metadataSource;
     /**
      * 第三方身份源（建议调用绑定接口进行绑定）
      */
@@ -478,6 +483,13 @@ public class CreateUserReqDto {
     }
     public void setCustomData(Object customData) {
         this.customData = customData;
+    }
+
+    public Object getMetadataSource() {
+        return metadataSource;
+    }
+    public void setMetadataSource(Object metadataSource) {
+        this.metadataSource = metadataSource;
     }
 
     public List<CreateIdentityDto> getIdentities() {

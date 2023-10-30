@@ -26,7 +26,18 @@ public class FunctionModelDto {
     @JsonProperty("description")
     private String description;
     /**
-     * 功能是否启用
+     * 数据类型：
+     * - list: 列表类型数据。
+     * - tree: 树状结构数据。
+     *
+     */
+    @JsonProperty("dataType")
+    private DataType dataType;
+    /**
+     * 功能是否启用:
+     * - true: 启用
+     * - false: 不启用
+     *
      */
     @JsonProperty("enable")
     private Boolean enable;
@@ -46,12 +57,22 @@ public class FunctionModelDto {
     @JsonProperty("updatedAt")
     private String updatedAt;
     /**
-     * 功能类型
+     * 功能类型：
+     * - user: 用户
+     * - post: 岗位
+     * - group: 用户组
+     * - ueba: ueba
+     * - department: 树状结构数据
+     * - organization: 组织
+     * - device: 设备
+     * - device_rely: 设备
+     * - custom: 自定义
+     *
      */
     @JsonProperty("type")
     private Type type;
     /**
-     * 字段序
+     * 字段排序
      */
     @JsonProperty("fieldOrder")
     private String fieldOrder;
@@ -87,6 +108,13 @@ public class FunctionModelDto {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public DataType getDataType() {
+        return dataType;
+    }
+    public void setDataType(DataType dataType) {
+        this.dataType = dataType;
     }
 
     public Boolean getEnable() {
@@ -140,7 +168,43 @@ public class FunctionModelDto {
 
 
     /**
-     * 功能类型
+     * 数据类型：
+     * - list: 列表类型数据。
+     * - tree: 树状结构数据。
+     *
+     */
+    public static enum DataType {
+
+        @JsonProperty("list")
+        LIST("list"),
+
+        @JsonProperty("tree")
+        TREE("tree"),
+        ;
+
+        private String value;
+
+        DataType(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    /**
+     * 功能类型：
+     * - user: 用户
+     * - post: 岗位
+     * - group: 用户组
+     * - ueba: ueba
+     * - department: 树状结构数据
+     * - organization: 组织
+     * - device: 设备
+     * - device_rely: 设备
+     * - custom: 自定义
+     *
      */
     public static enum Type {
 
@@ -161,6 +225,12 @@ public class FunctionModelDto {
 
         @JsonProperty("organization")
         ORGANIZATION("organization"),
+
+        @JsonProperty("device")
+        DEVICE("device"),
+
+        @JsonProperty("device_rely")
+        DEVICE_RELY("device_rely"),
 
         @JsonProperty("custom")
         CUSTOM("custom"),

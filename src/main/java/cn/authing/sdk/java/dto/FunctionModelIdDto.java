@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class FunctionModelIdDto {
     /**
-     * 功能 id
+     * 功能 id 可以从控制台页面获取
      */
     @JsonProperty("id")
     private String id;

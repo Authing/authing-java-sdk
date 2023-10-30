@@ -6,38 +6,31 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CreateRelationValueDto {
     /**
-     * 功能 id
+     * 关联数据
      */
-    @JsonProperty("modelId")
-    private String modelId;
-    /**
-     * 字段 id
-     */
-    @JsonProperty("fieldId")
-    private String fieldId;
+    @JsonProperty("valueList")
+    private List<String> valueList;
     /**
      * 行 id
      */
     @JsonProperty("rowId")
     private String rowId;
     /**
-     * 关联数据
+     * 字段 id
      */
-    @JsonProperty("valueList")
-    private List<String> valueList;
+    @JsonProperty("fieldId")
+    private String fieldId;
+    /**
+     * 功能 id
+     */
+    @JsonProperty("modelId")
+    private String modelId;
 
-    public String getModelId() {
-        return modelId;
+    public List<String> getValueList() {
+        return valueList;
     }
-    public void setModelId(String modelId) {
-        this.modelId = modelId;
-    }
-
-    public String getFieldId() {
-        return fieldId;
-    }
-    public void setFieldId(String fieldId) {
-        this.fieldId = fieldId;
+    public void setValueList(List<String> valueList) {
+        this.valueList = valueList;
     }
 
     public String getRowId() {
@@ -47,11 +40,18 @@ public class CreateRelationValueDto {
         this.rowId = rowId;
     }
 
-    public List<String> getValueList() {
-        return valueList;
+    public String getFieldId() {
+        return fieldId;
     }
-    public void setValueList(List<String> valueList) {
-        this.valueList = valueList;
+    public void setFieldId(String fieldId) {
+        this.fieldId = fieldId;
+    }
+
+    public String getModelId() {
+        return modelId;
+    }
+    public void setModelId(String modelId) {
+        this.modelId = modelId;
     }
 
 

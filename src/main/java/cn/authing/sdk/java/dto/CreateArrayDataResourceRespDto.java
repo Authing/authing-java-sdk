@@ -6,12 +6,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CreateArrayDataResourceRespDto {
     /**
-     * 数据资源名称,权限空间内唯一
+     * 数据资源名称, 权限空间内唯一
      */
     @JsonProperty("resourceName")
     private String resourceName;
     /**
-     * 数据资源 Code,权限空间内唯一
+     * 数据资源 Code, 权限空间内唯一
      */
     @JsonProperty("resourceCode")
     private String resourceCode;

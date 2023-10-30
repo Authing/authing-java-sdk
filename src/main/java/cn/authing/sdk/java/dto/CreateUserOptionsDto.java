@@ -97,6 +97,12 @@ public class CreateUserOptionsDto {
 
         @JsonProperty("sync_relation")
         SYNC_RELATION("sync_relation"),
+
+        @JsonProperty("custom_field")
+        CUSTOM_FIELD("custom_field"),
+
+        @JsonProperty("code")
+        CODE("code"),
         ;
 
         private String value;

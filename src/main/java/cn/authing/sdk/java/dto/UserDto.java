@@ -276,6 +276,11 @@ public class UserDto {
     @JsonProperty("customData")
     private Object customData;
     /**
+     * 用户关联的部门 Id
+     */
+    @JsonProperty("postIdList")
+    private List<String> postIdList;
+    /**
      * 用户状态上次修改时间
      */
     @JsonProperty("statusChangedAt")
@@ -650,6 +655,13 @@ public class UserDto {
         this.customData = customData;
     }
 
+    public List<String> getPostIdList() {
+        return postIdList;
+    }
+    public void setPostIdList(List<String> postIdList) {
+        this.postIdList = postIdList;
+    }
+
     public String getStatusChangedAt() {
         return statusChangedAt;
     }
@@ -771,10 +783,7 @@ public class UserDto {
 
         @JsonProperty("sync")
         SYNC("sync"),
-
-        @JsonProperty("workflow")
-        WORKFLOW("workflow"),
-                ;
+        ;
 
         private String value;
 

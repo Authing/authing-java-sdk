@@ -16,12 +16,12 @@ public class CreateStringDataResourceDto {
     @JsonProperty("struct")
     private String struct;
     /**
-     * 数据资源 Code,权限空间内唯一
+     * 数据资源 Code, 权限空间内唯一
      */
     @JsonProperty("resourceCode")
     private String resourceCode;
     /**
-     * 数据资源名称,权限空间内唯一
+     * 数据资源名称, 权限空间内唯一
      */
     @JsonProperty("resourceName")
     private String resourceName;

@@ -6,50 +6,56 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CreateFunctionModelDto {
     /**
-     * 功能名称
+     * 父级菜单
      */
-    @JsonProperty("name")
-    private String name;
+    @JsonProperty("parentKey")
+    private String parentKey;
+    /**
+     * 功能是否启用:
+     * - true: 启用
+     * - false: 不启用
+     *
+     */
+    @JsonProperty("enable")
+    private Boolean enable;
+    /**
+     * 功能类型：
+     * - user: 用户
+     * - post: 岗位
+     * - group: 用户组
+     * - ueba: ueba
+     * - department: 树状结构数据
+     * - organization: 组织
+     * - device: 设备
+     * - custom: 自定义
+     *
+     */
+    @JsonProperty("type")
+    private Type type;
     /**
      * 功能描述
      */
     @JsonProperty("description")
     private String description;
     /**
-     * 功能类型
+     * 功能名称
      */
-    @JsonProperty("type")
-    private Type type;
+    @JsonProperty("name")
+    private String name;
     /**
-     * 功能是否启用
+     * 数据类型：
+     * - list: 列表类型数据
+     * - tree: 树状结构数据
+     *
      */
-    @JsonProperty("enable")
-    private Boolean enable;
-    /**
-     * 上级菜单
-     */
-    @JsonProperty("parentKey")
-    private String parentKey;
+    @JsonProperty("dataType")
+    private DataType dataType;
 
-    public String getName() {
-        return name;
+    public String getParentKey() {
+        return parentKey;
     }
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Type getType() {
-        return type;
-    }
-    public void setType(Type type) {
-        this.type = type;
+    public void setParentKey(String parentKey) {
+        this.parentKey = parentKey;
     }
 
     public Boolean getEnable() {
@@ -59,16 +65,46 @@ public class CreateFunctionModelDto {
         this.enable = enable;
     }
 
-    public String getParentKey() {
-        return parentKey;
+    public Type getType() {
+        return type;
     }
-    public void setParentKey(String parentKey) {
-        this.parentKey = parentKey;
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public DataType getDataType() {
+        return dataType;
+    }
+    public void setDataType(DataType dataType) {
+        this.dataType = dataType;
     }
 
 
     /**
-     * 功能类型
+     * 功能类型：
+     * - user: 用户
+     * - post: 岗位
+     * - group: 用户组
+     * - ueba: ueba
+     * - department: 树状结构数据
+     * - organization: 组织
+     * - device: 设备
+     * - custom: 自定义
+     *
      */
     public static enum Type {
 
@@ -90,6 +126,12 @@ public class CreateFunctionModelDto {
         @JsonProperty("organization")
         ORGANIZATION("organization"),
 
+        @JsonProperty("device")
+        DEVICE("device"),
+
+        @JsonProperty("device_rely")
+        DEVICE_RELY("device_rely"),
+
         @JsonProperty("custom")
         CUSTOM("custom"),
         ;
@@ -97,6 +139,32 @@ public class CreateFunctionModelDto {
         private String value;
 
         Type(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    /**
+     * 数据类型：
+     * - list: 列表类型数据
+     * - tree: 树状结构数据
+     *
+     */
+    public static enum DataType {
+
+        @JsonProperty("list")
+        LIST("list"),
+
+        @JsonProperty("tree")
+        TREE("tree"),
+        ;
+
+        private String value;
+
+        DataType(String value) {
             this.value = value;
         }
 

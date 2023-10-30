@@ -3,6 +3,7 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import cn.authing.sdk.java.dto.UserDto;
 
 public class GroupDto {
     /**
@@ -35,6 +36,11 @@ public class GroupDto {
      */
     @JsonProperty("metadataSource")
     private List<String> metadataSource;
+    /**
+     * 成员列表
+     */
+    @JsonProperty("members")
+    private List<UserDto> members;
 
     public String getId() {
         return id;
@@ -76,6 +82,13 @@ public class GroupDto {
     }
     public void setMetadataSource(List<String> metadataSource) {
         this.metadataSource = metadataSource;
+    }
+
+    public List<UserDto> getMembers() {
+        return members;
+    }
+    public void setMembers(List<UserDto> members) {
+        this.members = members;
     }
 
 

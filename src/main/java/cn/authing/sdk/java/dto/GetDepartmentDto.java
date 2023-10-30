@@ -31,6 +31,11 @@ public class GetDepartmentDto {
     @JsonProperty("withCustomData")
     private Boolean withCustomData;
     /**
+     * 是否拍平扩展字段
+     */
+    @JsonProperty("flatCustomData")
+    private Boolean flatCustomData;
+    /**
      * 租户 ID
      */
     @JsonProperty("tenantId")
@@ -69,6 +74,13 @@ public class GetDepartmentDto {
     }
     public void setWithCustomData(Boolean withCustomData) {
         this.withCustomData = withCustomData;
+    }
+
+    public Boolean getFlatCustomData() {
+        return flatCustomData;
+    }
+    public void setFlatCustomData(Boolean flatCustomData) {
+        this.flatCustomData = flatCustomData;
     }
 
     public String getTenantId() {

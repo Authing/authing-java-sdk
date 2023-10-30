@@ -31,6 +31,11 @@ public class GetUserBatchDto {
     @JsonProperty("withCustomData")
     private Boolean withCustomData;
     /**
+     * 是否拍平扩展字段
+     */
+    @JsonProperty("flatCustomData")
+    private Boolean flatCustomData;
+    /**
      * 是否获取 identities
      */
     @JsonProperty("withIdentities")
@@ -60,6 +65,13 @@ public class GetUserBatchDto {
     }
     public void setWithCustomData(Boolean withCustomData) {
         this.withCustomData = withCustomData;
+    }
+
+    public Boolean getFlatCustomData() {
+        return flatCustomData;
+    }
+    public void setFlatCustomData(Boolean flatCustomData) {
+        this.flatCustomData = flatCustomData;
     }
 
     public Boolean getWithIdentities() {

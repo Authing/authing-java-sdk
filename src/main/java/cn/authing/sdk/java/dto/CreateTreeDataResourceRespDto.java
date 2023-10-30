@@ -7,12 +7,12 @@ import cn.authing.sdk.java.dto.DataResourceTreeStructs;
 
 public class CreateTreeDataResourceRespDto {
     /**
-     * 数据资源名称,权限空间内唯一
+     * 数据资源名称, 权限空间内唯一
      */
     @JsonProperty("resourceName")
     private String resourceName;
     /**
-     * 数据资源 Code,权限空间内唯一
+     * 数据资源 Code, 权限空间内唯一
      */
     @JsonProperty("resourceCode")
     private String resourceCode;

@@ -37,6 +37,11 @@ public class UpdateDepartmentReqDto {
     @JsonProperty("i18n")
     private DepartmentI18nDto i18n;
     /**
+     * 部门状态
+     */
+    @JsonProperty("status")
+    private Boolean status;
+    /**
      * 部门名称
      */
     @JsonProperty("name")
@@ -109,6 +114,13 @@ public class UpdateDepartmentReqDto {
         this.i18n = i18n;
     }
 
+    public Boolean getStatus() {
+        return status;
+    }
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
     public String getName() {
         return name;
     }
@@ -165,6 +177,12 @@ public class UpdateDepartmentReqDto {
 
         @JsonProperty("sync_relation")
         SYNC_RELATION("sync_relation"),
+
+        @JsonProperty("custom_field")
+        CUSTOM_FIELD("custom_field"),
+
+        @JsonProperty("code")
+        CODE("code"),
         ;
 
         private String value;
