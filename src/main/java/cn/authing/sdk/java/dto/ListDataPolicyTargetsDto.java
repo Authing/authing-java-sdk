@@ -29,7 +29,7 @@ public class ListDataPolicyTargetsDto {
      * 主体类型,包括 USER、GROUP、ROLE、ORG 四种类型
      */
     @JsonProperty("targetType")
-    private List<SubjectDto.Type> targetType;
+    private String targetType;
 
     public String getPolicyId() {
         return policyId;
@@ -59,10 +59,10 @@ public class ListDataPolicyTargetsDto {
         this.query = query;
     }
 
-    public List<SubjectDto.Type> getTargetType() {
+    public String getTargetType() {
         return targetType;
     }
-    public void setTargetType(List<SubjectDto.Type> targetType) {
+    public void setTargetType(String targetType) {
         this.targetType = targetType;
     }
 

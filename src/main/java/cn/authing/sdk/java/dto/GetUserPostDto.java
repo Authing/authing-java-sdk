@@ -10,12 +10,24 @@ public class GetUserPostDto {
      */
     @JsonProperty("userId")
     private String userId;
+    /**
+     * 是否获取自定义数据
+     */
+    @JsonProperty("withCustomData")
+    private Boolean withCustomData;
 
     public String getUserId() {
         return userId;
     }
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public Boolean getWithCustomData() {
+        return withCustomData;
+    }
+    public void setWithCustomData(Boolean withCustomData) {
+        this.withCustomData = withCustomData;
     }
 
 

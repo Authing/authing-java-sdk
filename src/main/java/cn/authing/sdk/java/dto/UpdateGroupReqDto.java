@@ -25,6 +25,11 @@ public class UpdateGroupReqDto {
      */
     @JsonProperty("newCode")
     private String newCode;
+    /**
+     * 自定义数据，传入的对象中的 key 必须先在用户池定义相关自定义字段
+     */
+    @JsonProperty("customData")
+    private Object customData;
 
     public String getDescription() {
         return description;
@@ -52,6 +57,13 @@ public class UpdateGroupReqDto {
     }
     public void setNewCode(String newCode) {
         this.newCode = newCode;
+    }
+
+    public Object getCustomData() {
+        return customData;
+    }
+    public void setCustomData(Object customData) {
+        this.customData = customData;
     }
 
 

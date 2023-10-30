@@ -3,6 +3,7 @@ package cn.authing.sdk.java.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import cn.authing.sdk.java.dto.DepartmentSortingDto;
 import cn.authing.sdk.java.dto.SearchDepartmentsFilterItemDto;
 
 public class SearchDepartmentsListReqDto {
@@ -16,6 +17,11 @@ public class SearchDepartmentsListReqDto {
      */
     @JsonProperty("withCustomData")
     private Boolean withCustomData;
+    /**
+     * 是否获取 部门信息
+     */
+    @JsonProperty("withPost")
+    private Boolean withPost;
     /**
      * 当前页数，从 1 开始
      */
@@ -42,6 +48,11 @@ public class SearchDepartmentsListReqDto {
     @JsonProperty("orderBy")
     private OrderBy orderBy;
     /**
+     * 排序设置，可以设置多项按照多个字段进行排序
+     */
+    @JsonProperty("sort")
+    private List<DepartmentSortingDto> sort;
+    /**
      * 租户 ID
      */
     @JsonProperty("tenantId")
@@ -59,6 +70,13 @@ public class SearchDepartmentsListReqDto {
     }
     public void setWithCustomData(Boolean withCustomData) {
         this.withCustomData = withCustomData;
+    }
+
+    public Boolean getWithPost() {
+        return withPost;
+    }
+    public void setWithPost(Boolean withPost) {
+        this.withPost = withPost;
     }
 
     public Integer getPage() {
@@ -94,6 +112,13 @@ public class SearchDepartmentsListReqDto {
     }
     public void setOrderBy(OrderBy orderBy) {
         this.orderBy = orderBy;
+    }
+
+    public List<DepartmentSortingDto> getSort() {
+        return sort;
+    }
+    public void setSort(List<DepartmentSortingDto> sort) {
+        this.sort = sort;
     }
 
     public String getTenantId() {

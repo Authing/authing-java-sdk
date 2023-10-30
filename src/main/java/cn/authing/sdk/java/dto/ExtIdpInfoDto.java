@@ -242,6 +242,9 @@ public class ExtIdpInfoDto {
 
         @JsonProperty("line")
         LINE("line"),
+
+        @JsonProperty("sdbz")
+        SDBZ("sdbz"),
         ;
 
         private String value;

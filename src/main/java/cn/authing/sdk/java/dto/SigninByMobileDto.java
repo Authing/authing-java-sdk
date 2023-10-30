@@ -16,6 +16,7 @@ import cn.authing.sdk.java.dto.SignInByGitlabPayloadDto;
 import cn.authing.sdk.java.dto.SignInByGooglePayloadDto;
 import cn.authing.sdk.java.dto.SignInByHuaweiPayloadDto;
 import cn.authing.sdk.java.dto.SignInByKuaishouPayloadDto;
+import cn.authing.sdk.java.dto.SignInByLarkBlockPayloadDto;
 import cn.authing.sdk.java.dto.SignInByLarkInternalPayloadDto;
 import cn.authing.sdk.java.dto.SignInByLarkPublicPayloadDto;
 import cn.authing.sdk.java.dto.SignInByLinePayloadDto;
@@ -49,6 +50,7 @@ public class SigninByMobileDto {
      * - `wechatwork_agency`: 企业微信移动应用（代开发模式）
      * - `lark_internal`: 飞书移动端企业自建应用
      * - `lark_public`: 飞书移动端应用商店应用
+     * - `lark_block`: 飞书小组件
      * - `yidun`: 网易易盾一键登录
      * - `wechat_mini_program_code`: 微信小程序使用 code 登录
      * - `wechat_mini_program_phone `: 微信小程序使用手机号登录
@@ -110,6 +112,11 @@ public class SigninByMobileDto {
      */
     @JsonProperty("larkInternalPayload")
     private SignInByLarkInternalPayloadDto larkInternalPayload;
+    /**
+     * 飞书小组件移动端社会化登录数据，当 `connection` 为 `lark_block` 的时候必填。
+     */
+    @JsonProperty("larkBlockPayload")
+    private SignInByLarkBlockPayloadDto larkBlockPayload;
     /**
      * 网易易盾移动端社会化登录数据，当 `connection` 为 `yidun` 的时候必填。
      */
@@ -299,6 +306,13 @@ public class SigninByMobileDto {
         this.larkInternalPayload = larkInternalPayload;
     }
 
+    public SignInByLarkBlockPayloadDto getLarkBlockPayload() {
+        return larkBlockPayload;
+    }
+    public void setLarkBlockPayload(SignInByLarkBlockPayloadDto larkBlockPayload) {
+        this.larkBlockPayload = larkBlockPayload;
+    }
+
     public SignInByYidunPayloadDto getYidunPayload() {
         return yidunPayload;
     }
@@ -484,6 +498,7 @@ public class SigninByMobileDto {
      * - `wechatwork_agency`: 企业微信移动应用（代开发模式）
      * - `lark_internal`: 飞书移动端企业自建应用
      * - `lark_public`: 飞书移动端应用商店应用
+     * - `lark_block`: 飞书小组件
      * - `yidun`: 网易易盾一键登录
      * - `wechat_mini_program_code`: 微信小程序使用 code 登录
      * - `wechat_mini_program_phone `: 微信小程序使用手机号登录
@@ -530,6 +545,9 @@ public class SigninByMobileDto {
 
         @JsonProperty("lark_public")
         LARK_PUBLIC("lark_public"),
+
+        @JsonProperty("lark_block")
+        LARK_BLOCK("lark_block"),
 
         @JsonProperty("yidun")
         YIDUN("yidun"),

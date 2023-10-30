@@ -16,7 +16,7 @@ public class SignUpOptionsDto {
     @JsonProperty("phonePassCodeForInformationCompletion")
     private String phonePassCodeForInformationCompletion;
     /**
-     * 用于注册时补全用户信息的短信验证码
+     * 用于注册时验证用户的邮箱验证码
      */
     @JsonProperty("emailPassCodeForInformationCompletion")
     private String emailPassCodeForInformationCompletion;

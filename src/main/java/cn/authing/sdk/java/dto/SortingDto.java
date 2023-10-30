@@ -13,13 +13,13 @@ public class SortingDto {
      * - `phone`: 手机号
      * - `username`: 用户名
      * - `externalId`: 外部 ID
-     * - `status`: 用户状态
+     * - `status`: 公共账号状态
      * - `statusChangedAt`: 状态修改时间
      * - `passwordLastSetAt`: 密码修改时间
      * - `loginsCount`: 登录次数
      * - `gender`: 性别
      * - `lastLogin`: 上次登录时间
-     * - `userSourceType`: 用户注册来源
+     * - `userSourceType`: 公共账号注册来源
      * - `lastMfaTime`: 上次 MFA 认证时间
      * - `passwordSecurityLevel`: 密码安全等级
      * - `phoneCountryCode`: 手机区号
@@ -60,13 +60,13 @@ public class SortingDto {
      * - `phone`: 手机号
      * - `username`: 用户名
      * - `externalId`: 外部 ID
-     * - `status`: 用户状态
+     * - `status`: 公共账号状态
      * - `statusChangedAt`: 状态修改时间
      * - `passwordLastSetAt`: 密码修改时间
      * - `loginsCount`: 登录次数
      * - `gender`: 性别
      * - `lastLogin`: 上次登录时间
-     * - `userSourceType`: 用户注册来源
+     * - `userSourceType`: 公共账号注册来源
      * - `lastMfaTime`: 上次 MFA 认证时间
      * - `passwordSecurityLevel`: 密码安全等级
      * - `phoneCountryCode`: 手机区号

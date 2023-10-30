@@ -25,6 +25,11 @@ public class UserLoggedInIdentitiesDto {
      */
     @JsonProperty("idpLogo")
     private String idpLogo;
+    /**
+     * 身份源 id
+     */
+    @JsonProperty("idpId")
+    private String idpId;
 
     public String getIdentityId() {
         return identityId;
@@ -52,6 +57,13 @@ public class UserLoggedInIdentitiesDto {
     }
     public void setIdpLogo(String idpLogo) {
         this.idpLogo = idpLogo;
+    }
+
+    public String getIdpId() {
+        return idpId;
+    }
+    public void setIdpId(String idpId) {
+        this.idpId = idpId;
     }
 
 

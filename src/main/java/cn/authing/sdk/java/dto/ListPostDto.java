@@ -30,6 +30,16 @@ public class ListPostDto {
      */
     @JsonProperty("withMetadata")
     private Boolean withMetadata;
+    /**
+     * 是否获取自定义数据
+     */
+    @JsonProperty("withCustomData")
+    private Boolean withCustomData;
+    /**
+     * 是否拍平扩展字段
+     */
+    @JsonProperty("flatCustomData")
+    private Boolean flatCustomData;
 
     public String getKeywords() {
         return keywords;
@@ -64,6 +74,20 @@ public class ListPostDto {
     }
     public void setWithMetadata(Boolean withMetadata) {
         this.withMetadata = withMetadata;
+    }
+
+    public Boolean getWithCustomData() {
+        return withCustomData;
+    }
+    public void setWithCustomData(Boolean withCustomData) {
+        this.withCustomData = withCustomData;
+    }
+
+    public Boolean getFlatCustomData() {
+        return flatCustomData;
+    }
+    public void setFlatCustomData(Boolean flatCustomData) {
+        this.flatCustomData = flatCustomData;
     }
 
 

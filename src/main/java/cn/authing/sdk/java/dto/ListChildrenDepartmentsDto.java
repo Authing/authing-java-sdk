@@ -16,6 +16,11 @@ public class ListChildrenDepartmentsDto {
     @JsonProperty("departmentId")
     private String departmentId;
     /**
+     * 部门的状态
+     */
+    @JsonProperty("status")
+    private Boolean status;
+    /**
      * 此次调用中使用的部门 ID 的类型
      */
     @JsonProperty("departmentIdType")
@@ -53,6 +58,13 @@ public class ListChildrenDepartmentsDto {
     }
     public void setDepartmentId(String departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public String getDepartmentIdType() {

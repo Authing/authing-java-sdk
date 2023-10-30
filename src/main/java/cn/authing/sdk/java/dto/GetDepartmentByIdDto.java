@@ -15,6 +15,11 @@ public class GetDepartmentByIdDto {
      */
     @JsonProperty("tenantId")
     private String tenantId;
+    /**
+     * 是否获取自定义数据
+     */
+    @JsonProperty("withCustomData")
+    private Boolean withCustomData;
 
     public String getDepartmentId() {
         return departmentId;
@@ -28,6 +33,13 @@ public class GetDepartmentByIdDto {
     }
     public void setTenantId(String tenantId) {
         this.tenantId = tenantId;
+    }
+
+    public Boolean getWithCustomData() {
+        return withCustomData;
+    }
+    public void setWithCustomData(Boolean withCustomData) {
+        this.withCustomData = withCustomData;
     }
 
 

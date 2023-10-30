@@ -37,6 +37,11 @@ public class GetAuthorizedResourcesDto {
     private String resourceType;
     /**
      * 限定查询的资源列表，如果指定，只会返回所指定的资源列表。
+     *
+     * resourceList 参数支持前缀匹配，例如：
+     * - 授权了一个资源为 `books:123`，可以通过 `books:*` 来匹配；
+     * - 授权了一个资源为 `books:fictions_123`，可以通过 `books:fictions_` 来匹配；
+     *
      */
     @JsonProperty("resourceList")
     private String resourceList;

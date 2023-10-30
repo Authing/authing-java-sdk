@@ -57,6 +57,11 @@ public class DepartmentDto {
     @JsonProperty("code")
     private String code;
     /**
+     * 父部门 code
+     */
+    @JsonProperty("parentDepartmentCode")
+    private String parentDepartmentCode;
+    /**
      * 部门人数（仅包含直属成员）
      */
     @JsonProperty("membersCount")
@@ -82,10 +87,25 @@ public class DepartmentDto {
     @JsonProperty("customData")
     private Object customData;
     /**
+     * 部门关联的岗位
+     */
+    @JsonProperty("posts")
+    private List<String> posts;
+    /**
      * 岗位 id 列表
      */
     @JsonProperty("postIdList")
     private List<String> postIdList;
+    /**
+     * 部门状态
+     */
+    @JsonProperty("status")
+    private Boolean status;
+    /**
+     * 访问限制
+     */
+    @JsonProperty("allow")
+    private String allow;
 
     public String getOrganizationCode() {
         return organizationCode;
@@ -157,6 +177,13 @@ public class DepartmentDto {
         this.code = code;
     }
 
+    public String getParentDepartmentCode() {
+        return parentDepartmentCode;
+    }
+    public void setParentDepartmentCode(String parentDepartmentCode) {
+        this.parentDepartmentCode = parentDepartmentCode;
+    }
+
     public Integer getMembersCount() {
         return membersCount;
     }
@@ -192,11 +219,32 @@ public class DepartmentDto {
         this.customData = customData;
     }
 
+    public List<String> getPosts() {
+        return posts;
+    }
+    public void setPosts(List<String> posts) {
+        this.posts = posts;
+    }
+
     public List<String> getPostIdList() {
         return postIdList;
     }
     public void setPostIdList(List<String> postIdList) {
         this.postIdList = postIdList;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public String getAllow() {
+        return allow;
+    }
+    public void setAllow(String allow) {
+        this.allow = allow;
     }
 
 

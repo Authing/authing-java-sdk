@@ -16,7 +16,7 @@ public class SendEmailRespDto {
     @JsonProperty("message")
     private String message;
     /**
-     * 细分错误码，可通过此错误码得到具体的错误类型。
+     * 细分错误码，可通过此错误码得到具体的错误类型。详情可以查看开发准备中的 apiCode 细分说明
      */
     @JsonProperty("apiCode")
     private Integer apiCode;

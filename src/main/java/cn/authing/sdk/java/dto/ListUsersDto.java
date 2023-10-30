@@ -36,6 +36,11 @@ public class ListUsersDto {
     @JsonProperty("withCustomData")
     private Boolean withCustomData;
     /**
+     * 是否获取 部门信息
+     */
+    @JsonProperty("withPost")
+    private Boolean withPost;
+    /**
      * 是否获取 identities
      */
     @JsonProperty("withIdentities")
@@ -86,6 +91,13 @@ public class ListUsersDto {
     }
     public void setWithCustomData(Boolean withCustomData) {
         this.withCustomData = withCustomData;
+    }
+
+    public Boolean getWithPost() {
+        return withPost;
+    }
+    public void setWithPost(Boolean withPost) {
+        this.withPost = withPost;
     }
 
     public Boolean getWithIdentities() {

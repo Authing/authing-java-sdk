@@ -81,6 +81,16 @@ public class OrganizationDto {
      */
     @JsonProperty("postIdList")
     private List<String> postIdList;
+    /**
+     * 状态
+     */
+    @JsonProperty("status")
+    private String status;
+    /**
+     * 访问限制
+     */
+    @JsonProperty("allow")
+    private String allow;
 
     public String getOrganizationCode() {
         return organizationCode;
@@ -185,6 +195,20 @@ public class OrganizationDto {
     }
     public void setPostIdList(List<String> postIdList) {
         this.postIdList = postIdList;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getAllow() {
+        return allow;
+    }
+    public void setAllow(String allow) {
+        this.allow = allow;
     }
 
 
