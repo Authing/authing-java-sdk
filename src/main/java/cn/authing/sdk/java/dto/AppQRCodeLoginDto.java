@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class AppQRCodeLoginDto {
     /**
      * APP 扫二维码登录:

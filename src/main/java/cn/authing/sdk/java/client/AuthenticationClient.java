@@ -1204,1296 +1204,1223 @@ public class AuthenticationClient extends BaseClient {
     }
 
     // ==== AUTO GENERATED AUTHENTICATION METHODS BEGIN ====
-
-    /**
-     * @summary 注册
-     * @description 此端点目前支持以下几种基于的注册方式：
-     * <p>
-     * 1. 基于密码（PASSWORD）：用户名 + 密码，邮箱 + 密码。
-     * 2. 基于一次性临时验证码（PASSCODE）：手机号 + 验证码，邮箱 + 验证码。你需要先调用发送短信或者发送邮件接口获取验证码。
-     * <p>
-     * 社会化登录等使用外部身份源“注册”请直接使用**登录**接口，我们会在其第一次登录的时候为其创建一个新账号。
-     **/
-    public UserSingleRespDto signUp(SignUpDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/signup");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, UserSingleRespDto.class);
-    }
-
-    /**
-     * @summary 生成绑定外部身份源的链接
-     * @description 此接口用于生成绑定外部身份源的链接，生成之后可以引导用户进行跳转。
-     **/
-    public GenerateBindExtIdpLinkRespDto generateLinkExtIdpUrl(GenerateLinkExtidpUrlDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/generate-link-extidp-url");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, GenerateBindExtIdpLinkRespDto.class);
-    }
-
-    /**
-     * @summary 解绑外部身份源
-     * @description 解绑外部身份源，此接口需要传递用户绑定的外部身份源 ID，**注意不是身份源连接 ID**。
-     **/
-    public CommonResponseDto unlinkExtIdp(UnlinkExtIdpDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/unlink-extidp");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, CommonResponseDto.class);
-    }
-
-    /**
-     * @summary 获取绑定的外部身份源
-     * @description 如在**介绍**部分中所描述的，一个外部身份源对应多个外部身份源连接，用户通过某个外部身份源连接绑定了某个外部身份源账号之后，
-     * 用户会建立一条与此外部身份源之间的关联关系。此接口用于获取此用户绑定的所有外部身份源。
-     * <p>
-     * 取决于外部身份源的具体实现，一个用户在外部身份源中，可能会有多个身份 ID，比如在微信体系中会有 `openid` 和 `unionid`，在非书中有
-     * `open_id`、`union_id` 和 `user_id`。在 Authing 中，我们把这样的一条 `open_id` 或者 `unionid_` 叫做一条 `Identity`， 所以用户在一个身份源会有多条 `Identity` 记录。
-     * <p>
-     * 以微信为例，如果用户使用微信登录或者绑定了微信账号，他的 `Identity` 信息如下所示：
-     * <p>
-     * ```json
-     * [
+/**
+ * @summary 注册
+ * @description
+ * 此端点目前支持以下几种基于的注册方式：
+ *
+ * 1. 基于密码（PASSWORD）：用户名 + 密码，邮箱 + 密码。
+ * 2. 基于一次性临时验证码（PASSCODE）：手机号 + 验证码，邮箱 + 验证码。你需要先调用发送短信或者发送邮件接口获取验证码。
+ *
+ * 社会化登录等使用外部身份源“注册”请直接使用**登录**接口，我们会在其第一次登录的时候为其创建一个新账号。
+ *
+ **/
+public UserSingleRespDto signUp(SignUpDto reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/signup");
+    config.setBody(reqDto);
+    config.setMethod("POST");
+    String response = request(config);
+    return deserialize(response, UserSingleRespDto.class);
+}
+/**
+ * @summary 生成绑定外部身份源的链接
+ * @description
+ * 此接口用于生成绑定外部身份源的链接，生成之后可以引导用户进行跳转。
+ *
+ **/
+public GenerateBindExtIdpLinkRespDto generateLinkExtIdpUrl(GenerateLinkExtidpUrlDto reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/generate-link-extidp-url");
+    config.setBody(reqDto);
+    config.setMethod("GET");
+    String response = request(config);
+    return deserialize(response, GenerateBindExtIdpLinkRespDto.class);
+}
+/**
+ * @summary 解绑外部身份源
+ * @description 解绑外部身份源，此接口需要传递用户绑定的外部身份源 ID，**注意不是身份源连接 ID**。
+ **/
+public CommonResponseDto unlinkExtIdp(UnlinkExtIdpDto reqDto) {
+    AuthingRequestConfig config = new AuthingRequestConfig();
+    config.setUrl("/api/v3/unlink-extidp");
+    config.setBody(reqDto);
+    config.setMethod("POST");
+    String response = request(config);
+    return deserialize(response, CommonResponseDto.class);
+}
+/**
+ * @summary 获取绑定的外部身份源
+ * @description
+ * 如在**介绍**部分中所描述的，一个外部身份源对应多个外部身份源连接，用户通过某个外部身份源连接绑定了某个外部身份源账号之后，
+ * 用户会建立一条与此外部身份源之间的关联关系。此接口用于获取此用户绑定的所有外部身份源。
+ *
+ * 取决于外部身份源的具体实现，一个用户在外部身份源中，可能会有多个身份 ID，比如在微信体系中会有 `openid` 和 `unionid`，在非书中有
+ * `open_id`、`union_id` 和 `user_id`。在 Authing 中，我们把这样的一条 `open_id` 或者 `unionid_` 叫做一条 `Identity`， 所以用户在一个身份源会有多条 `Identity` 记录。
+ *
+ * 以微信为例，如果用户使用微信登录或者绑定了微信账号，他的 `Identity` 信息如下所示：
+ *
+ * ```json
+ * [
      * {
-     * "identityId": "62f20932xxxxbcc10d966ee5",
-     * "extIdpId": "62f209327xxxxcc10d966ee5",
-     * "provider": "wechat",
-     * "type": "openid",
-     * "userIdInIdp": "oH_5k5SflrwjGvk7wqpoBKq_cc6M",
-     * "originConnIds": ["62f2093244fa5cb19ff21ed3"]
-     * },
-     * {
-     * "identityId": "62f726239xxxxe3285d21c93",
-     * "extIdpId": "62f209327xxxxcc10d966ee5",
-     * "provider": "wechat",
-     * "type": "unionid",
-     * "userIdInIdp": "o9Nka5ibU-lUGQaeAHqu0nOZyJg0",
-     * "originConnIds": ["62f2093244fa5cb19ff21ed3"]
-     * }
-     * ]
-     * ```
-     * <p>
-     * <p>
-     * 可以看到他们的 `extIdpId` 是一样的，这个是你在 Authing 中创建的**身份源 ID**；`provider` 都是 `wechat`；
-     * 通过 `type` 可以区分出哪个是 `openid`，哪个是 `unionid`，以及具体的值（`userIdInIdp`）；他们都来自于同一个身份源连接（`originConnIds`）。
-     **/
-    public GetIdentitiesRespDto getIdentities() {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-identities");
-        config.setBody(new Object());
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, GetIdentitiesRespDto.class);
-    }
-
-    /**
-     * @summary 获取应用开启的外部身份源列表
-     * @description 获取应用开启的外部身份源列表，前端可以基于此渲染外部身份源按钮。
-     **/
-    public GetExtIdpsRespDto getApplicationEnabledExtIdps() {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-application-enabled-extidps");
-        config.setBody(new Object());
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, GetExtIdpsRespDto.class);
-    }
-
-    /**
-     * @summary 使用用户凭证登录
-     * @description 此端点为基于直接 API 调用形式的登录端点，适用于你需要自建登录页面的场景。**此端点暂时不支持 MFA、信息补全、首次密码重置等流程，如有需要，请使用 OIDC 标准协议认证端点。**
-     * <p>
-     * <p>
-     * 注意事项：取决于你在 Authing 创建应用时选择的**应用类型**和应用配置的**换取 token 身份验证方式**，在调用此接口时需要对客户端的身份进行不同形式的验证。
-     *
-     * <details>
-     * <summary>点击展开详情</summary>
-     *
-     * <br>
-     * <p>
-     * 你可以在 [Authing 控制台](https://console.authing.cn) 的**应用** - **自建应用** - **应用详情** - **应用配置** - **其他设置** - **授权配置**
-     * 中找到**换取 token 身份验证方式** 配置项：
-     * <p>
-     * > 单页 Web 应用和客户端应用隐藏，默认为 `none`，不允许修改；后端应用和标准 Web 应用可以修改此配置项。
-     * <p>
-     * ![](https://files.authing.co/api-explorer/tokenAuthMethod.jpg)
-     * <p>
-     * #### 换取 token 身份验证方式为 none 时
-     * <p>
-     * 调用此接口不需要进行额外操作。
-     * <p>
-     * #### 换取 token 身份验证方式为 client_secret_post 时
-     * <p>
-     * 调用此接口时必须在 body 中传递 `client_id` 和 `client_secret` 参数，作为验证客户端身份的条件。其中 `client_id` 为应用 ID、`client_secret` 为应用密钥。
-     * <p>
-     * #### 换取 token 身份验证方式为 client_secret_basic 时
-     * <p>
-     * 调用此接口时必须在 HTTP 请求头中携带 `authorization` 请求头，作为验证客户端身份的条件。`authorization` 请求头的格式如下（其中 `client_id` 为应用 ID、`client_secret` 为应用密钥。）：
-     * <p>
-     * ```
-     * Basic base64(<client_id>:<client_secret>)
-     * ```
-     * <p>
-     * 结果示例：
-     * <p>
-     * ```
-     * Basic NjA2M2ZiMmYzY3h4eHg2ZGY1NWYzOWViOjJmZTdjODdhODFmODY3eHh4eDAzMjRkZjEyZGFlZGM3
-     * ```
-     * <p>
-     * JS 代码示例：
-     * <p>
-     * ```js
-     * 'Basic ' + Buffer.from(client_id + ':' + client_secret).toString('base64');
-     * ```
-     *
-     * </details>
-     **/
-    public LoginTokenRespDto signInByCredentials(SigninByCredentialsDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/signin");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, LoginTokenRespDto.class);
-    }
-
-    /**
-     * @summary 使用移动端社会化登录
-     * @description 此端点为移动端社会化登录接口，使用第三方移动社会化登录返回的临时凭证登录，并换取用户的 `id_token` 和 `access_token`。请先阅读相应社会化登录的接入流程。
-     * <p>
-     * <p>
-     * 注意事项：取决于你在 Authing 创建应用时选择的**应用类型**和应用配置的**换取 token 身份验证方式**，在调用此接口时需要对客户端的身份进行不同形式的验证。
-     *
-     * <details>
-     * <summary>点击展开详情</summary>
-     *
-     * <br>
-     * <p>
-     * 你可以在 [Authing 控制台](https://console.authing.cn) 的**应用** - **自建应用** - **应用详情** - **应用配置** - **其他设置** - **授权配置**
-     * 中找到**换取 token 身份验证方式** 配置项：
-     * <p>
-     * > 单页 Web 应用和客户端应用隐藏，默认为 `none`，不允许修改；后端应用和标准 Web 应用可以修改此配置项。
-     * <p>
-     * ![](https://files.authing.co/api-explorer/tokenAuthMethod.jpg)
-     * <p>
-     * #### 换取 token 身份验证方式为 none 时
-     * <p>
-     * 调用此接口不需要进行额外操作。
-     * <p>
-     * #### 换取 token 身份验证方式为 client_secret_post 时
-     * <p>
-     * 调用此接口时必须在 body 中传递 `client_id` 和 `client_secret` 参数，作为验证客户端身份的条件。其中 `client_id` 为应用 ID、`client_secret` 为应用密钥。
-     * <p>
-     * #### 换取 token 身份验证方式为 client_secret_basic 时
-     * <p>
-     * 调用此接口时必须在 HTTP 请求头中携带 `authorization` 请求头，作为验证客户端身份的条件。`authorization` 请求头的格式如下（其中 `client_id` 为应用 ID、`client_secret` 为应用密钥。）：
-     * <p>
-     * ```
-     * Basic base64(<client_id>:<client_secret>)
-     * ```
-     * <p>
-     * 结果示例：
-     * <p>
-     * ```
-     * Basic NjA2M2ZiMmYzY3h4eHg2ZGY1NWYzOWViOjJmZTdjODdhODFmODY3eHh4eDAzMjRkZjEyZGFlZGM3
-     * ```
-     * <p>
-     * JS 代码示例：
-     * <p>
-     * ```js
-     * 'Basic ' + Buffer.from(client_id + ':' + client_secret).toString('base64');
-     * ```
-     *
-     * </details>
-     **/
-    public LoginTokenRespDto signInByMobile(SigninByMobileDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/signin-by-mobile");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, LoginTokenRespDto.class);
-    }
-
-    /**
-     * @summary 公共账号切换登录
-     * @description 允许个人账号与关联的公共账号间做切换登录，此端点要求账号已登录
-     **/
-    public LoginTokenRespDto switchLoginByUser(PublicAccountSwitchLoginDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/switch-login-by-user");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, LoginTokenRespDto.class);
-    }
-
-    /**
-     * @summary 获取支付宝 AuthInfo
-     * @description 此接口用于获取发起支付宝认证需要的[初始化参数 AuthInfo](https://opendocs.alipay.com/open/218/105325)。
-     **/
-    public GetAlipayAuthInfoRespDto getAlipayAuthInfo(GetAlipayAuthinfoDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-alipay-authinfo");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, GetAlipayAuthInfoRespDto.class);
-    }
-
-    /**
-     * @summary 生成用于登录的二维码
-     * @description 生成用于登录的二维码，目前支持生成微信公众号扫码登录、小程序扫码登录、自建移动 APP 扫码登录的二维码。
-     **/
-    public GeneQRCodeRespDto geneQrCode(GenerateQrcodeDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/gene-qrcode");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, GeneQRCodeRespDto.class);
-    }
-
-    /**
-     * @summary 查询二维码状态
-     * @description 按照用户扫码顺序，共分为未扫码、已扫码等待用户确认、用户同意/取消授权、二维码过期以及未知错误六种状态，前端应该通过不同的状态给到用户不同的反馈。你可以通过下面这篇文章了解扫码登录详细的流程：https://docs.authing.cn/v2/concepts/how-qrcode-works.html.
-     **/
-    public CheckQRCodeStatusRespDto checkQrCodeStatus(CheckQrcodeStatusDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/check-qrcode-status");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, CheckQRCodeStatusRespDto.class);
-    }
-
-    /**
-     * @summary 使用二维码 ticket 换取 TokenSet
-     * @description 此端点为使用二维码的 ticket 换取用户的 `access_token` 和 `id_token`。
-     * <p>
-     * <p>
-     * 注意事项：取决于你在 Authing 创建应用时选择的**应用类型**和应用配置的**换取 token 身份验证方式**，在调用此接口时需要对客户端的身份进行不同形式的验证。
-     *
-     * <details>
-     * <summary>点击展开详情</summary>
-     *
-     * <br>
-     * <p>
-     * 你可以在 [Authing 控制台](https://console.authing.cn) 的**应用** - **自建应用** - **应用详情** - **应用配置** - **其他设置** - **授权配置**
-     * 中找到**换取 token 身份验证方式** 配置项：
-     * <p>
-     * > 单页 Web 应用和客户端应用隐藏，默认为 `none`，不允许修改；后端应用和标准 Web 应用可以修改此配置项。
-     * <p>
-     * ![](https://files.authing.co/api-explorer/tokenAuthMethod.jpg)
-     * <p>
-     * #### 换取 token 身份验证方式为 none 时
-     * <p>
-     * 调用此接口不需要进行额外操作。
-     * <p>
-     * #### 换取 token 身份验证方式为 client_secret_post 时
-     * <p>
-     * 调用此接口时必须在 body 中传递 `client_id` 和 `client_secret` 参数，作为验证客户端身份的条件。其中 `client_id` 为应用 ID、`client_secret` 为应用密钥。
-     * <p>
-     * #### 换取 token 身份验证方式为 client_secret_basic 时
-     * <p>
-     * 调用此接口时必须在 HTTP 请求头中携带 `authorization` 请求头，作为验证客户端身份的条件。`authorization` 请求头的格式如下（其中 `client_id` 为应用 ID、`client_secret` 为应用密钥。）：
-     * <p>
-     * ```
-     * Basic base64(<client_id>:<client_secret>)
-     * ```
-     * <p>
-     * 结果示例：
-     * <p>
-     * ```
-     * Basic NjA2M2ZiMmYzY3h4eHg2ZGY1NWYzOWViOjJmZTdjODdhODFmODY3eHh4eDAzMjRkZjEyZGFlZGM3
-     * ```
-     * <p>
-     * JS 代码示例：
-     * <p>
-     * ```js
-     * 'Basic ' + Buffer.from(client_id + ':' + client_secret).toString('base64');
-     * ```
-     *
-     * </details>
-     **/
-    public LoginTokenRespDto exchangeTokenSetWithQrCodeTicket(ExchangeTokenSetWithQRcodeTicketDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/exchange-tokenset-with-qrcode-ticket");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, LoginTokenRespDto.class);
-    }
-
-    /**
-     * @summary 自建 APP 扫码登录：APP 端修改二维码状态
-     * @description 此端点用于在自建 APP 扫码登录中修改二维码状态，对应着在浏览器渲染出二维码之后，终端用户扫码、确认授权、取消授权的过程。**此接口要求具备用户的登录态**。
-     **/
-    public CommonResponseDto changeQrCodeStatus(ChangeQRCodeStatusDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/change-qrcode-status");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, CommonResponseDto.class);
-    }
-
-    /**
-     * @summary 推送登录
-     * @description 推送登录。
-     **/
-    public GenePushCodeRespDto signInByPush(SignInByPushDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/signin-by-push");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, GenePushCodeRespDto.class);
-    }
-
-    /**
-     * @summary 查询推送码状态
-     * @description 按照推送码使用顺序，共分为已推送、等待用户 同意/取消 授权、推送码过期以及未知错误五种状态，前端应该通过不同的状态给到用户不同的反馈。
-     **/
-    public CheckPushCodeStatusRespDto checkPushCodeStatus(CheckPushcodeStatusDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/check-pushcode-status");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, CheckPushCodeStatusRespDto.class);
-    }
-
-    /**
-     * @summary 推送登录：APP 端修改推送码状态
-     * @description 此端点用于在 Authing 令牌 APP 推送登录中修改推送码状态，对应着在浏览器使用推送登录，点击登录之后，终端用户收到推送登录信息，确认授权、取消授权的过程。**此接口要求具备用户的登录态**。
-     **/
-    public CommonResponseDto changePushCodeStatus(ChangePushCodeStatusDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/change-pushcode-status");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, CommonResponseDto.class);
-    }
-
-    /**
-     * @summary 发送短信
-     * @description 发送短信时必须指定短信 Channel，每个手机号同一 Channel 在一分钟内只能发送一次。
-     **/
-    public SendSMSRespDto sendSms(SendSMSDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/send-sms");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, SendSMSRespDto.class);
-    }
-
-    /**
-     * @summary 发送邮件
-     * @description 发送邮件时必须指定邮件 Channel，每个邮箱同一 Channel 在一分钟内只能发送一次。
-     **/
-    public SendEmailRespDto sendEmail(SendEmailDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/send-email");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, SendEmailRespDto.class);
-    }
-
-    /**
-     * @summary 解密微信小程序数据
-     * @description 解密微信小程序数据
-     **/
-    public DecryptWechatMiniProgramDataRespDto decryptWechatMiniProgramData(DecryptWechatMiniProgramDataDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/decrypt-wechat-miniprogram-data");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, DecryptWechatMiniProgramDataRespDto.class);
-    }
-
-    /**
-     * @summary 获取微信小程序、公众号 Access Token
-     * @description 获取 Authing 服务器缓存的微信小程序、公众号 Access Token（废弃，请使用 /api/v3/get-wechat-access-token-info）
-     * @deprecated
-     **/
-    public GetWechatAccessTokenRespDto getWechatMpAccessToken(GetWechatAccessTokenDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-wechat-access-token");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, GetWechatAccessTokenRespDto.class);
-    }
-
-    /**
-     * @summary 获取微信小程序、公众号 Access Token
-     * @description 获取 Authing 服务器缓存的微信小程序、公众号 Access Token
-     **/
-    public GetWechatAccessTokenInfoRespDto getWechatMpAccessTokenInfo(GetWechatAccessTokenDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-wechat-access-token-info");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, GetWechatAccessTokenInfoRespDto.class);
-    }
-
-    /**
-     * @summary 获取登录日志
-     * @description 获取登录日志
-     **/
-    public GetLoginHistoryRespDto getLoginHistory(GetMyLoginHistoryDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-my-login-history");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, GetLoginHistoryRespDto.class);
-    }
-
-    /**
-     * @summary 获取登录应用
-     * @description 获取登录应用
-     **/
-    public GetLoggedInAppsRespDto getLoggedInApps() {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-my-logged-in-apps");
-        config.setBody(new Object());
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, GetLoggedInAppsRespDto.class);
-    }
-
-    /**
-     * @summary 获取具备访问权限的应用
-     * @description 获取具备访问权限的应用
-     **/
-    public GetAccessibleAppsRespDto getAccessibleApps() {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-my-accessible-apps");
-        config.setBody(new Object());
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, GetAccessibleAppsRespDto.class);
-    }
-
-    /**
-     * @summary 获取租户列表
-     * @description 获取租户列表
-     **/
-    public GetTenantListRespDto getTenantList() {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-my-tenant-list");
-        config.setBody(new Object());
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, GetTenantListRespDto.class);
-    }
-
-    /**
-     * @summary 获取角色列表
-     * @description 获取角色列表
-     **/
-    public RoleListRespDto getRoleList(GetMyRoleListDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-my-role-list");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, RoleListRespDto.class);
-    }
-
-    /**
-     * @summary 获取分组列表
-     * @description 获取分组列表
-     **/
-    public GroupListRespDto getGroupList() {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-my-group-list");
-        config.setBody(new Object());
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, GroupListRespDto.class);
-    }
-
-    /**
-     * @summary 获取部门列表
-     * @description 此接口用于获取用户的部门列表，可根据一定排序规则进行排序。
-     **/
-    public UserDepartmentPaginatedRespDto getDepartmentList(GetMyDepartmentListDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-my-department-list");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, UserDepartmentPaginatedRespDto.class);
-    }
-
-    /**
-     * @summary 获取被授权的资源列表
-     * @description 此接口用于获取用户被授权的资源列表。
-     **/
-    public AuthorizedResourcePaginatedRespDto getAuthorizedResources(GetMyAuthorizedResourcesDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-my-authorized-resources");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, AuthorizedResourcePaginatedRespDto.class);
-    }
-
-    /**
-     * @summary 获取用户资料
-     * @description 此端点用户获取用户资料，需要在请求头中带上用户的 `access_token`，Authing 服务器会根据用户 `access_token` 中的 `scope` 返回对应的字段。
-     **/
-    public UserSingleRespDto getProfile(GetProfileDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-profile");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, UserSingleRespDto.class);
-    }
-
-    /**
-     * @summary 修改用户资料
-     * @description 此接口用于修改用户的用户资料，包含用户的自定义数据。如果需要**修改邮箱**、**修改手机号**、**修改密码**，请使用对应的单独接口。
-     **/
-    public UserSingleRespDto updateProfile(UpdateUserProfileDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/update-profile");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, UserSingleRespDto.class);
-    }
-
-    /**
-     * @summary 绑定邮箱
-     * @description 如果用户还**没有绑定邮箱**，此接口可用于用户**自主**绑定邮箱。如果用户已经绑定邮箱想要修改邮箱，请使用**修改邮箱**接口。你需要先调用**发送邮件**接口发送邮箱验证码。
-     **/
-    public CommonResponseDto bindEmail(BindEmailDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/bind-email");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, CommonResponseDto.class);
-    }
-
-    /**
-     * @summary 解绑邮箱
-     * @description 用户解绑邮箱，如果用户没有绑定其他登录方式（手机号、社会化登录账号），将无法解绑邮箱，会提示错误。
-     **/
-    public CommonResponseDto unbindEmail(UnbindEmailDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/unbind-email");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, CommonResponseDto.class);
-    }
-
-    /**
-     * @summary 绑定手机号
-     * @description 如果用户还**没有绑定手机号**，此接口可用于用户**自主**绑定手机号。如果用户已经绑定手机号想要修改手机号，请使用**修改手机号**接口。你需要先调用**发送短信**接口发送短信验证码。
-     **/
-    public CommonResponseDto bindPhone(BindPhoneDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/bind-phone");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, CommonResponseDto.class);
-    }
-
-    /**
-     * @summary 解绑手机号
-     * @description 用户解绑手机号，如果用户没有绑定其他登录方式（邮箱、社会化登录账号），将无法解绑手机号，会提示错误。
-     **/
-    public CommonResponseDto unbindPhone(UnbindPhoneDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/unbind-phone");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, CommonResponseDto.class);
-    }
-
-    /**
-     * @summary 获取密码强度和账号安全等级评分
-     * @description 获取用户的密码强度和账号安全等级评分，需要在请求头中带上用户的 `access_token`。
-     **/
-    public GetSecurityInfoRespDto getSecurityLevel() {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-security-info");
-        config.setBody(new Object());
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, GetSecurityInfoRespDto.class);
-    }
-
-    /**
-     * @summary 修改密码
-     * @description 此端点用于用户自主修改密码，如果用户之前已经设置密码，需要提供用户的原始密码作为凭证。如果用户忘记了当前密码，请使用**忘记密码**接口。
-     **/
-    public CommonResponseDto updatePassword(UpdatePasswordDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/update-password");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, CommonResponseDto.class);
-    }
-
-    /**
-     * @summary 发起修改邮箱的验证请求
-     * @description 终端用户自主修改邮箱时，需要提供相应的验证手段。此接口用于验证用户的修改邮箱请求是否合法。当前支持通过**邮箱验证码**的方式进行验证，你需要先调用发送邮件接口发送对应的邮件验证码。
-     **/
-    public VerifyUpdateEmailRequestRespDto verifyUpdateEmailRequest(VerifyUpdateEmailRequestDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/verify-update-email-request");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, VerifyUpdateEmailRequestRespDto.class);
-    }
-
-    /**
-     * @summary 修改邮箱
-     * @description 终端用户自主修改邮箱，需要提供相应的验证手段，见[发起修改邮箱的验证请求](#tag/用户资料/API%20列表/operation/ProfileV3Controller_verifyUpdateEmailRequest)。
-     * 此参数需要提供一次性临时凭证 `updateEmailToken`，此数据需要从**发起修改邮箱的验证请求**接口获取。
-     **/
-    public CommonResponseDto updateEmail(UpdateEmailDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/update-email");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, CommonResponseDto.class);
-    }
-
-    /**
-     * @summary 发起修改手机号的验证请求
-     * @description 终端用户自主修改手机号时，需要提供相应的验证手段。此接口用于验证用户的修改手机号请求是否合法。当前支持通过**短信验证码**的方式进行验证，你需要先调用发送短信接口发送对应的短信验证码。
-     **/
-    public VerifyUpdatePhoneRequestRespDto verifyUpdatePhoneRequest(VerifyUpdatePhoneRequestDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/verify-update-phone-request");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, VerifyUpdatePhoneRequestRespDto.class);
-    }
-
-    /**
-     * @summary 修改手机号
-     * @description 终端用户自主修改手机号，需要提供相应的验证手段，见[发起修改手机号的验证请求](#tag/用户资料/API%20列表/operation/ProfileV3Controller_updatePhoneVerification)。
-     * 此参数需要提供一次性临时凭证 `updatePhoneToken`，此数据需要从**发起修改手机号的验证请求**接口获取。
-     **/
-    public CommonResponseDto updatePhone(UpdatePhoneDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/update-phone");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, CommonResponseDto.class);
-    }
-
-    /**
-     * @summary 发起忘记密码请求
-     * @description 当用户忘记密码时，可以通过此端点找回密码。用户需要使用相关验证手段进行验证，目前支持**邮箱验证码**和**手机号验证码**两种验证手段。
-     **/
-    public PasswordResetVerifyResp verifyResetPasswordRequest(VerifyResetPasswordRequestDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/verify-reset-password-request");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, PasswordResetVerifyResp.class);
-    }
-
-    /**
-     * @summary 忘记密码
-     * @description 此端点用于用户忘记密码之后，通过**手机号验证码**或者**邮箱验证码**的方式重置密码。此接口需要提供用于重置密码的临时凭证 `passwordResetToken`，此参数需要通过**发起忘记密码请求**接口获取。
-     **/
-    public IsSuccessRespDto resetPassword(ResetPasswordDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/reset-password");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, IsSuccessRespDto.class);
-    }
-
-    /**
-     * @summary 发起注销账号请求
-     * @description 当用户希望注销账号时，需提供相应凭证，当前支持**使用邮箱验证码**、使用**手机验证码**、**使用密码**三种验证方式。
-     **/
-    public VerifyDeleteAccountRequestRespDto verifyDeleteAccountRequest(VerifyDeleteAccountRequestDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/verify-delete-account-request");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, VerifyDeleteAccountRequestRespDto.class);
-    }
-
-    /**
-     * @summary 注销账户
-     * @description 此端点用于用户自主注销账号，需要提供用于注销账号的临时凭证 deleteAccountToken，此参数需要通过**发起注销账号请求**接口获取。
-     **/
-    public IsSuccessRespDto deleteAccount(DeleteAccounDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/delete-account");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, IsSuccessRespDto.class);
-    }
-
-    /**
-     * @summary 查询当前登录用户可切换登录的公共账号列表
-     * @description 此端点用于查询当前登录用户可切换登录的公共账号列表，如果没有可切换登录的公共账号，则返回空数组。
-     **/
-    public GetPublicAccountDataRespDto listPublicAccountsForSwitchLoggedIn(GetUserSelectLoginPublicAccountsDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-user-select-login-public-accounts");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, GetPublicAccountDataRespDto.class);
-    }
-
-    /**
-     * @summary 获取服务器公开信息
-     * @description 可端点可获取服务器的公开信息，如 RSA256 公钥、SM2 公钥、Authing 服务版本号等。
-     **/
-    public SystemInfoResp getSystemInfo() {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/system");
-        config.setBody(new Object());
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, SystemInfoResp.class);
-    }
-
-    /**
-     * @summary 获取国家列表
-     * @description 动态获取国家列表，可以用于前端登录页面国家选择和国际短信输入框选择，以减少前端静态资源体积。
-     **/
-    public GetCountryListRespDto getCountryList() {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-country-list");
-        config.setBody(new Object());
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, GetCountryListRespDto.class);
-    }
-
-    /**
-     * @summary 字符串类型资源鉴权
-     * @description 字符串类型资源鉴权，支持用户对一个或者多个字符串资源进行权限判断
-     **/
-    public CheckResourcePermissionsRespDto checkPermissionByStringResource(CheckPermissionStringResourceDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/check-permission-string-resource");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, CheckResourcePermissionsRespDto.class);
-    }
-
-    /**
-     * @summary 数组类型资源鉴权
-     * @description 数组类型资源鉴权，支持用户对一个或者多个数组资源进行权限判断
-     **/
-    public CheckResourcePermissionsRespDto checkPermissionByArrayResource(CheckPermissionArrayResourceDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/check-permission-array-resource");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, CheckResourcePermissionsRespDto.class);
-    }
-
-    /**
-     * @summary 树类型资源鉴权
-     * @description 树类型资源鉴权，支持用户对一个或者多个树资源进行权限判断
-     **/
-    public CheckResourcePermissionsRespDto checkPermissionByTreeResource(CheckPermissionTreeResourceDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/check-permission-tree-resource");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, CheckResourcePermissionsRespDto.class);
-    }
-
-    /**
-     * @summary 获取用户在登录应用下被授权资源列表
-     * @description 获取用户指定资源权限列表，用户获取在某个应用下所拥有的资源列表。
-     **/
-    public GetUserAuthResourceListRespDto getUserAuthorizedResourcesList() {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-user-auth-resource-list");
-        config.setBody(new Object());
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, GetUserAuthResourceListRespDto.class);
-    }
-
-    /**
-     * @summary 获取用户指定资源权限列表
-     * @description 获取用户指定资源的权限列表, 用户获取某个应用下指定资源的权限列表。
-     **/
-    public GetUserAuthResourcePermissionListRespDto getUserAuthResourcePermissionList(GetUserAuthResourcePermissionListDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-user-auth-resource-permission-list");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, GetUserAuthResourcePermissionListRespDto.class);
-    }
-
-    /**
-     * @summary 获取用户授权资源的结构列表
-     * @description 获取用户授权的资源列表，用户获取某个应用下的某个资源所授权的结构列表，通过不同的资源类型返回对应资源的授权列表。
-     **/
-    public GetUserAuthResourceStructRespDto getUserAuthResourceStruct(GetUserAuthResourceStructDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-user-auth-resource-struct");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, GetUserAuthResourceStructRespDto.class);
-    }
-
-    /**
-     * @summary 获取 WebAuthn 认证请求初始化参数
-     * @description 获取 WebAuthn 认证请求初始化参数
-     **/
-    public GetAuthenticationOptionsRespDto initAuthenticationOptions() {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/webauthn/authentication");
-        config.setBody(new Object());
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, GetAuthenticationOptionsRespDto.class);
-    }
-
-    /**
-     * @summary 验证 WebAuthn 认证请求凭证
-     * @description 验证 WebAuthn 认证请求凭证
-     **/
-    public VerifyAuthenticationResultRespDto verifyAuthentication(VerifyAuthenticationDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/webauthn/authentication");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, VerifyAuthenticationResultRespDto.class);
-    }
-
-    /**
-     * @summary 获取 webauthn 凭证创建初始化参数
-     * @description 获取 webauthn 凭证创建初始化参数。**此接口要求具备用户的登录态**
-     **/
-    public GetRegistrationOptionsRespDto initRegisterOptions() {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/webauthn/registration");
-        config.setBody(new Object());
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, GetRegistrationOptionsRespDto.class);
-    }
-
-    /**
-     * @summary 验证 webauthn 绑定注册认证器凭证
-     * @description 验证 webauthn 绑定注册认证器凭证
-     **/
-    public VerifyRegistrationResultRespDto verifyRegister(VerifyRegistrationDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/webauthn/registration");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, VerifyRegistrationResultRespDto.class);
-    }
-
-    /**
-     * @summary 我的设备列表
-     * @description 我登录过的设备列表。
-     **/
-    public TerminalSessionRespDto list(ListDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/mydevices/list");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, TerminalSessionRespDto.class);
-    }
-
-    /**
-     * @summary 移除设备
-     * @description 移除某个设备。
-     **/
-    public CommonResponseDto unbind(UnbindDeviceDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/mydevices/unbind");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, CommonResponseDto.class);
-    }
-
-    /**
-     * @summary 从设备上退出登录
-     * @description 移除某个已登录设备的登录态。
-     **/
-    public CommonResponseDto revoke(RevokeDeviceSessionDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/mydevices/revoke-session");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, CommonResponseDto.class);
-    }
-
-    /**
-     * @summary 微信移动端登录
-     * @description 移动端应用：使用微信作为外部身份源登录。
-     **/
-    public LoginTokenResponseDataDto authByCodeIdentity(WechatMobileAuthByCodeIdentityInput reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v2/ecConn/wechatMobile/authByCodeIdentity");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, LoginTokenResponseDataDto.class);
-    }
-
-    /**
-     * @summary 微信移动端：使用身份源中用户信息
-     * @description 询问绑定开启时：绑定到外部身份源，根据外部身份源中的用户信息创建用户后绑定到当前身份源并登录。
-     **/
-    public WechatLoginTokenRespDto registerNewUser(BindByRegiserInputApi reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v2/ecConn/wechatMobile/register");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, WechatLoginTokenRespDto.class);
-    }
-
-    /**
-     * @summary 微信移动端：邮箱验证码模式
-     * @description 询问绑定开启时：绑定到外部身份源，根据输入的邮箱验证用户信息，找到对应的用户后绑定到当前身份源并登录；找不到时报错“用户不存在”。
-     **/
-    public WechatLoginTokenRespDto bindByEmailCode(BindByEmailCodeInputApi reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v2/ecConn/wechatMobile/byEmailCode");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, WechatLoginTokenRespDto.class);
-    }
-
-    /**
-     * @summary 微信移动端：手机号验证码模式
-     * @description 询问绑定开启时：绑定到外部身份源，根据输入的手机验证用户信息，找到对应的用户后绑定到当前身份源并登录；找不到时报错“用户不存在”。
-     **/
-    public WechatLoginTokenRespDto bindByPhoneCode(BindByPhoneCodeInputApi reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v2/ecConn/wechatMobile/byPhoneCode");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, WechatLoginTokenRespDto.class);
-    }
-
-    /**
-     * @summary 微信移动端：账号密码模式
-     * @description 询问绑定开启时：绑定到外部身份源，根据输入的账号（用户名/手机号/邮箱）密码验证用户信息，找到对应的用户后绑定到当前身份源并登录；找不到时报错“用户不存在”。
-     **/
-    public WechatLoginTokenRespDto bindByAccount(BindByAccountInputApi reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v2/ecConn/wechatMobile/byAccount");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, WechatLoginTokenRespDto.class);
-    }
-
-    /**
-     * @summary 微信移动端：多账号场景
-     * @description 询问绑定开启时：根据选择的账号绑定外部身份源，根据输入的账号 ID 验证用户信息，找到对应的用户后绑定到当前身份源并登录；找不到时报错“用户不存在”。
-     **/
-    public WechatLoginTokenRespDto selectAccount(BindByAccountsInputApi reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v2/ecConn/wechatMobile/select");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, WechatLoginTokenRespDto.class);
-    }
-
-    /**
-     * @summary 微信移动端：账号 ID 模式
-     * @description 询问绑定开启时：绑定到外部身份源，根据输入的账号 ID 验证用户信息，找到对应的用户后绑定到当前身份源并登录；找不到时报错“用户不存在”。
-     **/
-    public WechatLoginTokenRespDto bindByAccountId(BindByAccountIdInputApi reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v2/ecConn/wechatMobile/byAccountId");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, WechatLoginTokenRespDto.class);
-    }
-
-    /**
-     * @summary 获取推送登录请求关联的客户端应用
-     * @description 此端点用于在 Authing 令牌 APP 收到推送登录通知时，可检查当前用户登录的应用是否支持对推送登录请求进行授权。
-     **/
-    public GetPushCodeRelationAppsRespDto getPushLoginRelationApps(GetPushCodeRelationAppsDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-pushlogin-relation-apps");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, GetPushCodeRelationAppsRespDto.class);
-    }
-
-    /**
-     * @summary 获取快速认证二维码数据
-     * @description 此端点用于在用户个人中心，获取快速认证参数生成二维码，可使用 Authing 令牌 APP 扫码，完成快速认证。**此接口要求具备用户的登录态**。
-     **/
-    public GeneFastpassQRCodeRespDto geneFastpassQrcodeInfo(SignInFastpassDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/gene-fastpass-qrcode-info");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, GeneFastpassQRCodeRespDto.class);
-    }
-
-    /**
-     * @summary 获取快速认证的应用列表
-     * @description 此端点用于使用 Authing 令牌 APP 扫「用户个人中心」-「快速认证」二维码后，拉取可快速认证的客户端应用列表。
-     **/
-    public GetFastpassQRCodeRelationAppsRespDto getFastpassParams(GetFastpassClientAppsDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-fastpass-client-apps");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, GetFastpassQRCodeRelationAppsRespDto.class);
-    }
-
-    /**
-     * @summary 查询个人中心「快速认证二维码」的状态
-     * @description 按照用户扫码顺序，共分为未扫码、已扫码、已登录、二维码过期以及未知错误五种状态，前端应该通过不同的状态给到用户不同的反馈。
-     **/
-    public CheckQRCodeStatusRespDto getQrCodeStatus(GetAppLoginQrcodeStatusDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-app-login-qrcode-status");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, CheckQRCodeStatusRespDto.class);
-    }
-
-    /**
-     * @summary APP 端扫码登录
-     * @description 此端点用于在授权使 APP 成功扫码登录中，对应着在「个人中心」-「快速认证」页面渲染出二维码，终端用户扫码并成功登录的过程。
-     **/
-    public LoginTokenRespDto qrCodeAppLogin(AppQRCodeLoginDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/qrcode-app-login");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, LoginTokenRespDto.class);
-    }
-
-    /**
-     * @summary 预检验验证码是否正确
-     * @description 预检测验证码是否有效，此检验不会使得验证码失效。
-     **/
-    public PreCheckCodeRespDto preCheckCode(PreCheckCodeDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/pre-check-code");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, PreCheckCodeRespDto.class);
-    }
-
-    /**
-     *
-     **/
-    public ListWebAuthnAuthenticatorDeviceDataDto listCredentialsByPage(ListDeviceCredentialDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/webauthn/page-authenticator-device");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, ListWebAuthnAuthenticatorDeviceDataDto.class);
-    }
-
-    /**
-     *
-     **/
-    public WebAuthnCheckValidCredentialsByCredIdsRespDto checkValidCredentialsByCredIds(CheckDeviceCredentialIdDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/webauthn/check-valid-credentials-by-credIds");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, WebAuthnCheckValidCredentialsByCredIdsRespDto.class);
-    }
-
-    /**
-     *
-     **/
-    public IsSuccessRespDto removeAllCredentials(RemoveDeviceCredentialDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/webauthn/remove-credentials-by-authenticator-code");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, IsSuccessRespDto.class);
-    }
-
-    /**
-     *
-     **/
-    public IsSuccessRespDto removeCredential(WebAuthnRemoveCredentialDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/webauthn/remove-credential/{credentialID}");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, IsSuccessRespDto.class);
-    }
-
-    /**
-     * @summary 验证 MFA Token
-     * @description 验证 MFA Token
-     **/
-    public MfaTokenIntrospectResponse verifyMfaToken(MfaTokenIntrospectEndpointParams reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/mfa/token/introspection");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, MfaTokenIntrospectResponse.class);
-    }
-
-    /**
-     * @summary 发起绑定 MFA 认证要素请求
-     * @description 当用户未绑定某个 MFA 认证要素时，可以发起绑定 MFA 认证要素请求。不同类型的 MFA 认证要素绑定请求需要发送不同的参数，详细见 profile 参数。发起验证请求之后，Authing 服务器会根据相应的认证要素类型和传递的参数，使用不同的手段要求验证。此接口会返回 enrollmentToken，你需要在请求「绑定 MFA 认证要素」接口时带上此 enrollmentToken，并提供相应的凭证。
-     **/
-    public SendEnrollFactorRequestRespDto sendEnrollFactorRequest(SendEnrollFactorRequestDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/send-enroll-factor-request");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, SendEnrollFactorRequestRespDto.class);
-    }
-
-    /**
-     * @summary 绑定 MFA 认证要素
-     * @description 绑定 MFA 要素。
-     **/
-    public EnrollFactorRespDto enrollFactor(EnrollFactorDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/enroll-factor");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, EnrollFactorRespDto.class);
-    }
-
-    /**
-     * @summary 解绑 MFA 认证要素
-     * @description 根据 Factor ID 解绑用户绑定的某个 MFA 认证要素。
-     **/
-    public ResetFactorRespDto resetFactor(ResetFactorDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/reset-factor");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, ResetFactorRespDto.class);
-    }
-
-    /**
-     * @summary 获取绑定的所有 MFA 认证要素
-     * @description Authing 目前支持四种类型的 MFA 认证要素：手机短信、邮件验证码、OTP、人脸。
-     **/
-    public ListEnrolledFactorsRespDto listEnrolledFactors() {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/list-enrolled-factors");
-        config.setBody(new Object());
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, ListEnrolledFactorsRespDto.class);
-    }
-
-    /**
-     * @summary 获取绑定的某个 MFA 认证要素
-     * @description 根据 Factor ID 获取用户绑定的某个 MFA Factor 详情。
-     **/
-    public GetFactorRespDto getFactor(GetFactorDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-factor");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, GetFactorRespDto.class);
-    }
-
-    /**
-     * @summary 获取可绑定的 MFA 认证要素
-     * @description 获取所有应用已经开启、用户暂未绑定的 MFA 认证要素，用户可以从返回的列表中绑定新的 MFA 认证要素。
-     **/
-    public ListFactorsToEnrollRespDto listFactorsToEnroll() {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/list-factors-to-enroll");
-        config.setBody(new Object());
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, ListFactorsToEnrollRespDto.class);
-    }
-
-    /**
-     * @summary 校验用户 MFA 绑定的 OTP
-     * @description 校验用户 MFA 绑定的 OTP。
-     **/
-    public MfaOtpVerityRespDto mfaOtpVerify(MfaOtpVerityDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/mfa-totp-verify");
-        config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, MfaOtpVerityRespDto.class);
-    }
-
-    // ==== AUTO GENERATED AUTHENTICATION METHODS END ====
+         * "identityId": "62f20932xxxxbcc10d966ee5",
+         * "extIdpId": "62f209327xxxxcc10d966ee5",
+         * "provider": "wechat",
+         * "type": "openid",
+         * "userIdInIdp": "oH_5k5SflrwjGvk7wqpoBKq_cc6M",
+         * "originConnIds": ["62f2093244fa5cb19ff21ed3"]
+         * },
+         * {
+             * "identityId": "62f726239xxxxe3285d21c93",
+             * "extIdpId": "62f209327xxxxcc10d966ee5",
+             * "provider": "wechat",
+             * "type": "unionid",
+             * "userIdInIdp": "o9Nka5ibU-lUGQaeAHqu0nOZyJg0",
+             * "originConnIds": ["62f2093244fa5cb19ff21ed3"]
+             * }
+             * ]
+             * ```
+             *
+             *
+             * 可以看到他们的 `extIdpId` 是一样的，这个是你在 Authing 中创建的**身份源 ID**；`provider` 都是 `wechat`；
+             * 通过 `type` 可以区分出哪个是 `openid`，哪个是 `unionid`，以及具体的值（`userIdInIdp`）；他们都来自于同一个身份源连接（`originConnIds`）。
+             *
+             *
+             *
+             **/
+            public GetIdentitiesRespDto getIdentities() {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/get-identities");
+                config.setBody(new Object());
+                config.setMethod("GET");
+                String response = request(config);
+                return deserialize(response, GetIdentitiesRespDto.class);
+            }
+            /**
+             * @summary 获取应用开启的外部身份源列表
+             * @description 获取应用开启的外部身份源列表，前端可以基于此渲染外部身份源按钮。
+             **/
+            public GetExtIdpsRespDto getApplicationEnabledExtIdps() {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/get-application-enabled-extidps");
+                config.setBody(new Object());
+                config.setMethod("GET");
+                String response = request(config);
+                return deserialize(response, GetExtIdpsRespDto.class);
+            }
+            /**
+             * @summary 使用用户凭证登录
+             * @description
+             * 此端点为基于直接 API 调用形式的登录端点，适用于你需要自建登录页面的场景。**此端点暂时不支持 MFA、信息补全、首次密码重置等流程，如有需要，请使用 OIDC 标准协议认证端点。**
+             *
+             *
+             * 注意事项：取决于你在 Authing 创建应用时选择的**应用类型**和应用配置的**换取 token 身份验证方式**，在调用此接口时需要对客户端的身份进行不同形式的验证。
+             *
+             * <details>
+             * <summary>点击展开详情</summary>
+             *
+             * <br>
+             *
+             * 你可以在 [Authing 控制台](https://console.authing.cn) 的**应用** - **自建应用** - **应用详情** - **应用配置** - **其他设置** - **授权配置**
+             * 中找到**换取 token 身份验证方式** 配置项：
+             *
+             * > 单页 Web 应用和客户端应用隐藏，默认为 `none`，不允许修改；后端应用和标准 Web 应用可以修改此配置项。
+             *
+             * ![](https://files.authing.co/api-explorer/tokenAuthMethod.jpg)
+             *
+             * #### 换取 token 身份验证方式为 none 时
+             *
+             * 调用此接口不需要进行额外操作。
+             *
+             * #### 换取 token 身份验证方式为 client_secret_post 时
+             *
+             * 调用此接口时必须在 body 中传递 `client_id` 和 `client_secret` 参数，作为验证客户端身份的条件。其中 `client_id` 为应用 ID、`client_secret` 为应用密钥。
+             *
+             * #### 换取 token 身份验证方式为 client_secret_basic 时
+             *
+             * 调用此接口时必须在 HTTP 请求头中携带 `authorization` 请求头，作为验证客户端身份的条件。`authorization` 请求头的格式如下（其中 `client_id` 为应用 ID、`client_secret` 为应用密钥。）：
+             *
+             * ```
+             * Basic base64(<client_id>:<client_secret>)
+             * ```
+             *
+             * 结果示例：
+             *
+             * ```
+             * Basic NjA2M2ZiMmYzY3h4eHg2ZGY1NWYzOWViOjJmZTdjODdhODFmODY3eHh4eDAzMjRkZjEyZGFlZGM3
+             * ```
+             *
+             * JS 代码示例：
+             *
+             * ```js
+             * 'Basic ' + Buffer.from(client_id + ':' + client_secret).toString('base64');
+             * ```
+             *
+             * </details>
+             *
+             *
+             **/
+            public LoginTokenRespDto signInByCredentials(SigninByCredentialsDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/signin");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, LoginTokenRespDto.class);
+            }
+            /**
+             * @summary 使用移动端社会化登录
+             * @description
+             * 此端点为移动端社会化登录接口，使用第三方移动社会化登录返回的临时凭证登录，并换取用户的 `id_token` 和 `access_token`。请先阅读相应社会化登录的接入流程。
+             *
+             *
+             * 注意事项：取决于你在 Authing 创建应用时选择的**应用类型**和应用配置的**换取 token 身份验证方式**，在调用此接口时需要对客户端的身份进行不同形式的验证。
+             *
+             * <details>
+             * <summary>点击展开详情</summary>
+             *
+             * <br>
+             *
+             * 你可以在 [Authing 控制台](https://console.authing.cn) 的**应用** - **自建应用** - **应用详情** - **应用配置** - **其他设置** - **授权配置**
+             * 中找到**换取 token 身份验证方式** 配置项：
+             *
+             * > 单页 Web 应用和客户端应用隐藏，默认为 `none`，不允许修改；后端应用和标准 Web 应用可以修改此配置项。
+             *
+             * ![](https://files.authing.co/api-explorer/tokenAuthMethod.jpg)
+             *
+             * #### 换取 token 身份验证方式为 none 时
+             *
+             * 调用此接口不需要进行额外操作。
+             *
+             * #### 换取 token 身份验证方式为 client_secret_post 时
+             *
+             * 调用此接口时必须在 body 中传递 `client_id` 和 `client_secret` 参数，作为验证客户端身份的条件。其中 `client_id` 为应用 ID、`client_secret` 为应用密钥。
+             *
+             * #### 换取 token 身份验证方式为 client_secret_basic 时
+             *
+             * 调用此接口时必须在 HTTP 请求头中携带 `authorization` 请求头，作为验证客户端身份的条件。`authorization` 请求头的格式如下（其中 `client_id` 为应用 ID、`client_secret` 为应用密钥。）：
+             *
+             * ```
+             * Basic base64(<client_id>:<client_secret>)
+             * ```
+             *
+             * 结果示例：
+             *
+             * ```
+             * Basic NjA2M2ZiMmYzY3h4eHg2ZGY1NWYzOWViOjJmZTdjODdhODFmODY3eHh4eDAzMjRkZjEyZGFlZGM3
+             * ```
+             *
+             * JS 代码示例：
+             *
+             * ```js
+             * 'Basic ' + Buffer.from(client_id + ':' + client_secret).toString('base64');
+             * ```
+             *
+             * </details>
+             *
+             *
+             **/
+            public LoginTokenRespDto signInByMobile(SigninByMobileDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/signin-by-mobile");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, LoginTokenRespDto.class);
+            }
+            /**
+             * @summary 公共账号切换登录
+             * @description 允许个人账号与关联的公共账号间做切换登录，此端点要求账号已登录
+             **/
+            public LoginTokenRespDto switchLoginByUser(PublicAccountSwitchLoginDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/switch-login-by-user");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, LoginTokenRespDto.class);
+            }
+            /**
+             * @summary 获取支付宝 AuthInfo
+             * @description 此接口用于获取发起支付宝认证需要的[初始化参数 AuthInfo](https://opendocs.alipay.com/open/218/105325)。
+             **/
+            public GetAlipayAuthInfoRespDto getAlipayAuthInfo(GetAlipayAuthinfoDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/get-alipay-authinfo");
+                config.setBody(reqDto);
+                config.setMethod("GET");
+                String response = request(config);
+                return deserialize(response, GetAlipayAuthInfoRespDto.class);
+            }
+            /**
+             * @summary 生成用于登录的二维码
+             * @description 生成用于登录的二维码，目前支持生成微信公众号扫码登录、小程序扫码登录、自建移动 APP 扫码登录的二维码。
+             **/
+            public GeneQRCodeRespDto geneQrCode(GenerateQrcodeDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/gene-qrcode");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, GeneQRCodeRespDto.class);
+            }
+            /**
+             * @summary 查询二维码状态
+             * @description 按照用户扫码顺序，共分为未扫码、已扫码等待用户确认、用户同意/取消授权、二维码过期以及未知错误六种状态，前端应该通过不同的状态给到用户不同的反馈。你可以通过下面这篇文章了解扫码登录详细的流程：https://docs.authing.cn/v2/concepts/how-qrcode-works.html.
+             **/
+            public CheckQRCodeStatusRespDto checkQrCodeStatus(CheckQrcodeStatusDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/check-qrcode-status");
+                config.setBody(reqDto);
+                config.setMethod("GET");
+                String response = request(config);
+                return deserialize(response, CheckQRCodeStatusRespDto.class);
+            }
+            /**
+             * @summary 使用二维码 ticket 换取 TokenSet
+             * @description
+             * 此端点为使用二维码的 ticket 换取用户的 `access_token` 和 `id_token`。
+             *
+             *
+             * 注意事项：取决于你在 Authing 创建应用时选择的**应用类型**和应用配置的**换取 token 身份验证方式**，在调用此接口时需要对客户端的身份进行不同形式的验证。
+             *
+             * <details>
+             * <summary>点击展开详情</summary>
+             *
+             * <br>
+             *
+             * 你可以在 [Authing 控制台](https://console.authing.cn) 的**应用** - **自建应用** - **应用详情** - **应用配置** - **其他设置** - **授权配置**
+             * 中找到**换取 token 身份验证方式** 配置项：
+             *
+             * > 单页 Web 应用和客户端应用隐藏，默认为 `none`，不允许修改；后端应用和标准 Web 应用可以修改此配置项。
+             *
+             * ![](https://files.authing.co/api-explorer/tokenAuthMethod.jpg)
+             *
+             * #### 换取 token 身份验证方式为 none 时
+             *
+             * 调用此接口不需要进行额外操作。
+             *
+             * #### 换取 token 身份验证方式为 client_secret_post 时
+             *
+             * 调用此接口时必须在 body 中传递 `client_id` 和 `client_secret` 参数，作为验证客户端身份的条件。其中 `client_id` 为应用 ID、`client_secret` 为应用密钥。
+             *
+             * #### 换取 token 身份验证方式为 client_secret_basic 时
+             *
+             * 调用此接口时必须在 HTTP 请求头中携带 `authorization` 请求头，作为验证客户端身份的条件。`authorization` 请求头的格式如下（其中 `client_id` 为应用 ID、`client_secret` 为应用密钥。）：
+             *
+             * ```
+             * Basic base64(<client_id>:<client_secret>)
+             * ```
+             *
+             * 结果示例：
+             *
+             * ```
+             * Basic NjA2M2ZiMmYzY3h4eHg2ZGY1NWYzOWViOjJmZTdjODdhODFmODY3eHh4eDAzMjRkZjEyZGFlZGM3
+             * ```
+             *
+             * JS 代码示例：
+             *
+             * ```js
+             * 'Basic ' + Buffer.from(client_id + ':' + client_secret).toString('base64');
+             * ```
+             *
+             * </details>
+             *
+             *
+             **/
+            public LoginTokenRespDto exchangeTokenSetWithQrCodeTicket(ExchangeTokenSetWithQRcodeTicketDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/exchange-tokenset-with-qrcode-ticket");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, LoginTokenRespDto.class);
+            }
+            /**
+             * @summary 自建 APP 扫码登录：APP 端修改二维码状态
+             * @description 此端点用于在自建 APP 扫码登录中修改二维码状态，对应着在浏览器渲染出二维码之后，终端用户扫码、确认授权、取消授权的过程。**此接口要求具备用户的登录态**。
+             **/
+            public CommonResponseDto changeQrCodeStatus(ChangeQRCodeStatusDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/change-qrcode-status");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, CommonResponseDto.class);
+            }
+            /**
+             * @summary 推送登录
+             * @description 推送登录。
+             **/
+            public GenePushCodeRespDto signInByPush(SignInByPushDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/signin-by-push");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, GenePushCodeRespDto.class);
+            }
+            /**
+             * @summary 查询推送码状态
+             * @description 按照推送码使用顺序，共分为已推送、等待用户 同意/取消 授权、推送码过期以及未知错误五种状态，前端应该通过不同的状态给到用户不同的反馈。
+             **/
+            public CheckPushCodeStatusRespDto checkPushCodeStatus(CheckPushcodeStatusDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/check-pushcode-status");
+                config.setBody(reqDto);
+                config.setMethod("GET");
+                String response = request(config);
+                return deserialize(response, CheckPushCodeStatusRespDto.class);
+            }
+            /**
+             * @summary 推送登录：APP 端修改推送码状态
+             * @description 此端点用于在 Authing 令牌 APP 推送登录中修改推送码状态，对应着在浏览器使用推送登录，点击登录之后，终端用户收到推送登录信息，确认授权、取消授权的过程。**此接口要求具备用户的登录态**。
+             **/
+            public CommonResponseDto changePushCodeStatus(ChangePushCodeStatusDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/change-pushcode-status");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, CommonResponseDto.class);
+            }
+            /**
+             * @summary 发送短信
+             * @description 发送短信时必须指定短信 Channel，每个手机号同一 Channel 在一分钟内只能发送一次。
+             **/
+            public SendSMSRespDto sendSms(SendSMSDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/send-sms");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, SendSMSRespDto.class);
+            }
+            /**
+             * @summary 发送邮件
+             * @description 发送邮件时必须指定邮件 Channel，每个邮箱同一 Channel 在一分钟内只能发送一次。
+             **/
+            public SendEmailRespDto sendEmail(SendEmailDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/send-email");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, SendEmailRespDto.class);
+            }
+            /**
+             * @summary 解密微信小程序数据
+             * @description 解密微信小程序数据
+             **/
+            public DecryptWechatMiniProgramDataRespDto decryptWechatMiniProgramData(DecryptWechatMiniProgramDataDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/decrypt-wechat-miniprogram-data");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, DecryptWechatMiniProgramDataRespDto.class);
+            }
+            /**
+             * @deprecated
+             * @summary 获取微信小程序、公众号 Access Token
+             * @description 获取 Authing 服务器缓存的微信小程序、公众号 Access Token（废弃，请使用 /api/v3/get-wechat-access-token-info）
+             **/
+            public GetWechatAccessTokenRespDto getWechatMpAccessToken(GetWechatAccessTokenDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/get-wechat-access-token");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, GetWechatAccessTokenRespDto.class);
+            }
+            /**
+             * @summary 获取微信小程序、公众号 Access Token
+             * @description 获取 Authing 服务器缓存的微信小程序、公众号 Access Token
+             **/
+            public GetWechatAccessTokenInfoRespDto getWechatMpAccessTokenInfo(GetWechatAccessTokenDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/get-wechat-access-token-info");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, GetWechatAccessTokenInfoRespDto.class);
+            }
+            /**
+             * @summary 获取登录日志
+             * @description 获取登录日志
+             **/
+            public GetLoginHistoryRespDto getLoginHistory(GetMyLoginHistoryDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/get-my-login-history");
+                config.setBody(reqDto);
+                config.setMethod("GET");
+                String response = request(config);
+                return deserialize(response, GetLoginHistoryRespDto.class);
+            }
+            /**
+             * @summary 获取登录应用
+             * @description 获取登录应用
+             **/
+            public GetLoggedInAppsRespDto getLoggedInApps() {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/get-my-logged-in-apps");
+                config.setBody(new Object());
+                config.setMethod("GET");
+                String response = request(config);
+                return deserialize(response, GetLoggedInAppsRespDto.class);
+            }
+            /**
+             * @summary 获取具备访问权限的应用
+             * @description 获取具备访问权限的应用
+             **/
+            public GetAccessibleAppsRespDto getAccessibleApps() {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/get-my-accessible-apps");
+                config.setBody(new Object());
+                config.setMethod("GET");
+                String response = request(config);
+                return deserialize(response, GetAccessibleAppsRespDto.class);
+            }
+            /**
+             * @summary 获取租户列表
+             * @description 获取租户列表
+             **/
+            public GetTenantListRespDto getTenantList() {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/get-my-tenant-list");
+                config.setBody(new Object());
+                config.setMethod("GET");
+                String response = request(config);
+                return deserialize(response, GetTenantListRespDto.class);
+            }
+            /**
+             * @summary 获取角色列表
+             * @description 获取角色列表
+             **/
+            public RoleListRespDto getRoleList(GetMyRoleListDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/get-my-role-list");
+                config.setBody(reqDto);
+                config.setMethod("GET");
+                String response = request(config);
+                return deserialize(response, RoleListRespDto.class);
+            }
+            /**
+             * @summary 获取分组列表
+             * @description 获取分组列表
+             **/
+            public GroupListRespDto getGroupList() {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/get-my-group-list");
+                config.setBody(new Object());
+                config.setMethod("GET");
+                String response = request(config);
+                return deserialize(response, GroupListRespDto.class);
+            }
+            /**
+             * @summary 获取部门列表
+             * @description 此接口用于获取用户的部门列表，可根据一定排序规则进行排序。
+             **/
+            public UserDepartmentPaginatedRespDto getDepartmentList(GetMyDepartmentListDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/get-my-department-list");
+                config.setBody(reqDto);
+                config.setMethod("GET");
+                String response = request(config);
+                return deserialize(response, UserDepartmentPaginatedRespDto.class);
+            }
+            /**
+             * @summary 获取被授权的资源列表
+             * @description 此接口用于获取用户被授权的资源列表。
+             **/
+            public AuthorizedResourcePaginatedRespDto getAuthorizedResources(GetMyAuthorizedResourcesDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/get-my-authorized-resources");
+                config.setBody(reqDto);
+                config.setMethod("GET");
+                String response = request(config);
+                return deserialize(response, AuthorizedResourcePaginatedRespDto.class);
+            }
+            /**
+             * @summary 获取用户资料
+             * @description 此端点用户获取用户资料，需要在请求头中带上用户的 `access_token`，Authing 服务器会根据用户 `access_token` 中的 `scope` 返回对应的字段。
+             **/
+            public UserSingleRespDto getProfile(GetProfileDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/get-profile");
+                config.setBody(reqDto);
+                config.setMethod("GET");
+                String response = request(config);
+                return deserialize(response, UserSingleRespDto.class);
+            }
+            /**
+             * @summary 修改用户资料
+             * @description 此接口用于修改用户的用户资料，包含用户的自定义数据。如果需要**修改邮箱**、**修改手机号**、**修改密码**，请使用对应的单独接口。
+             **/
+            public UserSingleRespDto updateProfile(UpdateUserProfileDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/update-profile");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, UserSingleRespDto.class);
+            }
+            /**
+             * @summary 绑定邮箱
+             * @description 如果用户还**没有绑定邮箱**，此接口可用于用户**自主**绑定邮箱。如果用户已经绑定邮箱想要修改邮箱，请使用**修改邮箱**接口。你需要先调用**发送邮件**接口发送邮箱验证码。
+             **/
+            public CommonResponseDto bindEmail(BindEmailDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/bind-email");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, CommonResponseDto.class);
+            }
+            /**
+             * @summary 解绑邮箱
+             * @description 用户解绑邮箱，如果用户没有绑定其他登录方式（手机号、社会化登录账号），将无法解绑邮箱，会提示错误。
+             **/
+            public CommonResponseDto unbindEmail(UnbindEmailDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/unbind-email");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, CommonResponseDto.class);
+            }
+            /**
+             * @summary 绑定手机号
+             * @description 如果用户还**没有绑定手机号**，此接口可用于用户**自主**绑定手机号。如果用户已经绑定手机号想要修改手机号，请使用**修改手机号**接口。你需要先调用**发送短信**接口发送短信验证码。
+             **/
+            public CommonResponseDto bindPhone(BindPhoneDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/bind-phone");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, CommonResponseDto.class);
+            }
+            /**
+             * @summary 解绑手机号
+             * @description 用户解绑手机号，如果用户没有绑定其他登录方式（邮箱、社会化登录账号），将无法解绑手机号，会提示错误。
+             **/
+            public CommonResponseDto unbindPhone(UnbindPhoneDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/unbind-phone");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, CommonResponseDto.class);
+            }
+            /**
+             * @summary 获取密码强度和账号安全等级评分
+             * @description 获取用户的密码强度和账号安全等级评分，需要在请求头中带上用户的 `access_token`。
+             **/
+            public GetSecurityInfoRespDto getSecurityLevel() {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/get-security-info");
+                config.setBody(new Object());
+                config.setMethod("GET");
+                String response = request(config);
+                return deserialize(response, GetSecurityInfoRespDto.class);
+            }
+            /**
+             * @summary 修改密码
+             * @description 此端点用于用户自主修改密码，如果用户之前已经设置密码，需要提供用户的原始密码作为凭证。如果用户忘记了当前密码，请使用**忘记密码**接口。
+             **/
+            public CommonResponseDto updatePassword(UpdatePasswordDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/update-password");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, CommonResponseDto.class);
+            }
+            /**
+             * @summary 发起修改邮箱的验证请求
+             * @description 终端用户自主修改邮箱时，需要提供相应的验证手段。此接口用于验证用户的修改邮箱请求是否合法。当前支持通过**邮箱验证码**的方式进行验证，你需要先调用发送邮件接口发送对应的邮件验证码。
+             **/
+            public VerifyUpdateEmailRequestRespDto verifyUpdateEmailRequest(VerifyUpdateEmailRequestDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/verify-update-email-request");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, VerifyUpdateEmailRequestRespDto.class);
+            }
+            /**
+             * @summary 修改邮箱
+             * @description 终端用户自主修改邮箱，需要提供相应的验证手段，见[发起修改邮箱的验证请求](#tag/用户资料/API%20列表/operation/ProfileV3Controller_verifyUpdateEmailRequest)。
+             * 此参数需要提供一次性临时凭证 `updateEmailToken`，此数据需要从**发起修改邮箱的验证请求**接口获取。
+             **/
+            public CommonResponseDto updateEmail(UpdateEmailDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/update-email");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, CommonResponseDto.class);
+            }
+            /**
+             * @summary 发起修改手机号的验证请求
+             * @description 终端用户自主修改手机号时，需要提供相应的验证手段。此接口用于验证用户的修改手机号请求是否合法。当前支持通过**短信验证码**的方式进行验证，你需要先调用发送短信接口发送对应的短信验证码。
+             **/
+            public VerifyUpdatePhoneRequestRespDto verifyUpdatePhoneRequest(VerifyUpdatePhoneRequestDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/verify-update-phone-request");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, VerifyUpdatePhoneRequestRespDto.class);
+            }
+            /**
+             * @summary 修改手机号
+             * @description 终端用户自主修改手机号，需要提供相应的验证手段，见[发起修改手机号的验证请求](#tag/用户资料/API%20列表/operation/ProfileV3Controller_updatePhoneVerification)。
+             * 此参数需要提供一次性临时凭证 `updatePhoneToken`，此数据需要从**发起修改手机号的验证请求**接口获取。
+             **/
+            public CommonResponseDto updatePhone(UpdatePhoneDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/update-phone");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, CommonResponseDto.class);
+            }
+            /**
+             * @summary 发起忘记密码请求
+             * @description 当用户忘记密码时，可以通过此端点找回密码。用户需要使用相关验证手段进行验证，目前支持**邮箱验证码**和**手机号验证码**两种验证手段。
+             **/
+            public PasswordResetVerifyResp verifyResetPasswordRequest(VerifyResetPasswordRequestDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/verify-reset-password-request");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, PasswordResetVerifyResp.class);
+            }
+            /**
+             * @summary 忘记密码
+             * @description 此端点用于用户忘记密码之后，通过**手机号验证码**或者**邮箱验证码**的方式重置密码。此接口需要提供用于重置密码的临时凭证 `passwordResetToken`，此参数需要通过**发起忘记密码请求**接口获取。
+             **/
+            public IsSuccessRespDto resetPassword(ResetPasswordDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/reset-password");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, IsSuccessRespDto.class);
+            }
+            /**
+             * @summary 发起注销账号请求
+             * @description 当用户希望注销账号时，需提供相应凭证，当前支持**使用邮箱验证码**、使用**手机验证码**、**使用密码**三种验证方式。
+             **/
+            public VerifyDeleteAccountRequestRespDto verifyDeleteAccountRequest(VerifyDeleteAccountRequestDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/verify-delete-account-request");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, VerifyDeleteAccountRequestRespDto.class);
+            }
+            /**
+             * @summary 注销账户
+             * @description 此端点用于用户自主注销账号，需要提供用于注销账号的临时凭证 deleteAccountToken，此参数需要通过**发起注销账号请求**接口获取。
+             **/
+            public IsSuccessRespDto deleteAccount(DeleteAccounDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/delete-account");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, IsSuccessRespDto.class);
+            }
+            /**
+             * @summary 查询当前登录用户可切换登录的公共账号列表
+             * @description 此端点用于查询当前登录用户可切换登录的公共账号列表，如果没有可切换登录的公共账号，则返回空数组。
+             **/
+            public GetPublicAccountDataRespDto listPublicAccountsForSwitchLoggedIn(GetUserSelectLoginPublicAccountsDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/get-user-select-login-public-accounts");
+                config.setBody(reqDto);
+                config.setMethod("GET");
+                String response = request(config);
+                return deserialize(response, GetPublicAccountDataRespDto.class);
+            }
+            /**
+             * @summary 获取服务器公开信息
+             * @description 可端点可获取服务器的公开信息，如 RSA256 公钥、SM2 公钥、Authing 服务版本号等。
+             **/
+            public SystemInfoResp getSystemInfo() {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/system");
+                config.setBody(new Object());
+                config.setMethod("GET");
+                String response = request(config);
+                return deserialize(response, SystemInfoResp.class);
+            }
+            /**
+             * @summary 获取国家列表
+             * @description 动态获取国家列表，可以用于前端登录页面国家选择和国际短信输入框选择，以减少前端静态资源体积。
+             **/
+            public GetCountryListRespDto getCountryList() {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/get-country-list");
+                config.setBody(new Object());
+                config.setMethod("GET");
+                String response = request(config);
+                return deserialize(response, GetCountryListRespDto.class);
+            }
+            /**
+             * @summary 字符串类型资源鉴权
+             * @description 字符串类型资源鉴权，支持用户对一个或者多个字符串资源进行权限判断
+             **/
+            public CheckResourcePermissionsRespDto checkPermissionByStringResource(CheckPermissionStringResourceDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/check-permission-string-resource");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, CheckResourcePermissionsRespDto.class);
+            }
+            /**
+             * @summary 数组类型资源鉴权
+             * @description 数组类型资源鉴权，支持用户对一个或者多个数组资源进行权限判断
+             **/
+            public CheckResourcePermissionsRespDto checkPermissionByArrayResource(CheckPermissionArrayResourceDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/check-permission-array-resource");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, CheckResourcePermissionsRespDto.class);
+            }
+            /**
+             * @summary 树类型资源鉴权
+             * @description 树类型资源鉴权，支持用户对一个或者多个树资源进行权限判断
+             **/
+            public CheckResourcePermissionsRespDto checkPermissionByTreeResource(CheckPermissionTreeResourceDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/check-permission-tree-resource");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, CheckResourcePermissionsRespDto.class);
+            }
+            /**
+             * @summary 获取用户在登录应用下被授权资源列表
+             * @description 获取用户指定资源权限列表，用户获取在某个应用下所拥有的资源列表。
+             **/
+            public GetUserAuthResourceListRespDto getUserAuthorizedResourcesList() {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/get-user-auth-resource-list");
+                config.setBody(new Object());
+                config.setMethod("GET");
+                String response = request(config);
+                return deserialize(response, GetUserAuthResourceListRespDto.class);
+            }
+            /**
+             * @summary 获取用户指定资源权限列表
+             * @description 获取用户指定资源的权限列表,用户获取某个应用下指定资源的权限列表。
+             **/
+            public GetUserAuthResourcePermissionListRespDto getUserAuthResourcePermissionList(GetUserAuthResourcePermissionListDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/get-user-auth-resource-permission-list");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, GetUserAuthResourcePermissionListRespDto.class);
+            }
+            /**
+             * @summary 获取用户授权资源的结构列表
+             * @description 获取用户授权的资源列表，用户获取某个应用下的某个资源所授权的结构列表，通过不同的资源类型返回对应资源的授权列表。
+             **/
+            public GetUserAuthResourceStructRespDto getUserAuthResourceStruct(GetUserAuthResourceStructDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/get-user-auth-resource-struct");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, GetUserAuthResourceStructRespDto.class);
+            }
+            /**
+             * @summary 获取 WebAuthn 认证请求初始化参数
+             * @description 获取 WebAuthn 认证请求初始化参数
+             **/
+            public GetAuthenticationOptionsRespDto initAuthenticationOptions() {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/webauthn/authentication");
+                config.setBody(new Object());
+                config.setMethod("GET");
+                String response = request(config);
+                return deserialize(response, GetAuthenticationOptionsRespDto.class);
+            }
+            /**
+             * @summary 验证 WebAuthn 认证请求凭证
+             * @description 验证 WebAuthn 认证请求凭证
+             **/
+            public VerifyAuthenticationResultRespDto verifyAuthentication(VerifyAuthenticationDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/webauthn/authentication");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, VerifyAuthenticationResultRespDto.class);
+            }
+            /**
+             * @summary 获取 webauthn 凭证创建初始化参数
+             * @description 获取 webauthn 凭证创建初始化参数。**此接口要求具备用户的登录态**
+             **/
+            public GetRegistrationOptionsRespDto initRegisterOptions() {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/webauthn/registration");
+                config.setBody(new Object());
+                config.setMethod("GET");
+                String response = request(config);
+                return deserialize(response, GetRegistrationOptionsRespDto.class);
+            }
+            /**
+             * @summary 验证 webauthn 绑定注册认证器凭证
+             * @description 验证 webauthn 绑定注册认证器凭证
+             **/
+            public VerifyRegistrationResultRespDto verifyRegister(VerifyRegistrationDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/webauthn/registration");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, VerifyRegistrationResultRespDto.class);
+            }
+            /**
+             * @summary 我的设备列表
+             * @description 我登录过的设备列表。
+             **/
+            public TerminalSessionRespDto list(ListDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/mydevices/list");
+                config.setBody(reqDto);
+                config.setMethod("GET");
+                String response = request(config);
+                return deserialize(response, TerminalSessionRespDto.class);
+            }
+            /**
+             * @summary 移除设备
+             * @description 移除某个设备。
+             **/
+            public CommonResponseDto unbind(UnbindDeviceDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/mydevices/unbind");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, CommonResponseDto.class);
+            }
+            /**
+             * @summary 从设备上退出登录
+             * @description 移除某个已登录设备的登录态。
+             **/
+            public CommonResponseDto revoke(RevokeDeviceSessionDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/mydevices/revoke-session");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, CommonResponseDto.class);
+            }
+            /**
+             * @summary 微信移动端登录
+             * @description 移动端应用：使用微信作为外部身份源登录。
+             **/
+            public LoginTokenResponseDataDto authByCodeIdentity(WechatMobileAuthByCodeIdentityInput reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v2/ecConn/wechatMobile/authByCodeIdentity");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, LoginTokenResponseDataDto.class);
+            }
+            /**
+             * @summary 微信移动端：使用身份源中用户信息
+             * @description 询问绑定开启时：绑定到外部身份源，根据外部身份源中的用户信息创建用户后绑定到当前身份源并登录。
+             **/
+            public WechatLoginTokenRespDto registerNewUser(BindByRegiserInputApi reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v2/ecConn/wechatMobile/register");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, WechatLoginTokenRespDto.class);
+            }
+            /**
+             * @summary 微信移动端：邮箱验证码模式
+             * @description 询问绑定开启时：绑定到外部身份源，根据输入的邮箱验证用户信息，找到对应的用户后绑定到当前身份源并登录；找不到时报错“用户不存在”。
+             **/
+            public WechatLoginTokenRespDto bindByEmailCode(BindByEmailCodeInputApi reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v2/ecConn/wechatMobile/byEmailCode");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, WechatLoginTokenRespDto.class);
+            }
+            /**
+             * @summary 微信移动端：手机号验证码模式
+             * @description 询问绑定开启时：绑定到外部身份源，根据输入的手机验证用户信息，找到对应的用户后绑定到当前身份源并登录；找不到时报错“用户不存在”。
+             **/
+            public WechatLoginTokenRespDto bindByPhoneCode(BindByPhoneCodeInputApi reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v2/ecConn/wechatMobile/byPhoneCode");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, WechatLoginTokenRespDto.class);
+            }
+            /**
+             * @summary 微信移动端：账号密码模式
+             * @description 询问绑定开启时：绑定到外部身份源，根据输入的账号（用户名/手机号/邮箱）密码验证用户信息，找到对应的用户后绑定到当前身份源并登录；找不到时报错“用户不存在”。
+             **/
+            public WechatLoginTokenRespDto bindByAccount(BindByAccountInputApi reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v2/ecConn/wechatMobile/byAccount");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, WechatLoginTokenRespDto.class);
+            }
+            /**
+             * @summary 微信移动端：多账号场景
+             * @description 询问绑定开启时：根据选择的账号绑定外部身份源，根据输入的账号 ID 验证用户信息，找到对应的用户后绑定到当前身份源并登录；找不到时报错“用户不存在”。
+             **/
+            public WechatLoginTokenRespDto selectAccount(BindByAccountsInputApi reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v2/ecConn/wechatMobile/select");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, WechatLoginTokenRespDto.class);
+            }
+            /**
+             * @summary 微信移动端：账号 ID 模式
+             * @description 询问绑定开启时：绑定到外部身份源，根据输入的账号 ID 验证用户信息，找到对应的用户后绑定到当前身份源并登录；找不到时报错“用户不存在”。
+             **/
+            public WechatLoginTokenRespDto bindByAccountId(BindByAccountIdInputApi reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v2/ecConn/wechatMobile/byAccountId");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, WechatLoginTokenRespDto.class);
+            }
+            /**
+             * @summary 获取推送登录请求关联的客户端应用
+             * @description 此端点用于在 Authing 令牌 APP 收到推送登录通知时，可检查当前用户登录的应用是否支持对推送登录请求进行授权。
+             **/
+            public GetPushCodeRelationAppsRespDto getPushLoginRelationApps(GetPushCodeRelationAppsDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/get-pushlogin-relation-apps");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, GetPushCodeRelationAppsRespDto.class);
+            }
+            /**
+             * @summary 获取快速认证二维码数据
+             * @description 此端点用于在用户个人中心，获取快速认证参数生成二维码，可使用 Authing 令牌 APP 扫码，完成快速认证。**此接口要求具备用户的登录态**。
+             **/
+            public GeneFastpassQRCodeRespDto geneFastpassQrcodeInfo(SignInFastpassDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/gene-fastpass-qrcode-info");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, GeneFastpassQRCodeRespDto.class);
+            }
+            /**
+             * @summary 获取快速认证的应用列表
+             * @description 此端点用于使用 Authing 令牌 APP 扫「用户个人中心」-「快速认证」二维码后，拉取可快速认证的客户端应用列表。
+             **/
+            public GetFastpassQRCodeRelationAppsRespDto getFastpassParams(GetFastpassClientAppsDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/get-fastpass-client-apps");
+                config.setBody(reqDto);
+                config.setMethod("GET");
+                String response = request(config);
+                return deserialize(response, GetFastpassQRCodeRelationAppsRespDto.class);
+            }
+            /**
+             * @summary 查询个人中心「快速认证二维码」的状态
+             * @description 按照用户扫码顺序，共分为未扫码、已扫码、已登录、二维码过期以及未知错误五种状态，前端应该通过不同的状态给到用户不同的反馈。
+             **/
+            public CheckQRCodeStatusRespDto getQrCodeStatus(GetAppLoginQrcodeStatusDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/get-app-login-qrcode-status");
+                config.setBody(reqDto);
+                config.setMethod("GET");
+                String response = request(config);
+                return deserialize(response, CheckQRCodeStatusRespDto.class);
+            }
+            /**
+             * @summary APP 端扫码登录
+             * @description 此端点用于在授权使 APP 成功扫码登录中，对应着在「个人中心」-「快速认证」页面渲染出二维码，终端用户扫码并成功登录的过程。
+             **/
+            public LoginTokenRespDto qrCodeAppLogin(AppQRCodeLoginDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/qrcode-app-login");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, LoginTokenRespDto.class);
+            }
+            /**
+             * @summary 预检验验证码是否正确
+             * @description 预检测验证码是否有效，此检验不会使得验证码失效。
+             **/
+            public PreCheckCodeRespDto preCheckCode(PreCheckCodeDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/pre-check-code");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, PreCheckCodeRespDto.class);
+            }
+            /**
+             **/
+            public ListWebAuthnAuthenticatorDeviceDataDto listCredentialsByPage(ListDeviceCredentialDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/webauthn/page-authenticator-device");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, ListWebAuthnAuthenticatorDeviceDataDto.class);
+            }
+            /**
+             **/
+            public WebAuthnCheckValidCredentialsByCredIdsRespDto checkValidCredentialsByCredIds(CheckDeviceCredentialIdDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/webauthn/check-valid-credentials-by-credIds");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, WebAuthnCheckValidCredentialsByCredIdsRespDto.class);
+            }
+            /**
+             **/
+            public IsSuccessRespDto removeAllCredentials(RemoveDeviceCredentialDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/webauthn/remove-credentials-by-authenticator-code");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, IsSuccessRespDto.class);
+            }
+            /**
+             **/
+            public IsSuccessRespDto removeCredential(WebAuthnRemoveCredentialDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/webauthn/remove-credential/{credentialID}");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, IsSuccessRespDto.class);
+            }
+            /**
+             * @summary 验证 MFA Token
+             * @description 验证 MFA Token
+             **/
+            public MfaTokenIntrospectResponse verifyMfaToken(MfaTokenIntrospectEndpointParams reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/mfa/token/introspection");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, MfaTokenIntrospectResponse.class);
+            }
+            /**
+             * @summary 发起绑定 MFA 认证要素请求
+             * @description 当用户未绑定某个 MFA 认证要素时，可以发起绑定 MFA 认证要素请求。不同类型的 MFA 认证要素绑定请求需要发送不同的参数，详细见 profile 参数。发起验证请求之后，Authing 服务器会根据相应的认证要素类型和传递的参数，使用不同的手段要求验证。此接口会返回 enrollmentToken，你需要在请求「绑定 MFA 认证要素」接口时带上此 enrollmentToken，并提供相应的凭证。
+             **/
+            public SendEnrollFactorRequestRespDto sendEnrollFactorRequest(SendEnrollFactorRequestDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/send-enroll-factor-request");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, SendEnrollFactorRequestRespDto.class);
+            }
+            /**
+             * @summary 绑定 MFA 认证要素
+             * @description 绑定 MFA 要素。
+             **/
+            public EnrollFactorRespDto enrollFactor(EnrollFactorDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/enroll-factor");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, EnrollFactorRespDto.class);
+            }
+            /**
+             * @summary 解绑 MFA 认证要素
+             * @description 根据 Factor ID 解绑用户绑定的某个 MFA 认证要素。
+             **/
+            public ResetFactorRespDto resetFactor(ResetFactorDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/reset-factor");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, ResetFactorRespDto.class);
+            }
+            /**
+             * @summary 获取绑定的所有 MFA 认证要素
+             * @description Authing 目前支持四种类型的 MFA 认证要素：手机短信、邮件验证码、OTP、人脸。
+             **/
+            public ListEnrolledFactorsRespDto listEnrolledFactors() {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/list-enrolled-factors");
+                config.setBody(new Object());
+                config.setMethod("GET");
+                String response = request(config);
+                return deserialize(response, ListEnrolledFactorsRespDto.class);
+            }
+            /**
+             * @summary 获取绑定的某个 MFA 认证要素
+             * @description 根据 Factor ID 获取用户绑定的某个 MFA Factor 详情。
+             **/
+            public GetFactorRespDto getFactor(GetFactorDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/get-factor");
+                config.setBody(reqDto);
+                config.setMethod("GET");
+                String response = request(config);
+                return deserialize(response, GetFactorRespDto.class);
+            }
+            /**
+             * @summary 获取可绑定的 MFA 认证要素
+             * @description 获取所有应用已经开启、用户暂未绑定的 MFA 认证要素，用户可以从返回的列表中绑定新的 MFA 认证要素。
+             **/
+            public ListFactorsToEnrollRespDto listFactorsToEnroll() {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/list-factors-to-enroll");
+                config.setBody(new Object());
+                config.setMethod("GET");
+                String response = request(config);
+                return deserialize(response, ListFactorsToEnrollRespDto.class);
+            }
+            /**
+             * @summary 校验用户 MFA 绑定的 OTP
+             * @description 校验用户 MFA 绑定的 OTP。
+             **/
+            public MfaOtpVerityRespDto mfaOtpVerify(MfaOtpVerityDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/mfa-totp-verify");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, MfaOtpVerityRespDto.class);
+            }
+
+// ==== AUTO GENERATED AUTHENTICATION METHODS END ====
     @Override
     public void subEvent(String eventCode, Receiver receiver) {
         if (StrUtil.isBlank(eventCode)) {

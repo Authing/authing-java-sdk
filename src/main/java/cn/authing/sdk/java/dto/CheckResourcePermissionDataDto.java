@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.CheckResourcePermissionRespDto;
 
+
 public class CheckResourcePermissionDataDto {
     /**
      * 检查结果列表

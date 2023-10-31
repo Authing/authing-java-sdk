@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.LoginTokenResponseDataDto;
 
+
 public class CheckPushCodeStatusDataDto {
     /**
      * 推送码状态。按照推送登录顺序，共分为 PUSHED(已推送)、AUTHORIZED(用户已授权)、CANCELLED(取消授权)、EXPIRED(推送登录过期)以及 ERROR(未知错误)五种状态。

@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class AuthenticatorAssertionResponseDto {
     /**
      * 认证器信息，包含认证状态、签名计数等

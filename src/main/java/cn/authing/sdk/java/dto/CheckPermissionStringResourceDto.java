@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class CheckPermissionStringResourceDto {
     /**
      * 字符串数据资源路径列表,

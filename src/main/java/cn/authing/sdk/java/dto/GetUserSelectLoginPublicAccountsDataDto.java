@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import cn.authing.sdk.java.dto.GetUserSelectLoginPublicAccountsOriginUserDto;
 import cn.authing.sdk.java.dto.ListPublicAccountDataDto;
 
+
 public class GetUserSelectLoginPublicAccountsDataDto {
     /**
      * 公共账号列表

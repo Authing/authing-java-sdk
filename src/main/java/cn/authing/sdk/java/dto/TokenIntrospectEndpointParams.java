@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class TokenIntrospectEndpointParams {
     /**
      * Authing 应用 ID。当在控制台配置检验 token 身份验证方式为 client_secret_post 和 none 时必填。

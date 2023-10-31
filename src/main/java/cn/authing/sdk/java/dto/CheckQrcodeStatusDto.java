@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class CheckQrcodeStatusDto {
     /**
      * 二维码唯一 ID

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import cn.authing.sdk.java.dto.LoginTokenResponseDataDto;
 import cn.authing.sdk.java.dto.QRCodeStatusBriefUserInfoDto;
 
+
 public class CheckQRCodeStatusDataDto {
     /**
      * 二维码状态。按照用户扫码顺序，共分为 PENDING(未扫码)、SCANNED(已扫码等待用户确认)、AUTHORIZED(用户已授权)、CANCELLED(取消授权)、EXPIRED(二维码过期)以及 ERROR(未知错误)六种状态。

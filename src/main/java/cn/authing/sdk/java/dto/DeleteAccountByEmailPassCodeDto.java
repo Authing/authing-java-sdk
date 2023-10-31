@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class DeleteAccountByEmailPassCodeDto {
     /**
      * 此账号绑定的邮箱，不区分大小写。

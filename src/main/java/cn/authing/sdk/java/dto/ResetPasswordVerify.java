@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class ResetPasswordVerify {
     /**
      * 用于重置密码 token

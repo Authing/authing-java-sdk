@@ -7,6 +7,7 @@ import cn.authing.sdk.java.dto.DeleteAccountByEmailPassCodeDto;
 import cn.authing.sdk.java.dto.DeleteAccountByPasswordDto;
 import cn.authing.sdk.java.dto.DeleteAccountByPhonePassCodeDto;
 
+
 public class VerifyDeleteAccountRequestDto {
     /**
      * 注销账号的验证手段：

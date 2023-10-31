@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class TokenIntrospectResponse {
     /**
      * Token 是否有效

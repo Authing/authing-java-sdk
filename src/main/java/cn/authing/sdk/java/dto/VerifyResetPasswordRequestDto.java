@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import cn.authing.sdk.java.dto.ResetPasswordByEmailPassCodeDto;
 import cn.authing.sdk.java.dto.ResetPasswordByPhonePassCodeDto;
 
+
 public class VerifyResetPasswordRequestDto {
     /**
      * 忘记密码请求使用的验证手段：

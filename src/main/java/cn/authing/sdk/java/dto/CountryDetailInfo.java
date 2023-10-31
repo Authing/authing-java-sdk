@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.LangObject;
 
+
 public class CountryDetailInfo {
     /**
      * [ISO 3166 国际标准](https://www.iban.com/country-codes)中国家的 Alpha-2 简称

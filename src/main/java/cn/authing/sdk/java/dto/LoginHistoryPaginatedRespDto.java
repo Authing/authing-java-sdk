@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.LoginHistoryDto;
 
+
 public class LoginHistoryPaginatedRespDto {
     /**
      * 记录总数

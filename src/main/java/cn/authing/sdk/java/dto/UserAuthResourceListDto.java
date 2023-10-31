@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.OpenResource;
 
+
 public class UserAuthResourceListDto {
     /**
      * 数据策略授权的用户 ID

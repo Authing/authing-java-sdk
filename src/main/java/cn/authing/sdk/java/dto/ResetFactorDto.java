@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class ResetFactorDto {
     /**
      * MFA 认证要素 ID

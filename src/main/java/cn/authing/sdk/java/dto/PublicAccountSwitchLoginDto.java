@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.SignInBySwitchOptionsDto;
 
+
 public class PublicAccountSwitchLoginDto {
     /**
      * 切换登录目标用户 ID

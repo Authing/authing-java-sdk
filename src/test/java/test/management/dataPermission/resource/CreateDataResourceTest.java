@@ -35,7 +35,7 @@ public class CreateDataResourceTest {
         dataResourceTreeStruct1.setCode("tree1");
         dataResourceTreeStruct1.setName("树节点1");
         dataResourceTreeStruct1.setValue("树节点1描述");
-        List<DataResourceTreeStructs> childrenList = new ArrayList<>();
+        List<Object> childrenList = new ArrayList<>();
         DataResourceTreeStructs dataResourceTreeStructChildren = new DataResourceTreeStructs();
         dataResourceTreeStructChildren.setCode("tree11");
         dataResourceTreeStructChildren.setName("树节点11");

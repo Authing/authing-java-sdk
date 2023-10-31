@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.UpdatePhoneByPhonePassCodeDto;
 
+
 public class VerifyUpdatePhoneRequestDto {
     /**
      * 使用手机号验证码方式验证的数据

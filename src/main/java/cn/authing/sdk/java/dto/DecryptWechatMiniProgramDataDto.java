@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class DecryptWechatMiniProgramDataDto {
     /**
      * `wx.login` 接口返回的用户 `code`

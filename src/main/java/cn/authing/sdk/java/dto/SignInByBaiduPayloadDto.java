@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class SignInByBaiduPayloadDto {
     /**
      * 百度移动端社会化登录获取到的授权码 `code`。和属性 `access_token` 任选一个参数。两个都不为空，则优先使用授权码 `code` 参数。

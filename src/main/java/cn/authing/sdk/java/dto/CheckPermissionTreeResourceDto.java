@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class CheckPermissionTreeResourceDto {
     /**
      * 树数据资源路径列表,

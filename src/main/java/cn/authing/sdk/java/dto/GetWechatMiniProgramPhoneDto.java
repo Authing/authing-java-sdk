@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class GetWechatMiniProgramPhoneDto {
     /**
      * 微信小程序的外部身份源连接标志符

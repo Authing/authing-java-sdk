@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class GetUserAuthResourcePermissionListDto {
     /**
      * 数据资源路径列表,**树资源需到具体树节点**

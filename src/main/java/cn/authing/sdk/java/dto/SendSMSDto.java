@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class SendSMSDto {
     /**
      * 短信通道，指定发送此短信的目的：

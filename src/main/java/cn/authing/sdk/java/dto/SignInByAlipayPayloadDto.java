@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class SignInByAlipayPayloadDto {
     /**
      * 支付宝移动端社会化登录返回的一次性临时 code

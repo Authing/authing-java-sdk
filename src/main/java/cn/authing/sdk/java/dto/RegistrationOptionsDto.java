@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.PublicKeyCredentialCreationOptionsDto;
 
+
 public class RegistrationOptionsDto {
     /**
      * 认证器生成公钥凭证的参数

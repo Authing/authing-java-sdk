@@ -29,10 +29,7 @@ public class ListDataPolicyTargetsTest {
         reqDto.setQuery("主体名称");
         reqDto.setPage(1);
         reqDto.setLimit(10);
-        List<SubjectDto.Type> targetType = new ArrayList<>();
-        targetType.add(SubjectDto.Type.USER);
-        targetType.add(SubjectDto.Type.ROLE);
-        reqDto.setTargetType(targetType);
+        reqDto.setTargetType("USER,ROLE");
         ListDataPolicySubjectPaginatedRespDto response = client.listDataPolicyTargets(reqDto);
         System.out.println(JsonUtils.serialize(response));
     }

@@ -65,7 +65,7 @@ public class FunctionModelFieldDto {
      * 默认值
      */
     @JsonProperty("default")
-    private String default;
+    private String defaultValue;
     /**
      * 是否必填:
      * - true: 必填
@@ -201,10 +201,10 @@ public class FunctionModelFieldDto {
     }
 
     public String getDefault() {
-        return default;
+        return defaultValue;
     }
-    public void setDefault(String default) {
-        this.default = default;
+    public void setDefault(String defaultValue) {
+        this.defaultValue = defaultValue;
     }
 
     public Boolean getRequire() {

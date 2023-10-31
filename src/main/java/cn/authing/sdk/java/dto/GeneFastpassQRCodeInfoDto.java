@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.FastpassUserInfoDto;
 
+
 public class GeneFastpassQRCodeInfoDto {
     /**
      * 二维码使用场景。

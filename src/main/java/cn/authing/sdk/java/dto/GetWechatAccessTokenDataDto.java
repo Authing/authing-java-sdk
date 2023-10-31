@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class GetWechatAccessTokenDataDto {
     /**
      * Authing 服务器缓存的微信 Access Token

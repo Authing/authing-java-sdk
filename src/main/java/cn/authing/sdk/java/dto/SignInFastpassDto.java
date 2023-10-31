@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.SignInFastpassOptionsDto;
 
+
 public class SignInFastpassDto {
     /**
      * 可选参数

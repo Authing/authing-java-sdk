@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.RegistrationCredentialDto;
 
+
 public class VerifyRegistrationDto {
     /**
      * 获取凭证创建初始化参数时的 ticket

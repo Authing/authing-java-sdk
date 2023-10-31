@@ -7,6 +7,7 @@ import cn.authing.sdk.java.dto.ArrResourceAuthAction;
 import cn.authing.sdk.java.dto.StrResourceAuthAction;
 import cn.authing.sdk.java.dto.TreeResourceAuthAction;
 
+
 public class GetUserAuthResourceStructDataDto {
     /**
      * 权限空间 Code

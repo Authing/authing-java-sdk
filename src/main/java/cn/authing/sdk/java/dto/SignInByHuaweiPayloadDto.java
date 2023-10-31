@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class SignInByHuaweiPayloadDto {
     /**
      * 华为移动端社会化登录获取到的授权码 `code`

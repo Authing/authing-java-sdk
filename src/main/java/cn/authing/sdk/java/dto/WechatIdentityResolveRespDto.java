@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.WechatIdentityResolveRespDataDto;
 
+
 public class WechatIdentityResolveRespDto {
     /**
      * 异常 ID：需要中间操作才能完成登录。

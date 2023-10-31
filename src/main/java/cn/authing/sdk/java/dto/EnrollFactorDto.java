@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.EnrollFactorEnrollmentDataDto;
 
+
 public class EnrollFactorDto {
     /**
      * 绑定 MFA 认证要素时，对应认证要素要求的验证信息。

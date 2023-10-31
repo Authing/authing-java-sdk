@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class SignInByWechatMiniProgramPhonePayloadDto {
     /**
      * 获取微信开放数据返回的加密数据（encryptedData）

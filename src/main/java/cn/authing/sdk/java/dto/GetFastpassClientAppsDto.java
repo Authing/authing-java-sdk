@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class GetFastpassClientAppsDto {
     @JsonProperty("qrcodeId")
     private String qrcodeId;

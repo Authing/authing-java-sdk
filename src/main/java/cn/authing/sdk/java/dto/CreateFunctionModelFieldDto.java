@@ -104,7 +104,7 @@ public class CreateFunctionModelFieldDto {
      * 默认值
      */
     @JsonProperty("default")
-    private Object default;
+    private Object defaultValue;
     /**
      * 帮助说明
      */
@@ -262,10 +262,10 @@ public class CreateFunctionModelFieldDto {
     }
 
     public Object getDefault() {
-        return default;
+        return defaultValue;
     }
-    public void setDefault(Object default) {
-        this.default = default;
+    public void setDefault(Object defaultValue) {
+        this.defaultValue = defaultValue;
     }
 
     public String getHelp() {

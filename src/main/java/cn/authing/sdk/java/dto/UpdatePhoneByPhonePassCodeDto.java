@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class UpdatePhoneByPhonePassCodeDto {
     /**
      * 新手机号码，不带区号。如果是国外手机号，请在 newPhoneCountryCode 参数中指定区号。

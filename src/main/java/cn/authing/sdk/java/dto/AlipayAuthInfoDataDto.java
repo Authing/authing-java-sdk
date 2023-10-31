@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class AlipayAuthInfoDataDto {
     /**
      * 拉起支付宝需要的 AuthInfo

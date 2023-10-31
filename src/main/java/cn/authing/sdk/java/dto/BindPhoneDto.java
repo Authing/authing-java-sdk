@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class BindPhoneDto {
     /**
      * 短信验证码，注意一个短信验证码指南使用一次，且有过期时间。

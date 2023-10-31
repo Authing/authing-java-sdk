@@ -35,6 +35,7 @@ import cn.authing.sdk.java.dto.SignInByWeiboPayloadDto;
 import cn.authing.sdk.java.dto.SignInByXiaomiPayloadDto;
 import cn.authing.sdk.java.dto.SignInByYidunPayloadDto;
 
+
 public class SigninByMobileDto {
     /**
      * 外部身份源连接标志符

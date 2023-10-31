@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.UpdateEmailByEmailPassCodeDto;
 
+
 public class VerifyUpdateEmailRequestDto {
     /**
      * 使用邮箱验证码方式验证的数据

@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class PublicKeyCredentialDescriptorDto {
     /**
      * 允许的凭证 ID

@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class WechatIdentityResolveRespDataDto {
     /**
      * 可选的账号绑定方式。

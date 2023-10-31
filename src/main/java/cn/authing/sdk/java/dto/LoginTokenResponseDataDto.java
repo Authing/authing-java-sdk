@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class LoginTokenResponseDataDto {
     /**
      * 接口调用凭据，在限制时间内被授权访问资源 API

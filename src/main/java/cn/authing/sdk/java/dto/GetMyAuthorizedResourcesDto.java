@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class GetMyAuthorizedResourcesDto {
     /**
      * 所属权限分组(权限空间)的 Code

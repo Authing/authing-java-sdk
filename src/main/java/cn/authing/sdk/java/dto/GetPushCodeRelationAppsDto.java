@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class GetPushCodeRelationAppsDto {
     /**
      * 发起推送登录的应用 ID

@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class QRCodeStatusBriefUserInfoDto {
     /**
      * 用户显示昵称

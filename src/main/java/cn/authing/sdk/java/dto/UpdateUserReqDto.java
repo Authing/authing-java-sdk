@@ -187,6 +187,11 @@ public class UpdateUserReqDto {
     @JsonProperty("customData")
     private Object customData;
     /**
+     * 数据对象数据，传入的对象中的 key 必须先在用户数据对象相关自定义字段
+     */
+    @JsonProperty("metadata")
+    private Object metadata;
+    /**
      * 可选参数
      */
     @JsonProperty("options")
@@ -442,6 +447,13 @@ public class UpdateUserReqDto {
     }
     public void setCustomData(Object customData) {
         this.customData = customData;
+    }
+
+    public Object getMetadata() {
+        return metadata;
+    }
+    public void setMetadata(Object metadata) {
+        this.metadata = metadata;
     }
 
     public UpdateUserOptionsDto getOptions() {

@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class GetMyLoginHistoryDto {
     /**
      * 应用 ID，可根据应用 ID 筛选。默认不传获取所有应用的登录历史。

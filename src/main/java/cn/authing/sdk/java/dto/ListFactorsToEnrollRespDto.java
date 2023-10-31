@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.FactorToEnrollDto;
 
+
 public class ListFactorsToEnrollRespDto {
     /**
      * 业务状态码，可以通过此状态码判断操作是否成功，200 表示成功。

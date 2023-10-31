@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class GenePushCodeDataDto {
     /**
      * 推送码（推送登录唯一 ID），可以通过此唯一 ID 查询推送码状态。

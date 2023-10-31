@@ -4,6 +4,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public class GenerateLinkExtidpUrlDto {
     /**
      * 外部身份源连接唯一标志
