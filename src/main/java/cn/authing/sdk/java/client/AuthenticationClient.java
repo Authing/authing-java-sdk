@@ -27,10 +27,7 @@ import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.InvalidParameterException;
 import java.text.ParseException;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author ZKB
@@ -385,10 +382,12 @@ public class AuthenticationClient extends BaseClient {
         map.put("response_type", Optional.ofNullable(params.getResponseType()).orElse("code"));
         map.put("redirect_uri",
                 Optional.ofNullable(params.getRedirectUri()).orElse(options.getRedirectUri()));
-        map.put("prompt",
-                params.getScope() != null && params.getScope().contains("offline_access") ? "consent"
-                        : null);
-
+        if (!Objects.isNull(params.getPrompt())) {
+            map.put("prompt", params.getPrompt());
+        } else {
+            map.put("prompt", params.getScope() != null && params.getScope().contains("offline_access") ? "consent"
+                            : null);
+        }
         return HttpUtils.buildUrlWithQueryParams(options.getAppHost() + "/oidc/auth", map);
     }
 

@@ -15,6 +15,8 @@ public class IOidcParams {
 
     private String redirectUri;
 
+    private String prompt;
+
     public String getScope() {
         return scope;
     }
@@ -63,4 +65,11 @@ public class IOidcParams {
         this.redirectUri = redirectUri;
     }
 
+    public void setPrompt(String prompt) {
+        this.prompt = prompt;
+    }
+
+    public String getPrompt() {
+        return prompt;
+    }
 }
