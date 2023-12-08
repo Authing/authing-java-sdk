@@ -724,6 +724,8 @@ public class PublicAccountDto {
 
         @JsonProperty("U")
         U("U"),
+        @JsonProperty("W")
+        W("W")
         ;
 
         private String value;

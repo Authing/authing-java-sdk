@@ -484,6 +484,8 @@ public class UpdatePublicAccountInfoDto {
 
         @JsonProperty("U")
         U("U"),
+        @JsonProperty("W")
+        W("W")
         ;
 
         private String value;

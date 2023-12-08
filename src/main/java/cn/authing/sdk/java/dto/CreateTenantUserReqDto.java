@@ -1,6 +1,7 @@
 package cn.authing.sdk.java.dto;
 
 import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.CreateTenantUserOptionsDto;
@@ -16,7 +17,6 @@ public class CreateTenantUserReqDto {
      * - `M`: 男性，`male`
      * - `F`: 女性，`female`
      * - `U`: 未知，`unknown`
-     *
      */
     @JsonProperty("gender")
     private Gender gender;
@@ -129,6 +129,7 @@ public class CreateTenantUserReqDto {
     public String getTenantId() {
         return tenantId;
     }
+
     public void setTenantId(String tenantId) {
         this.tenantId = tenantId;
     }
@@ -136,6 +137,7 @@ public class CreateTenantUserReqDto {
     public Gender getGender() {
         return gender;
     }
+
     public void setGender(Gender gender) {
         this.gender = gender;
     }
@@ -143,6 +145,7 @@ public class CreateTenantUserReqDto {
     public String getEmail() {
         return email;
     }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -150,6 +153,7 @@ public class CreateTenantUserReqDto {
     public String getPhone() {
         return phone;
     }
+
     public void setPhone(String phone) {
         this.phone = phone;
     }
@@ -157,6 +161,7 @@ public class CreateTenantUserReqDto {
     public String getPhoneCountryCode() {
         return phoneCountryCode;
     }
+
     public void setPhoneCountryCode(String phoneCountryCode) {
         this.phoneCountryCode = phoneCountryCode;
     }
@@ -164,6 +169,7 @@ public class CreateTenantUserReqDto {
     public String getUsername() {
         return username;
     }
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -171,6 +177,7 @@ public class CreateTenantUserReqDto {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -178,6 +185,7 @@ public class CreateTenantUserReqDto {
     public String getNickname() {
         return nickname;
     }
+
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
@@ -185,6 +193,7 @@ public class CreateTenantUserReqDto {
     public String getPhoto() {
         return photo;
     }
+
     public void setPhoto(String photo) {
         this.photo = photo;
     }
@@ -192,6 +201,7 @@ public class CreateTenantUserReqDto {
     public String getBirthdate() {
         return birthdate;
     }
+
     public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
     }
@@ -199,6 +209,7 @@ public class CreateTenantUserReqDto {
     public String getCountry() {
         return country;
     }
+
     public void setCountry(String country) {
         this.country = country;
     }
@@ -206,6 +217,7 @@ public class CreateTenantUserReqDto {
     public String getProvince() {
         return province;
     }
+
     public void setProvince(String province) {
         this.province = province;
     }
@@ -213,6 +225,7 @@ public class CreateTenantUserReqDto {
     public String getCity() {
         return city;
     }
+
     public void setCity(String city) {
         this.city = city;
     }
@@ -220,6 +233,7 @@ public class CreateTenantUserReqDto {
     public String getAddress() {
         return address;
     }
+
     public void setAddress(String address) {
         this.address = address;
     }
@@ -227,6 +241,7 @@ public class CreateTenantUserReqDto {
     public String getStreetAddress() {
         return streetAddress;
     }
+
     public void setStreetAddress(String streetAddress) {
         this.streetAddress = streetAddress;
     }
@@ -234,6 +249,7 @@ public class CreateTenantUserReqDto {
     public String getPostalCode() {
         return postalCode;
     }
+
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
@@ -241,6 +257,7 @@ public class CreateTenantUserReqDto {
     public String getGivenName() {
         return givenName;
     }
+
     public void setGivenName(String givenName) {
         this.givenName = givenName;
     }
@@ -248,6 +265,7 @@ public class CreateTenantUserReqDto {
     public String getFamilyName() {
         return familyName;
     }
+
     public void setFamilyName(String familyName) {
         this.familyName = familyName;
     }
@@ -255,6 +273,7 @@ public class CreateTenantUserReqDto {
     public String getMiddleName() {
         return middleName;
     }
+
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
     }
@@ -262,6 +281,7 @@ public class CreateTenantUserReqDto {
     public String getPreferredUsername() {
         return preferredUsername;
     }
+
     public void setPreferredUsername(String preferredUsername) {
         this.preferredUsername = preferredUsername;
     }
@@ -269,6 +289,7 @@ public class CreateTenantUserReqDto {
     public String getPassword() {
         return password;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -276,6 +297,7 @@ public class CreateTenantUserReqDto {
     public String getSalt() {
         return salt;
     }
+
     public void setSalt(String salt) {
         this.salt = salt;
     }
@@ -283,6 +305,7 @@ public class CreateTenantUserReqDto {
     public CreateTenantUserOptionsDto getOptions() {
         return options;
     }
+
     public void setOptions(CreateTenantUserOptionsDto options) {
         this.options = options;
     }
@@ -293,7 +316,6 @@ public class CreateTenantUserReqDto {
      * - `M`: 男性，`male`
      * - `F`: 女性，`female`
      * - `U`: 未知，`unknown`
-     *
      */
     public static enum Gender {
 
@@ -305,7 +327,8 @@ public class CreateTenantUserReqDto {
 
         @JsonProperty("U")
         U("U"),
-        ;
+        @JsonProperty("W")
+        W("W");
 
         private String value;
 

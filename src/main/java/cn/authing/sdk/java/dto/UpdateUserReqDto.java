@@ -509,6 +509,8 @@ public class UpdateUserReqDto {
 
         @JsonProperty("U")
         U("U"),
+        @JsonProperty("W")
+        W("W")
         ;
 
         private String value;

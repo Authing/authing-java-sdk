@@ -496,6 +496,8 @@ public class UpdateUserInfoDto {
 
         @JsonProperty("U")
         U("U"),
+        @JsonProperty("W")
+        W("W")
         ;
 
         private String value;

@@ -376,6 +376,8 @@ public class TenantUserDto {
 
         @JsonProperty("U")
         U("U"),
+        @JsonProperty("W")
+        W("W")
         ;
 
         private String value;
