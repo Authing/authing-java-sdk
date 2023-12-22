@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class TokenEndPointParams {
     /**
      * Authing 应用 ID，当换取 token 身份验证方式为 `client_secret_post` 或 `none` 时必填。

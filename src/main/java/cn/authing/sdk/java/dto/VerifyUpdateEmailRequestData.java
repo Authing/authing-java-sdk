@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class VerifyUpdateEmailRequestData {
     /**
      * 用于修改当前邮箱的 token，你需要使用此 token 调用**修改邮箱**接口。

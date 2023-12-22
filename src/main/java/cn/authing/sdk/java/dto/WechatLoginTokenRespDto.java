@@ -4,8 +4,12 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class WechatLoginTokenRespDto {
+    /**
+     * 登录请求中的 scope
+     */
+    @JsonProperty("scope")
+    private String scope;
     /**
      * 接口调用凭据，在限制时间内被授权访问资源 API
      */
@@ -31,11 +35,13 @@ public class WechatLoginTokenRespDto {
      */
     @JsonProperty("expire_in")
     private Integer expireIn;
-    /**
-     * 登录请求中的 scope
-     */
-    @JsonProperty("scope")
-    private String scope;
+
+    public String getScope() {
+        return scope;
+    }
+    public void setScope(String scope) {
+        this.scope = scope;
+    }
 
     public String getAccessToken() {
         return accessToken;
@@ -70,13 +76,6 @@ public class WechatLoginTokenRespDto {
     }
     public void setExpireIn(Integer expireIn) {
         this.expireIn = expireIn;
-    }
-
-    public String getScope() {
-        return scope;
-    }
-    public void setScope(String scope) {
-        this.scope = scope;
     }
 
 

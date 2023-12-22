@@ -1,7 +1,6 @@
 package cn.authing.sdk.java.dto;
 
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.CreatePublicAccountOptionsDto;
@@ -207,7 +206,6 @@ public class CreatePublicAccountReqDto {
     public Status getStatus() {
         return status;
     }
-
     public void setStatus(Status status) {
         this.status = status;
     }
@@ -215,7 +213,6 @@ public class CreatePublicAccountReqDto {
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -223,7 +220,6 @@ public class CreatePublicAccountReqDto {
     public String getPhone() {
         return phone;
     }
-
     public void setPhone(String phone) {
         this.phone = phone;
     }
@@ -231,7 +227,6 @@ public class CreatePublicAccountReqDto {
     public String getPhoneCountryCode() {
         return phoneCountryCode;
     }
-
     public void setPhoneCountryCode(String phoneCountryCode) {
         this.phoneCountryCode = phoneCountryCode;
     }
@@ -239,7 +234,6 @@ public class CreatePublicAccountReqDto {
     public String getUsername() {
         return username;
     }
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -247,7 +241,6 @@ public class CreatePublicAccountReqDto {
     public String getExternalId() {
         return externalId;
     }
-
     public void setExternalId(String externalId) {
         this.externalId = externalId;
     }
@@ -255,7 +248,6 @@ public class CreatePublicAccountReqDto {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -263,7 +255,6 @@ public class CreatePublicAccountReqDto {
     public String getNickname() {
         return nickname;
     }
-
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
@@ -271,7 +262,6 @@ public class CreatePublicAccountReqDto {
     public String getPhoto() {
         return photo;
     }
-
     public void setPhoto(String photo) {
         this.photo = photo;
     }
@@ -279,7 +269,6 @@ public class CreatePublicAccountReqDto {
     public Gender getGender() {
         return gender;
     }
-
     public void setGender(Gender gender) {
         this.gender = gender;
     }
@@ -287,7 +276,6 @@ public class CreatePublicAccountReqDto {
     public Boolean getEmailVerified() {
         return emailVerified;
     }
-
     public void setEmailVerified(Boolean emailVerified) {
         this.emailVerified = emailVerified;
     }
@@ -295,7 +283,6 @@ public class CreatePublicAccountReqDto {
     public Boolean getPhoneVerified() {
         return phoneVerified;
     }
-
     public void setPhoneVerified(Boolean phoneVerified) {
         this.phoneVerified = phoneVerified;
     }
@@ -303,7 +290,6 @@ public class CreatePublicAccountReqDto {
     public String getBirthdate() {
         return birthdate;
     }
-
     public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
     }
@@ -311,7 +297,6 @@ public class CreatePublicAccountReqDto {
     public String getCountry() {
         return country;
     }
-
     public void setCountry(String country) {
         this.country = country;
     }
@@ -319,7 +304,6 @@ public class CreatePublicAccountReqDto {
     public String getProvince() {
         return province;
     }
-
     public void setProvince(String province) {
         this.province = province;
     }
@@ -327,7 +311,6 @@ public class CreatePublicAccountReqDto {
     public String getCity() {
         return city;
     }
-
     public void setCity(String city) {
         this.city = city;
     }
@@ -335,7 +318,6 @@ public class CreatePublicAccountReqDto {
     public String getAddress() {
         return address;
     }
-
     public void setAddress(String address) {
         this.address = address;
     }
@@ -343,7 +325,6 @@ public class CreatePublicAccountReqDto {
     public String getStreetAddress() {
         return streetAddress;
     }
-
     public void setStreetAddress(String streetAddress) {
         this.streetAddress = streetAddress;
     }
@@ -351,7 +332,6 @@ public class CreatePublicAccountReqDto {
     public String getPostalCode() {
         return postalCode;
     }
-
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
@@ -359,7 +339,6 @@ public class CreatePublicAccountReqDto {
     public String getCompany() {
         return company;
     }
-
     public void setCompany(String company) {
         this.company = company;
     }
@@ -367,7 +346,6 @@ public class CreatePublicAccountReqDto {
     public String getBrowser() {
         return browser;
     }
-
     public void setBrowser(String browser) {
         this.browser = browser;
     }
@@ -375,7 +353,6 @@ public class CreatePublicAccountReqDto {
     public String getDevice() {
         return device;
     }
-
     public void setDevice(String device) {
         this.device = device;
     }
@@ -383,7 +360,6 @@ public class CreatePublicAccountReqDto {
     public String getGivenName() {
         return givenName;
     }
-
     public void setGivenName(String givenName) {
         this.givenName = givenName;
     }
@@ -391,7 +367,6 @@ public class CreatePublicAccountReqDto {
     public String getFamilyName() {
         return familyName;
     }
-
     public void setFamilyName(String familyName) {
         this.familyName = familyName;
     }
@@ -399,7 +374,6 @@ public class CreatePublicAccountReqDto {
     public String getMiddleName() {
         return middleName;
     }
-
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
     }
@@ -407,7 +381,6 @@ public class CreatePublicAccountReqDto {
     public String getProfile() {
         return profile;
     }
-
     public void setProfile(String profile) {
         this.profile = profile;
     }
@@ -415,7 +388,6 @@ public class CreatePublicAccountReqDto {
     public String getPreferredUsername() {
         return preferredUsername;
     }
-
     public void setPreferredUsername(String preferredUsername) {
         this.preferredUsername = preferredUsername;
     }
@@ -423,7 +395,6 @@ public class CreatePublicAccountReqDto {
     public String getWebsite() {
         return website;
     }
-
     public void setWebsite(String website) {
         this.website = website;
     }
@@ -431,7 +402,6 @@ public class CreatePublicAccountReqDto {
     public String getZoneinfo() {
         return zoneinfo;
     }
-
     public void setZoneinfo(String zoneinfo) {
         this.zoneinfo = zoneinfo;
     }
@@ -439,7 +409,6 @@ public class CreatePublicAccountReqDto {
     public String getLocale() {
         return locale;
     }
-
     public void setLocale(String locale) {
         this.locale = locale;
     }
@@ -447,7 +416,6 @@ public class CreatePublicAccountReqDto {
     public String getFormatted() {
         return formatted;
     }
-
     public void setFormatted(String formatted) {
         this.formatted = formatted;
     }
@@ -455,7 +423,6 @@ public class CreatePublicAccountReqDto {
     public String getRegion() {
         return region;
     }
-
     public void setRegion(String region) {
         this.region = region;
     }
@@ -463,7 +430,6 @@ public class CreatePublicAccountReqDto {
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -471,7 +437,6 @@ public class CreatePublicAccountReqDto {
     public String getSalt() {
         return salt;
     }
-
     public void setSalt(String salt) {
         this.salt = salt;
     }
@@ -479,7 +444,6 @@ public class CreatePublicAccountReqDto {
     public CreatePublicAccountOtpDto getOtp() {
         return otp;
     }
-
     public void setOtp(CreatePublicAccountOtpDto otp) {
         this.otp = otp;
     }
@@ -487,7 +451,6 @@ public class CreatePublicAccountReqDto {
     public List<String> getDepartmentIds() {
         return departmentIds;
     }
-
     public void setDepartmentIds(List<String> departmentIds) {
         this.departmentIds = departmentIds;
     }
@@ -495,7 +458,6 @@ public class CreatePublicAccountReqDto {
     public Object getCustomData() {
         return customData;
     }
-
     public void setCustomData(Object customData) {
         this.customData = customData;
     }
@@ -503,7 +465,6 @@ public class CreatePublicAccountReqDto {
     public String getIdentityNumber() {
         return identityNumber;
     }
-
     public void setIdentityNumber(String identityNumber) {
         this.identityNumber = identityNumber;
     }
@@ -511,7 +472,6 @@ public class CreatePublicAccountReqDto {
     public CreatePublicAccountOptionsDto getOptions() {
         return options;
     }
-
     public void setOptions(CreatePublicAccountOptionsDto options) {
         this.options = options;
     }

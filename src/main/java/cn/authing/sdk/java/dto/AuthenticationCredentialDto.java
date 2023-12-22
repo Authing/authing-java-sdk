@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.AuthenticatorAssertionResponseDto;
 
-
 public class AuthenticationCredentialDto {
     /**
      * Base64URL 编码的凭证 ID

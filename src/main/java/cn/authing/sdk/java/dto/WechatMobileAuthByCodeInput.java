@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class WechatMobileAuthByCodeInput {
     /**
      * 客户端微信授权成功，微信返回当前认证授权码

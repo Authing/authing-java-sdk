@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class SignInByWechatMiniProgramPhoneInfoPayloadDto {
     /**
      * 小程序获取用户手机号返回的 `code`

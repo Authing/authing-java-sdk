@@ -1,6 +1,7 @@
 package cn.authing.sdk.java.dto;
 
 import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.RelationOptionalRange;
@@ -36,7 +37,6 @@ public class FunctionModelFieldDto {
      * - 6: 枚举
      * - 7: 关联类型
      * - 8: 反向关联数据展示
-     *
      */
     @JsonProperty("type")
     private Integer type;
@@ -44,7 +44,6 @@ public class FunctionModelFieldDto {
      * 是否展示:
      * - true: 展示
      * - false: 不展示
-     *
      */
     @JsonProperty("show")
     private Boolean show;
@@ -52,7 +51,6 @@ public class FunctionModelFieldDto {
      * 是否可编辑:
      * - true: 可编辑
      * - false: 不可编辑
-     *
      */
     @JsonProperty("editable")
     private Boolean editable;
@@ -65,12 +63,11 @@ public class FunctionModelFieldDto {
      * 默认值
      */
     @JsonProperty("default")
-    private String defaultValue;
+    private String _default;
     /**
      * 是否必填:
      * - true: 必填
      * - false: 不必填
-     *
      */
     @JsonProperty("require")
     private Boolean require;
@@ -78,7 +75,6 @@ public class FunctionModelFieldDto {
      * 是否唯一:
      * - true: 唯一
      * - false: 不唯一
-     *
      */
     @JsonProperty("unique")
     private Boolean unique;
@@ -121,7 +117,6 @@ public class FunctionModelFieldDto {
      * 关联关系是否为 1-N:
      * - true: 是 1-N 的关系
      * - false: 不是 1-N 的关系
-     *
      */
     @JsonProperty("relationMultiple")
     private Boolean relationMultiple;
@@ -139,7 +134,6 @@ public class FunctionModelFieldDto {
      * 用户中心是否显示，仅在 user 模块下有意义:
      * - true: 用户中心展示
      * - false: 用户中心不展示
-     *
      */
     @JsonProperty("userVisible")
     private Boolean userVisible;
@@ -147,6 +141,7 @@ public class FunctionModelFieldDto {
     public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -154,6 +149,7 @@ public class FunctionModelFieldDto {
     public String getModelId() {
         return modelId;
     }
+
     public void setModelId(String modelId) {
         this.modelId = modelId;
     }
@@ -161,6 +157,7 @@ public class FunctionModelFieldDto {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -168,6 +165,7 @@ public class FunctionModelFieldDto {
     public String getKey() {
         return key;
     }
+
     public void setKey(String key) {
         this.key = key;
     }
@@ -175,6 +173,7 @@ public class FunctionModelFieldDto {
     public Integer getType() {
         return type;
     }
+
     public void setType(Integer type) {
         this.type = type;
     }
@@ -182,6 +181,7 @@ public class FunctionModelFieldDto {
     public Boolean getShow() {
         return show;
     }
+
     public void setShow(Boolean show) {
         this.show = show;
     }
@@ -189,6 +189,7 @@ public class FunctionModelFieldDto {
     public Boolean getEditable() {
         return editable;
     }
+
     public void setEditable(Boolean editable) {
         this.editable = editable;
     }
@@ -196,20 +197,23 @@ public class FunctionModelFieldDto {
     public String getHelp() {
         return help;
     }
+
     public void setHelp(String help) {
         this.help = help;
     }
 
     public String getDefault() {
-        return defaultValue;
+        return _default;
     }
-    public void setDefault(String defaultValue) {
-        this.defaultValue = defaultValue;
+
+    public void setDefault(String _default) {
+        this._default = _default;
     }
 
     public Boolean getRequire() {
         return require;
     }
+
     public void setRequire(Boolean require) {
         this.require = require;
     }
@@ -217,6 +221,7 @@ public class FunctionModelFieldDto {
     public Boolean getUnique() {
         return unique;
     }
+
     public void setUnique(Boolean unique) {
         this.unique = unique;
     }
@@ -224,6 +229,7 @@ public class FunctionModelFieldDto {
     public Integer getMaxLength() {
         return maxLength;
     }
+
     public void setMaxLength(Integer maxLength) {
         this.maxLength = maxLength;
     }
@@ -231,6 +237,7 @@ public class FunctionModelFieldDto {
     public Integer getMax() {
         return max;
     }
+
     public void setMax(Integer max) {
         this.max = max;
     }
@@ -238,6 +245,7 @@ public class FunctionModelFieldDto {
     public Integer getMin() {
         return min;
     }
+
     public void setMin(Integer min) {
         this.min = min;
     }
@@ -245,6 +253,7 @@ public class FunctionModelFieldDto {
     public String getRegexp() {
         return regexp;
     }
+
     public void setRegexp(String regexp) {
         this.regexp = regexp;
     }
@@ -252,6 +261,7 @@ public class FunctionModelFieldDto {
     public Integer getFormat() {
         return format;
     }
+
     public void setFormat(Integer format) {
         this.format = format;
     }
@@ -259,6 +269,7 @@ public class FunctionModelFieldDto {
     public Integer getDropDown() {
         return dropDown;
     }
+
     public void setDropDown(Integer dropDown) {
         this.dropDown = dropDown;
     }
@@ -266,6 +277,7 @@ public class FunctionModelFieldDto {
     public String getRelationType() {
         return relationType;
     }
+
     public void setRelationType(String relationType) {
         this.relationType = relationType;
     }
@@ -273,6 +285,7 @@ public class FunctionModelFieldDto {
     public Boolean getRelationMultiple() {
         return relationMultiple;
     }
+
     public void setRelationMultiple(Boolean relationMultiple) {
         this.relationMultiple = relationMultiple;
     }
@@ -280,6 +293,7 @@ public class FunctionModelFieldDto {
     public String getRelationShowKey() {
         return relationShowKey;
     }
+
     public void setRelationShowKey(String relationShowKey) {
         this.relationShowKey = relationShowKey;
     }
@@ -287,6 +301,7 @@ public class FunctionModelFieldDto {
     public RelationOptionalRange getRelationOptionalRange() {
         return relationOptionalRange;
     }
+
     public void setRelationOptionalRange(RelationOptionalRange relationOptionalRange) {
         this.relationOptionalRange = relationOptionalRange;
     }
@@ -294,10 +309,10 @@ public class FunctionModelFieldDto {
     public Boolean getUserVisible() {
         return userVisible;
     }
+
     public void setUserVisible(Boolean userVisible) {
         this.userVisible = userVisible;
     }
-
 
 
 }

@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class BindEmailDto {
     /**
      * 邮箱验证码，一个邮箱验证码只能使用一次，且有一定有效时间。

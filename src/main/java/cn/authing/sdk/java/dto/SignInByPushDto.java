@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.SignInByPushOptionsDto;
 
-
 public class SignInByPushDto {
     /**
      * 用户账号（用户名/手机号/邮箱）

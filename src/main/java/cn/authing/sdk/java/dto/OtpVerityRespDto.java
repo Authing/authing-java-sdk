@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class OtpVerityRespDto {
     /**
      * 用户 OTP 校验是否成功

@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.FactorProfile;
 
-
 public class SendEnrollFactorRequestDto {
     /**
      * MFA 认证要素详细信息

@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.FastpassQRCodeRelationAppDto;
 
-
 public class GetFastpassQRCodeRelationAppsDto {
     /**
      * 关联的客户端应用信息

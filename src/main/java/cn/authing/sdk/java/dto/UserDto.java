@@ -7,7 +7,7 @@ import cn.authing.sdk.java.dto.IdentityDto;
 
 public class UserDto {
     /**
-     * 用户唯一标志，可以是用户 ID、用户名、邮箱、手机号、外部 ID、在外部身份源的 ID。
+     * 用户的唯一标志，可以是用户 ID、用户名、邮箱、手机号、externalId、在外部身份源的 ID，详情见 userIdType 字段的说明。默认为用户 id 。
      */
     @JsonProperty("userId")
     private String userId;
@@ -22,7 +22,13 @@ public class UserDto {
     @JsonProperty("updatedAt")
     private String updatedAt;
     /**
-     * 账户当前状态
+     * 账户当前状态：
+     * - Activated: 正常状态
+     * - Suspended: 已停用
+     * - Deactivated: 已禁用
+     * - Resigned: 已离职
+     * - Archived: 已归档
+     *
      */
     @JsonProperty("status")
     private Status status;
@@ -275,6 +281,11 @@ public class UserDto {
      */
     @JsonProperty("customData")
     private Object customData;
+    /**
+     * 用户的数据对象扩展字段数据
+     */
+    @JsonProperty("metadataSource")
+    private Object metadataSource;
     /**
      * 用户关联的部门 Id
      */
@@ -655,6 +666,13 @@ public class UserDto {
         this.customData = customData;
     }
 
+    public Object getMetadataSource() {
+        return metadataSource;
+    }
+    public void setMetadataSource(Object metadataSource) {
+        this.metadataSource = metadataSource;
+    }
+
     public List<String> getPostIdList() {
         return postIdList;
     }
@@ -678,7 +696,13 @@ public class UserDto {
 
 
     /**
-     * 账户当前状态
+     * 账户当前状态：
+     * - Activated: 正常状态
+     * - Suspended: 已停用
+     * - Deactivated: 已禁用
+     * - Resigned: 已离职
+     * - Archived: 已归档
+     *
      */
     public static enum Status {
 
@@ -785,6 +809,9 @@ public class UserDto {
 
         @JsonProperty("sync")
         SYNC("sync"),
+
+        @JsonProperty("workflow")
+        WORKFLOW("workflow"),
         ;
 
         private String value;

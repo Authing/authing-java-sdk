@@ -29,7 +29,7 @@ public class TenantDto {
      * 租户 logo
      */
     @JsonProperty("logo")
-    private List<String> logo;
+    private String logo;
     /**
      * 用户被租户拒绝登录时显示的提示文案
      */
@@ -64,7 +64,7 @@ public class TenantDto {
      * 租户配置的企业域名
      */
     @JsonProperty("enterpriseDomains")
-    private String enterpriseDomains;
+    private List<String> enterpriseDomains;
 
     public String getTenantId() {
         return tenantId;
@@ -94,10 +94,10 @@ public class TenantDto {
         this.description = description;
     }
 
-    public List<String> getLogo() {
+    public String getLogo() {
         return logo;
     }
-    public void setLogo(List<String> logo) {
+    public void setLogo(String logo) {
         this.logo = logo;
     }
 
@@ -143,10 +143,10 @@ public class TenantDto {
         this.code = code;
     }
 
-    public String getEnterpriseDomains() {
+    public List<String> getEnterpriseDomains() {
         return enterpriseDomains;
     }
-    public void setEnterpriseDomains(String enterpriseDomains) {
+    public void setEnterpriseDomains(List<String> enterpriseDomains) {
         this.enterpriseDomains = enterpriseDomains;
     }
 

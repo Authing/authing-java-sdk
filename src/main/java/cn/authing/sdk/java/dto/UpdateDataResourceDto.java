@@ -1,6 +1,7 @@
 package cn.authing.sdk.java.dto;
 
 import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.DataResourceTreeStructs;
@@ -40,6 +41,7 @@ public class UpdateDataResourceDto {
     public String getResourceCode() {
         return resourceCode;
     }
+
     public void setResourceCode(String resourceCode) {
         this.resourceCode = resourceCode;
     }
@@ -47,6 +49,7 @@ public class UpdateDataResourceDto {
     public String getNamespaceCode() {
         return namespaceCode;
     }
+
     public void setNamespaceCode(String namespaceCode) {
         this.namespaceCode = namespaceCode;
     }
@@ -54,6 +57,7 @@ public class UpdateDataResourceDto {
     public String getResourceName() {
         return resourceName;
     }
+
     public void setResourceName(String resourceName) {
         this.resourceName = resourceName;
     }
@@ -61,6 +65,7 @@ public class UpdateDataResourceDto {
     public String getDescription() {
         return description;
     }
+
     public void setDescription(String description) {
         this.description = description;
     }
@@ -68,6 +73,7 @@ public class UpdateDataResourceDto {
     public Object getStruct() {
         return struct;
     }
+
     public void setStruct(Object struct) {
         this.struct = struct;
     }
@@ -75,10 +81,10 @@ public class UpdateDataResourceDto {
     public List<String> getActions() {
         return actions;
     }
+
     public void setActions(List<String> actions) {
         this.actions = actions;
     }
-
 
 
 }

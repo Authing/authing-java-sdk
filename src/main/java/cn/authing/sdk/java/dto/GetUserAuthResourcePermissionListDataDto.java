@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.GetUserAuthResourcePermissionList;
 
-
 public class GetUserAuthResourcePermissionListDataDto {
     /**
      * 权限列表

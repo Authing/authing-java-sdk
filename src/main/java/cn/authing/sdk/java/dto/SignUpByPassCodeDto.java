@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class SignUpByPassCodeDto {
     /**
      * 一次性临时验证码，你需要先调用发送短信或者发送邮件接口获取验证码。

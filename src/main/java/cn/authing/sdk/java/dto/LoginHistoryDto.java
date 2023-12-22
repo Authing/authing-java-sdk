@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import cn.authing.sdk.java.dto.GeoIp;
 import cn.authing.sdk.java.dto.ParsedUserAgent;
 
-
 public class LoginHistoryDto {
     /**
      * 用户 ID

@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class DeleteAccountByPasswordDto {
     /**
      * 用户密码

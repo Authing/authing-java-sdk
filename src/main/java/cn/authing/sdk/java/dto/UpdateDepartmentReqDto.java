@@ -17,6 +17,11 @@ public class UpdateDepartmentReqDto {
     @JsonProperty("departmentId")
     private String departmentId;
     /**
+     * 元数据信息
+     */
+    @JsonProperty("metadata")
+    private Object metadata;
+    /**
      * 部门负责人 ID
      */
     @JsonProperty("leaderUserIds")
@@ -52,7 +57,7 @@ public class UpdateDepartmentReqDto {
     @JsonProperty("departmentIdType")
     private DepartmentIdType departmentIdType;
     /**
-     * 父部门 ID
+     * 父部门 id，如果是根部门，传 root
      */
     @JsonProperty("parentDepartmentId")
     private String parentDepartmentId;
@@ -84,6 +89,13 @@ public class UpdateDepartmentReqDto {
     }
     public void setDepartmentId(String departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public Object getMetadata() {
+        return metadata;
+    }
+    public void setMetadata(Object metadata) {
+        this.metadata = metadata;
     }
 
     public List<String> getLeaderUserIds() {

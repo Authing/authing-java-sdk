@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import cn.authing.sdk.java.dto.SignInByWechatMiniProgramCodePayloadDto;
 import cn.authing.sdk.java.dto.SignInByWechatMiniProgramPhoneInfoPayloadDto;
 
-
 public class SignInByWechatMiniProgramCodeAndPhonePayloadDto {
     /**
      * 微信小程序使用 code 登录相关数据，必填

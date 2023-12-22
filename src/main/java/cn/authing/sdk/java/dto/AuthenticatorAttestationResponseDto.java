@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class AuthenticatorAttestationResponseDto {
     /**
      * CBOR 编码的认证器数据，包含凭证公钥、凭证 ID、签名、签名计数等信息

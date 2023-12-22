@@ -26,7 +26,7 @@ public class GetAuthorizedResourcesDto {
     @JsonProperty("targetIdentifier")
     private String targetIdentifier;
     /**
-     * 所属权限分组(权限空间)的 Code
+     * 所属权限分组(权限空间)的 Code，不传获取默认权限分组。
      */
     @JsonProperty("namespace")
     private String namespace;

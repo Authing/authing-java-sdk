@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class SignUpProfileDto {
     /**
      * 昵称
@@ -122,12 +121,12 @@ public class SignUpProfileDto {
     @JsonProperty("country")
     private String country;
     /**
-     * 邮箱
+     * 用户邮箱。如果要补全邮箱，必须在 `options.emailPassCodeForInformationCompletion` 传入邮箱验证码。发送邮箱验证码可以使用 /api/v3/send-email 接口。
      */
     @JsonProperty("email")
     private String email;
     /**
-     * 手机号
+     * 用户手机号。如果要补全手机号，必须在 `options.phonePassCodeForInformationCompletion` 传入手机号验证码。发送手机号验证码可以使用 /api/v3/send-sms 接口。
      */
     @JsonProperty("phone")
     private String phone;
@@ -333,6 +332,7 @@ public class SignUpProfileDto {
 
         @JsonProperty("U")
         U("U"),
+
         @JsonProperty("W")
         W("W")
         ;

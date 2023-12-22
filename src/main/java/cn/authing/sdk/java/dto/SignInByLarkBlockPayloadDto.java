@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class SignInByLarkBlockPayloadDto {
     /**
      * 飞书小组件社会化登录返回的一次性临时 code

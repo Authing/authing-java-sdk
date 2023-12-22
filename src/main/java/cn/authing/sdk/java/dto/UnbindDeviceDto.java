@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class UnbindDeviceDto {
     /**
      * 设备唯一标识

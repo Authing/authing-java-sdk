@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class ChangeQRCodeStatusDto {
     /**
      * 修改二维码状态的动作:

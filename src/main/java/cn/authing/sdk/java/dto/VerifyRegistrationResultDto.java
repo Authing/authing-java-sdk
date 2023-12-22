@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class VerifyRegistrationResultDto {
     /**
      * 验证注册认证器结果

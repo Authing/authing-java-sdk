@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class GenerateBindExtIdpLinkDataDto {
     /**
      * 用户绑定外部身份源的链接

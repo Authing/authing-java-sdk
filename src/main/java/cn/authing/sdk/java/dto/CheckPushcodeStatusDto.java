@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class CheckPushcodeStatusDto {
     /**
      * 推送码（推送登录唯一 ID）

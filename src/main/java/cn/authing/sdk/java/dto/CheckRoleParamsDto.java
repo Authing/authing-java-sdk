@@ -11,7 +11,7 @@ public class CheckRoleParamsDto {
     @JsonProperty("code")
     private String code;
     /**
-     * 所属权限分组(权限空间)的 Code
+     * 所属权限分组(权限空间)的 Code，不传使用默认权限分组。
      */
     @JsonProperty("namespace")
     private String namespace;

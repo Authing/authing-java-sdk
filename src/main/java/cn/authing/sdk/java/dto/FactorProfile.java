@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class FactorProfile {
     /**
      * 当发起绑定手机短信认证要素时，此参数必传。需要传递用户希望绑定的手机号。Authing 服务器会向此手机号发送短信验证码，要求用户在绑定 MFA 阶段提供验证码。一个手机号在一分钟内只能请求一次。

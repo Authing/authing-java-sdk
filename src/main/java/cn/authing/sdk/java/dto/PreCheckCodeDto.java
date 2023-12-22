@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import cn.authing.sdk.java.dto.PreCheckEmailCodeDto;
 import cn.authing.sdk.java.dto.PreCheckSmsCodeDto;
 
-
 public class PreCheckCodeDto {
     /**
      * 验证码类型

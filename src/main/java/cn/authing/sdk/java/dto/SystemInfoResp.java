@@ -7,7 +7,6 @@ import cn.authing.sdk.java.dto.SystmeInfoRSAConfig;
 import cn.authing.sdk.java.dto.SystmeInfoSM2Config;
 import cn.authing.sdk.java.dto.SystmeInfoVersion;
 
-
 public class SystemInfoResp {
     /**
      * RSA256 加密配置信息

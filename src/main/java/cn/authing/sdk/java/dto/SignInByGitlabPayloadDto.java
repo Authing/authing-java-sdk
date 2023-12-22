@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class SignInByGitlabPayloadDto {
     /**
      * GitLab 移动端社会化登录获取到的授权码 `code`

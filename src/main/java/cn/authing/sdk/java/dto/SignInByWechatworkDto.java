@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class SignInByWechatworkDto {
     /**
      * 企业微信移动端社会化登录返回的一次性临时 code

@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class ResetPasswordVerify {
     /**
      * 用于重置密码 token
@@ -12,7 +11,7 @@ public class ResetPasswordVerify {
     @JsonProperty("passwordResetToken")
     private String passwordResetToken;
     /**
-     * 过期时间
+     * 过期时间，单位为秒。
      */
     @JsonProperty("tokenExpiresIn")
     private Integer tokenExpiresIn;

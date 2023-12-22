@@ -2,6 +2,8 @@ package cn.authing.sdk.java.client;
 
 import cn.authing.sdk.java.dto.*;
 
+import cn.authing.sdk.java.dto.*;
+
 import java.util.HashMap;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -37,6 +39,128 @@ public class ManagementClient extends BaseClient {
         return deserialize(response, Object.class);
     }
 
+	/**
+	 * @summary 岗位列表
+	 * @description 岗位列表
+	**/
+	public PostPaginatedRespDto postList(ListPostDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/list-post");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, PostPaginatedRespDto.class);
+	}
+	/**
+	 * @summary 获取岗位
+	 * @description 获取岗位
+	**/
+	public CreatePostDto getPost(GetPostDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-post");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, CreatePostDto.class);
+	}
+	/**
+	 * @deprecated
+	 * @summary 获取用户关联岗位
+	 * @description 获取用户关联的所有岗位
+	**/
+	public PostListRespDto getUserPosts(GetUserPostsDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-user-posts");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, PostListRespDto.class);
+	}
+	/**
+	 * @deprecated
+	 * @summary 获取用户关联岗位
+	 * @description 此接口只会返回一个岗位，已废弃，请使用 /api/v3/get-user-posts 接口
+	**/
+	public CreatePostDto getUserPost(GetUserPostDto reqDto) {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-user-post");
+        config.setBody(reqDto);
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, CreatePostDto.class);
+	}
+	/**
+	 * @summary 获取岗位信息
+	 * @description 根据岗位 id 获取岗位详情
+	**/
+	public PostRespDto getPostById(GetPostByIdListDto reqDto) {
+		AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-post-by-id");
+		config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, PostRespDto.class);
+	}
+	/**
+	 * @summary 创建岗位
+	 * @description 创建岗位
+	**/
+	public CreatePostRespDto createPost(CreatePostDto reqDto) {
+		AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/create-post");
+		config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, CreatePostRespDto.class);
+	}
+	/**
+	 * @summary 更新岗位信息
+	 * @description 更新岗位信息
+	**/
+	public CreatePostRespDto updatePost(CreatePostDto reqDto) {
+		AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/update-post");
+		config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, CreatePostRespDto.class);
+	}
+	/**
+	 * @summary 删除岗位
+	 * @description 删除岗位
+	**/
+	public CommonResponseDto removePost(RemovePostDto reqDto) {
+		AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/remove-post");
+		config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, CommonResponseDto.class);
+	}
+	/**
+	 * @summary 用户设置岗位
+	 * @description 一次性给用户设置岗位：如果之前的岗位不在传入的列表中，会进行移除；如果有新增的岗位，会加入到新的岗位；如果不变，则不进行任何操作。
+	**/
+	public CommonResponseDto setUserPosts(SetUserPostsDto reqDto) {
+		AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/set-user-posts");
+		config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, CommonResponseDto.class);
+	}
+	/**
+	 * @summary 用户关联岗位
+	 * @description 用户关联岗位
+	**/
+	public CommonResponseDto userConnectionPost(UserConnectionPostDto reqDto) {
+		AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/user-connection-post");
+		config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, CommonResponseDto.class);
+	}
 	/**
 	 * @summary 数据对象高级搜索
 	 * @description 数据对象高级搜索
@@ -422,6 +546,30 @@ public class ManagementClient extends BaseClient {
         return deserialize(response, CommonResponseDto.class);
 	}
 	/**
+	 * @summary 获取全部数据对象数据
+	 * @description 获取全部数据对象数据
+	**/
+	public FunctionModelValueListResDto getAllMetadata(GetAllRowDto reqDto) {
+		AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/metadata/get-all-metadata");
+		config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, FunctionModelValueListResDto.class);
+	}
+	/**
+	 * @summary 获取行关联数据
+	 * @description 获取行关联数据
+	**/
+	public RelationValueListResDto getRelationDetails() {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/metadata/get-row-relation-details");
+        config.setBody(new Object());
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, RelationValueListResDto.class);
+	}
+	/**
 	 * @summary UEBA 上传
 	 * @description UEBA 上传
 	**/
@@ -432,128 +580,6 @@ public class ManagementClient extends BaseClient {
         config.setMethod("POST");
         String response = request(config);
         return deserialize(response, CreateUEBARespDto.class);
-	}
-	/**
-	 * @summary 岗位列表
-	 * @description 岗位列表
-	**/
-	public PostPaginatedRespDto postList(ListPostDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/list-post");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, PostPaginatedRespDto.class);
-	}
-	/**
-	 * @summary 获取岗位
-	 * @description 获取岗位
-	**/
-	public CreatePostDto getPost(GetPostDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-post");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, CreatePostDto.class);
-	}
-	/**
-	 * @deprecated
-	 * @summary 获取用户关联岗位
-	 * @description 获取用户关联的所有岗位
-	**/
-	public PostListRespDto getUserPosts(GetUserPostsDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-user-posts");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, PostListRespDto.class);
-	}
-	/**
-	 * @deprecated
-	 * @summary 获取用户关联岗位
-	 * @description 此接口只会返回一个岗位，已废弃，请使用 /api/v3/get-user-posts 接口
-	**/
-	public CreatePostDto getUserPost(GetUserPostDto reqDto) {
-        AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-user-post");
-        config.setBody(reqDto);
-        config.setMethod("GET");
-        String response = request(config);
-        return deserialize(response, CreatePostDto.class);
-	}
-	/**
-	 * @summary 获取岗位信息
-	 * @description 根据岗位 id 获取岗位详情
-	**/
-	public PostRespDto getPostById(GetPostByIdListDto reqDto) {
-		AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/get-post-by-id");
-		config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, PostRespDto.class);
-	}
-	/**
-	 * @summary 创建岗位
-	 * @description 创建岗位
-	**/
-	public CreatePostRespDto createPost(CreatePostDto reqDto) {
-		AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/create-post");
-		config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, CreatePostRespDto.class);
-	}
-	/**
-	 * @summary 更新岗位信息
-	 * @description 更新岗位信息
-	**/
-	public CreatePostRespDto updatePost(CreatePostDto reqDto) {
-		AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/update-post");
-		config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, CreatePostRespDto.class);
-	}
-	/**
-	 * @summary 删除岗位
-	 * @description 删除岗位
-	**/
-	public CommonResponseDto removePost(RemovePostDto reqDto) {
-		AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/remove-post");
-		config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, CommonResponseDto.class);
-	}
-	/**
-	 * @summary 用户设置岗位
-	 * @description 一次性给用户设置岗位：如果之前的岗位不在传入的列表中，会进行移除；如果有新增的岗位，会加入到新的岗位；如果不变，则不进行任何操作。
-	**/
-	public CommonResponseDto setUserPosts(SetUserPostsDto reqDto) {
-		AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/set-user-posts");
-		config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, CommonResponseDto.class);
-	}
-	/**
-	 * @summary 用户关联岗位
-	 * @description 用户关联岗位
-	**/
-	public CommonResponseDto userConnectionPost(UserConnectionPostDto reqDto) {
-		AuthingRequestConfig config = new AuthingRequestConfig();
-        config.setUrl("/api/v3/user-connection-post");
-		config.setBody(reqDto);
-        config.setMethod("POST");
-        String response = request(config);
-        return deserialize(response, CommonResponseDto.class);
 	}
 	/**
 	 * @summary 移除绑定(用户详情页)
@@ -1612,7 +1638,7 @@ public class ManagementClient extends BaseClient {
 	}
 	/**
 	 * @summary 获取用户角色列表
-	 * @description 通过用户 ID，获取用户角色列表，可以选择所属权限分组 code、选择指定用户 ID 类型等。
+	 * @description 通过用户 ID，获取用户角色列表，可以选择所属权限分组 code、选择指定用户 ID 类型等。注意：如果不传 namespace，默认只会获取默认权限分组下面的角色！
 	**/
 	public RolePaginatedRespDto getUserRoles(GetUserRolesDto reqDto) {
         AuthingRequestConfig config = new AuthingRequestConfig();
@@ -2635,6 +2661,18 @@ public class ManagementClient extends BaseClient {
         config.setMethod("POST");
         String response = request(config);
         return deserialize(response, IsSuccessRespDto.class);
+	}
+	/**
+	 * @summary 检测角色互斥
+	 * @description 检测一组角色是否存在互斥关系
+	**/
+	public CheckRoleMutualExclusionRespDto checkMutualExclusion(CheckRoleMutualExclusionReqDto reqDto) {
+		AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/check-role-mutual-exclusion");
+		config.setBody(reqDto);
+        config.setMethod("POST");
+        String response = request(config);
+        return deserialize(response, CheckRoleMutualExclusionRespDto.class);
 	}
 	/**
 	 * @summary 获取身份源列表

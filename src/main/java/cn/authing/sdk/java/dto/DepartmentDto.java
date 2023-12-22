@@ -47,7 +47,7 @@ public class DepartmentDto {
     @JsonProperty("description")
     private String description;
     /**
-     * 父部门 id
+     * 父部门 id，如果是根部门，传 root
      */
     @JsonProperty("parentDepartmentId")
     private String parentDepartmentId;

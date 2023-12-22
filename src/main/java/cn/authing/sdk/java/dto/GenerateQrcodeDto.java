@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class GenerateQrcodeDto {
     /**
      * 二维码类型。当前支持三种类型：

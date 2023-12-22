@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class CheckResourcePermissionRespDto {
     /**
      * 权限空间 Code

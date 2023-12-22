@@ -8,7 +8,6 @@ import cn.authing.sdk.java.dto.SignUpByPasswordDto;
 import cn.authing.sdk.java.dto.SignUpOptionsDto;
 import cn.authing.sdk.java.dto.SignUpProfileDto;
 
-
 public class SignUpDto {
     /**
      * 注册方式：

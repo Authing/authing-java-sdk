@@ -1,7 +1,6 @@
 package cn.authing.sdk.java.dto;
 
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.CreateIdentityDto;
@@ -217,7 +216,6 @@ public class CreateUserInfoDto {
     public Status getStatus() {
         return status;
     }
-
     public void setStatus(Status status) {
         this.status = status;
     }
@@ -225,7 +223,6 @@ public class CreateUserInfoDto {
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -233,7 +230,6 @@ public class CreateUserInfoDto {
     public String getPhone() {
         return phone;
     }
-
     public void setPhone(String phone) {
         this.phone = phone;
     }
@@ -241,7 +237,6 @@ public class CreateUserInfoDto {
     public String getPhoneCountryCode() {
         return phoneCountryCode;
     }
-
     public void setPhoneCountryCode(String phoneCountryCode) {
         this.phoneCountryCode = phoneCountryCode;
     }
@@ -249,7 +244,6 @@ public class CreateUserInfoDto {
     public String getUsername() {
         return username;
     }
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -257,7 +251,6 @@ public class CreateUserInfoDto {
     public String getExternalId() {
         return externalId;
     }
-
     public void setExternalId(String externalId) {
         this.externalId = externalId;
     }
@@ -265,7 +258,6 @@ public class CreateUserInfoDto {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -273,7 +265,6 @@ public class CreateUserInfoDto {
     public String getNickname() {
         return nickname;
     }
-
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
@@ -281,7 +272,6 @@ public class CreateUserInfoDto {
     public String getPhoto() {
         return photo;
     }
-
     public void setPhoto(String photo) {
         this.photo = photo;
     }
@@ -289,7 +279,6 @@ public class CreateUserInfoDto {
     public Gender getGender() {
         return gender;
     }
-
     public void setGender(Gender gender) {
         this.gender = gender;
     }
@@ -297,7 +286,6 @@ public class CreateUserInfoDto {
     public Boolean getEmailVerified() {
         return emailVerified;
     }
-
     public void setEmailVerified(Boolean emailVerified) {
         this.emailVerified = emailVerified;
     }
@@ -305,7 +293,6 @@ public class CreateUserInfoDto {
     public Boolean getPhoneVerified() {
         return phoneVerified;
     }
-
     public void setPhoneVerified(Boolean phoneVerified) {
         this.phoneVerified = phoneVerified;
     }
@@ -313,7 +300,6 @@ public class CreateUserInfoDto {
     public String getBirthdate() {
         return birthdate;
     }
-
     public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
     }
@@ -321,7 +307,6 @@ public class CreateUserInfoDto {
     public String getCountry() {
         return country;
     }
-
     public void setCountry(String country) {
         this.country = country;
     }
@@ -329,7 +314,6 @@ public class CreateUserInfoDto {
     public String getProvince() {
         return province;
     }
-
     public void setProvince(String province) {
         this.province = province;
     }
@@ -337,7 +321,6 @@ public class CreateUserInfoDto {
     public String getCity() {
         return city;
     }
-
     public void setCity(String city) {
         this.city = city;
     }
@@ -345,7 +328,6 @@ public class CreateUserInfoDto {
     public String getAddress() {
         return address;
     }
-
     public void setAddress(String address) {
         this.address = address;
     }
@@ -353,7 +335,6 @@ public class CreateUserInfoDto {
     public String getStreetAddress() {
         return streetAddress;
     }
-
     public void setStreetAddress(String streetAddress) {
         this.streetAddress = streetAddress;
     }
@@ -361,7 +342,6 @@ public class CreateUserInfoDto {
     public String getPostalCode() {
         return postalCode;
     }
-
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
@@ -369,7 +349,6 @@ public class CreateUserInfoDto {
     public String getCompany() {
         return company;
     }
-
     public void setCompany(String company) {
         this.company = company;
     }
@@ -377,7 +356,6 @@ public class CreateUserInfoDto {
     public String getBrowser() {
         return browser;
     }
-
     public void setBrowser(String browser) {
         this.browser = browser;
     }
@@ -385,7 +363,6 @@ public class CreateUserInfoDto {
     public String getDevice() {
         return device;
     }
-
     public void setDevice(String device) {
         this.device = device;
     }
@@ -393,7 +370,6 @@ public class CreateUserInfoDto {
     public String getGivenName() {
         return givenName;
     }
-
     public void setGivenName(String givenName) {
         this.givenName = givenName;
     }
@@ -401,7 +377,6 @@ public class CreateUserInfoDto {
     public String getFamilyName() {
         return familyName;
     }
-
     public void setFamilyName(String familyName) {
         this.familyName = familyName;
     }
@@ -409,7 +384,6 @@ public class CreateUserInfoDto {
     public String getMiddleName() {
         return middleName;
     }
-
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
     }
@@ -417,7 +391,6 @@ public class CreateUserInfoDto {
     public String getProfile() {
         return profile;
     }
-
     public void setProfile(String profile) {
         this.profile = profile;
     }
@@ -425,7 +398,6 @@ public class CreateUserInfoDto {
     public String getPreferredUsername() {
         return preferredUsername;
     }
-
     public void setPreferredUsername(String preferredUsername) {
         this.preferredUsername = preferredUsername;
     }
@@ -433,7 +405,6 @@ public class CreateUserInfoDto {
     public String getWebsite() {
         return website;
     }
-
     public void setWebsite(String website) {
         this.website = website;
     }
@@ -441,7 +412,6 @@ public class CreateUserInfoDto {
     public String getZoneinfo() {
         return zoneinfo;
     }
-
     public void setZoneinfo(String zoneinfo) {
         this.zoneinfo = zoneinfo;
     }
@@ -449,7 +419,6 @@ public class CreateUserInfoDto {
     public String getLocale() {
         return locale;
     }
-
     public void setLocale(String locale) {
         this.locale = locale;
     }
@@ -457,7 +426,6 @@ public class CreateUserInfoDto {
     public String getFormatted() {
         return formatted;
     }
-
     public void setFormatted(String formatted) {
         this.formatted = formatted;
     }
@@ -465,7 +433,6 @@ public class CreateUserInfoDto {
     public String getRegion() {
         return region;
     }
-
     public void setRegion(String region) {
         this.region = region;
     }
@@ -473,7 +440,6 @@ public class CreateUserInfoDto {
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -481,7 +447,6 @@ public class CreateUserInfoDto {
     public String getSalt() {
         return salt;
     }
-
     public void setSalt(String salt) {
         this.salt = salt;
     }
@@ -489,7 +454,6 @@ public class CreateUserInfoDto {
     public List<String> getTenantIds() {
         return tenantIds;
     }
-
     public void setTenantIds(List<String> tenantIds) {
         this.tenantIds = tenantIds;
     }
@@ -497,7 +461,6 @@ public class CreateUserInfoDto {
     public CreateUserOtpDto getOtp() {
         return otp;
     }
-
     public void setOtp(CreateUserOtpDto otp) {
         this.otp = otp;
     }
@@ -505,7 +468,6 @@ public class CreateUserInfoDto {
     public List<String> getDepartmentIds() {
         return departmentIds;
     }
-
     public void setDepartmentIds(List<String> departmentIds) {
         this.departmentIds = departmentIds;
     }
@@ -513,7 +475,6 @@ public class CreateUserInfoDto {
     public Object getCustomData() {
         return customData;
     }
-
     public void setCustomData(Object customData) {
         this.customData = customData;
     }
@@ -521,7 +482,6 @@ public class CreateUserInfoDto {
     public Object getMetadataSource() {
         return metadataSource;
     }
-
     public void setMetadataSource(Object metadataSource) {
         this.metadataSource = metadataSource;
     }
@@ -529,7 +489,6 @@ public class CreateUserInfoDto {
     public List<CreateIdentityDto> getIdentities() {
         return identities;
     }
-
     public void setIdentities(List<CreateIdentityDto> identities) {
         this.identities = identities;
     }
@@ -537,7 +496,6 @@ public class CreateUserInfoDto {
     public String getIdentityNumber() {
         return identityNumber;
     }
-
     public void setIdentityNumber(String identityNumber) {
         this.identityNumber = identityNumber;
     }

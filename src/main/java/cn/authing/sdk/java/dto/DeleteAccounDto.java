@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class DeleteAccounDto {
     /**
      * 注销账户的 token

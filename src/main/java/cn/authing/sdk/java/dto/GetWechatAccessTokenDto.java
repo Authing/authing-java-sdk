@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class GetWechatAccessTokenDto {
     /**
      * 微信小程序或微信公众号的 AppId

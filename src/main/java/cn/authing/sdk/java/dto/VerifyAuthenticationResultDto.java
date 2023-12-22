@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.LoginTokenResponseDataDto;
 
-
 public class VerifyAuthenticationResultDto {
     /**
      * 验证认证器登录认证的结果，true 验证成功

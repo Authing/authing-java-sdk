@@ -10,12 +10,24 @@ public class ListFieldDto {
      */
     @JsonProperty("modelId")
     private String modelId;
+    /**
+     * 请求来源
+     */
+    @JsonProperty("from")
+    private String from;
 
     public String getModelId() {
         return modelId;
     }
     public void setModelId(String modelId) {
         this.modelId = modelId;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+    public void setFrom(String from) {
+        this.from = from;
     }
 
 

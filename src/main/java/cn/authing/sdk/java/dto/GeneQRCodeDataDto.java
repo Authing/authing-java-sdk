@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class GeneQRCodeDataDto {
     /**
      * 二维码唯一 ID，可以通过此唯一 ID 查询二维码状态。

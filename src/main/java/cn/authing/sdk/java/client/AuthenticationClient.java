@@ -2127,6 +2127,18 @@ public CommonResponseDto unlinkExtIdp(UnlinkExtIdpDto reqDto) {
                 return deserialize(response, CommonResponseDto.class);
             }
             /**
+             * @summary 验证账号密码是否正确
+             * @description 验证账号密码是否正确，手机号、邮箱、用户名如果同时传递，优先级为邮箱 -> 手机号 -> 用户名。
+             **/
+            public ValidatePasswordRespDto validatePassword(ValidatePasswordDto reqDto) {
+                AuthingRequestConfig config = new AuthingRequestConfig();
+                config.setUrl("/api/v3/validate-password");
+                config.setBody(reqDto);
+                config.setMethod("POST");
+                String response = request(config);
+                return deserialize(response, ValidatePasswordRespDto.class);
+            }
+            /**
              * @summary 微信移动端登录
              * @description 移动端应用：使用微信作为外部身份源登录。
              **/

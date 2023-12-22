@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import cn.authing.sdk.java.dto.AuthenticationCredentialDto;
 import cn.authing.sdk.java.dto.SignInByWebAuthnOptionsDto;
 
-
 public class VerifyAuthenticationDto {
     /**
      * 从 获取 WebAuthn 认证请求初始化参数接口 获得的 ticket

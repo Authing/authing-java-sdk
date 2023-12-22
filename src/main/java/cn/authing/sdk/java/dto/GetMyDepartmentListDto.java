@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class GetMyDepartmentListDto {
     /**
      * 当前页数，从 1 开始

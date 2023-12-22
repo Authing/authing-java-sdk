@@ -9,7 +9,6 @@ import cn.authing.sdk.java.dto.SignInByPassCodePayloadDto;
 import cn.authing.sdk.java.dto.SignInByPasswordPayloadDto;
 import cn.authing.sdk.java.dto.SignInOptionsDto;
 
-
 public class SigninByCredentialsDto {
     /**
      * 认证方式：

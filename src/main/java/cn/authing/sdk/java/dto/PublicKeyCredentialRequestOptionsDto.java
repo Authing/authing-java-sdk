@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.PublicKeyCredentialDescriptorDto;
 
-
 public class PublicKeyCredentialRequestOptionsDto {
     /**
      * 挑战码, base64Url 编码

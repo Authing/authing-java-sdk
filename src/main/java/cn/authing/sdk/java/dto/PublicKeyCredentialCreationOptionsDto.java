@@ -8,7 +8,6 @@ import cn.authing.sdk.java.dto.PublicKeyCredentialParametersDto;
 import cn.authing.sdk.java.dto.PublicKeyCredentialRpEntityDto;
 import cn.authing.sdk.java.dto.PublicKeyCredentialUserEntityDto;
 
-
 public class PublicKeyCredentialCreationOptionsDto {
     /**
      * 挑战码, base64Url 编码

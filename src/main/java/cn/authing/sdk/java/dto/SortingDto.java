@@ -75,6 +75,9 @@ public class SortingDto {
      */
     public static enum Field {
 
+        @JsonProperty("id")
+        ID("id"),
+
         @JsonProperty("createdAt")
         CREATED_AT("createdAt"),
 

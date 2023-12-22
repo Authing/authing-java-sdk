@@ -8,9 +8,9 @@ import cn.authing.sdk.java.util.JsonUtils;
 
 public class ListUsersTest {
     // 需要替换成你的 Authing Access Key ID
-    private static final String ACCESS_KEY_ID = "AUTHING_ACCESS_KEY_ID";
+    private static final String ACCESS_KEY_ID = "65420f25860b4d15fc3cb5f7";
     // 需要替换成你的 Authing Access Key Secret
-    private static final String ACCESS_KEY_SECRET = "AUTHING_ACCESS_KEY_SECRET";
+    private static final String ACCESS_KEY_SECRET = "bce50ebc079ffab84de4426e71fd6336";
 
     public static void main(String[] args) throws Throwable {
         ManagementClientOptions clientOptions = new ManagementClientOptions();

@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class PublicKeyCredentialParametersDto {
     /**
      * 一个负整数，用于标明算法

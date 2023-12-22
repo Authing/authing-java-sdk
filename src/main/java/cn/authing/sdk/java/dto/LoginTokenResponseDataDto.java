@@ -4,8 +4,12 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class LoginTokenResponseDataDto {
+    /**
+     * access_token 对应的 scope
+     */
+    @JsonProperty("scope")
+    private String scope;
     /**
      * 接口调用凭据，在限制时间内被授权访问资源 API
      */
@@ -31,6 +35,13 @@ public class LoginTokenResponseDataDto {
      */
     @JsonProperty("expire_in")
     private Integer expireIn;
+
+    public String getScope() {
+        return scope;
+    }
+    public void setScope(String scope) {
+        this.scope = scope;
+    }
 
     public String getAccessToken() {
         return accessToken;

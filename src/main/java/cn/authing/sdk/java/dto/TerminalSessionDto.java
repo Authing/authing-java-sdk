@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.DeviceInfo;
 
-
 public class TerminalSessionDto {
     /**
      * 设备信息

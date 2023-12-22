@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class PreCheckCodeDataDto {
     /**
      * 验证码是否正确且有效

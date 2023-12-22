@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cn.authing.sdk.java.dto.SendEnrollFactorRequestOtpDataDto;
 
-
 public class SendEnrollFactorRequestDataDto {
     /**
      * 临时凭证 enrollmentToken，有效时间为一分钟。在进行「绑定 MFA 认证要素」时，需要带上此参数。

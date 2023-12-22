@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PublicAccountDto {
     /**
-     * 用户唯一标志，可以是用户 ID、用户名、邮箱、手机号、外部 ID、在外部身份源的 ID。
+     * 用户的唯一标志，可以是用户 ID、用户名、邮箱、手机号、externalId、在外部身份源的 ID，详情见 userIdType 字段的说明。默认为用户 id 。
      */
     @JsonProperty("userId")
     private String userId;
@@ -21,7 +21,13 @@ public class PublicAccountDto {
     @JsonProperty("updatedAt")
     private String updatedAt;
     /**
-     * 账户当前状态
+     * 账户当前状态：
+     * - Activated: 正常状态
+     * - Suspended: 已停用
+     * - Deactivated: 已禁用
+     * - Resigned: 已离职
+     * - Archived: 已归档
+     *
      */
     @JsonProperty("status")
     private Status status;
@@ -653,7 +659,13 @@ public class PublicAccountDto {
 
 
     /**
-     * 账户当前状态
+     * 账户当前状态：
+     * - Activated: 正常状态
+     * - Suspended: 已停用
+     * - Deactivated: 已禁用
+     * - Resigned: 已离职
+     * - Archived: 已归档
+     *
      */
     public static enum Status {
 

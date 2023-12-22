@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class SignInByWeiboPayloadDto {
     /**
      * 新浪微博移动端社会化登录获取到的 access_token

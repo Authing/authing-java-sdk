@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class GetAlipayAuthinfoDto {
     /**
      * 外部身份源连接标志符

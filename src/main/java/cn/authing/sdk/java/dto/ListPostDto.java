@@ -40,6 +40,21 @@ public class ListPostDto {
      */
     @JsonProperty("flatCustomData")
     private Boolean flatCustomData;
+    /**
+     * 是否不显示 metadata 的 fieldId 字段
+     */
+    @JsonProperty("metadataNoFieldId")
+    private Boolean metadataNoFieldId;
+    /**
+     * 创建时间在此时间之后的岗位
+     */
+    @JsonProperty("createdAfter")
+    private Integer createdAfter;
+    /**
+     * 创建时间在此时间之前的岗位
+     */
+    @JsonProperty("createdBefore")
+    private Integer createdBefore;
 
     public String getKeywords() {
         return keywords;
@@ -88,6 +103,27 @@ public class ListPostDto {
     }
     public void setFlatCustomData(Boolean flatCustomData) {
         this.flatCustomData = flatCustomData;
+    }
+
+    public Boolean getMetadataNoFieldId() {
+        return metadataNoFieldId;
+    }
+    public void setMetadataNoFieldId(Boolean metadataNoFieldId) {
+        this.metadataNoFieldId = metadataNoFieldId;
+    }
+
+    public Integer getCreatedAfter() {
+        return createdAfter;
+    }
+    public void setCreatedAfter(Integer createdAfter) {
+        this.createdAfter = createdAfter;
+    }
+
+    public Integer getCreatedBefore() {
+        return createdBefore;
+    }
+    public void setCreatedBefore(Integer createdBefore) {
+        this.createdBefore = createdBefore;
     }
 
 
