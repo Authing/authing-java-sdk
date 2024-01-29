@@ -90,14 +90,6 @@ public class ManagementClientOptions extends AuthingClientOptions {
         tokenProvider = new ManagementTokenProvider(this);
     }
 
-    /**
-     * 管理端 签名生成
-     **/
-    private final ISignatureComposer composer;
-
-    {
-        composer = SignatureComposer.getComposer();
-    }
 
     @Override
     public String doRequest(String url, String method, Map<String, String> headers, Object body) {
@@ -106,7 +98,7 @@ public class ManagementClientOptions extends AuthingClientOptions {
         }
         // put 签名所需的头部
         headers.put("x-authing-lang", getLang().getValue());
-        headers.put("x-authing-sdk-version", "authing-java-sdk:3.1.0");
+        headers.put("x-authing-sdk-version", "authing-java-sdk:3.1.4");
         headers.put("x-authing-signature-method", SignatureEnum.X_AUTHING_SIGNATURE_METHOD.getValue());
         headers.put("x-authing-signature-nonce", CommonUtils.createRandomString(RANDOM_STRING_LENGTH));
         headers.put("x-authing-signature-version", SignatureEnum.X_AUTHING_SIGNATURE_VERSION.getValue());
@@ -115,60 +107,14 @@ public class ManagementClientOptions extends AuthingClientOptions {
             headers.put("x-authing-tenant-id", tenantId);
         }
         headers.put("date", String.valueOf(new Date().getTime()));
-        //生成签名
-        String stringToSign = null;
-        try {
-            stringToSign = composer.composeStringToSign(method, url, headers, objectToMap(body));
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
         //生成 Authorization
-        headers.put("Authorization", composer.getAuthorization(accessKeyId, accessKeySecret, stringToSign));
+        headers.put("Authorization", this.tokenProvider.getAccessToken());
+        headers.put("x-authing-userpool-id", this.tokenProvider.getUserPoolId());
         if (CollectionUtil.isNotEmpty(getHeaders())) {
             headers.putAll(getHeaders());
         }
         //发送请求
         return HttpUtils.request(getHost() + url, method, body, headers, getTimeout());
-    }
-
-    private boolean isObject(Object obj) {
-        return !(obj instanceof String || obj instanceof Integer || obj instanceof Enum || obj instanceof Double ||
-                obj instanceof Float || obj instanceof Boolean);
-    }
-
-    private Map<String, String> objectToMap(Object object) throws IllegalAccessException {
-        if (object instanceof Map) {
-            return (Map) object;
-        }
-        Map<String, String> map = new HashMap<>();
-        Field[] fields = object.getClass().getDeclaredFields();
-        for (Field field : fields) {
-            field.setAccessible(true);
-            Object obj = field.get(object);
-            if (obj != null) {
-                // 如果是对象类型，转成 JSON 字符串
-                if (isObject(obj)) {
-                    if (obj instanceof List && CollectionUtil.isNotEmpty((List<?>) obj)) {
-                        Object arr = ((List<?>) obj).get(0);
-                        if (arr instanceof Enum) {
-                            map.put(field.getName(), JsonUtils.serialize(obj).replaceAll("\"", "").replaceAll(",", ", "));
-                        } else {
-                            map.put(field.getName(), JsonUtils.serialize(obj));
-                        }
-                    } else {
-                        map.put(field.getName(), JsonUtils.serialize(obj));
-                    }
-                }
-                else {
-                    if (obj instanceof Enum) {
-                        map.put(field.getName(), JsonUtils.serialize(obj).replaceAll("\"", ""));
-                    } else {
-                        map.put(field.getName(), obj.toString());
-                    }
-                }
-            }
-        }
-        return map;
     }
 
     public String getAccessKeyId() {
@@ -255,10 +201,10 @@ public class ManagementClientOptions extends AuthingClientOptions {
                 return;
             }
             // token 失效， 登录
-            doLogin();
+            refreshManagementToken();
         }
 
-        private void doLogin() {
+        private void refreshManagementToken() {
             Map<String, Object> body = new HashMap<>();
             body.put("accessKeyId", options.getAccessKeyId());
             body.put("accessKeySecret", options.getAccessKeySecret());
