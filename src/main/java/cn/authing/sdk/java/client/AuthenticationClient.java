@@ -388,6 +388,11 @@ public class AuthenticationClient extends BaseClient {
             map.put("prompt", params.getScope() != null && params.getScope().contains("offline_access") ? "consent"
                             : null);
         }
+
+        if (StrUtil.isNotBlank(params.getTenantId())) {
+            map.put("tenant_id", params.getTenantId());
+        }
+
         return HttpUtils.buildUrlWithQueryParams(options.getAppHost() + "/oidc/auth", map);
     }
 
@@ -460,6 +465,10 @@ public class AuthenticationClient extends BaseClient {
         map.put("prompt",
                 params.getScope() != null && params.getScope().contains("offline_access") ? "consent"
                         : null);
+
+        if (StrUtil.isNotBlank(params.getTenantId())) {
+            map.put("tenant_id", params.getTenantId());
+        }
 
         return HttpUtils.buildUrlWithQueryParams(options.getAppHost() + "/oidc/auth", map);
     }
