@@ -45,6 +45,12 @@ public class AccessToken {
     @JsonProperty("aud")
     private String aud;
 
+    /**
+     * 租户 ID
+     */
+    @JsonProperty("tenant_id")
+    private String tenantId;
+
     public String getJti() {
         return jti;
     }
@@ -99,5 +105,13 @@ public class AccessToken {
 
     public void setAud(String aud) {
         this.aud = aud;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
     }
 }

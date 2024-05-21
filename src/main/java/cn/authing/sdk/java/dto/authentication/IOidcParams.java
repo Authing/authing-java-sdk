@@ -17,6 +17,11 @@ public class IOidcParams {
 
     private String prompt;
 
+    /**
+     * Tenant ID, optional field
+     */
+    private String tenantId;
+
     public String getScope() {
         return scope;
     }
@@ -71,5 +76,13 @@ public class IOidcParams {
 
     public String getPrompt() {
         return prompt;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
     }
 }

@@ -9,6 +9,11 @@ public class IOauthParams {
 
     private String redirectUri;
 
+    /**
+     * Tenant ID, optional field
+     */
+    private String tenantId;
+
     public String getScope() {
         return scope;
     }
@@ -39,5 +44,13 @@ public class IOauthParams {
 
     public void setRedirectUri(String redirectUri) {
         this.redirectUri = redirectUri;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
     }
 }
