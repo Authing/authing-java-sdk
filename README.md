@@ -19,9 +19,7 @@ To check out documentation, please refers to [docs](https://docs.authing.cn/v3/r
 
 This SDK is built upon [Authing Management API(v3)](https://api.authing.cn/openapi/v3/management/) and [Authing Authentication API(v3)](https://api.authing.cn/openapi/v3/authentication/), for older version, please refers to [older version docs](https://docs.authing.cn/v2/reference/sdk-for-java/).
 
-## 📦安装
-
-在项目的pom.xml的dependencies中加入以下内容:
+## 📦 Install
 
 ```xml
   <dependency>
