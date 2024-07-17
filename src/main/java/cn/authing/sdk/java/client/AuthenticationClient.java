@@ -100,6 +100,10 @@ public class AuthenticationClient extends BaseClient {
     }
 
     public OIDCTokenResponse getAccessTokenByCode(String code) throws Exception {
+        return this.getAccessTokenByCode(code, this.options.getRedirectUri());
+    }
+
+    public OIDCTokenResponse getAccessTokenByCode(String code, String redirectUri) throws Exception {
         if ((StrUtil.isBlank(this.options.getAppId()) || StrUtil.isBlank(this.options.getAppSecret()))
                 && this.options.getTokenEndPointAuthMethod() != AuthMethodEnum.NONE.getValue()) {
             throw new Exception("请在初始化 AuthenticationClient 时传入 appId 和 secret 参数");
@@ -113,7 +117,7 @@ public class AuthenticationClient extends BaseClient {
         }
 
         CodeToTokenParams tokenParam = new CodeToTokenParams();
-        tokenParam.setRedirectUri(this.options.getRedirectUri());
+        tokenParam.setRedirectUri(redirectUri);
         tokenParam.setCode(code);
         tokenParam.setGrantType("authorization_code");
 
