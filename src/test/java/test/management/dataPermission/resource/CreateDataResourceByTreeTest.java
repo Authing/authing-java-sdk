@@ -31,8 +31,8 @@ public class CreateDataResourceByTreeTest {
 
         CreateTreeDataResourceDto reqDto = new CreateTreeDataResourceDto();
         reqDto.setActions(Collections.singletonList("read"));
-        reqDto.setResourceCode("treeResourceCode9");
-        reqDto.setResourceName("示例树数据资源9");
+        reqDto.setResourceCode("treeResourceCode");
+        reqDto.setResourceName("示例树数据资源");
         reqDto.setNamespaceCode("examplePermissionNamespace");
         List<DataResourceTreeStructs> treeList = new ArrayList<>();
         DataResourceTreeStructs struct = new DataResourceTreeStructs();
