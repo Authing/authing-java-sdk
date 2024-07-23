@@ -1,7 +1,9 @@
 package cn.authing.sdk.java.dto;
 
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
+import java.util.Map;
 
 
 public class TreeStructs {
@@ -30,6 +32,13 @@ public class TreeStructs {
      */
     @JsonProperty("children")
     private List<TreeStructs> children;
+
+    /**
+     * 节点扩展字段与对应的值
+     * key: 扩展字段 key
+     * value: 扩展字段值
+     */
+    private Map<String, Object> extendFieldValue;
 
     public String getCode() {
         return code;
@@ -66,6 +75,11 @@ public class TreeStructs {
         this.children = children;
     }
 
+    public Map<String, Object> getExtendFieldValue() {
+        return extendFieldValue;
+    }
 
-
+    public void setExtendFieldValue(Map<String, Object> extendFieldValue) {
+        this.extendFieldValue = extendFieldValue;
+    }
 }

@@ -1,13 +1,12 @@
 package test.management.dataPermission.resource;
 
 import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.GetDataResourceDto;
-import cn.authing.sdk.java.dto.GetDataResourceResponseDto;
+import cn.authing.sdk.java.dto.GetDenfListDto;
+import cn.authing.sdk.java.dto.GetDenfListResponseDto;
 import cn.authing.sdk.java.model.ManagementClientOptions;
 import cn.authing.sdk.java.util.JsonUtils;
 
-
-public class GetDataResourceTest {
+public class GetDnefListTest {
 
     // 需要替换成你的 Authing Access Key ID
     private static final String ACCESS_KEY_ID = "AUTHING_ACCESS_KEY_ID";
@@ -21,13 +20,11 @@ public class GetDataResourceTest {
         // 如果是私有化部署的客户，需要设置 Authing 服务域名
         // clientOptions.setHost("https://api.your-authing-service.com");
         ManagementClient client = new ManagementClient(clientOptions);
-
-        GetDataResourceDto request = new GetDataResourceDto();
-        request.setNamespaceCode("examplePermissionNamespace");
-        request.setResourceCode("treeResourceCode");
-
-        GetDataResourceResponseDto response = client.getDataResource(request);
-        System.out.println(JsonUtils.serialize(response));
+        GetDenfListDto getDenfListDto = new GetDenfListDto();
+        getDenfListDto.setResourceCode("treeResourceCode");
+        getDenfListDto.setNamespaceCode("examplePermissionNamespace");
+        GetDenfListResponseDto dnefList = client.getDnefList(getDenfListDto);
+        System.out.println(JsonUtils.serialize(dnefList));
     }
 
 }

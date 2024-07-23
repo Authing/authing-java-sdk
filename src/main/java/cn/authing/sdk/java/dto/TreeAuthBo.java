@@ -1,7 +1,9 @@
 package cn.authing.sdk.java.dto;
 
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
+import java.util.Map;
 
 
 public class TreeAuthBo {
@@ -25,6 +27,13 @@ public class TreeAuthBo {
      */
     @JsonProperty("nodeValue")
     private String nodeValue;
+
+    /**
+     * 节点扩展字段与对应的值
+     * key: 扩展字段 key
+     * value: 扩展字段值
+     */
+    private Map<String, Object> nodeExtendFieldValue;
 
     public String getNodePath() {
         return nodePath;
@@ -54,6 +63,11 @@ public class TreeAuthBo {
         this.nodeValue = nodeValue;
     }
 
+    public Map<String, Object> getNodeExtendFieldValue() {
+        return nodeExtendFieldValue;
+    }
 
-
+    public void setNodeExtendFieldValue(Map<String, Object> nodeExtendFieldValue) {
+        this.nodeExtendFieldValue = nodeExtendFieldValue;
+    }
 }
