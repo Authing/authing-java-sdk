@@ -1,10 +1,8 @@
 package cn.authing.sdk.java.dto;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import cn.authing.sdk.java.dto.DataResourceTreeStructs;
+import java.util.List;
 
 public class GetDataResourceRespDto {
     /**
@@ -42,6 +40,11 @@ public class GetDataResourceRespDto {
      */
     @JsonProperty("actions")
     private List<String> actions;
+
+    /**
+     * 数据资源扩展字段列表
+     */
+    private List<Dnef> extendFieldList;
 
     public String getResourceName() {
         return resourceName;
@@ -99,11 +102,18 @@ public class GetDataResourceRespDto {
         this.actions = actions;
     }
 
+    public List<Dnef> getExtendFieldList() {
+        return extendFieldList;
+    }
+
+    public void setExtendFieldList(List<Dnef> extendFieldList) {
+        this.extendFieldList = extendFieldList;
+    }
 
     /**
      * 数据资源类型，目前支持树结构（TREE）、字符串（STRING）、数组（ARRAY）
      */
-    public static enum Type {
+    public enum Type {
 
         @JsonProperty("TREE")
         TREE("TREE"),
@@ -125,6 +135,5 @@ public class GetDataResourceRespDto {
             return value;
         }
     }
-
 
 }

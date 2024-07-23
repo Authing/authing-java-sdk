@@ -1,20 +1,17 @@
 package cn.authing.sdk.java.client;
 
 import cn.authing.sdk.java.dto.*;
-
-import cn.authing.sdk.java.dto.*;
-
-import java.util.HashMap;
-import java.net.URI;
-import java.net.URISyntaxException;
-
+import cn.authing.sdk.java.model.AuthingRequestConfig;
 import cn.authing.sdk.java.model.AuthingWebsocketClient;
+import cn.authing.sdk.java.model.ManagementClientOptions;
 import cn.authing.sdk.java.model.Receiver;
 import cn.authing.sdk.java.util.signature.Impl.SignatureComposer;
 import cn.hutool.core.lang.Assert;
-import cn.authing.sdk.java.model.AuthingRequestConfig;
-import cn.authing.sdk.java.model.ManagementClientOptions;
 import cn.hutool.core.util.StrUtil;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.HashMap;
 
 
 public class ManagementClient extends BaseClient {
@@ -4622,6 +4619,7 @@ public class ManagementClient extends BaseClient {
         String response = request(config);
         return deserialize(response, GetDataResourceResponseDto.class);
 	}
+
 	/**
 	 * @summary 修改数据资源
 	 * @description 修改数据资源,根据权限空间 Code 和数据资源 Code 查询原始信息,只允许修改数据资源名称、描述和数据资源节点。
@@ -4634,6 +4632,7 @@ public class ManagementClient extends BaseClient {
         String response = request(config);
         return deserialize(response, UpdateDataResourceResponseDto.class);
 	}
+
 	/**
 	 * @summary 删除数据资源
 	 * @description 删除数据资源,根据数据资源 ID 删除对应的数据资源信息。
@@ -4646,6 +4645,7 @@ public class ManagementClient extends BaseClient {
         String response = request(config);
         return deserialize(response, CommonResponseDto.class);
 	}
+
 	/**
 	 * @summary 检查数据资源 Code 或者名称是否可用
 	 * @description 检查数据资源名称或者 Code 在权限空间内是否有效,通过数据资源名称或者数据资源 Code 以及所属权限空间 Code,判断在指定的权限空间内是否可用。
@@ -4733,6 +4733,68 @@ public class ManagementClient extends BaseClient {
         String response = request(config);
         return deserialize(response, CheckParamsDataResourceResponseDto.class);
 	}
+
+	/**
+	 * @summary 创建数据资源扩展字段
+	 */
+	public IsSuccessRespDto createDnef(CreateDenfDto reqDto) {
+		AuthingRequestConfig config = new AuthingRequestConfig();
+		config.setUrl("/api/v3/create-dnef");
+		config.setBody(reqDto);
+		config.setMethod("POST");
+		String response = request(config);
+		return deserialize(response, IsSuccessRespDto.class);
+	}
+
+	/**
+	 * @summary 批量创建数据资源扩展字段
+	 */
+	public IsSuccessRespDto batchCreateDnef(BatchCreateDenfDto reqDto) {
+		AuthingRequestConfig config = new AuthingRequestConfig();
+		config.setUrl("/api/v3/batch-create-dnef");
+		config.setBody(reqDto);
+		config.setMethod("POST");
+		String response = request(config);
+		return deserialize(response, IsSuccessRespDto.class);
+	}
+
+	/**
+	 * @summary 删除数据资源扩展字段
+	 */
+	public IsSuccessRespDto deleteDnef(DeleteDenfDto reqDto) {
+		AuthingRequestConfig config = new AuthingRequestConfig();
+		config.setUrl("/api/v3/delete-dnef");
+		config.setBody(reqDto);
+		config.setMethod("POST");
+		String response = request(config);
+		return deserialize(response, IsSuccessRespDto.class);
+	}
+
+	/**
+	 * @summary 修改数据资源扩展字段
+	 */
+	public IsSuccessRespDto UpdateDnef(UpdateDenfDto reqDto) {
+		AuthingRequestConfig config = new AuthingRequestConfig();
+		config.setUrl("/api/v3/update-dnef");
+		config.setBody(reqDto);
+		config.setMethod("POST");
+		String response = request(config);
+		return deserialize(response, IsSuccessRespDto.class);
+	}
+
+	/**
+	 * @summary 获取数据资源扩展字段列表
+	 */
+	public GetDenfListResponseDto getDnefList(GetDenfListDto reqDto) {
+		AuthingRequestConfig config = new AuthingRequestConfig();
+		config.setUrl("/api/v3/list-dnef");
+		config.setBody(reqDto);
+		config.setMethod("GET");
+		String response = request(config);
+		return deserialize(response, GetDenfListResponseDto.class);
+	}
+
+
 	/**
 	 * @summary 创建数据策略（重点）
 	 * @description 

@@ -4,11 +4,16 @@ import cn.authing.sdk.java.client.ManagementClient;
 import cn.authing.sdk.java.dto.CreateDataResourceDto;
 import cn.authing.sdk.java.dto.CreateDataResourceResponseDto;
 import cn.authing.sdk.java.dto.DataResourceTreeStructs;
+import cn.authing.sdk.java.dto.Dnef;
+import cn.authing.sdk.java.dto.DnefConfig;
 import cn.authing.sdk.java.model.ManagementClientOptions;
 import cn.authing.sdk.java.util.JsonUtils;
+import cn.hutool.core.collection.ListUtil;
+import cn.hutool.core.map.MapUtil;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 
 public class CreateDataResourceTest {
@@ -35,6 +40,9 @@ public class CreateDataResourceTest {
         dataResourceTreeStruct1.setCode("tree1");
         dataResourceTreeStruct1.setName("树节点1");
         dataResourceTreeStruct1.setValue("树节点1描述");
+        Map<String, Object> extendFieldValue = MapUtil.of("str", "str_value");
+        extendFieldValue.put("select", "option1");
+        dataResourceTreeStruct1.setExtendFieldValue(extendFieldValue);
         List<Object> childrenList = new ArrayList<>();
         DataResourceTreeStructs dataResourceTreeStructChildren = new DataResourceTreeStructs();
         dataResourceTreeStructChildren.setCode("tree11");
@@ -54,7 +62,32 @@ public class CreateDataResourceTest {
         actions.add("get");
         actions.add("read");
         request.setActions(actions);
+        request.setExtendFieldList(buildDnef());
         CreateDataResourceResponseDto response = client.createDataResource(request);
         System.out.println(JsonUtils.serialize(response));
+    }
+
+    private static List<Dnef> buildDnef() {
+        List<Dnef> dnefs = new ArrayList<>();
+        Dnef str = new Dnef();
+        str.setKey("str");
+        str.setLabel("str_label");
+        str.setValueType(Dnef.ValueType.STRING);
+        str.setDescription("string");
+        dnefs.add(str);
+
+        Dnef select = new Dnef();
+        select.setKey("select");
+        select.setLabel("select_label");
+        select.setValueType(Dnef.ValueType.SELECT);
+        select.setDescription("select");
+        List<DnefConfig.Option> options = ListUtil.of(new DnefConfig.Option("option1"),
+                new DnefConfig.Option("option2"),
+                new DnefConfig.Option("option3"));
+        DnefConfig config = new DnefConfig(options);
+        select.setConfig(config);
+        dnefs.add(select);
+
+        return dnefs;
     }
 }

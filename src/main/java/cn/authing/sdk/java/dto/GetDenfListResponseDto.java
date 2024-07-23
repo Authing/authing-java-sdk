@@ -2,7 +2,11 @@ package cn.authing.sdk.java.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class CreateTreeDataResourceResponseDto {
+/**
+ * 获取数据资源扩展字段列表响应
+ */
+public class GetDenfListResponseDto {
+
     /**
      * 业务状态码，可以通过此状态码判断操作是否成功，200 表示成功。
      */
@@ -27,11 +31,12 @@ public class CreateTreeDataResourceResponseDto {
      * 响应数据
      */
     @JsonProperty("data")
-    private CreateTreeDataResourceRespDto data;
+    private GetDenfListRespDto data;
 
     public Integer getStatusCode() {
         return statusCode;
     }
+
     public void setStatusCode(Integer statusCode) {
         this.statusCode = statusCode;
     }
@@ -39,6 +44,7 @@ public class CreateTreeDataResourceResponseDto {
     public String getMessage() {
         return message;
     }
+
     public void setMessage(String message) {
         this.message = message;
     }
@@ -46,6 +52,7 @@ public class CreateTreeDataResourceResponseDto {
     public Integer getApiCode() {
         return apiCode;
     }
+
     public void setApiCode(Integer apiCode) {
         this.apiCode = apiCode;
     }
@@ -53,16 +60,16 @@ public class CreateTreeDataResourceResponseDto {
     public String getRequestId() {
         return requestId;
     }
+
     public void setRequestId(String requestId) {
         this.requestId = requestId;
     }
 
-    public CreateTreeDataResourceRespDto getData() {
+    public GetDenfListRespDto getData() {
         return data;
     }
-    public void setData(CreateTreeDataResourceRespDto data) {
+
+    public void setData(GetDenfListRespDto data) {
         this.data = data;
     }
-
-
 }
