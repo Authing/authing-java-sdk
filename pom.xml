@@ -6,7 +6,7 @@
 
     <groupId>cn.authing</groupId>
     <artifactId>authing-java-sdk</artifactId>
-    <version>3.1.6</version>
+    <version>3.1.7</version>
 
     <name>Authing Java SDK</name>
     <description>java backend sdk for authing</description>
