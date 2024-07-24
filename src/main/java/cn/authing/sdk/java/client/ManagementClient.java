@@ -4773,7 +4773,7 @@ public class ManagementClient extends BaseClient {
 	/**
 	 * @summary 修改数据资源扩展字段
 	 */
-	public IsSuccessRespDto UpdateDnef(UpdateDenfDto reqDto) {
+	public IsSuccessRespDto updateDnef(UpdateDenfDto reqDto) {
 		AuthingRequestConfig config = new AuthingRequestConfig();
 		config.setUrl("/api/v3/update-dnef");
 		config.setBody(reqDto);

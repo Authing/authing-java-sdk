@@ -11,7 +11,7 @@ public class GetDenfListDto {
     private Integer startIndex;
 
     /**
-     * 当次查询最大数量
+     * 当次查询最大数量，默认为 10
      */
     private Integer maxSize;
 

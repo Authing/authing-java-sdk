@@ -31,9 +31,8 @@ public class UpdateDnefTest {
         updateDenfDto.setDescription("select1");
         updateDenfDto.setLabel("select1");
         updateDenfDto.setConfig(new DnefConfig(ListUtil.of(new DnefConfig.Option("str_value_1"))));
-        IsSuccessRespDto res = client.UpdateDnef(updateDenfDto);
+        IsSuccessRespDto res = client.updateDnef(updateDenfDto);
         System.out.println(JsonUtils.serialize(res));
     }
-
 
 }
