@@ -1,10 +1,6 @@
 package cn.authing.sdk.java.dto;
 
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import cn.authing.sdk.java.dto.GeoIp;
-import cn.authing.sdk.java.dto.ParsedUserAgent;
 
 public class UserActionLogDto {
     /**
@@ -252,58 +248,58 @@ public class UserActionLogDto {
      */
     public static enum EventType {
 
-        @JsonProperty("login")
+        @JsonProperty("登录")
         LOGIN("login"),
 
-        @JsonProperty("logout")
+        @JsonProperty("登出")
         LOGOUT("logout"),
 
-        @JsonProperty("register")
+        @JsonProperty("注册")
         REGISTER("register"),
 
-        @JsonProperty("verifyMfa")
+        @JsonProperty("验证 MFA")
         VERIFY_MFA("verifyMfa"),
 
-        @JsonProperty("updateUserPrefile")
-        UPDATE_USER_PREFILE("updateUserPrefile"),
+        @JsonProperty("修改用户信息")
+        UPDATE_USER_PROFILE("updateUserProfile"),
 
-        @JsonProperty("updateUserPassword")
+        @JsonProperty("修改密码")
         UPDATE_USER_PASSWORD("updateUserPassword"),
 
-        @JsonProperty("updateUserEmail")
+        @JsonProperty("修改邮箱")
         UPDATE_USER_EMAIL("updateUserEmail"),
 
-        @JsonProperty("updateUserPhone")
+        @JsonProperty("修改手机号")
         UPDATE_USER_PHONE("updateUserPhone"),
 
-        @JsonProperty("bindMfa")
+        @JsonProperty("绑定 MFA")
         BIND_MFA("bindMfa"),
 
-        @JsonProperty("bindEmail")
+        @JsonProperty("绑定邮箱")
         BIND_EMAIL("bindEmail"),
 
-        @JsonProperty("bindPhone")
+        @JsonProperty("绑定手机号")
         BIND_PHONE("bindPhone"),
 
-        @JsonProperty("unbindPhone")
+        @JsonProperty("解绑手机号")
         UNBIND_PHONE("unbindPhone"),
 
-        @JsonProperty("unbindEmail")
+        @JsonProperty("解绑邮箱")
         UNBIND_EMAIL("unbindEmail"),
 
-        @JsonProperty("unbindMFA")
+        @JsonProperty("解绑 MFA")
         UNBIND_MFA("unbindMFA"),
 
         @JsonProperty("refreshUserTokenBySelf")
         REFRESH_USER_TOKEN_BY_SELF("refreshUserTokenBySelf"),
 
-        @JsonProperty("deleteAccount")
+        @JsonProperty("注销账号")
         DELETE_ACCOUNT("deleteAccount"),
 
-        @JsonProperty("verifyFirstLogin")
+        @JsonProperty("首次登录验证")
         VERIFY_FIRST_LOGIN("verifyFirstLogin"),
 
-        @JsonProperty("securityResourceAccess")
+        @JsonProperty("资源访问")
         SECURITY_RESOURCE_ACCESS("securityResourceAccess"),
         ;
 
