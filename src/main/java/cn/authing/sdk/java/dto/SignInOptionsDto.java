@@ -52,6 +52,11 @@ public class SignInOptionsDto {
     @JsonProperty("captchaCode")
     private String captchaCode;
     /**
+     * 获取 Captcha 图形验证码时，对应返回的 token，当传入 captchaCode 时，此参数必传。
+     */
+    @JsonProperty("captchaToken")
+    private String captchaToken;
+    /**
      * 密码加密类型，支持使用 RSA256 和国密 SM2 算法进行加密。默认为 `none` 不加密。
      * - `none`: 不对密码进行加密，使用明文进行传输。
      * - `rsa`: 使用 RSA256 算法对密码进行加密，需要使用 Authing 服务的 RSA 公钥进行加密，请阅读**介绍**部分了解如何获取 Authing 服务的 RSA256 公钥。
@@ -108,6 +113,14 @@ public class SignInOptionsDto {
     }
     public void setCaptchaCode(String captchaCode) {
         this.captchaCode = captchaCode;
+    }
+
+    public String getCaptchaToken() {
+        return captchaToken;
+    }
+
+    public void setCaptchaToken(String captchaToken) {
+        this.captchaToken = captchaToken;
     }
 
     public PasswordEncryptType getPasswordEncryptType() {
