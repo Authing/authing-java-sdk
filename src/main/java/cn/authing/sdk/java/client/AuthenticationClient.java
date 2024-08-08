@@ -2480,4 +2480,15 @@ public CommonResponseDto unlinkExtIdp(UnlinkExtIdpDto reqDto) {
         return deserialize(response, CommonResponseDto.class);
     }
 
+    /**
+     * 生成图形验证码
+     * @return
+     */
+    public CaptchaCodeRespDto getCaptchaCode() {
+        AuthingRequestConfig config = new AuthingRequestConfig();
+        config.setUrl("/api/v3/get-captcha-code");
+        config.setMethod("GET");
+        String response = request(config);
+        return deserialize(response, CaptchaCodeRespDto.class);
+    }
 }
