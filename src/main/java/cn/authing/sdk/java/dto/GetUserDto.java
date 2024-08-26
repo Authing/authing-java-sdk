@@ -51,6 +51,12 @@ public class GetUserDto {
     @JsonProperty("withDepartmentIds")
     private Boolean withDepartmentIds;
 
+    /**
+     * 是否获取租户 ID 列表
+     */
+    @JsonProperty("withTenantIds")
+    private Boolean withTenantIds;
+
     public String getUserId() {
         return userId;
     }
@@ -100,6 +106,11 @@ public class GetUserDto {
         this.withDepartmentIds = withDepartmentIds;
     }
 
+    public Boolean getWithTenantIds() {
+        return withTenantIds;
+    }
 
-
+    public void setWithTenantIds(Boolean withTenantIds) {
+        this.withTenantIds = withTenantIds;
+    }
 }
