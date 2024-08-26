@@ -155,6 +155,12 @@ public class TenantUserDto {
     @JsonProperty("salt")
     private String salt;
 
+    /**
+     * 部门列表
+     */
+    @JsonProperty("departmentIds")
+    private List<String> departmentIds;
+
     public String getEmail() {
         return email;
     }
@@ -358,6 +364,13 @@ public class TenantUserDto {
         this.salt = salt;
     }
 
+    public List<String> getDepartmentIds() {
+        return departmentIds;
+    }
+
+    public void setDepartmentIds(List<String> departmentIds) {
+        this.departmentIds = departmentIds;
+    }
 
     /**
      * 性别:

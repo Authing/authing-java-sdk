@@ -301,6 +301,11 @@ public class UserDto {
      */
     @JsonProperty("tenantId")
     private String tenantId;
+    /**
+     * 用户租户 ID 列表
+     */
+    @JsonProperty("tenantIds")
+    private List<String> tenantIds;
 
     public String getUserId() {
         return userId;
@@ -694,6 +699,13 @@ public class UserDto {
         this.tenantId = tenantId;
     }
 
+    public List<String> getTenantIds() {
+        return tenantIds;
+    }
+
+    public void setTenantIds(List<String> tenantIds) {
+        this.tenantIds = tenantIds;
+    }
 
     /**
      * 账户当前状态：

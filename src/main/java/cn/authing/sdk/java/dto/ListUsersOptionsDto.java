@@ -66,6 +66,12 @@ public class ListUsersOptionsDto {
     @JsonProperty("flatCustomData")
     private Boolean flatCustomData;
 
+    /**
+     * 是否获取租户 ID 列表
+     */
+    @JsonProperty("withTenantIds")
+    private Boolean withTenantIds;
+
     public PaginationDto getPagination() {
         return pagination;
     }
@@ -122,6 +128,11 @@ public class ListUsersOptionsDto {
         this.flatCustomData = flatCustomData;
     }
 
+    public Boolean getWithTenantIds() {
+        return withTenantIds;
+    }
 
-
+    public void setWithTenantIds(Boolean withTenantIds) {
+        this.withTenantIds = withTenantIds;
+    }
 }
