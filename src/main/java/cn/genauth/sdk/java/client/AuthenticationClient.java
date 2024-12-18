@@ -1,7 +1,5 @@
 package cn.genauth.sdk.java.client;
 
-import cn.authing.sdk.java.dto.*;
-import cn.authing.sdk.java.dto.authentication.*;
 import cn.genauth.sdk.java.dto.*;
 import cn.genauth.sdk.java.dto.authentication.AccessToken;
 import cn.genauth.sdk.java.dto.authentication.BuildLogoutUrlParams;
@@ -18,7 +16,6 @@ import cn.genauth.sdk.java.dto.authentication.ValidateTicketV1Response;
 import cn.genauth.sdk.java.dto.authentication.ValidateTokenParams;
 import cn.genauth.sdk.java.enums.AuthMethodEnum;
 import cn.genauth.sdk.java.enums.ProtocolEnum;
-import cn.authing.sdk.java.model.*;
 import cn.genauth.sdk.java.model.AuthenticationClientOptions;
 import cn.genauth.sdk.java.model.AuthingRequestConfig;
 import cn.genauth.sdk.java.model.AuthingWebsocketClient;

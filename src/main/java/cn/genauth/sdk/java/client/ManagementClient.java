@@ -1,6 +1,5 @@
 package cn.genauth.sdk.java.client;
 
-import cn.authing.sdk.java.dto.*;
 import cn.genauth.sdk.java.dto.*;
 import cn.genauth.sdk.java.model.AuthingRequestConfig;
 import cn.genauth.sdk.java.model.AuthingWebsocketClient;
