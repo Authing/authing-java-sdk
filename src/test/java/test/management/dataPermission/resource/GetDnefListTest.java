@@ -1,10 +1,10 @@
 package test.management.dataPermission.resource;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.GetDenfListDto;
-import cn.authing.sdk.java.dto.GetDenfListResponseDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.GetDenfListDto;
+import cn.genauth.sdk.java.dto.GetDenfListResponseDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 public class GetDnefListTest {
 

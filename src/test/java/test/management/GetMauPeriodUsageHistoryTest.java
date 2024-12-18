@@ -1,11 +1,10 @@
 package test.management;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.CostGetCurrentUsageRespDto;
-import cn.authing.sdk.java.dto.CostGetMauPeriodUsageHistoryRespDto;
-import cn.authing.sdk.java.dto.GetMauPeriodUsageHistoryDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.CostGetMauPeriodUsageHistoryRespDto;
+import cn.genauth.sdk.java.dto.GetMauPeriodUsageHistoryDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 public class GetMauPeriodUsageHistoryTest {
     // 需要替换成你的 Authing Access Key ID

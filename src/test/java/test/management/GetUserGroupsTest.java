@@ -1,10 +1,10 @@
 package test.management;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.GetUserGroupsDto;
-import cn.authing.sdk.java.dto.GroupPaginatedRespDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.GetUserGroupsDto;
+import cn.genauth.sdk.java.dto.GroupPaginatedRespDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 public class GetUserGroupsTest {
     // 需要替换成你的 Authing Access Key ID

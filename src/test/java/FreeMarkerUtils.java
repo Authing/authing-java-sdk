@@ -1,4 +1,3 @@
-import cn.authing.sdk.java.client.ManagementClient;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 

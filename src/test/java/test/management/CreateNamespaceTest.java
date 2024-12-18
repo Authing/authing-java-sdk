@@ -1,10 +1,10 @@
 package test.management;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.CreateNamespaceDto;
-import cn.authing.sdk.java.dto.NamespaceRespDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.CreateNamespaceDto;
+import cn.genauth.sdk.java.dto.NamespaceRespDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 public class CreateNamespaceTest {
     // 需要替换成你的 Authing Access Key ID

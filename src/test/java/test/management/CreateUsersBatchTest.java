@@ -1,13 +1,12 @@
 package test.management;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.CreateUserBatchReqDto;
-import cn.authing.sdk.java.dto.CreateUserInfoDto;
-import cn.authing.sdk.java.dto.UserListRespDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.CreateUserBatchReqDto;
+import cn.genauth.sdk.java.dto.CreateUserInfoDto;
+import cn.genauth.sdk.java.dto.UserListRespDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
-import java.util.ArrayList;
 import java.util.Collections;
 
 public class CreateUsersBatchTest {

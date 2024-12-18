@@ -1,10 +1,10 @@
 package test.authentication;
 
-import cn.authing.sdk.java.client.AuthenticationClient;
-import cn.authing.sdk.java.dto.ValidateTokenRespDto;
-import cn.authing.sdk.java.dto.authentication.ValidateTokenParams;
-import cn.authing.sdk.java.model.AuthenticationClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.AuthenticationClient;
+import cn.genauth.sdk.java.dto.ValidateTokenRespDto;
+import cn.genauth.sdk.java.dto.authentication.ValidateTokenParams;
+import cn.genauth.sdk.java.model.AuthenticationClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 public class ValidateTokenTest {
   // 需要替换成你的 Authing App ID

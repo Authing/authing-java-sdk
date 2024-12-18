@@ -1,13 +1,12 @@
 package test.management.dataPermission.resource;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.CreateArrayDataResourceDto;
-import cn.authing.sdk.java.dto.CreateArrayDataResourceResponseDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.CreateArrayDataResourceDto;
+import cn.genauth.sdk.java.dto.CreateArrayDataResourceResponseDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class CreateDataResourceByArrayTest {

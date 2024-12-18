@@ -1,0 +1,23 @@
+package cn.genauth.sdk.java.dto;
+
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+
+public class GetApplicationPublicConfigDto {
+    /**
+     * 应用 ID，可选，默认会从请求的域名获取对应的应用
+     */
+    @JsonProperty("appId")
+    private String appId;
+
+    public String getAppId() {
+        return appId;
+    }
+    public void setAppId(String appId) {
+        this.appId = appId;
+    }
+
+
+
+}

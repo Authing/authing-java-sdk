@@ -1,5 +1,4 @@
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.hutool.core.util.StrUtil;
+import cn.genauth.sdk.java.client.ManagementClient;
 
 import java.io.File;
 import java.io.FileReader;

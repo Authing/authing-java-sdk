@@ -1,11 +1,11 @@
 package test.authentication;
 
-import cn.authing.sdk.java.client.AuthenticationClient;
-import cn.authing.sdk.java.dto.SignUpOptionsDto;
-import cn.authing.sdk.java.dto.SignUpProfileDto;
-import cn.authing.sdk.java.dto.UserSingleRespDto;
-import cn.authing.sdk.java.model.AuthenticationClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.AuthenticationClient;
+import cn.genauth.sdk.java.dto.SignUpOptionsDto;
+import cn.genauth.sdk.java.dto.SignUpProfileDto;
+import cn.genauth.sdk.java.dto.UserSingleRespDto;
+import cn.genauth.sdk.java.model.AuthenticationClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 public class SignUpByPhonePassCodeTest {
     // 需要替换成你的 Authing App ID

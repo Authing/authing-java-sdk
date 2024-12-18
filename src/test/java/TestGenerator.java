@@ -1,4 +1,4 @@
-import cn.authing.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.client.ManagementClient;
 
 import java.io.File;
 import java.io.FileReader;

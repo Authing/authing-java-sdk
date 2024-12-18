@@ -1,12 +1,12 @@
 package test.management;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.CommonResponseDto;
-import cn.authing.sdk.java.dto.ImportOtpItemDataDto;
-import cn.authing.sdk.java.dto.ImportOtpItemDto;
-import cn.authing.sdk.java.dto.ImportOtpReqDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.CommonResponseDto;
+import cn.genauth.sdk.java.dto.ImportOtpItemDataDto;
+import cn.genauth.sdk.java.dto.ImportOtpItemDto;
+import cn.genauth.sdk.java.dto.ImportOtpReqDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 import java.util.ArrayList;
 import java.util.List;

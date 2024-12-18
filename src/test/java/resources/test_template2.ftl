@@ -1,8 +1,8 @@
 package test;
-import cn.authing.sdk.java.client.ManagementClient;
+import client.cn.genauth.sdk.java.ManagementClient;
 import cn.authing.sdk.java.dto.*;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import model.cn.genauth.sdk.java.ManagementClientOptions;
+import util.cn.genauth.sdk.java.JsonUtils;
 
 import java.util.Collections;
 

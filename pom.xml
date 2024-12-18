@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>cn.authing</groupId>
-    <artifactId>authing-java-sdk</artifactId>
-    <version>3.1.10</version>
+    <groupId>cn.genauth</groupId>
+    <artifactId>genauth-java-sdk</artifactId>
+    <version>3.1.11</version>
 
-    <name>Authing Java SDK</name>
-    <description>java backend sdk for authing</description>
-    <url>https://authing.cn</url>
+    <name>GenAuth Java SDK</name>
+    <description>java backend sdk for genauth</description>
+    <url>https://www.genauth.cn</url>
 
     <licenses>
         <license>
@@ -20,7 +20,7 @@
     </licenses>
 
     <scm>
-        <url>https://github.com/Authing/authing-java-sdk-v5</url>
+        <url>https://github.com/GenAuth/genauth-java-sdk-v5</url>
     </scm>
 
     <properties>
@@ -32,10 +32,10 @@
 
     <developers>
         <developer>
-            <name>Authing Team</name>
+            <name>GenAuth Team</name>
             <email>developers@authing.cn</email>
-            <organization>authing</organization>
-            <organizationUrl>https://authing.cn</organizationUrl>
+            <organization>genauth</organization>
+            <organizationUrl>https://www.genauth.cn</organizationUrl>
         </developer>
     </developers>
 

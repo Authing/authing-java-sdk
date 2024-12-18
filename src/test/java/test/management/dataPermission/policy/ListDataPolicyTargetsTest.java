@@ -1,14 +1,10 @@
 package test.management.dataPermission.policy;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.ListDataPolicySubjectPaginatedRespDto;
-import cn.authing.sdk.java.dto.ListDataPolicyTargetsDto;
-import cn.authing.sdk.java.dto.SubjectDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
-
-import java.util.ArrayList;
-import java.util.List;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.ListDataPolicySubjectPaginatedRespDto;
+import cn.genauth.sdk.java.dto.ListDataPolicyTargetsDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 public class ListDataPolicyTargetsTest {
     // 需要替换成你的 Authing Access Key ID

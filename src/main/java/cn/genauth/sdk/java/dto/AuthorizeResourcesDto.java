@@ -1,0 +1,34 @@
+package cn.genauth.sdk.java.dto;
+
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class AuthorizeResourcesDto {
+    /**
+     * 授权资源列表
+     */
+    @JsonProperty("list")
+    private List<AuthorizeResourceItem> list;
+    /**
+     * 所属权限分组(权限空间)的 Code，不传获取默认权限分组。
+     */
+    @JsonProperty("namespace")
+    private String namespace;
+
+    public List<AuthorizeResourceItem> getList() {
+        return list;
+    }
+    public void setList(List<AuthorizeResourceItem> list) {
+        this.list = list;
+    }
+
+    public String getNamespace() {
+        return namespace;
+    }
+    public void setNamespace(String namespace) {
+        this.namespace = namespace;
+    }
+
+
+
+}

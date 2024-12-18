@@ -18,6 +18,16 @@
 
 此版本基于 Authing V3 版本的[用户认证 API](https://api.authing.cn/openapi/v3/authentication/) 和[管理 API](https://api.authing.cn/openapi/v3/management/)，如果你需要使用历史版本的 SDK，请查看 [旧版文档](https://docs.authing.cn/v2/reference/sdk-for-java/)。
 
+## 📦 安装
+
+```xml
+  <dependency>
+      <groupId>cn.genauth</groupId>
+      <artifactId>genauth-java-sdk</artifactId>
+      <version>3.1.11</version>
+  </dependency>
+```
+
 
 ## ❓ 获取帮助
 

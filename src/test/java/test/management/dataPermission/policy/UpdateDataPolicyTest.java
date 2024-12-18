@@ -1,11 +1,11 @@
 package test.management.dataPermission.policy;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.DataStatementPermissionDto;
-import cn.authing.sdk.java.dto.UpdateDataPolicyDto;
-import cn.authing.sdk.java.dto.UpdateDataPolicyResponseDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.DataStatementPermissionDto;
+import cn.genauth.sdk.java.dto.UpdateDataPolicyDto;
+import cn.genauth.sdk.java.dto.UpdateDataPolicyResponseDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 import java.util.ArrayList;
 import java.util.List;

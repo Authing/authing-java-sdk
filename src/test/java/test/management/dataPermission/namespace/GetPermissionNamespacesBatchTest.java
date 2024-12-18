@@ -1,12 +1,10 @@
 package test.management.dataPermission.namespace;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.GetPermissionNamespaceListResponseDto;
-import cn.authing.sdk.java.dto.GetPermissionNamespacesBatchDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
-import java.util.ArrayList;
-import java.util.List;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.GetPermissionNamespaceListResponseDto;
+import cn.genauth.sdk.java.dto.GetPermissionNamespacesBatchDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 
 public class GetPermissionNamespacesBatchTest {

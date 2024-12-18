@@ -1,13 +1,11 @@
 package test.management.dataPermission.authentication;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.ListResourceTargets;
-import cn.authing.sdk.java.dto.ListResourceTargetsDto;
-import cn.authing.sdk.java.dto.ListResourceTargetsRespDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.ListResourceTargetsDto;
+import cn.genauth.sdk.java.dto.ListResourceTargetsRespDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 

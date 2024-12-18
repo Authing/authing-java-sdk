@@ -1,12 +1,10 @@
 package test.management.mfa;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.CreateGroupReqDto;
-import cn.authing.sdk.java.dto.GetMapInfoRespDto;
-import cn.authing.sdk.java.dto.GetMfaTriggerDataDto;
-import cn.authing.sdk.java.dto.GroupSingleRespDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.GetMapInfoRespDto;
+import cn.genauth.sdk.java.dto.GetMfaTriggerDataDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 public class GetMfaTriggerDataTest {
     // 需要替换成你的 Authing Access Key ID

@@ -1,14 +1,12 @@
 package test.management.mfa;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.ApplicationMfaDto;
-import cn.authing.sdk.java.dto.GetMapInfoRespDto;
-import cn.authing.sdk.java.dto.GetMfaInfoDataDto;
-import cn.authing.sdk.java.dto.GetMfaStatusDto;
-import cn.authing.sdk.java.dto.IsSuccessRespDto;
-import cn.authing.sdk.java.dto.SetMfaStatusDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.ApplicationMfaDto;
+import cn.genauth.sdk.java.dto.GetMfaInfoDataDto;
+import cn.genauth.sdk.java.dto.IsSuccessRespDto;
+import cn.genauth.sdk.java.dto.SetMfaStatusDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 import java.util.ArrayList;
 import java.util.List;
 

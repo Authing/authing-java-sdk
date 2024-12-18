@@ -1,4 +1,4 @@
-import cn.authing.sdk.java.client.ManagementClient;
+import client.cn.genauth.sdk.java.ManagementClient;
 import cn.authing.sdk.java.dto.*;
 import model.ManagementClientOptions;
 import org.junit.jupiter.api.Test;

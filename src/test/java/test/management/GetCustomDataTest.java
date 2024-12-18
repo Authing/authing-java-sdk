@@ -1,11 +1,11 @@
 package test.management;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.GetCustomDataDto;
-import cn.authing.sdk.java.dto.GetCustomDataRespDto;
-import cn.authing.sdk.java.dto.TargetDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.GetCustomDataDto;
+import cn.genauth.sdk.java.dto.GetCustomDataRespDto;
+import cn.genauth.sdk.java.dto.TargetDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 public class GetCustomDataTest {
     // 需要替换成你的 Authing Access Key ID

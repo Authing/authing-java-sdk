@@ -1,10 +1,10 @@
 package test.management.dataPermission.resource;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.CommonResponseDto;
-import cn.authing.sdk.java.dto.DeleteDataResourceDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.CommonResponseDto;
+import cn.genauth.sdk.java.dto.DeleteDataResourceDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 
 public class DeleteDataResourceTest {

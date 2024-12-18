@@ -1,15 +1,13 @@
 package test.management.dataPermission.policy;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.CommonResponseDto;
-import cn.authing.sdk.java.dto.CreateAuthorizeDataPolicyDto;
-import cn.authing.sdk.java.dto.SubjectDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
-import com.nimbusds.jose.shaded.ow2asm.Type;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.CommonResponseDto;
+import cn.genauth.sdk.java.dto.CreateAuthorizeDataPolicyDto;
+import cn.genauth.sdk.java.dto.SubjectDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class AuthorizeDataPoliciesTest {

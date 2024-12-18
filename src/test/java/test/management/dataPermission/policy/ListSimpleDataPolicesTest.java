@@ -1,10 +1,10 @@
 package test.management.dataPermission.policy;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.ListSimpleDataPoliciesDto;
-import cn.authing.sdk.java.dto.ListSimpleDataPoliciesPaginatedRespDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.ListSimpleDataPoliciesDto;
+import cn.genauth.sdk.java.dto.ListSimpleDataPoliciesPaginatedRespDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 public class ListSimpleDataPolicesTest {
     // 需要替换成你的 Authing Access Key ID

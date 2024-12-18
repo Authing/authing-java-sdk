@@ -1,10 +1,10 @@
 package test.management.dataPermission.namespace;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.UpdatePermissionNamespaceDto;
-import cn.authing.sdk.java.dto.UpdatePermissionNamespaceResponseDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.UpdatePermissionNamespaceDto;
+import cn.genauth.sdk.java.dto.UpdatePermissionNamespaceResponseDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 
 public class UpdatePermissionNamespaceTest {

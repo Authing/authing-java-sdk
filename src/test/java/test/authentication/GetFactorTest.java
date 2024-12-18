@@ -1,10 +1,10 @@
 package test.authentication;
 
-import cn.authing.sdk.java.client.AuthenticationClient;
-import cn.authing.sdk.java.dto.GetFactorDto;
-import cn.authing.sdk.java.dto.GetFactorRespDto;
-import cn.authing.sdk.java.model.AuthenticationClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.AuthenticationClient;
+import cn.genauth.sdk.java.dto.GetFactorDto;
+import cn.genauth.sdk.java.dto.GetFactorRespDto;
+import cn.genauth.sdk.java.model.AuthenticationClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 public class GetFactorTest {
     // 需要替换成你的 Authing App ID

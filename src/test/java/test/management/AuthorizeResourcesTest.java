@@ -1,12 +1,12 @@
 package test.management;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.AuthorizeResourceItem;
-import cn.authing.sdk.java.dto.AuthorizeResourcesDto;
-import cn.authing.sdk.java.dto.IsSuccessRespDto;
-import cn.authing.sdk.java.dto.ResourceItemDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.AuthorizeResourceItem;
+import cn.genauth.sdk.java.dto.AuthorizeResourcesDto;
+import cn.genauth.sdk.java.dto.IsSuccessRespDto;
+import cn.genauth.sdk.java.dto.ResourceItemDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;

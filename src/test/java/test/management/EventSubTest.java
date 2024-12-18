@@ -1,8 +1,8 @@
 package test.management;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.model.Receiver;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.model.Receiver;
 
 /**
  * @author songxueyan

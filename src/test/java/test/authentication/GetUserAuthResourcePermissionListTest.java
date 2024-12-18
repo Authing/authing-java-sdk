@@ -1,12 +1,12 @@
 package test.authentication;
 
-import cn.authing.sdk.java.client.AuthenticationClient;
-import cn.authing.sdk.java.dto.GetUserAuthResourcePermissionListDto;
-import cn.authing.sdk.java.dto.GetUserAuthResourcePermissionListRespDto;
-import cn.authing.sdk.java.dto.LoginTokenRespDto;
-import cn.authing.sdk.java.dto.SignInOptionsDto;
-import cn.authing.sdk.java.model.AuthenticationClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.AuthenticationClient;
+import cn.genauth.sdk.java.dto.GetUserAuthResourcePermissionListDto;
+import cn.genauth.sdk.java.dto.GetUserAuthResourcePermissionListRespDto;
+import cn.genauth.sdk.java.dto.LoginTokenRespDto;
+import cn.genauth.sdk.java.dto.SignInOptionsDto;
+import cn.genauth.sdk.java.model.AuthenticationClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 import java.util.ArrayList;
 import java.util.List;
 

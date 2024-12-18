@@ -1,10 +1,10 @@
 package test.management;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.GetOrganizationDto;
-import cn.authing.sdk.java.dto.OrganizationSingleRespDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.GetOrganizationDto;
+import cn.genauth.sdk.java.dto.OrganizationSingleRespDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 public class GetOrganizationTest {
     // 需要替换成你的 Authing Access Key ID

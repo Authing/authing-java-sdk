@@ -1,11 +1,11 @@
 package test.management.dataPermission.resource;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.DataResourceTreeStructs;
-import cn.authing.sdk.java.dto.UpdateDataResourceDto;
-import cn.authing.sdk.java.dto.UpdateDataResourceResponseDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.DataResourceTreeStructs;
+import cn.genauth.sdk.java.dto.UpdateDataResourceDto;
+import cn.genauth.sdk.java.dto.UpdateDataResourceResponseDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 import cn.hutool.core.map.MapUtil;
 
 import java.util.ArrayList;

@@ -1,12 +1,12 @@
 package test.management.dataPermission.resource;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.Dnef.ValueType;
-import cn.authing.sdk.java.dto.DnefConfig;
-import cn.authing.sdk.java.dto.IsSuccessRespDto;
-import cn.authing.sdk.java.dto.UpdateDenfDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.Dnef.ValueType;
+import cn.genauth.sdk.java.dto.DnefConfig;
+import cn.genauth.sdk.java.dto.IsSuccessRespDto;
+import cn.genauth.sdk.java.dto.UpdateDenfDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 import cn.hutool.core.collection.ListUtil;
 
 public class UpdateDnefTest {

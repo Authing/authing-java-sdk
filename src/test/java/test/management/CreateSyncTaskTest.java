@@ -1,12 +1,12 @@
 package test.management;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.CreateSyncTaskDto;
-import cn.authing.sdk.java.dto.SyncTaskClientConfig;
-import cn.authing.sdk.java.dto.SyncTaskFieldMapping;
-import cn.authing.sdk.java.dto.SyncTaskPaginatedRespDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.CreateSyncTaskDto;
+import cn.genauth.sdk.java.dto.SyncTaskClientConfig;
+import cn.genauth.sdk.java.dto.SyncTaskFieldMapping;
+import cn.genauth.sdk.java.dto.SyncTaskPaginatedRespDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,10 +1,10 @@
 package test.authentication;
 
-import cn.authing.sdk.java.client.AuthenticationClient;
-import cn.authing.sdk.java.dto.SendEmailDto;
-import cn.authing.sdk.java.dto.SendEmailRespDto;
-import cn.authing.sdk.java.model.AuthenticationClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.AuthenticationClient;
+import cn.genauth.sdk.java.dto.SendEmailDto;
+import cn.genauth.sdk.java.dto.SendEmailRespDto;
+import cn.genauth.sdk.java.model.AuthenticationClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 public class SendEmailTest {
     // 需要替换成你的 Authing App ID

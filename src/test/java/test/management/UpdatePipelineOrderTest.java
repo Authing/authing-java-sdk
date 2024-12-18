@@ -1,11 +1,10 @@
 package test.management;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.CommonResponseDto;
-import cn.authing.sdk.java.dto.CostGetCurrentPackageRespDto;
-import cn.authing.sdk.java.dto.UpdatePipelineOrderDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.CommonResponseDto;
+import cn.genauth.sdk.java.dto.UpdatePipelineOrderDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 import java.util.ArrayList;
 import java.util.List;

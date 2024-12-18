@@ -1,12 +1,10 @@
 package test.management;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.ApplicationPaginatedRespDto;
-import cn.authing.sdk.java.dto.ListApplicationsDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
-
-import java.util.jar.JarEntry;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.ApplicationPaginatedRespDto;
+import cn.genauth.sdk.java.dto.ListApplicationsDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 public class ListApplicationsTest {
     // 需要替换成你的 Authing Access Key ID

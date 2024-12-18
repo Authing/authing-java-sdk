@@ -1,10 +1,10 @@
 package test.management;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.ExtIdpListPaginatedRespDto;
-import cn.authing.sdk.java.dto.ListExtIdpDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.ExtIdpListPaginatedRespDto;
+import cn.genauth.sdk.java.dto.ListExtIdpDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 public class ListExtIdpTest {
     // 需要替换成你的 Authing Access Key ID

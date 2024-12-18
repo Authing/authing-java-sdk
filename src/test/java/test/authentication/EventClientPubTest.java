@@ -1,8 +1,8 @@
 package test.authentication;
 
-import cn.authing.sdk.java.client.AuthenticationClient;
-import cn.authing.sdk.java.dto.CommonResponseDto;
-import cn.authing.sdk.java.model.AuthenticationClientOptions;
+import cn.genauth.sdk.java.client.AuthenticationClient;
+import cn.genauth.sdk.java.dto.CommonResponseDto;
+import cn.genauth.sdk.java.model.AuthenticationClientOptions;
 
 import java.io.IOException;
 import java.text.ParseException;

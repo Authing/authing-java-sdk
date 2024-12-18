@@ -1,12 +1,11 @@
 package test.authentication;
 
-import cn.authing.sdk.java.client.AuthenticationClient;
-import cn.authing.sdk.java.dto.LoginTokenRespDto;
-import cn.authing.sdk.java.dto.SignInByApplePayloadDto;
-import cn.authing.sdk.java.dto.SigninByMobileDto;
-import cn.authing.sdk.java.enums.AuthMethodEnum;
-import cn.authing.sdk.java.model.AuthenticationClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.AuthenticationClient;
+import cn.genauth.sdk.java.dto.LoginTokenRespDto;
+import cn.genauth.sdk.java.dto.SignInByApplePayloadDto;
+import cn.genauth.sdk.java.dto.SigninByMobileDto;
+import cn.genauth.sdk.java.model.AuthenticationClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 public class SignInByMobileTest {
     // 需要替换成你的 Authing App ID

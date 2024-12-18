@@ -1,10 +1,10 @@
 package test.management.dataPermission.resource;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.ListDataResourcesDto;
-import cn.authing.sdk.java.dto.ListDataResourcesPaginatedRespDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.ListDataResourcesDto;
+import cn.genauth.sdk.java.dto.ListDataResourcesPaginatedRespDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 
 public class ListDataResourcesTest {

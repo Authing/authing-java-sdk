@@ -1,10 +1,10 @@
 package test.management;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.ApplicationSingleRespDto;
-import cn.authing.sdk.java.dto.GetApplicationDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.ApplicationSingleRespDto;
+import cn.genauth.sdk.java.dto.GetApplicationDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 public class GetApplicationTest {
     // 需要替换成你的 Authing Access Key ID

@@ -1,10 +1,10 @@
 package test.management;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.ExtIdpSingleRespDto;
-import cn.authing.sdk.java.dto.UpdateExtIdpDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.ExtIdpSingleRespDto;
+import cn.genauth.sdk.java.dto.UpdateExtIdpDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 public class UpdateExtIdpTest {
     // 需要替换成你的 Authing Access Key ID

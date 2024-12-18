@@ -1,10 +1,10 @@
 package test.management;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.ListSyncRiskOperationsDto;
-import cn.authing.sdk.java.dto.SyncRiskOperationPaginatedRespDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.ListSyncRiskOperationsDto;
+import cn.genauth.sdk.java.dto.SyncRiskOperationPaginatedRespDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 public class ListSyncRiskOperationsTest {
     // 需要替换成你的 Authing Access Key ID

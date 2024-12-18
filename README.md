@@ -23,9 +23,9 @@ This SDK is built upon [Authing Management API(v3)](https://api.authing.cn/opena
 
 ```xml
   <dependency>
-      <groupId>cn.authing</groupId>
-      <artifactId>authing-java-sdk</artifactId>
-      <version>3.1.9</version>
+      <groupId>cn.genauth</groupId>
+      <artifactId>genauth-java-sdk</artifactId>
+      <version>3.1.11</version>
   </dependency>
 ```
 

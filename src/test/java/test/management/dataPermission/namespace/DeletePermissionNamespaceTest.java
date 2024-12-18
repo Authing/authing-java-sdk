@@ -1,10 +1,10 @@
 package test.management.dataPermission.namespace;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.DeletePermissionNamespaceDto;
-import cn.authing.sdk.java.dto.IsSuccessRespDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.DeletePermissionNamespaceDto;
+import cn.genauth.sdk.java.dto.IsSuccessRespDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 
 public class DeletePermissionNamespaceTest {

@@ -1,10 +1,10 @@
 package test.management;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.OrganizationPaginatedRespDto;
-import cn.authing.sdk.java.dto.SearchOrganizationsDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.OrganizationPaginatedRespDto;
+import cn.genauth.sdk.java.dto.SearchOrganizationsDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 public class SearchOrganizationsTest {
     // 需要替换成你的 Authing Access Key ID

@@ -1,10 +1,10 @@
 package test.management;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.GetUserPrincipalAuthenticationInfoDto;
-import cn.authing.sdk.java.dto.PrincipalAuthenticationInfoPaginatedRespDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.GetUserPrincipalAuthenticationInfoDto;
+import cn.genauth.sdk.java.dto.PrincipalAuthenticationInfoPaginatedRespDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 public class GetUserPrincipalAuthenticationInfoTest {
     // 需要替换成你的 Authing Access Key ID

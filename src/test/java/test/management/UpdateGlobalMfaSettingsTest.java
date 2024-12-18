@@ -1,11 +1,11 @@
 package test.management;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.EnrollFactorDto;
-import cn.authing.sdk.java.dto.MFASettingsDto;
-import cn.authing.sdk.java.dto.MFASettingsRespDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.EnrollFactorDto;
+import cn.genauth.sdk.java.dto.MFASettingsDto;
+import cn.genauth.sdk.java.dto.MFASettingsRespDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 import java.util.Collections;
 

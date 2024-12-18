@@ -1,10 +1,10 @@
 package test.management.dataPermission.policy;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.CheckDataPolicyExistsDto;
-import cn.authing.sdk.java.dto.CheckParamsDataPolicyResponseDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.CheckDataPolicyExistsDto;
+import cn.genauth.sdk.java.dto.CheckParamsDataPolicyResponseDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 public class CheckDataPolicyExistsTest {
     // 需要替换成你的 Authing Access Key ID

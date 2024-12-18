@@ -1,8 +1,8 @@
 package test.management;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.CostGetAllRightItemRespDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.CostGetAllRightItemRespDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
 
 /**
  * @author songxueyan

@@ -1,11 +1,11 @@
 package test.management;
 
-import cn.authing.sdk.java.client.ManagementClient;
-import cn.authing.sdk.java.dto.DeleteApplicationPermissionRecordItem;
-import cn.authing.sdk.java.dto.IsSuccessRespDto;
-import cn.authing.sdk.java.dto.RevokeApplicationAccessDto;
-import cn.authing.sdk.java.model.ManagementClientOptions;
-import cn.authing.sdk.java.util.JsonUtils;
+import cn.genauth.sdk.java.client.ManagementClient;
+import cn.genauth.sdk.java.dto.DeleteApplicationPermissionRecordItem;
+import cn.genauth.sdk.java.dto.IsSuccessRespDto;
+import cn.genauth.sdk.java.dto.RevokeApplicationAccessDto;
+import cn.genauth.sdk.java.model.ManagementClientOptions;
+import cn.genauth.sdk.java.util.JsonUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
