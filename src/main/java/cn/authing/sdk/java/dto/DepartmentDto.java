@@ -90,7 +90,7 @@ public class DepartmentDto {
      * 部门关联的岗位
      */
     @JsonProperty("posts")
-    private List<String> posts;
+    private List<PostDto> posts;
     /**
      * 岗位 id 列表
      */
@@ -219,10 +219,10 @@ public class DepartmentDto {
         this.customData = customData;
     }
 
-    public List<String> getPosts() {
+    public List<PostDto> getPosts() {
         return posts;
     }
-    public void setPosts(List<String> posts) {
+    public void setPosts(List<PostDto> posts) {
         this.posts = posts;
     }
 
