@@ -24,4 +24,19 @@ public class SendUserResetPasswordEmailLinkBatchDto {
      */
     @JsonProperty("userIdType")
     private String userIdType;
+
+
+    public String getUserId() {
+        return userId;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getUserIdType() {
+        return userIdType;
+    }
+    public void setUserIdType(String userIdType) {
+        this.userIdType = userIdType;
+    }
 }
