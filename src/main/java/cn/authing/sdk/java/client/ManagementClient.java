@@ -1993,6 +1993,16 @@ public class ManagementClient extends BaseClient {
         String response = request(config);
         return deserialize(response, IsSuccessRespDto.class);
 	}
+
+	public  IsSuccessRespDto sendUserResetPasswordEmailLink(SendUserResetPasswordEmailLinkBatchDto reqDto) {
+		AuthingRequestConfig config = new AuthingRequestConfig();
+		config.setUrl("/api/v3/send-user-reset-password-email-link");
+		config.setBody(reqDto);
+		config.setMethod("POST");
+		String response = request(config);
+		return deserialize(response, IsSuccessRespDto.class);
+	}
+
 	/**
 	 * @summary 获取公共账号的角色列表
 	 * @description 通过用户 ID，获取用户角色列表，可以选择所属权限分组 code、选择指定用户 ID 类型等。
