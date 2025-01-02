@@ -1512,6 +1512,15 @@ public class ManagementClient extends BaseClient {
         String response = request(config);
         return deserialize(response, UserPaginatedRespDto.class);
 	}
+
+	public UserPaginatedRespDto listUsersByKeywords(ListUsersRequestDto reqDto) {
+		AuthingRequestConfig config = new AuthingRequestConfig();
+		config.setUrl("/api/v3/list-users-by-keywords");
+		config.setBody(reqDto);
+		config.setMethod("POST");
+		String response = request(config);
+		return deserialize(response, UserPaginatedRespDto.class);
+	}
 	/**
 	 * @deprecated
 	 * @summary 获取用户列表
