@@ -23,7 +23,7 @@ public class HttpUtils {
         switch (method) {
             case "GET":
                 url = buildUrlWithQueryParams(url, JsonUtils.deserialize(JsonUtils.serialize(body), Map.class));
-                log.info("请求 url： {}", url);
+                log.debug("请求 url： {}", url);
                 httpResponse = HttpUtil
                         .createRequest(Method.valueOf(method), url)
                         .setReadTimeout(timeout)
@@ -33,7 +33,7 @@ public class HttpUtils {
                 break;
             case "POST":
                 String bodyString = JsonUtils.serialize(body);
-                log.info("请求 url：{}, body: {}", url, bodyString);
+                log.debug("请求 url：{}, body: {}", url, bodyString);
                 httpResponse = HttpUtil
                         .createRequest(Method.valueOf(method), url)
                         .setReadTimeout(timeout)
@@ -45,7 +45,7 @@ public class HttpUtils {
 
             case "UrlencodedPOST":
                 String urlencodedBodyString = buildQueryParams(JsonUtils.deserialize(JsonUtils.serialize(body), Map.class));
-                log.info("请求 url：{}, body: {}", url, urlencodedBodyString);
+                log.debug("请求 url：{}, body: {}", url, urlencodedBodyString);
                 httpResponse = HttpUtil
                         .createRequest(Method.valueOf("POST"), url)
                         .setReadTimeout(timeout)
@@ -59,7 +59,7 @@ public class HttpUtils {
         }
         if (httpResponse.isOk()) {
             String response = httpResponse.body();
-            log.info("响应：{}, 耗时：{} ms", response, (System.currentTimeMillis() - start));
+            log.debug("响应：{}, 耗时：{} ms", response, (System.currentTimeMillis() - start));
             return response;
         } else {
             throw new RuntimeException(httpResponse.body());
