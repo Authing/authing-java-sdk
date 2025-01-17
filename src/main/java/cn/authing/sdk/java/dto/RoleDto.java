@@ -1,6 +1,5 @@
 package cn.authing.sdk.java.dto;
 
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
@@ -44,7 +43,7 @@ public class RoleDto {
      * 角色自动禁止时间，单位毫秒, 如果传null表示永久有效
      */
     @JsonProperty("disableTime")
-    private Integer disableTime;
+    private Long disableTime;
 
     public String getId() {
         return id;
@@ -95,10 +94,10 @@ public class RoleDto {
         this.status = status;
     }
 
-    public Integer getDisableTime() {
+    public Long getDisableTime() {
         return disableTime;
     }
-    public void setDisableTime(Integer disableTime) {
+    public void setDisableTime(Long disableTime) {
         this.disableTime = disableTime;
     }
 
