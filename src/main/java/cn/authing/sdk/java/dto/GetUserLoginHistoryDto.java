@@ -39,12 +39,12 @@ public class GetUserLoginHistoryDto {
      * 开始时间戳（毫秒）
      */
     @JsonProperty("start")
-    private Integer start;
+    private Long start;
     /**
      * 结束时间戳（毫秒）
      */
     @JsonProperty("end")
-    private Integer end;
+    private Long end;
     /**
      * 当前页数，从 1 开始
      */
@@ -84,17 +84,17 @@ public class GetUserLoginHistoryDto {
         this.clientIp = clientIp;
     }
 
-    public Integer getStart() {
+    public Long getStart() {
         return start;
     }
-    public void setStart(Integer start) {
+    public void setStart(Long start) {
         this.start = start;
     }
 
-    public Integer getEnd() {
+    public Long getEnd() {
         return end;
     }
-    public void setEnd(Integer end) {
+    public void setEnd(Long end) {
         this.end = end;
     }
 
