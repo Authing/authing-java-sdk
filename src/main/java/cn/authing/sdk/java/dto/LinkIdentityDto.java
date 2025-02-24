@@ -1,6 +1,8 @@
 package cn.authing.sdk.java.dto;
 
 import java.util.List;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
@@ -10,6 +12,11 @@ public class LinkIdentityDto {
      */
     @JsonProperty("userIdInIdp")
     private String userIdInIdp;
+    /**
+     * 可选，用户在该外部身份源的用户信息。
+     */
+    @JsonProperty("userInfoInIdp")
+    private Map<String, Object> userInfoInIdp;
     /**
      * 必传，进行绑定操作的 Authing 用户 ID。
      */
@@ -36,6 +43,14 @@ public class LinkIdentityDto {
     }
     public void setUserIdInIdp(String userIdInIdp) {
         this.userIdInIdp = userIdInIdp;
+    }
+
+    public Map<String, Object> getUserInfoInIdp() {
+        return userInfoInIdp;
+    }
+
+    public void setUserInfoInIdp(Map<String, Object> userInfoInIdp) {
+        this.userInfoInIdp = userInfoInIdp;
     }
 
     public String getUserId() {
