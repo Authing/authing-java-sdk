@@ -289,6 +289,9 @@ public class IdentityDto {
 
         @JsonProperty("sdbz")
         SDBZ("sdbz"),
+
+        @JsonProperty("zjzwfw")
+        ZJZWFW("zjzwfw"),
         ;
 
         private String value;
