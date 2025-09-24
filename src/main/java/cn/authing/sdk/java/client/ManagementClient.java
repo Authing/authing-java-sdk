@@ -2003,13 +2003,13 @@ public class ManagementClient extends BaseClient {
         return deserialize(response, IsSuccessRespDto.class);
 	}
 
-	public  IsSuccessRespDto sendUserResetPasswordEmailLink(SendUserResetPasswordEmailLinkBatchDto reqDto) {
+	public  SendUserResetPasswordEmailLinkBatchRespDto sendUserResetPasswordEmailLink(SendUserResetPasswordEmailLinkBatchDto reqDto) {
 		AuthingRequestConfig config = new AuthingRequestConfig();
 		config.setUrl("/api/v3/send-user-reset-password-email-link");
 		config.setBody(reqDto);
 		config.setMethod("POST");
 		String response = request(config);
-		return deserialize(response, IsSuccessRespDto.class);
+		return deserialize(response, SendUserResetPasswordEmailLinkBatchRespDto.class);
 	}
 
 	/**
