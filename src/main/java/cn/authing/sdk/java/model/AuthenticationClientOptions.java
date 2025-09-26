@@ -143,6 +143,10 @@ public class AuthenticationClientOptions extends AuthingClientOptions {
         return timeout;
     }
 
+    public void setTimeout(int timeout) {
+        this.timeout = timeout;
+    }
+
     public String getAppId() {
         return appId;
     }
