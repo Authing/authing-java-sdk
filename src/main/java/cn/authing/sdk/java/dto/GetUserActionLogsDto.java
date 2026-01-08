@@ -35,12 +35,12 @@ public class GetUserActionLogsDto {
      * 开始时间戳
      */
     @JsonProperty("start")
-    private Integer start;
+    private Long start;
     /**
      * 结束时间戳
      */
     @JsonProperty("end")
-    private Integer end;
+    private Long end;
     /**
      * 请求是否成功
      */
@@ -87,17 +87,17 @@ public class GetUserActionLogsDto {
         this.appId = appId;
     }
 
-    public Integer getStart() {
+    public Long getStart() {
         return start;
     }
-    public void setStart(Integer start) {
+    public void setStart(Long start) {
         this.start = start;
     }
 
-    public Integer getEnd() {
+    public Long getEnd() {
         return end;
     }
-    public void setEnd(Integer end) {
+    public void setEnd(Long end) {
         this.end = end;
     }
 
