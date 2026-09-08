@@ -1,6 +1,7 @@
 package cn.authing.sdk.java.dto;
 
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
@@ -233,12 +234,28 @@ public class ApplicationEnabledExtIdpConnDto {
 
         @JsonProperty("sdbz")
         SDBZ("sdbz"),
+
+        @JsonProperty("i-shenzhen")
+        I_SHENZHEN("i-shenzhen"),
+
+        @JsonProperty("unknown")
+        UNKNOWN("unknown"),
         ;
 
         private String value;
 
         ExtIdpType(String value) {
             this.value = value;
+        }
+
+        @JsonCreator
+        public static ExtIdpType fromValue(String value) {
+            for (ExtIdpType type : values()) {
+                if (type.value.equals(value)) {
+                    return type;
+                }
+            }
+            return UNKNOWN;
         }
 
         public String getValue() {
