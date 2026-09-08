@@ -114,7 +114,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <!--和settings中的一致-->
-                    <publishingServerId>authing-central</publishingServerId>
+                    <publishingServerId>genauth-central</publishingServerId>
                 </configuration>
             </plugin>
             <plugin>

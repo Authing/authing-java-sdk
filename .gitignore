@@ -38,3 +38,4 @@ build/
 .vscode/
 
 .DS_Store
+.m2/
